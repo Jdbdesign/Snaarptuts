@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand: #7014d9;
+  --color-brand-soft: #f3ecfc;
+  --color-ink: #111111;
+  --color-muted: #6b7280;
+  --color-line: #ecedf1;
+  --color-page: #f6f6f8;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  background: #f6f6f8;
+  color: #111111;
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Timeline highlight: 2px purple ring with a soft pulsing glow. */
+.tl-hl {
+  position: relative;
+  outline: 2px solid #7014d9;
+  outline-offset: 3px;
+}
+.tl-hl::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  pointer-events: none;
+  animation: tl-glow 1.4s ease-in-out infinite;
+}
+@keyframes tl-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(112, 20, 217, 0.38);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(112, 20, 217, 0);
+  }
+}
+
+/* Scrolling panels inside scenes: scrollable by script, no visible scrollbar. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Orbit: the ring turns once in 24s; each tile counter-rotates to stay upright. */
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbit-spin-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes tl-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tl-fade-in {
+  animation: tl-fade-in 0.4s ease-out both;
+}
+/* Skeleton shimmer and icon pop-in (products home) */
+@keyframes tl-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+.tl-shimmer {
+  background: linear-gradient(90deg, #efeff3 0%, #f9f9fb 50%, #efeff3 100%);
+  background-size: 200% 100%;
+  animation: tl-shimmer 1.4s linear infinite;
+}
+@keyframes tl-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.tl-pop {
+  animation: tl-pop 0.35s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* A new table row sliding in, and a card fading up (completion screen) */
+@keyframes tl-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    background-color: #f3ecfc;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    background-color: transparent;
+  }
+}
+.tl-row-in {
+  animation: tl-row-in 0.6s ease-out both;
+}
+@keyframes tl-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tl-fade-up {
+  animation: tl-fade-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes tl-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.tl-fade {
+  animation: tl-fade 0.5s ease-out both;
+}
