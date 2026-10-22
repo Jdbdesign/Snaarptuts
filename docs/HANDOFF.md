@@ -8,6 +8,8 @@ First product: **Snaarp 360**. More products will follow, each with its own modu
 
 **The owner is a product designer and does not write code.** Give short, plain-language summaries. Do not explain technical steps unless asked. When something must be done by hand, give clear numbered steps. Build **one step per round**, verify it, then stop and wait for feedback.
 
+**Repository:** https://github.com/Jdbdesign/Snaarptuts (branch `main`). Source videos and reference images live in `ref/` and are intentionally not in git.
+
 ## Current state
 
 - Snaarp 360: **all 5 steps built and working**, plus the **completion screen**. Plays about 2:04 hands off from page load to the completion card. Verified at 1920x1080, 1440x900, 1280x720 and 390x844: no console errors, no scrollbars, no document scroll.
