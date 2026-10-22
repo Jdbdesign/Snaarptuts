@@ -57,6 +57,7 @@ A field is "focused" by clicking it: the scene's `onClick` sets the variable `fo
 | `highlight(selector)` | | Adds the `.tl-hl` ring (2px purple outline + pulsing glow). Several elements can be highlighted at once. |
 | `clearHighlight()` | | Removes every ring. (`goTo` helpers in the step 3 and 5 scripts call it before swapping screens.) |
 | `toast(text, ms = 3000)` | | Sets the variable `toast`; a `<ToastHost>` in the scene renders it. It hides itself after `ms` of active time (so Pause freezes it). `tl.toast("Password copied to clipboard");` |
+| `paste(key, text, flashSelector, ms = 800)` | | Writes `text` into the scene variable `field:<key>` at once (long values) and flashes the field with `flash`. Used for the TXT values in Mail step 6. |
 | `flash(selector, ms = 1000)` | | Sets `data-flash="true"` for `ms`. Used by `CopyButton` for its "Copied" tooltip. |
 | `setUrl(url)` | | Changes the text in the browser URL pill (for steps with several screens). `tl.setUrl("login.snaarp.com/admin");` |
 
@@ -103,7 +104,7 @@ All are in `components/`. `tl` is the `Timeline`.
 | `AdminLayout` | `tl, active (menu id), onNavigate?(id), overlay?, children` | Steps 3, 4, 5 (owner portal: black active pill). Renders `IconRail`, header ("Snaarp", Back to user app, Search, bell, help, apps, Jane Doe / Owner), sidebar (`MENU_ITEMS`, storage box, Report a Bug), scrolling `<main data-tl="admin-main">`, a `ToastHost`, then `overlay` (put modals here). Sidebar items are `[data-tl=menu-<id>]`. |
 | `IconRail` (exported from `AdminLayout.tsx`) | `items?` `{label, logo}[]` | The far-left product rail with real logos. `AdminPanelLayout` reuses it. |
 | `Modal` | `open, width = 668, scrollId?, maxHeight?, children` | Dim backdrop (black 55%) + white 14px-radius dialog; stays mounted and fades. With `scrollId` the dialog scrolls inside itself and the scroll panel gets `data-tl=<scrollId>` (use with `scrollPanelTo`). Used by `AddDomainModal` (step 4) and `AddUserModal` (step 5, `width 740`, `maxHeight 780`). |
-| `ToastHost` | `tl, position = "top-right" \| "bottom-left"` | Light green toast, `z-50`. Renders the `toast` variable. Top-right inside both admin layouts; bottom-left on the user login. |
+| `ToastHost` | `tl, position = "top-right" \| "bottom-left" \| "below-bar"` | Light green toast, `z-50`. Renders the `toast` variable. Top-right inside both admin layouts; bottom-left on the user login; `below-bar` (top right, under a 56px top bar) on the Cloudflare screens. |
 | `DropdownMenu` + `MenuItem` | `open, className?` / `id, icon, danger?, onClick?` | Row actions menu in `DomainsPage` (step 4). `MenuItem` is `[data-tl=menu-item-<id>]` and shows hovered via `tl.hover`. |
 | `CopyButton` | `tl, id, size = 14` | Small copy icon; click flashes a "Copied" tooltip. `[data-tl=copy-<id>]`. Used in `DnsTab` (step 4). |
 | `CopyActionButton` | `id, label = "Copy", onClick?` | Solid blue "Copy" button with icon, `[data-tl=btn-<id>]`. Used in `AddUserModal`. |

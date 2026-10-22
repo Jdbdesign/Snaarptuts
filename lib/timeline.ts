@@ -283,6 +283,15 @@ export class Timeline {
     this.setVar("typing", "");
   }
 
+  /**
+   * Paste a (long) value into a scene field instantly and flash the field for `ms`
+   * (scenes style it with data-flash). Typing a long value would take too long.
+   */
+  paste(key: string, text: string, flashSelector: string, ms = 800) {
+    this.setVar(`field:${key}`, text);
+    this.flash(flashSelector, ms);
+  }
+
   /** Glide to a field, click it and type into it. */
   async fill(selector: string, key: string, text: string, opts: { moveMs?: number; msPerChar?: number } = {}) {
     await this.moveCursorTo(selector, { ms: opts.moveMs ?? 550 });

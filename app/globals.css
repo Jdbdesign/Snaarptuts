@@ -148,6 +148,25 @@ button {
 .tl-row-in {
   animation: tl-row-in 0.6s ease-out both;
 }
+/* A newly added Cloudflare table row: slides in with a soft blue highlight that fades slowly */
+@keyframes cf-row-new {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+    background-color: #d9e6fb;
+  }
+  35% {
+    opacity: 1;
+    transform: none;
+    background-color: #e6effc;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+.cf-row-new {
+  animation: cf-row-new 2.4s ease-out both;
+}
 @keyframes tl-fade-up {
   from {
     opacity: 0;

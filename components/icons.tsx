@@ -411,6 +411,88 @@ const bodies = {
       <path d="M12 16.5v-9M8.3 11 12 7.3l3.7 3.7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </>
   ),
+  // Cloudflare dashboard illustration (our own simple outline icons, not Cloudflare's artwork)
+  cfCloud: <path d="M7.2 18.5a4.2 4.2 0 0 1-.4-8.4 5.6 5.6 0 0 1 10.7 1.6 3.4 3.4 0 0 1-.5 6.8H7.2Z" fill="currentColor" />,
+  cfOverview: (
+    <>
+      <rect x="4.5" y="5.5" width="15" height="15" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M9 5.5V4h6v1.5M8.5 11h7M8.5 14.5h7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  cfAnalytics: (
+    <>
+      <path d="M11 5a8 8 0 1 0 8 8h-8V5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="M14 3.5A7.5 7.5 0 0 1 20.5 10H14V3.5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  cfDns: (
+    <>
+      <rect x="9.5" y="3.5" width="5" height="4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <rect x="3" y="16.5" width="5" height="4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <rect x="9.5" y="16.5" width="5" height="4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <rect x="16" y="16.5" width="5" height="4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M12 7.5v9M5.5 16.5V12h13v4.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    </>
+  ),
+  cfEmail: (
+    <>
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="m4 7.5 8 6 8-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  cfSsl: (
+    <>
+      <rect x="5" y="10.5" width="14" height="9.5" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  cfFirewall: <path d="M12 3.5 5 6v5.5c0 4.2 2.8 7.4 7 9 4.2-1.6 7-4.8 7-9V6l-7-2.5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />,
+  cfAccess: <path d="M3.5 12h10M10 8l4 4-4 4M16.5 5.5h4v13h-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  cfSpeed: <path d="M13 3.5 6 13h5l-1 7.5 7-9.5h-5l1-7.5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />,
+  cfCaching: (
+    <>
+      <rect x="4" y="4.5" width="16" height="6" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <rect x="4" y="13.5" width="16" height="6" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M7.5 7.5h.01M7.5 16.5h.01" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+    </>
+  ),
+  cfWorkers: <path d="M9 7.5 4.5 12 9 16.5M15 7.5l4.5 4.5-4.5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  cfRules: <path d="M4 5.5h16l-6 7v6l-4-2v-4l-6-7Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />,
+  cfNetwork: (
+    <>
+      <path d="M12 21s6-5.4 6-10.5a6 6 0 1 0-12 0C6 15.6 12 21 12 21Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <circle cx="12" cy="10.5" r="2.2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+    </>
+  ),
+  cfTraffic: (
+    <>
+      <circle cx="6" cy="12" r="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <circle cx="18" cy="6.5" r="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <circle cx="18" cy="17.5" r="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="m7.8 11 8.4-3.5M7.8 13l8.4 3.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    </>
+  ),
+  cfPages: <path d="M14.5 5.5a4 4 0 0 0-5 5l-5 5a1.8 1.8 0 0 0 2.5 2.5l5-5a4 4 0 0 0 5-5l-2.5 2.5-2.5-.5-.5-2.5 2.5-2.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />,
+  cfApps: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <circle cx="12" cy="12" r="3.3" stroke="currentColor" strokeWidth="1.6" fill="none" />
+    </>
+  ),
+  cfPlusCircle: (
+    <>
+      <circle cx="12" cy="12" r="8.5" fill="currentColor" />
+      <path d="M12 8v8M8 12h8" stroke="var(--accent, #fff)" strokeWidth="1.8" strokeLinecap="round" />
+    </>
+  ),
+  cfList: <path d="M9 7h10M9 12h10M9 17h10M5 7h.01M5 12h.01M5 17h.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  cfUser: (
+    <>
+      <circle cx="12" cy="12" r="9" fill="currentColor" />
+      <circle cx="12" cy="9.8" r="3" fill="var(--accent, #fff)" />
+      <path d="M6.3 18c.9-2.4 3-3.6 5.7-3.6s4.8 1.2 5.7 3.6" fill="var(--accent, #fff)" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

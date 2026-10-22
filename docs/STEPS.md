@@ -191,7 +191,7 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 # Snaarp Mail ("How to set up Snaarp Mail")
 
-Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-5 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-6 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
 
 | Step | Title | URL pill | Status |
 |---|---|---|---|
@@ -200,7 +200,7 @@ Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `
 | 3 | Tell us about your organization | `login.snaarp.com/onboarding/organization` | Done |
 | 4 | Connect your domain | `login.snaarp.com/onboarding/domain` | Done |
 | 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Done |
-| 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Not built |
+| 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Done |
 | 7 | Confirm the records | `login.snaarp.com/onboarding/dns` | Not built |
 | 8 | Add your team | `login.snaarp.com/onboarding/users` | Not built |
 | 9 | Finish setup | `login.snaarp.com/onboarding/complete` | Not built |
@@ -331,3 +331,30 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 31.0 | Caption cleared, quick white fade. Ends at 31.6. |
 
 - Below 900px wide the page is enlarged (CSS zoom 2.3) and the modal scales with it.
+
+## Mail step 6 - Add the records in Cloudflare
+
+- Files: `scenes/snaarp-mail/Step6Cloudflare.tsx`, `step6-script.ts`, `cloudflare-data.ts` (copy, captions, record mapping), `cloudflare/OverviewPage.tsx`, `DnsRecordsPage.tsx`, `RecordForm.tsx`, `RecordsTable.tsx`; shared frame in `components/cloudflare/` (`CloudflareChrome.tsx`, `CfField.tsx`, `parts.tsx`, `cloudflare-data.ts`). `durationMs` 60600. There is no recording for this step: the look follows the three screenshots in `ref/mail/cloudflare-*.png` (an older Cloudflare dashboard). **It is an illustration.**
+- URL pill: starts at `dash.cloudflare.com/acme-studio.com` (Overview) and changes to `.../dns/records` when DNS is clicked (the config value is the DNS address). The shell pill is 320 px wide, so the long address is cut off at the end.
+- Screens: **Overview** (status card, three small summary cards, next-step card) and **DNS Records** (H1 "DNS", card "DNS management for acme-studio.com", search, grey Advanced, outlined blue Add record, table Type / Name / Content / Proxy status / TTL / Actions with two existing rows: A @ 203.0.113.10 Proxied, CNAME www Proxied). Left menu: back arrow + acme-studio.com and 15 items; DNS is highlighted and opens Records / Settings. Top bar: orange cloud + "CLOUDFLARE", Add site, Support, English (US), user. Footnote on every page: "Illustration of the Cloudflare dashboard. Your screen may look slightly different."
+- Add-record form (inline, above the table): Type select, Name (required, "Use @ for root"), a value field whose label follows the type (IPv4 address for A, Mail server for MX, Target for CNAME, Content for TXT, a tall multi-line box), Priority (MX only), Proxy toggle (A, AAAA and CNAME only; orange Proxied or grey DNS only), TTL Auto, Cancel and Save (#0051C3). Scene variables: `page`, `form`, `ftype`, `typeMenu`, `proxied`, `rows`, `field:name`, `field:value`, `field:priority`, `focus`. Save builds the row from what is in the form, shows the toast "Record added" (1.5 s, just below the top bar) and closes the form. New rows slide in with a soft blue highlight (`.cf-row-new`).
+- Record values come from `DNS_RECORDS` (step 5): MX Name @, Mail server mail.mailrit.com, Priority 10; CNAME Name mail, Target mail.mailrit.com, DNS only; TXT DKIM Name rsa._domainkey; TXT SPF Name @; TXT DMARC Name _dmarc (Content = the same values as step 5).
+- Timeline (one `addRecord` sequence runs five times: Add record, Type list, Name, value (typed, or pasted for TXT), extras, Save):
+
+| Time | What happens |
+|---|---|
+| 0.0 | Overview fades in (0.5 s). Caption "Open your domain in Cloudflare". |
+| 2.0 | Cursor to DNS, ring, click. The page changes to DNS Records; Records / Settings open under DNS. |
+| 4.5 | Caption "Click Add record". Cursor to Add record, ring, click. The form opens. |
+| about 6 | MX: caption "MX record: name @, mail server mail.mailrit.com, priority 10". Type list opens, MX chosen, Name @, Mail server typed, Priority 10 (all filled by about 12 s). |
+| 15.0 | Save. Toast, MX row (priority tag 10, DNS only). |
+| 17.5 | CNAME: Add record, CNAME, Name mail, Target typed. Caption "Turn the orange cloud off. Mail records must be DNS only"; the cursor rings the toggle and clicks it (orange Proxied becomes grey DNS only, off by about 25 s). |
+| 27.5 | Save. |
+| 30.0 | DKIM: Add record, TXT, Name rsa._domainkey, value pasted (the field flashes blue). Caption "Paste the DKIM value exactly as shown in Snaarp". |
+| 37.0 | Save. |
+| 39.5 / 46.0 | SPF: Add record, TXT, Name @, paste. Caption "SPF record: name @". Save. |
+| 48.5 / 54.0 | DMARC: Add record, TXT, Name _dmarc, paste. Caption "DMARC record: name _dmarc". Save. |
+| 56.5 | One ring around the five new rows. Caption "All five records are added. Go back to Snaarp". |
+| 60.0 | Caption cleared, quick white fade. Ends at 60.6. Step 6 is marked done. |
+
+- Below 900px wide the dashboard is enlarged (CSS zoom 2), the left menu becomes a slim icon column and the form fields wrap.

@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Poppins } from "next/font/google";
+import { JetBrains_Mono, Open_Sans, Poppins } from "next/font/google";
 import "./globals.css";
+
+// Used only by the Cloudflare dashboard illustration (third-party screens keep their own typeface).
+const openSans = Open_Sans({
+  variable: "--font-opensans",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -21,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${poppins.variable} ${jetbrains.variable} h-full antialiased`}>
+    <html lang="en" className={`${poppins.variable} ${jetbrains.variable} ${openSans.variable} h-full antialiased`}>
       <body className="h-full">{children}</body>
     </html>
   );

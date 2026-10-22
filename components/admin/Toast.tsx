@@ -9,6 +9,8 @@ type ToastState = { id: number; text: string; visible: boolean };
 const POSITION = {
   "top-right": { place: "right-4 top-[14px]", hidden: "translate-x-8" },
   "bottom-left": { place: "bottom-5 left-5", hidden: "-translate-x-8" },
+  /** Top right but below a 56px top bar (the Cloudflare screens). */
+  "below-bar": { place: "right-4 top-[68px]", hidden: "translate-x-8" },
 };
 
 /** Light green success toast. Show one from a script with tl.toast(text). */

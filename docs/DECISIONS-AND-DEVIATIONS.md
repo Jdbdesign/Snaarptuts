@@ -102,6 +102,19 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Scroll path, hover on the provider options and the white fade** are ours.
 - **Narrow screens** (under 900px): page and modal enlarged with CSS zoom 2.3.
 
+## Snaarp Mail step 6 (Cloudflare)
+
+- **The Cloudflare screens are an illustration, not a copy.** There is no recording for this step. The look follows three screenshots of an older Cloudflare dashboard (`ref/mail/cloudflare-*.png`), and Cloudflare changes its dashboard often. **Check the scene against the live dashboard before launch** (menu names, the add-record form, the Proxy toggle, the table columns). Every Cloudflare page carries the footnote "Illustration of the Cloudflare dashboard. Your screen may look slightly different."
+- **Own artwork.** The orange cloud and every menu icon are our own simple drawings (`cf*` icons in `components/icons.tsx`), not Cloudflare artwork. The top bar says "CLOUDFLARE" in plain text.
+- **Open Sans** is loaded for the Cloudflare screens only (third-party screens keep their own typeface; everything else stays Poppins).
+- **Mail server without the trailing dot.** Step 5 shows `mail.mailrit.com.`; Cloudflare gets `mail.mailrit.com` (the dot is removed in code, from the same value).
+- **Added rows go at the bottom** of the table so the five new rows can be ringed together. Real Cloudflare sorts by type.
+- **Only Overview and DNS in the left menu are clickable** (the two pages that exist).
+- **Extra caption** for the CNAME record ("CNAME record: name mail, target mail.mailrit.com") before the "Turn the orange cloud off" caption, to match the other records. The Overview cards (Plan Free, DNS records 2) are invented sample content.
+- **URL pill** shows the Overview address first and the DNS address after the click on DNS.
+- **Toast** sits just below the top bar (new `below-bar` position) so it does not cover the Cloudflare top bar.
+- **Narrow screens** (under 900px): dashboard enlarged with CSS zoom 2, menu becomes an icon column.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).
@@ -115,7 +128,8 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 2. **Real icons** for the remaining placeholders (see item 14) and the two glyphs on the products-home cards.
 3. **Currency and prices** on the pricing page (item 7), and all plan details.
 4. **Copy.** Confirm all captions, the sign-up page copy ("One Snaarp account for Mail, Docs, Sheet, CRM, and everything else."), feature rows and the completion text with the product team.
-5. **DNS values.** Confirm the real MX server (`mail.mailrit.com.`), CNAME, SPF and DMARC values, and the wording around them.
+5. **Cloudflare illustration.** Re-check the whole of step 6 against the live Cloudflare dashboard (see "Snaarp Mail step 6").
+6. **DNS values.** Confirm the real MX server (`mail.mailrit.com.`), CNAME, SPF and DMARC values, and the wording around them.
 6. **Plan name on the dashboard** ("Business Plan") and the "Registered from Snaarp Mail" line.
 7. **Hostnames in the URL pill**, especially `login.snaarp.com/login?redirect=%2F`, `login.snaarp.com/admin`, and the guessed `mail.snaarp.com/inbox` used for every Snaarp Mail module in `tutorials/snaarp-mail.ts`.
 8. **Completion link.** `backHref` defaults to `https://snaarp.com`. Set the real destination per product.
