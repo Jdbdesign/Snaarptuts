@@ -387,6 +387,12 @@ const bodies = {
       <path d="m8.5 11.6 3.4 3.4L20.5 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </>
   ),
+  link: (
+    <>
+      <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+      <path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+    </>
+  ),
   arrowUpCircle: (
     <>
       <circle cx="12" cy="12" r="8.8" stroke="currentColor" strokeWidth="1.7" fill="none" />

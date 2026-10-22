@@ -75,6 +75,18 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Narrow screens** (under 900px): sidebar becomes a row of five icons, the card is enlarged (CSS zoom 1.9) and the two-column rows stack.
 - **Select list animation** (fade and slight drop, 0.2 s) and hover highlight are ours; the recording's list appears instantly.
 
+## Snaarp Mail step 4
+
+- **Sample domain acme-studio.com** replaces the real domain; the recording also shows "www." typed by mistake, which is left out.
+- **No red error toast on the success screen.** The recording shows a red "[object Object]" toast there (a bug in the real product). Left out.
+- **No green "Organization details saved" toast at the start.** It lingers over screen A in the recording; the tutorial already showed it at the end of step 3.
+- **Buttons are #111827** (brief; frames sample about #0F1725). Disabled button #868A92 and check circle #34B161 are sampled from the frames.
+- **Button text sizes are slightly larger than the recording** so they stay readable when scaled.
+- **Typing is slow (about 0.15 s per letter)** to fill the 6 s the brief gives screen B; the pause before Add New Domain (11.0 s) is as the brief says.
+- **The domain on screen C never breaks at the hyphen** (kept on one line).
+- **Fade between screens** (0.4 s) is ours; the recording cuts.
+- **Narrow screens** (under 900px): content enlarged with CSS zoom 2, option cards stack.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).

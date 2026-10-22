@@ -191,14 +191,14 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 # Snaarp Mail ("How to set up Snaarp Mail")
 
-Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-3 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-4 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
 
 | Step | Title | URL pill | Status |
 |---|---|---|---|
 | 1 | Choose your plan | `snaarp.com/pricing` | Done |
 | 2 | Create your account | `login.snaarp.com/signup` | Done |
 | 3 | Tell us about your organization | `login.snaarp.com/onboarding/organization` | Done |
-| 4 | Connect your domain | `login.snaarp.com/onboarding/domain` | Not built |
+| 4 | Connect your domain | `login.snaarp.com/onboarding/domain` | Done |
 | 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Not built |
 | 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Not built |
 | 7 | Confirm the records | `login.snaarp.com/onboarding/dns` | Not built |
@@ -284,3 +284,26 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 23.8 | Caption cleared, quick white fade. Ends at 24.4. |
 
 - After step 3 the shell shows "Step 3 complete / The next steps are coming soon." (rail 3/9).
+
+## Mail step 4 - Connect your domain
+
+- Files: `scenes/snaarp-mail/Step4Domain.tsx`, `step4-script.ts`, `domain-data.ts` (all copy, sample value, captions), `domain/ChooseScreen.tsx`, `EnterScreen.tsx`, `SuccessScreen.tsx`, `Heading.tsx`. `durationMs` 20600. New icon: `link` in `components/icons.tsx`.
+- Recording: 1:20-1:52 (frames in `ref/mail/frames-step4`). URL pill: `login.snaarp.com/onboarding/domain` (config only).
+- Three screens inside one `OnboardingShell` with `active="domain"` (Organization shown as visited). The sidebar stays mounted; only the content area changes (0.4 s fade).
+- Screen A: "Snaarp", "Connect your domain", grey line; two cards (left dark navy and selected: Use existing domain with four checks; right light and disabled with a "Coming soon" badge: Buy new domain with four checks); full-width navy "Add Domain".
+- Screen B: "Welcome to Snaarp", grey line, label "Enter Domain Name", input (placeholder mydomain.com, purple focus border, focused when the screen opens), "Add New Domain" (grey until there is text, then navy) and outlined "Cancel".
+- Screen C: green circle with check (scales in), "Congratulations! Your domain "ACME-STUDIO.COM" added successfully", grey line, navy "Proceed to Domain Verification".
+- Sample data: acme-studio.com (shown as ACME-STUDIO.COM).
+- Timeline:
+
+| Time | What happens |
+|---|---|
+| 0.0 | Screen A fades in. Caption "Choose Use existing domain. You will connect a domain you already own". Ring on the left card until 3.0. |
+| 3.0 | Cursor to Add Domain, ring, click. |
+| 5.0 | Screen B. Caption "Enter your domain without www". Types acme-studio.com slowly; the button turns navy at the first letter. |
+| 11.0 | Caption "Click Add New Domain". Ring, click. |
+| 13.4 | Screen C with the check scale-in. Caption "Your domain is added". |
+| 17.5 | Caption "Click Proceed to Domain Verification". Ring, click. |
+| 20.0 | Caption cleared, quick white fade. Ends at 20.6. |
+
+- Below 900px wide the two option cards stack and the content is enlarged (CSS zoom 2).

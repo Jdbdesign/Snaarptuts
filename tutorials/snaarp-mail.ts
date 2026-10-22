@@ -4,10 +4,12 @@ import { Step2Signup } from "@/scenes/snaarp-mail/Step2Signup";
 import { runStep2, STEP2_DURATION_MS } from "@/scenes/snaarp-mail/step2-script";
 import { Step3Organization } from "@/scenes/snaarp-mail/Step3Organization";
 import { runStep3, STEP3_DURATION_MS } from "@/scenes/snaarp-mail/step3-script";
+import { Step4Domain } from "@/scenes/snaarp-mail/Step4Domain";
+import { runStep4, STEP4_DURATION_MS } from "@/scenes/snaarp-mail/step4-script";
 import type { Tutorial } from "./types";
 
 /**
- * Snaarp Mail: "How to set up Snaarp Mail". Nine steps; steps 1-3 are built, the rest show as
+ * Snaarp Mail: "How to set up Snaarp Mail". Nine steps; steps 1-4 are built, the rest show as
  * "Coming soon". Recording: ref/mail/Snaarp_Mail_setup.mp4 (998x480, 3:05, git-ignored).
  * URL pills of steps 2-5 and 7-9 are placeholders because the address bar is not visible in the recording.
  */
@@ -32,7 +34,12 @@ export const snaarpMail: Tutorial = {
       url: "login.snaarp.com/onboarding/organization",
       scene: { Component: Step3Organization, run: runStep3, durationMs: STEP3_DURATION_MS },
     },
-    { id: "connect-domain", title: "Connect your domain", url: "login.snaarp.com/onboarding/domain" },
+    {
+      id: "connect-domain",
+      title: "Connect your domain",
+      url: "login.snaarp.com/onboarding/domain",
+      scene: { Component: Step4Domain, run: runStep4, durationMs: STEP4_DURATION_MS },
+    },
     { id: "review-dns", title: "Review your DNS records", url: "login.snaarp.com/onboarding/dns" },
     { id: "add-records", title: "Add the records in Cloudflare", url: "dash.cloudflare.com/acme-studio.com/dns/records" },
     { id: "confirm-records", title: "Confirm the records", url: "login.snaarp.com/onboarding/dns" },
