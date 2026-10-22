@@ -87,6 +87,21 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Fade between screens** (0.4 s) is ours; the recording cuts.
 - **Narrow screens** (under 900px): content enlarged with CSS zoom 2, option cards stack.
 
+## Snaarp Mail step 5
+
+- **Sample domain acme-studio.com** replaces the real domains (and the recording's other people's domains) in every record. The mail server mail.mailrit.com. is the product's real value and is kept. The DKIM key is made up.
+- **All five cards start Pending.** In the recording the MX and some TXT cards were already Verified (the recorder's domain was set up). The tutorial needs them pending for steps 6 and 7.
+- **The provider list has four options** (Manual Setup (Copy & Paste), Cloudflare, GoDaddy, Spaceship), as in the frames, not the two in the brief.
+- **Modal is 388 px wide,** from the frames, not 460.
+- **No Spaceship panel.** The recording shows an API key form after choosing Spaceship; the tutorial keeps Manual Setup, so only that panel is built.
+- **One table row per card, no repeated tiny labels.** The recording's rows repeat each column name above the value (a responsive artifact); the tutorial shows the header row only.
+- **TXT tag colour follows the state** (amber pending, green verified), as in the frames; MX is blue and CNAME indigo.
+- **Content starts 202 px from the sidebar** (left-aligned, as in the frames) and is 583 px wide (brief said about 560).
+- **Buttons:** black (#0B0B0F) for Publish DNS automatically and Mark submitted; Continue is #9CA3AF until all five are verified, then #111827.
+- **"Copied" tooltip** is the shared one from the 360 tutorial (dark, 1 s).
+- **Scroll path, hover on the provider options and the white fade** are ours.
+- **Narrow screens** (under 900px): page and modal enlarged with CSS zoom 2.3.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).

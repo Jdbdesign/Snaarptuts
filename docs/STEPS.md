@@ -191,7 +191,7 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 # Snaarp Mail ("How to set up Snaarp Mail")
 
-Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-4 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-5 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
 
 | Step | Title | URL pill | Status |
 |---|---|---|---|
@@ -199,7 +199,7 @@ Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `
 | 2 | Create your account | `login.snaarp.com/signup` | Done |
 | 3 | Tell us about your organization | `login.snaarp.com/onboarding/organization` | Done |
 | 4 | Connect your domain | `login.snaarp.com/onboarding/domain` | Done |
-| 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Not built |
+| 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Done |
 | 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Not built |
 | 7 | Confirm the records | `login.snaarp.com/onboarding/dns` | Not built |
 | 8 | Add your team | `login.snaarp.com/onboarding/users` | Not built |
@@ -307,3 +307,27 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 20.0 | Caption cleared, quick white fade. Ends at 20.6. |
 
 - Below 900px wide the two option cards stack and the content is enlarged (CSS zoom 2).
+
+## Mail step 5 - Review your DNS records
+
+- Files: `scenes/snaarp-mail/Step5Dns.tsx`, `step5-script.ts`, `dns-data.ts` (all copy, captions and the five records), `dns/DnsModal.tsx`; shared card `components/onboarding/DnsRecordCard.tsx`. `durationMs` 31600. New icons: `circleX`, `circleCheck`. `OnboardingShell` has a new `overlay` prop (draws the modal over the sidebar too).
+- Recording: 1:55-3:00 (frames in `ref/mail/frames-step5`). URL pill: `login.snaarp.com/onboarding/dns` (config only).
+- Page (OnboardingShell, DNS active): "Back To Domain", "DNS Mapping", grey paragraph, yellow "Configuration Steps" note (3 px yellow left border) with a blue "Click here for detailed instructions." link, black "Publish DNS automatically" button (right), grey "To continue..." line, five record cards, the TTL note, and a full-width Continue (grey until all five are verified, then #111827). Content is left-aligned, 583 px wide; the white area scrolls inside itself.
+- Records (sample data, defined once in `DNS_RECORDS`): MX (acme-studio.com, priority 10, mail.mailrit.com.), CNAME (mail.acme-studio.com), TXT DKIM (rsa._domainkey.acme-studio.com, made-up key), TXT SPF, TXT DMARC (_dmarc.acme-studio.com). Tag colours: MX blue, CNAME indigo, TXT amber while pending and green once verified.
+- `DnsRecordCard`: type tag, "1 record", red "Pending" + black "Mark submitted" (send icon) or green "Verified"; one-row table with copy icons (tiny "Copied" tooltip); status cell red circle-x or green circle-check. State: scene variable `dns:<id>` (`tl.setVar` or click `[data-tl=mark-<id>]`). Step 7 reuses it.
+- Modal "Automatic DNS Publishing" (388 px wide): DNS Provider select (Manual Setup (Copy & Paste), Cloudflare, GoDaddy, Spaceship), blue info box, yellow credentials note, centred Close.
+- Timeline:
+
+| Time | What happens |
+|---|---|
+| 0.0 | Page fades in. |
+| 1.0 | Caption "Snaarp shows the DNS records your domain needs". Ring on the heading area until 2.8. |
+| 3.0 | Caption "Each record has a type, a name and a value". Scrolls to the CNAME card (2 s), cursor copies its host (Copied tooltip), then scrolls slowly to the bottom (5.2 s). |
+| 13.0 | Scroll back to the top (1.2 s). |
+| 14.5 | Caption "You can publish automatically for some providers". Cursor to Publish DNS automatically, ring, click. The modal opens. |
+| 18.0 | Caption "We will add the records by hand. Keep Manual Setup". Opens the select, hovers Cloudflare, GoDaddy, Spaceship, picks Manual Setup (list closes). |
+| 25.0 | Cursor clicks Close; the modal closes. |
+| 27.0 | Caption "Next, open your Cloudflare dashboard and add these records". |
+| 31.0 | Caption cleared, quick white fade. Ends at 31.6. |
+
+- Below 900px wide the page is enlarged (CSS zoom 2.3) and the modal scales with it.

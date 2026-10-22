@@ -393,6 +393,18 @@ const bodies = {
       <path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />
     </>
   ),
+  circleX: (
+    <>
+      <circle cx="12" cy="12" r="8.8" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="m9 9 6 6M15 9l-6 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  circleCheck: (
+    <>
+      <circle cx="12" cy="12" r="8.8" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="m8.2 12.3 2.6 2.6 5-5.4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
   arrowUpCircle: (
     <>
       <circle cx="12" cy="12" r="8.8" stroke="currentColor" strokeWidth="1.7" fill="none" />

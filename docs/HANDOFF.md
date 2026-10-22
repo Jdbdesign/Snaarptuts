@@ -26,7 +26,7 @@ First product: **Snaarp 360**. More products will follow, each with its own modu
 
 ## Snaarp Mail (latest)
 
-Steps 1-3 of 9 are built (`tutorials/snaarp-mail.ts`). Step 3 introduced **`components/onboarding/OnboardingShell.tsx`**: the dark progress sidebar + white content area used by the onboarding screens. Steps 4-9 should wrap their screen in `<OnboardingShell active="domain" | "dns" | "users" | "done">` and only change that value; sidebar items live in `ONBOARDING_ITEMS` in the same file. See `docs/STEPS.md` (Mail sections) and `CLAUDE.md` (Build status). Parts of this file below predate the Cancel button, git and Mail work and are out of date.
+Steps 1-5 of 9 are built (`tutorials/snaarp-mail.ts`). Step 3 introduced **`components/onboarding/OnboardingShell.tsx`**: the dark progress sidebar + white content area used by the onboarding screens. Steps 4-9 should wrap their screen in `<OnboardingShell active="domain" | "dns" | "users" | "done">` and only change that value; sidebar items live in `ONBOARDING_ITEMS` in the same file. See `docs/STEPS.md` (Mail sections) and `CLAUDE.md` (Build status). **DNS records:** `scenes/snaarp-mail/dns-data.ts` defines the five records once (`DNS_RECORDS`, `DOMAIN`, `MAIL_SERVER`); steps 6 (Cloudflare) and 7 (confirm the records) must import them, never copy values. **`components/onboarding/DnsRecordCard.tsx`** is the reusable record card with a pending/verified state (scene variable `dns:<id>`; click `[data-tl=mark-<id>]` or `tl.setVar` to verify) and `OnboardingShell` has an `overlay` prop for modals. Parts of this file below predate the Cancel button, git and Mail work and are out of date.
 
 ## Build history (in order)
 

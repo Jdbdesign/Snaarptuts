@@ -23,22 +23,25 @@ type Props = {
   /** The current item. It and every item before it are drawn white; later ones are dim. */
   active: OnboardingItemId;
   children: ReactNode;
+  /** Drawn over the whole shell (sidebar included), e.g. a Modal. Kept inside the scene root so scripts can find its elements. */
+  overlay?: ReactNode;
 };
 
 const ACTIVE = "#FFFFFF";
 const DIM = "#4B5159";
 const DIM_LABEL = "#5E646D";
 
-export function OnboardingShell({ active, children }: Props) {
+export function OnboardingShell({ active, children, overlay }: Props) {
   const narrow = useNarrow();
   const activeIndex = ONBOARDING_ITEMS.findIndex((i) => i.id === active);
 
   return (
-    <div data-scroller className={`flex h-full w-full overflow-hidden bg-white ${narrow ? "flex-col" : ""}`}>
+    <div data-scroller className={`relative flex h-full w-full overflow-hidden bg-white ${narrow ? "flex-col" : ""}`}>
       {narrow ? <TopRow activeIndex={activeIndex} /> : <Sidebar activeIndex={activeIndex} />}
       <div data-tl="content-panel" className="no-scrollbar relative min-h-0 min-w-0 flex-1 overflow-y-auto bg-white">
         {children}
       </div>
+      {overlay}
     </div>
   );
 }
