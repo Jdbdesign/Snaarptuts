@@ -5,7 +5,7 @@ import { Icon } from "@/components/icons";
 import { useNarrow } from "@/lib/useNarrow";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import type { SceneProps } from "@/tutorials/types";
-import { MONTHS, STATS, Y_LABELS } from "./step3-data";
+import { MONTHS, STATS, Y_LABELS, type Stat } from "./step3-data";
 
 /* Screen D: admin dashboard (admin.snaarp.com/admin), inside the shared AdminLayout. */
 
@@ -19,13 +19,13 @@ export function AdminDashboard({ tl }: SceneProps) {
 }
 
 /** The dashboard page itself (stat cards and the traffic chart). `count` runs 0 -> 1. */
-export function DashboardContent({ count }: { count: number }) {
+export function DashboardContent({ count, stats = STATS }: { count: number; /** The four stat cards (defaults to the 360 values). */ stats?: Stat[] }) {
   const narrow = useNarrow();
   return (
     <>
       <h1 className="text-[26px] font-semibold leading-[34px]">Dashboard</h1>
       <div className={`mt-[17px] grid gap-6 ${narrow ? "grid-cols-2" : "grid-cols-4"}`}>
-        {STATS.map((s) => (
+        {stats.map((s) => (
           <div
             key={s.id}
             data-tl={`stat-${s.id}`}

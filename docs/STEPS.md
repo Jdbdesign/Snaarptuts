@@ -191,7 +191,7 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 # Snaarp Mail ("How to set up Snaarp Mail")
 
-Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-8 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). All 9 steps are built. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
 
 | Step | Title | URL pill | Status |
 |---|---|---|---|
@@ -203,7 +203,7 @@ Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `
 | 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Done |
 | 7 | Confirm the records | `login.snaarp.com/onboarding/dns` | Done |
 | 8 | Add your team | `login.snaarp.com/onboarding/users` | Done |
-| 9 | Finish setup | `login.snaarp.com/onboarding/complete` | Not built |
+| 9 | Finish setup | `login.snaarp.com/onboarding/complete`, then `admin.snaarp.com/admin` | Done |
 
 URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible in the recording).
 
@@ -401,3 +401,23 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 24.5 | Caption "Use Copy link to share the setup link with your user". Cursor to the three dots, click; menu opens, cursor rests on Copy link; the menu closes at 28.0. |
 | 29.0 | Caption "Click Continue". Cursor to Continue, ring, click. |
 | 31.5 | Caption cleared, quick white fade. Ends at 32.1. Step 8 is marked done. |
+
+## Mail step 9 - Finish setup (last step)
+
+- Files: `scenes/snaarp-mail/Step9Finish.tsx`, `step9-script.ts`, `finish-data.ts`, `finish/SetupCompleted.tsx`. `durationMs` 21000. Design: the owner's `ref/mail/setup-completed.png`; there is no recording for this step. URL pill: `login.snaarp.com/onboarding/complete` (config), changed to `admin.snaarp.com/admin` for the dashboard.
+- Shared pieces: `OnboardingShell` has a new optional `completed` setting (the "Set up completed" item cross-fades from the outline circle-tick to a solid white circle with a dark check, 0.5 s; the other steps do not pass it, so they are unchanged). The dashboard is the 360 `DashboardContent` (in `scenes/snaarp-360/step3/AdminDashboard.tsx`) inside `AdminLayout`; it now takes an optional `stats` list (default = the 360 values).
+- Screen A (inside `OnboardingShell active="done"`): white card (780 px, soft shadow, centred): pale-green circle with a dark green check, "Setup Completed!" (32 px bold), grey text, four chips (MX Records, SPF Record, DKIM, DMARC; grey until ticked, then pale green with a green check pop), a grey "What's Next?" box with three blue-check lines, black "Go to Admin Dashboard" and outlined "Download Summary" (decorative). Scene variables: `completed`, `ticks` (0-4).
+- Screen B: the 360 owner dashboard with Jane Doe / JD / Owner and these cards (values in `MAIL_STATS`): 1 Domains "1 verified" (globe), 2 Organization Users "2 total" (people), 1 Inboxes "1 created" (inbox icon, as in 360), Growth Plan Subscription "14-day free trial" (key). Email Traffic Statistics and the left menu as in 360. The numbers count up on arrival.
+- Timeline:
+
+| Time | What happens |
+|---|---|
+| 0.0 | Screen A fades in. Caption "All set. Your four email records are verified". The sidebar's last item animates into the white check circle (from 0.4 s). |
+| 3.0 | The four chips tick in, 0.3 s apart. |
+| 6.5 | Caption "Click Go to Admin Dashboard". Cursor to the black button, ring, click. |
+| 8.5 | Quick white fade to screen B. URL pill becomes admin.snaarp.com/admin. Caption "This is your email admin dashboard". |
+| 11.0 | Cursor drifts across the four stat cards, a ring on each. |
+| 15.5 | Cursor rests on "User" in the left menu with a ring. Caption "Manage users, domains and mail settings from here". |
+| 21.0 | Step ends, Step 9 is marked done, and about 0.5 s later the shell fades in the completion card ("You're all set" / "Snaarp Mail is ready for your team." with Replay and Back to Snaarp, as in 360). |
+
+- Below 900px wide the card is enlarged (CSS zoom 1.8), the four chips wrap into two rows and the sidebar becomes the icon row (the last icon becomes the white check circle).

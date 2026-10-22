@@ -25,19 +25,21 @@ type Props = {
   children: ReactNode;
   /** Drawn over the whole shell (sidebar included), e.g. a Modal. Kept inside the scene root so scripts can find its elements. */
   overlay?: ReactNode;
+  /** Setup is done: the last item ("Set up completed") becomes a solid white circle with a check. Changing it animates. Leave out on every other screen. */
+  completed?: boolean;
 };
 
 const ACTIVE = "#FFFFFF";
 const DIM = "#4B5159";
 const DIM_LABEL = "#5E646D";
 
-export function OnboardingShell({ active, children, overlay }: Props) {
+export function OnboardingShell({ active, children, overlay, completed }: Props) {
   const narrow = useNarrow();
   const activeIndex = ONBOARDING_ITEMS.findIndex((i) => i.id === active);
 
   return (
     <div data-scroller className={`relative flex h-full w-full overflow-hidden bg-white ${narrow ? "flex-col" : ""}`}>
-      {narrow ? <TopRow activeIndex={activeIndex} /> : <Sidebar activeIndex={activeIndex} />}
+      {narrow ? <TopRow activeIndex={activeIndex} completed={completed} /> : <Sidebar activeIndex={activeIndex} completed={completed} />}
       <div data-tl="content-panel" className="no-scrollbar relative min-h-0 min-w-0 flex-1 overflow-y-auto bg-white">
         {children}
       </div>
@@ -46,7 +48,7 @@ export function OnboardingShell({ active, children, overlay }: Props) {
   );
 }
 
-function Sidebar({ activeIndex }: { activeIndex: number }) {
+function Sidebar({ activeIndex, completed }: { activeIndex: number; completed?: boolean }) {
   return (
     <aside className="relative h-full w-[238px] shrink-0 overflow-hidden" style={{ background: "#0D1218" }}>
       <Pattern />
@@ -55,7 +57,11 @@ function Sidebar({ activeIndex }: { activeIndex: number }) {
           const on = i <= activeIndex;
           return (
             <li key={item.id} data-tl={`onb-${item.id}`} data-on={on} className="relative flex h-[115px] items-start">
-              <Icon name={item.icon} size={36} style={{ color: on ? ACTIVE : DIM }} className="shrink-0 transition-colors duration-300" />
+              {item.id === "done" && completed !== undefined ? (
+                <DoneMark size={36} on={on} completed={completed} />
+              ) : (
+                <Icon name={item.icon} size={36} style={{ color: on ? ACTIVE : DIM }} className="shrink-0 transition-colors duration-300" />
+              )}
               <span
                 className={`ml-[17px] mt-[8px] text-[13px] leading-5 transition-colors duration-300 ${on ? "font-semibold" : "font-medium"}`}
                 style={{ color: on ? ACTIVE : DIM_LABEL }}
@@ -78,10 +84,13 @@ function Sidebar({ activeIndex }: { activeIndex: number }) {
 }
 
 /** Under 900px the sidebar becomes a slim row of the five icons across the top. */
-function TopRow({ activeIndex }: { activeIndex: number }) {
+function TopRow({ activeIndex, completed }: { activeIndex: number; completed?: boolean }) {
   return (
     <div className="relative flex h-[120px] shrink-0 items-center justify-around overflow-hidden px-6" style={{ background: "#0D1218" }}>
-      {ONBOARDING_ITEMS.map((item, i) => (
+      {ONBOARDING_ITEMS.map((item, i) =>
+        item.id === "done" && completed !== undefined ? (
+          <DoneMark key={item.id} size={56} on={i <= activeIndex} completed={completed} />
+        ) : (
         <Icon
           key={item.id}
           name={item.icon}
@@ -89,8 +98,30 @@ function TopRow({ activeIndex }: { activeIndex: number }) {
           style={{ color: i <= activeIndex ? ACTIVE : DIM }}
           aria-label={item.label}
         />
-      ))}
+        ),
+      )}
     </div>
+  );
+}
+
+/** The "Set up completed" mark: the outline circle-tick cross-fades into a solid white circle with a dark check. */
+function DoneMark({ size, on, completed }: { size: number; on: boolean; completed: boolean }) {
+  return (
+    <span data-tl="onb-done-mark" data-completed={completed} className="relative shrink-0" style={{ width: size, height: size }} aria-label="Set up completed">
+      <Icon
+        name="circleTick"
+        size={size}
+        style={{ color: on ? ACTIVE : DIM }}
+        className={`absolute inset-0 transition-[opacity,transform] duration-500 ${completed ? "scale-75 opacity-0" : "opacity-100"}`}
+      />
+      <span
+        className={`absolute inset-0 flex items-center justify-center rounded-full bg-white text-[#0D1218] transition-[opacity,transform] duration-500 ease-out ${
+          completed ? "scale-100 opacity-100" : "scale-50 opacity-0"
+        }`}
+      >
+        <Icon name="check" size={Math.round(size * 0.55)} />
+      </span>
+    </span>
   );
 }
 

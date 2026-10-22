@@ -13,6 +13,8 @@ import { runStep6, STEP6_DURATION_MS } from "@/scenes/snaarp-mail/step6-script";
 import { runStep7, STEP7_DURATION_MS } from "@/scenes/snaarp-mail/step7-script";
 import { Step8Users } from "@/scenes/snaarp-mail/Step8Users";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/snaarp-mail/step8-script";
+import { Step9Finish } from "@/scenes/snaarp-mail/Step9Finish";
+import { runStep9, STEP9_DURATION_MS } from "@/scenes/snaarp-mail/step9-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -72,7 +74,12 @@ export const snaarpMail: Tutorial = {
       url: "login.snaarp.com/onboarding/users",
       scene: { Component: Step8Users, run: runStep8, durationMs: STEP8_DURATION_MS },
     },
-    { id: "finish", title: "Finish setup", url: "login.snaarp.com/onboarding/complete" },
+    {
+      id: "finish",
+      title: "Finish setup",
+      url: "login.snaarp.com/onboarding/complete",
+      scene: { Component: Step9Finish, run: runStep9, durationMs: STEP9_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",

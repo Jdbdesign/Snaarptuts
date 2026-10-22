@@ -133,6 +133,16 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Export, Back, Import CSV and Sync Google Workspace do nothing** (decorative). Continue is only clicked for the story; it does not navigate.
 - **Narrow screens** (under 900px): card enlarged with CSS zoom 1.8, option cards stack, table scrolls sideways inside its card.
 
+## Snaarp Mail step 9 (Finish setup)
+
+- **The design is the owner's** (`ref/mail/setup-completed.png`); sizes were taken proportionally from it and rounded for legibility (title 32 px, card 780 px, centred vertically and horizontally in the white area).
+- **Sidebar label** is "Users Inbox" (the recording's wording; the design image says "Users"), as in steps 3 to 8.
+- **Chips start grey** and turn pale green one by one (the design only shows the finished state). The chip check pop and the sidebar check-circle cross-fade are ours.
+- **The dashboard is the 360 one**, so it keeps 360's look and the Inboxes card uses the same inbox icon as 360 (the brief said "mail"). Only the four stat card values changed, plus the numbers counting up.
+- **The "What's Next?" lines** wrap where the width allows (the first line wraps as in the design).
+- **Download Summary and the other buttons** do nothing (decorative). "Go to Admin Dashboard" only changes screen because the script clicks it.
+- **Narrow screens** (under 900px): card enlarged with CSS zoom 1.8, chips in two rows.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).
@@ -141,6 +151,15 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - Each step starts where the previous one ended (no fade) when the recording does the same.
 
 ## Things to replace or confirm before launch
+
+**Snaarp Mail checklist (all 9 steps are built):**
+- **Cloudflare screens (step 6)** are an illustration from older screenshots: check every screen against the live Cloudflare dashboard (menu, add-record form, Proxy toggle, table), keep the "Illustration of the Cloudflare dashboard" footnote or replace it.
+- **Placeholder URLs** (the address bar is not visible in the recording or the designs): steps 2, 3, 4, 5, 7, 8 and 9 (`login.snaarp.com/signup`, `/onboarding/organization`, `/onboarding/domain`, `/onboarding/dns` (steps 5 and 7), `/onboarding/users`, `/onboarding/complete`) and the dashboard `admin.snaarp.com/admin`. Step 6's pill is cut off at the end because the shell's pill is only 320 px wide.
+- **"Users Inbox" vs "Users":** the sidebar says "Users Inbox" (the recording's wording) but the owner's designs for steps 8 and 9 say "Users". Pick one and change it in `ONBOARDING_ITEMS` in `components/onboarding/OnboardingShell.tsx`.
+- **Wording to confirm with the product team:** "Setup Completed!" copy, the "What's Next?" lines, and the Growth plan / 14-day trial values on the dashboard; the naira prices; DNS values (see item 5 below).
+- **Sample data:** nothing real is used; acme-studio.com, Jane Doe, Sam Lee and example.com are placeholders.
+
+**General list:**
 
 1. **Cancel button.** It is specified (top right, posts `{type:"snaarp-tutorial-cancel"}` to the parent window) but not built. Build it before embedding in an iframe.
 2. **Real icons** for the remaining placeholders (see item 14) and the two glyphs on the products-home cards.
