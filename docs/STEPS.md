@@ -191,12 +191,12 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 # Snaarp Mail ("How to set up Snaarp Mail")
 
-Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Only step 1 is built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-2 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
 
 | Step | Title | URL pill | Status |
 |---|---|---|---|
 | 1 | Choose your plan | `snaarp.com/pricing` | Done |
-| 2 | Create your account | `login.snaarp.com/signup` | Not built |
+| 2 | Create your account | `login.snaarp.com/signup` | Done |
 | 3 | Tell us about your organization | `login.snaarp.com/onboarding/organization` | Not built |
 | 4 | Connect your domain | `login.snaarp.com/onboarding/domain` | Not built |
 | 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Not built |
@@ -235,5 +235,29 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 6.6 | Caption "Click Start 14-day free trial". Cursor to the Growth button, ring, click (pressed state). |
 | 8.6 | Ring and caption cleared, white fade-out. Ends at 9.3. |
 
-- After step 1 the shell shows an end card "Step 1 complete / The next steps are coming soon." with Replay (rail 1/9). It becomes "You're all set" only when every step is built.
+- After the last built step the shell shows an end card "Step N complete / The next steps are coming soon." with Replay. It becomes "You're all set" only when every step is built.
 
+
+## Mail step 2 - Create your account
+
+- Files: `scenes/snaarp-mail/Step2Signup.tsx`, `step2-script.ts`, `signup-data.ts` (all copy, sample values, captions and the strength rule). `durationMs` 21000. Reuses `TypedField` and `Checkbox` from `components/admin/`. It is a separate scene from the 360 sign-up page (different layout), not a variant of it.
+- Recording: 0:05-0:42 (frames in `ref/mail/frames-step2`). URL pill: `login.snaarp.com/signup` (config only).
+- Screen: split page. Left (54% wide): near-black panel with a faint low-poly pattern, "Snaarp" wordmark, heading "Secure business email for your organization", paragraph, three feature rows (shield, people, gear icons on white tiles), footer links. Right: white, centred card "Sign up for Snaarp" with the SELECTED PLAN box (Growth, NGN 44,585.17/month, 100 GB, Billed monthly, 14-day free trial included in green), First/Last name, Email, Organization name, Country (Nigeria, NG flag), +234 and Phone number, Password with eye icon, strength bar and "Password strength: None/Weak/Good/Strong", terms checkbox, dark "Create Account" button, "Already have an account? Log In". Only the right panel scrolls.
+- Sample data: Jane Doe, jane.doe@example.com, Acme Studio, Nigeria +234, 8012345678, password `Wd7#kQ2mPz9a` (shown as dots only).
+- Strength rule (`passwordStrength` in `signup-data.ts`): Weak under 6 characters (red, 1/3), Good from 6 (yellow, 2/3), Strong from 10 characters with upper, lower, number and symbol (green, full).
+- Timeline:
+
+| Time | What happens |
+|---|---|
+| 0.0 | Page fades in. Growth already selected. |
+| 1.0 | Caption "Your plan is already selected: Growth, NGN 44,585.17/month". Ring on the plan box until 2.8. |
+| 3.0 | Caption "Enter your name". Types Jane, Doe. |
+| 5.2 | Caption "Use an email address you can access". Types the email. |
+| 7.0 | Types the organization name (caption stays). |
+| 8.4 | Caption "Check your country and phone code". Rings on Country and +234, then types the phone number. |
+| 10.8 | Caption "Choose a strong password. Aim for Strong". Types the password; bar goes Weak, Good, Strong. Then the form scrolls just enough to show the checkbox, button and Log In line (about 180 px on a short window, none when the whole form already fits). |
+| 15.0 | Caption "Accept the Terms of Service and Privacy Policy". Cursor ticks the checkbox. |
+| 17.6 | Caption "Click Create Account". Ring, click. Button turns grey with a spinner and "Creating Account..." for 1.2 s. |
+| 20.4 | Caption cleared, white fade. Ends at 21.0. |
+
+- Below 900px wide the dark panel becomes a slim header above the form and the card is enlarged (CSS zoom 2.7) so it stays readable.

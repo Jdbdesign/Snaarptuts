@@ -47,6 +47,20 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - URL pills of steps 2-5 and 7-9 are placeholders (not visible in the recording).
 - Until all nine steps are built the end card says "Step N complete / The next steps are coming soon." (shell behavior for any tutorial with unbuilt steps).
 
+## Snaarp Mail step 2
+
+- **No personal data, autofill or browser popups.** The recording shows the recorder's real name, email and organization, Chrome's autofill dropdowns and a blue autofill tint on filled fields. All left out; fields stay white with sample data (Jane Doe, jane.doe@example.com, Acme Studio, 8012345678).
+- **Left panel is 54% wide, not about 45%.** The frames measure 535 of 998 px; the frames were followed.
+- **Create Account button is #111827** (the brief). The frames sample about #1E2735.
+- **Typing speed, caret and focus ring are ours.** Fields get a thin black focus ring (the frames show the same on the focused field).
+- **Strength text starts at "Password strength: None"** as in the frames, then Weak, Good, Strong. The brief listed Weak/Good/Strong only.
+- **Organization step has no new caption.** The brief gave none for 7.0, so the email caption stays on screen while it is typed.
+- **Checkbox text is 10 px,** a little larger than the recording, so it wraps one word earlier ("...understand that" / "Snaarp will...").
+- **The form scrolls only as far as needed.** On 16:9 windows from 1280x720 up the whole form fits, so there is nothing to scroll; on shorter windows it scrolls about 180 px. The recording's window was short, so it scrolled there.
+- **Left panel pattern** is our own faint polygon drawing (decorative), not cropped from the video. Footer links are plain text.
+- **Spinner and the 1.2 s "Creating Account..." state** are ours; the recording ends right after the click.
+- **Narrow screens** (under 900px): slim dark header on top, card enlarged by CSS zoom.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).
