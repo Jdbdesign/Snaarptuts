@@ -67,8 +67,9 @@ Route: `/tutorials/snaarp-360`
 | 4. Add and verify your domain | Done |
 | 5. Add your first user | Done |
 | Completion screen ("You're all set", Replay, Back to Snaarp) | Done |
+| Cancel button (top right, posts `{type:"snaarp-tutorial-cancel"}`, Esc shortcut) | Done |
 
-All 5 steps and the completion screen are built. Total running time about 2:04 (123.8 s) from load to the completion screen. Not built yet: the Cancel button (see `docs/HANDOFF.md`).
+All 5 steps and the completion screen are built. Total running time about 2:04 (123.8 s) from load to the completion screen. The Cancel button is now built in the player shell (`components/player/TutorialPlayer.tsx`): top-right pill, click or Escape posts `{type:"snaarp-tutorial-cancel"}` to the parent window; when not embedded in a frame it stops the tutorial and shows a blank page. It appears for every product (including Snaarp Mail) and never touches the step scenes. At 390px it collapses to an X-only button in the same corner.
 
 ### Shared pieces (file paths)
 - Product config (names, titles, URLs, scenes): `tutorials/snaarp-360.ts` (types in `tutorials/types.ts`, registry in `tutorials/index.ts`)

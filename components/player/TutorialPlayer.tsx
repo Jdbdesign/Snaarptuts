@@ -21,6 +21,7 @@ export function TutorialPlayer({ productId }: { productId: string }) {
   const [run, setRun] = useState({ current: firstBuilt, runKey: 0, status: "playing" as Status });
   const [done, setDone] = useState<boolean[]>(() => steps.map(() => false));
   const [paused, setPaused] = useState(false);
+  const [cancelled, setCancelled] = useState(false);
   const [liveUrl, setLiveUrl] = useState<string | null>(null); // set by scenes with several screens
   const [railOpen, setRailOpen] = useState(true); // wide screens
   const [drawerOpen, setDrawerOpen] = useState(false); // narrow screens
@@ -58,6 +59,13 @@ export function TutorialPlayer({ productId }: { productId: string }) {
     [steps, narrow, start],
   );
 
+  // Cancel: tell the embedding page, and if we are standalone (not in a frame), stop and show nothing.
+  const cancel = useCallback(() => {
+    const embedded = typeof window !== "undefined" && window.parent !== window;
+    if (embedded) window.parent.postMessage({ type: "snaarp-tutorial-cancel" }, "*");
+    else setCancelled(true);
+  }, []);
+
   // Space = pause / resume.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -74,6 +82,20 @@ export function TutorialPlayer({ productId }: { productId: string }) {
       window.removeEventListener("keyup", onKey);
     };
   }, []);
+
+  // Escape = Cancel (same as clicking the Cancel button).
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      cancel();
+    };
+    window.addEventListener("keydown", onEsc);
+    return () => window.removeEventListener("keydown", onEsc);
+  }, [cancel]);
+
+  // Standalone (not embedded) and cancelled: stop the tutorial and show nothing.
+  if (cancelled) return <div className="fixed inset-0 bg-page" />;
 
   const step = steps[current];
   const playing = run.status === "playing";
@@ -133,6 +155,17 @@ export function TutorialPlayer({ productId }: { productId: string }) {
           <CompletionCard completion={resolveCompletion(tutorial)} onReplay={replay} />
         )}
       </BrowserFrame>
+
+      {/* Cancel: top-right of the player, over the browser top-bar row. Shell-level, so every product has it. */}
+      <button
+        onClick={cancel}
+        aria-label="Cancel tutorial"
+        title="Cancel (Esc)"
+        className="absolute right-4 top-4 z-[60] inline-flex h-[38px] items-center gap-1.5 rounded-full border border-[#E4E4EA] bg-white px-2 text-[14px] font-medium text-ink shadow-[0_6px_20px_-10px_rgba(17,17,17,0.35)] hover:bg-[#F7F7F9] min-[900px]:px-4"
+      >
+        <Icon name="x" size={16} />
+        <span className="hidden min-[900px]:inline">Cancel</span>
+      </button>
     </div>
   );
 }
