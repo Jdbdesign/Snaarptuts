@@ -61,6 +61,20 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Spinner and the 1.2 s "Creating Account..." state** are ours; the recording ends right after the click.
 - **Narrow screens** (under 900px): slim dark header on top, card enlarged by CSS zoom.
 
+## Snaarp Mail step 3
+
+- **Sidebar is 238 px wide, not 280.** The frames measure 165 of 998 px; the frames were followed.
+- **Sidebar colour is #0D1218** (the frames, slightly blue), not #111214 from the brief.
+- **Connectors are thin solid lines,** not dotted, as in the frames. Items are icon + label side by side.
+- **DNS icon is a plain database** (as in the frames), not a database with a cloud.
+- **No personal data or autofill.** The recording shows a real organization name, address, phone and Chrome's autofill popups and blue autofill tint on filled fields. Only Organization Name keeps the blue tint (as the brief asks); other fields stay white.
+- **Industry in the recording was Retail;** the tutorial picks Technology (brief).
+- **Continue button #7C39ED** (sampled from the frames) and a "Saving..." state with the card dimmed, which the recording shows briefly. The toast shows over this screen because the next screen (Connect your domain, which the recording shows behind the toast) is not built yet.
+- **Toast** is the shared green toast (370 px wide), larger than the recording's.
+- **Focus ring** on text fields and open selects is purple, as in the recording's Website field.
+- **Narrow screens** (under 900px): sidebar becomes a row of five icons, the card is enlarged (CSS zoom 1.9) and the two-column rows stack.
+- **Select list animation** (fade and slight drop, 0.2 s) and hover highlight are ours; the recording's list appears instantly.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).

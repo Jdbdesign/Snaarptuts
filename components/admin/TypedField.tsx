@@ -25,12 +25,13 @@ export function FieldText({ tl, id, placeholder, mask, mono }: TextProps) {
 
 const FOCUS = {
   blue: "data-[focus=true]:border-[#2F5BE0] data-[focus=true]:shadow-[0_0_0_0.5px_#2F5BE0,0_0_0_4px_rgba(47,91,224,0.14)]",
+  purple: "data-[focus=true]:border-[#7C39ED] data-[focus=true]:shadow-[0_0_0_0.5px_#7C39ED,0_0_0_3px_rgba(124,57,237,0.14)]",
   dark: "data-[focus=true]:border-[#111] data-[focus=true]:shadow-[0_0_0_0.5px_#111,0_0_0_4px_rgba(17,17,17,0.1)]",
 };
 
 type Props = TextProps & {
   right?: ReactNode;
-  /** Colour of the focus ring: the admin portals use blue, the user login uses black. */
+  /** Colour of the focus ring: the admin portals use blue, the user login uses black, Snaarp Mail onboarding uses purple. */
   tone?: keyof typeof FOCUS;
   /** Light blue fill once something has been typed. */
   tintWhenFilled?: boolean;

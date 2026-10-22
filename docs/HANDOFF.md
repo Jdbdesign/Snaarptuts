@@ -24,6 +24,10 @@ First product: **Snaarp 360**. More products will follow, each with its own modu
 | 5 | Add your first user | Done |
 | - | Completion screen | Done |
 
+## Snaarp Mail (latest)
+
+Steps 1-3 of 9 are built (`tutorials/snaarp-mail.ts`). Step 3 introduced **`components/onboarding/OnboardingShell.tsx`**: the dark progress sidebar + white content area used by the onboarding screens. Steps 4-9 should wrap their screen in `<OnboardingShell active="domain" | "dns" | "users" | "done">` and only change that value; sidebar items live in `ONBOARDING_ITEMS` in the same file. See `docs/STEPS.md` (Mail sections) and `CLAUDE.md` (Build status). Parts of this file below predate the Cancel button, git and Mail work and are out of date.
+
 ## Build history (in order)
 
 1. **Round 1 - player shell + step 1.** Next.js app, the rail + browser frame layout from `reference.png`, the scene scaler (1440px design width), the timeline engine (cursor, click, scroll, captions, highlight, pause, cancel), step 1 (pricing page).

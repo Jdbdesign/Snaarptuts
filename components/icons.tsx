@@ -367,6 +367,26 @@ const bodies = {
       <path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M18 6l-2.1 2.1M8.1 15.9 6 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
     </>
   ),
+  orgChart: (
+    <>
+      <rect x="9" y="3.5" width="6" height="5" rx="1.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <rect x="2.8" y="15.5" width="6" height="5" rx="1.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <rect x="15.2" y="15.5" width="6" height="5" rx="1.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M12 8.5v3.5M5.8 15.5V12h12.4v3.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  userPlus: (
+    <>
+      <circle cx="9.5" cy="8.5" r="3.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M3.5 19.5c.6-3.3 2.9-5.1 6-5.1 1.2 0 2.2.3 3.1.7M18 10v6M15 13h6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  circleTick: (
+    <>
+      <path d="M20.6 11.2A8.8 8.8 0 1 1 15.8 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" fill="none" />
+      <path d="m8.5 11.6 3.4 3.4L20.5 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
   arrowUpCircle: (
     <>
       <circle cx="12" cy="12" r="8.8" stroke="currentColor" strokeWidth="1.7" fill="none" />

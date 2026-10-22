@@ -191,13 +191,13 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 # Snaarp Mail ("How to set up Snaarp Mail")
 
-Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-2 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-3 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
 
 | Step | Title | URL pill | Status |
 |---|---|---|---|
 | 1 | Choose your plan | `snaarp.com/pricing` | Done |
 | 2 | Create your account | `login.snaarp.com/signup` | Done |
-| 3 | Tell us about your organization | `login.snaarp.com/onboarding/organization` | Not built |
+| 3 | Tell us about your organization | `login.snaarp.com/onboarding/organization` | Done |
 | 4 | Connect your domain | `login.snaarp.com/onboarding/domain` | Not built |
 | 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Not built |
 | 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Not built |
@@ -261,3 +261,26 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 20.4 | Caption cleared, white fade. Ends at 21.0. |
 
 - Below 900px wide the dark panel becomes a slim header above the form and the card is enlarged (CSS zoom 2.7) so it stays readable.
+
+## Mail step 3 - Tell us about your organization
+
+- Files: `scenes/snaarp-mail/Step3Organization.tsx`, `step3-script.ts`, `org-data.ts`. `durationMs` 24400. Shell: `components/onboarding/OnboardingShell.tsx`. Toast: `components/admin/Toast.tsx`. Fields: `TypedField` (new `tone="purple"` focus ring). New icons in `components/icons.tsx`: `orgChart`, `userPlus`, `circleTick`.
+- Recording: 0:44-1:18 (frames in `ref/mail/frames-step3`). URL pill: `login.snaarp.com/onboarding/organization` (config only).
+- OnboardingShell: 238 px dark sidebar (#0D1218, faint polygon pattern) with five items (Organization, Domain, DNS, Users Inbox, Set up completed) joined by thin vertical connectors. The current item and all before it are white and bold, later ones dim. `active` is the only setting a step passes. Under 900px the sidebar becomes a slim row of five icons. The white content area scrolls inside itself (`data-tl="content-panel"`); the page never scrolls.
+- Screen: card "Organization Details" (building icon, "Tell us about your organization"); Organization Name (light blue, prefilled Acme Studio), Industry and Company Size selects, Website and Phone Number side by side, Address; Back (outlined) and Continue (#7C39ED) below the card. Two columns stack under 900px.
+- Sample data: Acme Studio, Technology, 1-10 employees, https://acme-studio.com, +234 801 234 5678, 12 Marina Road, Lagos, Nigeria.
+- Timeline:
+
+| Time | What happens |
+|---|---|
+| 0.0 | Shell and card fade in. Organization Name already filled. |
+| 1.0 | Caption "Check your organization name". Ring on the field until 2.6. |
+| 2.8 | Caption "Choose your industry". Cursor to Industry, click, list opens, hovers Healthcare and Finance, picks Technology, list closes. |
+| 6.4 | Caption "Choose your company size". Opens the list, hovers 11-50 employees, picks 1-10 employees. |
+| 10.4 | Caption "Website, phone and address are optional". Types the website. |
+| 13.6 | Types the phone number. |
+| 17.0 | Types the address. |
+| 20.4 | Caption "Click Continue". Ring, click. Button shows a spinner and "Saving..." and the card dims. About 0.5 s later the green toast "Organization details saved successfully!" slides in top right. |
+| 23.8 | Caption cleared, quick white fade. Ends at 24.4. |
+
+- After step 3 the shell shows "Step 3 complete / The next steps are coming soon." (rail 3/9).
