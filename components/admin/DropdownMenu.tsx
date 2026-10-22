@@ -19,14 +19,17 @@ export function DropdownMenu({ open, className = "", children }: MenuProps) {
 
 type ItemProps = {
   id: string;
-  icon: IconName;
+  /** Leave out for a text-only item. */
+  icon?: IconName;
   danger?: boolean;
+  /** Extra classes (for compact menus). */
+  className?: string;
   onClick?: () => void;
   children: ReactNode;
 };
 
 /** A menu row. A script can show it hovered with tl.hover(selector). */
-export function MenuItem({ id, icon, danger, onClick, children }: ItemProps) {
+export function MenuItem({ id, icon, danger, onClick, className = "", children }: ItemProps) {
   return (
     <div
       role="menuitem"
@@ -34,9 +37,9 @@ export function MenuItem({ id, icon, danger, onClick, children }: ItemProps) {
       onClick={onClick}
       className={`flex items-start gap-2.5 rounded-lg px-2.5 py-[7px] text-[13px] font-medium leading-[18px] transition-[background,transform] duration-150 data-[hover=true]:bg-[#F3F4F6] data-[pressed=true]:scale-[0.98] ${
         danger ? "text-[#E5484D]" : "text-[#2a2d36]"
-      }`}
+      } ${className}`}
     >
-      <Icon name={icon} size={16} className="mt-px shrink-0" />
+      {icon && <Icon name={icon} size={16} className="mt-px shrink-0" />}
       <span>{children}</span>
     </div>
   );

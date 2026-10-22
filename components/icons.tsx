@@ -412,6 +412,13 @@ const bodies = {
     </>
   ),
   // Cloudflare dashboard illustration (our own simple outline icons, not Cloudflare's artwork)
+  csvFile: (
+    <>
+      <path d="M7 3.5h7l4.5 4.5v11.5a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" fill="currentColor" />
+      <text x="12" y="17.2" fontSize="5" fontWeight="700" textAnchor="middle" fill="var(--accent, #fff)">CSV</text>
+    </>
+  ),
+  googleG: <path d="M19 12.3h-6.7M18.6 12.3c0 3.7-2.6 6.4-6.4 6.4a6.7 6.7 0 1 1 4.6-11.6" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" fill="none" />,
   cfCloud: <path d="M7.2 18.5a4.2 4.2 0 0 1-.4-8.4 5.6 5.6 0 0 1 10.7 1.6 3.4 3.4 0 0 1-.5 6.8H7.2Z" fill="currentColor" />,
   cfOverview: (
     <>

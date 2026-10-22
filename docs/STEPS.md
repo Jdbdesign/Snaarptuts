@@ -191,7 +191,7 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 # Snaarp Mail ("How to set up Snaarp Mail")
 
-Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-7 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-8 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
 
 | Step | Title | URL pill | Status |
 |---|---|---|---|
@@ -202,7 +202,7 @@ Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `
 | 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Done |
 | 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Done |
 | 7 | Confirm the records | `login.snaarp.com/onboarding/dns` | Done |
-| 8 | Add your team | `login.snaarp.com/onboarding/users` | Not built |
+| 8 | Add your team | `login.snaarp.com/onboarding/users` | Done |
 | 9 | Finish setup | `login.snaarp.com/onboarding/complete` | Not built |
 
 URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible in the recording).
@@ -376,3 +376,28 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 14.0 | Caption cleared, quick white fade. Ends at 14.6. Step 7 is marked done. |
 
 - Below 900px wide the page is enlarged (CSS zoom 2.3), as in step 5.
+
+## Mail step 8 - Add your team
+
+- Files: `scenes/snaarp-mail/Step8Users.tsx`, `step8-script.ts`, `users-data.ts`, `users/OptionCards.tsx`, `users/TeamTable.tsx`. `durationMs` 32100. Design: the owner's `ref/mail/users-inbox.png` (copied to `ref/mail/`); there is no recording for this step. URL pill: `login.snaarp.com/onboarding/users` (config only).
+- Screen (inside `OnboardingShell`, `active="users"`; Organization, Domain and DNS shown as visited): white card (780 px, soft shadow, centred) with the title "Add your team members" (24 px bold), grey intro, three option cards (Add Manually: selected, solid black, white user-plus tile, green "Recommended" pill; Import CSV; Sync Google Workspace), the heading "Team Members" with the pill "Total: N user(s)", an outlined Export button (decorative) and a black Add User button, the table (checkbox, NAME, EMAIL, ROLE, STATUS, ACTIONS; empty state "No team members yet"), and Back (outlined) and Continue (black). Sizes follow the design scaled to the 1440 px scene. The option cards stack and the card is enlarged (CSS zoom 1.8) under 900px; the table scrolls sideways inside its card there.
+- Row: coloured initials avatar, name, email, role pill (light blue), status pill (Pending orange, Active green), three-dot button; its menu is a small white card with Copy link, Edit and Delete (red). Rows slide in with `tl-row-in`.
+- Modal: the 360 `AddUserModal` unchanged apart from the optional `user` setting; the domain select shows @acme-studio.com.
+- Sample data: Sam Lee, sam.lee@acme-studio.com, recovery sam.recovery@example.com, role User, status Pending, green "SL", password Wd7#kQ2mPz9a (all in `users-data.ts`).
+- Timeline:
+
+| Time | What happens |
+|---|---|
+| 0.0 | Shell and card fade in. Table empty, "Total: 0 users". |
+| 1.0 | Caption "Choose Add Manually. It is the recommended way". Ring on the black card. |
+| 3.5 | Caption "Click Add User". Cursor to Add User, ring, click. |
+| 5.0 | Modal opens. Caption "Enter the new user's name". Types Sam, Lee. |
+| 7.2 | Caption "Choose an email name on your verified domain". Ring on the domain select, then the sam.lee chip is clicked; the Preview line shows sam.lee@acme-studio.com. |
+| 10.0 | Types the recovery email. |
+| 12.2 | Caption "Keep both welcome email options on". Ring on the two checkboxes; the modal scrolls down. |
+| 14.2 | Password box fades in. Caption "Copy the generated password and keep it safe". Cursor clicks Copy; toast "Password copied to clipboard". |
+| 18.0 | Caption "Click Create User". Cursor starts at 18.9, ring, click; "Creating..." for 1 s. |
+| 21.0 | Modal closes. Toast "User inbox sam.lee@acme-studio.com created successfully!". The Sam Lee row slides in; "Total: 1 user". Caption "Your first user is added". |
+| 24.5 | Caption "Use Copy link to share the setup link with your user". Cursor to the three dots, click; menu opens, cursor rests on Copy link; the menu closes at 28.0. |
+| 29.0 | Caption "Click Continue". Cursor to Continue, ring, click. |
+| 31.5 | Caption cleared, quick white fade. Ends at 32.1. Step 8 is marked done. |

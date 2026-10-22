@@ -10,7 +10,7 @@ import { FieldText, TypedField } from "@/components/admin/TypedField";
 import { Icon } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { emailSuggestions, NEW_USER } from "./step5-data";
+import { emailSuggestions, NEW_USER as DEFAULT_USER } from "./step5-data";
 
 const BLUE = "#2F5BE0";
 
@@ -19,7 +19,7 @@ const BLUE = "#2F5BE0";
  * Scene variables it reads: modal, chips, generated, creating, and the typed fields
  * first, last, emailName, recovery.
  */
-export function AddUserModal({ tl }: { tl: Timeline }) {
+export function AddUserModal({ tl, user = DEFAULT_USER }: { tl: Timeline; /** Whose details and domain to show (defaults to the 360 sample user). */ user?: typeof DEFAULT_USER }) {
   const open = useTimelineVar(tl, "modal", false);
   const first = useTimelineVar(tl, "field:first", "");
   const last = useTimelineVar(tl, "field:last", "");
@@ -28,7 +28,7 @@ export function AddUserModal({ tl }: { tl: Timeline }) {
   const generated = useTimelineVar(tl, "generated", false);
   const creating = useTimelineVar(tl, "creating", false);
 
-  const email = emailName ? `${emailName}@${NEW_USER.domain}` : "";
+  const email = emailName ? `${emailName}@${user.domain}` : "";
   const fullName = `${first} ${last}`.trim();
 
   return (
@@ -61,7 +61,7 @@ export function AddUserModal({ tl }: { tl: Timeline }) {
               data-tl="select-domain"
               className="flex w-[230px] shrink-0 items-center justify-between border-l border-[#E1E4EE] bg-[#FAFAFB] px-3.5"
             >
-              @{NEW_USER.domain}
+              @{user.domain}
               <Icon name="chevronDown" size={15} className="text-[#6b7280]" />
             </div>
           </div>
@@ -125,7 +125,7 @@ export function AddUserModal({ tl }: { tl: Timeline }) {
           <div className="mt-2.5 flex gap-2.5">
             <div className="flex h-[38px] flex-1 items-center rounded-lg border border-[#E1E4EE] bg-white px-3.5 font-mono text-[13.5px]">
               <span className={`transition-opacity duration-500 ${generated ? "opacity-100" : "opacity-0"}`}>
-                {NEW_USER.password}
+                {user.password}
               </span>
             </div>
             <CopyActionButton id="copy-password" onClick={() => tl.toast("Password copied to clipboard")} />
@@ -154,7 +154,7 @@ export function AddUserModal({ tl }: { tl: Timeline }) {
             <dt className="text-[#8b909c]">Email</dt>
             <dd className="font-medium text-ink">{email}</dd>
             <dt className="text-[#8b909c]">Password</dt>
-            <dd className="font-mono font-medium text-ink">{NEW_USER.password}</dd>
+            <dd className="font-mono font-medium text-ink">{user.password}</dd>
           </dl>
         </div>
 

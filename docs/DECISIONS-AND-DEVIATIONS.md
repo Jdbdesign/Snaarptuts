@@ -123,6 +123,16 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Check pop** (a small scale-in on the green checks) is ours.
 - **Scroll path and the white fade** are ours.
 
+## Snaarp Mail step 8 (Add your team)
+
+- **Intentional text changes to the owner's design:** the sidebar label is "Users Inbox" (the recording's wording; the design says "Users"), and the intro says "join Snaarp" (the design says "Mailrit"). All names and emails are sample data (the design's six people are not used; the table starts empty and gets one row, Sam Lee).
+- **Scale.** The design image is far larger than the scene, so sizes were taken proportionally and rounded for legibility: the title is 24 px (the brief said about 28), the card is 780 px wide, table text 12 px. The card is centred in the white area (the design has it slightly left).
+- **The modal is the 360 one**, so it keeps the 360 look (blue Copy button, dark Create User button) and the 360 wording. It is not restyled to the black buttons of the new screen.
+- **Button colours** follow the design (black Add User and Continue), not the purple or navy buttons of other onboarding screens.
+- **The table body keeps a minimum height** so the card does not jump when the first row replaces the empty state, and so the row menu has room below the row.
+- **Export, Back, Import CSV and Sync Google Workspace do nothing** (decorative). Continue is only clicked for the story; it does not navigate.
+- **Narrow screens** (under 900px): card enlarged with CSS zoom 1.8, option cards stack, table scrolls sideways inside its card.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).
