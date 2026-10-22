@@ -30,7 +30,7 @@ Other product routes follow the pattern `/tutorials/<product-id>` (for example `
 | Product card in the rail | Opens a dropdown of all products. Picking one opens that product's tutorial. |
 | Replay tutorial | On the completion card at the end. Autoplay stops until it is clicked. |
 
-The Cancel button (top right, posting `{type:"snaarp-tutorial-cancel"}` to the parent window) is **specified but not built yet**. See `docs/HANDOFF.md`.
+There is no Cancel button (removed on the owner's request; it can be restored from the git commit "Add Cancel button to player shell").
 
 ## Docs
 

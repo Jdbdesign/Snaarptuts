@@ -44,7 +44,7 @@ After round 5 (smaller requests from the owner):
 
 ## Known issues and rough edges
 
-1. **Cancel button is not built.** `CLAUDE.md` and `reference.png` describe a Cancel button at the top right that posts `{type:"snaarp-tutorial-cancel"}` to the parent window. No such button or `postMessage` exists in the code yet.
+1. **No Cancel button.** It was built and then removed on the owner's request (`reference.png` still shows it). Restore it from the git commit "Add Cancel button to player shell" if needed.
 2. **Not a git repo.** There is no version control. Run `git init` and commit before more work. `.gitignore` is already the Next.js default. `frames_step5/` (extracted frames), `tsconfig.tsbuildinfo` and the 81 MB recording are in the folder and should be considered before committing (the recording is source material and should not be deleted).
 3. **Step 4 URL pill.** Step 4 starts on the dashboard but the pill already shows `admin.snaarp.com/admin/domains` (the script never calls `setUrl`). A small fix if wanted: call `tl.setUrl("admin.snaarp.com/admin")` at the start and set the domains address when Domains is clicked.
 4. **Rail counts of other products read `0/N`**, and jumping to a later step via the rail shows `0/5` because progress is only recorded while steps play. Progress is not saved between pages.
@@ -57,13 +57,12 @@ After round 5 (smaller requests from the owner):
 
 ## Next ideas (prioritized)
 
-1. Build the **Cancel button** (top right of the stage) with the `postMessage`, and test it from a parent page.
 2. `git init`, first commit, decide on hosting.
 3. **Snaarp Mail modules** (start with "Compose email"), then Meet, Teams, Me, Lock, Drive and the rest. The owner will supply each product's module list; do not invent module names.
 4. Replace the remaining **placeholder icons** with the real Snaarp icons (single file: `components/icons.tsx`).
-5. **Hosting and embedding** via iframe; verify full-height behavior and the cancel message.
+5. **Hosting and embedding** via iframe; verify full-height behavior.
 6. Save **progress** per product (for example in `localStorage`) so the dropdown counts are real.
-7. **Analytics hooks**: events for tutorial start, step start/complete, cancel, replay (the shell has clear places: `start`, `handleDone`, `handleAdvance`, `replay` in `TutorialPlayer.tsx`).
+7. **Analytics hooks**: events for tutorial start, step start/complete, replay (the shell has clear places: `start`, `handleDone`, `handleAdvance`, `replay` in `TutorialPlayer.tsx`).
 8. **Mobile layout review**: decide whether phones need a dedicated layout instead of a scaled desktop one.
 9. Keep a small Playwright script in the repo to automate the per-step checks.
 10. Confirm copy, currency, DNS values and hostnames with the product team (`DECISIONS-AND-DEVIATIONS.md`, "Things to replace before launch").

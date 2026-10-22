@@ -10,7 +10,7 @@ Full-screen, auto-playing, step-by-step tutorials that teach people how to sign 
 
 ## Source material
 - Sign_up_for_snaarp_360.mp4: 2560x1440 screen recording, 1:55. Claude cannot watch video, so extract frames with ffmpeg and look at those (example: `ffmpeg -ss 9 -t 14 -i Sign_up_for_snaarp_360.mp4 -vf "fps=2" frames/%03d.png`).
-- reference.png: the layout the player must look like (left step rail, browser frame in the middle, Cancel button top right).
+- reference.png: the layout the player must look like (left step rail, browser frame in the middle; the Cancel button that the image shows top right was removed by owner decision, see Controls).
 - The video is only a reference. Rebuild every screen as real HTML/CSS. Never embed the video or screenshots in the final page.
 
 ## Step map for Snaarp 360 (video timestamps)
@@ -25,7 +25,7 @@ Do not build a step until the owner asks for it.
 ## Product requirements
 - The page fills 100vw x 100dvh. No document scroll, no letterboxing, no empty bands.
 - Autoplays on load with no click. Steps advance automatically; a finished step marks done in the rail.
-- Controls: Space = pause/resume, Collapse rail, Cancel (posts `{type:"snaarp-tutorial-cancel"}` to the parent window), click a built step in the rail to jump to it.
+- Controls: Space = pause/resume, Collapse rail, click a built step in the rail to jump to it. There is no Cancel button (removed by owner decision; it can be restored from the git commit "Add Cancel button to player shell").
 - Works at 1920x1080, 1440x900, 1280x720 and 390x844. Below 900px wide the rail auto-collapses.
 - Respect prefers-reduced-motion.
 
@@ -67,9 +67,9 @@ Route: `/tutorials/snaarp-360`
 | 4. Add and verify your domain | Done |
 | 5. Add your first user | Done |
 | Completion screen ("You're all set", Replay, Back to Snaarp) | Done |
-| Cancel button (top right, posts `{type:"snaarp-tutorial-cancel"}`, Esc shortcut) | Done |
+| Cancel button (top right) | Removed by owner decision (restore from git commit "Add Cancel button to player shell") |
 
-All 5 steps and the completion screen are built. Total running time about 2:04 (123.8 s) from load to the completion screen. The Cancel button is now built in the player shell (`components/player/TutorialPlayer.tsx`): top-right pill, click or Escape posts `{type:"snaarp-tutorial-cancel"}` to the parent window; when not embedded in a frame it stops the tutorial and shows a blank page. It appears for every product (including Snaarp Mail) and never touches the step scenes. At 390px it collapses to an X-only button in the same corner.
+All 5 steps and the completion screen are built. Total running time about 2:04 (123.8 s) from load to the completion screen. The Cancel button was built in the player shell and later removed by owner decision (top-right corner is now empty; no Esc shortcut, no postMessage, no blank-page behaviour). It can be restored from the git commit "Add Cancel button to player shell".
 
 ### Snaarp Mail ("How to set up Snaarp Mail", route `/tutorials/snaarp-mail`)
 Config: `tutorials/snaarp-mail.ts` (9 steps, rail lists all of them). Recording: `ref/mail/Snaarp_Mail_setup.mp4` (copy of `Snaarp_Mail_setup.mp4.mp4` from Downloads; 998x480, 3:05; `ref/` is git-ignored). Frames: `ref/mail/frames-step1/`, `frames-step2/`, `frames-step3/`, `frames-step4/`, `frames-step5/`.

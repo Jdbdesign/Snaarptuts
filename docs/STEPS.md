@@ -179,13 +179,10 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 ---
 
-## Cancel button (player shell, all products)
+## Cancel button (removed)
 
-- File: `components/player/TutorialPlayer.tsx`. Lives in the shell, so it shows for every product and every step (and later for Snaarp Mail) without touching any scene.
-- Position: a white rounded pill in the **top-right corner of the player**, aligned with the browser top-bar row (`absolute right-4 top-4`), matching `reference.png`. An `x` icon with the label "Cancel"; dark text on white, hairline border and soft shadow.
-- Click or **Escape** posts `{ type: "snaarp-tutorial-cancel" }` to the parent window (`window.parent.postMessage`). When the page is **not** inside a frame it instead stops the tutorial and shows a blank page (no navigation).
-- Responsive: below 900px it collapses to an **X-only** button in the same corner (the "Cancel" label is hidden). Verified at 1920x1080, 1440x900, 1280x720 and 390x844 with nothing overlapping or cut off.
-- The existing controls are unaffected: Space still pauses/resumes, Collapse still works, rail step jumps still work.
+- The Cancel button (top-right pill, X-only under 900px, Escape shortcut, `postMessage` / blank page) was removed from the player shell by owner decision. The top-right corner of the player is empty. It can be restored from the git commit "Add Cancel button to player shell".
+- The other controls are unaffected: Space pauses/resumes, Collapse works, rail step jumps work.
 
 ---
 

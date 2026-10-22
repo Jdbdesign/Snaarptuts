@@ -161,7 +161,7 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 
 **General list:**
 
-1. **Cancel button.** It is specified (top right, posts `{type:"snaarp-tutorial-cancel"}` to the parent window) but not built. Build it before embedding in an iframe.
+1. **Cancel button.** Cancel button removed on the owner's request. It can be restored from the git commit "Add Cancel button to player shell".
 2. **Real icons** for the remaining placeholders (see item 14) and the two glyphs on the products-home cards.
 3. **Currency and prices** on the pricing page (item 7), and all plan details.
 4. **Copy.** Confirm all captions, the sign-up page copy ("One Snaarp account for Mail, Docs, Sheet, CRM, and everything else."), feature rows and the completion text with the product team.
@@ -171,4 +171,4 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 7. **Hostnames in the URL pill**, especially `login.snaarp.com/login?redirect=%2F`, `login.snaarp.com/admin`, and the guessed `mail.snaarp.com/inbox` used for every Snaarp Mail module in `tutorials/snaarp-mail.ts`.
 8. **Completion link.** `backHref` defaults to `https://snaarp.com`. Set the real destination per product.
 9. **Progress between products.** The rail dropdown shows `0/N` for products you are not viewing because progress is not stored.
-10. **Hosting.** Decide the hosting and embedding (iframe or page) and test the Cancel message with the real parent page.
+10. **Hosting.** Decide the hosting and embedding (iframe or page) and test full-height behaviour with the real parent page.

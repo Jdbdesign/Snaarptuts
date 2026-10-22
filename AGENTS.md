@@ -39,7 +39,7 @@ Dev machine is Windows 11. Use Windows-appropriate paths and commands.
 - Page fills 100vw x 100dvh: no document scroll, no letterboxing, no empty bands.
 - Autoplays on load. Space = pause/resume. Collapse rail. Click a built step in the rail to jump to it. Respect `prefers-reduced-motion`.
 - Must work at 1920x1080, 1440x900, 1280x720 and 390x844. Below 900px wide the rail auto-collapses and the icon rails / dark login panels hide.
-- Cancel button (posts `{type:"snaarp-tutorial-cancel"}` to the parent window) is specified but **not built yet**.
+- There is no Cancel button: it was removed on the owner's request (restore from the git commit "Add Cancel button to player shell").
 
 ## Content and design rules
 
