@@ -30,6 +30,16 @@ First product: **Snaarp 360**. More products will follow, each with its own modu
 
 **All 9 steps are built** (`tutorials/snaarp-mail.ts`; about 4:00 from load to the "You're all set" card). Step 9 follows the owner's design `ref/mail/setup-completed.png`, uses an optional `completed` setting on `OnboardingShell`, and reuses the 360 dashboard through an optional `stats` setting. See the launch checklist in `docs/DECISIONS-AND-DEVIATIONS.md`. Step 8 follows the owner's design `ref/mail/users-inbox.png` and reuses the 360 `AddUserModal` through its optional `user` setting. Step 7 reuses the step 5 scene (`Step5Dns`) with its own script (`step7-script.ts`); the scene has optional variables `holdContinue` and `bottomRoom` for it. Step 6 introduced **`components/cloudflare/CloudflareChrome.tsx`**: the reusable Cloudflare dashboard frame (top bar, left menu, content area, "illustration" footnote); pass `active` ("overview" | "dns"), `domain`, `onNavigate` and the page as children. It is an illustration, to be checked against the live dashboard before launch. Step 6 also added `tl.paste()` to the timeline (instant paste + flash for long values) and a `below-bar` toast position. Step 3 introduced **`components/onboarding/OnboardingShell.tsx`**: the dark progress sidebar + white content area used by the onboarding screens. Steps 4-9 should wrap their screen in `<OnboardingShell active="domain" | "dns" | "users" | "done">` and only change that value; sidebar items live in `ONBOARDING_ITEMS` in the same file. See `docs/STEPS.md` (Mail sections) and `CLAUDE.md` (Build status). **DNS records:** `scenes/snaarp-mail/dns-data.ts` defines the five records once (`DNS_RECORDS`, `DOMAIN`, `MAIL_SERVER`); steps 6 (Cloudflare) and 7 (confirm the records) must import them, never copy values. **`components/onboarding/DnsRecordCard.tsx`** is the reusable record card with a pending/verified state (scene variable `dns:<id>`; click `[data-tl=mark-<id>]` or `tl.setVar` to verify) and `OnboardingShell` has an `overlay` prop for modals. Parts of this file below predate the Cancel button, git and Mail work and are out of date.
 
+## Deploying on Vercel
+
+1. Go to vercel.com, sign in with GitHub, click Add New > Project.
+2. Import the repository Jdbdesign/Snaarptuts.
+3. Leave the framework as Next.js and the default build settings.
+4. Click Deploy. Open the preview link and check /tutorials/snaarp-360 and /tutorials/snaarp-mail.
+5. Every push to main redeploys automatically.
+
+Checked before the first deploy: `npm run build` passes with no warnings; nothing in the app reads `ref/`, frames folders or videos; no environment variables are needed; no files are written at runtime; fonts (Poppins, Open Sans, JetBrains Mono) come from `next/font/google`, which downloads them at build time and serves them from the site itself. `/` redirects to `/tutorials/snaarp-360`; an unknown tutorial id shows the standard Next.js 404. The site sends no `X-Frame-Options` or `frame-ancestors` header, so the pages can be embedded in an iframe on another site.
+
 ## Build history (in order)
 
 1. **Round 1 - player shell + step 1.** Next.js app, the rail + browser frame layout from `reference.png`, the scene scaler (1440px design width), the timeline engine (cursor, click, scroll, captions, highlight, pause, cancel), step 1 (pricing page).
