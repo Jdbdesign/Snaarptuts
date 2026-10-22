@@ -71,6 +71,23 @@ Route: `/tutorials/snaarp-360`
 
 All 5 steps and the completion screen are built. Total running time about 2:04 (123.8 s) from load to the completion screen. The Cancel button is now built in the player shell (`components/player/TutorialPlayer.tsx`): top-right pill, click or Escape posts `{type:"snaarp-tutorial-cancel"}` to the parent window; when not embedded in a frame it stops the tutorial and shows a blank page. It appears for every product (including Snaarp Mail) and never touches the step scenes. At 390px it collapses to an X-only button in the same corner.
 
+### Snaarp Mail ("How to set up Snaarp Mail", route `/tutorials/snaarp-mail`)
+Config: `tutorials/snaarp-mail.ts` (9 steps, rail lists all of them). Recording: `ref/mail/Snaarp_Mail_setup.mp4` (copy of `Snaarp_Mail_setup.mp4.mp4` from Downloads; 998x480, 3:05; `ref/` is git-ignored). Step 1 frames: `ref/mail/frames-step1/`.
+
+| Step | Status |
+|---|---|
+| 1. Choose your plan (`snaarp.com/pricing`) | Done (about 9.4 s) |
+| 2. Create your account | Not built |
+| 3. Tell us about your organization | Not built |
+| 4. Connect your domain | Not built |
+| 5. Review your DNS records | Not built |
+| 6. Add the records in Cloudflare | Not built |
+| 7. Confirm the records | Not built |
+| 8. Add your team | Not built |
+| 9. Finish setup | Not built |
+
+Files: `scenes/snaarp-mail/Step1Pricing.tsx`, `step1-script.ts`, `pricing-data.ts` (naira prices, Mail + 360 tabs). The pricing page is the shared, data-driven `components/pricing/PricingScene.tsx` (types in `pricing-types.ts`, 360 plans in `plans-360.ts`); the 360 tutorial uses the same scene with its own pound prices (`scenes/snaarp-360/pricing-data.ts`). While steps are unbuilt, the end card after the last built step reads "Step N complete / The next steps are coming soon." The "You're all set" card appears only when every step is built. Do not build the next Mail step until the owner asks.
+
 ### Shared pieces (file paths)
 - Product config (names, titles, URLs, scenes): `tutorials/snaarp-360.ts` (types in `tutorials/types.ts`, registry in `tutorials/index.ts`)
 - Route page: `app/tutorials/[productId]/page.tsx`

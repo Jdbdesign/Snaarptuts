@@ -1,21 +1,32 @@
+import { Step1Pricing } from "@/scenes/snaarp-mail/Step1Pricing";
+import { runStep1, STEP1_DURATION_MS } from "@/scenes/snaarp-mail/step1-script";
 import type { Tutorial } from "./types";
 
 /**
- * Snaarp Mail. The modules are listed so they show in the rail; none has a scene yet, so each
- * shows as "Coming soon". Give a step a `scene` (see snaarp-360.ts) when it is built.
+ * Snaarp Mail: "How to set up Snaarp Mail". Nine steps; only step 1 is built, the rest show as
+ * "Coming soon". Recording: ref/mail/Snaarp_Mail_setup.mp4 (998x480, 3:05, git-ignored).
+ * URL pills of steps 2-5 and 7-9 are placeholders because the address bar is not visible in the recording.
  */
 export const snaarpMail: Tutorial = {
   product: { id: "snaarp-mail", name: "Snaarp Mail", logo: "mail" },
   steps: [
-    { id: "compose-email", title: "Compose email", url: "mail.snaarp.com/inbox" },
-    { id: "ai-composer", title: "Use AI composer", url: "mail.snaarp.com/inbox" },
-    { id: "attach-file", title: "Attach file or folder", url: "mail.snaarp.com/inbox" },
-    { id: "preference-view", title: "Set user preference view", url: "mail.snaarp.com/inbox" },
-    { id: "all-products", title: "View all snaarp products", url: "mail.snaarp.com/inbox" },
-    { id: "inbox-type", title: "Inbox type", url: "mail.snaarp.com/inbox" },
-    { id: "undo-send", title: "Undo Send", url: "mail.snaarp.com/inbox" },
-    { id: "add-account", title: "Add new account", url: "mail.snaarp.com/inbox" },
-    { id: "switch-account", title: "Switch account", url: "mail.snaarp.com/inbox" },
-    { id: "add-esignature", title: "Add e-signature", url: "mail.snaarp.com/inbox" },
+    {
+      id: "choose-plan",
+      title: "Choose your plan",
+      url: "snaarp.com/pricing",
+      scene: { Component: Step1Pricing, run: runStep1, durationMs: STEP1_DURATION_MS },
+    },
+    { id: "create-account", title: "Create your account", url: "login.snaarp.com/signup" },
+    { id: "organization", title: "Tell us about your organization", url: "login.snaarp.com/onboarding/organization" },
+    { id: "connect-domain", title: "Connect your domain", url: "login.snaarp.com/onboarding/domain" },
+    { id: "review-dns", title: "Review your DNS records", url: "login.snaarp.com/onboarding/dns" },
+    { id: "add-records", title: "Add the records in Cloudflare", url: "dash.cloudflare.com/acme-studio.com/dns/records" },
+    { id: "confirm-records", title: "Confirm the records", url: "login.snaarp.com/onboarding/dns" },
+    { id: "add-team", title: "Add your team", url: "login.snaarp.com/onboarding/users" },
+    { id: "finish", title: "Finish setup", url: "login.snaarp.com/onboarding/complete" },
   ],
+  completion: {
+    title: "You're all set",
+    text: "Snaarp Mail is ready for your team.",
+  },
 };

@@ -27,6 +27,7 @@ components/
     admin-data.ts                  Icon rail items and sidebar menu items of the owner portal.
     Modal.tsx, Toast.tsx, DropdownMenu.tsx, CopyButton.tsx
     TypedField.tsx, Checkbox.tsx, Radio.tsx, Chip.tsx, CopyActionButton.tsx
+  pricing/                         Shared, data-driven pricing page: PricingScene.tsx, pricing-types.ts, plans-360.ts. Used by 360 and Mail step 1.
   admin-panel/                     The "Admin Panel" an admin user sees at login.snaarp.com/admin
     AdminPanelLayout.tsx           Purple, soft-purple active item. Different from AdminLayout on purpose.
     admin-panel-data.ts            Its icon rail items and menu.
@@ -51,10 +52,13 @@ scenes/snaarp-360/                 SCENES for Snaarp 360. One scene component + 
   Step4Domains.tsx, step4-script.ts, step4/   (DomainsPage, AddDomainModal, DnsTab, step4-data.ts)
   Step5Users.tsx,   step5-script.ts, step5/   (UserManagement, AddUserModal, UserLogin, AdminPanelDashboard, AdminPanelUsers, step5-data.ts)
 
+scenes/snaarp-mail/                Scenes for Snaarp Mail. Step 1 (pricing) is built: Step1Pricing.tsx, step1-script.ts, pricing-data.ts.
+
 public/logos/                      Real Snaarp product logos (SVG tiles). See components/icons.tsx -> PRODUCT_LOGOS.
 Sign_up_for_snaarp_360.mp4         Source recording (2560x1440, 1:55). Reference only. Never embed, never delete.
 reference.png                      The player layout the shell must match.
-frames_step5/                      Frames extracted from the recording for step 5 (and contact sheets). Kept for reference.
+frames_step5/                      Frames extracted from the 360 recording for step 5 (git-ignored).
+ref/mail/                          Snaarp Mail recording (Snaarp_Mail_setup.mp4) and its extracted frames (frames-step1/). Git-ignored.
 docs/, .kiro/steering/             Documentation.
 ```
 

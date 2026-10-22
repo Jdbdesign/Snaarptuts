@@ -129,6 +129,7 @@ All are in `components/`. `tl` is the `Timeline`.
 
 ## Scene-level components worth knowing
 
+- `components/pricing/PricingScene.tsx` - the pricing page for any product. Props: `tl`, `data: PricingData` (`components/pricing/pricing-types.ts`: currency in the nav, starting tab, plans per tab, `cardsVisibleAtStart`, `startScroll`). Elements: `[data-tl=tab-<id>]`, `[data-tl=plan-<id>]`, `[data-tl=cta-<id>]`, `[data-tl=toggle-monthly]`, `[data-tl=plan-grid]`. Picking another tab swaps the cards with a short fade. Used by `scenes/snaarp-360/Step1Pricing.tsx` and `scenes/snaarp-mail/Step1Pricing.tsx`.
 - `scenes/snaarp-360/step3/DarkPanel.tsx` - near-black left panel (wordmark, three feature rows, footer links). Used by the admin sign-in (step 3) and the user login (step 5).
 - `scenes/snaarp-360/step3/ProductsHome.tsx` - products home. Props: `tl`, `avatar` (letter), `tiles` (list of `ProductTile`, default all 16). Elements: `[data-tl=card-emails]`, `[data-tl=card-admin]`, `[data-tl=product-grid]`. Variable `loaded` swaps the skeleton for the tiles. Step 3 shows all 16; step 5 shows only "Project".
 - `scenes/snaarp-360/step3/LoadingScreen.tsx` - spinner screen; `label={null}` hides the text.

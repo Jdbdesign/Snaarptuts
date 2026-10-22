@@ -172,3 +172,13 @@ button {
 .tl-fade {
   animation: tl-fade 0.5s ease-out both;
 }
+
+/* Plan cards swapping when another product tab is picked (opacity only, so hover lift still works) */
+@keyframes tl-swap {
+  from {
+    opacity: 0;
+  }
+}
+.tl-swap {
+  animation: tl-swap 0.3s ease-out backwards;
+}

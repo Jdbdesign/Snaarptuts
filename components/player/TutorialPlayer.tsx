@@ -152,7 +152,20 @@ export function TutorialPlayer({ productId }: { productId: string }) {
           </div>
         )}
         {run.status === "finished" && (
-          <CompletionCard completion={resolveCompletion(tutorial)} onReplay={replay} />
+          <CompletionCard
+            completion={
+              // A tutorial with steps still to build must not say "all set" after the last built one.
+              steps.some((s) => !s.scene)
+                ? {
+                    ...resolveCompletion(tutorial),
+                    title: `Step ${run.current + 1} complete`,
+                    text: "The next steps are coming soon.",
+                    replayLabel: "Replay",
+                  }
+                : resolveCompletion(tutorial)
+            }
+            onReplay={replay}
+          />
         )}
       </BrowserFrame>
 

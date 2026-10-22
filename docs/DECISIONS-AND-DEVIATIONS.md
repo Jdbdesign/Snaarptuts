@@ -39,6 +39,14 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
     - Product logos are the **real Snaarp SVG logos** in `public/logos/` (shown with `ProductLogo`): pricing page tabs and plan cards, sign-up orbit and header, products home, both admin icon rails, player rail.
     - All other icons (menus, buttons, stat cards, arrows, the two glyphs on the purple "Create/Configure Emails" and "System Admin" cards, the Snaarp mark in unused fallbacks) are **redrawn SVG placeholders** in `components/icons.tsx`, not the real Snaarp icons. Icons are never cropped from video frames.
 
+## Snaarp Mail step 1
+
+- The recording opens on the Mail tab already selected and scrolled. The tutorial starts on the **360 tab** and clicks Mail (owner's script), so the 360 cards in naira are shown first. Those 360 naira prices come from the live pricing page screenshot the owner shared, not from the Mail recording.
+- Product logos are the real Snaarp logo tiles (purple), not the light-tile icons of the live page. The faint outline shield at the end of the icon rows is kept as in the recording.
+- Cards swap with a 0.3 s fade; the live page has no such animation. Captions, cursor and rings are added by us.
+- URL pills of steps 2-5 and 7-9 are placeholders (not visible in the recording).
+- Until all nine steps are built the end card says "Step N complete / The next steps are coming soon." (shell behavior for any tutorial with unbuilt steps).
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).

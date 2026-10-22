@@ -186,3 +186,54 @@ Several beats run a fraction of a second after their anchor because glides and t
 - Click or **Escape** posts `{ type: "snaarp-tutorial-cancel" }` to the parent window (`window.parent.postMessage`). When the page is **not** inside a frame it instead stops the tutorial and shows a blank page (no navigation).
 - Responsive: below 900px it collapses to an **X-only** button in the same corner (the "Cancel" label is hidden). Verified at 1920x1080, 1440x900, 1280x720 and 390x844 with nothing overlapping or cut off.
 - The existing controls are unaffected: Space still pauses/resumes, Collapse still works, rail step jumps still work.
+
+---
+
+# Snaarp Mail ("How to set up Snaarp Mail")
+
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Only step 1 is built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+
+| Step | Title | URL pill | Status |
+|---|---|---|---|
+| 1 | Choose your plan | `snaarp.com/pricing` | Done |
+| 2 | Create your account | `login.snaarp.com/signup` | Not built |
+| 3 | Tell us about your organization | `login.snaarp.com/onboarding/organization` | Not built |
+| 4 | Connect your domain | `login.snaarp.com/onboarding/domain` | Not built |
+| 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Not built |
+| 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Not built |
+| 7 | Confirm the records | `login.snaarp.com/onboarding/dns` | Not built |
+| 8 | Add your team | `login.snaarp.com/onboarding/users` | Not built |
+| 9 | Finish setup | `login.snaarp.com/onboarding/complete` | Not built |
+
+URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible in the recording).
+
+## Mail step 1 - Choose your plan
+
+- Files: `scenes/snaarp-mail/Step1Pricing.tsx`, `step1-script.ts`, `pricing-data.ts`. `durationMs` 9300 (runs about 9.4 s). The page is the shared `components/pricing/PricingScene.tsx`.
+- Recording: 0:00-0:05 (the video opens on the Mail tab; the tutorial starts on the 360 tab as the owner specified).
+- URL pill: `snaarp.com/pricing` (config only).
+- Screen: the Snaarp pricing page, scrolled (`startScroll` 408) so the product tab bar sits just under the nav. Nav shows Pricing, Contact Sales, Login and a currency selector "NGN" with the Nigerian flag. Tabs as in 360 (15 tabs).
+- Mail tab plans (naira, from the recording frames):
+
+| Plan | Price /month | Total for 12 months | Storage | Users line | Icons |
+|---|---|---|---|---|---|
+| Starter | ₦8,917.03 | ₦107,004.42 | 10 GB | 10 Users | Mail, Drive |
+| Growth | ₦44,585.17 | ₦535,022.08 | 100 GB | 25 Users | Mail, Drive, Sheet, Slides + faint shield |
+| Business (Most popular) | ₦89,170.35 | ₦1,070,044.16 | 600 GB | 25 users | Mail, Drive, Lock, Sheet, Slides, Meet + faint shield |
+| Scale | ₦178,340.69 | ₦2,140,088.32 | 2.5 TB | 50 users | Mail, Drive, Lock, Slides, Teams, Meet, PDF + faint shield |
+
+  Each card: "14-day free trial" pill, "Billed monthly", checklist (users line in bold, then storage, Business Emails, Migration Assistance, Mobile App, Bulk Registration, Admin Dashboard; Business lists Mobile App last, as in the recording), "Start 14-day free trial" button (solid purple on Business, outlined on the others). Wording (including "users" / "shared space" capitalization) follows the frames.
+- 360 tab (the starting tab): the same four 360 plans as the 360 tutorial (Team, Business, Scale, Growth; 17 logos each), with naira prices from the live pricing page screenshot the owner shared: Team ₦87,386.94 (total ₦1,048,643.28), Business ₦176,557.29 (₦2,118,687.44), Scale ₦444,068.33 (₦5,328,819.92), Growth ₦889,920.06 (₦10,679,040.73).
+- Timeline:
+
+| Time | What happens |
+|---|---|
+| 0.0 | Page fades in, cursor near the centre. 360 tab selected. |
+| 0.45 | Tab bar fades up. |
+| 1.0 | Caption "Open the Snaarp pricing page and choose the Mail tab". Cursor to Mail, ring, click (about 2.4 s). The purple pill moves to Mail and the cards swap with a 0.3 s fade. |
+| 4.0 | Caption "Pick the plan that fits your team". Cursor drifts over Starter, then Growth; the Growth card lifts. |
+| 6.6 | Caption "Click Start 14-day free trial". Cursor to the Growth button, ring, click (pressed state). |
+| 8.6 | Ring and caption cleared, white fade-out. Ends at 9.3. |
+
+- After step 1 the shell shows an end card "Step 1 complete / The next steps are coming soon." with Replay (rail 1/9). It becomes "You're all set" only when every step is built.
+

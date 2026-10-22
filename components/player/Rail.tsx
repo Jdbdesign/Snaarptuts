@@ -126,7 +126,7 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse }:
                 onClick={() => onSelect(i)}
                 title={built ? s.title : `${s.title} — coming soon`}
                 aria-current={isActive ? "step" : undefined}
-                className={`flex h-11 w-full items-center gap-2.5 rounded-[12px] border px-2.5 text-left text-[13px] transition-colors ${
+                className={`flex min-h-11 w-full items-center gap-2.5 rounded-[12px] border px-2.5 py-1.5 text-left text-[13px] transition-colors ${
                   isActive
                     ? "border-brand/40 bg-brand-soft font-medium text-ink"
                     : built
@@ -147,7 +147,7 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse }:
                 >
                   {isDone && <Icon name="check" size={11} />}
                 </span>
-                <span className="min-w-0 flex-1 truncate">{s.title}</span>
+                <span className="min-w-0 flex-1">{s.title}</span>
               </button>
             </li>
           );
