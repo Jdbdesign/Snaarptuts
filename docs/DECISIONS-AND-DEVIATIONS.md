@@ -115,6 +115,14 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Toast** sits just below the top bar (new `below-bar` position) so it does not cover the Cloudflare top bar.
 - **Narrow screens** (under 900px): dashboard enlarged with CSS zoom 2, menu becomes an icon column.
 
+## Snaarp Mail step 7 (Confirm the records)
+
+- **Every record turns to a green "Verified"** so the story ends well. In the recording the DNS status after checking can read "No records" (the recorder's DNS was not set up for these values).
+- **The recording does not show the marking.** Its last minute (2:25-3:00) scrolls the page, with some cards already Verified; the look of Mark submitted, Verified, the check and Continue follows the step 5 frames and the existing card.
+- **Continue turns navy at 10.5 s**, about 2.6 s after the last card is verified (the step script holds it grey on purpose, as the brief says); in the shared page it would turn navy the moment the fifth card is verified.
+- **Check pop** (a small scale-in on the green checks) is ours.
+- **Scroll path and the white fade** are ours.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).

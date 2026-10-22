@@ -19,14 +19,18 @@ export function Step5Dns({ tl }: SceneProps) {
   const fade = useTimelineVar(tl, "fade", false);
   const narrow = useNarrow();
   const verifiedCount = useVerifiedCount(tl);
-  const allVerified = verifiedCount === DNS_RECORDS.length;
+  // Step 7 holds Continue grey for a moment (scene variable `holdContinue`) after the last card is verified.
+  const hold = useTimelineVar(tl, "holdContinue", false);
+  // Extra room under the page (scene variable `bottomRoom`, step 7) so the last button can scroll clear of the caption.
+  const room = useTimelineVar(tl, "bottomRoom", 0);
+  const allVerified = verifiedCount === DNS_RECORDS.length && !hold;
   const zoom = narrow ? NARROW_ZOOM : 1;
 
   return (
     <div className="relative h-full w-full bg-white">
       <div className={`h-full w-full transition-opacity duration-700 ${intro >= 1 ? "opacity-100" : "opacity-0"}`}>
         <OnboardingShell active="dns" overlay={<DnsModal tl={tl} zoom={zoom} />}>
-          <div className={`w-[583px] pb-12 pt-[55px] ${narrow ? "mx-auto" : "ml-[202px]"}`} style={{ zoom }}>
+          <div className={`w-[583px] pt-[55px] ${narrow ? "mx-auto" : "ml-[202px]"}`} style={{ zoom, paddingBottom: 48 + room }}>
             <p className="flex items-center gap-1.5 text-[10px] leading-4 text-[#6B7280]">
               <Icon name="arrowLeft" size={11} />
               {PAGE.back}
@@ -80,7 +84,7 @@ export function Step5Dns({ tl }: SceneProps) {
             <button
               data-tl="cta-continue"
               disabled={!allVerified}
-              className={`mt-[14px] h-[34px] w-full rounded-[6px] text-[11px] font-medium text-white transition-colors duration-300 ${
+              className={`mt-[14px] h-[34px] w-full rounded-[6px] text-[11px] font-medium text-white transition-[background-color,transform] duration-300 data-[pressed=true]:scale-[0.985] ${
                 allVerified ? "bg-[#111827]" : "bg-[#9CA3AF]"
               }`}
             >

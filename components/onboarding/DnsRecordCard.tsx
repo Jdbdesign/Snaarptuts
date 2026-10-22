@@ -49,7 +49,7 @@ export function DnsRecordCard({ tl, record }: { tl: Timeline; record: DnsRecord 
         <div className="flex items-center gap-2.5">
           {verified ? (
             <span className="tl-fade-in flex items-center gap-1 text-[10px] font-medium text-[#16A34A]">
-              <Icon name="circleCheck" size={12} />
+              <Icon name="circleCheck" size={12} className="tl-pop" />
               {PAGE.verified}
             </span>
           ) : (
@@ -97,7 +97,7 @@ export function DnsRecordCard({ tl, record }: { tl: Timeline; record: DnsRecord 
           <Icon
             name={verified ? "circleCheck" : "circleX"}
             size={14}
-            className={`transition-colors duration-300 ${verified ? "text-[#22A06B]" : "text-[#EF4444]"}`}
+            className={`transition-colors duration-300 ${verified ? "tl-pop text-[#22A06B]" : "text-[#EF4444]"}`}
           />
         </span>
       </div>

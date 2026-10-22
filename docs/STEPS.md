@@ -191,7 +191,7 @@ Several beats run a fraction of a second after their anchor because glides and t
 
 # Snaarp Mail ("How to set up Snaarp Mail")
 
-Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-6 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
+Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `ref/mail/Snaarp_Mail_setup.mp4` (998x480, 3:05; git-ignored). Steps 1-7 are built; the rest show "Coming soon" in the rail. Completion text (used when all nine are built): "You're all set" / "Snaarp Mail is ready for your team."
 
 | Step | Title | URL pill | Status |
 |---|---|---|---|
@@ -201,7 +201,7 @@ Config: `tutorials/snaarp-mail.ts`, route `/tutorials/snaarp-mail`. Recording: `
 | 4 | Connect your domain | `login.snaarp.com/onboarding/domain` | Done |
 | 5 | Review your DNS records | `login.snaarp.com/onboarding/dns` | Done |
 | 6 | Add the records in Cloudflare | `dash.cloudflare.com/acme-studio.com/dns/records` | Done |
-| 7 | Confirm the records | `login.snaarp.com/onboarding/dns` | Not built |
+| 7 | Confirm the records | `login.snaarp.com/onboarding/dns` | Done |
 | 8 | Add your team | `login.snaarp.com/onboarding/users` | Not built |
 | 9 | Finish setup | `login.snaarp.com/onboarding/complete` | Not built |
 
@@ -358,3 +358,21 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 60.0 | Caption cleared, quick white fade. Ends at 60.6. Step 6 is marked done. |
 
 - Below 900px wide the dashboard is enlarged (CSS zoom 2), the left menu becomes a slim icon column and the form fields wrap.
+
+## Mail step 7 - Confirm the records
+
+- Files: `scenes/snaarp-mail/step7-script.ts` (new); the scene is the step 5 component `Step5Dns.tsx` (same page, same `DnsRecordCard`), copy in `dns-data.ts` (`CAPTIONS.confirm`, `CAPTIONS.continue`). `durationMs` 14600. Frames for reference: `ref/mail/frames-step7/` (recording 2:25-3:00, which scrolls the page and shows Verified cards and the grey Continue; it does not show every card being marked). URL pill: `login.snaarp.com/onboarding/dns` (config only).
+- Start state: all five cards Pending, modal closed, page at the top, Continue grey and disabled.
+- Changes to shared pieces (step 5 looks and plays the same): `DnsRecordCard` gives the green check icons a small pop when a card turns Verified; `Step5Dns` reads the scene variables `holdContinue` (Continue stays grey while true) and `bottomRoom` (extra padding under the page); the Continue button has a small pressed state.
+- Timeline:
+
+| Time | What happens |
+|---|---|
+| 0.0 | Page fades in. Caption "Back in Snaarp, click Mark submitted on each record". |
+| 1.5 | Cursor clicks Mark submitted on MX. Pending and the red circle-x become Verified and a green check (check pop). The page scrolls just enough before each click to keep the card visible. |
+| 3.1 / 4.7 / 6.3 / 7.9 | Same for CNAME, DKIM, SPF, DMARC. |
+| 10.5 | Continue turns from grey to dark navy (#111827). Caption "Click Continue". The page scrolls so the button is visible. |
+| 11.5 | Cursor to Continue, ring, click (about 12.5). |
+| 14.0 | Caption cleared, quick white fade. Ends at 14.6. Step 7 is marked done. |
+
+- Below 900px wide the page is enlarged (CSS zoom 2.3), as in step 5.

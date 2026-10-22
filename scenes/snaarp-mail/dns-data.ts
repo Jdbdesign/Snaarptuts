@@ -93,4 +93,7 @@ export const CAPTIONS = {
   publish: "You can publish automatically for some providers",
   manual: "We will add the records by hand. Keep Manual Setup",
   next: "Next, open your Cloudflare dashboard and add these records",
+  // Step 7
+  confirm: "Back in Snaarp, click Mark submitted on each record",
+  continue: "Click Continue",
 };
