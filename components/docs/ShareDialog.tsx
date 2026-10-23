@@ -98,7 +98,7 @@ export function ShareDialog({ tl, title }: Props) {
               </span>
             )}
 
-            <div className={`${card} left-[36px] top-[17px] w-[236px] ${menu === "access" ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`}>
+            <div className={`${card} left-[36px] top-[17px] w-[262px] ${menu === "access" ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"}`}>
               {SHARE.accessOptions.map((id) => (
                 <div key={id} data-tl={`share-access-opt-${id}`} className={`${row} h-[36px] gap-[6px] px-[6px]`}>
                   <span className="flex w-[12px] justify-center text-[#1A73E8]">{access === id && <Icon name="check" size={10} />}</span>
