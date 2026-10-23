@@ -421,7 +421,7 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 
 # Snaarp Doc ("How to use Snaarp Doc", route `/tutorials/snaarp-doc`)
 
-Config: `tutorials/snaarp-doc.ts` (9 steps listed, PROVISIONAL: more steps will be added from later recordings; steps 1 to 8 are built, step 9 shows "Coming soon"). Recording: `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15, git-ignored; frames of the first 16 s in `ref/docs/frames-step1/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
+Config: `tutorials/snaarp-doc.ts` (9 steps listed, PROVISIONAL: more steps will be added from later recordings; all 9 steps are built). Recording: `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15, git-ignored; frames of the first 16 s in `ref/docs/frames-step1/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
 
 Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, content area; copy and sample values in `components/docs/docs-data.ts`). Pass `active` ("documents" | "starred" | "trash" | null) and the screen as children; the layout itself never changes between screens. Under 900px wide the app rail and sidebar become icon-only columns and the whole layout is enlarged (CSS zoom 2.4). `components/docs/PageThumb.tsx` draws the generic page thumbnails (no screenshots).
 
@@ -558,3 +558,21 @@ Steps 4 to 8 are small scenes on **`components/docs/EditorStage.tsx`** (DocEdito
 | 7.5 | Caption "Click the back arrow to return to your document". Cursor to the back arrow, ring, click. |
 | 9.0 | The editor returns ("Project Brief"). |
 | 11.0 | Quick white fade. Ends at 11.4. |
+
+## Doc step 9 - Print your document (last step so far)
+
+- Files: `scenes/snaarp-doc/Step9Print.tsx`, `step9-script.ts`, `step9-data.ts` (captions, URL; the panel's copy is in `components/docs/print-data.ts`). `durationMs` 13400. Starts with the title "Project Brief". New shared piece **`components/docs/PrintDialog.tsx`**: a modal (dim backdrop, 760 px wide card, 14 px corners) with a light grey preview area (blank white page, "1 / 1") on the left and "Print", "1 sheet of paper", four settings (Destination: Save as PDF, Pages: All, Layout: Portrait, Color: Color), "More settings", a blue Print and an outlined Cancel button on the right. Under 900 px it stacks (preview on top, smaller, settings below). Hooks: `print-settings`, `print-setting-<id>`, `print-btn`, `print-cancel`. Scene variable `print`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click File". Cursor to File, ring, click; the menu opens. |
+| 2.4 | Caption "Click Print. You can also press Ctrl+P". Cursor moves down to Print (Ctrl+P visible), ring on the item. |
+| 4.0 | Click Print; the menu closes. |
+| 4.8 | The print panel opens. Caption "A print window opens". |
+| 6.5 | Caption "Choose where to print and your settings". Ring on the settings list; the cursor hovers Destination, Pages, Layout and Color (0.5 s each). |
+| 9.5 | Caption "Click Print to send it, or Cancel to go back". Ring on both buttons. |
+| 11.0 | Cursor to Cancel, click; the panel closes. |
+| 13.0 | Quick white fade. Ends at 13.4. Step 9 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc."). |
+
+- Recording timestamps: File menu with the greyed Details / Language about 2:00-2:08, the browser's print window about 2:08-2:14 (not copied).

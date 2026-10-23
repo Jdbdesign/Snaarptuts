@@ -187,7 +187,22 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Step 6 toast texts** ("Uploading to Drive...", "Saved to Drive: Untitled Document (Copy).docx") come from the brief; the recording does not show them.
 - **Version history page** follows the recording (back arrow, print and 100% row, grey "Empty document" area, right panel with "All versions", the empty-state text and "Show changes"); the "Loading..." line the recording shows for a moment is skipped.
 - **Placeholder URLs:** every Snaarp Doc address except `docs.snaarp.com/trash` is a guess (`.../untitled`, `.../untitled-copy`, `.../version-history`). Step 4 starts on `.../untitled`; steps 5 to 8 start on `.../untitled-copy`.
-- **Step 9 (Print)** is still "Coming soon".
+
+## Snaarp Doc step 9 (Print your document)
+
+- **The browser's print window is not copied:** the recording opens the browser's own dark print window with a real printer name. Step 9 draws a neutral Snaarp-styled panel instead (`PrintDialog`): blank page preview, "Print" / "1 sheet of paper", Destination "Save as PDF", Pages "All", Layout "Portrait", Color "Color", "More settings", Print and Cancel. No printer, computer or brand names. The recording's Details and Language hover (both greyed out) is not repeated.
+- **Cursor on the settings** (hovering Destination, Pages, Layout and Color) is in the brief, not in the recording.
+- **Print panel width:** 760 px at the 1440 design width, as in the brief (520 px stacked on narrow screens).
+
+## Snaarp Doc: double-check before launch
+
+1. **Placeholder URL pills:** every address except `docs.snaarp.com/trash` is a guess (`/documents`, `/templates`, `/document/new`, `/document/untitled`, `/document/untitled-copy`, `/document/version-history`). Replace them in `tutorials/snaarp-doc.ts` and the step data files (`stepN-data.ts`).
+2. **"Anyone with the link" options** in the Share dialog are inferred (the recording cuts that moment); the role card (Viewer, Commenter, Editor) follows the recording. Check the wording and the grey lines with the product team.
+3. **Redrawn panels:** the Rename dialog and the Print panel are Snaarp-styled redraws, not the browser's own windows. Confirm they are the look you want, and that the real product does not use a different rename or print flow.
+4. **Sample document names and data:** Product Roadmap, Project Proposal, "Untitled Document (Copy)", "Project Brief", user Jane Doe (jane@acme-studio.com). Change them in `scenes/snaarp-doc/step1-data.ts` and `components/docs/doc-titles.ts` if needed.
+5. **Toast texts** in step 6 ("Uploading to Drive...", "Saved to Drive: ...docx") come from the brief, not the recording.
+6. **Icons** in the editor, File menu and dialogs are redraws, close to but not identical to the real ones.
+7. **The step list is provisional:** more steps will be added from later videos; the completion card follows the last step in `tutorials/snaarp-doc.ts` automatically.
 
 ## Choices that are not deviations (kept on purpose)
 

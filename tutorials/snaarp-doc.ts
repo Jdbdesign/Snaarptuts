@@ -14,11 +14,13 @@ import { Step7Rename } from "@/scenes/snaarp-doc/Step7Rename";
 import { runStep7, STEP7_DURATION_MS } from "@/scenes/snaarp-doc/step7-script";
 import { Step8History } from "@/scenes/snaarp-doc/Step8History";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/snaarp-doc/step8-script";
+import { Step9Print } from "@/scenes/snaarp-doc/Step9Print";
+import { runStep9, STEP9_DURATION_MS } from "@/scenes/snaarp-doc/step9-script";
 import type { Tutorial } from "./types";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". The step list is PROVISIONAL (more steps will come from later
- * recordings): steps 1 to 8 are built, step 9 shows as "Coming soon". To add a step, give it a `scene`
+ * recordings): all 9 steps are built. To add a step, give it a `scene`
  * ({ Component, run, durationMs }) and add its folder under scenes/snaarp-doc/.
  * Recording: ref/docs/Snaarp_Doc_flow.mp4 (1010x480, 2:15, git-ignored).
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.
@@ -74,7 +76,12 @@ export const snaarpDoc: Tutorial = {
       url: "docs.snaarp.com/document/untitled-copy",
       scene: { Component: Step8History, run: runStep8, durationMs: STEP8_DURATION_MS },
     },
-    { id: "print", title: "Print your document", url: "docs.snaarp.com/document/untitled-copy" },
+    {
+      id: "print",
+      title: "Print your document",
+      url: "docs.snaarp.com/document/untitled-copy",
+      scene: { Component: Step9Print, run: runStep9, durationMs: STEP9_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
