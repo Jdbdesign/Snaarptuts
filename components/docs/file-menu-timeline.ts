@@ -30,3 +30,26 @@ export async function hoverDownloadItem(tl: Timeline, id: string, opts: { ms?: n
   await tl.moveCursorTo(sel, { ms: opts.ms ?? 300, dx: -20 });
   tl.hover(sel);
 }
+
+/** Move to "File" in the editor's menu row, ring it, click it and open the menu. */
+export async function clickFileMenu(tl: Timeline, opts: { ms?: number } = {}) {
+  const sel = "[data-tl=editor-menu-file]";
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 700 });
+  tl.highlight(sel);
+  await tl.wait(150);
+  await tl.click(sel);
+  tl.clearHighlight();
+  openFileMenu(tl);
+}
+
+/** Move onto a File menu item, ring it, click it and close the menu. */
+export async function chooseFileMenuItem(tl: Timeline, id: string, opts: { ms?: number } = {}) {
+  const sel = `[data-tl=file-item-${id}]`;
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 500, dx: -30 });
+  tl.hover(sel);
+  tl.highlight(sel);
+  await tl.wait(150);
+  await tl.click(sel);
+  tl.clearHighlight();
+  closeFileMenu(tl);
+}
