@@ -10,6 +10,8 @@ import { Step5Share } from "@/scenes/snaarp-doc/Step5Share";
 import { runStep5, STEP5_DURATION_MS } from "@/scenes/snaarp-doc/step5-script";
 import { Step6Drive } from "@/scenes/snaarp-doc/Step6Drive";
 import { runStep6, STEP6_DURATION_MS } from "@/scenes/snaarp-doc/step6-script";
+import { Step7Rename } from "@/scenes/snaarp-doc/Step7Rename";
+import { runStep7, STEP7_DURATION_MS } from "@/scenes/snaarp-doc/step7-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -58,7 +60,12 @@ export const snaarpDoc: Tutorial = {
       url: "docs.snaarp.com/document/untitled-copy",
       scene: { Component: Step6Drive, run: runStep6, durationMs: STEP6_DURATION_MS },
     },
-    { id: "rename", title: "Rename your document", url: "docs.snaarp.com/document/untitled-copy" },
+    {
+      id: "rename",
+      title: "Rename your document",
+      url: "docs.snaarp.com/document/untitled-copy",
+      scene: { Component: Step7Rename, run: runStep7, durationMs: STEP7_DURATION_MS },
+    },
     { id: "version-history", title: "Check version history", url: "docs.snaarp.com/document/version-history" },
     { id: "print", title: "Print your document", url: "docs.snaarp.com/document/untitled-copy" },
   ],
