@@ -21,7 +21,11 @@ export function HomeScreen({ narrow }: { narrow: boolean }) {
 
         <div className="mt-[13px] flex gap-[12.5px]">
           <Card name={HOME.blank}>
-            <div className="flex w-full items-center justify-center rounded-[4px] border border-[#E3E5EA] bg-white" style={{ aspectRatio: "0.78" }}>
+            <div
+              data-tl="blank-card"
+              className="flex w-full items-center justify-center rounded-[4px] border border-[#E3E5EA] bg-white transition-colors data-[hover=true]:border-[#3F72D4]"
+              style={{ aspectRatio: "0.78" }}
+            >
               <Icon name="plus" size={30} className="text-[#3F72D4]" />
             </div>
           </Card>

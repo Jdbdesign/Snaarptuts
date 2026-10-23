@@ -94,7 +94,7 @@ Config: `tutorials/snaarp-doc.ts` (9 provisional steps; more will be added from 
 | Step | Status |
 |---|---|
 | 1. Explore Snaarp Doc (`docs.snaarp.com/documents`) | Done (about 15.4 s) |
-| 2. Create a blank document | Not built |
+| 2. Create a blank document (`docs.snaarp.com/document/new`) | Done (about 10.4 s) |
 | 3. Explore the editor and File menu | Not built |
 | 4. Make a copy | Not built |
 | 5. Share your document | Not built |
@@ -104,6 +104,8 @@ Config: `tutorials/snaarp-doc.ts` (9 provisional steps; more will be added from 
 | 9. Print your document | Not built |
 
 Step 1: `scenes/snaarp-doc/Step1Explore.tsx`, `step1-script.ts`, `step1-data.ts` (all copy, sample documents, templates, captions, URLs), screens in `scenes/snaarp-doc/step1/` (`HomeScreen`, `GalleryScreen`, `TrashScreen`; scene variable `screen` a/b/c). The reusable shell is `components/docs/DocsLayout.tsx` (app rail, sidebar, top bar, content area; `active` = "documents" | "starred" | "trash" | null; copy in `components/docs/docs-data.ts`); every later Snaarp Doc step should wrap its screens in it. `components/docs/PageThumb.tsx` draws the generic page thumbnails. Under 900px the rail and sidebar become icon-only and the layout is zoomed 2.4x. New icons (`sun`, `docFile`, `folder`, `listView`, `clock`, `restore`, `logout`, `chevronLeft`, `adminSquare`) are in `components/icons.tsx`. Differences from the recording: see `docs/DECISIONS-AND-DEVIATIONS.md`.
+
+Step 2: `scenes/snaarp-doc/Step2Blank.tsx`, `step2-script.ts`, `step2-data.ts` (captions, URLs, document title). It reuses the Step 1 `HomeScreen` inside `DocsLayout`, then swaps the whole screen to the editor (scene variable `stage`: home / loading / editor). New shared piece **`components/docs/DocEditor.tsx`** (data in `components/docs/editor-data.ts`: menu names, toolbar order, header icons, footer copy): the editor's own full-width chrome (header with title, .DOCX badge, menus, Editing/Suggesting toggle, Share, JD avatar; one-row toolbar; ruler; grey-blue canvas with a white page; two footer lines; `loading` state). Props: `title`, `children` (the page content), `loading`, `overlay`. It does NOT use `DocsLayout`. Its page has `data-tl="editor-page"`, the toolbar `editor-toolbar`, menus `editor-menu-<id>` and tools `tool-<id>`, so later steps can target them. Under 900px the editor is zoomed 2.4x, the toolbar scrolls sideways and the header keeps only Share and the avatar. New icons (`hexMark`, `edUndo` ... `edSuggest`) are in `components/icons.tsx`; `.doc-hex` (loading animation) is in `app/globals.css`. Differences from the recording: see `docs/DECISIONS-AND-DEVIATIONS.md`.
 
 ### Shared pieces (file paths)
 - Product config (names, titles, URLs, scenes): `tutorials/snaarp-360.ts` (types in `tutorials/types.ts`, registry in `tutorials/index.ts`)

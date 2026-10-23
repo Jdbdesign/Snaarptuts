@@ -201,3 +201,24 @@ button {
 .tl-swap {
   animation: tl-swap 0.3s ease-out backwards;
 }
+
+/* Snaarp Doc loading mark: gentle pulse and rotation */
+@keyframes doc-hex {
+  0%,
+  100% {
+    transform: scale(0.92) rotate(-10deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.12) rotate(10deg);
+    opacity: 1;
+  }
+}
+.doc-hex {
+  animation: doc-hex 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .doc-hex {
+    animation: none;
+  }
+}

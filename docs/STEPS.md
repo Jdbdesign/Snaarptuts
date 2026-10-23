@@ -445,3 +445,22 @@ Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, 
 | 15.0 | Caption cleared, quick white fade. Ends at 15.4. Step 1 is marked done. |
 
 - Recording timestamps: A 0:00-0:07 (the recording also shows the grid view and the Starred page, which this step leaves out), B about 0:07-0:11, C about 0:12-0:14.
+
+## Doc step 2 - Create a blank document
+
+- Files: `scenes/snaarp-doc/Step2Blank.tsx`, `step2-script.ts`, `step2-data.ts` (captions, URLs, document title). `durationMs` 10400. URL pill: `docs.snaarp.com/documents`, then `docs.snaarp.com/document/new` (placeholder) from the loading state on.
+- The Documents home is the Step 1 `HomeScreen` inside `DocsLayout` (list view). The editor is the new shared **`components/docs/DocEditor.tsx`** (menus, toolbar order and copy in `components/docs/editor-data.ts`): header (logo mark, bold title, blue .DOCX badge, "All changes saved", Save; menus File / Edit / View / Insert / Format / Tools / Help / eSignature; Editing / Suggesting toggle, outline / comments / history / camera icons, apps icon, blue Share, JD avatar), a one-row toolbar of 17 groups, a ruler with blue indent markers, a grey-blue canvas with a centred white page (about 42% of the width, taller than the screen), an outline button top left, and two footer lines. Its `loading` state fades the header to 35%, hides the rest and shows the pulsing, gently rotating logo mark.
+- Scene variable `stage`: home / loading / editor (a full-screen swap with a 0.3 s fade, DocsLayout is not used inside the editor).
+- Timeline (active seconds):
+
+| Time | What happens |
+|---|---|
+| 0.0 | The Documents home fades in. |
+| 0.8 | Caption "Click Blank document to start a new one". Cursor to the Blank document card (blue border), ring, click. |
+| 2.5 | Loading state. URL pill `docs.snaarp.com/document/new`. Caption "Your new document is opening". |
+| 5.5 | The editor fades in fully. Caption "Your blank document is ready. This is the editor". |
+| 7.0 | Ring around the white page (1.2 s), then around the toolbar. |
+| 9.0 | Ring off. Cursor glides to the middle of the page. |
+| 10.0 | Caption cleared, quick white fade. Ends at 10.4. Step 2 is marked done. |
+
+- Recording timestamps: home about 0:13-0:15 (the recording hovers Blank document first), loading about 0:16-0:20, editor from about 0:20.

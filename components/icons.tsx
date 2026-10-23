@@ -535,6 +535,116 @@ const bodies = {
       <path d="m9 12.2 2.2 2.2 4-4.4" stroke="var(--accent, #fff)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </>
   ),
+  // Snaarp Doc editor
+  hexMark: (
+    <>
+      <path d="M5.5 7.8 12.2 4v13.2L5.5 14V7.8Z" fill="#6D1FD9" />
+      <path d="M8.5 7.4 15 3.8v13.2l-6.5-3.3V7.4Z" fill="#B9A0F2" />
+      <path d="M11.6 7 18.5 4.3v13.4L12 21l-.4-.2V7Z" fill="#DDD1FA" />
+    </>
+  ),
+  edUndo: <path d="M9 4 4.5 8.5 9 13M5 8.5h8.5a5 5 0 0 1 0 10H10" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edRedo: <path d="m15 4 4.5 4.5L15 13M19 8.5h-8.5a5 5 0 0 0 0 10H14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edPrint: (
+    <>
+      <path d="M7 9V4h10v5M7 17H4.5v-8h15v8H17" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" fill="none" />
+      <rect x="7" y="14" width="10" height="6" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  edPaintFormat: <path d="m5 18.5 3.5.5L20 7.5 16.5 4 5 15.5v3ZM13 7.5l3.5 3.5M12 20h8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edZoom: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="m15 15 5 5M10.5 8v5M8 10.5h5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </>
+  ),
+  edMinus: <path d="M7 12h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  edBold: <path d="M7 4.5h5.5a3.5 3.5 0 0 1 0 7H7M7 11.5h6.5a3.5 3.5 0 0 1 0 8H7v-15Z" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round" fill="none" />,
+  edItalic: <path d="M10 4.5h8M6 19.5h8M14.5 4.5l-5 15" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" fill="none" />,
+  edUnderline: <path d="M7 4.5v7a5 5 0 0 0 10 0v-7M5 20h14" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" fill="none" />,
+  edTextColor: <path d="m6 15 6-12 6 12M8.2 11h7.6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edHighlight: <path d="m5 13 8-9 5 4.5-7.5 8.5H7.5L5 13ZM13 4l5 4.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edLink: <path d="M10 14a4 4 0 0 0 5.7 0l3.3-3.3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0L5 13.3A4 4 0 0 0 10.7 19l1-1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none" />,
+  edImage: (
+    <>
+      <rect x="4" y="4.5" width="16" height="15" rx="2.5" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <circle cx="9" cy="9.5" r="1.5" fill="currentColor" />
+      <path d="m5 17 4.5-4.5 3 3 2.5-2.5L19.5 17" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  edAlignL: <path d="M5 6.5h14M5 10.5h9M5 14.5h14M5 18.5h9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  edAlignC: <path d="M5 6.5h14M7.5 10.5h9M5 14.5h14M7.5 18.5h9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  edAlignR: <path d="M5 6.5h14M10 10.5h9M5 14.5h14M10 18.5h9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  edAlignJ: <path d="M5 6.5h14M5 10.5h14M5 14.5h14M5 18.5h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  edLineSpacing: <path d="M8 5v14M5 8l3-3 3 3M5 16l3 3 3-3M14 7h6M14 12h6M14 17h6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edBullets: <path d="M10 7h10M10 12h10M10 17h10M5 7h.01M5 12h.01M5 17h.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  edNumbers: <path d="M11 7h9M11 12h9M11 17h9M4.5 6l1.5-1v4M4.5 14.5h3l-3 3h3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edIndent: <path d="M4.5 5.5h15M12 10h7.5M12 14.5h7.5M4.5 19h15M4.5 9l3 3-3 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edOutdent: <path d="M4.5 5.5h15M12 10h7.5M12 14.5h7.5M4.5 19h15M7.5 9l-3 3 3 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edStrike: <path d="M5 12h14M16.5 7a4.5 3.2 0 0 0-4.5-2.2c-2.5 0-4 1.2-4 2.9 0 1.4 1 2.2 4 2.8M8 17a4.5 3.2 0 0 0 4.5 2.2c2.5 0 4-1.2 4-2.9 0-.7-.3-1.2-.8-1.6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" fill="none" />,
+  edSup: <path d="m4.5 9 8 9M12.5 9l-8 9M16 4.5c1-.9 3.5-.9 3.5.8 0 1.3-3.5 2.2-3.5 3.7h3.7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edSub: <path d="m4.5 6 8 9M12.5 6l-8 9M16 14c1-.9 3.5-.9 3.5.8 0 1.3-3.5 2.2-3.5 3.7h3.7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edQuote: <path d="M5 6h5.5v6c0 3-1.5 5-4.5 5.5M13.5 6H19v6c0 3-1.5 5-4.5 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edHr: <path d="M6 12h12" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" />,
+  edTable: (
+    <>
+      <rect x="4" y="4.5" width="16" height="15" rx="1.8" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M4 9.5h16M4 14.5h16M9.5 4.5v15M14.5 4.5v15" stroke="currentColor" strokeWidth="1.5" />
+    </>
+  ),
+  edFullscreen: <path d="M4.5 9V4.5H9M15 4.5h4.5V9M19.5 15v4.5H15M9 19.5H4.5V15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edPen: <path d="m15 5.5 3.5 3.5L8 19.5l-4.5 1 1-4.5L15 5.5ZM13.5 7l3.5 3.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  edPenTag: (
+    <>
+      <path d="m13.5 4.5 3.5 3.5-8 8-4 .5.5-4 8-8Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="m14 15 3-.5 3.5 3.5-3 3-3.5-3.5L14 15Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  edEmoji: (
+    <>
+      <circle cx="12" cy="12" r="8.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M9 14.2a4 4 0 0 0 6 0M9.2 9.8h.01M14.8 9.8h.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </>
+  ),
+  edSignature: (
+    <>
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M7 15.5c1.5-3 3-3 3.5-1s1.5 1 2.5-1M15 15.5h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  edComment: <path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 3.5V16.5H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" fill="none" />,
+  edHistory: (
+    <>
+      <path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" fill="none" />
+      <path d="M4.5 4.5v4h4M12 8v4.5l3 1.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  edCamera: (
+    <>
+      <rect x="3.5" y="7" width="12" height="10" rx="2.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="m15.5 11 5-2.5v7L15.5 13" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  edSave: (
+    <>
+      <path d="M5 4.5h11l3.5 3.5v10.5a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="M8 4.5v4.5h7V4.5M8 19.5v-6h8v6" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  edShare: (
+    <>
+      <circle cx="17.5" cy="6" r="2.4" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <circle cx="6.5" cy="12" r="2.4" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <circle cx="17.5" cy="18" r="2.4" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="m8.6 10.8 6.8-3.6M8.6 13.2l6.8 3.6" stroke="currentColor" strokeWidth="1.6" fill="none" />
+    </>
+  ),
+  edSuggest: (
+    <>
+      <rect x="4" y="4.5" width="16" height="15" rx="2.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M12 8.5v7M8.5 12h7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

@@ -155,6 +155,16 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Placeholder URLs:** every address except `docs.snaarp.com/trash` is a guess (`/documents`, `/templates`, and the step 2-9 addresses in `tutorials/snaarp-doc.ts`).
 - **Step list is provisional** (9 steps from the owner's brief); steps 2-9 are not built.
 
+## Snaarp Doc step 2 (Create a blank document)
+
+- **Loading state follows the recording, not the brief:** the recording shows only the faded header (title, badge, status, Save, buttons, avatar), the menus File / Edit / View / Tools / Help (Insert, Format and eSignature appear later), the faded footer line ("0 words" / "v1") and the pulsing logo mark. The toolbar, ruler and page are not there yet, so here they fade in when the editor opens.
+- **Logo mark:** the recording shows a small purple layered gem (three stacked slices); `hexMark` is a redraw of it, not an exact copy.
+- **Screen change:** the recording cross-fades from the home (faded, with the mark on top) into the editor and shows the new "Untitled Document / Just now" row at the top of the recent list. This step does a short fade to a white editor instead and does not add the new row.
+- **Hover on Blank document:** the card gets a blue border (as in the recording); this needed a small hook on the Step 1 home card (`data-tl="blank-card"`).
+- **Profile photo** replaced by the "JD" initials circle (purple).
+- **Toolbar icons** are redrawn to match the recording's order; they are close, not identical. The scroll bar on the right of the canvas and the document's scrolling are not drawn (the page is taller than the screen, so it runs off the bottom).
+- **Placeholder URL:** `docs.snaarp.com/document/new` (the address bar is not visible in the recording).
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).

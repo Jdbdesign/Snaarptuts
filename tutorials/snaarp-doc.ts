@@ -1,10 +1,12 @@
 import { Step1Explore } from "@/scenes/snaarp-doc/Step1Explore";
 import { runStep1, STEP1_DURATION_MS } from "@/scenes/snaarp-doc/step1-script";
+import { Step2Blank } from "@/scenes/snaarp-doc/Step2Blank";
+import { runStep2, STEP2_DURATION_MS } from "@/scenes/snaarp-doc/step2-script";
 import type { Tutorial } from "./types";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". The step list is PROVISIONAL (more steps will come from later
- * recordings): only step 1 is built, the rest show as "Coming soon". To add a step, give it a `scene`
+ * recordings): steps 1 and 2 are built, the rest show as "Coming soon". To add a step, give it a `scene`
  * ({ Component, run, durationMs }) and add its folder under scenes/snaarp-doc/.
  * Recording: ref/docs/Snaarp_Doc_flow.mp4 (1010x480, 2:15, git-ignored).
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.
@@ -18,7 +20,12 @@ export const snaarpDoc: Tutorial = {
       url: "docs.snaarp.com/documents",
       scene: { Component: Step1Explore, run: runStep1, durationMs: STEP1_DURATION_MS },
     },
-    { id: "create-blank", title: "Create a blank document", url: "docs.snaarp.com/document/new" },
+    {
+      id: "create-blank",
+      title: "Create a blank document",
+      url: "docs.snaarp.com/document/new",
+      scene: { Component: Step2Blank, run: runStep2, durationMs: STEP2_DURATION_MS },
+    },
     { id: "editor-file-menu", title: "Explore the editor and File menu", url: "docs.snaarp.com/document/untitled" },
     { id: "make-copy", title: "Make a copy", url: "docs.snaarp.com/document/untitled-copy" },
     { id: "share", title: "Share your document", url: "docs.snaarp.com/document/untitled-copy" },
