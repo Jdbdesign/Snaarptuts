@@ -421,7 +421,7 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 
 # Snaarp Doc ("How to use Snaarp Doc", route `/tutorials/snaarp-doc`)
 
-Config: `tutorials/snaarp-doc.ts` (9 steps listed, PROVISIONAL: more steps will be added from later recordings; only step 1 is built, the rest show "Coming soon"). Recording: `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15, git-ignored; frames of the first 16 s in `ref/docs/frames-step1/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
+Config: `tutorials/snaarp-doc.ts` (9 steps listed, PROVISIONAL: more steps will be added from later recordings; steps 1 to 8 are built, step 9 shows "Coming soon"). Recording: `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15, git-ignored; frames of the first 16 s in `ref/docs/frames-step1/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
 
 Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, content area; copy and sample values in `components/docs/docs-data.ts`). Pass `active` ("documents" | "starred" | "trash" | null) and the screen as children; the layout itself never changes between screens. Under 900px wide the app rail and sidebar become icon-only columns and the whole layout is enlarged (CSS zoom 2.4). `components/docs/PageThumb.tsx` draws the generic page thumbnails (no screenshots).
 
@@ -483,3 +483,78 @@ Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, 
 | 12.0 | Caption cleared, quick white fade. Ends at 12.4. Step 3 is marked done. |
 
 - Recording timestamps: the tour about 0:22-0:28, the open File menu about 0:28-0:34 (a later zoom at 1:34 shows the Download submenu).
+
+## Doc steps 4-8 - shared pieces
+
+Steps 4 to 8 are small scenes on **`components/docs/EditorStage.tsx`** (DocEditor + FileMenu + DocToast, a fade-in at 0 s and the quick white fade at the end). Each step passes the title it starts with (`DOC_TITLES` in `components/docs/doc-titles.ts`): step 4 "Untitled Document"; steps 5, 6, 7 "Untitled Document (Copy)"; step 8 "Project Brief". Scripts change the scene variable `title`. New shared pieces: `DocToast` (+ `showDocToast` / `hideDocToast`), `ShareDialog`, `RenameDialog`, `VersionHistoryPage`, and the File menu helpers `clickFileMenu` / `chooseFileMenuItem` (`components/docs/file-menu-timeline.ts`). Dialogs reuse the admin `Modal`.
+
+## Doc step 4 - Make a copy
+
+- Files: `scenes/snaarp-doc/Step4Copy.tsx`, `step4-script.ts`, `step4-data.ts`. `durationMs` 11400. URL pill `docs.snaarp.com/document/untitled`, then `.../untitled-copy` (placeholders).
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click File". Cursor to File, ring, click; the menu opens. |
+| 2.4 | Caption "Open lets you pick a file from your computer". Cursor hovers Open for 1.2 s. |
+| 4.0 | Caption "Click Make a copy". Cursor to the item, ring, click; the menu closes. |
+| 5.0 | Loading state (faded chrome, pulsing mark), title becomes "Untitled Document (Copy)", URL pill changes, toast "Copy created" slides in. |
+| 7.5 | The editor fades back in. Caption "Your copy opens as a new document". Ring on the title. |
+| 9.5 | Ring off, toast fades out. |
+| 11.0 | Quick white fade. Ends at 11.4. |
+
+## Doc step 5 - Share your document
+
+- Files: `Step5Share.tsx`, `step5-script.ts`, `step5-data.ts` (dialog copy in `components/docs/share-data.ts`). `durationMs` 20400.
+
+| Time | What happens |
+|---|---|
+| 0.8 | Caption "Click File, then Share". File opens, cursor moves to Share, click. |
+| 3.0 | Share dialog (Restricted, input focused with a blue border). Caption "Add people by name or email". Ring on the input. |
+| 5.5 | Caption "Restricted means only people you add can open the document". Ring on General access. |
+| 8.0 | Cursor clicks the "Restricted" dropdown (two options), picks "Anyone with the link": green globe, role "Viewer". Caption "Choose who can open it. Here, anyone with the link". |
+| 11.0 | Caption "Choose what people with the link can do". Role dropdown opens (ROLE: Viewer, Commenter, Editor); cursor hovers Commenter. |
+| 13.5 | Cursor picks Editor; the grey text reads "...can edit". |
+| 15.5 | Caption "Use Copy link to share it". Cursor hovers Copy link (ring, no click). |
+| 17.0 | Caption "Click Done". Ring, click; the dialog closes with a scale-down fade. |
+| 20.0 | Quick white fade. Ends at 20.4. |
+
+## Doc step 6 - Download and save to Drive
+
+- Files: `Step6Drive.tsx`, `step6-script.ts`, `step6-data.ts`. `durationMs` 16400.
+
+| Time | What happens |
+|---|---|
+| 0.8 | Caption "Click File". File opens. |
+| 2.4 | Caption "Download lets you save your document in other formats". The Download submenu opens. |
+| 3.6 | Cursor goes down the submenu, about 0.6 s per format (docx, pdf, html, md, txt). Caption "Choose Word, PDF, web page, Markdown or plain text". |
+| 7.0 | Cursor back to Save to Drive. Caption "Save to Drive keeps a copy in your Snaarp Drive". Ring, click; the menu closes. |
+| 8.5 | Toast (loading) "Uploading to Drive...". |
+| 10.8 | Toast becomes success "Saved to Drive: Untitled Document (Copy).docx". Caption "Your document is saved in Drive". Hides at 13.8. |
+| 16.0 | Quick white fade. Ends at 16.4. |
+
+## Doc step 7 - Rename your document
+
+- Files: `Step7Rename.tsx`, `step7-script.ts`, `step7-data.ts`. `durationMs` 11400.
+
+| Time | What happens |
+|---|---|
+| 0.8 | Caption "Click File, then Rename". File opens, cursor moves to Rename, click. |
+| 3.0 | Rename dialog with the current title selected. Caption "Type a new name". |
+| 4.2 | Select all, then "Project Brief" is typed over it. |
+| 6.2 | Caption "Click OK". Ring, click; the dialog closes. |
+| 7.4 | The header title becomes "Project Brief" with a ring. Caption "Your document has a new name". |
+| 11.0 | Quick white fade. Ends at 11.4. |
+
+## Doc step 8 - Check version history
+
+- Files: `Step8History.tsx` (scene variable `screen` editor/history), `step8-script.ts`, `step8-data.ts` (page copy in `components/docs/version-history-data.ts`). `durationMs` 11400. URL pill changes to `docs.snaarp.com/document/version-history` (placeholder).
+
+| Time | What happens |
+|---|---|
+| 0.8 | Caption "Click File, then Version history". File opens, cursor moves to Version history, click. |
+| 3.0 | Quick fade to the Version history page. Caption "Every saved version of your document appears here". Ring on the right panel. |
+| 5.5 | Caption "There are no saved versions yet. They are created automatically as you edit". |
+| 7.5 | Caption "Click the back arrow to return to your document". Cursor to the back arrow, ring, click. |
+| 9.0 | The editor returns ("Project Brief"). |
+| 11.0 | Quick white fade. Ends at 11.4. |

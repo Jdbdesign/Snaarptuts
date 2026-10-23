@@ -174,6 +174,21 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Cursor moves not in the brief:** after the menus ring the cursor drifts to just under "File"; during the toolbar ring it sweeps from Search to the far-right pen, and on narrow screens it stops at Underline because the rest of the toolbar is scrolled out of view. On narrow screens the Editing/Suggesting toggle is not shown, so only the Share button gets the ring.
 - **Placeholder URL:** `docs.snaarp.com/document/untitled` (the address bar is not visible in the recording).
 
+## Snaarp Doc steps 4-8 (copy, share, download and Drive, rename, version history)
+
+- **Left out of the recording:** the computer's file picker (opened by "Open"), the browser's print window, the browser's own rename pop-up, the real profile photo, name and email (sample user Jane Doe, jane@acme-studio.com, avatar "JD" / "J") and the red "Disconnected" status dot.
+- **Email is not shown:** nothing visible happens in the recording when it is clicked.
+- **Rename is completed, not cancelled:** the recording opens the browser's rename pop-up and cancels it. Step 7 uses a Snaarp-styled dialog (like Share), types "Project Brief" and clicks OK, so the tutorial shows the whole action.
+- **"Anyone with the link" options are inferred:** the recording cuts the moment the General access dropdown is open, so the two options (Restricted / Anyone with the link, with a check and a grey line each) are modelled on the role card, which is visible. The role card (ROLE: Viewer, Commenter, Editor) follows the recording.
+- **Share dialog width follows the recording, not the brief:** about 390 px at the 1440 design width (measured from the recording, 27% of its width), not about 440. The Rename dialog is 380 px wide, in the same style. Both use the admin `Modal` (dim backdrop, 14 px corners).
+- **Dialog fonts:** the recording uses an Arial-like face; the dialogs use the site font (Poppins).
+- **Toast position:** bottom right, 46 px above the bottom edge so it clears the two footer lines (the brief says about 24 px from the edges); width follows the text.
+- **Step 4 title change:** the title becomes "Untitled Document (Copy)" as the loading state starts (the recording shows the copy's title already in the loading state), not when the editor fades back in. The caption is hidden during the loading state.
+- **Step 6 toast texts** ("Uploading to Drive...", "Saved to Drive: Untitled Document (Copy).docx") come from the brief; the recording does not show them.
+- **Version history page** follows the recording (back arrow, print and 100% row, grey "Empty document" area, right panel with "All versions", the empty-state text and "Show changes"); the "Loading..." line the recording shows for a moment is skipped.
+- **Placeholder URLs:** every Snaarp Doc address except `docs.snaarp.com/trash` is a guess (`.../untitled`, `.../untitled-copy`, `.../version-history`). Step 4 starts on `.../untitled`; steps 5 to 8 start on `.../untitled-copy`.
+- **Step 9 (Print)** is still "Coming soon".
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).

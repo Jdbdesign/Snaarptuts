@@ -18,7 +18,7 @@ import type { Tutorial } from "./types";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". The step list is PROVISIONAL (more steps will come from later
- * recordings): steps 1 to 8 are built (7 and 8 are added with their steps), the rest show as "Coming soon". To add a step, give it a `scene`
+ * recordings): steps 1 to 8 are built, step 9 shows as "Coming soon". To add a step, give it a `scene`
  * ({ Component, run, durationMs }) and add its folder under scenes/snaarp-doc/.
  * Recording: ref/docs/Snaarp_Doc_flow.mp4 (1010x480, 2:15, git-ignored).
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.
