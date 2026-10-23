@@ -165,6 +165,15 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Toolbar icons** are redrawn to match the recording's order; they are close, not identical. The scroll bar on the right of the canvas and the document's scrolling are not drawn (the page is taller than the screen, so it runs off the bottom).
 - **Placeholder URL:** `docs.snaarp.com/document/new` (the address bar is not visible in the recording).
 
+## Snaarp Doc step 3 (Explore the editor and File menu)
+
+- **File menu width follows the recording, not the brief:** 180 px at the 1440 design width (measured from the recording), not about 245 px. Row height 24 px, dividers 7 px, corner radius 8 px.
+- **Menu position:** the card starts 2 px below the menu row, a little to the left of the "File" label, and overlaps the toolbar, as in the recording.
+- **Icons** in the File menu are redraws (close, not identical).
+- **Download submenu** is built (width 158 px, five items) but not opened in this step's timeline; it is ready for step 6. It was rendered once as a test.
+- **Cursor moves not in the brief:** after the menus ring the cursor drifts to just under "File"; during the toolbar ring it sweeps from Search to the far-right pen, and on narrow screens it stops at Underline because the rest of the toolbar is scrolled out of view. On narrow screens the Editing/Suggesting toggle is not shown, so only the Share button gets the ring.
+- **Placeholder URL:** `docs.snaarp.com/document/untitled` (the address bar is not visible in the recording).
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).

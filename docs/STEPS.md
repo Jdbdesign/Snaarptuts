@@ -464,3 +464,22 @@ Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, 
 | 10.0 | Caption cleared, quick white fade. Ends at 10.4. Step 2 is marked done. |
 
 - Recording timestamps: home about 0:13-0:15 (the recording hovers Blank document first), loading about 0:16-0:20, editor from about 0:20.
+
+## Doc step 3 - Explore the editor and File menu
+
+- Files: `scenes/snaarp-doc/Step3Tour.tsx`, `step3-script.ts`, `step3-data.ts` (captions, URL). `durationMs` 12400. URL pill `docs.snaarp.com/document/untitled` (placeholder).
+- The screen is the Step 2 `DocEditor` (empty "Untitled Document"). New shared piece **`components/docs/FileMenu.tsx`**: a white card (180 px wide, 8 px corners, soft shadow) under "File" with 14 items in six groups (New, Open Ctrl+O, Make a copy | Share, Email, Download >, Save to Drive | Rename, Move (grey), Move to trash | Version history | Details (grey), Language (grey) | Print Ctrl+P); the hovered item gets a light grey fill; greyed items never hover. "Download" has a submenu card (Microsoft Word (.docx), PDF Document (.pdf), Web Page (.html), Markdown (.md), Plain Text (.txt)). All of it is in `components/docs/file-menu-data.ts`. While open, the "File" label has a grey fill. Scene variables: `fileMenu`, `fileSub`.
+- Timeline (active seconds):
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "These are your menus". Ring around the menu row. |
+| 2.8 | Caption "The toolbar has your formatting tools". Ring around the toolbar; the cursor sweeps slowly left to right across it. |
+| 5.0 | Caption "Editing mode and Share are at the top right". Rings around the Editing/Suggesting toggle and Share. |
+| 7.0 | Caption "Click File". Cursor to File, ring, click. The File menu opens. |
+| 8.8 | Caption "The File menu holds the actions for your document". The cursor hovers New, Open and Make a copy (0.5 s each). |
+| 11.2 | Cursor moves to an empty part of the canvas and clicks; the menu closes. |
+| 12.0 | Caption cleared, quick white fade. Ends at 12.4. Step 3 is marked done. |
+
+- Recording timestamps: the tour about 0:22-0:28, the open File menu about 0:28-0:34 (a later zoom at 1:34 shows the Download submenu).

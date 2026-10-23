@@ -645,6 +645,39 @@ const bodies = {
       <path d="M12 8.5v7M8.5 12h7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
     </>
   ),
+  // Snaarp Doc file menu
+  chevronRight: <path d="m9.5 6 6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  fmNew: (
+    <>
+      <path d="M7 3.5h6.5L18 8v11.5a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="M12 11v6M9 14h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  fmOpen: <path d="M3.5 7a1.5 1.5 0 0 1 1.5-1.5h4l2 2.5h7.5A1.5 1.5 0 0 1 20 9.5V10M3.5 7v10.5A1.5 1.5 0 0 0 5 19h12.5l2.4-7.5a1 1 0 0 0-1-1.3H8.2L5.5 19" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" fill="none" />,
+  fmEmail: (
+    <>
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="m4 7.5 8 6 8-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  fmDrive: (
+    <>
+      <path d="M4 14.5 6.5 6h11L20 14.5v3.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3.5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="M4 14.5h16M16 16.7h.01" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  fmMove: (
+    <>
+      <path d="M3.5 7a1.5 1.5 0 0 1 1.5-1.5h4l2 2.5h8A1.5 1.5 0 0 1 20.5 9.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5V7Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="M9 13.5h6M12.5 11l2.5 2.5-2.5 2.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  fmInfo: (
+    <>
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M12 11v5M12 8h.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

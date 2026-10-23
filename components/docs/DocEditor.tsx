@@ -17,13 +17,15 @@ type Props = {
   loading?: boolean;
   /** Rendered above everything (menus, dialogs). */
   overlay?: ReactNode;
+  /** Id of the header menu that is open (it gets a light grey fill), e.g. "file". */
+  openMenu?: string | null;
 };
 
 /**
  * The Snaarp Doc editor: its own full-width chrome (header, menus, toolbar, ruler, canvas, footer).
  * It does not use DocsLayout. The page is a plain container, so later steps can put real text in it.
  */
-export function DocEditor({ title, children, loading = false, overlay }: Props) {
+export function DocEditor({ title, children, loading = false, overlay, openMenu = null }: Props) {
   const narrow = useNarrow();
   // Page position in the canvas (also drives the ruler).
   const pageBox = narrow ? { left: "7%", width: "86%" } : { left: "28.9%", width: "42.2%" };
@@ -31,7 +33,7 @@ export function DocEditor({ title, children, loading = false, overlay }: Props) 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white text-[#111]">
       <div className="flex h-full w-full flex-col" style={{ zoom: narrow ? NARROW_ZOOM : 1 }}>
-        <Header title={title} loading={loading} narrow={narrow} />
+        <Header title={title} loading={loading} narrow={narrow} openMenu={openMenu} />
 
         <div className={`flex min-h-0 flex-1 flex-col transition-opacity duration-500 motion-reduce:transition-none ${loading ? "opacity-0" : "opacity-100"}`}>
           <Toolbar />
@@ -79,7 +81,7 @@ export function DocEditor({ title, children, loading = false, overlay }: Props) 
   );
 }
 
-function Header({ title, loading, narrow }: { title: string; loading: boolean; narrow: boolean }) {
+function Header({ title, loading, narrow, openMenu }: { title: string; loading: boolean; narrow: boolean; openMenu: string | null }) {
   return (
     <header className={`relative h-[55px] shrink-0 bg-white transition-opacity duration-500 motion-reduce:transition-none ${loading ? "opacity-35" : "opacity-100"}`}>
       <Icon name="hexMark" size={16} className="absolute left-[13px] top-[18px]" />
@@ -97,22 +99,26 @@ function Header({ title, loading, narrow }: { title: string; loading: boolean; n
           </span>
         )}
       </div>
-      <nav className="absolute left-[51px] top-[29px] flex h-[20px] items-center gap-[15px] text-[10px]">
-        {MENUS.map((m) => (
-          <span
-            key={m.id}
-            data-tl={`editor-menu-${m.id}`}
-            className={`rounded-[4px] transition-colors data-[hover=true]:bg-[#F1F2F5] ${!m.early && loading ? "opacity-0" : ""}`}
-          >
-            {m.label}
-          </span>
-        ))}
-      </nav>
+      <div className="absolute left-[45px] top-[29px]">
+        <nav data-tl="editor-menubar" className="flex h-[20px] items-center gap-[15px] rounded-[5px] px-[6px] text-[10px]">
+          {MENUS.map((m) => (
+            <span
+              key={m.id}
+              data-tl={`editor-menu-${m.id}`}
+              className={`rounded-[4px] transition-colors data-[hover=true]:bg-[#F1F2F5] ${
+                openMenu === m.id ? "bg-[#ECEDF1]" : ""
+              } ${!m.early && loading ? "opacity-0" : ""}`}
+            >
+              {m.label}
+            </span>
+          ))}
+        </nav>
+      </div>
 
       <div className="absolute right-[6px] top-[12px] flex h-[29px] items-center gap-[7px]">
         {!narrow && (
           <>
-            <div className="flex h-[19px] items-stretch overflow-hidden rounded-[5px] border border-[#E3E5EA] text-[8.5px]">
+            <div data-tl="editor-mode" className="flex h-[19px] items-stretch overflow-hidden rounded-[5px] border border-[#E3E5EA] text-[8.5px]">
               <span className="flex w-[55px] items-center justify-center gap-[4px] bg-[#111] font-medium text-white">
                 <Icon name="pencil" size={9} />
                 {EDITOR.editing}
