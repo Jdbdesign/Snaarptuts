@@ -418,3 +418,30 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 | 21.0 | Step ends, Step 9 is marked done, and about 0.5 s later the shell fades in the completion card ("You're all set" / "Snaarp Mail is ready for your team." with Replay and Back to Snaarp, as in 360). |
 
 - Below 900px wide the card is enlarged (CSS zoom 1.8), the four chips wrap into two rows and the sidebar becomes the icon row (the last icon becomes the white check circle).
+
+# Snaarp Doc ("How to use Snaarp Doc", route `/tutorials/snaarp-doc`)
+
+Config: `tutorials/snaarp-doc.ts` (9 steps listed, PROVISIONAL: more steps will be added from later recordings; only step 1 is built, the rest show "Coming soon"). Recording: `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15, git-ignored; frames of the first 16 s in `ref/docs/frames-step1/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
+
+Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, content area; copy and sample values in `components/docs/docs-data.ts`). Pass `active` ("documents" | "starred" | "trash" | null) and the screen as children; the layout itself never changes between screens. Under 900px wide the app rail and sidebar become icon-only columns and the whole layout is enlarged (CSS zoom 2.4). `components/docs/PageThumb.tsx` draws the generic page thumbnails (no screenshots).
+
+## Doc step 1 - Explore Snaarp Doc
+
+- Files: `scenes/snaarp-doc/Step1Explore.tsx`, `step1-script.ts`, `step1-data.ts` (all copy, sample documents, templates, captions, URLs), screens in `scenes/snaarp-doc/step1/` (`HomeScreen`, `GalleryScreen`, `TrashScreen`). `durationMs` 15400. URL pill: `docs.snaarp.com/documents` (placeholder), `/templates` (placeholder) and `docs.snaarp.com/trash` (seen in the recording).
+- Screens (scene variable `screen` a/b/c; the content area fades white for 0.15 s while it swaps, the rail, sidebar and top bar stay put): A Documents home ("Start a new document" panel with 7 cards, "Recent documents" list with 4 rows); B "Create with templates" (back arrow, search, Upload template, 7 filter chips, grid of 7 columns); C Trash (one deleted "Untitled Document" with Restore and Delete).
+- Sample data: Jane Doe, jane@acme-studio.com, avatar "JD"; documents Product Roadmap, Untitled Document, Project Proposal, Untitled Document (dates 10/16/2026, 10/16/2026, 10/10/2026, 09/20/2026).
+- Timeline (active seconds):
+
+| Time | What happens |
+|---|---|
+| 0.0 | Screen A fades in. |
+| 1.0 | Caption "This is your Snaarp Doc home". Ring on the "Start a new document" panel. |
+| 3.5 | Ring off. Caption "Your recent documents are listed here". Cursor to the grid button (hover), then the list button (hover). |
+| 5.5 | Caption "Click Template gallery". Cursor to the link, ring, click. |
+| 7.0 | Quick fade to screen B (URL pill `/templates`). Caption "Browse ready-made templates by category". Cursor hovers Resumes, Invoices, Papers and Reports. |
+| 10.0 | Caption "Click Trash". Cursor to Trash in the sidebar, ring, click. |
+| 10.8 | Quick fade to screen C (URL pill `/trash`, Trash gets the grey fill). Caption "Deleted documents stay in Trash for 30 days. You can restore them". Cursor drifts to Restore (hover only). |
+| 13.0 | Caption "Click Documents to go back". Cursor to Documents, ring, click. Screen A returns. |
+| 15.0 | Caption cleared, quick white fade. Ends at 15.4. Step 1 is marked done. |
+
+- Recording timestamps: A 0:00-0:07 (the recording also shows the grid view and the Starred page, which this step leaves out), B about 0:07-0:11, C about 0:12-0:14.

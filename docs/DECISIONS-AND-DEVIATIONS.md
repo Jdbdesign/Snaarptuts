@@ -143,6 +143,18 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Download Summary and the other buttons** do nothing (decorative). "Go to Admin Dashboard" only changes screen because the script clicks it.
 - **Narrow screens** (under 900px): card enlarged with CSS zoom 1.8, chips in two rows.
 
+## Snaarp Doc step 1 (Explore Snaarp Doc)
+
+- **Sidebar fill follows the recording, not the brief:** on the template gallery no sidebar item has the grey fill (the recording shows none; only "All Documents" is grey, as on every screen). Documents is filled on screen A and Trash on screen C.
+- **Sidebar width** is 192 px at the 1440 design width (measured from the recording) instead of "about 220".
+- **App rail highlight** for Docs is a light blue-lavender (`#E6EDFB`) as in the recording, not a purple tint.
+- **Rail icons** use the real product logos from `public/logos/` (purple rounded tiles) through `ProductLogo`, like the other admin rails, instead of newly drawn icons. The sidebar header uses the real Docs logo tile too; the recording shows a small purple gem mark.
+- **Left out of the recording:** the profile photo (replaced by the "JD" initials circle), the real document names ("Production Brief Clip 1A" became "Product Roadmap"), the grid view of the document list and the Starred page. The recording also shows a 12th app icon under Logout that is cut off; it is not drawn.
+- **Template previews** are generic grey line drawings, not the real template content. The gallery shows 22 templates (the recording shows 14 plus a cut-off row); how many rows are visible depends on the window height.
+- **Cursor on Restore** (screen C, 11.5-13 s) is not in the brief: it only hovers the button so the cursor does not sit still. Remove it in `step1-script.ts` if unwanted.
+- **Placeholder URLs:** every address except `docs.snaarp.com/trash` is a guess (`/documents`, `/templates`, and the step 2-9 addresses in `tutorials/snaarp-doc.ts`).
+- **Step list is provisional** (9 steps from the owner's brief); steps 2-9 are not built.
+
 ## Choices that are not deviations (kept on purpose)
 
 - Admin surfaces keep their own colors: owner portal black, Admin Panel purple, admin sign-in blue, user login black button. Do not unify them (see `DESIGN-TOKENS.md`).
