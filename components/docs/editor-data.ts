@@ -2,7 +2,10 @@ import type { IconName } from "@/components/icons";
 
 /** Copy, menu names and toolbar order of the Snaarp Doc editor (DocEditor). Edit here, not in the layout code. */
 
+export type EditorMode = "editing" | "suggesting" | "viewing";
+
 export const EDITOR = {
+  outlineTab: "Tab 1",
   badge: ".DOCX",
   saved: "All changes saved",
   unsaved: "Unsaved changes",

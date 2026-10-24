@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { Icon } from "@/components/icons";
 import { useNarrow } from "@/lib/useNarrow";
-import { EDITOR, HEADER_ICONS, MENUS, TOOLBAR, type ToolItem } from "./editor-data";
+import { EDITOR, HEADER_ICONS, MENUS, TOOLBAR, type EditorMode, type ToolItem } from "./editor-data";
 
 /** Narrow screens: the whole editor is enlarged so it stays readable once the scene is scaled down. */
 const NARROW_ZOOM = 2.4;
@@ -21,6 +21,16 @@ type Props = {
   openMenu?: string | null;
   /** Header status: "saved" (default) or the orange "Unsaved changes". */
   status?: "saved" | "unsaved";
+  /** Editing (default), Suggesting or Viewing. Viewing hides the whole toolbar and un-selects both header pills. */
+  mode?: EditorMode;
+  /** The ruler row under the toolbar (View > Show ruler). Default on. */
+  showRuler?: boolean;
+  /** Width in px of a side panel that squeezes the page: the Document tabs panel (left) and the Comments panel (right). Ignored on narrow screens, where panels overlay the page. */
+  leftInset?: number;
+  rightInset?: number;
+  /** The Comments / Document outline panels are open: their header icon gets a light grey fill, and the round outline button hides. */
+  commentsOpen?: boolean;
+  outlineOpen?: boolean;
   /** Overrides for a document with real text. Left out, the toolbar and footer show the blank-document values. */
   live?: {
     /** Toolbar font size box, e.g. "11" or "20". */
@@ -36,25 +46,63 @@ type Props = {
  * The Snaarp Doc editor: its own full-width chrome (header, menus, toolbar, ruler, canvas, footer).
  * It does not use DocsLayout. The page is a plain container, so later steps can put real text in it.
  */
-export function DocEditor({ title, children, loading = false, overlay, openMenu = null, status = "saved", live }: Props) {
+export function DocEditor({
+  title,
+  children,
+  loading = false,
+  overlay,
+  openMenu = null,
+  status = "saved",
+  live,
+  mode = "editing",
+  showRuler = true,
+  leftInset = 0,
+  rightInset = 0,
+  commentsOpen = false,
+  outlineOpen = false,
+}: Props) {
   const narrow = useNarrow();
-  // Page position in the canvas (also drives the ruler).
+  // Page position in the canvas (also drives the ruler). Side panels centre the page in the space that is left.
   const words = live ? `${live.words} ${EDITOR.wordsLabel}` : EDITOR.footerWords;
-  const pageBox = narrow ? { left: "7%", width: "86%" } : { left: "28.9%", width: "42.2%" };
+  const inset = narrow ? 0 : leftInset + rightInset;
+  const pageBox = narrow
+    ? { left: "7%", width: "86%" }
+    : { left: inset ? `calc(${leftInset}px + (57.8% - ${inset}px) / 2)` : "28.9%", width: "42.2%" };
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white text-[#111]">
       <div className="flex h-full w-full flex-col" style={{ zoom: narrow ? NARROW_ZOOM : 1 }}>
-        <Header title={title} loading={loading} narrow={narrow} openMenu={openMenu} status={status} />
+        <Header
+          title={title}
+          loading={loading}
+          narrow={narrow}
+          openMenu={openMenu}
+          status={status}
+          mode={mode}
+          commentsOpen={commentsOpen}
+          outlineOpen={outlineOpen}
+        />
 
         <div className={`flex min-h-0 flex-1 flex-col transition-opacity duration-500 motion-reduce:transition-none ${loading ? "opacity-0" : "opacity-100"}`}>
-          <Toolbar live={live} />
-          <Ruler left={pageBox.left} width={pageBox.width} />
+          <div
+            data-tl="editor-toolbar-row"
+            className="shrink-0 overflow-hidden transition-[height] duration-300 motion-reduce:transition-none"
+            style={{ height: mode === "viewing" ? 0 : 31 }}
+          >
+            <Toolbar live={live} />
+          </div>
+          <div
+            data-tl="editor-ruler-row"
+            className="shrink-0 overflow-hidden transition-[height] duration-300 motion-reduce:transition-none"
+            style={{ height: showRuler ? 19 : 0 }}
+          >
+            <Ruler left={pageBox.left} width={pageBox.width} />
+          </div>
           <div className="relative min-h-0 flex-1 bg-[#EDF0F5]">
             <div data-tl="editor-canvas" className="no-scrollbar absolute inset-0 overflow-y-auto">
               <div
                 data-tl="editor-page"
-                className="relative mx-auto min-h-[1300px] border-x border-[#D6DAE1] bg-white px-[6%] pt-[52px]"
+                className="relative mx-auto min-h-[1300px] border-x border-[#D6DAE1] bg-white px-[6%] pt-[52px] transition-[margin-left] duration-300 motion-reduce:transition-none"
                 style={{ width: pageBox.width, marginLeft: pageBox.left }}
               >
                 {children}
@@ -62,9 +110,13 @@ export function DocEditor({ title, children, loading = false, overlay, openMenu 
             </div>
             <button
               aria-label="Outline"
-              className="absolute left-[9px] top-[6px] flex h-[28px] w-[28px] items-center justify-center rounded-full border border-[#E1E4EA] bg-[#F3F4F7] text-[#6b7280]"
+              data-tl="outline-button"
+              className={`absolute left-[9px] top-[6px] flex h-[28px] w-[28px] items-center gap-[6px] overflow-hidden rounded-full border border-[#E1E4EA] bg-[#F3F4F7] px-[8px] text-[9px] text-[#6b7280] transition-[opacity,width] duration-200 motion-reduce:transition-none data-[hover=true]:w-[64px] ${
+                outlineOpen ? "pointer-events-none opacity-0" : "opacity-100"
+              }`}
             >
-              <Icon name="listView" size={12} />
+              <Icon name="listView" size={12} className="shrink-0" />
+              <span className="whitespace-nowrap font-medium text-[#3d4350]">{EDITOR.outlineTab}</span>
             </button>
           </div>
           <div className="flex h-[19px] shrink-0 items-center justify-between border-t border-[#E3E5EA] bg-white px-[6px] text-[8.5px] text-[#8b909c]">
@@ -93,7 +145,26 @@ export function DocEditor({ title, children, loading = false, overlay, openMenu 
   );
 }
 
-function Header({ title, loading, narrow, openMenu, status }: { title: string; loading: boolean; narrow: boolean; openMenu: string | null; status: "saved" | "unsaved" }) {
+function Header({
+  title,
+  loading,
+  narrow,
+  openMenu,
+  status,
+  mode,
+  commentsOpen,
+  outlineOpen,
+}: {
+  title: string;
+  loading: boolean;
+  narrow: boolean;
+  openMenu: string | null;
+  status: "saved" | "unsaved";
+  mode: EditorMode;
+  commentsOpen: boolean;
+  outlineOpen: boolean;
+}) {
+  const pill = (on: boolean) => (on ? "bg-[#111] font-medium text-white" : "bg-white text-[#8b909c]");
   return (
     <header className={`relative h-[55px] shrink-0 bg-white transition-opacity duration-500 motion-reduce:transition-none ${loading ? "opacity-35" : "opacity-100"}`}>
       <Icon name="hexMark" size={16} className="absolute left-[13px] top-[18px]" />
@@ -134,18 +205,24 @@ function Header({ title, loading, narrow, openMenu, status }: { title: string; l
         {!narrow && (
           <>
             <div data-tl="editor-mode" className="flex h-[19px] items-stretch overflow-hidden rounded-[5px] border border-[#E3E5EA] text-[8.5px]">
-              <span className="flex w-[55px] items-center justify-center gap-[4px] bg-[#111] font-medium text-white">
+              <span data-tl="mode-editing" className={`flex w-[55px] items-center justify-center gap-[4px] transition-colors duration-200 motion-reduce:transition-none ${pill(mode === "editing")}`}>
                 <Icon name="pencil" size={9} />
                 {EDITOR.editing}
               </span>
-              <span className="flex w-[71px] items-center justify-center gap-[4px] bg-white text-[#8b909c]">
+              <span data-tl="mode-suggesting" className={`flex w-[71px] items-center justify-center gap-[4px] transition-colors duration-200 motion-reduce:transition-none ${pill(mode === "suggesting")}`}>
                 <Icon name="edSuggest" size={9} />
                 {EDITOR.suggesting}
               </span>
             </div>
             <span className="mx-[3px] h-[16px] w-px bg-[#E3E5EA]" />
             {HEADER_ICONS.map((h) => (
-              <span key={h.id} className="flex h-[24px] w-[24px] items-center justify-center text-[#1f2430]">
+              <span
+                key={h.id}
+                data-tl={`header-${h.id}`}
+                className={`flex h-[24px] w-[24px] items-center justify-center rounded-[6px] text-[#1f2430] transition-colors ${
+                  (h.id === "comments" && commentsOpen) || (h.id === "outline" && outlineOpen) ? "bg-[#ECEDF1]" : ""
+                }`}
+              >
                 <Icon name={h.icon} size={13} />
               </span>
             ))}

@@ -25,6 +25,11 @@ export type FindState = {
   focus: "find" | "replace" | null;
 };
 
+/** A comment's yellow-orange highlight: a range of text in one block (Snaarp Doc steps 15 to 18). */
+export type Anchor = { id: string; block: number; from: number; to: number };
+/** An invisible marker at a text offset, so a script can point the cursor into the middle of a paragraph. */
+export type Landmark = { id: string; block: number; offset: number };
+
 export type EditorState = {
   blocks: Block[];
   sel: Selection | null;
@@ -37,11 +42,15 @@ export type EditorState = {
   flash: string | null;
   /** Counter for the ids of new blocks. */
   nextId: number;
+  /** Text that carries a comment. */
+  anchors: Anchor[];
+  /** Cursor targets inside the text (drawn as zero-width spans, hook doc-at-<id>). */
+  landmarks: Landmark[];
 };
 
 export type Match = { block: number; from: number; to: number };
-export type MarkKind = "sel" | "current" | "match";
-export type Mark = { from: number; to: number; kind: MarkKind };
+export type MarkKind = "sel" | "current" | "match" | "comment";
+export type Mark = { from: number; to: number; kind: MarkKind; /** The comment anchor id, for kind "comment". */ id?: string };
 
 export const initialFind: FindState = {
   open: false,
@@ -53,7 +62,7 @@ export const initialFind: FindState = {
 };
 
 export function createEditor(blocks: Block[]): EditorState {
-  return { blocks, sel: null, caret: null, clipboard: null, undo: [], redo: [], find: initialFind, flash: null, nextId: 1 };
+  return { blocks, sel: null, caret: null, clipboard: null, undo: [], redo: [], find: initialFind, flash: null, nextId: 1, anchors: [], landmarks: [] };
 }
 
 // ---- reading -----------------------------------------------------------------
@@ -108,18 +117,21 @@ export function marksOf(s: EditorState, i: number, matches: Match[]): Mark[] {
   matches.forEach((m, n) => {
     if (m.block === i) raw.push({ from: m.from, to: m.to, kind: n === cur ? "current" : "match" });
   });
+  s.anchors.forEach((a) => {
+    if (a.block === i) raw.push({ from: a.from, to: a.to, kind: "comment", id: a.id });
+  });
   const sel = selectionIn(s, i);
   if (sel) raw.push({ ...sel, kind: "sel" });
   if (!raw.length) return [];
 
-  const rank: Record<MarkKind, number> = { sel: 3, current: 2, match: 1 };
+  const rank: Record<MarkKind, number> = { sel: 4, current: 3, match: 2, comment: 1 };
   const cuts = [...new Set(raw.flatMap((m) => [m.from, m.to]))].sort((a, b) => a - b);
   const out: Mark[] = [];
   for (let c = 0; c < cuts.length - 1; c++) {
     const from = cuts[c];
     const to = cuts[c + 1];
     const best = raw.filter((m) => m.from <= from && m.to >= to).sort((a, b) => rank[b.kind] - rank[a.kind])[0];
-    if (best) out.push({ from, to, kind: best.kind });
+    if (best) out.push({ from, to, kind: best.kind, id: best.id });
   }
   return out;
 }

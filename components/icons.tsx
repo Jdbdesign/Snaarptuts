@@ -705,6 +705,25 @@ const bodies = {
       <path d="m8.5 12.2 2.6 2.6 4.6-5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </>
   ),
+  // Snaarp Doc View menu, Comments and Outline panels
+  vmOutline: (
+    <>
+      <rect x="4" y="4.5" width="16" height="15" rx="2.2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M9.5 4.5v15" stroke="currentColor" strokeWidth="1.7" />
+    </>
+  ),
+  vmRuler: (
+    <>
+      <path d="m4.5 15.5 10-10 4 4-10 10-4-4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="m8 12 1.6 1.6M10.5 9.5l1.6 1.6M13 7l1.6 1.6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </>
+  ),
+  cmEmpty: (
+    <>
+      <rect x="3.5" y="5" width="17" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M7.5 10h9M7.5 14h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

@@ -19,6 +19,7 @@ import {
   undo,
   type EditorState,
 } from "./editor-state";
+import { COMMENTED_PHRASE } from "./comments-data";
 import { BLOCK_IDS, SAMPLE_BLOCKS } from "./sample-document";
 
 /*
@@ -40,6 +41,27 @@ export const COPIED_EDITOR: EditorState = (() => {
   s = placeCaret(s, { block: last, offset: SAMPLE_BLOCKS[last].text.length });
   return { ...paste(s), flash: null };
 })();
+
+/** Where the commented phrase sits in the sample document (steps 16 to 18). */
+const PHRASE_BLOCK = SAMPLE_BLOCKS.findIndex((b) => b.text.includes(COMMENTED_PHRASE));
+const PHRASE_FROM = SAMPLE_BLOCKS[PHRASE_BLOCK].text.indexOf(COMMENTED_PHRASE);
+const PHRASE_TO = PHRASE_FROM + COMMENTED_PHRASE.length;
+export const PHRASE = { blockId: SAMPLE_BLOCKS[PHRASE_BLOCK].id, block: PHRASE_BLOCK, from: PHRASE_FROM, to: PHRASE_TO };
+
+/** The sample document with invisible cursor targets at both ends of the phrase (start of step 16). */
+export const PHRASE_EDITOR: EditorState = {
+  ...SAMPLE_EDITOR,
+  landmarks: [
+    { id: "phrase-start", block: PHRASE_BLOCK, offset: PHRASE_FROM },
+    { id: "phrase-end", block: PHRASE_BLOCK, offset: PHRASE_TO },
+  ],
+};
+
+/** The sample document with the yellow-orange comment highlight on the phrase "t2" (start of steps 17 and 18). */
+export const COMMENTED_EDITOR: EditorState = {
+  ...SAMPLE_EDITOR,
+  anchors: [{ id: "t2", block: PHRASE_BLOCK, from: PHRASE_FROM, to: PHRASE_TO }],
+};
 
 // ---- state ---------------------------------------------------------------------------
 
@@ -123,6 +145,35 @@ export async function dragSelectBlock(tl: Timeline, blockId: string, opts: { app
     setEditor(tl, (s) => selectRange(s, { block, offset: 0 }, { block, offset: Math.round(len * p) }, true));
   }
   setEditor(tl, (s) => selectRange(s, { block, offset: 0 }, { block, offset: len }, true));
+}
+
+/**
+ * Select a phrase inside a paragraph with the mouse: the cursor goes to the start of the phrase (the landmark
+ * `phrase-start`), presses, and drags to `phrase-end` while the blue highlight grows. The floating toolbar appears.
+ * The state must carry both landmarks (PHRASE_EDITOR).
+ */
+export async function dragSelectPhrase(tl: Timeline, opts: { approachMs?: number; dragMs?: number } = {}) {
+  const { approachMs = 800, dragMs = 1500 } = opts;
+  const { block, from, to } = PHRASE;
+  const start = "[data-tl=doc-at-phrase-start]";
+  const end = "[data-tl=doc-at-phrase-end]";
+
+  await tl.moveCursorTo(start, { ms: approachMs });
+  await tl.click(start);
+  setEditor(tl, (s) => selectRange(s, { block, offset: from }, { block, offset: from }, true));
+
+  const t0 = tl.elapsed;
+  let done = false;
+  tl.moveCursorTo(end, { ms: dragMs, dx: 2 }).then(
+    () => (done = true),
+    () => (done = true), // cancelled with the step; the next wait() rejects too
+  );
+  while (!done) {
+    await tl.wait(40);
+    const p = ease(Math.min(1, (tl.elapsed - t0) / dragMs));
+    setEditor(tl, (s) => selectRange(s, { block, offset: from }, { block, offset: from + Math.round((to - from) * p) }, true));
+  }
+  setEditor(tl, (s) => selectRange(s, { block, offset: from }, { block, offset: to }, true));
 }
 
 /** Click at the end of a paragraph's text: the selection clears and the caret blinks there. */

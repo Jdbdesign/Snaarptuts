@@ -20,9 +20,10 @@ const MARK_STYLE: Record<Mark["kind"], string> = {
   sel: "bg-[#2F6BDB] text-white",
   current: "bg-[#8ED3A4]",
   match: "bg-[#D6F0DF]",
+  comment: "bg-[#F9B208]",
 };
 
-type Piece = { text: string; kind: Mark["kind"] | null };
+type Piece = { text: string; kind: Mark["kind"] | null; id?: string };
 
 /** Split a block's text into pieces: plain text and highlighted ranges. */
 function piecesOf(text: string, marks: Mark[]): Piece[] {
@@ -30,7 +31,7 @@ function piecesOf(text: string, marks: Mark[]): Piece[] {
   let at = 0;
   for (const m of marks) {
     if (m.from > at) out.push({ text: text.slice(at, m.from), kind: null });
-    out.push({ text: text.slice(m.from, m.to), kind: m.kind });
+    out.push({ text: text.slice(m.from, m.to), kind: m.kind, id: m.id });
     at = m.to;
   }
   if (at < text.length) out.push({ text: text.slice(at), kind: null });
@@ -57,14 +58,17 @@ type Props = {
   editor: EditorState;
   /** Show the floating toolbar (hidden while a menu is open). */
   showToolbar: boolean;
+  /** Show a paragraph mark at the end of every block (View > Show non-printing characters). */
+  nonPrinting?: boolean;
 };
 
 /**
  * The text of the white page: headings and paragraphs from the editor state, with the blinking caret, the blue
  * selection, the green find highlights and the floating selection toolbar. Pure drawing: editor-timeline.ts
- * changes the state. Hooks for scripts: doc-block-<id>, doc-start-<id>, doc-end-<id>, doc-match-current.
+ * changes the state. Hooks for scripts: doc-block-<id>, doc-start-<id>, doc-end-<id>, doc-match-current,
+ * doc-comment-<anchor id> (the yellow-orange comment highlight), doc-at-<landmark id>, selection-comment.
  */
-export function DocumentView({ editor, showToolbar }: Props) {
+export function DocumentView({ editor, showToolbar, nonPrinting = false }: Props) {
   const matches = matchesOf(editor);
   const toolbarBlock = editor.sel?.toolbar ? editor.sel.start.block : -1;
 
@@ -72,18 +76,27 @@ export function DocumentView({ editor, showToolbar }: Props) {
     <div className="select-none font-[Arial,Helvetica,sans-serif]">
       {editor.blocks.map((b, i) => {
         const caretAt = editor.caret?.block === i ? editor.caret.offset : -1;
-        const pieces = splitAt(piecesOf(b.text, marksOf(editor, i, matches)), caretAt);
+        const landmarks = editor.landmarks.filter((l) => l.block === i);
+        let pieces = splitAt(piecesOf(b.text, marksOf(editor, i, matches)), caretAt);
+        for (const l of landmarks) pieces = splitAt(pieces, l.offset);
         const firstSel = i === toolbarBlock ? pieces.findIndex((p) => p.kind === "sel") : -1;
 
         const nodes: React.ReactNode[] = [];
         let pos = 0;
+        const markersAt = (at: number, key: string) => {
+          if (caretAt === at) nodes.push(<Caret key={`c${key}`} />);
+          landmarks
+            .filter((l) => l.offset === at)
+            .forEach((l) => nodes.push(<span key={`l${key}${l.id}`} data-tl={`doc-at-${l.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />));
+        };
         pieces.forEach((p, n) => {
-          if (caretAt === pos) nodes.push(<Caret key={`c${n}`} />);
+          markersAt(pos, String(n));
           nodes.push(
             <span
               key={n}
               className={`${p.kind ? `${MARK_STYLE[p.kind]} rounded-[1px]` : ""} ${n === firstSel ? "relative" : ""}`}
               {...(p.kind === "current" ? { "data-tl": "doc-match-current" } : {})}
+              {...(p.kind === "comment" && p.id ? { "data-tl": `doc-comment-${p.id}` } : {})}
             >
               {p.text}
               {n === firstSel && <SelectionToolbar visible={showToolbar} />}
@@ -91,7 +104,7 @@ export function DocumentView({ editor, showToolbar }: Props) {
           );
           pos += p.text.length;
         });
-        if (caretAt === pos) nodes.push(<Caret key="c-end" />);
+        markersAt(pos, "end");
 
         return (
           <div
@@ -102,6 +115,7 @@ export function DocumentView({ editor, showToolbar }: Props) {
             <span data-tl={`doc-start-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
             {nodes}
             <span data-tl={`doc-end-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
+            {nonPrinting && <span aria-hidden className="ml-[3px] select-none text-[#8CA0C7]">¶</span>}
           </div>
         );
       })}
@@ -127,7 +141,11 @@ function SelectionToolbar({ visible }: { visible: boolean }) {
         <span key={g} className="flex items-center">
           {g > 0 && <span className="mx-[5px] h-[13px] w-px bg-white/25" />}
           {group.map((name) => (
-            <span key={name} className="flex h-[22px] w-[22px] items-center justify-center text-white/90">
+            <span
+              key={name}
+              {...(name === "edComment" ? { "data-tl": "selection-comment" } : {})}
+              className="flex h-[22px] w-[22px] items-center justify-center rounded-[5px] text-white/90 transition-colors data-[hover=true]:bg-white/15"
+            >
               <Icon name={name} size={11.5} />
             </span>
           ))}

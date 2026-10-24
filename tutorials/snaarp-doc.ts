@@ -24,11 +24,13 @@ import { Step12Undo } from "@/scenes/snaarp-doc/Step12Undo";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/snaarp-doc/step12-script";
 import { Step13FindReplace } from "@/scenes/snaarp-doc/Step13FindReplace";
 import { runStep13, STEP13_DURATION_MS } from "@/scenes/snaarp-doc/step13-script";
+import { Step14Mode } from "@/scenes/snaarp-doc/Step14Mode";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/snaarp-doc/step14-script";
 import type { Tutorial } from "./types";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". The step list is PROVISIONAL (more steps will come from later
- * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 and up from Snaarp_Doc_edit.mp4. To add a step, give it a `scene`
+ * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 and up from Snaarp_Doc_view.mp4. To add a step, give it a `scene`
  * ({ Component, run, durationMs }) and add its folder under scenes/snaarp-doc/.
  * Recording: ref/docs/Snaarp_Doc_flow.mp4 (1010x480, 2:15, git-ignored).
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.
@@ -113,6 +115,12 @@ export const snaarpDoc: Tutorial = {
       title: "Find and replace",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step13FindReplace, run: runStep13, durationMs: STEP13_DURATION_MS },
+    },
+    {
+      id: "editing-mode",
+      title: "Change the editing mode",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step14Mode, run: runStep14, durationMs: STEP14_DURATION_MS },
     },
   ],
   completion: {
