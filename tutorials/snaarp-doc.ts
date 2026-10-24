@@ -22,6 +22,8 @@ import { Step11CopyPaste } from "@/scenes/snaarp-doc/Step11CopyPaste";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/snaarp-doc/step11-script";
 import { Step12Undo } from "@/scenes/snaarp-doc/Step12Undo";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/snaarp-doc/step12-script";
+import { Step13FindReplace } from "@/scenes/snaarp-doc/Step13FindReplace";
+import { runStep13, STEP13_DURATION_MS } from "@/scenes/snaarp-doc/step13-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -105,6 +107,12 @@ export const snaarpDoc: Tutorial = {
       title: "Select all, delete and undo",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step12Undo, run: runStep12, durationMs: STEP12_DURATION_MS },
+    },
+    {
+      id: "find-replace",
+      title: "Find and replace",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step13FindReplace, run: runStep13, durationMs: STEP13_DURATION_MS },
     },
   ],
   completion: {
