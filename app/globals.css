@@ -222,3 +222,43 @@ button {
     animation: none;
   }
 }
+
+/* Snaarp Doc editor (steps 10-13): blinking text caret and the soft highlight on a pasted paragraph. */
+.doc-caret {
+  display: inline-block;
+  width: 0;
+  height: 1.15em;
+  margin-left: -0.5px;
+  border-left: 1.5px solid currentColor;
+  vertical-align: text-bottom;
+  animation: doc-caret-blink 1.06s steps(1) infinite;
+}
+@keyframes doc-caret-blink {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
+  }
+}
+.doc-pasted {
+  animation: doc-paste-flash 1.6s ease-out both;
+}
+@keyframes doc-paste-flash {
+  from {
+    background-color: #fff1b0;
+  }
+  to {
+    background-color: rgba(255, 241, 176, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doc-caret {
+    animation: none;
+  }
+  .doc-pasted {
+    animation: none;
+  }
+}

@@ -678,6 +678,33 @@ const bodies = {
       <path d="M12 11v5M12 8h.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </>
   ),
+  // Snaarp Doc Edit menu
+  emCut: (
+    <>
+      <circle cx="7" cy="17.5" r="2.6" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <circle cx="17" cy="17.5" r="2.6" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="m8.5 15.3 8-11M15.5 15.3l-8-11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  emPaste: (
+    <>
+      <path d="M8.5 5.5h-2a1.5 1.5 0 0 0-1.5 1.5v11.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V7a1.5 1.5 0 0 0-1.5-1.5h-2" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <rect x="8.5" y="3.5" width="7" height="4" rx="1.2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+    </>
+  ),
+  emPastePlain: (
+    <>
+      <path d="M8.5 5.5h-2a1.5 1.5 0 0 0-1.5 1.5v11.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V7a1.5 1.5 0 0 0-1.5-1.5h-2" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <rect x="8.5" y="3.5" width="7" height="4" rx="1.2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M8.5 12h7M12 12v5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  emSelectAll: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="2.4" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="m8.5 12.2 2.6 2.6 4.6-5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

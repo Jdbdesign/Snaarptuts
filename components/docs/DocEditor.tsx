@@ -19,30 +19,42 @@ type Props = {
   overlay?: ReactNode;
   /** Id of the header menu that is open (it gets a light grey fill), e.g. "file". */
   openMenu?: string | null;
+  /** Header status: "saved" (default) or the orange "Unsaved changes". */
+  status?: "saved" | "unsaved";
+  /** Overrides for a document with real text. Left out, the toolbar and footer show the blank-document values. */
+  live?: {
+    /** Toolbar font size box, e.g. "11" or "20". */
+    size: string;
+    /** The Undo and Redo buttons are active. */
+    canUndo: boolean;
+    canRedo: boolean;
+    words: number;
+  };
 };
 
 /**
  * The Snaarp Doc editor: its own full-width chrome (header, menus, toolbar, ruler, canvas, footer).
  * It does not use DocsLayout. The page is a plain container, so later steps can put real text in it.
  */
-export function DocEditor({ title, children, loading = false, overlay, openMenu = null }: Props) {
+export function DocEditor({ title, children, loading = false, overlay, openMenu = null, status = "saved", live }: Props) {
   const narrow = useNarrow();
   // Page position in the canvas (also drives the ruler).
+  const words = live ? `${live.words} ${EDITOR.wordsLabel}` : EDITOR.footerWords;
   const pageBox = narrow ? { left: "7%", width: "86%" } : { left: "28.9%", width: "42.2%" };
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white text-[#111]">
       <div className="flex h-full w-full flex-col" style={{ zoom: narrow ? NARROW_ZOOM : 1 }}>
-        <Header title={title} loading={loading} narrow={narrow} openMenu={openMenu} />
+        <Header title={title} loading={loading} narrow={narrow} openMenu={openMenu} status={status} />
 
         <div className={`flex min-h-0 flex-1 flex-col transition-opacity duration-500 motion-reduce:transition-none ${loading ? "opacity-0" : "opacity-100"}`}>
-          <Toolbar />
+          <Toolbar live={live} />
           <Ruler left={pageBox.left} width={pageBox.width} />
           <div className="relative min-h-0 flex-1 bg-[#EDF0F5]">
             <div data-tl="editor-canvas" className="no-scrollbar absolute inset-0 overflow-y-auto">
               <div
                 data-tl="editor-page"
-                className="relative mx-auto min-h-[1300px] border-x border-[#D6DAE1] bg-white px-[64px] pt-[64px]"
+                className="relative mx-auto min-h-[1300px] border-x border-[#D6DAE1] bg-white px-[6%] pt-[52px]"
                 style={{ width: pageBox.width, marginLeft: pageBox.left }}
               >
                 {children}
@@ -58,14 +70,14 @@ export function DocEditor({ title, children, loading = false, overlay, openMenu 
           <div className="flex h-[19px] shrink-0 items-center justify-between border-t border-[#E3E5EA] bg-white px-[6px] text-[8.5px] text-[#8b909c]">
             <span className="flex gap-[10px]">
               <span>{EDITOR.footerPages}</span>
-              <span>{EDITOR.footerWords}</span>
+              <span>{words}</span>
             </span>
             <span>{EDITOR.footerZoom}</span>
           </div>
         </div>
 
         <div className={`flex h-[19px] shrink-0 items-center justify-between border-t border-[#EDEEF2] bg-[#F9FAFB] px-[6px] text-[8px] text-[#8b909c] transition-opacity duration-500 motion-reduce:transition-none ${loading ? "opacity-35" : "opacity-100"}`}>
-          <span>{EDITOR.footerWords}</span>
+          <span>{words}</span>
           <span>{EDITOR.footerVersion}</span>
         </div>
       </div>
@@ -81,16 +93,19 @@ export function DocEditor({ title, children, loading = false, overlay, openMenu 
   );
 }
 
-function Header({ title, loading, narrow, openMenu }: { title: string; loading: boolean; narrow: boolean; openMenu: string | null }) {
+function Header({ title, loading, narrow, openMenu, status }: { title: string; loading: boolean; narrow: boolean; openMenu: string | null; status: "saved" | "unsaved" }) {
   return (
     <header className={`relative h-[55px] shrink-0 bg-white transition-opacity duration-500 motion-reduce:transition-none ${loading ? "opacity-35" : "opacity-100"}`}>
       <Icon name="hexMark" size={16} className="absolute left-[13px] top-[18px]" />
       <div className="absolute left-[47px] top-[6px] flex h-[20px] items-center gap-[7px]">
         <h1 data-tl="editor-title" className="text-[13px] font-semibold leading-5 tracking-tight">{title}</h1>
         <span className="rounded-[3px] bg-[#2B6FEB] px-[6px] py-[1px] text-[8px] font-semibold leading-[13px] text-white">{EDITOR.badge}</span>
-        <span className="flex items-center gap-[3px] text-[8.5px] text-[#8b909c]">
-          <Icon name="check" size={9} />
-          {EDITOR.saved}
+        <span
+          data-tl="editor-status"
+          className={`flex items-center gap-[3px] text-[8.5px] transition-colors ${status === "unsaved" ? "text-[#E8803A]" : "text-[#8b909c]"}`}
+        >
+          <Icon name={status === "unsaved" ? "clock" : "check"} size={9} />
+          {status === "unsaved" ? EDITOR.unsaved : EDITOR.saved}
         </span>
         {!narrow && (
           <span className="flex items-center gap-[3px] text-[8.5px] text-[#8b909c]">
@@ -159,7 +174,7 @@ function Header({ title, loading, narrow, openMenu }: { title: string; loading: 
   );
 }
 
-function Toolbar() {
+function Toolbar({ live }: { live?: Props["live"] }) {
   return (
     <div className="h-[31px] shrink-0 border-y border-[#E9EAEE] bg-white px-[4px] py-[3px]">
       <div data-tl="editor-toolbar" className="no-scrollbar flex h-full items-center overflow-x-auto rounded-[5px] px-[4px]">
@@ -167,13 +182,22 @@ function Toolbar() {
           <div key={g} className="flex shrink-0 items-center">
             {g > 0 && <span className="mx-[4px] h-[16px] w-px shrink-0 bg-[#E3E5EA]" />}
             {group.map((t) => (
-              <Tool key={t.id} item={t} />
+              <Tool key={t.id} item={liveItem(t, live)} />
             ))}
           </div>
         ))}
       </div>
     </div>
   );
+}
+
+/** Toolbar items that follow the document: the size box and the Undo / Redo buttons. */
+function liveItem(item: ToolItem, live?: Props["live"]): ToolItem {
+  if (!live) return item;
+  if (item.id === "size") return { ...item, label: live.size };
+  if (item.id === "undo") return { ...item, disabled: !live.canUndo };
+  if (item.id === "redo") return { ...item, disabled: !live.canRedo };
+  return item;
 }
 
 function Tool({ item }: { item: ToolItem }) {

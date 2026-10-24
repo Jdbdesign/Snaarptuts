@@ -1,0 +1,138 @@
+"use client";
+
+import { Icon, type IconName } from "@/components/icons";
+import { marksOf, matchesOf, type Block, type EditorState, type Mark } from "./editor-state";
+
+/** Floating selection toolbar, left to right; a thin divider sits between groups. */
+const SELECTION_TOOLBAR: IconName[][] = [
+  ["edBold", "edItalic", "edUnderline", "edStrike"],
+  ["edHighlight", "edEmoji"],
+  ["edComment"],
+];
+
+const BLOCK_STYLE: Record<Block["kind"], string> = {
+  h1: "mb-[12px] text-[19.5px] font-bold leading-[1.3]",
+  h2: "mb-[8px] mt-[16px] text-[19.5px] font-bold leading-[1.3]",
+  p: "mb-[12px] text-[10.8px] leading-[1.5]",
+};
+
+const MARK_STYLE: Record<Mark["kind"], string> = {
+  sel: "bg-[#2F6BDB] text-white",
+  current: "bg-[#8ED3A4]",
+  match: "bg-[#D6F0DF]",
+};
+
+type Piece = { text: string; kind: Mark["kind"] | null };
+
+/** Split a block's text into pieces: plain text and highlighted ranges. */
+function piecesOf(text: string, marks: Mark[]): Piece[] {
+  const out: Piece[] = [];
+  let at = 0;
+  for (const m of marks) {
+    if (m.from > at) out.push({ text: text.slice(at, m.from), kind: null });
+    out.push({ text: text.slice(m.from, m.to), kind: m.kind });
+    at = m.to;
+  }
+  if (at < text.length) out.push({ text: text.slice(at), kind: null });
+  return out;
+}
+
+/** Cut the piece that contains offset `at` in two, so the caret can sit between pieces. */
+function splitAt(pieces: Piece[], at: number): Piece[] {
+  if (at < 0) return pieces;
+  const out: Piece[] = [];
+  let pos = 0;
+  for (const p of pieces) {
+    if (at > pos && at < pos + p.text.length) {
+      out.push({ ...p, text: p.text.slice(0, at - pos) }, { ...p, text: p.text.slice(at - pos) });
+    } else {
+      out.push(p);
+    }
+    pos += p.text.length;
+  }
+  return out;
+}
+
+type Props = {
+  editor: EditorState;
+  /** Show the floating toolbar (hidden while a menu is open). */
+  showToolbar: boolean;
+};
+
+/**
+ * The text of the white page: headings and paragraphs from the editor state, with the blinking caret, the blue
+ * selection, the green find highlights and the floating selection toolbar. Pure drawing: editor-timeline.ts
+ * changes the state. Hooks for scripts: doc-block-<id>, doc-start-<id>, doc-end-<id>, doc-match-current.
+ */
+export function DocumentView({ editor, showToolbar }: Props) {
+  const matches = matchesOf(editor);
+  const toolbarBlock = editor.sel?.toolbar ? editor.sel.start.block : -1;
+
+  return (
+    <div className="select-none font-[Arial,Helvetica,sans-serif]">
+      {editor.blocks.map((b, i) => {
+        const caretAt = editor.caret?.block === i ? editor.caret.offset : -1;
+        const pieces = splitAt(piecesOf(b.text, marksOf(editor, i, matches)), caretAt);
+        const firstSel = i === toolbarBlock ? pieces.findIndex((p) => p.kind === "sel") : -1;
+
+        const nodes: React.ReactNode[] = [];
+        let pos = 0;
+        pieces.forEach((p, n) => {
+          if (caretAt === pos) nodes.push(<Caret key={`c${n}`} />);
+          nodes.push(
+            <span
+              key={n}
+              className={`${p.kind ? `${MARK_STYLE[p.kind]} rounded-[1px]` : ""} ${n === firstSel ? "relative" : ""}`}
+              {...(p.kind === "current" ? { "data-tl": "doc-match-current" } : {})}
+            >
+              {p.text}
+              {n === firstSel && <SelectionToolbar visible={showToolbar} />}
+            </span>,
+          );
+          pos += p.text.length;
+        });
+        if (caretAt === pos) nodes.push(<Caret key="c-end" />);
+
+        return (
+          <div
+            key={b.id}
+            data-tl={`doc-block-${b.id}`}
+            className={`${BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""}`}
+          >
+            <span data-tl={`doc-start-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
+            {nodes}
+            <span data-tl={`doc-end-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function Caret() {
+  return <span className="doc-caret text-[#111]" />;
+}
+
+/** The dark bar above the selected text. It hangs off the first selected piece, so it follows the text. */
+function SelectionToolbar({ visible }: { visible: boolean }) {
+  return (
+    <span
+      data-tl="selection-toolbar"
+      aria-hidden
+      className={`pointer-events-none absolute left-[110px] top-[-6px] z-10 flex h-[28px] -translate-y-full items-center gap-[1px] whitespace-nowrap rounded-[8px] bg-[#16171B] px-[7px] text-white shadow-[0_6px_18px_-4px_rgba(0,0,0,0.35)] transition-opacity duration-150 motion-reduce:transition-none ${
+        visible ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      {SELECTION_TOOLBAR.map((group, g) => (
+        <span key={g} className="flex items-center">
+          {g > 0 && <span className="mx-[5px] h-[13px] w-px bg-white/25" />}
+          {group.map((name) => (
+            <span key={name} className="flex h-[22px] w-[22px] items-center justify-center text-white/90">
+              <Icon name={name} size={11.5} />
+            </span>
+          ))}
+        </span>
+      ))}
+    </span>
+  );
+}
