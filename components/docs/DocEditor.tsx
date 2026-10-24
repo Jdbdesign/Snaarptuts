@@ -108,16 +108,18 @@ export function DocEditor({
                 {children}
               </div>
             </div>
-            <button
-              aria-label="Outline"
-              data-tl="outline-button"
-              className={`absolute left-[9px] top-[6px] flex h-[28px] w-[28px] items-center gap-[6px] overflow-hidden rounded-full border border-[#E1E4EA] bg-[#F3F4F7] px-[8px] text-[9px] text-[#6b7280] transition-[opacity,width] duration-200 motion-reduce:transition-none data-[hover=true]:w-[64px] ${
-                outlineOpen ? "pointer-events-none opacity-0" : "opacity-100"
-              }`}
-            >
-              <Icon name="listView" size={12} className="shrink-0" />
-              <span className="whitespace-nowrap font-medium text-[#3d4350]">{EDITOR.outlineTab}</span>
-            </button>
+            <div className="absolute left-[9px] top-[6px] h-[28px] w-[28px]">
+              <button
+                aria-label="Outline"
+                data-tl="outline-button"
+                className={`flex h-[28px] w-[28px] items-center gap-[6px] overflow-hidden rounded-full border border-[#E1E4EA] bg-[#F3F4F7] px-[8px] text-[9px] text-[#6b7280] transition-[opacity,width] duration-200 motion-reduce:transition-none data-[hover=true]:w-[64px] ${
+                  outlineOpen ? "pointer-events-none opacity-0" : "opacity-100"
+                }`}
+              >
+                <Icon name="listView" size={12} className="shrink-0" />
+                <span className="whitespace-nowrap font-medium text-[#3d4350]">{EDITOR.outlineTab}</span>
+              </button>
+            </div>
           </div>
           <div className="flex h-[19px] shrink-0 items-center justify-between border-t border-[#E3E5EA] bg-white px-[6px] text-[8.5px] text-[#8b909c]">
             <span className="flex gap-[10px]">

@@ -30,6 +30,8 @@ import { Step15AddComment } from "@/scenes/snaarp-doc/Step15AddComment";
 import { runStep15, STEP15_DURATION_MS } from "@/scenes/snaarp-doc/step15-script";
 import { Step16ManageComments } from "@/scenes/snaarp-doc/Step16ManageComments";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/snaarp-doc/step16-script";
+import { Step17Outline } from "@/scenes/snaarp-doc/Step17Outline";
+import { runStep17, STEP17_DURATION_MS } from "@/scenes/snaarp-doc/step17-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -137,6 +139,12 @@ export const snaarpDoc: Tutorial = {
       title: "Manage comments",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step16ManageComments, run: runStep16, durationMs: STEP16_DURATION_MS },
+    },
+    {
+      id: "document-outline",
+      title: "Use the Document outline",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step17Outline, run: runStep17, durationMs: STEP17_DURATION_MS },
     },
   ],
   completion: {
