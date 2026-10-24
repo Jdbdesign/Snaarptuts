@@ -664,8 +664,9 @@ Steps 14 to 18 use `EditorStage` with `startDocument` and the same sample docume
 - **`ViewMenu.tsx`** (+ `view-menu-data.ts`): the dropdown under "View", 275 px wide. Groups: Mode (eye, chevron) / Comments / Document outline; Show print layout (check) / Show ruler (check + ruler icon) / Show equation toolbar (greyed out) / Show non-printing characters (Ctrl+Shift+P); Full screen. The Mode submenu (Editing, Suggesting, Viewing; the current one is checked) opens to the right. Hooks: `view-menu`, `view-item-<mode|comments|outline|print-layout|ruler|equation|non-printing|fullscreen>`, `view-sub-<editing|suggesting|viewing>`. Helpers in `view-menu-timeline.ts`.
 - **Editor modes** (scene variable `mode`): Editing = black "Editing" pill; Suggesting = black "Suggesting" pill; Viewing = neither pill selected and the whole toolbar row is hidden (the page moves up), as in the frames. The ruler stays in Viewing.
 - **`CommentsPanel.tsx`** (+ `comments-data.ts`, `comments-state.ts`): right-hand panel under the header, 245 px wide at the 1440 design width, white with a left border. Title "Comments" + search + X; tabs "All comments" (blue underline) / "For you"; filter pill "All types" (dropdown: All types with a check, Open, Resolved). Empty state: grey icon, "Start a discussion", blue "Add comment" button (and, as in the frames, a full-width "Add comment" button at the bottom). Composer card (avatar J, "Jane Doe", input "Comment or tag with @", Cancel, Comment pale until there is text). Thread card (label "Project Brief", avatar, "Jane Doe", "Just now", text, three dots, reply input "Reply or add others with @"; focused = blue border + pale send icon). Three-dot card: Resolve, Delete (red). Footer "Who sees comments?" + the visibility sentence. While open the header comment icon has a light grey fill and the page centres in the space left of the panel. Hooks: `comments-panel`, `comments-panel-card` (ring this one), `comments-close`, `comments-add`, `comments-add-bottom`, `comments-filter`, `comments-filter-<all|open|resolved>`, `comments-composer-input`, `-cancel`, `-submit`, `thread-<id>`, `thread-reply-<id>`, `thread-menu-<id>`, `thread-menu-item-<resolve|delete>`, `comments-body`. Helpers in `comments-timeline.ts`; threads are numbered t1, t2 (newest on top).
-- **`OutlinePanel.tsx`**: left-hand "Document tabs" panel, 180 px wide, starting under the toolbar and ruler. Back chevron, title, plus; selected row "Tab 1" (light blue, blue left bar); grey hint "Headings will appear here as you add them". The round outline button in the top-left of the canvas (`outline-button`) grows into a "Tab 1" pill on hover and hides while the panel is open; the header list icon gets a grey fill. Hooks: `outline-panel`, `outline-panel-card`, `outline-close`, `outline-add`.
+- **`OutlinePanel.tsx`**: left-hand "Document tabs" panel, 180 px wide, starting under the toolbar and ruler and ending above the two footer lines (so "1 page N words" stays visible). Back chevron, title, plus; the tab rows (the selected one light blue with a blue left bar, the others plain; names "Tab 1", "Tab 2", ... from data); grey hint "Headings will appear here as you add them" always under the list. The plus is a working control: it adds the next tab, selects it and shows a blank page (same size, same ruler and toolbar, footer "1 page 0 words"); clicking a row switches back, and each tab keeps its own page (`outline-state.ts`, `outline-timeline.ts`). The round outline button in the top-left of the canvas (`outline-button`) grows into a "Tab 1" pill on hover and hides while the panel is open; the header list icon gets a grey fill. Hooks: `outline-panel`, `outline-panel-card`, `outline-close`, `outline-add`, `outline-tab-<id>` (`tab-1`, `tab-2`, ...).
 - **Editor state:** `anchors` (a comment's yellow-orange highlight, hook `doc-comment-<id>`) and `landmarks` (invisible cursor targets inside text, hook `doc-at-<id>`); the floating selection toolbar's comment icon has the hook `selection-comment`; for a selection that does not start at the beginning of a block the toolbar sits further left.
+- **`FullScreenView.tsx`** (View > Full screen): simulated INSIDE the browser frame (never the real Fullscreen API). A dark neutral overlay (`#26272B`) covers the header, menu row, toolbar, ruler and footer with a 0.3 s fade (instant with reduced motion); the page sits centred at the same place as in the normal view, text unchanged (no non-printing marks: entering full screen switches them off). A dark pill "Press Esc to exit full screen" shows at the top centre for 3 s; an "Esc" key chip shows and is pressed when the step exits. Exiting returns the normal editor with the ruler state kept. Hooks: `fullscreen-view`, `fullscreen-hint`, `fullscreen-key`. Copy in `FULL_SCREEN` (`view-menu-data.ts`).
 - **Non-printing characters:** every space shows as a small blue-grey dot and every paragraph ends with a "¶" (the page reflows a little, as in the frames).
 
 ## Doc step 14 - Change the editing mode
@@ -721,20 +722,25 @@ Steps 14 to 18 use `EditorStage` with `startDocument` and the same sample docume
 
 ## Doc step 17 - Use the Document outline
 
-- Files: `Step17Outline.tsx`, `step17-script.ts`, `step17-data.ts`. `durationMs` 13000. Starts with the commented phrase highlighted, no panel open. Recording: about 1:34-1:50. The recording opens the panel with the round outline button in the canvas corner, so the step does the same (View > Document outline does the same thing).
+- Files: `Step17Outline.tsx`, `step17-script.ts`, `step17-data.ts`. `durationMs` 19000. Starts with the commented phrase highlighted, no panel open, one tab. Recording: about 1:34-1:50. The recording opens the panel with the round outline button in the canvas corner, so the step does the same (View > Document outline does the same thing). The recording only hovers the plus; clicking it to add a tab, and switching tabs, are additions.
 
 | Time | What happens |
 |---|---|
 | 0.0 | The editor fades in. |
 | 0.8 | Caption "Click the outline button in the corner". Cursor to the round button (it grows into a "Tab 1" pill), ring, click; the panel slides in on the left and the page moves right. |
 | 3.5 | Caption "The outline shows your document's tabs and headings". Ring on the panel until 6.0. |
-| 6.0 | Caption "Use the plus to add a tab". Cursor to the plus, ring (no click). |
-| 8.5 | Caption "Click the arrow to close the outline". Cursor to the back chevron, ring, click; the panel closes and the page centres again. |
-| 12.6 | Quick white fade. Ends at 13.0. Step 17 is marked done. |
+| 6.0 | Caption "Click the plus to add a new tab". Cursor to the plus, ring, click. |
+| 7.0 | "Tab 2" appears under "Tab 1" and is selected; the page switches to a blank page (footer "1 page 0 words"). |
+| 9.5 | Caption "Each tab has its own page". Hold. |
+| 12.0 | Caption "Click Tab 1 to go back". Cursor to the "Tab 1" row, ring, click; the sample document returns. |
+| 14.5 | Caption "Click the arrow to close the outline". Cursor to the back chevron, ring, click; the panel closes and the page centres again. |
+| 18.6 | Quick white fade. Ends at 19.0. Step 17 is marked done. |
+
+Reset rule: the script starts with `initTabs`, so the extra tab never survives a replay (every run starts with one tab).
 
 ## Doc step 18 - Ruler and layout options (last step so far)
 
-- Files: `Step18Layout.tsx`, `step18-script.ts`, `step18-data.ts`. `durationMs` 29000. Starts with the sample document, no panels, ruler on. Recording: about 1:45-2:20. Toggled for real: Show ruler and Show non-printing characters (both visibly change the page). Hover only: Show print layout (no visible change), Show equation toolbar (greyed out) and Full screen.
+- Files: `Step18Layout.tsx`, `step18-script.ts`, `step18-data.ts`. `durationMs` 30000. Starts with the sample document, no panels, ruler on. Recording: about 1:45-2:20. Toggled for real: Show ruler, Show non-printing characters and Full screen. Hover only: Show print layout (no visible change) and the greyed-out Show equation toolbar. In the recording Full screen does nothing; the step simulates it inside the frame (see `FullScreenView.tsx`).
 
 | Time | What happens |
 |---|---|
@@ -746,6 +752,8 @@ Steps 14 to 18 use `EditorStage` with `startDocument` and the same sample docume
 | 11.0 | Caption "Show non-printing characters reveals spaces and paragraph marks". View opens, hover the item (Ctrl+Shift+P visible), click: dots and "¶" marks appear. |
 | 14.8 | View opens again (the item is checked). |
 | 16.0 | Caption "Some options are greyed out until they are available". Hover Show equation toolbar (stays greyed). |
-| 19.0 | Caption "Full screen hides the extra chrome so you can focus". Hover Full screen. |
-| 22.0 | Caption "Click it again to hide the marks". Click Show non-printing characters; the marks disappear and the menu closes. |
-| 28.4 | Quick white fade. Ends at 29.0. Step 18 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc."). |
+| 18.0 | Caption "Click Full screen to focus on your document". Cursor to Full screen, ring, click; the menu closes. |
+| 19.0 | The editor chrome fades out (0.3 s) and the dark full-screen view appears (the marks switch off). The pill "Press Esc to exit full screen" shows until 22.0. |
+| 22.0 | Caption "Only your document stays on screen". Hold. |
+| 25.0 | Caption "Press Esc to go back". The "Esc" key chip shows, is pressed, and the normal editor returns (ruler state kept). |
+| 29.6 | Quick white fade. Ends at 30.0. Step 18 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc."). |
