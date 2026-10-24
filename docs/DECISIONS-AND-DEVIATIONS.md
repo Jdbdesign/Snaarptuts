@@ -194,6 +194,20 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Cursor on the settings** (hovering Destination, Pages, Layout and Color) is in the brief, not in the recording.
 - **Print panel width:** 760 px at the 1440 design width, as in the brief (520 px stacked on narrow screens).
 
+## Snaarp Doc steps 10-13 (Edit menu, copy and paste, select all / delete / undo, find and replace)
+
+- **Sample text instead of the recording's text:** the recording's document holds private project notes, file paths and a real tool name. Steps 10 to 13 use the invented "Acme Studio Website Redesign" brief (`components/docs/sample-document.ts`). "Acme" appears as Acme, acme and ACME so Match case changes the count.
+- **"Acme" to "Apex" instead of the recording's replace example.** With Match case on, only the four exact "Acme" words change; "acme" and "ACME" stay, which shows what Match case does.
+- **The browser's clipboard pop-up** ("See text and images copied to the clipboard", Allow / Block) is not shown; the recording's browser tooltips are not shown either.
+- **Cut is only mentioned** (a caption in step 11), not shown, as in the brief.
+- **Edit menu width:** 250 px at the 1440 design width. The recording's menu is about 209 px wide and its label "Paste without formatting" runs into its shortcut; the wider menu keeps them apart (the brief asked for about 245 px).
+- **Document font and size:** Arial (the toolbar says Arial); body 11 pt (10.8 px), headings 20 pt (19.5 px), page margins 6 % of the page width, as measured in the frames. All three headings use the same size, so the toolbar size box shows "20" in a heading and "11" in a paragraph.
+- **Undo in the Edit menu is always active** (as in the frames, where Undo is dark before any edit); Redo, Cut, Copy and Delete are greyed out until they can be used.
+- **Select all hides the floating selection toolbar** (only a drag selection shows it); the toolbar hides while a menu is open, as in the recording.
+- **Caret, paste highlight and find marks:** the caret blink, the paste highlight (soft yellow fade) and the green find marks are redraws chosen to match the look of the frames.
+- **Find and replace panel:** 296 px wide at the top right, under the toolbar; the Find input is focused when the panel opens, as in the recording.
+- **Placeholder address:** `docs.snaarp.com/document/project-brief` for all four steps.
+
 ## Snaarp Doc: double-check before launch
 
 1. **Placeholder URL pills:** every address except `docs.snaarp.com/trash` is a guess (`/documents`, `/templates`, `/document/new`, `/document/untitled`, `/document/untitled-copy`, `/document/version-history`). Replace them in `tutorials/snaarp-doc.ts` and the step data files (`stepN-data.ts`).

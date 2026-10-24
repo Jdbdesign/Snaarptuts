@@ -421,7 +421,7 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 
 # Snaarp Doc ("How to use Snaarp Doc", route `/tutorials/snaarp-doc`)
 
-Config: `tutorials/snaarp-doc.ts` (9 steps listed, PROVISIONAL: more steps will be added from later recordings; all 9 steps are built). Recording: `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15, git-ignored; frames of the first 16 s in `ref/docs/frames-step1/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
+Config: `tutorials/snaarp-doc.ts` (13 steps listed, PROVISIONAL: more steps will be added from later recordings; all 13 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
 
 Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, content area; copy and sample values in `components/docs/docs-data.ts`). Pass `active` ("documents" | "starred" | "trash" | null) and the screen as children; the layout itself never changes between screens. Under 900px wide the app rail and sidebar become icon-only columns and the whole layout is enlarged (CSS zoom 2.4). `components/docs/PageThumb.tsx` draws the generic page thumbnails (no screenshots).
 
@@ -559,7 +559,7 @@ Steps 4 to 8 are small scenes on **`components/docs/EditorStage.tsx`** (DocEdito
 | 9.0 | The editor returns ("Project Brief"). |
 | 11.0 | Quick white fade. Ends at 11.4. |
 
-## Doc step 9 - Print your document (last step so far)
+## Doc step 9 - Print your document
 
 - Files: `scenes/snaarp-doc/Step9Print.tsx`, `step9-script.ts`, `step9-data.ts` (captions, URL; the panel's copy is in `components/docs/print-data.ts`). `durationMs` 13400. Starts with the title "Project Brief". New shared piece **`components/docs/PrintDialog.tsx`**: a modal (dim backdrop, 760 px wide card, 14 px corners) with a light grey preview area (blank white page, "1 / 1") on the left and "Print", "1 sheet of paper", four settings (Destination: Save as PDF, Pages: All, Layout: Portrait, Color: Color), "More settings", a blue Print and an outlined Cancel button on the right. Under 900 px it stacks (preview on top, smaller, settings below). Hooks: `print-settings`, `print-setting-<id>`, `print-btn`, `print-cancel`. Scene variable `print`.
 
@@ -573,6 +573,86 @@ Steps 4 to 8 are small scenes on **`components/docs/EditorStage.tsx`** (DocEdito
 | 6.5 | Caption "Choose where to print and your settings". Ring on the settings list; the cursor hovers Destination, Pages, Layout and Color (0.5 s each). |
 | 9.5 | Caption "Click Print to send it, or Cancel to go back". Ring on both buttons. |
 | 11.0 | Cursor to Cancel, click; the panel closes. |
-| 13.0 | Quick white fade. Ends at 13.4. Step 9 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc."). |
+| 13.0 | Quick white fade. Ends at 13.4. Step 9 is marked done; step 10 follows. |
 
 - Recording timestamps: File menu with the greyed Details / Language about 2:00-2:08, the browser's print window about 2:08-2:14 (not copied).
+
+## Doc steps 10-13 - shared pieces (a document with real text)
+
+Steps 10 to 13 use the same `components/docs/EditorStage.tsx` as steps 4-9, with its new optional setting **`startDocument`** (an editor state). Without it the page stays blank, exactly as before. With it the stage draws the sample text and adds the Edit menu, the Find and replace panel, the blinking caret, the blue selection, the green find highlights, the floating selection toolbar and the header status "Unsaved changes".
+
+- **Sample document:** `components/docs/sample-document.ts` ("Acme Studio Website Redesign", 3 headings, 4 paragraphs; title "Project Brief"). "Acme" appears as Acme, acme and ACME on purpose; match counts are computed from the text (7 without Match case, 4 with it).
+- **Editor state (pure logic):** `components/docs/editor-state.ts` (blocks, selection, caret, clipboard, undo/redo history, find state; functions `selectRange`, `selectAll`, `copy`, `cut`, `paste`, `deleteSelection`, `undo`, `redo`, `findMatches`, `replaceAll`...). It lives in the scene variable `editor`.
+- **Drawing:** `components/docs/DocumentView.tsx` (text, caret, selection, find marks, selection toolbar). Hooks: `doc-block-<id>`, `doc-start-<id>` and `doc-end-<id>` (the cursor goes to the start or end of a paragraph's text), `doc-match-current`, `selection-toolbar`.
+- **Edit menu:** `components/docs/EditMenu.tsx` (+ `edit-menu-data.ts`: items, icons, shortcuts, and which items are greyed out for which state). Hooks `edit-item-<id>` (undo, redo, cut, copy, paste, paste-plain, select-all, delete, find). Scene variable `editMenu`.
+- **Find and replace panel:** `components/docs/FindReplacePanel.tsx` (+ `find-replace-data.ts`). Hooks `find-input`, `replace-input`, `find-match-case`, `find-result`, `find-btn-replace` / `-replace-all` / `-previous` / `-next`, `find-close`.
+- **Timeline helpers:** `components/docs/editor-timeline.ts`: `initEditor`, `SAMPLE_EDITOR` / `COPIED_EDITOR` (start states), `dragSelectBlock`, `clickEndOfBlock`, `clickEditMenu`, `hoverEditMenuItem`, `chooseEditMenuItem` (ring, click, close, then runs the item's real action; throws if the item is greyed out), `typeInPanel`, `toggleMatchCase`, `clickStep`, `clickReplaceAll`, `clickClosePanel`, `markEdited` (Unsaved changes, then All changes saved 1.5 s later). All waits use the timeline clock, so Pause (Space) freezes them.
+- `DocEditor` gained `status` ("saved" or the orange "Unsaved changes") and `live` (font size box, Undo/Redo buttons, word count). Its page padding is now 6 % of the page width (the blank page looks the same). New icons: `emCut`, `emPaste`, `emPastePlain`, `emSelectAll`. New CSS: `.doc-caret`, `.doc-pasted` in `app/globals.css`.
+- Address pill for all four steps: `docs.snaarp.com/document/project-brief` (placeholder).
+
+## Doc step 10 - Explore the Edit menu
+
+- Files: `scenes/snaarp-doc/Step10EditMenu.tsx`, `step10-script.ts`, `step10-data.ts`. `durationMs` 13400. Starts with the sample document, nothing selected. Recording: about 0:00-0:14.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Edit". Cursor to Edit, ring, click; the Edit menu opens (Redo, Cut, Copy and Delete are greyed). |
+| 2.8 | Caption "The Edit menu has your editing tools". The cursor hovers Undo, Cut, Copy and Paste (0.5 s each). |
+| 6.0 | Caption "Paste without formatting keeps only the plain text". Hover that item. |
+| 8.0 | Caption "Some items are greyed out until you can use them". Rings on Redo and Delete; the cursor hovers both. |
+| 10.5 | Cursor to "Find and replace", hover. |
+| 11.5 | Click an empty part of the canvas; the menu closes. |
+| 13.0 | Quick white fade. Ends at 13.4. |
+
+## Doc step 11 - Copy and paste text
+
+- Files: `scenes/snaarp-doc/Step11CopyPaste.tsx`, `step11-script.ts`, `step11-data.ts`. `durationMs` 24000. Starts with the sample document. Recording: about 0:14-1:06.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Select the text you want to copy". The cursor goes to the start of the "Increase enquiries..." paragraph and drags to its end; the blue highlight grows and the dark selection toolbar appears above it. |
+| 4.0 | Caption "Click Edit, then Copy". The menu opens (Cut, Copy and Delete are active); Copy is clicked; the menu closes and the selection stays. |
+| 7.0 | Caption "Cut works the same way, but removes the original" (nothing is clicked). |
+| 8.5 | Caption "Click where you want to paste it". The cursor clicks at the end of the last paragraph; the selection clears and the caret blinks. |
+| 11.0 | Caption "Click Edit, then Paste". Edit opens, Paste is clicked. |
+| 12.5 | The copied paragraph appears under the last one with a soft yellow fade. The status shows "Unsaved changes", then "All changes saved" 1.5 s later. Caption "The text is pasted". |
+| 16.0 | Caption "Paste without formatting pastes only plain text". Edit opens, the cursor hovers that item (ring), the menu closes. |
+| 20.0 | Hold. |
+| 23.6 | Quick white fade. Ends at 24.0. |
+
+## Doc step 12 - Select all, delete and undo
+
+- Files: `scenes/snaarp-doc/Step12Undo.tsx`, `step12-script.ts`, `step12-data.ts`. `durationMs` 17000. Starts with `COPIED_EDITOR`: the sample document plus the pasted extra paragraph (the end of step 11). Recording: about 1:06-1:26.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Edit, then Select all". Edit opens, Select all is clicked; the whole document turns blue (no selection toolbar). |
+| 4.0 | Caption "Click Edit, then Delete" (Delete is active now). Delete is clicked. |
+| 5.5 | The page is empty with a blinking caret at the top; the status shows "Unsaved changes". Caption "Delete removes everything you selected". |
+| 8.0 | Caption "Made a mistake? Click Edit, then Undo". Undo is clicked. |
+| 10.0 | The whole document comes back (a real undo of the delete); the status returns to "All changes saved". Caption "Undo brings your text back". |
+| 11.8 | Edit opens again; Redo is active now. Caption "Redo brings back the change you undid"; the cursor hovers Redo (ring). |
+| 14.5 | Click an empty part of the canvas; the menu closes. Hold. |
+| 16.6 | Quick white fade. Ends at 17.0. |
+
+## Doc step 13 - Find and replace (last step so far)
+
+- Files: `scenes/snaarp-doc/Step13FindReplace.tsx`, `step13-script.ts`, `step13-data.ts` (captions and the two words "Acme" / "Apex"). `durationMs` 30000. Starts with the sample document (no extra paragraph). Recording: about 1:26-1:58.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Edit, then Find and replace". Edit opens, the item is clicked; the panel opens at the top right with the Find input focused. |
+| 3.5 | Caption "Type the word you want to find". Click the Find input, type "Acme". Matches highlight live (the current one green, the others light green); the count reads "1 of 7". |
+| 7.5 | Caption "Every match is highlighted". The cursor clicks Next twice; the green highlight moves ("3 of 7"). |
+| 11.0 | Caption "Type the new word in Replace with". Click that input, type "Apex". |
+| 14.0 | Caption "Match case finds only the exact capital letters". The cursor ticks Match case; the count drops to "1 of 4". |
+| 18.0 | Caption "Click Replace all". Cursor to the button, ring, click. |
+| 19.5 | The four exact "Acme" words become "Apex"; "acme" (in the Goals paragraph and in the email address) and "ACME" stay. The panel reads "No results" and the four buttons grey out. The status shows "Unsaved changes", then "All changes saved". |
+| 22.5 | Caption "All matches are replaced". |
+| 24.5 | Caption "Click the X to close the panel". Cursor to the X, click; the panel closes. |
+| 27.0 | Hold on the changed document. |
+| 29.6 | Quick white fade. Ends at 30.0. Step 13 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc."). |
