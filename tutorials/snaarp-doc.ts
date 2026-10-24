@@ -18,6 +18,8 @@ import { Step9Print } from "@/scenes/snaarp-doc/Step9Print";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/snaarp-doc/step9-script";
 import { Step10EditMenu } from "@/scenes/snaarp-doc/Step10EditMenu";
 import { runStep10, STEP10_DURATION_MS } from "@/scenes/snaarp-doc/step10-script";
+import { Step11CopyPaste } from "@/scenes/snaarp-doc/Step11CopyPaste";
+import { runStep11, STEP11_DURATION_MS } from "@/scenes/snaarp-doc/step11-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -89,6 +91,12 @@ export const snaarpDoc: Tutorial = {
       title: "Explore the Edit menu",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step10EditMenu, run: runStep10, durationMs: STEP10_DURATION_MS },
+    },
+    {
+      id: "copy-paste",
+      title: "Copy and paste text",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step11CopyPaste, run: runStep11, durationMs: STEP11_DURATION_MS },
     },
   ],
   completion: {
