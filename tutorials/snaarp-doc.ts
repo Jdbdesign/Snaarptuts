@@ -20,6 +20,8 @@ import { Step10EditMenu } from "@/scenes/snaarp-doc/Step10EditMenu";
 import { runStep10, STEP10_DURATION_MS } from "@/scenes/snaarp-doc/step10-script";
 import { Step11CopyPaste } from "@/scenes/snaarp-doc/Step11CopyPaste";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/snaarp-doc/step11-script";
+import { Step12Undo } from "@/scenes/snaarp-doc/Step12Undo";
+import { runStep12, STEP12_DURATION_MS } from "@/scenes/snaarp-doc/step12-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -97,6 +99,12 @@ export const snaarpDoc: Tutorial = {
       title: "Copy and paste text",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step11CopyPaste, run: runStep11, durationMs: STEP11_DURATION_MS },
+    },
+    {
+      id: "select-delete-undo",
+      title: "Select all, delete and undo",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step12Undo, run: runStep12, durationMs: STEP12_DURATION_MS },
     },
   ],
   completion: {
