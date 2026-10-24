@@ -36,92 +36,96 @@ export function CommentsPanel({ open, state }: Props) {
     <div
       aria-hidden={!open}
       data-tl="comments-panel"
-      className={`absolute bottom-[19px] right-0 top-[55px] z-30 flex flex-col border-l border-[#E3E5EA] bg-white text-[#1f2430] transition-transform duration-300 ease-out motion-reduce:transition-none ${
+      className={`absolute bottom-[19px] right-0 top-[55px] z-30 border-l border-[#E3E5EA] bg-white text-[#1f2430] transition-transform duration-300 ease-out motion-reduce:transition-none ${
         open ? "translate-x-0" : "pointer-events-none translate-x-full"
       }`}
       style={{ width: PANEL_WIDTH.comments, zoom: narrow ? NARROW_ZOOM : 1 }}
     >
-      <div className="flex h-[34px] shrink-0 items-center justify-between px-[13px]">
-        <span className="text-[11px] font-medium">{COMMENTS.title}</span>
-        <span className="flex items-center gap-[10px] text-[#4b5060]">
-          <Icon name="search" size={11} />
-          <span data-tl="comments-close" className="flex h-[16px] w-[16px] items-center justify-center rounded-full">
-            <Icon name="x" size={11} />
+      <div data-tl="comments-panel-card" className="flex h-full flex-col">
+        <div className="flex h-[34px] shrink-0 items-center justify-between px-[13px]">
+          <span className="text-[11px] font-medium">{COMMENTS.title}</span>
+          <span className="flex items-center gap-[10px] text-[#4b5060]">
+            <Icon name="search" size={11} />
+            <span data-tl="comments-close" className="flex h-[16px] w-[16px] items-center justify-center rounded-full">
+              <Icon name="x" size={11} />
+            </span>
           </span>
-        </span>
-      </div>
-
-      <div className="flex h-[28px] shrink-0 border-b border-[#EEEFF3] text-[9.5px]">
-        <span className="flex flex-1 items-center justify-center border-b-2 border-[#2B6FEB] font-medium text-[#2B6FEB]">{COMMENTS.tabs.all}</span>
-        <span className="flex flex-1 items-center justify-center text-[#6b7280]">{COMMENTS.tabs.forYou}</span>
-      </div>
-
-      <div className="relative shrink-0 px-[10px] pb-[6px] pt-[8px]">
-        <span
-          data-tl="comments-filter"
-          className="flex h-[19px] w-fit items-center gap-[4px] rounded-[5px] border border-[#E3E5EA] bg-[#F7F8FA] px-[7px] text-[8.5px] text-[#4b5060] transition-colors data-[hover=true]:bg-[#EDEEF2]"
-        >
-          {FILTERS.find((f) => f.id === state.filter)?.label}
-          <Icon name="chevronDown" size={8} />
-        </span>
-        <div
-          data-tl="comments-filter-menu"
-          className={`absolute left-[10px] top-[30px] z-10 w-[112px] rounded-[8px] border border-[#EAEBEF] bg-white py-[3px] shadow-[0_8px_22px_-6px_rgba(17,24,39,0.22)] transition-opacity duration-150 motion-reduce:transition-none ${
-            state.filterOpen ? "opacity-100" : "pointer-events-none opacity-0"
-          }`}
-        >
-          {FILTERS.map((f) => (
-            <div
-              key={f.id}
-              data-tl={`comments-filter-${f.id}`}
-              className="mx-[3px] flex h-[22px] items-center gap-[5px] rounded-[5px] px-[5px] text-[9.5px] transition-colors data-[hover=true]:bg-[#F1F2F5]"
-            >
-              <span className="flex w-[10px] items-center justify-center">
-                <Icon name="check" size={9} className={state.filter === f.id ? "text-[#2B6FEB]" : "text-transparent"} />
-              </span>
-              {f.label}
-            </div>
-          ))}
         </div>
-      </div>
 
-      <div data-tl="comments-body" className="relative min-h-0 flex-1 overflow-hidden border-t border-[#EEEFF3]">
+        <div className="flex h-[28px] shrink-0 border-b border-[#EEEFF3] text-[9.5px]">
+          <span className="flex flex-1 items-center justify-center border-b-2 border-[#2B6FEB] font-medium text-[#2B6FEB]">
+            {COMMENTS.tabs.all}
+          </span>
+          <span className="flex flex-1 items-center justify-center text-[#6b7280]">{COMMENTS.tabs.forYou}</span>
+        </div>
+
+        <div className="relative shrink-0 px-[10px] pb-[6px] pt-[8px]">
+          <span
+            data-tl="comments-filter"
+            className="flex h-[19px] w-fit items-center gap-[4px] rounded-[5px] border border-[#E3E5EA] bg-[#F7F8FA] px-[7px] text-[8.5px] text-[#4b5060] transition-colors data-[hover=true]:bg-[#EDEEF2]"
+          >
+            {FILTERS.find((f) => f.id === state.filter)?.label}
+            <Icon name="chevronDown" size={8} />
+          </span>
+          <div
+            data-tl="comments-filter-menu"
+            className={`absolute left-[10px] top-[30px] z-10 w-[112px] rounded-[8px] border border-[#EAEBEF] bg-white py-[3px] shadow-[0_8px_22px_-6px_rgba(17,24,39,0.22)] transition-opacity duration-150 motion-reduce:transition-none ${
+              state.filterOpen ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+          >
+            {FILTERS.map((f) => (
+              <div
+                key={f.id}
+                data-tl={`comments-filter-${f.id}`}
+                className="mx-[3px] flex h-[22px] items-center gap-[5px] rounded-[5px] px-[5px] text-[9.5px] transition-colors data-[hover=true]:bg-[#F1F2F5]"
+              >
+                <span className="flex w-[10px] items-center justify-center">
+                  <Icon name="check" size={9} className={state.filter === f.id ? "text-[#2B6FEB]" : "text-transparent"} />
+                </span>
+                {f.label}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div data-tl="comments-body" className="relative min-h-0 flex-1 overflow-hidden border-t border-[#EEEFF3]">
+          {isEmpty ? (
+            <div className="flex h-full flex-col items-center pt-[64px]">
+              <Icon name="cmEmpty" size={28} className="text-[#C3C7D0]" />
+              <span className="mt-[8px] text-[9px] text-[#8b909c]">{COMMENTS.empty}</span>
+              <span
+                data-tl="comments-add"
+                className="mt-[10px] flex h-[24px] items-center rounded-[6px] bg-[#2B6FEB] px-[14px] text-[9.5px] font-medium text-white"
+              >
+                {COMMENTS.addComment}
+              </span>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-[8px] p-[10px]">
+              {threads.map((t) => (
+                <ThreadCard key={t.id} thread={t} state={state} />
+              ))}
+              {state.composer && <Composer state={state} />}
+            </div>
+          )}
+        </div>
+
         {isEmpty ? (
-          <div className="flex h-full flex-col items-center pt-[64px]">
-            <Icon name="cmEmpty" size={28} className="text-[#C3C7D0]" />
-            <span className="mt-[8px] text-[9px] text-[#8b909c]">{COMMENTS.empty}</span>
+          <div className="shrink-0 px-[8px] pb-[8px]">
             <span
-              data-tl="comments-add"
-              className="mt-[10px] flex h-[24px] items-center rounded-[6px] bg-[#2B6FEB] px-[14px] text-[9.5px] font-medium text-white"
+              data-tl="comments-add-bottom"
+              className="flex h-[24px] items-center justify-center rounded-[6px] bg-[#2B6FEB] text-[9.5px] font-medium text-white"
             >
               {COMMENTS.addComment}
             </span>
           </div>
         ) : (
-          <div className="flex flex-col gap-[8px] p-[10px]">
-            {threads.map((t) => (
-              <ThreadCard key={t.id} thread={t} state={state} />
-            ))}
-            {state.composer && <Composer state={state} />}
+          <div className="shrink-0 border-t border-[#EEEFF3] bg-[#FAFAFB] px-[14px] py-[7px] text-center text-[7.5px] leading-[1.45] text-[#8b909c]">
+            <div className="font-medium text-[#6b7280]">{COMMENTS.footerTitle}</div>
+            {COMMENTS.footerText}
           </div>
         )}
       </div>
-
-      {isEmpty ? (
-        <div className="shrink-0 px-[8px] pb-[8px]">
-          <span
-            data-tl="comments-add-bottom"
-            className="flex h-[24px] items-center justify-center rounded-[6px] bg-[#2B6FEB] text-[9.5px] font-medium text-white"
-          >
-            {COMMENTS.addComment}
-          </span>
-        </div>
-      ) : (
-        <div className="shrink-0 border-t border-[#EEEFF3] bg-[#FAFAFB] px-[14px] py-[7px] text-center text-[7.5px] leading-[1.45] text-[#8b909c]">
-          <div className="font-medium text-[#6b7280]">{COMMENTS.footerTitle}</div>
-          {COMMENTS.footerText}
-        </div>
-      )}
     </div>
   );
 }
@@ -137,7 +141,10 @@ function Avatar() {
 function Composer({ state }: { state: CommentsState }) {
   const text = state.composer?.text ?? "";
   return (
-    <div data-tl="comments-composer" className="rounded-[8px] border border-[#E3E5EA] bg-white p-[9px] shadow-[0_2px_8px_-2px_rgba(17,24,39,0.12)]">
+    <div
+      data-tl="comments-composer"
+      className="rounded-[8px] border border-[#E3E5EA] bg-white p-[9px] shadow-[0_2px_8px_-2px_rgba(17,24,39,0.12)]"
+    >
       <div className="flex items-center gap-[6px] text-[9.5px] font-medium">
         <Avatar />
         {COMMENTS.author.name}
@@ -159,7 +166,9 @@ function Composer({ state }: { state: CommentsState }) {
         )}
       </div>
       <div className="mt-[8px] flex items-center justify-end gap-[10px] text-[9px]">
-        <span data-tl="comments-composer-cancel" className="text-[#6b7280]">{COMMENTS.cancel}</span>
+        <span data-tl="comments-composer-cancel" className="text-[#6b7280]">
+          {COMMENTS.cancel}
+        </span>
         <span
           data-tl="comments-composer-submit"
           data-disabled={!text}

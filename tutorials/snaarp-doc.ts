@@ -26,6 +26,8 @@ import { Step13FindReplace } from "@/scenes/snaarp-doc/Step13FindReplace";
 import { runStep13, STEP13_DURATION_MS } from "@/scenes/snaarp-doc/step13-script";
 import { Step14Mode } from "@/scenes/snaarp-doc/Step14Mode";
 import { runStep14, STEP14_DURATION_MS } from "@/scenes/snaarp-doc/step14-script";
+import { Step15AddComment } from "@/scenes/snaarp-doc/Step15AddComment";
+import { runStep15, STEP15_DURATION_MS } from "@/scenes/snaarp-doc/step15-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -121,6 +123,12 @@ export const snaarpDoc: Tutorial = {
       title: "Change the editing mode",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step14Mode, run: runStep14, durationMs: STEP14_DURATION_MS },
+    },
+    {
+      id: "comments-add",
+      title: "Open Comments and add a comment",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step15AddComment, run: runStep15, durationMs: STEP15_DURATION_MS },
     },
   ],
   completion: {
