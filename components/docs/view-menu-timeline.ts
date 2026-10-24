@@ -1,6 +1,6 @@
 import type { Timeline } from "@/lib/timeline";
 import type { EditorMode } from "./editor-data";
-import { VIEW_DEFAULTS, type ViewItemId } from "./view-menu-data";
+import { FULL_SCREEN, VIEW_DEFAULTS, type ViewItemId } from "./view-menu-data";
 
 /*
  * Timeline helpers that drive the View menu and the editor modes (Snaarp Doc steps 14 to 18). The scene variables are
@@ -54,9 +54,35 @@ export async function clickModeItem(tl: Timeline, id: EditorMode, opts: { ms?: n
   tl.setVar("mode", id);
 }
 
+/**
+ * View > Full screen: the chrome fades out, the page shows on a dark background, and the hint pill shows for a few
+ * seconds. The marks of "Show non-printing characters" are switched off (a focused view shows the plain text).
+ */
+export function enterFullScreen(tl: Timeline) {
+  tl.setVar("nonPrinting", false);
+  tl.setVar("fullScreen", true);
+  tl.setVar("fsHint", true);
+  tl.wait(FULL_SCREEN.hintMs)
+    .then(() => tl.setVar("fsHint", false))
+    .catch(() => {}); // cancelled with the step
+}
+
+/** Esc: show the Esc key chip, press it, and return to the normal editor (every other View setting is kept). */
+export async function pressEscFromFullScreen(tl: Timeline) {
+  tl.setVar("fsKey", true);
+  await tl.wait(700);
+  tl.setVar("fsPressed", true);
+  await tl.wait(250);
+  tl.setVar("fullScreen", false);
+  tl.setVar("fsHint", false);
+  await tl.wait(250);
+  tl.setVar("fsPressed", false);
+  tl.setVar("fsKey", false);
+}
+
 const flip = (tl: Timeline, key: string, fallback: boolean) => tl.setVar(key, !tl.getVar(key, fallback));
 
-/** What a View menu item does. Greyed-out items and Full screen do nothing. */
+/** What a View menu item does. Greyed-out items and Show print layout change nothing you can see. */
 function runViewAction(tl: Timeline, id: ViewItemId) {
   switch (id) {
     case "comments":
@@ -73,6 +99,9 @@ function runViewAction(tl: Timeline, id: ViewItemId) {
       break;
     case "non-printing":
       flip(tl, "nonPrinting", VIEW_DEFAULTS.nonPrinting);
+      break;
+    case "fullscreen":
+      enterFullScreen(tl);
       break;
   }
 }

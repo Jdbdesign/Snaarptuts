@@ -11,6 +11,7 @@ import { EditMenu } from "./EditMenu";
 import { canRedo, createEditor, fontSizeOf, type EditorState } from "./editor-state";
 import { FileMenu } from "./FileMenu";
 import { FindReplacePanel } from "./FindReplacePanel";
+import { FullScreenView } from "./FullScreenView";
 import { OutlinePanel } from "./OutlinePanel";
 import { DEFAULT_OUTLINE_TABS, type OutlineTabs } from "./outline-state";
 import { ViewMenu } from "./ViewMenu";
@@ -42,7 +43,7 @@ type Props = {
  * The shared stage of Snaarp Doc steps 4 to 8: the DocEditor with the File menu and the DocToast, a fade-in at
  * the start (`intro`) and the quick white fade at the end (`fade`). Scene variables: `title`, `loading`,
  * `fileMenu`, `fileSub`, `intro`, `fade`. With a `startDocument` it also draws the View menu and the editor modes
- * (steps 14 to 18): `mode`, `viewMenu`, `viewSub`, `ruler`, `printLayout`, `nonPrinting`, and the side panels
+ * (steps 14 to 18): `mode`, `viewMenu`, `viewSub`, `ruler`, `printLayout`, `nonPrinting`, `fullScreen` (+ `fsHint`, `fsKey`, `fsPressed`), and the side panels
  * `commentsOpen` + `comments`, `outlineOpen`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
  */
 export function EditorStage({ tl, startTitle, overlay, children, startDocument }: Props) {
@@ -64,6 +65,10 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const commentsOpen = useTimelineVar(tl, "commentsOpen", false);
   const comments = useTimelineVar<CommentsState>(tl, "comments", EMPTY_COMMENTS);
   const outlineOpen = useTimelineVar(tl, "outlineOpen", false);
+  const fullScreen = useTimelineVar(tl, "fullScreen", VIEW_DEFAULTS.fullScreen);
+  const fsHint = useTimelineVar(tl, "fsHint", false);
+  const fsKey = useTimelineVar(tl, "fsKey", false);
+  const fsPressed = useTimelineVar(tl, "fsPressed", false);
   const outlineTabs = useTimelineVar<OutlineTabs>(tl, "outlineTabs", DEFAULT_OUTLINE_TABS);
   const menuOpen = fileMenu || editMenu || viewMenu;
 
@@ -107,6 +112,9 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
           {startDocument && <DocumentView editor={editor} showToolbar={!menuOpen} nonPrinting={nonPrinting} />}
         </DocEditor>
       </div>
+      {startDocument && (
+        <FullScreenView open={fullScreen} editor={editor} hint={fsHint} escKey={{ shown: fsKey, pressed: fsPressed }} />
+      )}
       {children}
       <div
         className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${fade ? "opacity-100" : "opacity-0"}`}

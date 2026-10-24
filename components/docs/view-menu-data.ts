@@ -40,5 +40,13 @@ export const MODE_MENU: { id: EditorMode; label: string }[] = [
   { id: "viewing", label: "Viewing" },
 ];
 
-/** Which toggles are on when a scene starts. */
-export const VIEW_DEFAULTS = { printLayout: true, ruler: true, nonPrinting: false };
+/** Which toggles are on when a scene starts (full screen is a view state too: off). */
+export const VIEW_DEFAULTS = { printLayout: true, ruler: true, nonPrinting: false, fullScreen: false };
+
+/** Copy of the full-screen view (View > Full screen). It is simulated inside the browser frame. */
+export const FULL_SCREEN = {
+  hint: "Press Esc to exit full screen",
+  key: "Esc",
+  /** The hint fades out after this many ms of active time. */
+  hintMs: 3000,
+};

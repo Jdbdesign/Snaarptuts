@@ -3,8 +3,8 @@ import { SAMPLE_TITLE } from "@/components/docs/sample-document";
 /*
  * Snaarp Doc, step 18 - Ruler and layout options. All copy and captions live here.
  * Recording: ref/docs/Snaarp_Doc_view.mp4 (about 1:45-2:20). Toggled for real: Show ruler and Show non-printing
- * characters (both visibly change the page). Hover only: Show print layout (no visible change), the greyed-out Show
- * equation toolbar and Full screen.
+ * characters (both visibly change the page). Hover only: Show print layout (no visible change) and the greyed-out Show
+ * equation toolbar. Full screen is clicked: the recording shows it as not working, the step simulates it inside the frame.
  */
 
 export const URLS = {
@@ -18,8 +18,9 @@ export const CAPTIONS = {
   showRuler: "Click it again to show the ruler",
   nonPrinting: "Show non-printing characters reveals spaces and paragraph marks",
   greyed: "Some options are greyed out until they are available",
-  fullScreen: "Full screen hides the extra chrome so you can focus",
-  hideMarks: "Click it again to hide the marks",
+  fullScreen: "Click Full screen to focus on your document",
+  onlyDocument: "Only your document stays on screen",
+  esc: "Press Esc to go back",
 };
 
 export const TITLE = SAMPLE_TITLE;

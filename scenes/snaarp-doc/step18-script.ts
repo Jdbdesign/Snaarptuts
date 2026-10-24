@@ -1,10 +1,10 @@
 import { initEditor, SAMPLE_EDITOR } from "@/components/docs/editor-timeline";
-import { chooseViewItem, clickViewMenu, closeViewMenu, hoverViewItem } from "@/components/docs/view-menu-timeline";
+import { chooseViewItem, clickViewMenu, hoverViewItem, pressEscFromFullScreen } from "@/components/docs/view-menu-timeline";
 import type { Timeline } from "@/lib/timeline";
 import { CAPTIONS, URLS } from "./step18-data";
 
 /** Snaarp Doc, step 18 - Ruler and layout options. Times are active milliseconds from the start of the step. */
-export const STEP18_DURATION_MS = 29000;
+export const STEP18_DURATION_MS = 30000;
 
 export async function runStep18(tl: Timeline) {
   initEditor(tl, SAMPLE_EDITOR);
@@ -37,24 +37,27 @@ export async function runStep18(tl: Timeline) {
   await tl.wait(700);
   await chooseViewItem(tl, "non-printing");
 
-  // The greyed-out Show equation toolbar and Full screen (hover only)
+  // The greyed-out Show equation toolbar (hover only)
   await tl.at(14800);
   await clickViewMenu(tl);
   await tl.at(16000);
   tl.showCaption(CAPTIONS.greyed);
   await hoverViewItem(tl, "equation");
-  await tl.at(19000);
-  tl.showCaption(CAPTIONS.fullScreen);
-  await hoverViewItem(tl, "fullscreen");
 
-  // Turn the marks off again
+  // Full screen: the chrome fades out, the page shows on a dark background, the hint pill shows for 3 s
+  await tl.at(18000);
+  tl.showCaption(CAPTIONS.fullScreen);
+  await chooseViewItem(tl, "fullscreen");
   await tl.at(22000);
-  tl.showCaption(CAPTIONS.hideMarks);
-  await chooseViewItem(tl, "non-printing");
-  closeViewMenu(tl);
+  tl.showCaption(CAPTIONS.onlyDocument);
+
+  // Esc: the key chip shows and is pressed; the normal editor returns
+  await tl.at(25000);
+  tl.showCaption(CAPTIONS.esc);
+  await pressEscFromFullScreen(tl);
 
   // Hold, then the quick white fade
-  await tl.at(28400);
+  await tl.at(29600);
   tl.hideCaption();
   tl.setVar("fade", true);
   await tl.at(STEP18_DURATION_MS);
