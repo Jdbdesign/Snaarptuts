@@ -98,7 +98,7 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false }: Props
               {...(p.kind === "current" ? { "data-tl": "doc-match-current" } : {})}
               {...(p.kind === "comment" && p.id ? { "data-tl": `doc-comment-${p.id}` } : {})}
             >
-              {p.text}
+              {nonPrinting ? withSpaceMarks(p.text) : p.text}
               {n === firstSel && <SelectionToolbar visible={showToolbar} partial={(editor.sel?.start.offset ?? 0) > 0} />}
             </span>,
           );
@@ -120,6 +120,21 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false }: Props
         );
       })}
     </div>
+  );
+}
+
+/** View > Show non-printing characters: every space becomes a small dot (a line may still break after it). */
+function withSpaceMarks(text: string): React.ReactNode[] {
+  return text.split(" ").flatMap((word, i) =>
+    i === 0
+      ? [word]
+      : [
+          <span key={`d${i}`} aria-hidden className="inline-block w-[0.3em] select-none text-center text-[#8CA0C7]">
+            ·
+          </span>,
+          <wbr key={`w${i}`} />,
+          word,
+        ],
   );
 }
 

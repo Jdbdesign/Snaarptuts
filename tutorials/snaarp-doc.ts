@@ -32,6 +32,8 @@ import { Step16ManageComments } from "@/scenes/snaarp-doc/Step16ManageComments";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/snaarp-doc/step16-script";
 import { Step17Outline } from "@/scenes/snaarp-doc/Step17Outline";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/snaarp-doc/step17-script";
+import { Step18Layout } from "@/scenes/snaarp-doc/Step18Layout";
+import { runStep18, STEP18_DURATION_MS } from "@/scenes/snaarp-doc/step18-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -145,6 +147,12 @@ export const snaarpDoc: Tutorial = {
       title: "Use the Document outline",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step17Outline, run: runStep17, durationMs: STEP17_DURATION_MS },
+    },
+    {
+      id: "ruler-layout",
+      title: "Ruler and layout options",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step18Layout, run: runStep18, durationMs: STEP18_DURATION_MS },
     },
   ],
   completion: {
