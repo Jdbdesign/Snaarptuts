@@ -99,7 +99,7 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false }: Props
               {...(p.kind === "comment" && p.id ? { "data-tl": `doc-comment-${p.id}` } : {})}
             >
               {p.text}
-              {n === firstSel && <SelectionToolbar visible={showToolbar} />}
+              {n === firstSel && <SelectionToolbar visible={showToolbar} partial={(editor.sel?.start.offset ?? 0) > 0} />}
             </span>,
           );
           pos += p.text.length;
@@ -128,12 +128,12 @@ function Caret() {
 }
 
 /** The dark bar above the selected text. It hangs off the first selected piece, so it follows the text. */
-function SelectionToolbar({ visible }: { visible: boolean }) {
+function SelectionToolbar({ visible, partial }: { visible: boolean; partial: boolean }) {
   return (
     <span
       data-tl="selection-toolbar"
       aria-hidden
-      className={`pointer-events-none absolute left-[110px] top-[-6px] z-10 flex h-[28px] -translate-y-full items-center gap-[1px] whitespace-nowrap rounded-[8px] bg-[#16171B] px-[7px] text-white shadow-[0_6px_18px_-4px_rgba(0,0,0,0.35)] transition-opacity duration-150 motion-reduce:transition-none ${
+      className={`pointer-events-none absolute ${partial ? "left-[24px]" : "left-[110px]"} top-[-6px] z-10 flex h-[28px] -translate-y-full items-center gap-[1px] whitespace-nowrap rounded-[8px] bg-[#16171B] px-[7px] text-white shadow-[0_6px_18px_-4px_rgba(0,0,0,0.35)] transition-opacity duration-150 motion-reduce:transition-none ${
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
