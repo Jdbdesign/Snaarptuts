@@ -421,7 +421,7 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 
 # Snaarp Doc ("How to use Snaarp Doc", route `/tutorials/snaarp-doc`)
 
-Config: `tutorials/snaarp-doc.ts` (13 steps listed, PROVISIONAL: more steps will be added from later recordings; all 13 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
+Config: `tutorials/snaarp-doc.ts` (13 steps listed, PROVISIONAL: more steps will be added from later recordings; all 18 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`), steps 14-18 `ref/docs/Snaarp_Doc_view.mp4` (1008x480, 2:20; frames in `ref/docs/frames-step14/` to `frames-step18/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
 
 Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, content area; copy and sample values in `components/docs/docs-data.ts`). Pass `active` ("documents" | "starred" | "trash" | null) and the screen as children; the layout itself never changes between screens. Under 900px wide the app rail and sidebar become icon-only columns and the whole layout is enlarged (CSS zoom 2.4). `components/docs/PageThumb.tsx` draws the generic page thumbnails (no screenshots).
 
@@ -638,7 +638,7 @@ Steps 10 to 13 use the same `components/docs/EditorStage.tsx` as steps 4-9, with
 | 14.5 | Click an empty part of the canvas; the menu closes. Hold. |
 | 16.6 | Quick white fade. Ends at 17.0. |
 
-## Doc step 13 - Find and replace (last step so far)
+## Doc step 13 - Find and replace
 
 - Files: `scenes/snaarp-doc/Step13FindReplace.tsx`, `step13-script.ts`, `step13-data.ts` (captions and the two words "Acme" / "Apex"). `durationMs` 30000. Starts with the sample document (no extra paragraph). Recording: about 1:26-1:58.
 
@@ -655,4 +655,97 @@ Steps 10 to 13 use the same `components/docs/EditorStage.tsx` as steps 4-9, with
 | 22.5 | Caption "All matches are replaced". |
 | 24.5 | Caption "Click the X to close the panel". Cursor to the X, click; the panel closes. |
 | 27.0 | Hold on the changed document. |
-| 29.6 | Quick white fade. Ends at 30.0. Step 13 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc."). |
+| 29.6 | Quick white fade. Ends at 30.0. Step 13 is marked done; step 14 follows. |
+
+## Doc steps 14-18 - shared pieces (View menu, modes, Comments, outline)
+
+Steps 14 to 18 use `EditorStage` with `startDocument` and the same sample document ("Project Brief", the Acme Studio brief; each step starts with the original text). Everything new is optional and off by default, so steps 1 to 13 are unchanged. URL pill for all five: `docs.snaarp.com/document/project-brief` (placeholder).
+
+- **`ViewMenu.tsx`** (+ `view-menu-data.ts`): the dropdown under "View", 275 px wide. Groups: Mode (eye, chevron) / Comments / Document outline; Show print layout (check) / Show ruler (check + ruler icon) / Show equation toolbar (greyed out) / Show non-printing characters (Ctrl+Shift+P); Full screen. The Mode submenu (Editing, Suggesting, Viewing; the current one is checked) opens to the right. Hooks: `view-menu`, `view-item-<mode|comments|outline|print-layout|ruler|equation|non-printing|fullscreen>`, `view-sub-<editing|suggesting|viewing>`. Helpers in `view-menu-timeline.ts`.
+- **Editor modes** (scene variable `mode`): Editing = black "Editing" pill; Suggesting = black "Suggesting" pill; Viewing = neither pill selected and the whole toolbar row is hidden (the page moves up), as in the frames. The ruler stays in Viewing.
+- **`CommentsPanel.tsx`** (+ `comments-data.ts`, `comments-state.ts`): right-hand panel under the header, 245 px wide at the 1440 design width, white with a left border. Title "Comments" + search + X; tabs "All comments" (blue underline) / "For you"; filter pill "All types" (dropdown: All types with a check, Open, Resolved). Empty state: grey icon, "Start a discussion", blue "Add comment" button (and, as in the frames, a full-width "Add comment" button at the bottom). Composer card (avatar J, "Jane Doe", input "Comment or tag with @", Cancel, Comment pale until there is text). Thread card (label "Project Brief", avatar, "Jane Doe", "Just now", text, three dots, reply input "Reply or add others with @"; focused = blue border + pale send icon). Three-dot card: Resolve, Delete (red). Footer "Who sees comments?" + the visibility sentence. While open the header comment icon has a light grey fill and the page centres in the space left of the panel. Hooks: `comments-panel`, `comments-panel-card` (ring this one), `comments-close`, `comments-add`, `comments-add-bottom`, `comments-filter`, `comments-filter-<all|open|resolved>`, `comments-composer-input`, `-cancel`, `-submit`, `thread-<id>`, `thread-reply-<id>`, `thread-menu-<id>`, `thread-menu-item-<resolve|delete>`, `comments-body`. Helpers in `comments-timeline.ts`; threads are numbered t1, t2 (newest on top).
+- **`OutlinePanel.tsx`**: left-hand "Document tabs" panel, 180 px wide, starting under the toolbar and ruler. Back chevron, title, plus; selected row "Tab 1" (light blue, blue left bar); grey hint "Headings will appear here as you add them". The round outline button in the top-left of the canvas (`outline-button`) grows into a "Tab 1" pill on hover and hides while the panel is open; the header list icon gets a grey fill. Hooks: `outline-panel`, `outline-panel-card`, `outline-close`, `outline-add`.
+- **Editor state:** `anchors` (a comment's yellow-orange highlight, hook `doc-comment-<id>`) and `landmarks` (invisible cursor targets inside text, hook `doc-at-<id>`); the floating selection toolbar's comment icon has the hook `selection-comment`; for a selection that does not start at the beginning of a block the toolbar sits further left.
+- **Non-printing characters:** every space shows as a small blue-grey dot and every paragraph ends with a "¶" (the page reflows a little, as in the frames).
+
+## Doc step 14 - Change the editing mode
+
+- Files: `scenes/snaarp-doc/Step14Mode.tsx`, `step14-script.ts`, `step14-data.ts`. `durationMs` 16000. Starts with the sample document in Editing mode. Recording: about 0:00-0:22.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click View". Cursor to View, ring, click; the View menu opens. |
+| 2.2 | Caption "Click Mode". Cursor to Mode; the submenu opens (Editing checked). |
+| 3.6 | Caption "Suggesting lets you propose changes without changing the text". Cursor to Suggesting, ring, click; the header toggle switches. |
+| 6.5 | View, Mode again (Suggesting checked). |
+| 8.0 | Caption "Viewing is read-only. Use it to just read the document". Click Viewing: the toolbar hides, neither pill is selected. |
+| 10.8 | View, Mode again (Viewing checked). |
+| 12.2 | Caption "Choose Editing to go back to writing". Click Editing: the toolbar and the Editing pill return. |
+| 15.6 | Quick white fade. Ends at 16.0. Step 14 is marked done. |
+
+## Doc step 15 - Open Comments and add a comment
+
+- Files: `Step15AddComment.tsx`, `step15-script.ts`, `step15-data.ts`. `durationMs` 24000. Starts with the sample document, no panel. Recording: about 0:18-0:54.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click View, then Comments". View opens, Comments is clicked; the panel slides in from the right (empty state) and the page moves left. |
+| 3.5 | Caption "Comments from everyone appear in this panel". Ring on the panel until 6.0. |
+| 6.0 | Caption "Click Add comment". Cursor to the blue button, ring, click; the composer card appears with its input focused. |
+| 8.0 | Caption "Type your comment". Types "Please review this section"; Comment turns solid blue. |
+| 12.5 | Caption "Click Comment". Ring, click. |
+| 14.0 | The thread card appears. Caption "Your comment is saved". |
+| 17.5 | Caption "Others can reply under your comment". Cursor to the reply input, ring, click (blue border, pale send icon). |
+| 23.5 | Quick white fade. Ends at 24.0. Step 15 is marked done. |
+
+## Doc step 16 - Manage comments
+
+- Files: `Step16ManageComments.tsx`, `step16-script.ts`, `step16-data.ts`. `durationMs` 36000. Starts with the Comments panel open and the first thread (so it also works alone from the rail). Recording: about 0:52-1:34.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in (after a short pause so the page has settled beside the panel). |
+| 0.8 | Caption "Click the three dots to manage a comment". Click the dots; the card opens. Hover Resolve, then Delete (no click). |
+| 4.2 | Click an empty part of the panel; the card closes. |
+| 5.0 | Caption "Filter comments by status". Click "All types"; hover Open, then Resolved; click All types (stays selected); the dropdown closes. |
+| 10.0 | Caption "Select text in your document to comment on it". The cursor drags across "Make the services pages easier to scan" in the Goals paragraph: blue highlight and the floating toolbar. |
+| 14.0 | Caption "Click the comment icon". Cursor to the last toolbar icon, ring, click; a composer card appears under the first thread. |
+| 16.0 | Caption "Type your comment". Types "This needs more detail". |
+| 20.0 | Caption "Click Comment". The new thread appears on top; the phrase gets the yellow-orange highlight; the status shows "Unsaved changes", then "All changes saved". |
+| 23.5 | Caption "The commented text is highlighted in the document". Ring on the highlight. |
+| 27.0 | The cursor goes to the highlighted phrase (ring), then to the matching comment card (ring). |
+| 30.5 | Caption "Click X to close the panel". Click the X; the panel slides out and the page centres again; the highlight stays. |
+| 35.6 | Quick white fade. Ends at 36.0. Step 16 is marked done. |
+
+## Doc step 17 - Use the Document outline
+
+- Files: `Step17Outline.tsx`, `step17-script.ts`, `step17-data.ts`. `durationMs` 13000. Starts with the commented phrase highlighted, no panel open. Recording: about 1:34-1:50. The recording opens the panel with the round outline button in the canvas corner, so the step does the same (View > Document outline does the same thing).
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click the outline button in the corner". Cursor to the round button (it grows into a "Tab 1" pill), ring, click; the panel slides in on the left and the page moves right. |
+| 3.5 | Caption "The outline shows your document's tabs and headings". Ring on the panel until 6.0. |
+| 6.0 | Caption "Use the plus to add a tab". Cursor to the plus, ring (no click). |
+| 8.5 | Caption "Click the arrow to close the outline". Cursor to the back chevron, ring, click; the panel closes and the page centres again. |
+| 12.6 | Quick white fade. Ends at 13.0. Step 17 is marked done. |
+
+## Doc step 18 - Ruler and layout options (last step so far)
+
+- Files: `Step18Layout.tsx`, `step18-script.ts`, `step18-data.ts`. `durationMs` 29000. Starts with the sample document, no panels, ruler on. Recording: about 1:45-2:20. Toggled for real: Show ruler and Show non-printing characters (both visibly change the page). Hover only: Show print layout (no visible change), Show equation toolbar (greyed out) and Full screen.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click View". View opens. |
+| 2.2 | Caption "Show print layout shows the page the way it will print". Hover that item (checked). |
+| 4.5 | Caption "Click Show ruler to hide the ruler". Click it; the menu closes and the ruler row disappears (the page moves up). |
+| 7.5 | Caption "Click it again to show the ruler". View opens (the check beside Show ruler is gone); click Show ruler; the ruler returns. |
+| 11.0 | Caption "Show non-printing characters reveals spaces and paragraph marks". View opens, hover the item (Ctrl+Shift+P visible), click: dots and "¶" marks appear. |
+| 14.8 | View opens again (the item is checked). |
+| 16.0 | Caption "Some options are greyed out until they are available". Hover Show equation toolbar (stays greyed). |
+| 19.0 | Caption "Full screen hides the extra chrome so you can focus". Hover Full screen. |
+| 22.0 | Caption "Click it again to hide the marks". Click Show non-printing characters; the marks disappear and the menu closes. |
+| 28.4 | Quick white fade. Ends at 29.0. Step 18 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc."). |

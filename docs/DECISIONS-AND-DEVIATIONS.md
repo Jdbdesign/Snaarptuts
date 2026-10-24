@@ -208,6 +208,21 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Find and replace panel:** 296 px wide at the top right, under the toolbar; the Find input is focused when the panel opens, as in the recording.
 - **Placeholder address:** `docs.snaarp.com/document/project-brief` for all four steps.
 
+## Snaarp Doc steps 14-18 (editing mode, Comments, Document outline, ruler and layout)
+
+- **Sample text instead of the recording's text:** the recording's document holds private project notes, file paths and a real tool name. Steps 14 to 18 use the same invented "Acme Studio Website Redesign" brief as steps 10 to 13, and each starts with the original text.
+- **Commenter name and photo replaced:** the recording shows a real username and profile photo in the Comments panel and the header. The steps use "Jane Doe" with an initial "J" circle, and the "JD" header avatar. The comment texts are sample text ("Please review this section", "This needs more detail").
+- **Shortcut:** the recording's "Show non-printing characters" shortcut is drawn in a Mac-style symbol set; the step shows "Ctrl+Shift+P", like the other Windows-style shortcuts.
+- **Resolve and Delete are inferred:** the recording hovers the three-dot icon but never opens its card. The card (Resolve, Delete in red) follows the brief. The filter dropdown (All types / Open / Resolved) is shown, and its items are only hovered.
+- **Panel sizes follow the frames:** the Comments panel is 245 px (the frames show about 17 % of the width) and the Document tabs panel 180 px (about 12 %), not the 270 / 250 px of the brief. The View menu is 275 px (the brief said about 245) so that "Show non-printing characters" and its shortcut fit without cutting the label.
+- **Two "Add comment" buttons in the empty panel:** as in the frames, the empty Comments panel shows the blue button in the middle and a full-width one at the bottom. The bottom one is replaced by the "Who sees comments?" text once there is a comment or a composer.
+- **Newest comment on top:** as in the frames, the second thread card appears above the first one. The first comment has no highlight in the text (the recording's first comment was made without selecting text).
+- **Viewing mode:** as in the frames, the whole toolbar row hides and neither header pill is selected (the brief asked us to follow the frames). Suggesting looks like Editing except for the selected pill.
+- **Document outline opens with the round button, not the View menu**, because that is what the recording does (the menu item does the same). The caption says "Click the outline button in the corner" instead of "Click View, then Document outline". In the recording the Comments panel is still open at that point; in the step it is closed (the brief). The Outline panel starts under the toolbar and ruler, as in the frames.
+- **Step 18 toggles Show non-printing characters on and off** (the brief said hover only unless the frames show it toggled; they do: dots for spaces and paragraph marks appear and the text reflows). That adds about 3 s, so the step is 29 s instead of 26 s. Show print layout (no visible change in the frames), Show equation toolbar (greyed out) and Full screen are hover-only.
+- **Selection toolbar:** for a selection in the middle of a paragraph the dark toolbar sits further left so it stays over the text; whole-paragraph selections (steps 11 to 13) are unchanged.
+- **Placeholder address:** `docs.snaarp.com/document/project-brief` for all five steps.
+
 ## Snaarp Doc: double-check before launch
 
 1. **Placeholder URL pills:** every address except `docs.snaarp.com/trash` is a guess (`/documents`, `/templates`, `/document/new`, `/document/untitled`, `/document/untitled-copy`, `/document/version-history`). Replace them in `tutorials/snaarp-doc.ts` and the step data files (`stepN-data.ts`).
