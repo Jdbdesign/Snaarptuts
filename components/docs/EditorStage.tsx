@@ -12,6 +12,7 @@ import { canRedo, createEditor, fontSizeOf, type EditorState } from "./editor-st
 import { FileMenu } from "./FileMenu";
 import { FindReplacePanel } from "./FindReplacePanel";
 import { OutlinePanel } from "./OutlinePanel";
+import { DEFAULT_OUTLINE_TABS, type OutlineTabs } from "./outline-state";
 import { ViewMenu } from "./ViewMenu";
 import { PANEL_WIDTH } from "./comments-data";
 import { EMPTY_COMMENTS, type CommentsState } from "./comments-state";
@@ -63,6 +64,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const commentsOpen = useTimelineVar(tl, "commentsOpen", false);
   const comments = useTimelineVar<CommentsState>(tl, "comments", EMPTY_COMMENTS);
   const outlineOpen = useTimelineVar(tl, "outlineOpen", false);
+  const outlineTabs = useTimelineVar<OutlineTabs>(tl, "outlineTabs", DEFAULT_OUTLINE_TABS);
   const menuOpen = fileMenu || editMenu || viewMenu;
 
   return (
@@ -93,7 +95,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
                   <ViewMenu open={viewMenu} submenu={viewSub} mode={mode} checks={{ printLayout, ruler, nonPrinting }} />
                   <FindReplacePanel editor={editor} />
                   <CommentsPanel open={commentsOpen} state={comments} />
-                  <OutlinePanel open={outlineOpen} />
+                  <OutlinePanel open={outlineOpen} tabs={outlineTabs} />
                 </>
               )}
               {overlay}

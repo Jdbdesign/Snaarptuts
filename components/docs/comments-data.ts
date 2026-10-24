@@ -37,7 +37,8 @@ export const COMMENTED_PHRASE = "Make the services pages easier to scan";
 
 export const OUTLINE = {
   title: "Document tabs",
-  tab: "Tab 1",
+  /** The name of the n-th tab: "Tab 1", "Tab 2", ... */
+  tabName: (n: number) => `Tab ${n}`,
   hint: "Headings will appear here as you add them",
 };
 
