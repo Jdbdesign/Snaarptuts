@@ -54,6 +54,8 @@ import { Step27PageNumbers } from "@/scenes/snaarp-doc/Step27PageNumbers";
 import { runStep27, STEP27_DURATION_MS } from "@/scenes/snaarp-doc/step27-script";
 import { Step28BlockStyles } from "@/scenes/snaarp-doc/Step28BlockStyles";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/snaarp-doc/step28-script";
+import { Step29ESignature } from "@/scenes/snaarp-doc/Step29ESignature";
+import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-doc/step29-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -233,6 +235,12 @@ export const snaarpDoc: Tutorial = {
       title: "Quote, checklist and code block",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step28BlockStyles, run: runStep28, durationMs: STEP28_DURATION_MS },
+    },
+    {
+      id: "esignature",
+      title: "Add an eSignature",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step29ESignature, run: runStep29, durationMs: STEP29_DURATION_MS },
     },
   ],
   completion: {

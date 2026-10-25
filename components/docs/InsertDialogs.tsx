@@ -1,6 +1,7 @@
 "use client";
 
 import type { Timeline } from "@/lib/timeline";
+import { ESignatureDialog } from "./ESignatureDialog";
 import { PageNumbersDialog } from "./PageNumbersDialog";
 
 /** Which of the Insert menu dialogs is open (scene variable `insertDialog`): "" = none. */
@@ -15,6 +16,7 @@ export function InsertDialogs({ tl }: { tl: Timeline }) {
   return (
     <>
       <PageNumbersDialog tl={tl} />
+      <ESignatureDialog tl={tl} />
     </>
   );
 }

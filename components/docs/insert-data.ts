@@ -80,6 +80,39 @@ export const PAGE_NUMBERS = {
   },
 };
 
+export const BLOCK_TEXTS = {
+  /** The checklist item and the code line typed in step 28. */
+  checklistItem: "Send the brief to Alex",
+  codeLine: "const client = 'Acme Studio';",
+};
+
+export const ESIGN = {
+  title: "eSignature",
+  /** The tabs; only Draw is real, the others are hover only. */
+  tabs: [
+    { id: "draw", label: "Draw", icon: "edPen" },
+    { id: "type", label: "Type", icon: "edTextColor" },
+    { id: "upload", label: "Upload", icon: "upload" },
+    { id: "request", label: "Request", icon: "send" },
+  ] as const,
+  hint: "Draw your signature below:",
+  clear: "Clear",
+  insert: "Insert Signature",
+};
+
+export const DRAWING = {
+  title: "Drawing",
+  tools: ["Pen", "Eraser"],
+  /** The colour dots, left to right (the first is selected). */
+  colors: ["#000000", "#FF0000", "#0000FF", "#0A8A0A", "#FF8C00", "#800080", "#FFFFFF"],
+  /** The pen sizes (dot diameters in px), left to right; the second is selected, as in the frames. */
+  sizes: [2, 4, 6, 9, 13],
+  selectedSize: 1,
+  clear: "Clear",
+  cancel: "Cancel",
+  insert: "Insert",
+};
+
 export const HEADER_FOOTER = {
   header: "Acme Studio brief",
   footer: "Confidential",

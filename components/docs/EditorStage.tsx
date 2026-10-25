@@ -31,6 +31,7 @@ import {
   tableWords,
   type BookmarkState,
   type ImageState,
+  type ObjectState,
   type PageInserts,
   type PageNumbersState,
   type TableState,
@@ -97,6 +98,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const pageHeader = useTimelineVar<ZoneState | null>(tl, "pageHeader", null);
   const pageFooter = useTimelineVar<ZoneState | null>(tl, "pageFooter", null);
   const pageNumbers = useTimelineVar<PageNumbersState | null>(tl, "pageNumbers", null);
+  const pageObjects = useTimelineVar<ObjectState[]>(tl, "pageObjects", NO_INSERTS.objects);
   const watermark = useTimelineVar<WatermarkState>(tl, "watermark", DEFAULT_WATERMARK);
   const inserts: PageInserts = {
     image: pageImage,
@@ -108,6 +110,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
     footer: pageFooter,
     watermark,
     pageNumbers,
+    objects: pageObjects,
   };
   const insertMenu = useTimelineVar(tl, "insertMenu", false);
   const insertSub = useTimelineVar<InsertSub>(tl, "insertSub", "");

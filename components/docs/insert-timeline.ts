@@ -1,7 +1,7 @@
 import type { Timeline } from "@/lib/timeline";
 import { BOOKMARK, PAGE_NUMBERS, TABLE } from "./insert-data";
 import type { InsertDialogId } from "./InsertDialogs";
-import { DEFAULT_WATERMARK, emptyTable, type BookmarkState, type PageNumbersState, type TableState, type WatermarkState, type ZoneState } from "./insert-state";
+import { DEFAULT_WATERMARK, emptyTable, type BookmarkState, type ObjectState, type PageNumbersState, type TableState, type WatermarkState, type ZoneState } from "./insert-state";
 import { showDocToast } from "./doc-toast-timeline";
 import { placeCaret, type BlockKind } from "./editor-state";
 import { getEditor, markEdited, SAMPLE_EDITOR, setEditor } from "./editor-timeline";
@@ -303,4 +303,28 @@ export async function typeInBlock(tl: Timeline, blockId: string, text: string, o
     }));
   }
   markEdited(tl);
+}
+
+// ---- eSignature and Drawing (steps 29 and 30) --------------------------------------------------------
+
+/** Insert > eSignature: the dialog opens on the Draw tab with an empty canvas. */
+export function openEsignature(tl: Timeline) {
+  tl.setVar("esigProgress", 0);
+  openInsertDialog(tl, "esignature");
+}
+
+/**
+ * Put a signature or a drawing into the page right under the line the caret is on (the dialog closes). A drawing comes
+ * selected (corner handles and floating toolbar). With `trailingLine`, an empty line is added under it for the caret.
+ * Returns the id of that new line, or "" without one.
+ */
+export function insertObject(tl: Timeline, kind: ObjectState["kind"], opts: { trailingLine?: boolean } = {}): string {
+  const e = getEditor(tl);
+  if (!e.caret) throw new Error("Insert: place the caret first");
+  const after = e.blocks[e.caret.block].id;
+  const objects = tl.getVar<ObjectState[]>("pageObjects", []);
+  tl.setVar("pageObjects", [...objects, { id: `${kind}-${objects.length + 1}`, kind, after, selected: kind === "drawing" }]);
+  closeInsertDialog(tl);
+  markEdited(tl);
+  return opts.trailingLine ? newLineAfter(tl, after) : "";
 }

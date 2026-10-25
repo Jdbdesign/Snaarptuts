@@ -39,6 +39,9 @@ export type PageNumbersState = {
   start: number;
 };
 
+/** A signature or drawing placed in the page right under the block `after` (Insert > eSignature / Drawing). */
+export type ObjectState = { id: string; kind: "signature" | "drawing"; after: string; selected: boolean };
+
 export type PageInserts = {
   image: ImageState | null;
   table: TableState | null;
@@ -51,6 +54,7 @@ export type PageInserts = {
   footer: ZoneState | null;
   watermark: WatermarkState;
   pageNumbers: PageNumbersState | null;
+  objects: ObjectState[];
 };
 
 export const DEFAULT_WATERMARK: WatermarkState = { text: "", transparency: 75, layout: "diagonal" };
@@ -65,6 +69,7 @@ export const NO_INSERTS: PageInserts = {
   footer: null,
   watermark: DEFAULT_WATERMARK,
   pageNumbers: null,
+  objects: [],
 };
 
 /** An empty table of the given size. */

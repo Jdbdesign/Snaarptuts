@@ -5,6 +5,7 @@ import { Icon } from "@/components/icons";
 import { FloatingToolbarIcons } from "./FloatingToolbar";
 import { HorizontalRule } from "./HorizontalRule";
 import { ImageBlock } from "./ImageBlock";
+import { ObjectBlock } from "./ObjectBlock";
 import { TableBlock } from "./TableBlock";
 import { marksOf, matchesOf, type Block, type EditorState, type Mark } from "./editor-state";
 import { NO_INSERTS, PAGE_BODY_MIN, PAGE_TOP_PAD, type PageInserts } from "./insert-state";
@@ -152,6 +153,11 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
               {nonPrinting && <span aria-hidden className="ml-[3px] select-none text-[#8CA0C7]">¶</span>}
             </div>
             {inserts.table?.after === b.id && <TableBlock cells={inserts.table.cells} focus={inserts.table.focus} />}
+            {inserts.objects
+              .filter((o) => o.after === b.id)
+              .map((o) => (
+                <ObjectBlock key={o.id} object={o} showToolbar={showToolbar} />
+              ))}
           </Fragment>
         );
   });

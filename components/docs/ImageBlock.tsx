@@ -1,7 +1,7 @@
 "use client";
 
 import { useId } from "react";
-import { FloatingToolbarIcons } from "./FloatingToolbar";
+import { SelectionFrame } from "./SelectionFrame";
 import { IMAGE } from "./insert-data";
 import type { ImageState } from "./insert-state";
 
@@ -9,13 +9,6 @@ type Props = ImageState & {
   /** Show the floating toolbar (hidden while a menu is open). */
   showToolbar: boolean;
 };
-
-const CORNERS = [
-  { id: "tl", at: "left-0 top-0" },
-  { id: "tr", at: "left-full top-0" },
-  { id: "bl", at: "left-0 top-full" },
-  { id: "br", at: "left-full top-full" },
-] as const;
 
 /**
  * The sample banner at the top of the page: it spans the text width and pushes the text below it. Selected, it gets a
@@ -25,38 +18,15 @@ const CORNERS = [
  */
 export function ImageBlock({ selected, showToolbar }: Props) {
   return (
-    <div data-tl="page-image-block" className="doc-image-in relative mb-[16px]">
-      <div
-        data-tl="page-image"
-        className={`relative aspect-[16/9] w-full overflow-hidden rounded-[2px] ${selected ? "outline outline-1 outline-[#2B6FEB]" : ""}`}
-      >
-        <Banner />
-      </div>
-
-      {CORNERS.map((c) => (
-        <span
-          key={c.id}
-          className={`absolute flex h-[14px] w-[14px] -translate-x-1/2 -translate-y-1/2 items-center justify-center transition-opacity duration-150 motion-reduce:transition-none ${c.at} ${
-            selected ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <span
-            data-tl={`image-handle-${c.id}`}
-            className="block h-[7px] w-[7px] rounded-full bg-[#2B6FEB] transition-transform data-[hover=true]:scale-125"
-          />
-        </span>
-      ))}
-
-      <span
-        data-tl="image-toolbar"
-        aria-hidden
-        className={`pointer-events-none absolute bottom-full left-1/2 z-10 mb-[10px] flex h-[28px] -translate-x-1/2 items-center gap-[1px] whitespace-nowrap rounded-[8px] bg-[#16171B] px-[7px] text-white shadow-[0_6px_18px_-4px_rgba(0,0,0,0.35)] transition-opacity duration-150 motion-reduce:transition-none ${
-          selected && showToolbar ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <FloatingToolbarIcons />
-      </span>
-    </div>
+    <SelectionFrame
+      selected={selected}
+      showToolbar={showToolbar}
+      hooks={{ block: "page-image-block", body: "page-image", handle: "image-handle", toolbar: "image-toolbar" }}
+      className="mb-[16px]"
+      bodyClassName="aspect-[16/9] w-full"
+    >
+      <Banner />
+    </SelectionFrame>
   );
 }
 

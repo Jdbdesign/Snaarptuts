@@ -205,6 +205,34 @@ export class Timeline {
     });
   }
 
+  /**
+   * Draw along an SVG path with the cursor: it first glides to the start of the path, then follows the path at an even
+   * speed for `ms`, calling `onProgress(0..1)` on every frame so the scene can reveal the stroke as the cursor passes
+   * (e.g. stroke-dashoffset). The selector must match a <path> (or any SVG geometry element).
+   */
+  async followPath(selector: string, ms: number, onProgress: (p: number) => void, opts: { approachMs?: number } = {}) {
+    const path = this.query(selector) as unknown as SVGGeometryElement;
+    const len = path.getTotalLength();
+    const frame = () => this.host.frame()!.getBoundingClientRect();
+    const at = (p: number) => {
+      const pt = path.getPointAtLength(p * len);
+      const m = path.getScreenCTM()!;
+      const f = frame();
+      return { x: m.a * pt.x + m.c * pt.y + m.e - f.left, y: m.b * pt.x + m.d * pt.y + m.f - f.top };
+    };
+    const from = { ...this.cursor };
+    const start = at(0);
+    await this.tween(opts.approachMs ?? 500, easeInOut, (p) => {
+      this.cursor = { x: from.x + (start.x - from.x) * p, y: from.y + (start.y - from.y) * p };
+      this.host.setCursor(this.cursor.x, this.cursor.y);
+    });
+    await this.tween(ms, (t) => t, (p) => {
+      this.cursor = at(p);
+      this.host.setCursor(this.cursor.x, this.cursor.y);
+      onProgress(p);
+    });
+  }
+
   /** Press the target (pressed state + ripple), then fire its real click handler. */
   async click(selector: string) {
     const el = this.query(selector);
