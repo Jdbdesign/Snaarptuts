@@ -4,8 +4,8 @@
  * state and return a new one. editor-timeline.ts drives it from the scripts; DocumentView draws it.
  */
 
-export type BlockKind = "h1" | "h2" | "p";
-export type Block = { id: string; kind: BlockKind; text: string };
+export type BlockKind = "h1" | "h2" | "p" | "quote" | "todo" | "code";
+export type Block = { id: string; kind: BlockKind; text: string; /** A ticked checklist item (kind "todo"). */ checked?: boolean };
 
 export type Pos = { block: number; offset: number };
 /** `toolbar`: show the floating dark selection toolbar (a drag selection does, Select all does not). */
@@ -82,7 +82,7 @@ export function activeBlock(s: EditorState): Block | null {
 }
 
 /** Font size (pt) shown in the toolbar's size box. */
-export const fontSizeOf = (s: EditorState) => (activeBlock(s)?.kind === "p" || !activeBlock(s) ? "11" : "20");
+export const fontSizeOf = (s: EditorState) => (activeBlock(s)?.kind === "h1" || activeBlock(s)?.kind === "h2" ? "20" : "11");
 
 export function findMatches(blocks: Block[], query: string, matchCase: boolean): Match[] {
   if (!query) return [];

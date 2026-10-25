@@ -13,6 +13,12 @@ const BLOCK_STYLE: Record<Block["kind"], string> = {
   h1: "mb-[12px] text-[19.5px] font-bold leading-[1.3]",
   h2: "mb-[8px] mt-[16px] text-[19.5px] font-bold leading-[1.3]",
   p: "mb-[12px] text-[10.8px] leading-[1.5]",
+  // Insert > Block quote: a thin grey bar on the left, an indent and slightly muted text (as in the recording).
+  quote: "mb-[12px] ml-[3px] border-l border-[#CDD1D9] pl-[13px] text-[10.8px] leading-[1.5] text-[#555d6b]",
+  // Insert > Checklist: the text is indented to make room for the box (drawn below, in the block).
+  todo: "relative mb-[12px] pl-[28px] text-[10.8px] leading-[1.5]",
+  // Insert > Code block: fixed-width text; the recording shows no box around it.
+  code: "mb-[12px] font-[Consolas,'Courier_New',monospace] text-[11px] leading-[1.5]",
 };
 
 const MARK_STYLE: Record<Mark["kind"], string> = {
@@ -112,8 +118,22 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
             {inserts.rules.includes(b.id) && <HorizontalRule />}
             <div
               data-tl={`doc-block-${b.id}`}
-              className={`${BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""}`}
+              className={`${BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""} ${
+                b.checked ? "text-[#9aa0ab] line-through" : ""
+              }`}
             >
+              {b.kind === "todo" && (
+                <span className="absolute left-[8px] top-[1px] flex h-[16px] w-[16px] items-center justify-center">
+                  <span
+                    data-tl={`doc-check-${b.id}`}
+                    className={`flex h-[14px] w-[14px] items-center justify-center rounded-[3.5px] border transition-colors ${
+                      b.checked ? "border-[#2B6FEB] bg-[#2B6FEB] text-white" : "border-[#B4B9C4] bg-white text-transparent"
+                    }`}
+                  >
+                    <Icon name="check" size={10} />
+                  </span>
+                </span>
+              )}
               <span data-tl={`doc-start-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
               {inserts.bookmarks
                 .filter((m) => m.before === b.id)

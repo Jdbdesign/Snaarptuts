@@ -52,6 +52,8 @@ import { Step26Watermark } from "@/scenes/snaarp-doc/Step26Watermark";
 import { runStep26, STEP26_DURATION_MS } from "@/scenes/snaarp-doc/step26-script";
 import { Step27PageNumbers } from "@/scenes/snaarp-doc/Step27PageNumbers";
 import { runStep27, STEP27_DURATION_MS } from "@/scenes/snaarp-doc/step27-script";
+import { Step28BlockStyles } from "@/scenes/snaarp-doc/Step28BlockStyles";
+import { runStep28, STEP28_DURATION_MS } from "@/scenes/snaarp-doc/step28-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -225,6 +227,12 @@ export const snaarpDoc: Tutorial = {
       title: "Add page numbers",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step27PageNumbers, run: runStep27, durationMs: STEP27_DURATION_MS },
+    },
+    {
+      id: "block-styles",
+      title: "Quote, checklist and code block",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step28BlockStyles, run: runStep28, durationMs: STEP28_DURATION_MS },
     },
   ],
   completion: {

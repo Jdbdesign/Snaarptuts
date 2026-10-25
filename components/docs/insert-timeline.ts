@@ -3,7 +3,7 @@ import { BOOKMARK, PAGE_NUMBERS, TABLE } from "./insert-data";
 import type { InsertDialogId } from "./InsertDialogs";
 import { DEFAULT_WATERMARK, emptyTable, type BookmarkState, type PageNumbersState, type TableState, type WatermarkState, type ZoneState } from "./insert-state";
 import { showDocToast } from "./doc-toast-timeline";
-import { placeCaret } from "./editor-state";
+import { placeCaret, type BlockKind } from "./editor-state";
 import { getEditor, markEdited, SAMPLE_EDITOR, setEditor } from "./editor-timeline";
 import { SAMPLE_BLOCKS } from "./sample-document";
 
@@ -244,5 +244,63 @@ export function applyPageNumbers(tl: Timeline) {
   } satisfies PageNumbersState);
   tl.setVar("pnFocus", false);
   closeInsertDialog(tl);
+  markEdited(tl);
+}
+
+// ---- block quote, checklist and code block (step 28) --------------------------------------------------
+
+/** Add an empty paragraph under a block (what Enter does) and put the caret in it. Returns the new block's id. */
+export function newLineAfter(tl: Timeline, blockId: string): string {
+  const e = getEditor(tl);
+  const at = e.blocks.findIndex((b) => b.id === blockId);
+  if (at < 0) throw new Error(`Editor: no block "${blockId}"`);
+  const id = `line-${e.nextId}`;
+  setEditor(tl, (s) => ({
+    ...s,
+    blocks: [...s.blocks.slice(0, at + 1), { id, kind: "p" as const, text: "" }, ...s.blocks.slice(at + 1)],
+    nextId: s.nextId + 1,
+    sel: null,
+    caret: { block: at + 1, offset: 0 },
+  }));
+  return id;
+}
+
+/** Click at the end of a paragraph, then press Enter: the caret moves to a new empty line below it. Returns the new line's id. */
+export async function clickEndAndNewLine(tl: Timeline, blockId: string, opts: { ms?: number } = {}): Promise<string> {
+  const sel = `[data-tl=doc-end-${blockId}]`;
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 900, dx: 3 });
+  await tl.click(sel);
+  const e = getEditor(tl);
+  const block = e.blocks.findIndex((b) => b.id === blockId);
+  setEditor(tl, (s) => placeCaret(s, { block, offset: s.blocks[block].text.length }));
+  await tl.wait(450);
+  return newLineAfter(tl, blockId);
+}
+
+/** Change the style of one block (the text stays). */
+export function setBlockKind(tl: Timeline, blockId: string, kind: BlockKind) {
+  setEditor(tl, (s) => ({ ...s, blocks: s.blocks.map((b) => (b.id === blockId ? { ...b, kind } : b)) }));
+  markEdited(tl);
+}
+
+/** Insert > Block quote / Checklist / Code block: the block the caret is in takes that style. */
+export function convertCaretBlock(tl: Timeline, kind: BlockKind) {
+  const e = getEditor(tl);
+  if (!e.caret) throw new Error("Insert: place the caret first");
+  setBlockKind(tl, e.blocks[e.caret.block].id, kind);
+}
+
+/** Type into a block one character at a time, the caret following the text. */
+export async function typeInBlock(tl: Timeline, blockId: string, text: string, opts: { msPerChar?: number } = {}) {
+  const at = getEditor(tl).blocks.findIndex((b) => b.id === blockId);
+  if (at < 0) throw new Error(`Editor: no block "${blockId}"`);
+  for (let n = 1; n <= text.length; n++) {
+    await tl.wait(opts.msPerChar ?? 90);
+    setEditor(tl, (s) => ({
+      ...s,
+      blocks: s.blocks.map((b, i) => (i === at ? { ...b, text: text.slice(0, n) } : b)),
+      caret: { block: at, offset: n },
+    }));
+  }
   markEdited(tl);
 }

@@ -2,7 +2,7 @@ import type { Timeline } from "@/lib/timeline";
 import type { InsertSub } from "./InsertMenu";
 import type { InsertItemId, InsertSubItemId } from "./insert-menu-data";
 import { INSERT_MENU } from "./insert-menu-data";
-import { insertPageBreak, insertRule, insertZone, openBookmarkDialog, openPageNumbers, openWatermarkPanel } from "./insert-timeline";
+import { convertCaretBlock, insertPageBreak, insertRule, insertZone, openBookmarkDialog, openPageNumbers, openWatermarkPanel } from "./insert-timeline";
 
 /*
  * Timeline helpers that drive the Insert menu (Snaarp Doc steps 19 to 26). The scene variables are `insertMenu`
@@ -71,6 +71,9 @@ export async function chooseInsertItem(tl: Timeline, id: InsertItemId, opts: { m
  */
 function runInsertItemAction(tl: Timeline, id: InsertItemId) {
   if (id === "hr") insertRule(tl);
+  if (id === "quote") convertCaretBlock(tl, "quote");
+  if (id === "checklist") convertCaretBlock(tl, "todo");
+  if (id === "code") convertCaretBlock(tl, "code");
   if (id === "bookmark") openBookmarkDialog(tl);
 }
 
