@@ -36,6 +36,8 @@ import { Step18Layout } from "@/scenes/snaarp-doc/Step18Layout";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/snaarp-doc/step18-script";
 import { Step19InsertMenu } from "@/scenes/snaarp-doc/Step19InsertMenu";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-doc/step19-script";
+import { Step20Image } from "@/scenes/snaarp-doc/Step20Image";
+import { runStep20, STEP20_DURATION_MS } from "@/scenes/snaarp-doc/step20-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -161,6 +163,12 @@ export const snaarpDoc: Tutorial = {
       title: "Explore the Insert menu",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step19InsertMenu, run: runStep19, durationMs: STEP19_DURATION_MS },
+    },
+    {
+      id: "insert-image",
+      title: "Insert an image",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step20Image, run: runStep20, durationMs: STEP20_DURATION_MS },
     },
   ],
   completion: {

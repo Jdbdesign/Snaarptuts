@@ -1,14 +1,9 @@
 "use client";
 
-import { Icon, type IconName } from "@/components/icons";
+import { FloatingToolbarIcons } from "./FloatingToolbar";
+import { ImageBlock } from "./ImageBlock";
 import { marksOf, matchesOf, type Block, type EditorState, type Mark } from "./editor-state";
-
-/** Floating selection toolbar, left to right; a thin divider sits between groups. */
-const SELECTION_TOOLBAR: IconName[][] = [
-  ["edBold", "edItalic", "edUnderline", "edStrike"],
-  ["edHighlight", "edEmoji"],
-  ["edComment"],
-];
+import { NO_INSERTS, type PageInserts } from "./insert-state";
 
 const BLOCK_STYLE: Record<Block["kind"], string> = {
   h1: "mb-[12px] text-[19.5px] font-bold leading-[1.3]",
@@ -60,6 +55,8 @@ type Props = {
   showToolbar: boolean;
   /** Show a paragraph mark at the end of every block (View > Show non-printing characters). */
   nonPrinting?: boolean;
+  /** What the Insert menu has added to the page (steps 20 to 22): the banner image at the top, a table under a block. */
+  inserts?: PageInserts;
 };
 
 /**
@@ -68,12 +65,13 @@ type Props = {
  * changes the state. Hooks for scripts: doc-block-<id>, doc-start-<id>, doc-end-<id>, doc-match-current,
  * doc-comment-<anchor id> (the yellow-orange comment highlight), doc-at-<landmark id>, selection-comment.
  */
-export function DocumentView({ editor, showToolbar, nonPrinting = false }: Props) {
+export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts = NO_INSERTS }: Props) {
   const matches = matchesOf(editor);
   const toolbarBlock = editor.sel?.toolbar ? editor.sel.start.block : -1;
 
   return (
     <div className="select-none font-[Arial,Helvetica,sans-serif]">
+      {inserts.image && <ImageBlock {...inserts.image} showToolbar={showToolbar} />}
       {editor.blocks.map((b, i) => {
         const caretAt = editor.caret?.block === i ? editor.caret.offset : -1;
         const landmarks = editor.landmarks.filter((l) => l.block === i);
@@ -152,20 +150,7 @@ function SelectionToolbar({ visible, partial }: { visible: boolean; partial: boo
         visible ? "opacity-100" : "opacity-0"
       }`}
     >
-      {SELECTION_TOOLBAR.map((group, g) => (
-        <span key={g} className="flex items-center">
-          {g > 0 && <span className="mx-[5px] h-[13px] w-px bg-white/25" />}
-          {group.map((name) => (
-            <span
-              key={name}
-              {...(name === "edComment" ? { "data-tl": "selection-comment" } : {})}
-              className="flex h-[22px] w-[22px] items-center justify-center rounded-[5px] text-white/90 transition-colors data-[hover=true]:bg-white/15"
-            >
-              <Icon name={name} size={11.5} />
-            </span>
-          ))}
-        </span>
-      ))}
+      <FloatingToolbarIcons />
     </span>
   );
 }

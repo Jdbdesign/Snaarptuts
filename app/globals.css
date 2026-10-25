@@ -246,6 +246,20 @@ button {
 .doc-pasted {
   animation: doc-paste-flash 1.6s ease-out both;
 }
+/* Snaarp Doc steps 20 and 21: a freshly inserted image or table fades in. */
+.doc-image-in {
+  animation: doc-insert-in 0.45s ease-out both;
+}
+@keyframes doc-insert-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 @keyframes doc-paste-flash {
   from {
     background-color: #fff1b0;
@@ -256,6 +270,9 @@ button {
 }
 @media (prefers-reduced-motion: reduce) {
   .doc-caret {
+    animation: none;
+  }
+  .doc-image-in {
     animation: none;
   }
   .doc-pasted {

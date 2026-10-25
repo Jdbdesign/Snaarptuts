@@ -19,6 +19,7 @@ import { ViewMenu } from "./ViewMenu";
 import { PANEL_WIDTH } from "./comments-data";
 import { EMPTY_COMMENTS, type CommentsState } from "./comments-state";
 import type { EditorMode } from "./editor-data";
+import { NO_INSERTS, tableWords, type ImageState, type TableState } from "./insert-state";
 import { countWords } from "./sample-document";
 import { VIEW_DEFAULTS } from "./view-menu-data";
 
@@ -45,7 +46,7 @@ type Props = {
  * the start (`intro`) and the quick white fade at the end (`fade`). Scene variables: `title`, `loading`,
  * `fileMenu`, `fileSub`, `intro`, `fade`. With a `startDocument` it also draws the View menu and the editor modes
  * (steps 14 to 18): `mode`, `viewMenu`, `viewSub`, `ruler`, `printLayout`, `nonPrinting`, `fullScreen` (+ `fsHint`, `fsKey`, `fsPressed`), and the side panels
- * `commentsOpen` + `comments`, `outlineOpen`, and the Insert menu (steps 19 to 22): `insertMenu`, `insertSub`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
+ * `commentsOpen` + `comments`, `outlineOpen`, and the Insert menu (steps 19 to 22): `insertMenu`, `insertSub`, `pageImage`, `pageTable`, `linkDialog`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
  */
 export function EditorStage({ tl, startTitle, overlay, children, startDocument }: Props) {
   const intro = useTimelineVar(tl, "intro", 0);
@@ -71,6 +72,8 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const fsKey = useTimelineVar(tl, "fsKey", false);
   const fsPressed = useTimelineVar(tl, "fsPressed", false);
   const outlineTabs = useTimelineVar<OutlineTabs>(tl, "outlineTabs", DEFAULT_OUTLINE_TABS);
+  const pageImage = useTimelineVar<ImageState | null>(tl, "pageImage", null);
+  const pageTable = useTimelineVar<TableState | null>(tl, "pageTable", null);
   const insertMenu = useTimelineVar(tl, "insertMenu", false);
   const insertSub = useTimelineVar<InsertSub>(tl, "insertSub", "");
   const menuOpen = fileMenu || editMenu || viewMenu || insertMenu;
@@ -91,7 +94,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
           outlineOpen={outlineOpen}
           live={
             startDocument
-              ? { size: fontSizeOf(editor), canUndo: true, canRedo: canRedo(editor), words: countWords(editor.blocks) }
+              ? { size: fontSizeOf(editor), canUndo: true, canRedo: canRedo(editor), words: countWords(editor.blocks) + tableWords(pageTable) }
               : undefined
           }
           overlay={
@@ -113,7 +116,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
           }
         >
           {/* The floating selection toolbar hides while a menu is open. */}
-          {startDocument && <DocumentView editor={editor} showToolbar={!menuOpen} nonPrinting={nonPrinting} />}
+          {startDocument && <DocumentView editor={editor} showToolbar={!menuOpen} nonPrinting={nonPrinting} inserts={pageImage || pageTable ? { image: pageImage, table: pageTable } : NO_INSERTS} />}
         </DocEditor>
       </div>
       {startDocument && (
