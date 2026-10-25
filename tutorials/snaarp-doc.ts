@@ -62,6 +62,8 @@ import { Step31FormatMenu } from "@/scenes/snaarp-doc/Step31FormatMenu";
 import { runStep31, STEP31_DURATION_MS } from "@/scenes/snaarp-doc/step31-script";
 import { Step32FormatText } from "@/scenes/snaarp-doc/Step32FormatText";
 import { runStep32, STEP32_DURATION_MS } from "@/scenes/snaarp-doc/step32-script";
+import { Step33ParagraphStyles } from "@/scenes/snaarp-doc/Step33ParagraphStyles";
+import { runStep33, STEP33_DURATION_MS } from "@/scenes/snaarp-doc/step33-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -265,6 +267,12 @@ export const snaarpDoc: Tutorial = {
       title: "Format your text",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step32FormatText, run: runStep32, durationMs: STEP32_DURATION_MS },
+    },
+    {
+      id: "paragraph-styles",
+      title: "Use paragraph styles",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step33ParagraphStyles, run: runStep33, durationMs: STEP33_DURATION_MS },
     },
   ],
   completion: {

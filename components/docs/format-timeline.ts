@@ -72,9 +72,16 @@ function runSubAction(tl: Timeline, id: FormatSubItemId) {
  * With the Format menu open: hover the parent row (its submenu opens), move onto the submenu row, ring it, click it,
  * close the menu and run the action.
  */
-export async function chooseFormatSub(tl: Timeline, parent: FormatItemId, id: FormatSubItemId, opts: { ms?: number; parentMs?: number } = {}) {
-  await hoverFormatItem(tl, parent, { ms: opts.parentMs ?? 450 });
-  await tl.wait(120);
+export async function chooseFormatSub(
+  tl: Timeline,
+  parent: FormatItemId,
+  id: FormatSubItemId,
+  opts: { ms?: number; parentMs?: number; /** The submenu is already open and hovered: go straight to its row. */ stay?: boolean } = {},
+) {
+  if (!opts.stay) {
+    await hoverFormatItem(tl, parent, { ms: opts.parentMs ?? 450 });
+    await tl.wait(120);
+  }
   await hoverFormatSub(tl, id, { ms: opts.ms ?? 450 });
   tl.highlight(subItem(id));
   await tl.wait(150);
