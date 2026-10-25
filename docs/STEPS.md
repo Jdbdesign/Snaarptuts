@@ -421,7 +421,7 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 
 # Snaarp Doc ("How to use Snaarp Doc", route `/tutorials/snaarp-doc`)
 
-Config: `tutorials/snaarp-doc.ts` (26 steps listed, PROVISIONAL: more steps will be added from later recordings; all 26 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`), steps 14-18 `ref/docs/Snaarp_Doc_view.mp4` (1008x480, 2:20; frames in `ref/docs/frames-step14/` to `frames-step18/`), steps 19-26 (so far) `ref/docs/Snaarp_Doc_insert.mp4` (1004x480, 5:59; frames in `ref/docs/frames-step19/` (also `19b`, `19c`) to `frames-step26/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
+Config: `tutorials/snaarp-doc.ts` (30 steps listed, PROVISIONAL: more steps will be added from later recordings; all 30 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`), steps 14-18 `ref/docs/Snaarp_Doc_view.mp4` (1008x480, 2:20; frames in `ref/docs/frames-step14/` to `frames-step18/`), steps 19-30 `ref/docs/Snaarp_Doc_insert.mp4` (1004x480, 5:59; frames in `ref/docs/frames-step19/` (also `19b`, `19c`) to `frames-step30/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
 
 Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, content area; copy and sample values in `components/docs/docs-data.ts`). Pass `active` ("documents" | "starred" | "trash" | null) and the screen as children; the layout itself never changes between screens. Under 900px wide the app rail and sidebar become icon-only columns and the whole layout is enlarged (CSS zoom 2.4). `components/docs/PageThumb.tsx` draws the generic page thumbnails (no screenshots).
 
@@ -888,4 +888,77 @@ Reset rule: the script starts with `initTabs`, so the extra tab never survives a
 | 17.0 | Caption "Use Remove watermark to take it off". Cursor hovers the button (hover only). |
 | 20.0 | Caption "Click X to close the panel". Cursor to X, ring, click. The panel closes, the page returns to the centre and the watermark stays. |
 | 23.5 | Caption clears. Hold. |
-| 26.6 | Quick white fade. Ends at 27.0. Step 26 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc.") because step 26 is the last step in the config. |
+| 26.6 | Quick white fade. Ends at 27.0. Step 26 is marked done. |
+
+## Doc step 27 - Add page numbers
+
+- Files: `Step27PageNumbers.tsx`, `step27-script.ts`, `step27-data.ts`. `durationMs` 24000. Starts with the sample document, Editing mode, one page. Recording: about 3:55-4:15. New shared pieces: **`InsertDialog.tsx`** (the frame shared by the dialogs of steps 27 to 30: dim backdrop, white card, bold title, close X), **`InsertDialogs.tsx`** (renders them all; scene variable `insertDialog` = "pagenumbers" | "esignature" | "drawing" | "symbols" | "", one open at a time; helpers `openInsertDialog` / `closeInsertDialog`) and **`PageNumbersDialog.tsx`** (344 px; description, Position, Alignment, Start numbering at with the grey hint, Remove page numbers, Cancel, Apply; scene variables `pnPosition`, `pnAlign`, `pnStart`, `pnFocus`; hooks `pn-pos-top|bottom`, `pn-align-left|center|right`, `pn-start`, `pn-remove`, `pn-cancel`, `pn-apply`, `pn-close`). The number on the page is drawn by `PageDecor.tsx` from the scene variable `pageNumbers` (`{ position, align, start }`; hook `page-number`). Helpers in `insert-timeline.ts`: `openPageNumbers`, `chooseDialogOption`, `applyPageNumbers`. `chooseInsertSub(tl, "page-numbers")` opens the dialog.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Insert, then Page elements". Open the menu; cursor to Page elements; its submenu opens. |
+| 3.0 | Caption "Choose Page numbers". Cursor to Page numbers, ring, click. The menu closes and the dialog opens (Bottom (footer) and Right are already selected, as in the frames). |
+| 5.0 | Caption "Choose where the number goes". Hover Top (header), then click Bottom (footer). |
+| 8.0 | Caption "Choose the alignment". Click Right. |
+| 10.5 | Caption "Choose the first page number". Ring on the Start numbering at input (value 1); the grey hint shows under it. |
+| 13.5 | Caption "Click Apply". Cursor to Apply, ring, click. The dialog closes, the page scrolls to its foot and the number "1" shows at the bottom right. |
+| 16.5 | Caption "The page number appears in the footer". Ring on the number. |
+| 20.0 | Ring and caption clear. Hold. |
+| 23.6 | Quick white fade. Ends at 24.0. Step 27 is marked done. |
+
+## Doc step 28 - Quote, checklist and code block
+
+- Files: `Step28BlockStyles.tsx`, `step28-script.ts`, `step28-data.ts`. `durationMs` 38000. Starts like step 27. Recording: about 4:10-5:15. New block styles in the editor (`BlockKind` gained "quote", "todo" and "code"; drawn by `DocumentView.tsx`): **block quote** (thin grey bar on the left, indent, slightly muted text), **checklist item** (an empty 14 px square box, then the text; a ticked state with a check and struck-through grey text is built (`Block.checked`) but never shown, because the frames never tick it; hook `doc-check-<id>`) and **code block** (fixed-width text, 11 px, no box, as in the frames). Helpers in `insert-timeline.ts`: `clickEndAndNewLine` (click at the end of a line, then a new empty line with the caret, like Enter), `convertCaretBlock`, `typeInBlock`. `chooseInsertItem` runs Block quote, Checklist and Code block (the caret's line takes the style). The toolbar size box now shows 11 for these styles.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click in the paragraph you want to quote". Cursor clicks in the intro paragraph; the caret shows. |
+| 2.5 | Caption "Click Insert, then Block quote". Open the menu, cursor to Block quote, ring, click. The paragraph becomes a quote. |
+| 6.0 | Caption "A block quote sets text apart". Ring on the quote. |
+| 9.0 | Caption "Click at the end of the last line". Cursor clicks at the end of the Contacts paragraph; the caret moves to a new empty line. |
+| 11.0 | Caption "Click Insert, then Checklist". Open the menu, cursor to Checklist, ring, click. A checklist item appears. |
+| 14.0 | Caption "Type the first item". Types "Send the brief to Alex". |
+| 18.5 | Caption "Click the box when it is done". Cursor to the box, ring (hover only). |
+| 22.0 | Cursor clicks at the end of the item; a new empty line below. |
+| 23.5 | Caption "Click Insert, then Code block". Open the menu, cursor to Code block, ring, click. A code block appears. |
+| 27.0 | Caption "Type your code". Types "const client = 'Acme Studio';". |
+| 32.0 | Caption "Code stays in a fixed-width font". Ring on the code block. |
+| 35.0 | Ring and caption clear. Hold. |
+| 37.6 | Quick white fade. Ends at 38.0. Step 28 is marked done. |
+
+## Doc step 29 - Add an eSignature
+
+- Files: `Step29ESignature.tsx`, `step29-script.ts`, `step29-data.ts`. `durationMs` 24000. Starts like step 27. Recording: about 5:15-5:35. New shared pieces: **`ESignatureDialog.tsx`** (380 px; tabs Draw (selected), Type, Upload, Request with icons; "Draw your signature below:"; a drawing canvas; Clear and a blue "Insert Signature"; scene variable `esigProgress` 0 to 1 reveals the stroke; hooks `esig-tab-<id>`, `esig-canvas`, `esig-stroke`, `esig-clear`, `esig-insert`, `esig-close`), the sample strokes **`stroke-data.ts`** (`SIGNATURE` and `DOODLE`, one SVG path each: original, not the recording's scribbles), **`ObjectBlock.tsx`** (the signature, a 110 px black stroke, and the drawing in the page; scene variable `pageObjects`; hooks `page-signature`, `page-drawing-block`, `page-drawing`, `drawing-handle-<tl|tr|bl|br>`, `drawing-toolbar`) and **`SelectionFrame.tsx`** (the selection look of step 20's image: outline, four corner handles, dark floating toolbar; `ImageBlock` now uses it, looking exactly as before). New timeline helper **`tl.followPath(selector, ms, onProgress)`** in `lib/timeline.ts`: the cursor glides to the start of an SVG path, then follows it at an even speed and reports its progress, so a script can reveal a stroke under the cursor; Pause freezes it; with reduced motion it jumps. Helpers in `insert-timeline.ts`: `openEsignature`, `insertObject`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click where the signature should go". Cursor clicks at the end of the Contacts paragraph; a new empty line with the caret. |
+| 2.5 | Caption "Click Insert, then eSignature". Open the menu, cursor to eSignature, ring, click. The dialog opens on the Draw tab. |
+| 5.5 | Caption "Draw your signature with your mouse". The cursor follows the sample stroke for about 3.2 s and the stroke appears behind it. |
+| 10.0 | Caption "You can also type, upload or request a signature". Cursor hovers Type, Upload and Request in turn (hover only). |
+| 14.0 | Caption "Click Insert signature". Cursor to the blue button, ring, click. The dialog closes and the signature appears in the page at the caret. |
+| 17.5 | Caption "Your signature is in the document". Ring on the signature. |
+| 20.5 | Ring and caption clear. Hold. |
+| 23.6 | Quick white fade. Ends at 24.0. Step 29 is marked done. |
+
+## Doc step 30 - Draw and insert symbols (last step so far)
+
+- Files: `Step30DrawSymbols.tsx`, `step30-script.ts`, `step30-data.ts`. `durationMs` 38000. Starts like step 27. Recording: about 5:25-6:00. New shared pieces: **`DrawingDialog.tsx`** (420 px; Pen (selected) and Eraser, seven colour dots (black ringed), five size dots (the second selected), a crosshair canvas, Clear, Cancel and a blue Insert; scene variable `drawProgress`; hooks `draw-tool-pen|eraser`, `draw-color-<n>`, `draw-size-<n>`, `draw-canvas`, `draw-stroke`, `draw-clear`, `draw-cancel`, `draw-insert`, `draw-close`; copy, colours and sizes in `insert-data.ts` `DRAWING`) and **`SymbolsDialog.tsx`** ("Insert Symbol", 408 px, search input, six category pills with the selected one solid blue, symbols 10 to a row; scene variable `symCategory`; hooks `sym-cat-<id>`, `sym-<category>-<index>`, `sym-search`, `sym-close`; categories and symbols in `insert-data.ts` `SYMBOLS`). The drawing goes into the page as the larger doodle in the `SelectionFrame` look (four blue corner handles and the dark toolbar); a symbol click adds the character at the caret in the text behind the dialog, which stays open. Helpers in `insert-timeline.ts`: `openDrawing`, `deselectObjects`, `openSymbols`, `chooseSymbolCategory`, `clickSymbol`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click at the end of the Contacts line". Cursor clicks at the end of the Contacts paragraph; a new empty line with the caret. |
+| 2.5 | Caption "Click Insert, then Drawing". Open the menu, cursor to Drawing, ring, click. The dialog opens. |
+| 5.5 | Caption "Pick a pen color and size". Cursor hovers three colour dots and one size dot (hover only; black stays selected). |
+| 8.0 | Caption "Draw with your mouse". The cursor follows the sample doodle for about 3.2 s and the stroke appears behind it. |
+| 12.0 | Caption "Click Insert". Cursor to Insert, ring, click. The dialog closes; the drawing is in the page with four corner handles and the floating toolbar, and a new empty line is under it. |
+| 16.0 | Caption "Click Insert, then Symbols". Cursor clicks on the new line below the drawing (the drawing is deselected); open the menu; cursor to Symbols, ring, click. The dialog opens on Arrows. |
+| 19.5 | Caption "Browse symbols by category". Click Math, then Arrows. |
+| 23.5 | Caption "Click a symbol to add it". Click five arrows in turn; each appears in the text behind the dialog. |
+| 29.0 | Caption "Click X to close the window". Cursor to X, click. The dialog closes; the symbols stay. |
+| 32.0 | Caption clears. Hold. |
+| 35.6 | Quick white fade. Ends at 36.0 (the step is 38.0 long). Step 30 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc.") because step 30 is the last step in the config. |
