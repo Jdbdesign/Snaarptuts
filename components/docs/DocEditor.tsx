@@ -283,7 +283,7 @@ function Toolbar({ live }: { live?: Props["live"] }) {
     <div className="h-[31px] shrink-0 border-y border-[#E9EAEE] bg-white px-[4px] py-[3px]">
       <div data-tl="editor-toolbar" className="no-scrollbar flex h-full items-center overflow-x-auto rounded-[5px] px-[4px]">
         {TOOLBAR.map((group, g) => (
-          <div key={g} className="flex shrink-0 items-center">
+          <div key={g} data-tl={`toolbar-group-${group[0].id}`} className="flex shrink-0 items-center rounded-[5px] [&.tl-hl]:outline-offset-[-2px]! [&.tl-hl]:after:inset-0!">
             {g > 0 && <span className="mx-[4px] h-[16px] w-px shrink-0 bg-[#E3E5EA]" />}
             {group.map((t) => (
               <Tool key={t.id} item={liveItem(t, live)} />
