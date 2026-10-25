@@ -724,6 +724,27 @@ const bodies = {
       <path d="M7.5 10h9M7.5 14h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </>
   ),
+  // Snaarp Doc Insert menu
+  imBreak: (
+    <>
+      <path d="M7 3.5h6.5L18 8v2.5M6 10.5v-6M18 14v5.5a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M13.5 3.5V8H18M3.5 12.2h2M9 12.2h2M13 12.2h2M18.5 12.2h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  imBookmark: <path d="M7 4.5h10a1 1 0 0 1 1 1v14l-6-4.2-6 4.2v-14a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" fill="none" />,
+  imChecklist: (
+    <>
+      <path d="M19.5 12v5.5a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2H14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" fill="none" />
+      <path d="m8.5 11.5 3 3 8-8.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  imCode: <path d="m8.5 7.5-5 4.5 5 4.5M15.5 7.5l5 4.5-5 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  imDrawing: (
+    <>
+      <path d="m14.5 4.5 5 5-9 9H5.5v-5l9-9Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="M4 20.5c2-1 3.5-1 4.5 0s2.5 1 4 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

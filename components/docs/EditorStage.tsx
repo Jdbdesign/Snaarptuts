@@ -12,6 +12,7 @@ import { canRedo, createEditor, fontSizeOf, type EditorState } from "./editor-st
 import { FileMenu } from "./FileMenu";
 import { FindReplacePanel } from "./FindReplacePanel";
 import { FullScreenView } from "./FullScreenView";
+import { InsertMenu, type InsertSub } from "./InsertMenu";
 import { OutlinePanel } from "./OutlinePanel";
 import { DEFAULT_OUTLINE_TABS, type OutlineTabs } from "./outline-state";
 import { ViewMenu } from "./ViewMenu";
@@ -44,7 +45,7 @@ type Props = {
  * the start (`intro`) and the quick white fade at the end (`fade`). Scene variables: `title`, `loading`,
  * `fileMenu`, `fileSub`, `intro`, `fade`. With a `startDocument` it also draws the View menu and the editor modes
  * (steps 14 to 18): `mode`, `viewMenu`, `viewSub`, `ruler`, `printLayout`, `nonPrinting`, `fullScreen` (+ `fsHint`, `fsKey`, `fsPressed`), and the side panels
- * `commentsOpen` + `comments`, `outlineOpen`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
+ * `commentsOpen` + `comments`, `outlineOpen`, and the Insert menu (steps 19 to 22): `insertMenu`, `insertSub`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
  */
 export function EditorStage({ tl, startTitle, overlay, children, startDocument }: Props) {
   const intro = useTimelineVar(tl, "intro", 0);
@@ -70,7 +71,9 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const fsKey = useTimelineVar(tl, "fsKey", false);
   const fsPressed = useTimelineVar(tl, "fsPressed", false);
   const outlineTabs = useTimelineVar<OutlineTabs>(tl, "outlineTabs", DEFAULT_OUTLINE_TABS);
-  const menuOpen = fileMenu || editMenu || viewMenu;
+  const insertMenu = useTimelineVar(tl, "insertMenu", false);
+  const insertSub = useTimelineVar<InsertSub>(tl, "insertSub", "");
+  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu;
 
   return (
     <div data-scroller className="relative h-full w-full bg-white">
@@ -78,7 +81,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
         <DocEditor
           title={title}
           loading={loading}
-          openMenu={fileMenu ? "file" : editMenu ? "edit" : viewMenu ? "view" : null}
+          openMenu={fileMenu ? "file" : editMenu ? "edit" : viewMenu ? "view" : insertMenu ? "insert" : null}
           status={saveStatus}
           mode={mode}
           showRuler={ruler}
@@ -98,6 +101,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
                 <>
                   <EditMenu open={editMenu} editor={editor} />
                   <ViewMenu open={viewMenu} submenu={viewSub} mode={mode} checks={{ printLayout, ruler, nonPrinting }} />
+                  <InsertMenu open={insertMenu} sub={insertSub} />
                   <FindReplacePanel editor={editor} />
                   <CommentsPanel open={commentsOpen} state={comments} />
                   <OutlinePanel open={outlineOpen} tabs={outlineTabs} />

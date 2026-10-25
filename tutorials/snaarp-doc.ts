@@ -34,11 +34,13 @@ import { Step17Outline } from "@/scenes/snaarp-doc/Step17Outline";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/snaarp-doc/step17-script";
 import { Step18Layout } from "@/scenes/snaarp-doc/Step18Layout";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/snaarp-doc/step18-script";
+import { Step19InsertMenu } from "@/scenes/snaarp-doc/Step19InsertMenu";
+import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-doc/step19-script";
 import type { Tutorial } from "./types";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". The step list is PROVISIONAL (more steps will come from later
- * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 and up from Snaarp_Doc_view.mp4. To add a step, give it a `scene`
+ * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 and up from Snaarp_Doc_insert.mp4. To add a step, give it a `scene`
  * ({ Component, run, durationMs }) and add its folder under scenes/snaarp-doc/.
  * Recording: ref/docs/Snaarp_Doc_flow.mp4 (1010x480, 2:15, git-ignored).
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.
@@ -153,6 +155,12 @@ export const snaarpDoc: Tutorial = {
       title: "Ruler and layout options",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step18Layout, run: runStep18, durationMs: STEP18_DURATION_MS },
+    },
+    {
+      id: "insert-menu",
+      title: "Explore the Insert menu",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step19InsertMenu, run: runStep19, durationMs: STEP19_DURATION_MS },
     },
   ],
   completion: {
