@@ -421,7 +421,7 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 
 # Snaarp Doc ("How to use Snaarp Doc", route `/tutorials/snaarp-doc`)
 
-Config: `tutorials/snaarp-doc.ts` (13 steps listed, PROVISIONAL: more steps will be added from later recordings; all 18 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`), steps 14-18 `ref/docs/Snaarp_Doc_view.mp4` (1008x480, 2:20; frames in `ref/docs/frames-step14/` to `frames-step18/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
+Config: `tutorials/snaarp-doc.ts` (22 steps listed, PROVISIONAL: more steps will be added from later recordings; all 22 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`), steps 14-18 `ref/docs/Snaarp_Doc_view.mp4` (1008x480, 2:20; frames in `ref/docs/frames-step14/` to `frames-step18/`), steps 19-22 (so far) `ref/docs/Snaarp_Doc_insert.mp4` (1004x480, 5:59; frames in `ref/docs/frames-step19/` (also `19b`, `19c`) to `frames-step22/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
 
 Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, content area; copy and sample values in `components/docs/docs-data.ts`). Pass `active` ("documents" | "starred" | "trash" | null) and the screen as children; the layout itself never changes between screens. Under 900px wide the app rail and sidebar become icon-only columns and the whole layout is enlarged (CSS zoom 2.4). `components/docs/PageThumb.tsx` draws the generic page thumbnails (no screenshots).
 
@@ -738,7 +738,7 @@ Steps 14 to 18 use `EditorStage` with `startDocument` and the same sample docume
 
 Reset rule: the script starts with `initTabs`, so the extra tab never survives a replay (every run starts with one tab).
 
-## Doc step 18 - Ruler and layout options (last step so far)
+## Doc step 18 - Ruler and layout options
 
 - Files: `Step18Layout.tsx`, `step18-script.ts`, `step18-data.ts`. `durationMs` 30000. Starts with the sample document, no panels, ruler on. Recording: about 1:45-2:20. Toggled for real: Show ruler, Show non-printing characters and Full screen. Hover only: Show print layout (no visible change) and the greyed-out Show equation toolbar. In the recording Full screen does nothing; the step simulates it inside the frame (see `FullScreenView.tsx`).
 
@@ -756,4 +756,69 @@ Reset rule: the script starts with `initTabs`, so the extra tab never survives a
 | 19.0 | The editor chrome fades out (0.3 s) and the dark full-screen view appears (the marks switch off). The pill "Press Esc to exit full screen" shows until 22.0. |
 | 22.0 | Caption "Only your document stays on screen". Hold. |
 | 25.0 | Caption "Press Esc to go back". The "Esc" key chip shows, is pressed, and the normal editor returns (ruler state kept). |
-| 29.6 | Quick white fade. Ends at 30.0. Step 18 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc."). |
+| 29.6 | Quick white fade. Ends at 30.0. Step 18 is marked done. |
+
+## Doc step 19 - Explore the Insert menu
+
+- Files: `Step19InsertMenu.tsx`, `step19-script.ts`, `step19-data.ts` (captions and the shared URL pill `docs.snaarp.com/document/project-brief`, a placeholder used by steps 19 to 22). `durationMs` 17000. Starts with the sample document, Editing mode, no panels, ruler on. Recording: `ref/docs/Snaarp_Doc_insert.mp4`, 0:00-0:08 (menu), about 2:25 (Break submenu), about 3:03 (Page elements submenu). New shared piece: **`components/docs/InsertMenu.tsx`** (+ `insert-menu-data.ts`, helpers in `insert-menu-timeline.ts`).
+- Scene variables: `insertMenu` (open) and `insertSub` ("" / "break" / "page-elements" / "toc"). Hooks: `insert-menu-card`, `insert-item-<id>` (image, table, link, hr, break, bookmark, page-elements, quote, checklist, code, esignature, drawing, symbols, comment), `insert-sub-<id>` (page-break, section-next, section-continuous, toc, toc-links, toc-plain, toc-update, header, footer, watermark, page-numbers, footnote). Helpers: `clickInsertMenu`, `hoverInsertItem`, `hoverInsertSub`, `chooseInsertItem`, `closeInsertMenu`. Only Image, Table and Link do something when clicked (steps 20 to 22 run those from their own scripts); the other items are hoverable and do nothing yet.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Insert". Cursor to Insert, ring, click; the Insert menu opens. |
+| 2.5 | Caption "The Insert menu adds content to your document". Ring on the menu card. |
+| 5.0 | Caption "Break adds page and section breaks". Cursor to Break; its submenu (Page break Ctrl+Enter, Section break (next page), Section break (continuous)) opens. |
+| 8.0 | Caption "Page elements adds headers, footers, watermarks and page numbers". Cursor to Page elements; its submenu opens (Table of contents with a chevron, Header, Footer, Watermark, Page numbers, Footnote). |
+| 11.0 | Caption "Comment is greyed out until you select text". Cursor to Comment (stays greyed, Ctrl+Alt+M). |
+| 14.0 | The menu closes and the caption hides. |
+| 16.6 | Quick white fade. Ends at 17.0. Step 19 is marked done. |
+
+## Doc step 20 - Insert an image
+
+- Files: `Step20Image.tsx`, `step20-script.ts`, `step20-data.ts`. `durationMs` 22000. Starts like step 19. Recording: about 0:00-0:45. New shared pieces: **`components/docs/ImageBlock.tsx`** (the banner at the top of the page; four round blue corner handles and the dark floating toolbar when selected), **`FloatingToolbar.tsx`** (the toolbar icons, now shared with the text selection bar in `DocumentView.tsx`), `insert-state.ts` (`ImageState`, `TableState`), `insert-data.ts` (copy and sample content). `EditorStage` reads the scene variable `pageImage` (null = no image; `{ selected }`) and `DocumentView` draws it above the text. The banner is drawn inline (SVG, no file): purple-to-blue gradient, simple shapes, the word "Acme Studio"; the "uploaded" file name `acme-banner.png` shows only in the toast.
+- Hooks: `page-image-block`, `page-image`, `image-handle-<tl|tr|bl|br>`, `image-toolbar`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Insert, then Image". Open the menu, cursor to Image, ring, click; the menu closes. |
+| 3.5 | Caption "Choose a picture from your computer". The computer's file picker is not drawn: the cursor rests. |
+| 5.0 | DocToast (loading): "Uploading acme-banner.png...". |
+| 6.5 | The banner fades in at the top of the page and the text moves down ("Unsaved changes" shows for 1.5 s). The toast changes to "Image uploaded" (3.5 s). |
+| 9.5 | Caption "Click the image to select it". Cursor to the image, ring, click; four corner handles and the floating toolbar appear. |
+| 13.0 | Caption "Drag a corner to resize it". Cursor to the bottom-right handle (hover ring only: the recording never resizes). |
+| 18.0 | Ring and caption clear. Hold. |
+| 21.6 | Quick white fade. Ends at 22.0. Step 20 is marked done. |
+
+## Doc step 21 - Insert a table
+
+- Files: `Step21Table.tsx`, `step21-script.ts`, `step21-data.ts`. `durationMs` 30000. Starts like step 19 but with the caret blinking at the end of the intro paragraph (`TABLE_SPOT_EDITOR` in `insert-timeline.ts`), so it is clear where the table goes. Recording: about 0:32-1:30 (the table appears ready-made, 3 columns, header row plus two rows, no size picker). New shared piece: **`components/docs/TableBlock.tsx`** (grey header row, thin borders, rounded corners, cell text 11.5 px, focused cell = thin blue outline plus caret). Scene variable `pageTable` (null or `{ after, cells, focus }`). Helpers in `insert-timeline.ts`: `insertTable`, `clickCell`, `typeInCell`, `clearTableFocus`. Sample cells (header Task / Owner / Due; Homepage design / Jane Doe / Nov 12; Content review / Alex Kim / Nov 26) and the block it sits under (`after: "p1"`) live in `insert-data.ts` (`TABLE`). Hooks: `table-block`, `table-cell-<row>-<col>`. The footer word count includes the table text.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Insert, then Table". Open the menu, cursor to Table, ring, click; the menu closes. |
+| 3.5 | The table appears under the intro paragraph; the first header cell is focused. |
+| 4.5 | Caption "Click a cell and type". The cursor clicks each header cell in turn and types Task, Owner, Due. |
+| 11.5 | Caption "Fill in the first row". Homepage design, Jane Doe, Nov 12 (about 4 s). |
+| 18.0 | Caption "Then the next row". Content review, Alex Kim, Nov 26 (about 5 s). |
+| 25.0 | Caption "Your table is ready". The focus clears; ring on the table. |
+| 28.0 | Ring and caption clear. Hold. |
+| 29.6 | Quick white fade. Ends at 30.0. Step 21 is marked done. |
+
+## Doc step 22 - Insert a link
+
+- Files: `Step22Link.tsx`, `step22-script.ts`, `step22-data.ts`. `durationMs` 25000. Starts like step 19. Recording: about 1:25-2:00. New shared pieces: **`components/docs/LinkDialog.tsx`** (the "Insert Link" modal, 340 px wide; copy in `insert-data.ts` `LINK.dialog`) and a **link look** in the editor text: `EditorState` gained `links` (same shape as comment anchors; blue, underlined, hook `doc-link-<id>`). Scene variables: `linkDialog` (open), `linkFocus` (dark border and caret on the input), `field:link-url` (typed address; `tl.typeText("link-url", ...)`) and `linkNewTab` (ticked by default). Helpers in `insert-timeline.ts`: `openLinkDialog`, `closeLinkDialog`, `applyLink`. Hooks: `link-input`, `link-newtab`, `link-cancel`, `link-insert`. The floating selection toolbar hides while the dialog is open.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Select the text you want to link". The cursor drags across the heading; it turns blue and the floating toolbar appears. |
+| 4.0 | Caption "Click Insert, then Link". Open the menu (Ctrl+K shows), cursor to Link, ring, click; the menu closes and the dialog opens with the URL input focused. |
+| 7.0 | Caption "Type the web address". Types www.acme-studio.com. |
+| 11.5 | Caption "Keep Open in new tab ticked so readers stay on your page". Ring on the checkbox. |
+| 15.0 | Caption "Click Insert". Cursor to Insert, ring, click; the dialog closes and the heading becomes a blue, underlined link. |
+| 18.5 | Caption "The text is now a link". Cursor hovers the link (ring). |
+| 22.0 | Ring and caption clear. Hold. |
+| 24.6 | Quick white fade. Ends at 25.0. Step 22 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc.") because step 22 is the last step in the config. |
