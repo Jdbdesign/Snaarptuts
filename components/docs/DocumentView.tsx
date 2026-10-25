@@ -18,6 +18,7 @@ const MARK_STYLE: Record<Mark["kind"], string> = {
   current: "bg-[#8ED3A4]",
   match: "bg-[#D6F0DF]",
   comment: "bg-[#F9B208]",
+  link: "text-[#1D63D9] underline decoration-[1.5px] underline-offset-2",
 };
 
 type Piece = { text: string; kind: Mark["kind"] | null; id?: string };
@@ -65,7 +66,7 @@ type Props = {
  * The text of the white page: headings and paragraphs from the editor state, with the blinking caret, the blue
  * selection, the green find highlights and the floating selection toolbar. Pure drawing: editor-timeline.ts
  * changes the state. Hooks for scripts: doc-block-<id>, doc-start-<id>, doc-end-<id>, doc-match-current,
- * doc-comment-<anchor id> (the yellow-orange comment highlight), doc-at-<landmark id>, selection-comment.
+ * doc-comment-<anchor id> (the yellow-orange comment highlight), doc-link-<link id>, doc-at-<landmark id>, selection-comment.
  */
 export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts = NO_INSERTS }: Props) {
   const matches = matchesOf(editor);
@@ -97,6 +98,7 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
               className={`${p.kind ? `${MARK_STYLE[p.kind]} rounded-[1px]` : ""} ${n === firstSel ? "relative" : ""}`}
               {...(p.kind === "current" ? { "data-tl": "doc-match-current" } : {})}
               {...(p.kind === "comment" && p.id ? { "data-tl": `doc-comment-${p.id}` } : {})}
+              {...(p.kind === "link" && p.id ? { "data-tl": `doc-link-${p.id}` } : {})}
             >
               {nonPrinting ? withSpaceMarks(p.text) : p.text}
               {n === firstSel && <SelectionToolbar visible={showToolbar} partial={(editor.sel?.start.offset ?? 0) > 0} />}

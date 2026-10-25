@@ -46,11 +46,13 @@ export type EditorState = {
   anchors: Anchor[];
   /** Cursor targets inside the text (drawn as zero-width spans, hook doc-at-<id>). */
   landmarks: Landmark[];
+  /** Text that is a link (blue and underlined, hook doc-link-<id>; step 22). Same shape as a comment anchor. */
+  links: Anchor[];
 };
 
 export type Match = { block: number; from: number; to: number };
-export type MarkKind = "sel" | "current" | "match" | "comment";
-export type Mark = { from: number; to: number; kind: MarkKind; /** The comment anchor id, for kind "comment". */ id?: string };
+export type MarkKind = "sel" | "current" | "match" | "comment" | "link";
+export type Mark = { from: number; to: number; kind: MarkKind; /** The comment anchor or link id, for kind "comment" and "link". */ id?: string };
 
 export const initialFind: FindState = {
   open: false,
@@ -62,7 +64,7 @@ export const initialFind: FindState = {
 };
 
 export function createEditor(blocks: Block[]): EditorState {
-  return { blocks, sel: null, caret: null, clipboard: null, undo: [], redo: [], find: initialFind, flash: null, nextId: 1, anchors: [], landmarks: [] };
+  return { blocks, sel: null, caret: null, clipboard: null, undo: [], redo: [], find: initialFind, flash: null, nextId: 1, anchors: [], landmarks: [], links: [] };
 }
 
 // ---- reading -----------------------------------------------------------------
@@ -120,11 +122,14 @@ export function marksOf(s: EditorState, i: number, matches: Match[]): Mark[] {
   s.anchors.forEach((a) => {
     if (a.block === i) raw.push({ from: a.from, to: a.to, kind: "comment", id: a.id });
   });
+  s.links.forEach((a) => {
+    if (a.block === i) raw.push({ from: a.from, to: a.to, kind: "link", id: a.id });
+  });
   const sel = selectionIn(s, i);
   if (sel) raw.push({ ...sel, kind: "sel" });
   if (!raw.length) return [];
 
-  const rank: Record<MarkKind, number> = { sel: 4, current: 3, match: 2, comment: 1 };
+  const rank: Record<MarkKind, number> = { sel: 4, current: 3, match: 2, comment: 1, link: 0 };
   const cuts = [...new Set(raw.flatMap((m) => [m.from, m.to]))].sort((a, b) => a - b);
   const out: Mark[] = [];
   for (let c = 0; c < cuts.length - 1; c++) {

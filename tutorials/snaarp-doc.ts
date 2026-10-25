@@ -40,6 +40,8 @@ import { Step20Image } from "@/scenes/snaarp-doc/Step20Image";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/snaarp-doc/step20-script";
 import { Step21Table } from "@/scenes/snaarp-doc/Step21Table";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/snaarp-doc/step21-script";
+import { Step22Link } from "@/scenes/snaarp-doc/Step22Link";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/snaarp-doc/step22-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -177,6 +179,12 @@ export const snaarpDoc: Tutorial = {
       title: "Insert a table",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step21Table, run: runStep21, durationMs: STEP21_DURATION_MS },
+    },
+    {
+      id: "insert-link",
+      title: "Insert a link",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step22Link, run: runStep22, durationMs: STEP22_DURATION_MS },
     },
   ],
   completion: {

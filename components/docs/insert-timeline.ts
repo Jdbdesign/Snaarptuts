@@ -62,3 +62,28 @@ export async function typeInCell(
 }
 
 export const clearTableFocus = (tl: Timeline) => setTable(tl, (t) => ({ ...t, focus: null }));
+
+// ---- link ---------------------------------------------------------------------------
+
+/** Open the Insert Link dialog with the URL input focused (the address is typed with tl.typeText("link-url", ...)). */
+export function openLinkDialog(tl: Timeline) {
+  tl.setVar("field:link-url", "");
+  tl.setVar("linkNewTab", true);
+  tl.setVar("linkFocus", true);
+  tl.setVar("linkDialog", true);
+}
+
+export function closeLinkDialog(tl: Timeline) {
+  tl.setVar("linkFocus", false);
+  tl.setVar("linkDialog", false);
+}
+
+/** Turn the selected text into a link: it gets the blue, underlined look and the selection clears. */
+export function applyLink(tl: Timeline, id: string) {
+  setEditor(tl, (s) => {
+    if (!s.sel) return s;
+    const { start, end } = s.sel;
+    return { ...s, links: [...s.links, { id, block: start.block, from: start.offset, to: end.offset }], sel: null, caret: null };
+  });
+  markEdited(tl);
+}

@@ -13,6 +13,7 @@ import { FileMenu } from "./FileMenu";
 import { FindReplacePanel } from "./FindReplacePanel";
 import { FullScreenView } from "./FullScreenView";
 import { InsertMenu, type InsertSub } from "./InsertMenu";
+import { LinkDialog } from "./LinkDialog";
 import { OutlinePanel } from "./OutlinePanel";
 import { DEFAULT_OUTLINE_TABS, type OutlineTabs } from "./outline-state";
 import { ViewMenu } from "./ViewMenu";
@@ -76,7 +77,8 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const pageTable = useTimelineVar<TableState | null>(tl, "pageTable", null);
   const insertMenu = useTimelineVar(tl, "insertMenu", false);
   const insertSub = useTimelineVar<InsertSub>(tl, "insertSub", "");
-  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu;
+  const linkDialog = useTimelineVar(tl, "linkDialog", false);
+  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || linkDialog;
 
   return (
     <div data-scroller className="relative h-full w-full bg-white">
@@ -108,6 +110,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
                   <FindReplacePanel editor={editor} />
                   <CommentsPanel open={commentsOpen} state={comments} />
                   <OutlinePanel open={outlineOpen} tabs={outlineTabs} />
+                  <LinkDialog tl={tl} />
                 </>
               )}
               {overlay}
@@ -115,7 +118,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
             </>
           }
         >
-          {/* The floating selection toolbar hides while a menu is open. */}
+          {/* The floating selection toolbar hides while a menu or the Insert Link dialog is open. */}
           {startDocument && <DocumentView editor={editor} showToolbar={!menuOpen} nonPrinting={nonPrinting} inserts={pageImage || pageTable ? { image: pageImage, table: pageTable } : NO_INSERTS} />}
         </DocEditor>
       </div>
