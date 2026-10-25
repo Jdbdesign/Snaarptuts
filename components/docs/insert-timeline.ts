@@ -1,6 +1,6 @@
 import type { Timeline } from "@/lib/timeline";
 import { BOOKMARK, TABLE } from "./insert-data";
-import { emptyTable, type BookmarkState, type TableState, type ZoneState } from "./insert-state";
+import { DEFAULT_WATERMARK, emptyTable, type BookmarkState, type TableState, type WatermarkState, type ZoneState } from "./insert-state";
 import { showDocToast } from "./doc-toast-timeline";
 import { placeCaret } from "./editor-state";
 import { getEditor, markEdited, SAMPLE_EDITOR, setEditor } from "./editor-timeline";
@@ -178,4 +178,31 @@ export function leaveZones(tl: Timeline) {
     const zone = getZone(tl, kind);
     if (zone) tl.setVar(zoneVar(kind), { ...zone, focus: false });
   });
+}
+
+// ---- watermark ----------------------------------------------------------------------------------
+
+const getWatermark = (tl: Timeline) => tl.getVar<WatermarkState>("watermark", DEFAULT_WATERMARK);
+
+/** Insert > Page elements > Watermark: the panel slides in from the right and the page shifts left. */
+export function openWatermarkPanel(tl: Timeline) {
+  tl.setVar("wmTab", "text");
+  tl.setVar("watermarkOpen", true);
+}
+
+export function closeWatermarkPanel(tl: Timeline) {
+  tl.setVar("wmFocus", false);
+  tl.setVar("watermarkOpen", false);
+}
+
+/** Click the panel's text input (the focus ring and caret show), then type into it: the watermark on the page follows live. */
+export async function typeWatermark(tl: Timeline, text: string, opts: { msPerChar?: number; moveMs?: number } = {}) {
+  await tl.moveCursorTo("[data-tl=wm-input]", { ms: opts.moveMs ?? 800 });
+  await tl.click("[data-tl=wm-input]");
+  tl.setVar("wmFocus", true);
+  markEdited(tl);
+  for (let n = 1; n <= text.length; n++) {
+    await tl.wait(opts.msPerChar ?? 140);
+    tl.setVar("watermark", { ...getWatermark(tl), text: text.slice(0, n) });
+  }
 }

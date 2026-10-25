@@ -43,4 +43,4 @@ export const OUTLINE = {
 };
 
 /** Panel widths in design px (the page is centred in the space that is left). */
-export const PANEL_WIDTH = { comments: 245, outline: 180 };
+export const PANEL_WIDTH = { comments: 245, outline: 180, watermark: 216 };

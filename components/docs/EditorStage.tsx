@@ -16,6 +16,7 @@ import { FullScreenView } from "./FullScreenView";
 import { InsertMenu, type InsertSub } from "./InsertMenu";
 import { LinkDialog } from "./LinkDialog";
 import { pageDecor } from "./PageDecor";
+import { WatermarkPanel } from "./WatermarkPanel";
 import { OutlinePanel } from "./OutlinePanel";
 import { DEFAULT_OUTLINE_TABS, type OutlineTabs } from "./outline-state";
 import { ViewMenu } from "./ViewMenu";
@@ -107,6 +108,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const insertMenu = useTimelineVar(tl, "insertMenu", false);
   const insertSub = useTimelineVar<InsertSub>(tl, "insertSub", "");
   const linkDialog = useTimelineVar(tl, "linkDialog", false);
+  const watermarkOpen = useTimelineVar(tl, "watermarkOpen", false);
   const bookmarkDialog = useTimelineVar(tl, "bookmarkDialog", false);
   const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || linkDialog || bookmarkDialog;
 
@@ -121,7 +123,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
           mode={mode}
           showRuler={ruler}
           leftInset={outlineOpen ? PANEL_WIDTH.outline : 0}
-          rightInset={commentsOpen ? PANEL_WIDTH.comments : 0}
+          rightInset={commentsOpen ? PANEL_WIDTH.comments : watermarkOpen ? PANEL_WIDTH.watermark : 0}
           commentsOpen={commentsOpen}
           outlineOpen={outlineOpen}
           decor={startDocument ? pageDecor(inserts) : undefined}
@@ -143,6 +145,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
                   <OutlinePanel open={outlineOpen} tabs={outlineTabs} />
                   <LinkDialog tl={tl} />
                   <BookmarkDialog tl={tl} />
+                  <WatermarkPanel tl={tl} />
                 </>
               )}
               {overlay}
