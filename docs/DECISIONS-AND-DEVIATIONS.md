@@ -266,6 +266,19 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Placeholder address:** `docs.snaarp.com/document/project-brief` for all four steps.
 - **The Insert menu is complete:** every item now does something except Table of contents, Footnote, Comment (greyed out) and the Section breaks (hover only).
 
+## Snaarp Doc steps 31-34 (Format menu part 1: menu, text, paragraph styles, align and indent)
+
+- **Short practice lines instead of the recording's text.** The recording formats one big messy block of its own text (private project notes, file paths, a real tool name). The tutorial uses short, clean practice lines after the Contacts paragraph so each effect is obvious (step 32: "Bold, italic, underline and strikethrough change how words look. Launch is on the 15th. Water is H2O."; step 33: "Project overview" and "A faster, clearer website for Acme Studio."; step 34: "Thank you for choosing Acme Studio."). They are in each step's data file.
+- **Left out of the recording:** the real news image and table, the small "Download with IDM" bar floating over the text, the profile photo (the avatar says "JD"), browser tooltips and cursors, and the document's real text.
+- **Menu wording and look follow the frames:** Text, Paragraph styles, Align & indent, Bullets & numbering | Headers & footers, Page numbers, Page orientation, Columns (greyed out) | Clear formatting with the shortcut "Ctrl+\" and no icon. Text submenu: Bold Ctrl+B, Italic Ctrl+I, Underline Ctrl+U, Strikethrough, Superscript, Subscript. Paragraph styles: Normal text, then Heading 1 to 6 each in its own size. Align & indent: Left, Center, Right, Justify, then Increase indent, Decrease indent. Bullets & numbering (Bullet list, Numbered list, Checklist) was not opened in the recording, so its rows are our own wording. The menu is a little wider than the Insert menu (172 px, because of "Bullets & numbering").
+- **Not wired yet (next round):** Headers & footers, Page numbers, Page orientation, the Bullets & numbering rows and Clear formatting exist in the menu and can be hovered, but do nothing when clicked.
+- **Heading sizes.** Heading 1 is 25 pt (larger than the sample document's own title, which was already 20 pt in steps 10-30 and is left as it was), Heading 2 is 20 pt and looks the same as "Goals", Heading 3 to 6 are 16, 14, 12 and 11 pt, all bold. The toolbar size box follows (25, 20, 16 ...).
+- **Toolbar follows the text in steps 31-34 only.** The style box ("Normal text", "Heading 1" ...) and the active (light grey) B / I / U / strikethrough / superscript / subscript / alignment buttons are live only when the stage is built with `formatting`. Steps 1-30 keep the old, fixed toolbar.
+- **Formatting stays on the selection.** After a Format > Text choice the word stays selected until the next word is picked (as in the recording). The selection toolbar sits over the start of a selected word.
+- **Indent** is 36 px per step (half an inch on the sample page) and stops at 0 (and at 8).
+- **Step 34 toolbar ring** sits inside the four alignment buttons (the toolbar clips an outer ring).
+- **Step timings** follow the owner's brief; the cycles in step 32 are identical (about 4.5 s each). The page does not need to scroll to show the practice lines, so it does not.
+
 ## Snaarp Doc: double-check before launch
 
 1. **Placeholder URL pills:** every address except `docs.snaarp.com/trash` is a guess (`/documents`, `/templates`, `/document/new`, `/document/untitled`, `/document/untitled-copy`, `/document/version-history`). Replace them in `tutorials/snaarp-doc.ts` and the step data files (`stepN-data.ts`).

@@ -944,7 +944,7 @@ Reset rule: the script starts with `initTabs`, so the extra tab never survives a
 | 20.5 | Ring and caption clear. Hold. |
 | 23.6 | Quick white fade. Ends at 24.0. Step 29 is marked done. |
 
-## Doc step 30 - Draw and insert symbols (last step so far)
+## Doc step 30 - Draw and insert symbols
 
 - Files: `Step30DrawSymbols.tsx`, `step30-script.ts`, `step30-data.ts`. `durationMs` 38000. Starts like step 27. Recording: about 5:25-6:00. New shared pieces: **`DrawingDialog.tsx`** (420 px; Pen (selected) and Eraser, seven colour dots (black ringed), five size dots (the second selected), a crosshair canvas, Clear, Cancel and a blue Insert; scene variable `drawProgress`; hooks `draw-tool-pen|eraser`, `draw-color-<n>`, `draw-size-<n>`, `draw-canvas`, `draw-stroke`, `draw-clear`, `draw-cancel`, `draw-insert`, `draw-close`; copy, colours and sizes in `insert-data.ts` `DRAWING`) and **`SymbolsDialog.tsx`** ("Insert Symbol", 408 px, search input, six category pills with the selected one solid blue, symbols 10 to a row; scene variable `symCategory`; hooks `sym-cat-<id>`, `sym-<category>-<index>`, `sym-search`, `sym-close`; categories and symbols in `insert-data.ts` `SYMBOLS`). The drawing goes into the page as the larger doodle in the `SelectionFrame` look (four blue corner handles and the dark toolbar); a symbol click adds the character at the caret in the text behind the dialog, which stays open. Helpers in `insert-timeline.ts`: `openDrawing`, `deselectObjects`, `openSymbols`, `chooseSymbolCategory`, `clickSymbol`.
 
@@ -961,4 +961,80 @@ Reset rule: the script starts with `initTabs`, so the extra tab never survives a
 | 23.5 | Caption "Click a symbol to add it". Click five arrows in turn; each appears in the text behind the dialog. |
 | 29.0 | Caption "Click X to close the window". Cursor to X, click. The dialog closes; the symbols stay. |
 | 32.0 | Caption clears. Hold. |
-| 35.6 | Quick white fade. Ends at 36.0 (the step is 38.0 long). Step 30 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc.") because step 30 is the last step in the config. |
+| 35.6 | Quick white fade. Ends at 36.0 (the step is 38.0 long). Step 30 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc.") because step 30 was then the last step in the config (steps 31 to 34 now follow). |
+
+
+## Doc step 31 - Explore the Format menu
+
+- Files: `Step31FormatMenu.tsx`, `step31-script.ts`, `step31-data.ts`. `durationMs` 23000. URL pill `docs.snaarp.com/document/project-brief` (placeholder, same for steps 32 to 34). Starts with the sample document only (Editing mode, ruler on, one page, nothing selected). Recording: `ref/docs/Snaarp_Doc_format.mp4`, about 0:01-0:12 (Text submenu), Paragraph styles at about 1:39, Align & indent at about 1:42. New shared pieces: **`FormatMenu.tsx`** (+ `format-menu-data.ts`; a card under "Format", 172 px wide; three groups: Text, Paragraph styles, Align & indent, Bullets & numbering | Headers & footers, Page numbers, Page orientation, Columns (greyed out) | Clear formatting with "Ctrl+\" and no icon; four submenus that open to the right of their row; scene variables `formatMenu` and `formatSub`; hooks `format-item-<id>`, `format-sub-<id>`, `format-menu-card`) and the timeline helpers in **`format-timeline.ts`** (`clickFormatMenu`, `hoverFormatItem`, `hoverFormatSub`, `chooseFormatSub`, `closeFormatMenu`). Eight new icons (`fmText`, `fmHeading`, `fmAlign`, `fmList`, `fmHeaderFooter`, `fmHash`, `fmOrientation`, `fmColumns`) are in `components/icons.tsx`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Format". Cursor to Format, ring, click; the menu opens. |
+| 2.5 | Caption "The Format menu changes how your document looks". Ring on the menu card. |
+| 4.5 | Caption "Text sets bold, italic, underline and more". Cursor to Text; its submenu opens (Bold Ctrl+B, Italic Ctrl+I, Underline Ctrl+U, Strikethrough, Superscript, Subscript). |
+| 7.0 | Caption "Paragraph styles sets headings and normal text". Submenu: Normal text, Heading 1 to 6 (each in its own size). |
+| 9.5 | Caption "Align & indent moves text left, center or right". Submenu: Left, Center, Right, Justify, Increase indent, Decrease indent. |
+| 12.0 | Caption "Bullets & numbering makes lists". Submenu: Bullet list, Numbered list, Checklist. |
+| 14.5 | Caption "These options set up your pages". Cursor hovers Headers & footers, Page numbers and Page orientation in turn (hover only). |
+| 17.0 | Caption "Columns is greyed out until it is available". Cursor to Columns (stays greyed). |
+| 19.0 | Caption "Clear formatting removes all styling". Cursor to Clear formatting (shortcut visible). |
+| 21.0 | The menu closes. Hold. |
+| 22.6 | Quick white fade. Ends at 23.0. Step 31 is marked done. |
+
+## Doc step 32 - Format your text
+
+- Files: `Step32FormatText.tsx`, `step32-script.ts`, `step32-data.ts`. `durationMs` 38000. Starts with the sample document plus the practice paragraph after Contacts: "Bold, italic, underline and strikethrough change how words look. Launch is on the 15th. Water is H2O." (in `step32-data.ts`, with the words that are selected). New in the editor: **text formatting** (`Block.formats`: bold, italic, underline, strikethrough, superscript, subscript on ranges of a block's text; pure functions in `components/docs/format-state.ts` (`toggleFormat`, `practiceEditor`, `activeFormats`); drawn by `DocumentView.tsx`) and the stage setting `formatting` (the toolbar buttons show their active look; the style box shows the style). Helpers in `format-timeline.ts`: `dragSelectText` (the cursor drags across a word while the blue highlight grows; the floating toolbar hangs over the word), `clickInBlock`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Select the word you want to format". The cursor drags across "Bold"; it is highlighted and the floating toolbar shows. |
+| 3.0 | Caption "Click Format, then Text, then Bold". Open Format; cursor to Text; its submenu opens (Ctrl+B visible); cursor to Bold, ring, click. The word turns bold and the toolbar B button shows active. |
+| 7.5 | Caption "Now select italic". Select "italic", Format > Text > Italic. |
+| 12.0 | Caption "Underline adds a line under the text". Select "underline", Format > Text > Underline. |
+| 16.5 | Caption "Strikethrough crosses text out". Select "strikethrough", Format > Text > Strikethrough. |
+| 21.0 | Caption "Superscript raises text above the line". Select "th" in "15th", Format > Text > Superscript. |
+| 25.5 | Caption "Subscript lowers text below the line". Select "2" in "H2O", Format > Text > Subscript. |
+| 30.0 | Caption "Shortcuts: Ctrl+B for bold, Ctrl+I for italic, Ctrl+U for underline". Cursor clicks at the end of the practice paragraph (selection clears); ring on the paragraph. |
+| 34.0 | Ring and caption clear. Hold. |
+| 37.6 | Quick white fade. Ends at 38.0. Step 32 is marked done. |
+
+Each effect cycle (select, open Format, Text, item) takes about 4.5 s and is identical.
+
+## Doc step 33 - Use paragraph styles
+
+- Files: `Step33ParagraphStyles.tsx`, `step33-script.ts`, `step33-data.ts`. `durationMs` 30000. Starts with the sample document plus two Normal text lines after Contacts: "Project overview" and "A faster, clearer website for Acme Studio." New in the editor: **paragraph styles** (`Block.heading` 1 to 6; Normal text clears it; `setHeading` in `format-state.ts`; styles in `DocumentView.tsx`: Heading 1 24.5 px, Heading 2 19.5 px (same as the sample "Goals"), 3 to 6 smaller, all bold). The toolbar's style box shows "Normal text" or "Heading n" and the size box follows (25, 20, 16, 14, 12, 11).
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click in the line you want to turn into a heading". Cursor clicks inside "Project overview"; the caret shows; the style box says "Normal text". |
+| 2.8 | Caption "Click Format, then Paragraph styles". Open the menu; cursor to Paragraph styles; its submenu opens. |
+| 5.0 | Caption "Higher numbers mean smaller headings". Cursor moves over Heading 1, 2, 3 (hover only). |
+| 8.0 | Caption "Choose Heading 1". Cursor to Heading 1, ring, click. The line becomes a large bold heading; the style box says "Heading 1". |
+| 12.0 | Format > Paragraph styles > Heading 2. Caption "Heading 2 is a bit smaller". It matches the Goals heading. |
+| 16.0 | Heading 3. Caption "Heading 3 is smaller again". |
+| 20.0 | Normal text. Caption "Normal text turns it back into plain text". |
+| 24.0 | Heading 2. Caption "We will keep Heading 2 here". The line ends as Heading 2. |
+| 27.0 | Caption clears. Hold. |
+| 29.6 | Quick white fade. Ends at 30.0. Step 33 is marked done. |
+
+## Doc step 34 - Align and indent text
+
+- Files: `Step34AlignIndent.tsx`, `step34-script.ts`, `step34-data.ts`. `durationMs` 36000. Starts with the sample document plus one Normal text, left aligned line after Contacts: "Thank you for choosing Acme Studio." New in the editor: **alignment** (`Block.align`: left, center, right, justify; `setAlign`) and **indent** (`Block.indent`, 36 px per step, 0 to 8; `changeIndent`). The toolbar's four alignment buttons show the active look (Left when a paragraph has no alignment set). `DocEditor` toolbar groups gained hooks `toolbar-group-<first tool id>`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click in the line you want to align". Cursor clicks inside the practice line; the caret shows. |
+| 2.8 | Caption "Click Format, then Align & indent, then Center". Open the menu; Align & indent; Center, ring, click. The line moves to the middle; the toolbar center button shows active. |
+| 7.5 | Format > Align & indent > Right. Caption "Right moves it to the right edge". |
+| 11.5 | Format > Align & indent > Left. Caption "Left puts it back". |
+| 15.5 | Cursor clicks inside the intro paragraph. Caption "Justify spreads the lines to fill the full width". Format > Align & indent > Justify; the right edge is even. |
+| 20.5 | Cursor clicks inside the practice line. Caption "Increase indent moves the text in". Format > Align & indent > Increase indent; the line moves in about 36 px. |
+| 25.0 | Caption "Decrease indent moves it back". Format > Align & indent > Decrease indent; the line returns. |
+| 29.0 | Caption "Shortcuts also work on the toolbar". Ring on the four alignment buttons. |
+| 32.5 | Ring and caption clear. Hold. |
+| 35.6 | Quick white fade. Ends at 36.0. Step 34 is marked done; the completion card appears ("You're all set") because step 34 is the last step in the config. |
