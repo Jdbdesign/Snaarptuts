@@ -60,6 +60,8 @@ import { Step30DrawSymbols } from "@/scenes/snaarp-doc/Step30DrawSymbols";
 import { runStep30, STEP30_DURATION_MS } from "@/scenes/snaarp-doc/step30-script";
 import { Step31FormatMenu } from "@/scenes/snaarp-doc/Step31FormatMenu";
 import { runStep31, STEP31_DURATION_MS } from "@/scenes/snaarp-doc/step31-script";
+import { Step32FormatText } from "@/scenes/snaarp-doc/Step32FormatText";
+import { runStep32, STEP32_DURATION_MS } from "@/scenes/snaarp-doc/step32-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -257,6 +259,12 @@ export const snaarpDoc: Tutorial = {
       title: "Explore the Format menu",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step31FormatMenu, run: runStep31, durationMs: STEP31_DURATION_MS },
+    },
+    {
+      id: "format-text",
+      title: "Format your text",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step32FormatText, run: runStep32, durationMs: STEP32_DURATION_MS },
     },
   ],
   completion: {
