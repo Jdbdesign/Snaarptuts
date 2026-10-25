@@ -31,6 +31,11 @@ type Props = {
   /** The Comments / Document outline panels are open: their header icon gets a light grey fill, and the round outline button hides. */
   commentsOpen?: boolean;
   outlineOpen?: boolean;
+  /**
+   * Layers drawn on the white page itself (steps 23 to 26): `text` sits inside the text margins (header, footer),
+   * `full` spans the whole page (the page-break band, the watermark). Both ignore the mouse.
+   */
+  decor?: { text?: ReactNode; full?: ReactNode };
   /** Overrides for a document with real text. Left out, the toolbar and footer show the blank-document values. */
   live?: {
     /** Toolbar font size box, e.g. "11" or "20". */
@@ -39,6 +44,8 @@ type Props = {
     canUndo: boolean;
     canRedo: boolean;
     words: number;
+    /** Number of pages (default 1): a page break makes it 2. */
+    pages?: number;
   };
 };
 
@@ -60,10 +67,12 @@ export function DocEditor({
   rightInset = 0,
   commentsOpen = false,
   outlineOpen = false,
+  decor,
 }: Props) {
   const narrow = useNarrow();
   // Page position in the canvas (also drives the ruler). Side panels centre the page in the space that is left.
   const words = live ? `${live.words} ${EDITOR.wordsLabel}` : EDITOR.footerWords;
+  const pages = live?.pages && live.pages > 1 ? EDITOR.footerPagesMany(live.pages) : EDITOR.footerPages;
   const inset = narrow ? 0 : leftInset + rightInset;
   const pageBox = narrow
     ? { left: "7%", width: "86%" }
@@ -106,6 +115,18 @@ export function DocEditor({
                 style={{ width: pageBox.width, marginLeft: pageBox.left }}
               >
                 {children}
+                {decor && (
+                  <>
+                    <div className="pointer-events-none absolute inset-0">{decor.full}</div>
+                    {/* The page text margin is 6% of the canvas width: that is 14.2% of the page (6/86 = 7% on narrow screens). */}
+                    <div
+                      className="pointer-events-none absolute inset-y-0"
+                      style={{ left: `${narrow ? 6 / 0.86 : 6 / 0.422}%`, right: `${narrow ? 6 / 0.86 : 6 / 0.422}%` }}
+                    >
+                      {decor.text}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             <div className="absolute left-[9px] top-[6px] h-[28px] w-[28px]">
@@ -123,7 +144,7 @@ export function DocEditor({
           </div>
           <div className="flex h-[19px] shrink-0 items-center justify-between border-t border-[#E3E5EA] bg-white px-[6px] text-[8.5px] text-[#8b909c]">
             <span className="flex gap-[10px]">
-              <span>{EDITOR.footerPages}</span>
+              <span>{pages}</span>
               <span>{words}</span>
             </span>
             <span>{EDITOR.footerZoom}</span>

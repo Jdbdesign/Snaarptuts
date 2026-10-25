@@ -14,6 +14,7 @@ export const EDITOR = {
   suggesting: "Suggesting",
   share: "Share",
   footerPages: "1 page",
+  footerPagesMany: (n: number) => `${n} pages`,
   footerWords: "0 words",
   wordsLabel: "words",
   footerZoom: "Zoom: 100%",

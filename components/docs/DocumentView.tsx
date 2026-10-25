@@ -1,11 +1,13 @@
 "use client";
 
 import { Fragment } from "react";
+import { Icon } from "@/components/icons";
 import { FloatingToolbarIcons } from "./FloatingToolbar";
+import { HorizontalRule } from "./HorizontalRule";
 import { ImageBlock } from "./ImageBlock";
 import { TableBlock } from "./TableBlock";
 import { marksOf, matchesOf, type Block, type EditorState, type Mark } from "./editor-state";
-import { NO_INSERTS, type PageInserts } from "./insert-state";
+import { NO_INSERTS, PAGE_BODY_MIN, PAGE_TOP_PAD, type PageInserts } from "./insert-state";
 
 const BLOCK_STYLE: Record<Block["kind"], string> = {
   h1: "mb-[12px] text-[19.5px] font-bold leading-[1.3]",
@@ -58,7 +60,7 @@ type Props = {
   showToolbar: boolean;
   /** Show a paragraph mark at the end of every block (View > Show non-printing characters). */
   nonPrinting?: boolean;
-  /** What the Insert menu has added to the page (steps 20 to 22): the banner image at the top, a table under a block. */
+  /** What the Insert menu has added to the page (steps 20 to 26): the banner image at the top, a table under a block, lines, a page break and bookmark markers. */
   inserts?: PageInserts;
 };
 
@@ -72,10 +74,7 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
   const matches = matchesOf(editor);
   const toolbarBlock = editor.sel?.toolbar ? editor.sel.start.block : -1;
 
-  return (
-    <div className="select-none font-[Arial,Helvetica,sans-serif]">
-      {inserts.image && <ImageBlock {...inserts.image} showToolbar={showToolbar} />}
-      {editor.blocks.map((b, i) => {
+  const items = editor.blocks.map((b, i) => {
         const caretAt = editor.caret?.block === i ? editor.caret.offset : -1;
         const landmarks = editor.landmarks.filter((l) => l.block === i);
         let pieces = splitAt(piecesOf(b.text, marksOf(editor, i, matches)), caretAt);
@@ -110,11 +109,24 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
 
         return (
           <Fragment key={b.id}>
+            {inserts.rules.includes(b.id) && <HorizontalRule />}
             <div
               data-tl={`doc-block-${b.id}`}
               className={`${BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""}`}
             >
               <span data-tl={`doc-start-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
+              {inserts.bookmarks
+                .filter((m) => m.before === b.id)
+                .map((m) => (
+                  <span
+                    key={m.id}
+                    data-tl={`doc-bookmark-${m.id}`}
+                    title={m.name}
+                    className="doc-image-in mr-[5px] inline-flex h-[15px] w-[15px] items-center justify-center rounded-[4px] bg-[#E8EDF6] align-[-2px] text-[#6F82A8]"
+                  >
+                    <Icon name="imBookmark" size={10.5} />
+                  </span>
+                ))}
               {nodes}
               <span data-tl={`doc-end-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
               {nonPrinting && <span aria-hidden className="ml-[3px] select-none text-[#8CA0C7]">¶</span>}
@@ -122,7 +134,27 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
             {inserts.table?.after === b.id && <TableBlock cells={inserts.table.cells} focus={inserts.table.focus} />}
           </Fragment>
         );
-      })}
+  });
+
+  // A page break splits the text in two: page 1 is padded down to a full page, a thin grey band, then page 2.
+  const breakAt = inserts.pageBreakBefore ? editor.blocks.findIndex((b) => b.id === inserts.pageBreakBefore) : -1;
+
+  return (
+    <div className="select-none font-[Arial,Helvetica,sans-serif]">
+      {inserts.image && <ImageBlock {...inserts.image} showToolbar={showToolbar} />}
+      {breakAt > 0 ? (
+        <>
+          <div className="flex flex-col" style={{ minHeight: PAGE_BODY_MIN }}>
+            <div>{items.slice(0, breakAt)}</div>
+            <div className="flex-1" />
+          </div>
+          {/* The grey band between the pages is drawn by PageDecor at the same height; this spacer keeps the room. */}
+          <div className="h-[4px]" />
+          <div style={{ paddingTop: PAGE_TOP_PAD }}>{items.slice(breakAt)}</div>
+        </>
+      ) : (
+        items
+      )}
     </div>
   );
 }

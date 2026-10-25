@@ -2,7 +2,7 @@ import type { Timeline } from "@/lib/timeline";
 import { TABLE } from "./insert-data";
 import { emptyTable, type TableState } from "./insert-state";
 import { placeCaret } from "./editor-state";
-import { markEdited, SAMPLE_EDITOR, setEditor } from "./editor-timeline";
+import { getEditor, markEdited, SAMPLE_EDITOR, setEditor } from "./editor-timeline";
 import { SAMPLE_BLOCKS } from "./sample-document";
 
 /*
@@ -85,5 +85,39 @@ export function applyLink(tl: Timeline, id: string) {
     const { start, end } = s.sel;
     return { ...s, links: [...s.links, { id, block: start.block, from: start.offset, to: end.offset }], sel: null, caret: null };
   });
+  markEdited(tl);
+}
+
+// ---- caret, line and page break -----------------------------------------------------------
+
+/** Click at the very start of a text block: the selection clears and the caret blinks there. */
+export async function clickStartOfBlock(tl: Timeline, blockId: string, opts: { ms?: number } = {}) {
+  const block = getEditor(tl).blocks.findIndex((b) => b.id === blockId);
+  if (block < 0) throw new Error(`Editor: no block "${blockId}"`);
+  const sel = `[data-tl=doc-start-${blockId}]`;
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 900, dx: 4 });
+  await tl.click(sel);
+  setEditor(tl, (s) => placeCaret(s, { block, offset: 0 }));
+}
+
+/** The id of the block that a line or break at the caret goes right before: the caret's own block at its start, else the next one. */
+function blockAfterCaret(tl: Timeline): string {
+  const e = getEditor(tl);
+  if (!e.caret) throw new Error("Insert: place the caret first (clickStartOfBlock)");
+  const target = e.blocks[e.caret.offset === 0 ? e.caret.block : e.caret.block + 1];
+  if (!target) throw new Error("Insert: nothing after the caret to put the line before");
+  return target.id;
+}
+
+/** Insert > Horizontal line: a thin grey line at the caret. */
+export function insertRule(tl: Timeline) {
+  const id = blockAfterCaret(tl);
+  tl.setVar("pageRules", [...tl.getVar<string[]>("pageRules", []), id]);
+  markEdited(tl);
+}
+
+/** Insert > Break > Page break: the text from the caret on moves to a new page and the footer says "2 pages". */
+export function insertPageBreak(tl: Timeline) {
+  tl.setVar("pageBreak", blockAfterCaret(tl));
   markEdited(tl);
 }

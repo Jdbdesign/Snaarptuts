@@ -14,13 +14,25 @@ import { FindReplacePanel } from "./FindReplacePanel";
 import { FullScreenView } from "./FullScreenView";
 import { InsertMenu, type InsertSub } from "./InsertMenu";
 import { LinkDialog } from "./LinkDialog";
+import { pageDecor } from "./PageDecor";
 import { OutlinePanel } from "./OutlinePanel";
 import { DEFAULT_OUTLINE_TABS, type OutlineTabs } from "./outline-state";
 import { ViewMenu } from "./ViewMenu";
 import { PANEL_WIDTH } from "./comments-data";
 import { EMPTY_COMMENTS, type CommentsState } from "./comments-state";
 import type { EditorMode } from "./editor-data";
-import { NO_INSERTS, tableWords, type ImageState, type TableState } from "./insert-state";
+import {
+  DEFAULT_WATERMARK,
+  NO_INSERTS,
+  pageCount,
+  tableWords,
+  type BookmarkState,
+  type ImageState,
+  type PageInserts,
+  type TableState,
+  type WatermarkState,
+  type ZoneState,
+} from "./insert-state";
 import { countWords } from "./sample-document";
 import { VIEW_DEFAULTS } from "./view-menu-data";
 
@@ -75,6 +87,22 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const outlineTabs = useTimelineVar<OutlineTabs>(tl, "outlineTabs", DEFAULT_OUTLINE_TABS);
   const pageImage = useTimelineVar<ImageState | null>(tl, "pageImage", null);
   const pageTable = useTimelineVar<TableState | null>(tl, "pageTable", null);
+  const pageRules = useTimelineVar<string[]>(tl, "pageRules", NO_INSERTS.rules);
+  const pageBreak = useTimelineVar<string | null>(tl, "pageBreak", null);
+  const pageBookmarks = useTimelineVar<BookmarkState[]>(tl, "pageBookmarks", NO_INSERTS.bookmarks);
+  const pageHeader = useTimelineVar<ZoneState | null>(tl, "pageHeader", null);
+  const pageFooter = useTimelineVar<ZoneState | null>(tl, "pageFooter", null);
+  const watermark = useTimelineVar<WatermarkState>(tl, "watermark", DEFAULT_WATERMARK);
+  const inserts: PageInserts = {
+    image: pageImage,
+    table: pageTable,
+    rules: pageRules,
+    pageBreakBefore: pageBreak,
+    bookmarks: pageBookmarks,
+    header: pageHeader,
+    footer: pageFooter,
+    watermark,
+  };
   const insertMenu = useTimelineVar(tl, "insertMenu", false);
   const insertSub = useTimelineVar<InsertSub>(tl, "insertSub", "");
   const linkDialog = useTimelineVar(tl, "linkDialog", false);
@@ -94,9 +122,10 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
           rightInset={commentsOpen ? PANEL_WIDTH.comments : 0}
           commentsOpen={commentsOpen}
           outlineOpen={outlineOpen}
+          decor={startDocument ? pageDecor(inserts) : undefined}
           live={
             startDocument
-              ? { size: fontSizeOf(editor), canUndo: true, canRedo: canRedo(editor), words: countWords(editor.blocks) + tableWords(pageTable) }
+              ? { size: fontSizeOf(editor), canUndo: true, canRedo: canRedo(editor), words: countWords(editor.blocks) + tableWords(pageTable), pages: pageCount(inserts) }
               : undefined
           }
           overlay={
@@ -119,7 +148,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
           }
         >
           {/* The floating selection toolbar hides while a menu or the Insert Link dialog is open. */}
-          {startDocument && <DocumentView editor={editor} showToolbar={!menuOpen} nonPrinting={nonPrinting} inserts={pageImage || pageTable ? { image: pageImage, table: pageTable } : NO_INSERTS} />}
+          {startDocument && <DocumentView editor={editor} showToolbar={!menuOpen} nonPrinting={nonPrinting} inserts={inserts} />}
         </DocEditor>
       </div>
       {startDocument && (

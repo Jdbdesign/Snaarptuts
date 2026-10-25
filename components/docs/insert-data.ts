@@ -1,7 +1,8 @@
 /*
- * Copy and sample content of the things the Insert menu adds to the page (Snaarp Doc steps 20 to 22): the sample
- * banner image, the sample table and the sample link. Edit the words here, not in the layout code.
- * The recording uses a real news image, real table text and a real web address: the sample replaces them.
+ * Copy and sample content of the things the Insert menu adds to the page (Snaarp Doc steps 20 to 26): the sample banner
+ * image, the sample table, the sample link, the line and page break, the bookmark, the header and footer and the
+ * watermark. Edit the words here, not in the layout code. The recording uses a real news image, real table text, a real
+ * web address and real header text: the samples replace them.
  */
 
 export const IMAGE = {
@@ -36,5 +37,54 @@ export const LINK = {
     newTab: "Open in new tab",
     cancel: "Cancel",
     insert: "Insert",
+  },
+};
+
+/** Where the horizontal line and the page break go in the sample document (step 23): right before these blocks. */
+export const BREAKS = {
+  /** The line sits under the heading, before the intro paragraph. */
+  ruleBefore: "p1",
+  /** The page break sits before the "Goals" heading: it and everything after it moves to page 2. */
+  pageBreakBefore: "h2-goals",
+};
+
+export const BOOKMARK = {
+  /** The bookmark sits at the start of this block (the paragraph under "Goals"). */
+  before: "p2",
+  id: "bookmark1",
+  name: "Work in progress",
+  added: "Bookmark added",
+  dialog: {
+    title: "Add bookmark",
+    label: "Bookmark name",
+    cancel: "Cancel",
+    ok: "OK",
+  },
+};
+
+export const HEADER_FOOTER = {
+  header: "Acme Studio brief",
+  footer: "Confidential",
+};
+
+export const WATERMARK = {
+  text: "Draft",
+  maxLength: 100,
+  /** Size in design px of the watermark text on the page, and its angle. */
+  fontSize: 76,
+  angle: -38,
+  panel: {
+    title: "Watermark",
+    tabs: { image: "Image", text: "Text" },
+    placeholder: "Insert text",
+    formatting: "Formatting",
+    font: "Arial",
+    size: "Auto",
+    transparency: "Transparency",
+    diagonal: "Diagonal",
+    horizontal: "Horizontal",
+    placement: "Placement",
+    remove: "Remove watermark",
+    imageHint: "Upload an image",
   },
 };
