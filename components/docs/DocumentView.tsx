@@ -7,7 +7,8 @@ import { HorizontalRule } from "./HorizontalRule";
 import { ImageBlock } from "./ImageBlock";
 import { ObjectBlock } from "./ObjectBlock";
 import { TableBlock } from "./TableBlock";
-import { marksOf, matchesOf, type Block, type EditorState, type Mark } from "./editor-state";
+import { marksOf, matchesOf, type Block, type EditorState, type HeadingLevel, type Mark, type TextFormat } from "./editor-state";
+import { INDENT_PX } from "./format-menu-data";
 import { NO_INSERTS, PAGE_BODY_MIN, PAGE_TOP_PAD, type PageInserts } from "./insert-state";
 
 const BLOCK_STYLE: Record<Block["kind"], string> = {
@@ -20,6 +21,16 @@ const BLOCK_STYLE: Record<Block["kind"], string> = {
   todo: "relative mb-[12px] pl-[28px] text-[10.8px] leading-[1.5]",
   // Insert > Code block: fixed-width text; the recording shows no box around it.
   code: "mb-[12px] font-[Consolas,'Courier_New',monospace] text-[11px] leading-[1.5]",
+};
+
+// Format > Paragraph styles. Heading 2 matches the sample "Goals" heading (h2 above).
+const HEADING_STYLE: Record<HeadingLevel, string> = {
+  1: "mb-[10px] mt-[14px] text-[24.5px] font-bold leading-[1.25]",
+  2: "mb-[8px] mt-[16px] text-[19.5px] font-bold leading-[1.3]",
+  3: "mb-[8px] mt-[14px] text-[15.7px] font-bold leading-[1.3]",
+  4: "mb-[8px] mt-[12px] text-[13.7px] font-bold leading-[1.35]",
+  5: "mb-[8px] mt-[12px] text-[11.8px] font-bold leading-[1.4]",
+  6: "mb-[8px] mt-[12px] text-[10.8px] font-bold leading-[1.5] text-[#555d6b]",
 };
 
 const MARK_STYLE: Record<Mark["kind"], string> = {
@@ -61,6 +72,20 @@ function splitAt(pieces: Piece[], at: number): Piece[] {
   return out;
 }
 
+/** Inline style of a piece of text that has Format > Text styling (bold, italic, ...). */
+function formatStyle(b: Block, from: number, to: number): React.CSSProperties | undefined {
+  const on = new Set<TextFormat>((b.formats ?? []).filter((f) => f.from <= from && f.to >= to).map((f) => f.format));
+  if (!on.size) return undefined;
+  const lines = [on.has("underline") ? "underline" : "", on.has("strike") ? "line-through" : ""].filter(Boolean).join(" ");
+  return {
+    fontWeight: on.has("bold") ? 700 : undefined,
+    fontStyle: on.has("italic") ? "italic" : undefined,
+    textDecorationLine: lines || undefined,
+    fontSize: on.has("sup") || on.has("sub") ? "0.7em" : undefined,
+    verticalAlign: on.has("sup") ? "super" : on.has("sub") ? "sub" : undefined,
+  };
+}
+
 type Props = {
   editor: EditorState;
   /** Show the floating toolbar (hidden while a menu is open). */
@@ -86,6 +111,7 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
         const landmarks = editor.landmarks.filter((l) => l.block === i);
         let pieces = splitAt(piecesOf(b.text, marksOf(editor, i, matches)), caretAt);
         for (const l of landmarks) pieces = splitAt(pieces, l.offset);
+        for (const f of b.formats ?? []) pieces = splitAt(splitAt(pieces, f.from), f.to);
         const firstSel = i === toolbarBlock ? pieces.findIndex((p) => p.kind === "sel") : -1;
 
         const nodes: React.ReactNode[] = [];
@@ -102,12 +128,13 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
             <span
               key={n}
               className={`${p.kind ? `${MARK_STYLE[p.kind]} rounded-[1px]` : ""} ${n === firstSel ? "relative" : ""}`}
+              style={b.formats?.length ? formatStyle(b, pos, pos + p.text.length) : undefined}
               {...(p.kind === "current" ? { "data-tl": "doc-match-current" } : {})}
               {...(p.kind === "comment" && p.id ? { "data-tl": `doc-comment-${p.id}` } : {})}
               {...(p.kind === "link" && p.id ? { "data-tl": `doc-link-${p.id}` } : {})}
             >
               {nonPrinting ? withSpaceMarks(p.text) : p.text}
-              {n === firstSel && <SelectionToolbar visible={showToolbar} partial={(editor.sel?.start.offset ?? 0) > 0} />}
+              {n === firstSel && <SelectionToolbar visible={showToolbar} partial={(editor.sel?.start.offset ?? 0) > 0} compact={!!editor.sel?.compact} />}
             </span>,
           );
           pos += p.text.length;
@@ -119,9 +146,10 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
             {inserts.rules.includes(b.id) && <HorizontalRule />}
             <div
               data-tl={`doc-block-${b.id}`}
-              className={`${BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""} ${
+              className={`${b.heading ? HEADING_STYLE[b.heading] : BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""} ${
                 b.checked ? "text-[#9aa0ab] line-through" : ""
-              }`}
+              } ${b.indent !== undefined ? "transition-[margin-left] duration-300 motion-reduce:transition-none" : ""}`}
+              style={b.align || b.indent ? { textAlign: b.align, marginLeft: b.indent ? b.indent * INDENT_PX : undefined } : undefined}
             >
               {b.kind === "todo" && (
                 <span className="absolute left-[8px] top-[1px] flex h-[16px] w-[16px] items-center justify-center">
@@ -205,12 +233,12 @@ function Caret() {
 }
 
 /** The dark bar above the selected text. It hangs off the first selected piece, so it follows the text. */
-function SelectionToolbar({ visible, partial }: { visible: boolean; partial: boolean }) {
+function SelectionToolbar({ visible, partial, compact }: { visible: boolean; partial: boolean; compact: boolean }) {
   return (
     <span
       data-tl="selection-toolbar"
       aria-hidden
-      className={`pointer-events-none absolute ${partial ? "left-[24px]" : "left-[110px]"} top-[-6px] z-10 flex h-[28px] -translate-y-full items-center gap-[1px] whitespace-nowrap rounded-[8px] bg-[#16171B] px-[7px] text-white shadow-[0_6px_18px_-4px_rgba(0,0,0,0.35)] transition-opacity duration-150 motion-reduce:transition-none ${
+      className={`pointer-events-none absolute ${compact ? "left-[-8px]" : partial ? "left-[24px]" : "left-[110px]"} top-[-6px] z-10 flex h-[28px] -translate-y-full items-center gap-[1px] whitespace-nowrap rounded-[8px] bg-[#16171B] px-[7px] text-white shadow-[0_6px_18px_-4px_rgba(0,0,0,0.35)] transition-opacity duration-150 motion-reduce:transition-none ${
         visible ? "opacity-100" : "opacity-0"
       }`}
     >

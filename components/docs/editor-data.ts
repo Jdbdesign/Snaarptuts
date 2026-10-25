@@ -50,6 +50,8 @@ export type ToolItem = {
   /** Width in design px of a select. */
   width?: number;
   disabled?: boolean;
+  /** Shows the light grey "on" look (the caret or selection has this style). */
+  active?: boolean;
   /** Colour of the bar under the icon (text colour, highlight). */
   bar?: string;
 };

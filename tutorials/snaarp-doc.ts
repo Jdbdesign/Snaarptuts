@@ -58,11 +58,13 @@ import { Step29ESignature } from "@/scenes/snaarp-doc/Step29ESignature";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-doc/step29-script";
 import { Step30DrawSymbols } from "@/scenes/snaarp-doc/Step30DrawSymbols";
 import { runStep30, STEP30_DURATION_MS } from "@/scenes/snaarp-doc/step30-script";
+import { Step31FormatMenu } from "@/scenes/snaarp-doc/Step31FormatMenu";
+import { runStep31, STEP31_DURATION_MS } from "@/scenes/snaarp-doc/step31-script";
 import type { Tutorial } from "./types";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". The step list is PROVISIONAL (more steps will come from later
- * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 and up from Snaarp_Doc_insert.mp4 (23 to 26: line and break, bookmark, header, watermark). To add a step, give it a `scene`
+ * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 and up from Snaarp_Doc_format.mp4 (the Format menu). To add a step, give it a `scene`
  * ({ Component, run, durationMs }) and add its folder under scenes/snaarp-doc/.
  * Recording: ref/docs/Snaarp_Doc_flow.mp4 (1010x480, 2:15, git-ignored).
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.
@@ -249,6 +251,12 @@ export const snaarpDoc: Tutorial = {
       title: "Draw and insert symbols",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step30DrawSymbols, run: runStep30, durationMs: STEP30_DURATION_MS },
+    },
+    {
+      id: "format-menu",
+      title: "Explore the Format menu",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step31FormatMenu, run: runStep31, durationMs: STEP31_DURATION_MS },
     },
   ],
   completion: {

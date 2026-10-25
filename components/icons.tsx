@@ -745,6 +745,30 @@ const bodies = {
       <path d="M4 20.5c2-1 3.5-1 4.5 0s2.5 1 4 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
     </>
   ),
+  // Snaarp Doc Format menu
+  fmText: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M9.5 8h3.2a2 2 0 0 1 0 4H9.5M9.5 12h3.7a2 2 0 0 1 0 4H9.5V8Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  fmHeading: <path d="M6 5v14M18 5v14M6 12h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />,
+  fmAlign: <path d="M4.5 6.5h15M4.5 11h9M4.5 15.5h15M4.5 20h9" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />,
+  fmList: <path d="M9 6.5h11M9 12h11M9 17.5h11M4 6.5h1.5M4 12h1.5M4 17.5h1.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  fmHeaderFooter: (
+    <>
+      <path d="M7 3.5h6.5L18.5 8.5v10a1.5 1.5 0 0 1-1.5 1.5H7a1.5 1.5 0 0 1-1.5-1.5v-13A1.5 1.5 0 0 1 7 3.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" fill="none" />
+      <path d="M8.5 11h7M8.5 16h7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </>
+  ),
+  fmHash: <path d="M9.5 4 8 20M16 4l-1.5 16M4.5 9h15M4 15h15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />,
+  fmOrientation: <rect x="3.5" y="7" width="17" height="10" rx="2" stroke="currentColor" strokeWidth="1.8" fill="none" />,
+  fmColumns: (
+    <>
+      <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M12 5v14" stroke="currentColor" strokeWidth="1.7" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

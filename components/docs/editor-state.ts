@@ -5,11 +5,32 @@
  */
 
 export type BlockKind = "h1" | "h2" | "p" | "quote" | "todo" | "code";
-export type Block = { id: string; kind: BlockKind; text: string; /** A ticked checklist item (kind "todo"). */ checked?: boolean };
+/** Inline text styling (Format > Text, steps 31 and 32). */
+export type TextFormat = "bold" | "italic" | "underline" | "strike" | "sup" | "sub";
+export type FormatRange = { from: number; to: number; format: TextFormat };
+/** Format > Paragraph styles: Heading 1 to 6 (a block without `heading` is Normal text). */
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+export type Align = "left" | "center" | "right" | "justify";
+
+export type Block = {
+  id: string;
+  kind: BlockKind;
+  text: string;
+  /** A ticked checklist item (kind "todo"). */
+  checked?: boolean;
+  /** Bold, italic, ... on parts of the text (Format > Text). */
+  formats?: FormatRange[];
+  /** A heading set from Format > Paragraph styles. It replaces the look of `kind`. */
+  heading?: HeadingLevel;
+  /** Format > Align & indent. Left when missing. */
+  align?: Align;
+  /** Number of indent steps (Format > Align & indent). Each step moves the paragraph IN_DENT px. */
+  indent?: number;
+};
 
 export type Pos = { block: number; offset: number };
 /** `toolbar`: show the floating dark selection toolbar (a drag selection does, Select all does not). */
-export type Selection = { start: Pos; end: Pos; toolbar: boolean };
+export type Selection = { start: Pos; end: Pos; toolbar: boolean; /** The floating toolbar hangs from the start of the selection (a word), not from the middle of a paragraph. */ compact?: boolean };
 
 /** What was copied. `whole`: the copy covered whole paragraphs, so pasting makes new paragraphs. */
 export type Clip = { text: string; whole: boolean };
@@ -81,8 +102,15 @@ export function activeBlock(s: EditorState): Block | null {
   return pos ? (s.blocks[pos.block] ?? null) : null;
 }
 
+/** Font size (pt) of each heading level, shown in the toolbar's size box. Heading 2 matches the sample "Goals" headings. */
+export const HEADING_PT: Record<HeadingLevel, string> = { 1: "25", 2: "20", 3: "16", 4: "14", 5: "12", 6: "11" };
+
 /** Font size (pt) shown in the toolbar's size box. */
-export const fontSizeOf = (s: EditorState) => (activeBlock(s)?.kind === "h1" || activeBlock(s)?.kind === "h2" ? "20" : "11");
+export const fontSizeOf = (s: EditorState) => {
+  const b = activeBlock(s);
+  if (b?.heading) return HEADING_PT[b.heading];
+  return b?.kind === "h1" || b?.kind === "h2" ? "20" : "11";
+};
 
 export function findMatches(blocks: Block[], query: string, matchCase: boolean): Match[] {
   if (!query) return [];
@@ -164,7 +192,7 @@ export const placeCaret = (s: EditorState, caret: Pos): EditorState => ({ ...s, 
 // ---- editing ----------------------------------------------------------------------
 
 /** Replace the document, remembering the old one for Undo. */
-function commit(s: EditorState, blocks: Block[], patch: Partial<EditorState> = {}): EditorState {
+export function commit(s: EditorState, blocks: Block[], patch: Partial<EditorState> = {}): EditorState {
   return { ...s, ...patch, blocks, undo: [...s.undo, s.blocks], redo: [] };
 }
 

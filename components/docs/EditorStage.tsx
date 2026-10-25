@@ -11,6 +11,8 @@ import { DocumentView } from "./DocumentView";
 import { EditMenu } from "./EditMenu";
 import { canRedo, createEditor, fontSizeOf, type EditorState } from "./editor-state";
 import { FileMenu } from "./FileMenu";
+import { FormatMenu, type FormatSub } from "./FormatMenu";
+import { activeToolsOf, styleLabelOf } from "./format-state";
 import { FindReplacePanel } from "./FindReplacePanel";
 import { FullScreenView } from "./FullScreenView";
 import { InsertDialogs, type InsertDialogId } from "./InsertDialogs";
@@ -57,6 +59,11 @@ type Props = {
    * selection, the Edit menu, the Find and replace panel and the Unsaved changes status. Left out, the page is blank.
    */
   startDocument?: EditorState;
+  /**
+   * Steps 31 and up (Format menu): the toolbar follows the text. The style box shows the style at the caret and the
+   * bold / italic / alignment buttons show their active look. Off, the toolbar looks as in steps 1 to 30.
+   */
+  formatting?: boolean;
 };
 
 /**
@@ -64,9 +71,9 @@ type Props = {
  * the start (`intro`) and the quick white fade at the end (`fade`). Scene variables: `title`, `loading`,
  * `fileMenu`, `fileSub`, `intro`, `fade`. With a `startDocument` it also draws the View menu and the editor modes
  * (steps 14 to 18): `mode`, `viewMenu`, `viewSub`, `ruler`, `printLayout`, `nonPrinting`, `fullScreen` (+ `fsHint`, `fsKey`, `fsPressed`), and the side panels
- * `commentsOpen` + `comments`, `outlineOpen`, and the Insert menu (steps 19 to 22): `insertMenu`, `insertSub`, `pageImage`, `pageTable`, `linkDialog`, `bookmarkDialog`, `pageRules`, `pageBreak`, `pageBookmarks`, `pageHeader`, `pageFooter`, `watermark`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
+ * `commentsOpen` + `comments`, `outlineOpen`, and the Insert menu (steps 19 to 22): `insertMenu`, `insertSub`, `formatMenu`, `formatSub`, `pageImage`, `pageTable`, `linkDialog`, `bookmarkDialog`, `pageRules`, `pageBreak`, `pageBookmarks`, `pageHeader`, `pageFooter`, `watermark`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
  */
-export function EditorStage({ tl, startTitle, overlay, children, startDocument }: Props) {
+export function EditorStage({ tl, startTitle, overlay, children, startDocument, formatting = false }: Props) {
   const intro = useTimelineVar(tl, "intro", 0);
   const fade = useTimelineVar(tl, "fade", false);
   const title = useTimelineVar(tl, "title", startTitle);
@@ -118,7 +125,9 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const watermarkOpen = useTimelineVar(tl, "watermarkOpen", false);
   const bookmarkDialog = useTimelineVar(tl, "bookmarkDialog", false);
   const insertDialog = useTimelineVar<InsertDialogId>(tl, "insertDialog", "");
-  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || linkDialog || bookmarkDialog || insertDialog !== "";
+  const formatMenu = useTimelineVar(tl, "formatMenu", false);
+  const formatSub = useTimelineVar<FormatSub>(tl, "formatSub", "");
+  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || formatMenu || linkDialog || bookmarkDialog || insertDialog !== "";
 
   return (
     <div data-scroller className="relative h-full w-full bg-white">
@@ -126,7 +135,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
         <DocEditor
           title={title}
           loading={loading}
-          openMenu={fileMenu ? "file" : editMenu ? "edit" : viewMenu ? "view" : insertMenu ? "insert" : null}
+          openMenu={fileMenu ? "file" : editMenu ? "edit" : viewMenu ? "view" : insertMenu ? "insert" : formatMenu ? "format" : null}
           status={saveStatus}
           mode={mode}
           showRuler={ruler}
@@ -137,7 +146,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
           decor={startDocument ? pageDecor(inserts) : undefined}
           live={
             startDocument
-              ? { size: fontSizeOf(editor), canUndo: true, canRedo: canRedo(editor), words: countWords(editor.blocks) + tableWords(pageTable), pages: pageCount(inserts) }
+              ? { size: fontSizeOf(editor), canUndo: true, canRedo: canRedo(editor), words: countWords(editor.blocks) + tableWords(pageTable), pages: pageCount(inserts), ...(formatting ? { style: styleLabelOf(editor), active: activeToolsOf(editor) } : {}) }
               : undefined
           }
           overlay={
@@ -148,6 +157,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
                   <EditMenu open={editMenu} editor={editor} />
                   <ViewMenu open={viewMenu} submenu={viewSub} mode={mode} checks={{ printLayout, ruler, nonPrinting }} />
                   <InsertMenu open={insertMenu} sub={insertSub} />
+                  <FormatMenu open={formatMenu} sub={formatSub} />
                   <FindReplacePanel editor={editor} />
                   <CommentsPanel open={commentsOpen} state={comments} />
                   <OutlinePanel open={outlineOpen} tabs={outlineTabs} />

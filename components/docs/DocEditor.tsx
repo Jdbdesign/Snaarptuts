@@ -46,6 +46,10 @@ type Props = {
     words: number;
     /** Number of pages (default 1): a page break makes it 2. */
     pages?: number;
+    /** The style box text ("Normal text", "Heading 1"...). Left out, it says "Normal text". */
+    style?: string;
+    /** Toolbar button ids that show the active (light grey) look, e.g. "bold", "align-center". */
+    active?: string[];
   };
 };
 
@@ -294,6 +298,8 @@ function Toolbar({ live }: { live?: Props["live"] }) {
 /** Toolbar items that follow the document: the size box and the Undo / Redo buttons. */
 function liveItem(item: ToolItem, live?: Props["live"]): ToolItem {
   if (!live) return item;
+  if (item.id === "style" && live.style) return { ...item, label: live.style };
+  if (live.active?.includes(item.id)) return { ...item, active: true };
   if (item.id === "size") return { ...item, label: live.size };
   if (item.id === "undo") return { ...item, disabled: !live.canUndo };
   if (item.id === "redo") return { ...item, disabled: !live.canRedo };
@@ -307,7 +313,7 @@ function Tool({ item }: { item: ToolItem }) {
       data-tl={`tool-${item.id}`}
       className={`relative flex h-[22px] shrink-0 items-center rounded-[5px] text-[#1f2430] transition-colors data-[hover=true]:bg-[#F1F2F5] ${
         item.disabled ? "opacity-35" : ""
-      } ${isSelect ? "justify-between gap-[3px] px-[6px] text-[9px]" : "justify-center gap-[1px] px-[5px]"}`}
+      } ${item.active ? "bg-[#ECEDF1]" : ""} ${isSelect ? "justify-between gap-[3px] px-[6px] text-[9px]" : "justify-center gap-[1px] px-[5px]"}`}
       style={isSelect ? { width: item.width } : undefined}
     >
       {item.icon && <Icon name={item.icon} size={13} />}
