@@ -1,5 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
-import { BOOKMARK, PAGE_NUMBERS, TABLE } from "./insert-data";
+import { BOOKMARK, PAGE_NUMBERS, SYMBOLS, TABLE } from "./insert-data";
 import type { InsertDialogId } from "./InsertDialogs";
 import { DEFAULT_WATERMARK, emptyTable, type BookmarkState, type ObjectState, type PageNumbersState, type TableState, type WatermarkState, type ZoneState } from "./insert-state";
 import { showDocToast } from "./doc-toast-timeline";
@@ -327,4 +327,51 @@ export function insertObject(tl: Timeline, kind: ObjectState["kind"], opts: { tr
   closeInsertDialog(tl);
   markEdited(tl);
   return opts.trailingLine ? newLineAfter(tl, after) : "";
+}
+
+/** Insert > Drawing: the dialog opens with an empty canvas (Pen, black, the second size). */
+export function openDrawing(tl: Timeline) {
+  tl.setVar("drawProgress", 0);
+  openInsertDialog(tl, "drawing");
+}
+
+/** After a drawing is inserted it stays selected for a while; clicking elsewhere (or the next step) clears it. */
+export function deselectObjects(tl: Timeline) {
+  tl.setVar("pageObjects", tl.getVar<ObjectState[]>("pageObjects", []).map((o) => ({ ...o, selected: false })));
+}
+
+// ---- symbols -------------------------------------------------------------------------------------------
+
+/** Insert > Symbols: the dialog opens on the default category (Arrows, as in the frames). */
+export function openSymbols(tl: Timeline) {
+  tl.setVar("symCategory", SYMBOLS.defaultCategory);
+  openInsertDialog(tl, "symbols");
+}
+
+/** Click a category pill: glide to it, ring it, click it and switch the grid. */
+export async function chooseSymbolCategory(tl: Timeline, id: string) {
+  await chooseDialogOption(tl, `[data-tl=sym-cat-${id}]`, "symCategory", id);
+  await tl.wait(250);
+}
+
+/** Click a symbol of the open category: it is added at the caret in the text behind the dialog, which stays open. */
+export async function clickSymbol(tl: Timeline, index: number) {
+  const category = tl.getVar<string>("symCategory", SYMBOLS.defaultCategory);
+  const sel = `[data-tl=sym-${category}-${index}]`;
+  const symbol = SYMBOLS.categories.find((c) => c.id === category)?.symbols[index];
+  if (!symbol) throw new Error(`Symbols: no symbol ${index} in "${category}"`);
+  await tl.moveCursorTo(sel, { ms: 520 });
+  tl.hover(sel);
+  await tl.wait(120);
+  await tl.click(sel);
+  tl.hover(null);
+  const e = getEditor(tl);
+  if (!e.caret) throw new Error("Insert: place the caret first");
+  const { block, offset } = e.caret;
+  setEditor(tl, (s) => ({
+    ...s,
+    blocks: s.blocks.map((b, i) => (i === block ? { ...b, text: b.text.slice(0, offset) + symbol + b.text.slice(offset) } : b)),
+    caret: { block, offset: offset + symbol.length },
+  }));
+  markEdited(tl);
 }

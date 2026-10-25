@@ -1,8 +1,10 @@
 "use client";
 
 import type { Timeline } from "@/lib/timeline";
+import { DrawingDialog } from "./DrawingDialog";
 import { ESignatureDialog } from "./ESignatureDialog";
 import { PageNumbersDialog } from "./PageNumbersDialog";
+import { SymbolsDialog } from "./SymbolsDialog";
 
 /** Which of the Insert menu dialogs is open (scene variable `insertDialog`): "" = none. */
 export type InsertDialogId = "" | "pagenumbers" | "esignature" | "drawing" | "symbols";
@@ -17,6 +19,8 @@ export function InsertDialogs({ tl }: { tl: Timeline }) {
     <>
       <PageNumbersDialog tl={tl} />
       <ESignatureDialog tl={tl} />
+      <DrawingDialog tl={tl} />
+      <SymbolsDialog tl={tl} />
     </>
   );
 }

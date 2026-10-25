@@ -113,6 +113,33 @@ export const DRAWING = {
   insert: "Insert",
 };
 
+export const SYMBOLS = {
+  title: "Insert Symbol",
+  placeholder: "Search symbols...",
+  /** The frames open on Arrows, so it is the default category. */
+  defaultCategory: "arrows",
+  /**
+   * The categories and their symbols, 10 to a row. Arrows and Math follow the frames; the rest are sensible choices (the
+   * frames never open them).
+   */
+  categories: [
+    {
+      id: "arrows",
+      label: "Arrows",
+      symbols: "→ ← ↑ ↓ ↔ ↕ ⇒ ⇐ ⇑ ⇓ ⇔ ↗ ↘ ↙ ↖ ➔ ➡ ⬅ ⬆ ⬇".split(" "),
+    },
+    {
+      id: "math",
+      label: "Math",
+      symbols: "± × ÷ ≠ ≈ ≤ ≥ ∞ √ ∑ ∫ ∂ ∆ ∇ π θ α β γ δ ε μ σ ω λ φ".split(" "),
+    },
+    { id: "currency", label: "Currency", symbols: "$ € £ ¥ ¢ ₹ ₩ ₽ ₺ ₦ ₿ ₫ ₪ ฿ ₴".split(" ") },
+    { id: "punctuation", label: "Punctuation", symbols: "… — – ‘ ’ “ ” « » ¡ ¿ § ¶ † ‡ • · ‰ ′ ″ ※".split(" ") },
+    { id: "shapes", label: "Shapes", symbols: "■ □ ▲ △ ▼ ▽ ◆ ◇ ● ○ ★ ☆ ♠ ♣ ♥ ♦ ✓ ✗ ◐ ◑".split(" ") },
+    { id: "emoji", label: "Emoji", symbols: "😀 😊 😂 😍 😎 🤔 👍 👏 🎉 🔥 ✨ 💡 📌 📎 ✅ ❗ ❤ ⭐ 🚀 🙌".split(" ") },
+  ],
+};
+
 export const HEADER_FOOTER = {
   header: "Acme Studio brief",
   footer: "Confidential",

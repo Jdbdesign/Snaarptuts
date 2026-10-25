@@ -56,6 +56,8 @@ import { Step28BlockStyles } from "@/scenes/snaarp-doc/Step28BlockStyles";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/snaarp-doc/step28-script";
 import { Step29ESignature } from "@/scenes/snaarp-doc/Step29ESignature";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-doc/step29-script";
+import { Step30DrawSymbols } from "@/scenes/snaarp-doc/Step30DrawSymbols";
+import { runStep30, STEP30_DURATION_MS } from "@/scenes/snaarp-doc/step30-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -241,6 +243,12 @@ export const snaarpDoc: Tutorial = {
       title: "Add an eSignature",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step29ESignature, run: runStep29, durationMs: STEP29_DURATION_MS },
+    },
+    {
+      id: "draw-symbols",
+      title: "Draw and insert symbols",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step30DrawSymbols, run: runStep30, durationMs: STEP30_DURATION_MS },
     },
   ],
   completion: {
