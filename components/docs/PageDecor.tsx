@@ -1,7 +1,7 @@
 "use client";
 
 import { WATERMARK } from "./insert-data";
-import { PAGE_BODY_MIN, PAGE_TOP_PAD, type PageInserts, type ZoneState } from "./insert-state";
+import { PAGE_BODY_MIN, PAGE_TOP_PAD, type PageInserts, type PageNumbersState, type ZoneState } from "./insert-state";
 
 /**
  * Layers on the white page itself, for DocEditor's `decor` setting (steps 23 to 26):
@@ -12,7 +12,7 @@ import { PAGE_BODY_MIN, PAGE_TOP_PAD, type PageInserts, type ZoneState } from ".
  * Pure drawing; insert-timeline.ts changes the scene variables.
  */
 export function pageDecor(inserts: PageInserts) {
-  const { header, footer, watermark, pageBreakBefore } = inserts;
+  const { header, footer, watermark, pageBreakBefore, pageNumbers } = inserts;
   return {
     full: (
       <>
@@ -24,6 +24,7 @@ export function pageDecor(inserts: PageInserts) {
           />
         )}
         {watermark.text && <Watermark {...watermark} />}
+        {pageNumbers && <PageNumber {...pageNumbers} />}
       </>
     ),
     text: (
@@ -33,6 +34,18 @@ export function pageDecor(inserts: PageInserts) {
       </>
     ),
   };
+}
+
+/** The page number (Insert > Page elements > Page numbers): a small grey number at the top or bottom edge of the page. Hook page-number. */
+function PageNumber({ position, align, start }: PageNumbersState) {
+  const side = align === "left" ? "left-[16px]" : align === "right" ? "right-[16px]" : "left-1/2 -translate-x-1/2";
+  return (
+    <div className={`doc-image-in absolute ${position === "top" ? "top-[10px]" : "bottom-[10px]"} ${side}`}>
+      <span data-tl="page-number" className="block px-[3px] text-[11px] leading-[16px] text-[#6b7280]" style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
+        {start}
+      </span>
+    </div>
+  );
 }
 
 function Zone({ kind, zone }: { kind: "header" | "footer"; zone: ZoneState }) {

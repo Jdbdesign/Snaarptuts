@@ -1,6 +1,7 @@
 import type { Timeline } from "@/lib/timeline";
-import { BOOKMARK, TABLE } from "./insert-data";
-import { DEFAULT_WATERMARK, emptyTable, type BookmarkState, type TableState, type WatermarkState, type ZoneState } from "./insert-state";
+import { BOOKMARK, PAGE_NUMBERS, TABLE } from "./insert-data";
+import type { InsertDialogId } from "./InsertDialogs";
+import { DEFAULT_WATERMARK, emptyTable, type BookmarkState, type PageNumbersState, type TableState, type WatermarkState, type ZoneState } from "./insert-state";
 import { showDocToast } from "./doc-toast-timeline";
 import { placeCaret } from "./editor-state";
 import { getEditor, markEdited, SAMPLE_EDITOR, setEditor } from "./editor-timeline";
@@ -205,4 +206,43 @@ export async function typeWatermark(tl: Timeline, text: string, opts: { msPerCha
     await tl.wait(opts.msPerChar ?? 140);
     tl.setVar("watermark", { ...getWatermark(tl), text: text.slice(0, n) });
   }
+}
+
+// ---- dialogs that share the InsertDialog frame (steps 27 to 30) -------------------------------------
+
+/** Open one of the Insert dialogs (scene variable `insertDialog`); only one is open at a time. */
+export const openInsertDialog = (tl: Timeline, id: InsertDialogId) => tl.setVar("insertDialog", id);
+export const closeInsertDialog = (tl: Timeline) => tl.setVar("insertDialog", "");
+
+// ---- page numbers ---------------------------------------------------------------------------------------
+
+/** Insert > Page elements > Page numbers: the dialog opens with the defaults of the frames (bottom, right, 1). */
+export function openPageNumbers(tl: Timeline) {
+  tl.setVar("pnPosition", PAGE_NUMBERS.defaults.position);
+  tl.setVar("pnAlign", PAGE_NUMBERS.defaults.align);
+  tl.setVar("pnStart", PAGE_NUMBERS.defaults.start);
+  tl.setVar("pnFocus", false);
+  openInsertDialog(tl, "pagenumbers");
+}
+
+/** Click one of the dialog's option buttons: glide to it, ring it, click it, then store the choice in the scene variable. */
+export async function chooseDialogOption(tl: Timeline, selector: string, key: string, value: unknown, opts: { ms?: number } = {}) {
+  await tl.moveCursorTo(selector, { ms: opts.ms ?? 650 });
+  tl.highlight(selector);
+  await tl.wait(150);
+  await tl.click(selector);
+  tl.clearHighlight();
+  tl.setVar(key, value);
+}
+
+/** Apply: the dialog closes and the number shows on the page (small grey number at the chosen edge and alignment). */
+export function applyPageNumbers(tl: Timeline) {
+  tl.setVar("pageNumbers", {
+    position: tl.getVar("pnPosition", PAGE_NUMBERS.defaults.position),
+    align: tl.getVar("pnAlign", PAGE_NUMBERS.defaults.align),
+    start: tl.getVar("pnStart", PAGE_NUMBERS.defaults.start),
+  } satisfies PageNumbersState);
+  tl.setVar("pnFocus", false);
+  closeInsertDialog(tl);
+  markEdited(tl);
 }

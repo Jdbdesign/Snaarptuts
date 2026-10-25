@@ -32,6 +32,13 @@ export type WatermarkState = {
   layout: "diagonal" | "horizontal";
 };
 
+/** Page numbers (Insert > Page elements > Page numbers): where, how aligned and the number the first page gets. */
+export type PageNumbersState = {
+  position: "top" | "bottom";
+  align: "left" | "center" | "right";
+  start: number;
+};
+
 export type PageInserts = {
   image: ImageState | null;
   table: TableState | null;
@@ -43,6 +50,7 @@ export type PageInserts = {
   header: ZoneState | null;
   footer: ZoneState | null;
   watermark: WatermarkState;
+  pageNumbers: PageNumbersState | null;
 };
 
 export const DEFAULT_WATERMARK: WatermarkState = { text: "", transparency: 75, layout: "diagonal" };
@@ -56,6 +64,7 @@ export const NO_INSERTS: PageInserts = {
   header: null,
   footer: null,
   watermark: DEFAULT_WATERMARK,
+  pageNumbers: null,
 };
 
 /** An empty table of the given size. */

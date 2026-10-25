@@ -50,6 +50,8 @@ import { Step25HeaderFooter } from "@/scenes/snaarp-doc/Step25HeaderFooter";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/snaarp-doc/step25-script";
 import { Step26Watermark } from "@/scenes/snaarp-doc/Step26Watermark";
 import { runStep26, STEP26_DURATION_MS } from "@/scenes/snaarp-doc/step26-script";
+import { Step27PageNumbers } from "@/scenes/snaarp-doc/Step27PageNumbers";
+import { runStep27, STEP27_DURATION_MS } from "@/scenes/snaarp-doc/step27-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -217,6 +219,12 @@ export const snaarpDoc: Tutorial = {
       title: "Add a watermark",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step26Watermark, run: runStep26, durationMs: STEP26_DURATION_MS },
+    },
+    {
+      id: "page-numbers",
+      title: "Add page numbers",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step27PageNumbers, run: runStep27, durationMs: STEP27_DURATION_MS },
     },
   ],
   completion: {

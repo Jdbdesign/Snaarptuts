@@ -62,6 +62,24 @@ export const BOOKMARK = {
   },
 };
 
+export const PAGE_NUMBERS = {
+  /** What the dialog starts with (the frames show Bottom (footer) and Right selected before anything is clicked). */
+  defaults: { position: "bottom", align: "right", start: 1 } as const,
+  dialog: {
+    title: "Page numbers",
+    description: "Insert a dynamic page number field. The value is computed from the document's pages at render time.",
+    position: "Position",
+    positions: { top: "Top (header)", bottom: "Bottom (footer)" },
+    alignment: "Alignment",
+    alignments: { left: "Left", center: "Center", right: "Right" },
+    start: "Start numbering at",
+    hint: "Use 0 to skip a cover page, or a higher value to continue from another document.",
+    remove: "Remove page numbers",
+    cancel: "Cancel",
+    apply: "Apply",
+  },
+};
+
 export const HEADER_FOOTER = {
   header: "Acme Studio brief",
   footer: "Confidential",

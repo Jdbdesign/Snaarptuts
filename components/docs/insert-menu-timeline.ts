@@ -2,7 +2,7 @@ import type { Timeline } from "@/lib/timeline";
 import type { InsertSub } from "./InsertMenu";
 import type { InsertItemId, InsertSubItemId } from "./insert-menu-data";
 import { INSERT_MENU } from "./insert-menu-data";
-import { insertPageBreak, insertRule, insertZone, openBookmarkDialog, openWatermarkPanel } from "./insert-timeline";
+import { insertPageBreak, insertRule, insertZone, openBookmarkDialog, openPageNumbers, openWatermarkPanel } from "./insert-timeline";
 
 /*
  * Timeline helpers that drive the Insert menu (Snaarp Doc steps 19 to 26). The scene variables are `insertMenu`
@@ -78,6 +78,7 @@ function runInsertItemAction(tl: Timeline, id: InsertItemId) {
 function runInsertSubAction(tl: Timeline, id: InsertSubItemId) {
   if (id === "page-break") insertPageBreak(tl);
   if (id === "header") insertZone(tl, "header");
+  if (id === "page-numbers") openPageNumbers(tl);
   if (id === "footer") insertZone(tl, "footer");
   if (id === "watermark") openWatermarkPanel(tl);
 }

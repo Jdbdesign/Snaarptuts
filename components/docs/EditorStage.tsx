@@ -13,6 +13,7 @@ import { canRedo, createEditor, fontSizeOf, type EditorState } from "./editor-st
 import { FileMenu } from "./FileMenu";
 import { FindReplacePanel } from "./FindReplacePanel";
 import { FullScreenView } from "./FullScreenView";
+import { InsertDialogs, type InsertDialogId } from "./InsertDialogs";
 import { InsertMenu, type InsertSub } from "./InsertMenu";
 import { LinkDialog } from "./LinkDialog";
 import { pageDecor } from "./PageDecor";
@@ -31,6 +32,7 @@ import {
   type BookmarkState,
   type ImageState,
   type PageInserts,
+  type PageNumbersState,
   type TableState,
   type WatermarkState,
   type ZoneState,
@@ -94,6 +96,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const pageBookmarks = useTimelineVar<BookmarkState[]>(tl, "pageBookmarks", NO_INSERTS.bookmarks);
   const pageHeader = useTimelineVar<ZoneState | null>(tl, "pageHeader", null);
   const pageFooter = useTimelineVar<ZoneState | null>(tl, "pageFooter", null);
+  const pageNumbers = useTimelineVar<PageNumbersState | null>(tl, "pageNumbers", null);
   const watermark = useTimelineVar<WatermarkState>(tl, "watermark", DEFAULT_WATERMARK);
   const inserts: PageInserts = {
     image: pageImage,
@@ -104,13 +107,15 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
     header: pageHeader,
     footer: pageFooter,
     watermark,
+    pageNumbers,
   };
   const insertMenu = useTimelineVar(tl, "insertMenu", false);
   const insertSub = useTimelineVar<InsertSub>(tl, "insertSub", "");
   const linkDialog = useTimelineVar(tl, "linkDialog", false);
   const watermarkOpen = useTimelineVar(tl, "watermarkOpen", false);
   const bookmarkDialog = useTimelineVar(tl, "bookmarkDialog", false);
-  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || linkDialog || bookmarkDialog;
+  const insertDialog = useTimelineVar<InsertDialogId>(tl, "insertDialog", "");
+  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || linkDialog || bookmarkDialog || insertDialog !== "";
 
   return (
     <div data-scroller className="relative h-full w-full bg-white">
@@ -146,6 +151,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
                   <LinkDialog tl={tl} />
                   <BookmarkDialog tl={tl} />
                   <WatermarkPanel tl={tl} />
+                  <InsertDialogs tl={tl} />
                 </>
               )}
               {overlay}
