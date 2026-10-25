@@ -2,7 +2,7 @@ import type { Timeline } from "@/lib/timeline";
 import type { InsertSub } from "./InsertMenu";
 import type { InsertItemId, InsertSubItemId } from "./insert-menu-data";
 import { INSERT_MENU } from "./insert-menu-data";
-import { insertPageBreak, insertRule, openBookmarkDialog } from "./insert-timeline";
+import { insertPageBreak, insertRule, insertZone, openBookmarkDialog } from "./insert-timeline";
 
 /*
  * Timeline helpers that drive the Insert menu (Snaarp Doc steps 19 to 26). The scene variables are `insertMenu`
@@ -77,6 +77,8 @@ function runInsertItemAction(tl: Timeline, id: InsertItemId) {
 /** What a submenu row does when it is clicked. Section breaks and the other Page elements rows do nothing (hover only). */
 function runInsertSubAction(tl: Timeline, id: InsertSubItemId) {
   if (id === "page-break") insertPageBreak(tl);
+  if (id === "header") insertZone(tl, "header");
+  if (id === "footer") insertZone(tl, "footer");
 }
 
 /** Move onto a row of the open submenu, ring it, click it and close the menu. */

@@ -46,6 +46,8 @@ import { Step23LineBreak } from "@/scenes/snaarp-doc/Step23LineBreak";
 import { runStep23, STEP23_DURATION_MS } from "@/scenes/snaarp-doc/step23-script";
 import { Step24Bookmark } from "@/scenes/snaarp-doc/Step24Bookmark";
 import { runStep24, STEP24_DURATION_MS } from "@/scenes/snaarp-doc/step24-script";
+import { Step25HeaderFooter } from "@/scenes/snaarp-doc/Step25HeaderFooter";
+import { runStep25, STEP25_DURATION_MS } from "@/scenes/snaarp-doc/step25-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -201,6 +203,12 @@ export const snaarpDoc: Tutorial = {
       title: "Add a bookmark",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step24Bookmark, run: runStep24, durationMs: STEP24_DURATION_MS },
+    },
+    {
+      id: "header-footer",
+      title: "Add a header and footer",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step25HeaderFooter, run: runStep25, durationMs: STEP25_DURATION_MS },
     },
   ],
   completion: {

@@ -1,6 +1,6 @@
 import type { Timeline } from "@/lib/timeline";
 import { BOOKMARK, TABLE } from "./insert-data";
-import { emptyTable, type BookmarkState, type TableState } from "./insert-state";
+import { emptyTable, type BookmarkState, type TableState, type ZoneState } from "./insert-state";
 import { showDocToast } from "./doc-toast-timeline";
 import { placeCaret } from "./editor-state";
 import { getEditor, markEdited, SAMPLE_EDITOR, setEditor } from "./editor-timeline";
@@ -147,4 +147,35 @@ export function addBookmark(tl: Timeline, name: string) {
   markEdited(tl);
   showDocToast(tl, BOOKMARK.added, "success", 2800);
   return marker.id;
+}
+
+// ---- header and footer ------------------------------------------------------------------------
+
+type ZoneKind = "header" | "footer";
+const zoneVar = (kind: ZoneKind) => (kind === "header" ? "pageHeader" : "pageFooter");
+const getZone = (tl: Timeline, kind: ZoneKind) => tl.getVar<ZoneState | null>(zoneVar(kind), null);
+
+/** Insert > Page elements > Header / Footer: the zone appears with its dotted line and the caret inside it. */
+export function insertZone(tl: Timeline, kind: ZoneKind) {
+  setEditor(tl, (s) => ({ ...s, caret: null, sel: null }));
+  tl.setVar(zoneVar(kind), { text: "", focus: true } satisfies ZoneState);
+  markEdited(tl);
+}
+
+/** Type into the header or footer, one character at a time. */
+export async function typeInZone(tl: Timeline, kind: ZoneKind, text: string, opts: { msPerChar?: number } = {}) {
+  for (let n = 1; n <= text.length; n++) {
+    await tl.wait(opts.msPerChar ?? 100);
+    const zone = getZone(tl, kind);
+    if (zone) tl.setVar(zoneVar(kind), { ...zone, text: text.slice(0, n) });
+  }
+  markEdited(tl);
+}
+
+/** The caret leaves the header and footer (the text stays). */
+export function leaveZones(tl: Timeline) {
+  (["header", "footer"] as const).forEach((kind) => {
+    const zone = getZone(tl, kind);
+    if (zone) tl.setVar(zoneVar(kind), { ...zone, focus: false });
+  });
 }
