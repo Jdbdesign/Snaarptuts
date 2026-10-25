@@ -421,7 +421,7 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 
 # Snaarp Doc ("How to use Snaarp Doc", route `/tutorials/snaarp-doc`)
 
-Config: `tutorials/snaarp-doc.ts` (22 steps listed, PROVISIONAL: more steps will be added from later recordings; all 22 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`), steps 14-18 `ref/docs/Snaarp_Doc_view.mp4` (1008x480, 2:20; frames in `ref/docs/frames-step14/` to `frames-step18/`), steps 19-22 (so far) `ref/docs/Snaarp_Doc_insert.mp4` (1004x480, 5:59; frames in `ref/docs/frames-step19/` (also `19b`, `19c`) to `frames-step22/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
+Config: `tutorials/snaarp-doc.ts` (26 steps listed, PROVISIONAL: more steps will be added from later recordings; all 26 steps are built). Recordings (git-ignored): steps 1-9 `ref/docs/Snaarp_Doc_flow.mp4` (1010x480, 2:15; frames of the first 16 s in `ref/docs/frames-step1/`), steps 10-13 `ref/docs/Snaarp_Doc_edit.mp4` (1040x480, 1:58; frames in `ref/docs/frames-step10/` to `frames-step13/`), steps 14-18 `ref/docs/Snaarp_Doc_view.mp4` (1008x480, 2:20; frames in `ref/docs/frames-step14/` to `frames-step18/`), steps 19-26 (so far) `ref/docs/Snaarp_Doc_insert.mp4` (1004x480, 5:59; frames in `ref/docs/frames-step19/` (also `19b`, `19c`) to `frames-step26/`). Completion text: "You're all set" / "You now know the basics of Snaarp Doc." (only shown once every step is built; until then the card reads "Step N complete").
 
 Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, content area; copy and sample values in `components/docs/docs-data.ts`). Pass `active` ("documents" | "starred" | "trash" | null) and the screen as children; the layout itself never changes between screens. Under 900px wide the app rail and sidebar become icon-only columns and the whole layout is enlarged (CSS zoom 2.4). `components/docs/PageThumb.tsx` draws the generic page thumbnails (no screenshots).
 
@@ -821,4 +821,71 @@ Reset rule: the script starts with `initTabs`, so the extra tab never survives a
 | 15.0 | Caption "Click Insert". Cursor to Insert, ring, click; the dialog closes and the heading becomes a blue, underlined link. |
 | 18.5 | Caption "The text is now a link". Cursor hovers the link (ring). |
 | 22.0 | Ring and caption clear. Hold. |
-| 24.6 | Quick white fade. Ends at 25.0. Step 22 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc.") because step 22 is the last step in the config. |
+| 24.6 | Quick white fade. Ends at 25.0. Step 22 is marked done. |
+
+## Doc step 23 - Add a line or page break
+
+- Files: `Step23LineBreak.tsx`, `step23-script.ts`, `step23-data.ts`. `durationMs` 30000. Starts with the sample document, Editing mode, no panels, ruler on. Recording: about 1:45-2:40. New shared pieces: **`HorizontalRule.tsx`** (thin grey line across the text width, space above and below; hook `page-rule`), **multi-page support** (a page break splits the text in two: page 1 is padded to a full page, a thin grey band, then page 2; `DocumentView` draws the text, `PageDecor.tsx` draws the band; the footer line follows with `live.pages`, "2 pages"), `clickStartOfBlock`, `insertRule` and `insertPageBreak` in `insert-timeline.ts`. Scene variables: `pageRules` (ids of the blocks a line sits before) and `pageBreak` (id of the block page 2 starts at). `chooseInsertItem(tl, "hr")` and `chooseInsertSub(tl, "page-break")` run the action; Section break (next page) and (continuous) are hover only.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click where you want the line". Cursor clicks at the start of the intro paragraph; the caret shows. |
+| 2.5 | Caption "Click Insert, then Horizontal line". Open the menu, cursor to Horizontal line, ring, click; the menu closes and the line appears. |
+| 5.0 | Caption "A line separates sections". Ring on the line. |
+| 8.0 | Caption "Click where the new page should start". Cursor clicks at the start of the "Goals" heading. |
+| 10.0 | Caption "Click Insert, then Break". Open the menu, cursor to Break; its submenu opens. |
+| 12.5 | Caption "A page break starts a new page". Hover Page break (Ctrl+Enter shows). |
+| 15.0 | Caption "Section breaks start a new section". Hover Section break (next page), then Section break (continuous). |
+| 18.5 | Cursor back to Page break, ring, click. The menu closes; "Goals" and everything after it moves to page 2; the footer line says "2 pages". |
+| 21.5 | Caption "Everything after the break moves to a new page". The page scrolls smoothly so page 2 shows. |
+| 29.6 | Quick white fade. Ends at 30.0. Step 23 is marked done. |
+
+## Doc step 24 - Add a bookmark
+
+- Files: `Step24Bookmark.tsx`, `step24-script.ts`, `step24-data.ts`. `durationMs` 20000. Starts like step 23. Recording: about 2:40-3:00. New shared piece: **`BookmarkDialog.tsx`** ("Add bookmark", our own white dialog, 360 px, Cancel and OK; scene variables `bookmarkDialog`, `bookmarkFocus`, `field:bookmark-name`; hooks `bookmark-input`, `bookmark-cancel`, `bookmark-ok`). The marker is a small bookmark icon in a soft blue-grey tile at the start of its block (scene variable `pageBookmarks`, hook `doc-bookmark-<id>`). Helpers in `insert-timeline.ts`: `openBookmarkDialog`, `addBookmark` (adds the marker, shows the toast "Bookmark added").
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click where you want the bookmark". Cursor clicks at the start of the paragraph under "Goals"; the caret shows. |
+| 2.5 | Caption "Click Insert, then Bookmark". Open the menu, cursor to Bookmark, ring, click; the menu closes and the dialog opens with the input focused. |
+| 5.5 | Caption "Give your bookmark a name". Types "Work in progress". |
+| 9.5 | Caption "Click OK". Cursor to OK, ring, click. The dialog closes, the marker appears and the toast "Bookmark added" shows. |
+| 13.0 | Caption "Bookmarks mark a spot you can jump back to". Ring on the marker. |
+| 17.0 | Ring and caption clear. Hold. |
+| 19.6 | Quick white fade. Ends at 20.0. Step 24 is marked done. |
+
+## Doc step 25 - Add a header and footer
+
+- Files: `Step25HeaderFooter.tsx`, `step25-script.ts`, `step25-data.ts`. `durationMs` 30000. Starts like step 23. Recording: about 3:00-3:30 (the header is typed at the top of the page; the footer is never filled in). New shared piece: **header and footer zones** drawn by `PageDecor.tsx` through `DocEditor`'s new `decor` setting (small grey-dark text, a thin dotted line between the zone and the body, blinking caret while it has focus; scene variables `pageHeader` and `pageFooter` = `{ text, focus }`; hooks `page-header`, `page-footer`). Helpers in `insert-timeline.ts`: `insertZone`, `typeInZone`, `leaveZones`. `chooseInsertSub(tl, "header")` and `"footer"` both run `insertZone`; the step only uses Header and hovers Footer.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Insert, then Page elements". Open the menu; cursor to Page elements; its submenu opens. |
+| 3.0 | Caption "Choose Header". Cursor to Header, ring, click. The menu closes; the header area appears at the top of the page with its dotted line and the caret. |
+| 6.0 | Caption "Type your header text". Types "Acme Studio brief". |
+| 10.0 | Caption "Click in the page to leave the header". Cursor clicks in the body text; the header stays. |
+| 13.0 | Caption "Click Insert, then Page elements". The menu and submenu open again. |
+| 16.5 | Caption "Footer works the same way at the bottom of the page". Hover Footer (hover only). |
+| 21.0 | The menu closes. |
+| 24.0 | Caption clears. Hold. |
+| 29.6 | Quick white fade. Ends at 30.0. Step 25 is marked done. |
+
+## Doc step 26 - Add a watermark
+
+- Files: `Step26Watermark.tsx`, `step26-script.ts`, `step26-data.ts`. `durationMs` 27000. Starts like step 23. Recording: about 3:25-4:00. New shared piece: **`WatermarkPanel.tsx`** (right-hand panel in the Comments panel family, 216 px wide: shield icon, title, X, Image and Text tabs (Text selected), "Insert text" input with a counter, FORMATTING (font, size row, B / I / A), TRANSPARENCY (slider and "75" %), Diagonal / Horizontal radios, PLACEMENT thumbnail, "Remove watermark" button at the bottom; the Image tab only looks right). Scene variables: `watermarkOpen`, `watermark` (`{ text, transparency, layout }`), `wmFocus`, `wmTab`. While open the page shifts left and narrows (`rightInset`); on narrow screens the panel overlays the page. The watermark on the page (`PageDecor.tsx`, hook `page-watermark`) is large grey bold text at -38 degrees across the middle of the first page; copy, size and angle in `insert-data.ts` (`WATERMARK`). Hooks: `watermark-panel`, `wm-close`, `wm-tab-image`, `wm-tab-text`, `wm-input`, `wm-slider`, `wm-radio-diagonal`, `wm-radio-horizontal`, `wm-remove`. Helpers in `insert-timeline.ts`: `openWatermarkPanel`, `closeWatermarkPanel`, `typeWatermark`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Insert, then Page elements, then Watermark". Open the menu and submenu; cursor to Watermark, ring, click. The panel slides in from the right and the page shifts left. |
+| 4.5 | Caption "Choose Text to write your own watermark". Ring on the Text tab. |
+| 6.0 | Caption "Type the watermark text". Cursor to the input, click, type "Draft": the watermark appears across the page as you type; the counter reads 5/100. |
+| 11.0 | Caption "Transparency controls how faint it is". Cursor hovers the slider (ring). |
+| 14.0 | Caption "Choose a diagonal or horizontal layout". Hover Horizontal, then back to Diagonal (hover only). |
+| 17.0 | Caption "Use Remove watermark to take it off". Cursor hovers the button (hover only). |
+| 20.0 | Caption "Click X to close the panel". Cursor to X, ring, click. The panel closes, the page returns to the centre and the watermark stays. |
+| 23.5 | Caption clears. Hold. |
+| 26.6 | Quick white fade. Ends at 27.0. Step 26 is marked done; the completion card appears ("You're all set" / "You now know the basics of Snaarp Doc.") because step 26 is the last step in the config. |
