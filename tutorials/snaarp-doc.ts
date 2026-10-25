@@ -38,6 +38,8 @@ import { Step19InsertMenu } from "@/scenes/snaarp-doc/Step19InsertMenu";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-doc/step19-script";
 import { Step20Image } from "@/scenes/snaarp-doc/Step20Image";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/snaarp-doc/step20-script";
+import { Step21Table } from "@/scenes/snaarp-doc/Step21Table";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/snaarp-doc/step21-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -169,6 +171,12 @@ export const snaarpDoc: Tutorial = {
       title: "Insert an image",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step20Image, run: runStep20, durationMs: STEP20_DURATION_MS },
+    },
+    {
+      id: "insert-table",
+      title: "Insert a table",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step21Table, run: runStep21, durationMs: STEP21_DURATION_MS },
     },
   ],
   completion: {

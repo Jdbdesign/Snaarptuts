@@ -1,7 +1,9 @@
 "use client";
 
+import { Fragment } from "react";
 import { FloatingToolbarIcons } from "./FloatingToolbar";
 import { ImageBlock } from "./ImageBlock";
+import { TableBlock } from "./TableBlock";
 import { marksOf, matchesOf, type Block, type EditorState, type Mark } from "./editor-state";
 import { NO_INSERTS, type PageInserts } from "./insert-state";
 
@@ -105,16 +107,18 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
         markersAt(pos, "end");
 
         return (
-          <div
-            key={b.id}
-            data-tl={`doc-block-${b.id}`}
-            className={`${BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""}`}
-          >
-            <span data-tl={`doc-start-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
-            {nodes}
-            <span data-tl={`doc-end-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
-            {nonPrinting && <span aria-hidden className="ml-[3px] select-none text-[#8CA0C7]">¶</span>}
-          </div>
+          <Fragment key={b.id}>
+            <div
+              data-tl={`doc-block-${b.id}`}
+              className={`${BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""}`}
+            >
+              <span data-tl={`doc-start-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
+              {nodes}
+              <span data-tl={`doc-end-${b.id}`} className="inline-block h-[1em] w-0 align-text-bottom" />
+              {nonPrinting && <span aria-hidden className="ml-[3px] select-none text-[#8CA0C7]">¶</span>}
+            </div>
+            {inserts.table?.after === b.id && <TableBlock cells={inserts.table.cells} focus={inserts.table.focus} />}
+          </Fragment>
         );
       })}
     </div>
