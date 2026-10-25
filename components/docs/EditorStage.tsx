@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { CommentsPanel } from "./CommentsPanel";
+import { BookmarkDialog } from "./BookmarkDialog";
 import { DocEditor } from "./DocEditor";
 import { DocToast } from "./DocToast";
 import { DocumentView } from "./DocumentView";
@@ -59,7 +60,7 @@ type Props = {
  * the start (`intro`) and the quick white fade at the end (`fade`). Scene variables: `title`, `loading`,
  * `fileMenu`, `fileSub`, `intro`, `fade`. With a `startDocument` it also draws the View menu and the editor modes
  * (steps 14 to 18): `mode`, `viewMenu`, `viewSub`, `ruler`, `printLayout`, `nonPrinting`, `fullScreen` (+ `fsHint`, `fsKey`, `fsPressed`), and the side panels
- * `commentsOpen` + `comments`, `outlineOpen`, and the Insert menu (steps 19 to 22): `insertMenu`, `insertSub`, `pageImage`, `pageTable`, `linkDialog`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
+ * `commentsOpen` + `comments`, `outlineOpen`, and the Insert menu (steps 19 to 22): `insertMenu`, `insertSub`, `pageImage`, `pageTable`, `linkDialog`, `bookmarkDialog`, `pageRules`, `pageBreak`, `pageBookmarks`, `pageHeader`, `pageFooter`, `watermark`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
  */
 export function EditorStage({ tl, startTitle, overlay, children, startDocument }: Props) {
   const intro = useTimelineVar(tl, "intro", 0);
@@ -106,7 +107,8 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
   const insertMenu = useTimelineVar(tl, "insertMenu", false);
   const insertSub = useTimelineVar<InsertSub>(tl, "insertSub", "");
   const linkDialog = useTimelineVar(tl, "linkDialog", false);
-  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || linkDialog;
+  const bookmarkDialog = useTimelineVar(tl, "bookmarkDialog", false);
+  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || linkDialog || bookmarkDialog;
 
   return (
     <div data-scroller className="relative h-full w-full bg-white">
@@ -140,6 +142,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument }
                   <CommentsPanel open={commentsOpen} state={comments} />
                   <OutlinePanel open={outlineOpen} tabs={outlineTabs} />
                   <LinkDialog tl={tl} />
+                  <BookmarkDialog tl={tl} />
                 </>
               )}
               {overlay}

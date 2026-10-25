@@ -44,6 +44,8 @@ import { Step22Link } from "@/scenes/snaarp-doc/Step22Link";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/snaarp-doc/step22-script";
 import { Step23LineBreak } from "@/scenes/snaarp-doc/Step23LineBreak";
 import { runStep23, STEP23_DURATION_MS } from "@/scenes/snaarp-doc/step23-script";
+import { Step24Bookmark } from "@/scenes/snaarp-doc/Step24Bookmark";
+import { runStep24, STEP24_DURATION_MS } from "@/scenes/snaarp-doc/step24-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -193,6 +195,12 @@ export const snaarpDoc: Tutorial = {
       title: "Add a line or page break",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step23LineBreak, run: runStep23, durationMs: STEP23_DURATION_MS },
+    },
+    {
+      id: "bookmark",
+      title: "Add a bookmark",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step24Bookmark, run: runStep24, durationMs: STEP24_DURATION_MS },
     },
   ],
   completion: {

@@ -122,9 +122,9 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
                     key={m.id}
                     data-tl={`doc-bookmark-${m.id}`}
                     title={m.name}
-                    className="doc-image-in mr-[5px] inline-flex h-[15px] w-[15px] items-center justify-center rounded-[4px] bg-[#E8EDF6] align-[-2px] text-[#6F82A8]"
+                    className="doc-image-in mr-[5px] inline-flex h-[17px] w-[17px] items-center justify-center rounded-[4px] bg-[#E3EAF7] align-[-3px] text-[#5F78AB]"
                   >
-                    <Icon name="imBookmark" size={10.5} />
+                    <Icon name="imBookmark" size={12} />
                   </span>
                 ))}
               {nodes}

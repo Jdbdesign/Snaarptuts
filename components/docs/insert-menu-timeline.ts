@@ -2,7 +2,7 @@ import type { Timeline } from "@/lib/timeline";
 import type { InsertSub } from "./InsertMenu";
 import type { InsertItemId, InsertSubItemId } from "./insert-menu-data";
 import { INSERT_MENU } from "./insert-menu-data";
-import { insertPageBreak, insertRule } from "./insert-timeline";
+import { insertPageBreak, insertRule, openBookmarkDialog } from "./insert-timeline";
 
 /*
  * Timeline helpers that drive the Insert menu (Snaarp Doc steps 19 to 26). The scene variables are `insertMenu`
@@ -67,10 +67,11 @@ export async function chooseInsertItem(tl: Timeline, id: InsertItemId, opts: { m
 
 /**
  * What an Insert menu item does when it is clicked. Image, Table and Link are run by the scripts of steps 20 to 22
- * (they type and wait around the action); Horizontal line is wired here. Items for later steps do nothing yet.
+ * (they type and wait around the action); Horizontal line and Bookmark are wired here. Items for later steps do nothing yet.
  */
 function runInsertItemAction(tl: Timeline, id: InsertItemId) {
   if (id === "hr") insertRule(tl);
+  if (id === "bookmark") openBookmarkDialog(tl);
 }
 
 /** What a submenu row does when it is clicked. Section breaks and the other Page elements rows do nothing (hover only). */

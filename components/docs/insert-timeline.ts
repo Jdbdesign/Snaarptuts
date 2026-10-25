@@ -1,6 +1,7 @@
 import type { Timeline } from "@/lib/timeline";
-import { TABLE } from "./insert-data";
-import { emptyTable, type TableState } from "./insert-state";
+import { BOOKMARK, TABLE } from "./insert-data";
+import { emptyTable, type BookmarkState, type TableState } from "./insert-state";
+import { showDocToast } from "./doc-toast-timeline";
 import { placeCaret } from "./editor-state";
 import { getEditor, markEdited, SAMPLE_EDITOR, setEditor } from "./editor-timeline";
 import { SAMPLE_BLOCKS } from "./sample-document";
@@ -120,4 +121,30 @@ export function insertRule(tl: Timeline) {
 export function insertPageBreak(tl: Timeline) {
   tl.setVar("pageBreak", blockAfterCaret(tl));
   markEdited(tl);
+}
+
+// ---- bookmark -------------------------------------------------------------------------------
+
+/** Insert > Bookmark: the dialog opens with the name input focused (the name is typed with tl.typeText("bookmark-name", ...)). */
+export function openBookmarkDialog(tl: Timeline) {
+  tl.setVar("field:bookmark-name", "");
+  tl.setVar("bookmarkFocus", true);
+  tl.setVar("bookmarkDialog", true);
+}
+
+export function closeBookmarkDialog(tl: Timeline) {
+  tl.setVar("bookmarkFocus", false);
+  tl.setVar("bookmarkDialog", false);
+}
+
+/** OK in the dialog: the dialog closes, a marker appears at the start of the caret's block and the toast says "Bookmark added". */
+export function addBookmark(tl: Timeline, name: string) {
+  const e = getEditor(tl);
+  if (!e.caret) throw new Error("Insert: place the caret first (clickStartOfBlock)");
+  const marker: BookmarkState = { id: `${BOOKMARK.id}-${tl.getVar<BookmarkState[]>("pageBookmarks", []).length + 1}`, before: e.blocks[e.caret.block].id, name };
+  closeBookmarkDialog(tl);
+  tl.setVar("pageBookmarks", [...tl.getVar<BookmarkState[]>("pageBookmarks", []), marker]);
+  markEdited(tl);
+  showDocToast(tl, BOOKMARK.added, "success", 2800);
+  return marker.id;
 }
