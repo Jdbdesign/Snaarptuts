@@ -13,7 +13,7 @@ First product: **Snaarp 360**. More products will follow, each with its own modu
 ## Current state
 
 - Snaarp 360: **all 5 steps built and working**, plus the **completion screen**. Plays about 2:04 hands off from page load to the completion card. Verified at 1920x1080, 1440x900, 1280x720 and 390x844: no console errors, no scrollbars, no document scroll.
-- Product switcher in the rail: a dropdown of products (Snaarp 360 first). **Snaarp Mail** is listed with 9 steps, all built.
+- Product switcher in the rail: a dropdown of products (Snaarp 360 first). **Snaarp Mail** is listed with 9 steps, all built. **Snaarp Slides** (the File menu, 19 steps) is the newest product.
 - Real Snaarp product logos are in place on the pricing page, sign-up page, products home, both admin icon rails and the rail. Other icons are still redrawn placeholders.
 - No backend, accounts, cloud sync or AI features (named exclusions for v1). No automated tests. The folder is **not a git repository** (see known issues).
 
@@ -40,6 +40,14 @@ Route `/tutorials/snaarp-doc`, config `tutorials/snaarp-doc.ts` (**64 steps, all
 ## Snaarp Admin (fourth tutorial, complete)
 
 Route `/tutorials/snaarp-admin`, config `tutorials/snaarp-admin.ts`: **8 steps, all built**, about 2:59 (178.9 s measured at 1440x900) from load to the "You're all set" card (the card follows the last step in the config). Recording `ref/admin/Snaarp_Admin_add_users.mp4`. Every step is on the Admin Panel Users page and uses the one stage `scenes/snaarp-admin/UsersStage.tsx` with a start state from `admin-seed.ts`, so each step can be opened alone from the rail. Steps: Open the Create user form, Enter the user's details, Add job details and role, Set a temporary password and create the user, Check the user's access, Open Manage products, Add the user to another product, Confirm the new access. There was no earlier Admin tutorial in the repo (see `docs/DECISIONS-AND-DEVIATIONS.md`, "Snaarp Admin"). To add a step: add `StepNxxx.tsx` (wrap `UsersStage` with a start state; add a state to `admin-seed.ts` if needed), `stepN-script.ts`, `stepN-data.ts`, then list it in `tutorials/snaarp-admin.ts`. State is scene variables; click handlers live in `scenes/snaarp-admin/users/*` so scripts only move the cursor and click. Open items before launch: the Snaarp Admin rail logo (uses the Snaarp mark), the Department list beyond "Engineering", a real Snaarp Identity logo.
+
+## Snaarp Slides (fifth tutorial, File menu round)
+
+Route `/tutorials/snaarp-slides`, config `tutorials/snaarp-slides.ts`: **19 steps, all built, the File menu only** (Open Snaarp Slides, Start a blank presentation, Meet the File menu, Start something new, Open a presentation, Import slides, Make a copy, Share, Email, Download, Rename, Move, Version history, Make it available offline, Details, Page setup, Print, Options that are not available yet, Move to Trash). The completion card follows the last step in the config, so when Edit, View, Insert, Format, Slide, Arrange and Tools are added in later rounds it moves by itself. Whole tutorial: about 9:16 (556 s) from load to the "You're all set" card (measured at 1440x900, no console errors, no scrollbars). Recording: `ref/slides/Snaarp_Slides_file.mp4` (the owner's `Downloads/1026 (1)(1).mp4`).
+
+How it is built: ONE stage, `components/slides/SlidesApp.tsx`, draws the Presentations home (with Starred and Trash), a loading screen and the editor with the File menu and every dialog; scripts only set scene variables and move the cursor (the variables are listed in `docs/STEPS.md`, "Snaarp Slides"). Steps 1-2 start on the home, steps 3-19 in the editor with the "Acme Studio Pitch" deck (one blank title slide), so each works alone from the rail. To add a later menu: add a dropdown component next to `SlidesFileMenu.tsx`, mount it in `SlidesEditor`'s `overlay` (see how `SlidesApp` passes the File menu), add its data to `slides-data.ts`, write helpers like those in `slides-timeline.ts`, then add `step<N>/` folders and list them in `tutorials/snaarp-slides.ts`. Do not edit the player shell. The shell (`SlidesLayout`, `SlidesEditor`) already draws all eight menu names, the toolbar, the right-hand rail and the notes bar; only File opens. Gotcha: after `tl.setVar` that mounts new DOM, `await tl.wait(80)` before ringing it.
+
+Reused from Snaarp Doc (with optional, additive settings; Snaarp Doc plays exactly as before): `ShareDialog`, `PrintDialog`, `DocToast`, `Modal`. What the recording does not show (and was built from the brief) is listed in `docs/DECISIONS-AND-DEVIATIONS.md` ("Snaarp Slides steps 1-19"); review that list before launch.
 
 ## Rail search (latest)
 

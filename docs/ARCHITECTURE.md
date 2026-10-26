@@ -47,6 +47,7 @@ tutorials/                         PRODUCT CONFIGS
   snaarp-360.ts                    Snaarp 360 (5 steps, all built).
   snaarp-mail.ts                   Snaarp Mail (10 modules listed, none built).
   snaarp-admin.ts                  Snaarp Admin (8 steps, all built; scenes in scenes/snaarp-admin/).
+  snaarp-slides.ts                 Snaarp Slides (19 File-menu steps, all built; scenes in scenes/snaarp-slides/, shared pieces in components/slides/).
 
 scenes/snaarp-360/                 SCENES for Snaarp 360. One scene component + one script per step.
   Step1Pricing.tsx, step1-script.ts, pricing-data.ts

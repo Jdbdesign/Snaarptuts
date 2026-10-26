@@ -13,7 +13,7 @@ components/
   admin-panel/               AdminPanelLayout (purple "Admin Panel"), admin-panel-data.ts
   icons.tsx                  all icons + ProductLogo (real logos) + CursorArrow + FlagGB
 lib/                         timeline.ts (engine), useTimelineVar.ts, useNarrow.ts
-tutorials/                   PRODUCT CONFIGS: types.ts, index.ts (registry), completion.ts, snaarp-360.ts, snaarp-mail.ts
+tutorials/                   PRODUCT CONFIGS: types.ts, index.ts (registry), completion.ts, snaarp-360.ts, snaarp-mail.ts, snaarp-doc.ts, snaarp-admin.ts, snaarp-slides.ts
 scenes/<product-id>/         SCENES: Step<N><Name>.tsx + step<N>-script.ts + step<N>/ (screens, step<N>-data.ts)
 public/logos/                real Snaarp product logos (SVG)
 docs/                        documentation (start with HANDOFF.md)

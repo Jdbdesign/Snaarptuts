@@ -156,7 +156,12 @@ export function SlidesEditor({
             </div>
           </aside>
 
-          <div className="flex min-w-0 flex-1">
+          <div className="relative flex min-w-0 flex-1">
+            {narrow && sidePanel && (
+              <aside className="absolute inset-y-0 right-0 z-10 w-[270px] border-l border-[#E3E6EC] bg-white shadow-[-8px_0_24px_-12px_rgba(17,24,39,0.25)]">
+                <div className="relative h-full">{sidePanel}</div>
+              </aside>
+            )}
             <div data-tl="editor-canvas" className="flex min-w-0 flex-1 items-center justify-center bg-[#EEF1F5] [container-type:size]">
               <div data-tl="canvas-slide" className="shadow-[0_1px_3px_rgba(17,24,39,0.08)]" style={{ width: `min(73cqw, calc(71cqh * ${ratio}))` }}>
                 <SlideView slide={current} ratio={ratio} />
