@@ -72,11 +72,13 @@ import { Step36HeaderFooter } from "@/scenes/snaarp-doc/Step36HeaderFooter";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-doc/step36-script";
 import { Step37Orientation } from "@/scenes/snaarp-doc/Step37Orientation";
 import { runStep37, STEP37_DURATION_MS } from "@/scenes/snaarp-doc/step37-script";
+import { Step38ClearFormatting } from "@/scenes/snaarp-doc/Step38ClearFormatting";
+import { runStep38, STEP38_DURATION_MS } from "@/scenes/snaarp-doc/step38-script";
 import type { Tutorial } from "./types";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". The step list is PROVISIONAL (more steps will come from later
- * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 and up from Snaarp_Doc_format.mp4 (the Format menu). To add a step, give it a `scene`
+ * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu). To add a step, give it a `scene`
  * ({ Component, run, durationMs }) and add its folder under scenes/snaarp-doc/.
  * Recording: ref/docs/Snaarp_Doc_flow.mp4 (1010x480, 2:15, git-ignored).
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.
@@ -305,6 +307,12 @@ export const snaarpDoc: Tutorial = {
       title: "Change page orientation",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step37Orientation, run: runStep37, durationMs: STEP37_DURATION_MS },
+    },
+    {
+      id: "clear-formatting",
+      title: "Clear formatting",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step38ClearFormatting, run: runStep38, durationMs: STEP38_DURATION_MS },
     },
   ],
   completion: {
