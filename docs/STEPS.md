@@ -1210,3 +1210,32 @@ Recordings: `ref/docs/Snaarp_Doc_tools.mp4` (1910x910, 31 s; steps 39 and 40; fr
 | 18.0 | Caption "Click Send Request". Cursor to the button, ring, click. The dialog closes, the caption clears (so a narrow screen's caption does not cover it) and a toast says "Signature request sent". |
 | 21.0 | Hold. |
 | 24.1 | Quick white fade. Ends at 24.5. Step 44 is marked done; the completion card appears ("You're all set") because step 44 is the last step in the config. |
+
+# Snaarp Doc steps 45-64 (toolbar and header buttons)
+
+Recording: `ref/docs/Snaarp_Doc_toolbar.mp4` (1006x480, 1:23; 0:00-0:45 the cursor hovers each toolbar button, 0:45-1:23 the header buttons: Meet, Version history, Snaarp apps, Share). The recording only hovers; every step here shows the tool WORKING on a short practice line of the sample "Project Brief". All steps use `EditorStage` with `startDocument`, `formatting` and `tools` (see `CLAUDE.md`, "Steps 45-64"). Each starts with the editor fading in (`intro`), calls `initEditor` and `initToolbar` first (so a replay starts clean), ends with the quick white fade, and is standalone from the rail. Common beat: cursor to the button, the dark tooltip (the recording's text) shows for about 0.7-1 s, the button is ringed and clicked, the change shows. Files: `scenes/snaarp-doc/StepNxxx.tsx`, `stepN-script.ts`, `stepN-data.ts` (all copy, practice lines, sample values).
+
+| Step | Title | Start state (practice text in `stepN-data.ts`) | Duration | What happens |
+|---|---|---|---|---|
+| 45 | Undo and redo | sample document | 22.0 s | Click the end of the last paragraph, type a new line (one undo step); click Undo (line gone, Redo wakes up); click Redo (line back). |
+| 46 | Print and Paint format | one line; "Winter sale" bold + blue | 27.0 s | Print button opens the print window (`PrintDialog`), Cancel closes it. Select the blue words, click Paint format (button active), select "Spring offer": it takes the style. |
+| 47 | Change the zoom | sample document | 20.0 s | Zoom box opens its list; 150% (page grows, footer says "Zoom: 150%"); again, 100%. |
+| 48 | Paragraph styles and fonts | two lines | 33.0 s | Click "Project goals", style box, Heading 2. Select the sentence, font box (sample font list, Arial ticked), Georgia. |
+| 49 | Change the font size | one line | 30.0 s | Select it; + twice (13), - once (12); click the size box, type 18 (caret and blue ring), Enter. |
+| 50 | Bold, italic, underline | one line | 28.0 s | Select a word and click B, another and I, another and U; click away to see all three. |
+| 51 | Text color and highlight | one line | 30.0 s | Select a word, Text color palette, red (the bar under the button turns red); select a phrase, Highlight palette, yellow. |
+| 52 | Insert a link and an image | one line | 34.0 s | Select "our site", Insert link, type acme-studio.com, Insert (the link dialog of step 22). Insert image: uploading toast, the sample banner appears at the top (no file picker). |
+| 53 | Align your text | one long paragraph | 30.0 s | Click in it; center, right, justify, left. |
+| 54 | Line spacing | one long paragraph | 27.0 s | Spacing menu (Single, 1.15 ticked, 1.5, Double + two grey "Add space" rows); 1.5; again, Double. |
+| 55 | Lists | three short lines | 34.0 s | Select all three; Bullet list; the bullet button's arrow, Checklist; tick one box; Numbered list. |
+| 56 | Indent and outdent | three-item bullet list | 22.0 s | Click item 2; Increase indent (moves in), Decrease indent (back). |
+| 57 | Clear formatting, superscript and subscript | one line; first words bold, red, struck | 31.0 s | Select the styled words, Clear formatting (the crossed-S button); the "2" in "m2" superscript; the "2" in "H2O" subscript. |
+| 58 | Quote, horizontal line and table | three lines | 38.0 s | Block quote on line 1; a line under line 2 (Horizontal rule); the Table arrow opens a 6 x 5 square grid, hover to 2 x 2, click; header "Task" / "Owner" typed. |
+| 59 | Full screen, draw and emoji | one line | 41.0 s | Full screen (the step 18 simulation), Esc; Drawing (pen follows the sample doodle, Insert); Symbols & Emoji, Emoji tab, one emoji, close. |
+| 60 | Editing, Suggesting and Viewing modes | one line | 33.0 s | The pen button's list (Editing ticked, Suggesting, Viewing); Suggesting (header pill switches); a typed sentence is green and underlined; back to Editing. |
+| 61 | Start or join a meeting | sample document | 29.0 s | Header video button: "Start new meeting", "Join with link"; Join turns the card into "Have a meeting code?"; "abc-defg-hij" typed, Continue turns blue, click: toast "Meeting ready (sample)". No meeting starts. |
+| 62 | Check version history | sample document | 24.0 s | Header clock opens the Version history page with the sample list of saved versions (current one highlighted), hover two versions, "Show changes" ringed, back arrow. |
+| 63 | Open the Snaarp apps panel | sample document | 28.0 s | Header grid opens the "Snaarp apps" card (3-column tiles, Docs tinted); hover Mail and Sheets; scroll to the rest (ends with 360); click the grid to close. |
+| 64 | Share your document | sample document | 27.0 s | Header Share button ("Share document" tooltip) opens `ShareDialog` (Anyone with the link, Editor); role list shown; Copy link (toast "Link copied"); Done. The completion card follows. |
+
+Hooks added: tooltip `tooltip`; cards `menu-<id>` and rows `tm-<card>-<id>` (e.g. `tm-zoom-150`, `tm-style-h2`, `tm-font-georgia`, `tm-color-1-0`, `tm-highlight-0-0`, `tm-spacing-15`, `tm-bullets-check`, `tm-table-2-2`, `tm-mode-suggesting`, `tm-meet-join`), `meet-code`, `meet-continue`, `meet-back`, `apps-scroll`, `app-<id>`, `header-meet`, `header-apps`, `header-history`, `vh-list`, `vh-version-<n>`, `vh-show-changes`, `tool-layer`. Scene variables added: `tip`, `toolMenu`, `zoomPct`, `lastColor`, `lastHighlight`, `sizeBox`, `paint`, `tablePick`, `field:meet-code`, `meetFocus`.
