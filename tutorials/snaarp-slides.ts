@@ -75,7 +75,7 @@ import type { Tutorial } from "./types";
 
 /**
  * Snaarp Slides ("How to use Snaarp Slides"): File menu (steps 1-19), then the Edit, View and Insert menus (steps 20-36). Recording: ref/slides/Snaarp_Slides_file.mp4
- * (1006x480, 3:48, git-ignored). Later rounds add Edit, View, Insert, Format, Slide, Arrange and Tools.
+ * (1006x480, 3:48, git-ignored). Steps 20-36 add Edit, View and Insert (ref/slides/Snaarp_Slides_edit_view_insert.mp4); later rounds add Format, Slide, Arrange and Tools.
  * The completion card follows the last step in this list, so adding menus later moves it automatically.
  */
 export const snaarpSlides: Tutorial = {
