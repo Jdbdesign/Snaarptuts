@@ -48,7 +48,7 @@ export function ManageProductsDialog({ tl }: { tl: Timeline }) {
     >
       <p className="mb-2.5 text-[13.5px] font-semibold text-[#2a2d36]">{M.heading(NEW_USER.first + " " + NEW_USER.last)}</p>
 
-      <ul className="overflow-hidden rounded-xl border border-[#F0F0F4]">
+      <ul data-tl="mp-owned" className="overflow-hidden rounded-xl border border-[#F0F0F4]">
         {owned.map((id) => {
           const p = productById(id);
           return (

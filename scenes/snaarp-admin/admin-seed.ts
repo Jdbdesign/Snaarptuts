@@ -17,7 +17,7 @@ export function seedAdmin(tl: Timeline, start: StartState) {
   const details = start === "create-details";
   const created = start === "created" || start === "manage-four" || start === "manage-five";
 
-  tl.setVar("dialog", start.startsWith("create") ? "create" : start.startsWith("manage") ? "manage" : "");
+  tl.setVar("dialog", start.startsWith("create-") ? "create" : start.startsWith("manage") ? "manage" : "");
   tl.setVar("created", created);
   tl.setVar("userProducts", start === "manage-five" ? [...START_PRODUCTS, PRODUCT_TO_ADD] : START_PRODUCTS);
 

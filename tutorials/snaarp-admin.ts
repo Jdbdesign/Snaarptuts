@@ -6,6 +6,8 @@ import { Step3JobRole } from "@/scenes/snaarp-admin/Step3JobRole";
 import { runStep3, STEP3_DURATION_MS } from "@/scenes/snaarp-admin/step3-script";
 import { Step4CreateUser } from "@/scenes/snaarp-admin/Step4CreateUser";
 import { runStep4, STEP4_DURATION_MS } from "@/scenes/snaarp-admin/step4-script";
+import { Step5CheckAccess } from "@/scenes/snaarp-admin/Step5CheckAccess";
+import { runStep5, STEP5_DURATION_MS } from "@/scenes/snaarp-admin/step5-script";
 import { URL_USERS } from "@/scenes/snaarp-admin/admin-data";
 import type { Tutorial } from "./types";
 
@@ -41,7 +43,12 @@ export const snaarpAdmin: Tutorial = {
       url: URL_USERS,
       scene: { Component: Step4CreateUser, run: runStep4, durationMs: STEP4_DURATION_MS },
     },
-    { id: "check-access", title: "Check the user's access", url: URL_USERS },
+    {
+      id: "check-access",
+      title: "Check the user's access",
+      url: URL_USERS,
+      scene: { Component: Step5CheckAccess, run: runStep5, durationMs: STEP5_DURATION_MS },
+    },
     { id: "open-manage-products", title: "Open Manage products", url: URL_USERS },
     { id: "add-product", title: "Add the user to another product", url: URL_USERS },
     { id: "confirm-access", title: "Confirm the new access", url: URL_USERS },
