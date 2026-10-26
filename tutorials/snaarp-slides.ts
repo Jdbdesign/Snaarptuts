@@ -26,6 +26,8 @@ import { Step13 } from "@/scenes/snaarp-slides/step13/Step13";
 import { runStep13, STEP13_DURATION_MS } from "@/scenes/snaarp-slides/step13/script";
 import { Step14 } from "@/scenes/snaarp-slides/step14/Step14";
 import { runStep14, STEP14_DURATION_MS } from "@/scenes/snaarp-slides/step14/script";
+import { Step15 } from "@/scenes/snaarp-slides/step15/Step15";
+import { runStep15, STEP15_DURATION_MS } from "@/scenes/snaarp-slides/step15/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -120,6 +122,12 @@ export const snaarpSlides: Tutorial = {
       title: "Make it available offline",
       url: SLIDES_URLS.editor,
       scene: { Component: Step14, run: runStep14, durationMs: STEP14_DURATION_MS },
+    },
+    {
+      id: "details",
+      title: "See the presentation details",
+      url: SLIDES_URLS.editor,
+      scene: { Component: Step15, run: runStep15, durationMs: STEP15_DURATION_MS },
     },
   ],
   groups: [
