@@ -52,7 +52,7 @@ type Props = {
  * Edit, View and Insert (steps 20-36) add: `menuOpen` (edit | view | insert), `menuSub`, `menuTip`, `sel` (selected element ids), `clip`,
  * `undoStack` / `redoStack`, `textEdit` + `field:slideText`, `cellEdit` + `field:slideCell`, `findOpen` + `field:find` + `field:replace`
  * + `findMatchCase` + `findOrigin` + `findIndex`, `notesOpen` + `field:notes`, `rulers`, `rulerMark`, `guides`, `snap`, `zoom`, `tool`,
- * `draw`, `marker`, `fullScreen` + `fsHint` + `fsKey` + `fsPressed` + `fsArrow` + `fsSlide`, `imagePick`.
+ * `draw`, `marker`, `canvasX` / `canvasY` (0-1: how far a zoomed-in canvas is scrolled), `fullScreen` + `fsHint` + `fsKey` + `fsPressed` + `fsArrow` + `fsSlide`, `imagePick`.
  * The root carries data-scroller, where the timeline looks up targets.
  */
 export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides = ONE_SLIDE, startSelected = 0 }: Props) {
@@ -98,6 +98,8 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
   const snap = useTimelineVar<{ v?: number; h?: number } | null>(tl, "snap", null);
   const zoom = useTimelineVar(tl, "zoom", "100");
   const tool = useTimelineVar(tl, "tool", "select");
+  const scrollX = useTimelineVar(tl, "canvasX", 0);
+  const scrollY = useTimelineVar(tl, "canvasY", 0);
   const draw = useTimelineVar<{ x: number; y: number; w: number; h: number } | null>(tl, "draw", null);
   const marker = useTimelineVar<{ x: number; y: number } | null>(tl, "marker", null);
 
@@ -169,6 +171,7 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
             activeTool={tool}
             zoomLabel={ZOOM_LABEL[zoom]}
             zoom={ZOOM_FACTOR[zoom] ?? 1}
+            scroll={{ x: scrollX, y: scrollY }}
             rulers={rulers}
             rulerMark={rulerMark}
             view={view}

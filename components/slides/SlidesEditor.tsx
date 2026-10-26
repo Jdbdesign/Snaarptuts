@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { Icon, ProductLogo } from "@/components/icons";
 import { useNarrow } from "@/lib/useNarrow";
 import { SlideView } from "./SlideView";
@@ -45,6 +45,8 @@ type Props = {
   notesText?: string;
   /** Width of the right-hand panel when `sidePanel` is shown (default 290). */
   panelWidth?: number;
+  /** Where a zoomed-in canvas is scrolled to, as 0-1 of the way along each direction (View > Zoom). */
+  scroll?: { x: number; y: number };
 };
 
 /**
@@ -76,8 +78,16 @@ export function SlidesEditor({
   notesPanel,
   notesText = "",
   panelWidth = 290,
+  scroll,
 }: Props) {
   const narrow = useNarrow();
+  const canvasRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = canvasRef.current;
+    if (!el || !scroll) return;
+    el.scrollLeft = scroll.x * (el.scrollWidth - el.clientWidth);
+    el.scrollTop = scroll.y * (el.scrollHeight - el.clientHeight);
+  }, [scroll]);
   const current = slides[Math.min(selected, slides.length - 1)];
 
   return (
@@ -194,7 +204,7 @@ export function SlidesEditor({
               </aside>
             )}
             <div className="flex min-w-0 flex-1 flex-col">
-              <div data-tl="editor-canvas" className="no-scrollbar relative flex min-h-0 min-w-0 flex-1 overflow-auto bg-[#EEF1F5] [container-type:size]">
+              <div ref={canvasRef} data-tl="editor-canvas" className="no-scrollbar relative flex min-h-0 min-w-0 flex-1 overflow-auto bg-[#EEF1F5] [container-type:size]">
                 <div className="m-auto shrink-0 p-[18px]">
                   <div data-tl="canvas-slide" className="relative shadow-[0_1px_3px_rgba(17,24,39,0.08)]" style={{ width: `calc(min(73cqw, calc(71cqh * ${ratio})) * ${zoom})` }}>
                     <SlideView slide={current} ratio={ratio} view={view} />
