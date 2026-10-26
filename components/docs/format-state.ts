@@ -117,6 +117,7 @@ export function activeFormats(s: EditorState): TextFormat[] {
   if (s.caret) {
     const b = s.blocks[s.caret.block];
     const at = s.caret.offset;
+    if (at === 0) return []; // nothing before the caret: an empty range would count as covered by every mark
     return all.filter((f) => covered(b.formats ?? [], f, Math.max(0, at - 1), at));
   }
   return [];

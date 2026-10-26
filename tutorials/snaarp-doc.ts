@@ -115,6 +115,8 @@ import { Step57ClearSupSub } from "@/scenes/snaarp-doc/Step57ClearSupSub";
 import { runStep57, STEP57_DURATION_MS } from "@/scenes/snaarp-doc/step57-script";
 import { Step58QuoteRuleTable } from "@/scenes/snaarp-doc/Step58QuoteRuleTable";
 import { runStep58, STEP58_DURATION_MS } from "@/scenes/snaarp-doc/step58-script";
+import { Step59FullDrawEmoji } from "@/scenes/snaarp-doc/Step59FullDrawEmoji";
+import { runStep59, STEP59_DURATION_MS } from "@/scenes/snaarp-doc/step59-script";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
@@ -472,6 +474,12 @@ export const snaarpDoc: Tutorial = {
       title: "Quote, horizontal line and table",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step58QuoteRuleTable, run: runStep58, durationMs: STEP58_DURATION_MS },
+    },
+    {
+      id: "full-draw-emoji",
+      title: "Full screen, draw and emoji",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step59FullDrawEmoji, run: runStep59, durationMs: STEP59_DURATION_MS },
     },
   ],
   completion: {
