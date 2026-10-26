@@ -80,6 +80,8 @@ import { Step40WordCount } from "@/scenes/snaarp-doc/Step40WordCount";
 import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-doc/step40-script";
 import { Step41SignDocument } from "@/scenes/snaarp-doc/Step41SignDocument";
 import { runStep41, STEP41_DURATION_MS } from "@/scenes/snaarp-doc/step41-script";
+import { Step42TypeSignature } from "@/scenes/snaarp-doc/Step42TypeSignature";
+import { runStep42, STEP42_DURATION_MS } from "@/scenes/snaarp-doc/step42-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -337,6 +339,12 @@ export const snaarpDoc: Tutorial = {
       title: "Sign your document",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step41SignDocument, run: runStep41, durationMs: STEP41_DURATION_MS },
+    },
+    {
+      id: "type-signature",
+      title: "Type your signature",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step42TypeSignature, run: runStep42, durationMs: STEP42_DURATION_MS },
     },
   ],
   completion: {
