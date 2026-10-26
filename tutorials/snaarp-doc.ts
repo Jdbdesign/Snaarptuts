@@ -97,6 +97,8 @@ import { Step48StyleFont } from "@/scenes/snaarp-doc/Step48StyleFont";
 import { runStep48, STEP48_DURATION_MS } from "@/scenes/snaarp-doc/step48-script";
 import { Step49FontSize } from "@/scenes/snaarp-doc/Step49FontSize";
 import { runStep49, STEP49_DURATION_MS } from "@/scenes/snaarp-doc/step49-script";
+import { Step50BoldItalic } from "@/scenes/snaarp-doc/Step50BoldItalic";
+import { runStep50, STEP50_DURATION_MS } from "@/scenes/snaarp-doc/step50-script";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
@@ -400,6 +402,12 @@ export const snaarpDoc: Tutorial = {
       title: "Change the font size",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step49FontSize, run: runStep49, durationMs: STEP49_DURATION_MS },
+    },
+    {
+      id: "bold-italic-underline",
+      title: "Bold, italic, underline",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step50BoldItalic, run: runStep50, durationMs: STEP50_DURATION_MS },
     },
   ],
   completion: {
