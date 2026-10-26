@@ -76,6 +76,8 @@ import { Step38ClearFormatting } from "@/scenes/snaarp-doc/Step38ClearFormatting
 import { runStep38, STEP38_DURATION_MS } from "@/scenes/snaarp-doc/step38-script";
 import { Step39ToolsMenu } from "@/scenes/snaarp-doc/Step39ToolsMenu";
 import { runStep39, STEP39_DURATION_MS } from "@/scenes/snaarp-doc/step39-script";
+import { Step40WordCount } from "@/scenes/snaarp-doc/Step40WordCount";
+import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-doc/step40-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -321,6 +323,12 @@ export const snaarpDoc: Tutorial = {
       title: "Explore the Tools menu",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step39ToolsMenu, run: runStep39, durationMs: STEP39_DURATION_MS },
+    },
+    {
+      id: "word-count",
+      title: "Check your word count",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step40WordCount, run: runStep40, durationMs: STEP40_DURATION_MS },
     },
   ],
   completion: {
