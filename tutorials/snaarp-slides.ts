@@ -48,6 +48,8 @@ import { Step24 } from "@/scenes/snaarp-slides/step24/Step24";
 import { runStep24, STEP24_DURATION_MS } from "@/scenes/snaarp-slides/step24/script";
 import { Step25 } from "@/scenes/snaarp-slides/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/snaarp-slides/step25/script";
+import { Step26 } from "@/scenes/snaarp-slides/step26/Step26";
+import { runStep26, STEP26_DURATION_MS } from "@/scenes/snaarp-slides/step26/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -208,6 +210,12 @@ export const snaarpSlides: Tutorial = {
       title: "Add speaker notes",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step25, run: runStep25, durationMs: STEP25_DURATION_MS },
+    },
+    {
+      id: "show-ruler",
+      title: "Show the ruler",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step26, run: runStep26, durationMs: STEP26_DURATION_MS },
     },
   ],
   groups: [

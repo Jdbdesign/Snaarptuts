@@ -244,26 +244,26 @@ const RULER = 960; // the page is 960 units wide on the ruler
 function Rulers({ ratio, mark }: { ratio: number; mark: { x: number; y: number } | null }) {
   const across = Array.from({ length: Math.floor(RULER / 50) + 1 }, (_, i) => i * 50);
   const down = Array.from({ length: Math.floor(RULER / ratio / 50) + 1 }, (_, i) => i * 50);
-  const strip = "absolute bg-[#F7F8FA] text-[5.5px] leading-none text-[#8b909c]";
+  const strip = "absolute bg-[#F7F8FA] text-[7px] leading-none text-[#6b7280]";
   return (
     <>
-      <div data-tl="ruler-top" className={`${strip} bottom-full left-0 right-0 mb-[1px] h-[11px] border-b border-[#DADDE3]`}>
+      <div data-tl="ruler-top" className={`${strip} bottom-full left-0 right-0 mb-[1px] h-[16px] border-b border-[#DADDE3]`}>
         {across.map((u) => (
           <span key={u} className="absolute bottom-0 flex flex-col items-start" style={{ left: `${(u / RULER) * 100}%` }}>
             {u % 100 === 0 && <span className="translate-x-[2px] pb-[1px]">{u}</span>}
-            <i className={`block w-px bg-[#B9BDC8] ${u % 100 === 0 ? "h-[4px]" : "h-[2.5px]"}`} />
+            <i className={`block w-px bg-[#8E94A3] ${u % 100 === 0 ? "h-[6px]" : "h-[3.5px]"}`} />
           </span>
         ))}
-        {mark && <i className="absolute inset-y-0 block w-px bg-[#2B6FEB]" style={{ left: `${Math.min(100, Math.max(0, mark.x))}%` }} />}
+        {mark && <i className="absolute inset-y-0 block w-[1.5px] bg-[#2B6FEB]" style={{ left: `${Math.min(100, Math.max(0, mark.x))}%` }} />}
       </div>
-      <div data-tl="ruler-left" className={`${strip} bottom-0 right-full top-0 mr-[1px] w-[11px] border-r border-[#DADDE3]`}>
+      <div data-tl="ruler-left" className={`${strip} bottom-0 right-full top-0 mr-[1px] w-[16px] border-r border-[#DADDE3]`}>
         {down.map((u) => (
           <span key={u} className="absolute right-0 flex items-center" style={{ top: `${(u / (RULER / ratio)) * 100}%` }}>
             {u % 100 === 0 && u > 0 && <span className="pr-[1px]">{u}</span>}
-            <i className={`block h-px bg-[#B9BDC8] ${u % 100 === 0 ? "w-[4px]" : "w-[2.5px]"}`} />
+            <i className={`block h-px bg-[#8E94A3] ${u % 100 === 0 ? "w-[6px]" : "w-[3.5px]"}`} />
           </span>
         ))}
-        {mark && <i className="absolute inset-x-0 block h-px bg-[#2B6FEB]" style={{ top: `${Math.min(100, Math.max(0, (mark.y / (100 / ratio)) * 100))}%` }} />}
+        {mark && <i className="absolute inset-x-0 block h-[1.5px] bg-[#2B6FEB]" style={{ top: `${Math.min(100, Math.max(0, (mark.y / (100 / ratio)) * 100))}%` }} />}
       </div>
     </>
   );
