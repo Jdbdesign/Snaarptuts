@@ -1,4 +1,6 @@
 import type { IconName } from "@/components/icons";
+import { formatGBP } from "@/lib/money";
+import { MONTHLY_MAIL } from "./pricing-data";
 
 /*
  * Snaarp Mail, step 2 - sign-up page. All copy and sample values live here so they can be edited
@@ -22,7 +24,7 @@ export const BRAND = {
 export const PLAN = {
   label: "Selected plan",
   name: "Growth",
-  price: "NGN 44,585.17",
+  price: formatGBP(MONTHLY_MAIL.growth, { code: true }),
   per: "/month",
   storage: "100 GB",
   billing: "Billed monthly",
@@ -39,8 +41,8 @@ export const FORM = {
     org: "Organization name",
     phone: "Phone number",
   },
-  country: "Nigeria",
-  dialCode: "+234",
+  country: "United Kingdom",
+  dialCode: "+44",
   passwordLabel: "Password",
   strengthLabel: "Password strength:",
   terms: {
@@ -62,7 +64,7 @@ export const SAMPLE = {
   last: "Doe",
   email: "jane.doe@example.com",
   org: "Acme Studio",
-  phone: "8012345678",
+  phone: "7700 900123",
   password: "Wd7#kQ2mPz9a",
 };
 

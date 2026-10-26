@@ -1,11 +1,17 @@
 import { plans360 } from "@/components/pricing/plans-360";
 import type { Plan, PricingData } from "@/components/pricing/pricing-types";
+import { planPrice } from "@/lib/money";
+import { MONTHLY_360 } from "../snaarp-360/pricing-data";
 
 /*
- * Snaarp pricing page as the Mail tutorial shows it: prices in naira (₦), "NG NGN" in the nav.
- * The Mail tab values come from the recording (frames in ref/mail/frames-step1). The 360 tab is the page
- * the tutorial starts on; it uses the same 360 plans as the 360 tutorial, with naira prices.
+ * Snaarp pricing page as the Mail tutorial shows it: prices in pounds (pence shown, as on the live page),
+ * "GB GBP" in the nav. The plans, storage and features come from the recording (frames in ref/mail/frames-step1);
+ * the prices are UK sample values. The 360 tab is the page the tutorial starts on; it uses the same 360 plans
+ * and monthly prices as the 360 tutorial.
  */
+
+/** Monthly prices of the four Mail plans, in pounds. */
+export const MONTHLY_MAIL = { starter: 5, growth: 25, business: 50, scale: 100 };
 
 const MAIL_FEATURES_BY_ORDER = {
   standard: ["Business Emails", "Migration Assistance", "Mobile App", "Bulk Registration", "Admin Dashboard"],
@@ -19,8 +25,7 @@ const MAIL_PLANS: Plan[] = [
   {
     id: "starter",
     name: "Starter",
-    price: "₦8,917.03",
-    total: "₦107,004.42",
+    ...planPrice(MONTHLY_MAIL.starter),
     storage: "10 GB",
     headline: "10 Users",
     features: ["10 GB Shared Space", ...MAIL_FEATURES_BY_ORDER.standard],
@@ -30,8 +35,7 @@ const MAIL_PLANS: Plan[] = [
   {
     id: "growth",
     name: "Growth",
-    price: "₦44,585.17",
-    total: "₦535,022.08",
+    ...planPrice(MONTHLY_MAIL.growth),
     storage: "100 GB",
     headline: "25 Users",
     features: ["100 GB Shared Space", ...MAIL_FEATURES_BY_ORDER.standard],
@@ -41,8 +45,7 @@ const MAIL_PLANS: Plan[] = [
   {
     id: "business",
     name: "Business",
-    price: "₦89,170.35",
-    total: "₦1,070,044.16",
+    ...planPrice(MONTHLY_MAIL.business),
     storage: "600 GB",
     headline: "25 users",
     features: ["600 GB shared space", ...MAIL_FEATURES_BY_ORDER.business],
@@ -53,8 +56,7 @@ const MAIL_PLANS: Plan[] = [
   {
     id: "scale",
     name: "Scale",
-    price: "₦178,340.69",
-    total: "₦2,140,088.32",
+    ...planPrice(MONTHLY_MAIL.scale),
     storage: "2.5 TB",
     headline: "50 users",
     features: ["2.5 TB shared space", ...MAIL_FEATURES_BY_ORDER.standard],
@@ -64,16 +66,16 @@ const MAIL_PLANS: Plan[] = [
 ];
 
 export const PRICING_MAIL: PricingData = {
-  currency: { kind: "code", flag: "NG", code: "NGN" },
+  currency: { kind: "code", flag: "GB", code: "GBP" },
   initialTab: "360",
   cardsVisibleAtStart: true,
   startScroll: 408, // tab bar just under the nav, as in the recording
   plansByTab: {
     "360": plans360({
-      team: { price: "₦87,386.94", total: "₦1,048,643.28" },
-      business: { price: "₦176,557.29", total: "₦2,118,687.44" },
-      scale: { price: "₦444,068.33", total: "₦5,328,819.92" },
-      growth: { price: "₦889,920.06", total: "₦10,679,040.73" },
+      team: planPrice(MONTHLY_360.team),
+      business: planPrice(MONTHLY_360.business),
+      scale: planPrice(MONTHLY_360.scale),
+      growth: planPrice(MONTHLY_360.growth),
     }),
     mail: MAIL_PLANS,
   },

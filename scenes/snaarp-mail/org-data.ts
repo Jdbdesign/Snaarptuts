@@ -19,8 +19,8 @@ export const ORG = {
     industry: "Select your industry",
     size: "Select company size",
     website: "https://yourcompany.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Main St, City, State, Country",
+    phone: "+44 7700 900123",
+    address: "10 High Street, City, Postcode",
   },
   back: "Back",
   next: "Continue",
@@ -55,8 +55,8 @@ export const SAMPLE = {
   industry: "Technology",
   size: "1-10 employees",
   website: "https://acme-studio.com",
-  phone: "+234 801 234 5678",
-  address: "12 Marina Road, Lagos, Nigeria",
+  phone: "+44 20 7946 0123",
+  address: "10 Acme Street, London, EC1A 1AA",
 };
 
 export const CAPTIONS = {

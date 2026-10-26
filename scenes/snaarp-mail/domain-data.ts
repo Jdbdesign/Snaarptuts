@@ -4,6 +4,8 @@
  * (Step4Domain.tsx, domain/*.tsx) or the script (step4-script.ts). Wording follows ref/mail/frames-step4.
  */
 
+import { formatGBP } from "@/lib/money";
+
 export const BRAND = "Snaarp";
 
 export const CHOOSE = {
@@ -18,7 +20,7 @@ export const CHOOSE = {
     badge: "Coming soon",
     title: "Buy new domain",
     text: "Get a custom domain through Snaarp",
-    checks: ["Search and register new domain", "Free privacy protection", "Auto-renewal available", "Prices starting at $12/year"],
+    checks: ["Search and register new domain", "Free privacy protection", "Auto-renewal available", `Prices starting at ${formatGBP(10, { whole: true })}/year`],
   },
   add: "Add Domain",
 };
