@@ -54,6 +54,8 @@ import { Step27 } from "@/scenes/snaarp-slides/step27/Step27";
 import { runStep27, STEP27_DURATION_MS } from "@/scenes/snaarp-slides/step27/script";
 import { Step28 } from "@/scenes/snaarp-slides/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/snaarp-slides/step28/script";
+import { Step29 } from "@/scenes/snaarp-slides/step29/Step29";
+import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-slides/step29/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -232,6 +234,12 @@ export const snaarpSlides: Tutorial = {
       title: "Change the zoom",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step28, run: runStep28, durationMs: STEP28_DURATION_MS },
+    },
+    {
+      id: "full-screen",
+      title: "Present in full screen",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step29, run: runStep29, durationMs: STEP29_DURATION_MS },
     },
   ],
   groups: [

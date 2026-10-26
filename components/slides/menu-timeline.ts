@@ -119,3 +119,18 @@ export async function chooseSubRow(tl: Timeline, menu: DropdownId, id: string, s
   closeMenu(tl);
   run(tl, `${menu}.${id}.${subId}`);
 }
+
+/** In full screen: show an arrow key, press it and move to the next or previous slide (scene variables `fsArrow`, `fsPressed`, `fsSlide`). */
+export async function pressFullScreenArrow(tl: Timeline, dir: "next" | "previous") {
+  const slides = tl.getVar<unknown[]>("slides", []).length;
+  const at = tl.getVar<number>("fsSlide", 1);
+  tl.setVar("fsArrow", dir);
+  await tl.wait(600);
+  tl.setVar("fsPressed", true);
+  await tl.wait(220);
+  tl.setVar("fsSlide", Math.max(0, Math.min(slides - 1, at + (dir === "next" ? 1 : -1))));
+  await tl.wait(260);
+  tl.setVar("fsPressed", false);
+  await tl.wait(450);
+  tl.setVar("fsArrow", "");
+}
