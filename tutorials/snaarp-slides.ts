@@ -60,6 +60,8 @@ import { Step30 } from "@/scenes/snaarp-slides/step30/Step30";
 import { runStep30, STEP30_DURATION_MS } from "@/scenes/snaarp-slides/step30/script";
 import { Step31 } from "@/scenes/snaarp-slides/step31/Step31";
 import { runStep31, STEP31_DURATION_MS } from "@/scenes/snaarp-slides/step31/script";
+import { Step32 } from "@/scenes/snaarp-slides/step32/Step32";
+import { runStep32, STEP32_DURATION_MS } from "@/scenes/snaarp-slides/step32/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -256,6 +258,12 @@ export const snaarpSlides: Tutorial = {
       title: "Insert an image",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step31, run: runStep31, durationMs: STEP31_DURATION_MS },
+    },
+    {
+      id: "insert-shapes",
+      title: "Insert shapes",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step32, run: runStep32, durationMs: STEP32_DURATION_MS },
     },
   ],
   groups: [
