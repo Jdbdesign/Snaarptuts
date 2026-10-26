@@ -18,6 +18,8 @@ import { Step9 } from "@/scenes/snaarp-slides/step9/Step9";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/snaarp-slides/step9/script";
 import { Step10 } from "@/scenes/snaarp-slides/step10/Step10";
 import { runStep10, STEP10_DURATION_MS } from "@/scenes/snaarp-slides/step10/script";
+import { Step11 } from "@/scenes/snaarp-slides/step11/Step11";
+import { runStep11, STEP11_DURATION_MS } from "@/scenes/snaarp-slides/step11/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -88,6 +90,12 @@ export const snaarpSlides: Tutorial = {
       title: "Download in a format you need",
       url: SLIDES_URLS.editor,
       scene: { Component: Step10, run: runStep10, durationMs: STEP10_DURATION_MS },
+    },
+    {
+      id: "rename",
+      title: "Rename your presentation",
+      url: SLIDES_URLS.editor,
+      scene: { Component: Step11, run: runStep11, durationMs: STEP11_DURATION_MS },
     },
   ],
   groups: [
