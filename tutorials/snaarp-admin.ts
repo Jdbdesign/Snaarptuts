@@ -12,12 +12,14 @@ import { Step6OpenManage } from "@/scenes/snaarp-admin/Step6OpenManage";
 import { runStep6, STEP6_DURATION_MS } from "@/scenes/snaarp-admin/step6-script";
 import { Step7AddProduct } from "@/scenes/snaarp-admin/Step7AddProduct";
 import { runStep7, STEP7_DURATION_MS } from "@/scenes/snaarp-admin/step7-script";
+import { Step8Confirm } from "@/scenes/snaarp-admin/Step8Confirm";
+import { runStep8, STEP8_DURATION_MS } from "@/scenes/snaarp-admin/step8-script";
 import { URL_USERS } from "@/scenes/snaarp-admin/admin-data";
 import type { Tutorial } from "./types";
 
 /**
  * Snaarp Admin: "Add users and give them products" in the Admin Panel (login.snaarp.com/admin/users).
- * Eight steps, all on the Users page. Recording: ref/admin/Snaarp_Admin_add_users.mp4 (1454x720, 3:13, git-ignored).
+ * Eight steps, all built, all on the Users page. Recording: ref/admin/Snaarp_Admin_add_users.mp4 (1454x720, 3:13, git-ignored).
  * There was no earlier Admin tutorial in the repo, so these are steps 1-8.
  */
 export const snaarpAdmin: Tutorial = {
@@ -65,7 +67,12 @@ export const snaarpAdmin: Tutorial = {
       url: URL_USERS,
       scene: { Component: Step7AddProduct, run: runStep7, durationMs: STEP7_DURATION_MS },
     },
-    { id: "confirm-access", title: "Confirm the new access", url: URL_USERS },
+    {
+      id: "confirm-access",
+      title: "Confirm the new access",
+      url: URL_USERS,
+      scene: { Component: Step8Confirm, run: runStep8, durationMs: STEP8_DURATION_MS },
+    },
   ],
   completion: {
     text: "You know how to create a user and give them access to more Snaarp products.",
