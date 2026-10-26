@@ -101,6 +101,8 @@ import { Step50BoldItalic } from "@/scenes/snaarp-doc/Step50BoldItalic";
 import { runStep50, STEP50_DURATION_MS } from "@/scenes/snaarp-doc/step50-script";
 import { Step51Color } from "@/scenes/snaarp-doc/Step51Color";
 import { runStep51, STEP51_DURATION_MS } from "@/scenes/snaarp-doc/step51-script";
+import { Step52LinkImage } from "@/scenes/snaarp-doc/Step52LinkImage";
+import { runStep52, STEP52_DURATION_MS } from "@/scenes/snaarp-doc/step52-script";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
@@ -416,6 +418,12 @@ export const snaarpDoc: Tutorial = {
       title: "Text color and highlight",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step51Color, run: runStep51, durationMs: STEP51_DURATION_MS },
+    },
+    {
+      id: "link-image",
+      title: "Insert a link and an image",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step52LinkImage, run: runStep52, durationMs: STEP52_DURATION_MS },
     },
   ],
   completion: {
