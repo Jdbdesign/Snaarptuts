@@ -74,6 +74,8 @@ import { Step37Orientation } from "@/scenes/snaarp-doc/Step37Orientation";
 import { runStep37, STEP37_DURATION_MS } from "@/scenes/snaarp-doc/step37-script";
 import { Step38ClearFormatting } from "@/scenes/snaarp-doc/Step38ClearFormatting";
 import { runStep38, STEP38_DURATION_MS } from "@/scenes/snaarp-doc/step38-script";
+import { Step39ToolsMenu } from "@/scenes/snaarp-doc/Step39ToolsMenu";
+import { runStep39, STEP39_DURATION_MS } from "@/scenes/snaarp-doc/step39-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -313,6 +315,12 @@ export const snaarpDoc: Tutorial = {
       title: "Clear formatting",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step38ClearFormatting, run: runStep38, durationMs: STEP38_DURATION_MS },
+    },
+    {
+      id: "tools-menu",
+      title: "Explore the Tools menu",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step39ToolsMenu, run: runStep39, durationMs: STEP39_DURATION_MS },
     },
   ],
   completion: {

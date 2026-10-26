@@ -15,6 +15,8 @@ type Props = {
   title: string;
   /** Hook for the close X (data-tl). */
   closeHook?: string;
+  /** Hook (data-tl) of the white card itself, to ring the whole dialog. */
+  cardHook?: string;
   children: ReactNode;
 };
 
@@ -23,11 +25,11 @@ type Props = {
  * card with 14 px corners, the bold title at the top left and a close X at the top right. Pass the dialog's content as
  * children. It is rendered inside the editor's `overlay`, so it covers the editor only.
  */
-export function InsertDialog({ open, width, title, closeHook, children }: Props) {
+export function InsertDialog({ open, width, title, closeHook, cardHook, children }: Props) {
   const narrow = useNarrow();
   return (
     <div className="absolute inset-0 z-40 text-[#111]" style={{ zoom: narrow ? NARROW_ZOOM : 1 }}>
-      <Modal open={open} width={width}>
+      <Modal open={open} width={width} hook={cardHook}>
         <div className="relative px-[20px] pb-[18px] pt-[18px]">
           <span
             {...(closeHook ? { "data-tl": closeHook } : {})}

@@ -98,7 +98,22 @@ export const ESIGN = {
   hint: "Draw your signature below:",
   clear: "Clear",
   insert: "Insert Signature",
+  /** The Type tab (step 42): the name is shown under the input in the signature font. */
+  type: { hint: "Type your name to generate a signature:", placeholder: "Your full name" },
+  /** The Upload tab (step 43): clicking the box would open the computer's file picker, which is left out. */
+  upload: { hint: "Upload an image of your signature.", drop: "Click to upload (PNG, JPG)" },
+  /** The Request tab (step 44). */
+  request: {
+    hint: "Request a signature from someone else. They will receive an email with a link to sign this document.",
+    emailPlaceholder: "Recipient email address",
+    messagePlaceholder: "Optional message...",
+    send: "Send Request",
+    sent: "Signature request sent",
+  },
 };
+
+/** The look of a typed signature (the frames show an italic serif): in the dialog's preview and in the page. */
+export const TYPED_SIGNATURE_FONT = "Georgia, 'Times New Roman', serif";
 
 export const DRAWING = {
   title: "Drawing",

@@ -35,3 +35,18 @@ export const DOODLE: Stroke = {
     "M20 132 C50 42 92 42 112 102 C128 148 164 162 184 112 C202 68 162 42 148 82 C138 118 180 142 212 110 " +
     "C242 80 270 66 292 100 C308 124 328 130 346 98",
 };
+
+/**
+ * The uploaded signature of step 43 (a second original signature, different from SIGNATURE): a neat black stroke on a
+ * transparent background, as a small signature image would be. In the page it is drawn like an image.
+ */
+export const UPLOADED_SIGNATURE: Stroke = {
+  viewBox: "0 0 260 110",
+  width: 260,
+  height: 110,
+  pen: 3,
+  path:
+    "M16 78 C22 44 32 14 44 16 C56 18 42 62 40 80 M32 58 C48 50 62 48 72 54 C84 62 70 78 84 72 " +
+    "C98 66 100 44 112 48 C122 52 112 76 126 70 C140 64 144 42 156 46 C166 50 158 74 172 70 " +
+    "C190 64 206 54 240 60 M58 94 C108 86 168 92 244 82",
+};

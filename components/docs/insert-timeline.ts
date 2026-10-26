@@ -327,23 +327,34 @@ export async function typeInBlock(tl: Timeline, blockId: string, text: string, o
 
 // ---- eSignature and Drawing (steps 29 and 30) --------------------------------------------------------
 
-/** Insert > eSignature: the dialog opens on the Draw tab with an empty canvas. */
-export function openEsignature(tl: Timeline) {
+/** Insert > eSignature (or the eSignature menu): the dialog opens on the Draw tab (or the given one) with everything empty. */
+export function openEsignature(tl: Timeline, tab: "draw" | "type" | "upload" | "request" = "draw") {
   tl.setVar("esigProgress", 0);
+  tl.setVar("esigTab", tab);
+  tl.setVar("esigFocus", "");
+  tl.setVar("field:esig-name", "");
+  tl.setVar("field:esig-email", "");
+  tl.setVar("field:esig-message", "");
   openInsertDialog(tl, "esignature");
 }
 
 /**
  * Put a signature or a drawing into the page right under the line the caret is on (the dialog closes). A drawing comes
- * selected (corner handles and floating toolbar). With `trailingLine`, an empty line is added under it for the caret.
+ * selected (corner handles and floating toolbar), and so does any object inserted with `selected: true` (steps 41 to 43:
+ * drawn, typed and uploaded signatures; `text` is the typed name). With `trailingLine`, an empty line is added under it for the caret.
  * Returns the id of that new line, or "" without one.
  */
-export function insertObject(tl: Timeline, kind: ObjectState["kind"], opts: { trailingLine?: boolean } = {}): string {
+export function insertObject(
+  tl: Timeline,
+  kind: ObjectState["kind"],
+  opts: { trailingLine?: boolean; selected?: boolean; text?: string } = {},
+): string {
   const e = getEditor(tl);
   if (!e.caret) throw new Error("Insert: place the caret first");
   const after = e.blocks[e.caret.block].id;
   const objects = tl.getVar<ObjectState[]>("pageObjects", []);
-  tl.setVar("pageObjects", [...objects, { id: `${kind}-${objects.length + 1}`, kind, after, selected: kind === "drawing" }]);
+  const selected = opts.selected ?? kind === "drawing";
+  tl.setVar("pageObjects", [...objects, { id: `${kind}-${objects.length + 1}`, kind, after, selected, ...(opts.text ? { text: opts.text } : {}) }]);
   closeInsertDialog(tl);
   markEdited(tl);
   return opts.trailingLine ? newLineAfter(tl, after) : "";

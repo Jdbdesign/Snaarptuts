@@ -39,8 +39,11 @@ export type PageNumbersState = {
   start: number;
 };
 
-/** A signature or drawing placed in the page right under the block `after` (Insert > eSignature / Drawing). */
-export type ObjectState = { id: string; kind: "signature" | "drawing"; after: string; selected: boolean };
+/**
+ * A signature or drawing placed in the page right under the block `after` (Insert > eSignature / Drawing, and the eSignature
+ * menu). "signature" is drawn, "typed" is the typed name in `text` (signature font) and "upload" is the uploaded image.
+ */
+export type ObjectState = { id: string; kind: "signature" | "drawing" | "typed" | "upload"; after: string; selected: boolean; text?: string };
 
 export type PageInserts = {
   image: ImageState | null;

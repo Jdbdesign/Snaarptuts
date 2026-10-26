@@ -769,6 +769,45 @@ const bodies = {
       <path d="M12 5v14" stroke="currentColor" strokeWidth="1.7" />
     </>
   ),
+  // Tools menu
+  tlSpell: (
+    <>
+      <path d="m3.5 15.5 4.2-10.5 4.2 10.5M5.2 11.5h5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="m13.5 17 3 3 5-6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  tlWordCount: (
+    <>
+      <path d="M6 10.5V4.5A1.5 1.5 0 0 1 7.5 3H14l4.5 4.5v11a1.5 1.5 0 0 1-1.5 1.5h-3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <ellipse cx="7.3" cy="16" rx="1.9" ry="2.7" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M12.5 13.5v5.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </>
+  ),
+  tlDictionary: (
+    <path
+      d="M12 6.5C10 5 7 4.5 3.5 5v12.5c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5ZM12 6.5V19"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    />
+  ),
+  tlAccess: (
+    <>
+      <circle cx="12" cy="4.8" r="1.8" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M5 8.5c4.5 1.5 9.5 1.5 14 0M12 9.5v4M12 13.5 8.5 20M12 13.5l3.5 6.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  // eSignature menu
+  esHistory: (
+    <>
+      <path d="M6.5 11.5V4.5A1.5 1.5 0 0 1 8 3h6.5L19 7.5V10" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <circle cx="14.5" cy="16.8" r="4.3" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="M14.5 14.6v2.4l1.5 1" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M6.5 14.5h3M6.5 17.5h1.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

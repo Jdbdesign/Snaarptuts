@@ -11,11 +11,13 @@ type Props = {
   scrollId?: string;
   /** Tallest the dialog may get, in design pixels (scrolling dialogs only). */
   maxHeight?: number;
+  /** data-tl on the white card itself, so a script can ring the whole dialog. */
+  hook?: string;
   children: ReactNode;
 };
 
 /** Dim backdrop (about 55% black) plus a white dialog. Stays mounted so it can fade in and out. */
-export function Modal({ open, width = 668, scrollId, maxHeight, children }: Props) {
+export function Modal({ open, width = 668, scrollId, maxHeight, hook, children }: Props) {
   return (
     <div
       aria-hidden={!open}
@@ -27,6 +29,7 @@ export function Modal({ open, width = 668, scrollId, maxHeight, children }: Prop
       <div
         role="dialog"
         aria-modal="true"
+        {...(hook ? { "data-tl": hook } : {})}
         className={`relative rounded-[14px] bg-white shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)] transition-transform duration-300 ease-out ${
           open ? "scale-100" : "scale-95"
         } ${scrollId ? "flex flex-col overflow-hidden" : ""}`}
