@@ -155,3 +155,30 @@ export async function typeSizeBox(tl: Timeline, text: string, apply: () => void,
   tl.setVar("sizeBox", null);
   apply();
 }
+
+/**
+ * Suggesting mode (step 60): type a phrase at the end of a block, one character at a time. Each typed character gets the
+ * "suggest" mark (green, underlined), so the new words read as a suggestion rather than as part of the text.
+ */
+export async function typeSuggestion(tl: Timeline, blockId: string, text: string, opts: { msPerChar?: number } = {}) {
+  const at = getEditor(tl).blocks.findIndex((b) => b.id === blockId);
+  if (at < 0) throw new Error(`Editor: no block "${blockId}"`);
+  const start = getEditor(tl).blocks[at].text.length;
+  for (let n = 1; n <= text.length; n++) {
+    await tl.wait(opts.msPerChar ?? 80);
+    setEditor(tl, (s) => ({
+      ...s,
+      blocks: s.blocks.map((b, i) =>
+        i === at
+          ? {
+              ...b,
+              text: b.text.slice(0, start) + text.slice(0, n),
+              formats: [...(b.formats ?? []).filter((f) => f.format !== "suggest"), { from: start, to: start + n, format: "suggest" as const }],
+            }
+          : b,
+      ),
+      caret: { block: at, offset: start + n },
+    }));
+  }
+  markEdited(tl);
+}
