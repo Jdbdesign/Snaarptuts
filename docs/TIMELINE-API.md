@@ -126,7 +126,7 @@ All are in `components/`. `tl` is the `Timeline`.
 |---|---|
 | `Icon` (`name: IconName`, `size`) | Redrawn interface glyphs, 24x24 viewBox, `currentColor`. Add a glyph by adding an entry to `bodies`. |
 | `ProductLogo` (`name: LogoName`, `size`, `className`, `style`) | The real product logos from `public/logos/<name>.svg`. Names are listed in `PRODUCT_LOGOS`: 360, mail, me, workforce, projects, drive, lock, sendrit, verifyrit, crm, zeus, books, onecard, pdf, sign, teams, meet, sheet, presentation, docs, snaarp. Used on the pricing page, sign-up page, products home, both admin rails, and the player rail. |
-| `CursorArrow`, `FlagNG` | The fake cursor and the Nigeria flag in the sign-up country field. |
+| `CursorArrow`, `FlagGB` | The fake cursor and the UK flag in the sign-up country field and the pricing nav. |
 
 ## Scene-level components worth knowing
 

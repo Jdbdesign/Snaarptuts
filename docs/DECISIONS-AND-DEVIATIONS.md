@@ -11,7 +11,7 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 | Owner: Jane Doe, initials JD, `jane@acme-studio.com` | Steps 2, 3 (sign-in), 4 and 5 (`SAMPLE` in `step2-script.ts` and `step3-script.ts`, `OWNER` in `step5/step5-data.ts`) |
 | Organization: Acme Studio | Step 2 |
 | Domain: `acme-studio.com` | `step4/step4-data.ts` (`DOMAIN`), reused in step 5 |
-| Phone: Nigeria +234, `801 234 5678` | Step 2 |
+| Phone: United Kingdom +44, `7700 900123` (Ofcom drama range) | Step 2 (`PHONE_360` in `signup-data.ts`) |
 | Password for the owner: `Sample#Pass1` | Steps 2 and 3 |
 | New user: Sam Lee, `sam.lee@acme-studio.com` | Step 5 (`NEW_USER`) |
 | Recovery email: `sam.recovery@example.com` (`example.com` is reserved for examples) | Step 5 |
@@ -28,7 +28,7 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 4. **Step 5 skips the Snaarp Mail inbox.** In the recording, logging in as the new user lands on a mail inbox (with a loading skeleton) before the products page. The tutorial goes from the login straight to the products home and shows a "Login successful" toast. The products-home URL pill reads `login.snaarp.com/admin`, as the owner specified (the recording showed `/products`).
 5. **Step 5 has no "Loading users..." state** on the empty User Management list.
 6. **Step 5 holds a few moments longer than the recording** (for example the "Login successful" toast stays 0.9 s so it can be read) and some moments are shorter. The whole tutorial runs about 2:04 against a 1:55 recording.
-7. **Prices are in pounds (£49, £99, £249, £499).** This follows the project content rule "prices use the pound sign". The live pricing page (a screenshot the owner shared) shows naira (₦) amounts. Confirm which currency the tutorial should show. Plan names, storage sizes, team sizes and feature lists follow the live page.
+7. **Prices are in pounds (£49, £99, £249, £499).** This follows the project content rule "prices use the pound sign". The live pricing page (a screenshot the owner shared) shows naira (₦) amounts; the owner has since asked for UK currency in every tutorial, so pounds are final. The amounts live in `MONTHLY_360` (`scenes/snaarp-360/pricing-data.ts`) and are formatted by `lib/money.ts`. Plan names, storage sizes, team sizes and feature lists follow the live page.
 8. **Pricing page is simplified.** The Monthly/Yearly toggle and the product tabs change their selected state but do not change the cards below. Only the 360 tab content is shown. Plan cards show 17 product logos (the set listed by the owner), while the tab row shows all 15 product tabs from the website.
 9. **Browser chrome is our own.** The frame has three traffic lights and a URL pill. The recording's real browser toolbar and extensions are not reproduced.
 10. **Cursor, rings, captions and toasts are added by us.** Captions are written for the tutorial (short, imperative). The recording has none.
@@ -41,7 +41,7 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 
 ## Snaarp Mail step 1
 
-- The recording opens on the Mail tab already selected and scrolled. The tutorial starts on the **360 tab** and clicks Mail (owner's script), so the 360 cards in naira are shown first. Those 360 naira prices come from the live pricing page screenshot the owner shared, not from the Mail recording.
+- The recording opens on the Mail tab already selected and scrolled. The tutorial starts on the **360 tab** and clicks Mail (owner's script), so the 360 cards are shown first. They use the same monthly prices as the 360 tutorial (`MONTHLY_360`), with pence shown to match the Mail tab (the live page shows decimals). The recording and the owner's screenshot showed naira; see "UK currency and phone numbers" at the end of this file.
 - Product logos are the real Snaarp logo tiles (purple), not the light-tile icons of the live page. The faint outline shield at the end of the icon rows is kept as in the recording.
 - Cards swap with a 0.3 s fade; the live page has no such animation. Captions, cursor and rings are added by us.
 - URL pills of steps 2-5 and 7-9 are placeholders (not visible in the recording).
@@ -49,7 +49,7 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 
 ## Snaarp Mail step 2
 
-- **No personal data, autofill or browser popups.** The recording shows the recorder's real name, email and organization, Chrome's autofill dropdowns and a blue autofill tint on filled fields. All left out; fields stay white with sample data (Jane Doe, jane.doe@example.com, Acme Studio, 8012345678).
+- **No personal data, autofill or browser popups.** The recording shows the recorder's real name, email and organization, Chrome's autofill dropdowns and a blue autofill tint on filled fields. All left out; fields stay white with sample data (Jane Doe, jane.doe@example.com, Acme Studio, +44 7700 900123).
 - **Left panel is 54% wide, not about 45%.** The frames measure 535 of 998 px; the frames were followed.
 - **Create Account button is #111827** (the brief). The frames sample about #1E2735.
 - **Typing speed, caret and focus ring are ours.** Fields get a thin black focus ring (the frames show the same on the focused field).
@@ -331,7 +331,7 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Cloudflare screens (step 6)** are an illustration from older screenshots: check every screen against the live Cloudflare dashboard (menu, add-record form, Proxy toggle, table), keep the "Illustration of the Cloudflare dashboard" footnote or replace it.
 - **Placeholder URLs** (the address bar is not visible in the recording or the designs): steps 2, 3, 4, 5, 7, 8 and 9 (`login.snaarp.com/signup`, `/onboarding/organization`, `/onboarding/domain`, `/onboarding/dns` (steps 5 and 7), `/onboarding/users`, `/onboarding/complete`) and the dashboard `admin.snaarp.com/admin`. Step 6's pill is cut off at the end because the shell's pill is only 320 px wide.
 - **"Users Inbox" vs "Users":** the sidebar says "Users Inbox" (the recording's wording) but the owner's designs for steps 8 and 9 say "Users". Pick one and change it in `ONBOARDING_ITEMS` in `components/onboarding/OnboardingShell.tsx`.
-- **Wording to confirm with the product team:** "Setup Completed!" copy, the "What's Next?" lines, and the Growth plan / 14-day trial values on the dashboard; the naira prices; DNS values (see item 5 below).
+- **Wording to confirm with the product team:** "Setup Completed!" copy, the "What's Next?" lines, and the Growth plan / 14-day trial values on the dashboard; the sample pound prices; DNS values (see item 5 below).
 - **Sample data:** nothing real is used; acme-studio.com, Jane Doe, Sam Lee and example.com are placeholders.
 
 **General list:**
@@ -370,3 +370,16 @@ Recording: `ref/docs/Snaarp_Doc_toolbar.mp4`. It only hovers the toolbar buttons
 - **Toolbar tool ids** were renamed to match the tooltips (`strike` -> `clear`, `pen` -> `esign`, `pen-tag` -> `drawing`, `signature` -> `shortcuts`); no earlier script used them.
 - **Small fix to earlier steps:** with the caret at the very start of a paragraph the toolbar no longer shows every text mark as active (`activeFormats` in `format-state.ts`).
 - Sample data only: the Ebola image and text, the profile photo, the browser's own tooltips, the IDM overlay and the real emails of the recording are not used (JD avatar, jane@acme-studio.com, alex@acme-studio.com, acme-studio.com).
+
+## UK currency and phone numbers (all three tutorials)
+
+The owner asked for UK currency and UK phone numbers everywhere. No behaviour, layout, timing or step changed.
+
+- **Currency.** All naira (₦ / NGN) amounts became pounds, converted at the rate the old values implied (about 1,783 naira to £1) and rounded to clean numbers. Money is formatted in one helper, `lib/money.ts` (`formatGBP`, `planPrice`; Intl en-GB / GBP); amounts are numbers in the data files and a 12-month total is always 12 x the monthly price. Snaarp 360 keeps whole pounds (£49, £99, £249, £499 and their totals, unchanged). Snaarp Mail shows pence, as the live page did (Mail tab: Starter £5.00, Growth £25.00, Business £50.00, Scale £100.00; the 360 tab uses the 360 prices with pence). The nav selector reads "GB GBP" with the UK flag, and the sign-up plan box reads "GBP 25.00/month". The `$12/year` domain line in Mail step 4 became £10/year.
+- **Phones.** Every sample number is from Ofcom's reserved drama range. The sign-up forms (360 step 2, Mail step 2) show United Kingdom, the UK flag and +44, and type `7700 900123`. The Mail organization step types the organization's landline `+44 20 7946 0123`; its placeholder reads `+44 7700 900123`.
+- **Locale.** Mail step 3 address is `10 Acme Street, London, EC1A 1AA` (placeholder `10 High Street, City, Postcode`). Snaarp Doc dates read DD/MM/YYYY (home list: 16/10/2026, 10/10/2026, 20/09/2026) and long dates put the day first ("12 Nov", "24 October, 5:00 AM"). The word count uses en-GB grouping; the Cloudflare illustration's language reads "English (UK)". No time zones (WAT) appeared anywhere.
+- **Intentionally left:**
+  - `₦` inside the Snaarp Doc Symbols picker (`components/docs/insert-data.ts`, Currency tab): it is one glyph in a list of world currency symbols (from the recording), not a price.
+  - "US Letter" page shape in the landscape page comment (`format-menu-data.ts`): paper size, not currency or phone; changing it would change the layout (A4 is the UK size).
+  - The recordings and reference images under `ref/` (untouched, as required) still show naira and Nigerian numbers.
+  - Old values remain in git history and in the earlier sections of this file that describe the recording.

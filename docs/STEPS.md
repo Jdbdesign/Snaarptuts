@@ -47,7 +47,7 @@ Timeline times below are **active seconds from the start of the step, as impleme
 - Files: `Step2Signup.tsx`, `step2-script.ts`, `signup-data.ts` (password rules). `durationMs` 17300.
 - URL pill: `login.snaarp.com/signup?subscriptionPlanId=117&plan=Business&billing=monthly&price=99&currency=GBP` (config only).
 - Screens: one split page. Left: purple brand panel with a turning orbit of product logos around the Snaarp logo, four feature rows and a footer (rows are hidden under 900px). Right: logo, "Sign up for Snaarp", a Selected plan card ("Snaarp 360", "Business £99 /month", "600 GB Billed monthly 14-day free trial included"), the form (first/last name, company email, organization, country, dial code, phone, password with five rules), a "Sign up to Snaarp 360" button.
-- Sample data: Jane / Doe / `jane@acme-studio.com` / Acme Studio / Nigeria +234 / `801 234 5678` / password `Sample#Pass1`.
+- Sample data: Jane / Doe / `jane@acme-studio.com` / Acme Studio / United Kingdom +44 / `7700 900123` / password `Sample#Pass1`.
 - Timeline:
 
 | Time | What happens |
@@ -209,18 +209,18 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 - Files: `scenes/snaarp-mail/Step1Pricing.tsx`, `step1-script.ts`, `pricing-data.ts`. `durationMs` 9300 (runs about 9.4 s). The page is the shared `components/pricing/PricingScene.tsx`.
 - Recording: 0:00-0:05 (the video opens on the Mail tab; the tutorial starts on the 360 tab as the owner specified).
 - URL pill: `snaarp.com/pricing` (config only).
-- Screen: the Snaarp pricing page, scrolled (`startScroll` 408) so the product tab bar sits just under the nav. Nav shows Pricing, Contact Sales, Login and a currency selector "NGN" with the Nigerian flag. Tabs as in 360 (15 tabs).
-- Mail tab plans (naira, from the recording frames):
+- Screen: the Snaarp pricing page, scrolled (`startScroll` 408) so the product tab bar sits just under the nav. Nav shows Pricing, Contact Sales, Login and a currency selector "GBP" with the UK flag. Tabs as in 360 (15 tabs).
+- Mail tab plans (pounds: UK sample prices, pence shown; plans, storage and features from the recording frames; prices come from `MONTHLY_MAIL` and the total is always 12 x the monthly price):
 
 | Plan | Price /month | Total for 12 months | Storage | Users line | Icons |
 |---|---|---|---|---|---|
-| Starter | ₦8,917.03 | ₦107,004.42 | 10 GB | 10 Users | Mail, Drive |
-| Growth | ₦44,585.17 | ₦535,022.08 | 100 GB | 25 Users | Mail, Drive, Sheet, Slides + faint shield |
-| Business (Most popular) | ₦89,170.35 | ₦1,070,044.16 | 600 GB | 25 users | Mail, Drive, Lock, Sheet, Slides, Meet + faint shield |
-| Scale | ₦178,340.69 | ₦2,140,088.32 | 2.5 TB | 50 users | Mail, Drive, Lock, Slides, Teams, Meet, PDF + faint shield |
+| Starter | £5.00 | £60.00 | 10 GB | 10 Users | Mail, Drive |
+| Growth | £25.00 | £300.00 | 100 GB | 25 Users | Mail, Drive, Sheet, Slides + faint shield |
+| Business (Most popular) | £50.00 | £600.00 | 600 GB | 25 users | Mail, Drive, Lock, Sheet, Slides, Meet + faint shield |
+| Scale | £100.00 | £1,200.00 | 2.5 TB | 50 users | Mail, Drive, Lock, Slides, Teams, Meet, PDF + faint shield |
 
   Each card: "14-day free trial" pill, "Billed monthly", checklist (users line in bold, then storage, Business Emails, Migration Assistance, Mobile App, Bulk Registration, Admin Dashboard; Business lists Mobile App last, as in the recording), "Start 14-day free trial" button (solid purple on Business, outlined on the others). Wording (including "users" / "shared space" capitalization) follows the frames.
-- 360 tab (the starting tab): the same four 360 plans as the 360 tutorial (Team, Business, Scale, Growth; 17 logos each), with naira prices from the live pricing page screenshot the owner shared: Team ₦87,386.94 (total ₦1,048,643.28), Business ₦176,557.29 (₦2,118,687.44), Scale ₦444,068.33 (₦5,328,819.92), Growth ₦889,920.06 (₦10,679,040.73).
+- 360 tab (the starting tab): the same four 360 plans as the 360 tutorial (Team, Business, Scale, Growth; 17 logos each), with the same monthly prices as the 360 tutorial (`MONTHLY_360`), shown with pence here: Team £49.00 (total £588.00), Business £99.00 (£1,188.00), Scale £249.00 (£2,988.00), Growth £499.00 (£5,988.00).
 - Timeline:
 
 | Time | What happens |
@@ -239,19 +239,19 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 
 - Files: `scenes/snaarp-mail/Step2Signup.tsx`, `step2-script.ts`, `signup-data.ts` (all copy, sample values, captions and the strength rule). `durationMs` 21000. Reuses `TypedField` and `Checkbox` from `components/admin/`. It is a separate scene from the 360 sign-up page (different layout), not a variant of it.
 - Recording: 0:05-0:42 (frames in `ref/mail/frames-step2`). URL pill: `login.snaarp.com/signup` (config only).
-- Screen: split page. Left (54% wide): near-black panel with a faint low-poly pattern, "Snaarp" wordmark, heading "Secure business email for your organization", paragraph, three feature rows (shield, people, gear icons on white tiles), footer links. Right: white, centred card "Sign up for Snaarp" with the SELECTED PLAN box (Growth, NGN 44,585.17/month, 100 GB, Billed monthly, 14-day free trial included in green), First/Last name, Email, Organization name, Country (Nigeria, NG flag), +234 and Phone number, Password with eye icon, strength bar and "Password strength: None/Weak/Good/Strong", terms checkbox, dark "Create Account" button, "Already have an account? Log In". Only the right panel scrolls.
-- Sample data: Jane Doe, jane.doe@example.com, Acme Studio, Nigeria +234, 8012345678, password `Wd7#kQ2mPz9a` (shown as dots only).
+- Screen: split page. Left (54% wide): near-black panel with a faint low-poly pattern, "Snaarp" wordmark, heading "Secure business email for your organization", paragraph, three feature rows (shield, people, gear icons on white tiles), footer links. Right: white, centred card "Sign up for Snaarp" with the SELECTED PLAN box (Growth, GBP 25.00/month, 100 GB, Billed monthly, 14-day free trial included in green), First/Last name, Email, Organization name, Country (United Kingdom, UK flag), +44 and Phone number, Password with eye icon, strength bar and "Password strength: None/Weak/Good/Strong", terms checkbox, dark "Create Account" button, "Already have an account? Log In". Only the right panel scrolls.
+- Sample data: Jane Doe, jane.doe@example.com, Acme Studio, United Kingdom +44, 7700 900123, password `Wd7#kQ2mPz9a` (shown as dots only).
 - Strength rule (`passwordStrength` in `signup-data.ts`): Weak under 6 characters (red, 1/3), Good from 6 (yellow, 2/3), Strong from 10 characters with upper, lower, number and symbol (green, full).
 - Timeline:
 
 | Time | What happens |
 |---|---|
 | 0.0 | Page fades in. Growth already selected. |
-| 1.0 | Caption "Your plan is already selected: Growth, NGN 44,585.17/month". Ring on the plan box until 2.8. |
+| 1.0 | Caption "Your plan is already selected: Growth, GBP 25.00/month". Ring on the plan box until 2.8. |
 | 3.0 | Caption "Enter your name". Types Jane, Doe. |
 | 5.2 | Caption "Use an email address you can access". Types the email. |
 | 7.0 | Types the organization name (caption stays). |
-| 8.4 | Caption "Check your country and phone code". Rings on Country and +234, then types the phone number. |
+| 8.4 | Caption "Check your country and phone code". Rings on Country and +44, then types the phone number. |
 | 10.8 | Caption "Choose a strong password. Aim for Strong". Types the password; bar goes Weak, Good, Strong. Then the form scrolls just enough to show the checkbox, button and Log In line (about 180 px on a short window, none when the whole form already fits). |
 | 15.0 | Caption "Accept the Terms of Service and Privacy Policy". Cursor ticks the checkbox. |
 | 17.6 | Caption "Click Create Account". Ring, click. Button turns grey with a spinner and "Creating Account..." for 1.2 s. |
@@ -265,7 +265,7 @@ URL pills of steps 2-5 and 7-9 are placeholders (the address bar is not visible 
 - Recording: 0:44-1:18 (frames in `ref/mail/frames-step3`). URL pill: `login.snaarp.com/onboarding/organization` (config only).
 - OnboardingShell: 238 px dark sidebar (#0D1218, faint polygon pattern) with five items (Organization, Domain, DNS, Users Inbox, Set up completed) joined by thin vertical connectors. The current item and all before it are white and bold, later ones dim. `active` is the only setting a step passes. Under 900px the sidebar becomes a slim row of five icons. The white content area scrolls inside itself (`data-tl="content-panel"`); the page never scrolls.
 - Screen: card "Organization Details" (building icon, "Tell us about your organization"); Organization Name (light blue, prefilled Acme Studio), Industry and Company Size selects, Website and Phone Number side by side, Address; Back (outlined) and Continue (#7C39ED) below the card. Two columns stack under 900px.
-- Sample data: Acme Studio, Technology, 1-10 employees, https://acme-studio.com, +234 801 234 5678, 12 Marina Road, Lagos, Nigeria.
+- Sample data: Acme Studio, Technology, 1-10 employees, https://acme-studio.com, +44 20 7946 0123, 10 Acme Street, London, EC1A 1AA.
 - Timeline:
 
 | Time | What happens |
@@ -429,7 +429,7 @@ Shared shell: **`components/docs/DocsLayout.tsx`** (app rail, sidebar, top bar, 
 
 - Files: `scenes/snaarp-doc/Step1Explore.tsx`, `step1-script.ts`, `step1-data.ts` (all copy, sample documents, templates, captions, URLs), screens in `scenes/snaarp-doc/step1/` (`HomeScreen`, `GalleryScreen`, `TrashScreen`). `durationMs` 15400. URL pill: `docs.snaarp.com/documents` (placeholder), `/templates` (placeholder) and `docs.snaarp.com/trash` (seen in the recording).
 - Screens (scene variable `screen` a/b/c; the content area fades white for 0.15 s while it swaps, the rail, sidebar and top bar stay put): A Documents home ("Start a new document" panel with 7 cards, "Recent documents" list with 4 rows); B "Create with templates" (back arrow, search, Upload template, 7 filter chips, grid of 7 columns); C Trash (one deleted "Untitled Document" with Restore and Delete).
-- Sample data: Jane Doe, jane@acme-studio.com, avatar "JD"; documents Product Roadmap, Untitled Document, Project Proposal, Untitled Document (dates 10/16/2026, 10/16/2026, 10/10/2026, 09/20/2026).
+- Sample data: Jane Doe, jane@acme-studio.com, avatar "JD"; documents Product Roadmap, Untitled Document, Project Proposal, Untitled Document (dates 16/10/2026, 16/10/2026, 10/10/2026, 20/09/2026).
 - Timeline (active seconds):
 
 | Time | What happens |
@@ -801,7 +801,7 @@ Reset rule: the script starts with `initTabs`, so the extra tab never survives a
 | 0.8 | Caption "Click Insert, then Table". Open the menu, cursor to Table, ring, click; the menu closes. |
 | 3.5 | The table appears under the intro paragraph; the first header cell is focused. |
 | 4.5 | Caption "Click a cell and type". The cursor clicks each header cell in turn and types Task, Owner, Due. |
-| 11.5 | Caption "Fill in the first row". Homepage design, Jane Doe, Nov 12 (about 4 s). |
+| 11.5 | Caption "Fill in the first row". Homepage design, Jane Doe, 12 Nov (about 4 s). |
 | 18.0 | Caption "Then the next row". Content review, Alex Kim, Nov 26 (about 5 s). |
 | 25.0 | Caption "Your table is ready". The focus clears; ring on the table. |
 | 28.0 | Ring and caption clear. Hold. |

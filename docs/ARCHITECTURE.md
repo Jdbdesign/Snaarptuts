@@ -37,6 +37,7 @@ lib/
   timeline.ts                      The timeline engine (cursor, click, scroll, typing, captions, highlight, pause, cancel).
   useTimelineVar.ts                Hook: re-render a scene component when a script calls tl.setVar().
   useNarrow.ts                     Hook: true below 900px viewport width.
+  money.ts                         formatGBP() and planPrice(): the only place money is formatted (Intl en-GB, GBP).
 
 tutorials/                         PRODUCT CONFIGS
   types.ts                         Tutorial, Step, Scene, Completion types.

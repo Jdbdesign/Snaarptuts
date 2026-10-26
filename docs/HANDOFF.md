@@ -84,7 +84,7 @@ After round 5 (smaller requests from the owner):
 7. **Analytics hooks**: events for tutorial start, step start/complete, replay (the shell has clear places: `start`, `handleDone`, `handleAdvance`, `replay` in `TutorialPlayer.tsx`).
 8. **Mobile layout review**: decide whether phones need a dedicated layout instead of a scaled desktop one.
 9. Keep a small Playwright script in the repo to automate the per-step checks.
-10. Confirm copy, currency, DNS values and hostnames with the product team (`DECISIONS-AND-DEVIATIONS.md`, "Things to replace before launch").
+10. Confirm copy, the sample pound prices (all tutorials are UK currency and UK phone numbers; see `docs/DECISIONS-AND-DEVIATIONS.md`), DNS values and hostnames with the product team (`DECISIONS-AND-DEVIATIONS.md`, "Things to replace before launch").
 
 ## How to work on it (rules in short)
 

@@ -11,7 +11,7 @@ components/
   admin/                     AdminLayout (owner portal), Modal, Toast, DropdownMenu, CopyButton, CopyActionButton,
                              TypedField, Checkbox, Radio, Chip, admin-data.ts
   admin-panel/               AdminPanelLayout (purple "Admin Panel"), admin-panel-data.ts
-  icons.tsx                  all icons + ProductLogo (real logos) + CursorArrow + FlagNG
+  icons.tsx                  all icons + ProductLogo (real logos) + CursorArrow + FlagGB
 lib/                         timeline.ts (engine), useTimelineVar.ts, useNarrow.ts
 tutorials/                   PRODUCT CONFIGS: types.ts, index.ts (registry), completion.ts, snaarp-360.ts, snaarp-mail.ts
 scenes/<product-id>/         SCENES: Step<N><Name>.tsx + step<N>-script.ts + step<N>/ (screens, step<N>-data.ts)
