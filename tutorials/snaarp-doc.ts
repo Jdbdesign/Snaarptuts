@@ -82,6 +82,8 @@ import { Step41SignDocument } from "@/scenes/snaarp-doc/Step41SignDocument";
 import { runStep41, STEP41_DURATION_MS } from "@/scenes/snaarp-doc/step41-script";
 import { Step42TypeSignature } from "@/scenes/snaarp-doc/Step42TypeSignature";
 import { runStep42, STEP42_DURATION_MS } from "@/scenes/snaarp-doc/step42-script";
+import { Step43UploadSignature } from "@/scenes/snaarp-doc/Step43UploadSignature";
+import { runStep43, STEP43_DURATION_MS } from "@/scenes/snaarp-doc/step43-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -345,6 +347,12 @@ export const snaarpDoc: Tutorial = {
       title: "Type your signature",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step42TypeSignature, run: runStep42, durationMs: STEP42_DURATION_MS },
+    },
+    {
+      id: "upload-signature",
+      title: "Upload a signature image",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step43UploadSignature, run: runStep43, durationMs: STEP43_DURATION_MS },
     },
   ],
   completion: {
