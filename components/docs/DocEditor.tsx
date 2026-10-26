@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Icon } from "@/components/icons";
 import { useNarrow } from "@/lib/useNarrow";
 import { EDITOR, HEADER_ICONS, MENUS, TOOLBAR, type EditorMode, type ToolItem } from "./editor-data";
+import { PAGE_ORIENTATION } from "./format-menu-data";
 
 /** Narrow screens: the whole editor is enlarged so it stays readable once the scene is scaled down. */
 const NARROW_ZOOM = 2.4;
@@ -36,6 +37,8 @@ type Props = {
    * `full` spans the whole page (the page-break band, the watermark). Both ignore the mouse.
    */
   decor?: { text?: ReactNode; full?: ReactNode };
+  /** Format > Page orientation > Landscape: a wide page (11 : 8.5) instead of the tall portrait one. */
+  landscape?: boolean;
   /** Overrides for a document with real text. Left out, the toolbar and footer show the blank-document values. */
   live?: {
     /** Toolbar font size box, e.g. "11" or "20". */
@@ -72,15 +75,19 @@ export function DocEditor({
   commentsOpen = false,
   outlineOpen = false,
   decor,
+  landscape = false,
 }: Props) {
   const narrow = useNarrow();
   // Page position in the canvas (also drives the ruler). Side panels centre the page in the space that is left.
   const words = live ? `${live.words} ${EDITOR.wordsLabel}` : EDITOR.footerWords;
   const pages = live?.pages && live.pages > 1 ? EDITOR.footerPagesMany(live.pages) : EDITOR.footerPages;
   const inset = narrow ? 0 : leftInset + rightInset;
-  const pageBox = narrow
-    ? { left: "7%", width: "86%" }
-    : { left: inset ? `calc(${leftInset}px + (57.8% - ${inset}px) / 2)` : "28.9%", width: "42.2%" };
+  const wide = landscape ? (narrow ? PAGE_ORIENTATION.landscapeNarrowWidth : PAGE_ORIENTATION.landscapeWidth) : narrow ? 86 : 42.2;
+  const pageBox = landscape
+    ? { left: `${(100 - wide) / 2}%`, width: `${wide}%` }
+    : narrow
+      ? { left: "7%", width: "86%" }
+      : { left: inset ? `calc(${leftInset}px + (57.8% - ${inset}px) / 2)` : "28.9%", width: "42.2%" };
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white text-[#111]">
@@ -115,8 +122,10 @@ export function DocEditor({
             <div data-tl="editor-canvas" className="no-scrollbar absolute inset-0 overflow-y-auto">
               <div
                 data-tl="editor-page"
-                className="relative mx-auto min-h-[1300px] border-x border-[#D6DAE1] bg-white px-[6%] pt-[52px] transition-[margin-left] duration-300 motion-reduce:transition-none"
-                style={{ width: pageBox.width, marginLeft: pageBox.left }}
+                className={`relative mx-auto border-[#D6DAE1] bg-white px-[6%] pt-[52px] transition-[margin-left] duration-300 motion-reduce:transition-none ${
+                  landscape ? "mt-[14px] border shadow-[0_2px_10px_-4px_rgba(17,24,39,0.18)]" : "min-h-[1300px] border-x"
+                }`}
+                style={{ width: pageBox.width, marginLeft: pageBox.left, aspectRatio: landscape ? PAGE_ORIENTATION.landscapeRatio : undefined }}
               >
                 {children}
                 {decor && (
@@ -125,7 +134,7 @@ export function DocEditor({
                     {/* The page text margin is 6% of the canvas width: that is 14.2% of the page (6/86 = 7% on narrow screens). */}
                     <div
                       className="pointer-events-none absolute inset-y-0"
-                      style={{ left: `${narrow ? 6 / 0.86 : 6 / 0.422}%`, right: `${narrow ? 6 / 0.86 : 6 / 0.422}%` }}
+                      style={{ left: `${landscape ? 6 / (wide / 100) : narrow ? 6 / 0.86 : 6 / 0.422}%`, right: `${landscape ? 6 / (wide / 100) : narrow ? 6 / 0.86 : 6 / 0.422}%` }}
                     >
                       {decor.text}
                     </div>

@@ -166,3 +166,23 @@ export const STYLE_LABELS: Record<HeadingLevel | 0, string> = {
   5: "Heading 5",
   6: "Heading 6",
 };
+
+/** Format > Page orientation: the dialog's copy and the shape of a landscape page (US Letter, 11 x 8.5). Edit here, not in the components. */
+export const PAGE_ORIENTATION = {
+  title: "Page orientation",
+  applyTo: "Apply to",
+  /** The options of the "Apply to" box (the recording shows only the first). */
+  applyOptions: ["Whole document"],
+  orientation: "Orientation",
+  portrait: "Portrait",
+  landscape: "Landscape",
+  cancel: "Cancel",
+  ok: "OK",
+  /** Width of the page as a share of the canvas width: portrait is 42.2% (DocEditor), landscape is wider. */
+  landscapeWidth: 54.7,
+  landscapeNarrowWidth: 92,
+  /** Width : height of a landscape page. */
+  landscapeRatio: "11 / 8.5",
+};
+
+export type Orientation = "portrait" | "landscape";

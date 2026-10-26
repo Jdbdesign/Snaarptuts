@@ -70,6 +70,8 @@ import { Step35Lists } from "@/scenes/snaarp-doc/Step35Lists";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-doc/step35-script";
 import { Step36HeaderFooter } from "@/scenes/snaarp-doc/Step36HeaderFooter";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-doc/step36-script";
+import { Step37Orientation } from "@/scenes/snaarp-doc/Step37Orientation";
+import { runStep37, STEP37_DURATION_MS } from "@/scenes/snaarp-doc/step37-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -297,6 +299,12 @@ export const snaarpDoc: Tutorial = {
       title: "Headers, footers and page numbers",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step36HeaderFooter, run: runStep36, durationMs: STEP36_DURATION_MS },
+    },
+    {
+      id: "page-orientation",
+      title: "Change page orientation",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step37Orientation, run: runStep37, durationMs: STEP37_DURATION_MS },
     },
   ],
   completion: {

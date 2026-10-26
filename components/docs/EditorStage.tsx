@@ -12,6 +12,7 @@ import { EditMenu } from "./EditMenu";
 import { canRedo, createEditor, fontSizeOf, type EditorState } from "./editor-state";
 import { FileMenu } from "./FileMenu";
 import { FormatMenu, type FormatSub } from "./FormatMenu";
+import type { Orientation } from "./format-menu-data";
 import { activeToolsOf, styleLabelOf } from "./format-state";
 import { FindReplacePanel } from "./FindReplacePanel";
 import { FullScreenView } from "./FullScreenView";
@@ -126,6 +127,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument, 
   const bookmarkDialog = useTimelineVar(tl, "bookmarkDialog", false);
   const insertDialog = useTimelineVar<InsertDialogId>(tl, "insertDialog", "");
   const formatMenu = useTimelineVar(tl, "formatMenu", false);
+  const pageOrientation = useTimelineVar<Orientation>(tl, "pageOrientation", "portrait");
   const formatSub = useTimelineVar<FormatSub>(tl, "formatSub", "");
   const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || formatMenu || linkDialog || bookmarkDialog || insertDialog !== "";
 
@@ -144,6 +146,7 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument, 
           commentsOpen={commentsOpen}
           outlineOpen={outlineOpen}
           decor={startDocument ? pageDecor(inserts) : undefined}
+          landscape={pageOrientation === "landscape"}
           live={
             startDocument
               ? { size: fontSizeOf(editor), canUndo: true, canRedo: canRedo(editor), words: countWords(editor.blocks) + tableWords(pageTable), pages: pageCount(inserts), ...(formatting ? { style: styleLabelOf(editor), active: activeToolsOf(editor) } : {}) }

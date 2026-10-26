@@ -1,9 +1,9 @@
 import type { Timeline } from "@/lib/timeline";
 import { getEditor, markEdited, setEditor } from "./editor-timeline";
 import { placeCaret, selectRange } from "./editor-state";
-import { ALIGN_OF, FORMAT_MENU, FORMAT_OF, STYLE_OF, type FormatItemId, type FormatSubItemId } from "./format-menu-data";
+import { ALIGN_OF, FORMAT_MENU, FORMAT_OF, STYLE_OF, type FormatItemId, type FormatSubItemId, type Orientation } from "./format-menu-data";
 import type { FormatSub } from "./FormatMenu";
-import { insertHeaderFooter, openPageNumbers } from "./insert-timeline";
+import { insertHeaderFooter, openInsertDialog, openPageNumbers } from "./insert-timeline";
 import { changeIndent, clearFormats, selectText, setAlign, setHeading, setList, toggleFormat } from "./format-state";
 
 /*
@@ -95,10 +95,39 @@ export async function chooseFormatSub(
   runSubAction(tl, id);
 }
 
+// ---- Page orientation --------------------------------------------------------------------------------------
+
+/** Format > Page orientation: the dialog opens with the page's current orientation selected. */
+export function openPageOrientation(tl: Timeline) {
+  tl.setVar("poChoice", tl.getVar<Orientation>("pageOrientation", "portrait"));
+  openInsertDialog(tl, "orientation");
+}
+
+/** Click one of the two radio options: glide to it, click it, and the radio switches. */
+export async function chooseOrientation(tl: Timeline, value: Orientation, opts: { ms?: number } = {}) {
+  const sel = `[data-tl=po-${value}]`;
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 700, dx: -12 });
+  await tl.click(sel);
+  tl.setVar("poChoice", value);
+}
+
+/** OK: glide to the button, ring it, click it; the dialog closes and the page takes the chosen orientation. */
+export async function clickOrientationOk(tl: Timeline, opts: { ms?: number } = {}) {
+  const sel = "[data-tl=po-ok]";
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 700 });
+  tl.highlight(sel);
+  await tl.wait(150);
+  await tl.click(sel);
+  tl.clearHighlight();
+  tl.setVar("pageOrientation", tl.getVar<Orientation>("poChoice", "portrait"));
+  tl.setVar("insertDialog", "");
+}
+
 /** What a top-level Format menu item does (the ones without a submenu). Columns is greyed out and does nothing. */
 function runItemAction(tl: Timeline, id: FormatItemId) {
   if (id === "headers") insertHeaderFooter(tl);
   if (id === "page-numbers") openPageNumbers(tl);
+  if (id === "orientation") openPageOrientation(tl);
   if (id === "clear") {
     setEditor(tl, clearFormats);
     markEdited(tl);
