@@ -45,6 +45,14 @@ const MARK_STYLE: Record<Mark["kind"], string> = {
   link: "text-[#1D63D9] underline decoration-[1.5px] underline-offset-2",
 };
 
+/** Pixels per point: the 11 pt body text is drawn 10.8 px high. Toolbar > Font size writes "size" marks in pt. */
+const PT_PX = 10.8 / 11;
+/** A word typed in Suggesting mode (step 60): green, underlined, a pale green back. */
+const SUGGEST_COLOR = "#188038";
+const SUGGEST_BG = "#E6F4EA";
+/** Toolbar > Line & paragraph spacing: the option the menu shows, and the CSS line-height it makes (1.15 is the default look). */
+const SPACING_LINE: Record<number, number> = { 1: 1.3, 1.15: 1.5, 1.5: 1.95, 2: 2.6 };
+
 /** The selection when it must not hide colours: light see-through blue, text keeps its colour. */
 const MARK_STYLE_SOFT = "bg-[rgba(47,107,219,0.28)]";
 
@@ -85,16 +93,19 @@ function formatStyle(b: Block, from: number, to: number, selected: boolean, soft
   const on = new Set<TextFormat>(covering.map((f) => f.format));
   if (!on.size) return undefined;
   const value = (format: TextFormat) => covering.find((f) => f.format === format)?.value;
-  const lines = [on.has("underline") ? "underline" : "", on.has("strike") ? "line-through" : ""].filter(Boolean).join(" ");
+  const suggested = on.has("suggest");
+  const lines = [on.has("underline") || suggested ? "underline" : "", on.has("strike") ? "line-through" : ""].filter(Boolean).join(" ");
+  const size = value("size");
   return {
+    fontFamily: value("font"),
     fontWeight: on.has("bold") ? 700 : undefined,
     fontStyle: on.has("italic") ? "italic" : undefined,
     textDecorationLine: lines || undefined,
-    fontSize: on.has("sup") || on.has("sub") ? "0.7em" : undefined,
+    fontSize: on.has("sup") || on.has("sub") ? "0.7em" : size ? `${Math.round(Number(size) * PT_PX * 100) / 100}px` : undefined,
     verticalAlign: on.has("sup") ? "super" : on.has("sub") ? "sub" : undefined,
     // A normal (solid blue) selection hides colour and highlight; a soft one lets them show through.
-    color: on.has("color") && (soft || !selected) ? value("color") : undefined,
-    backgroundColor: on.has("highlight") && (soft || !selected) ? value("highlight") : undefined,
+    color: on.has("color") && (soft || !selected) ? value("color") : suggested ? SUGGEST_COLOR : undefined,
+    backgroundColor: on.has("highlight") && (soft || !selected) ? value("highlight") : suggested && !selected ? SUGGEST_BG : undefined,
   };
 }
 
@@ -161,7 +172,11 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
               className={`${b.list ? LIST_STYLE : b.heading ? HEADING_STYLE[b.heading] : BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""} ${
                 b.checked ? "text-[#9aa0ab] line-through" : ""
               } ${b.indent !== undefined ? "transition-[margin-left] duration-300 motion-reduce:transition-none" : ""}`}
-              style={b.align || b.indent ? { textAlign: b.align, marginLeft: b.indent ? b.indent * INDENT_PX : undefined } : undefined}
+              style={
+                b.align || b.indent || b.spacing
+                  ? { textAlign: b.align, marginLeft: b.indent ? b.indent * INDENT_PX : undefined, lineHeight: b.spacing ? SPACING_LINE[b.spacing] : undefined }
+                  : undefined
+              }
             >
               {b.list && (
                 <span

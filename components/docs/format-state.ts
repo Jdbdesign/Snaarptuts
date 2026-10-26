@@ -122,6 +122,78 @@ export function activeFormats(s: EditorState): TextFormat[] {
   return [];
 }
 
+// ---- values: colour, highlight, font, size (the toolbar, steps 46 to 51) -------------------------------------
+
+/** Parts of the selection grouped by block (the selected text only). */
+function selectedParts(s: EditorState) {
+  return targetBlocks(s).flatMap((i) => {
+    const p = selectedPart(s, i);
+    return p ? [{ i, ...p }] : [];
+  });
+}
+
+/** Put a value on the selected text: text colour, highlight, font or size. It replaces an earlier value on the same text; `null` takes the mark off. */
+export function setFormatValue(s: EditorState, format: "color" | "highlight" | "font" | "size", value: string | null): EditorState {
+  const parts = selectedParts(s);
+  if (!parts.length) return s;
+  const blocks = s.blocks.map((b, i) => {
+    const p = parts.find((x) => x.i === i);
+    if (!p) return b;
+    let formats = cut(b.formats ?? [], format, p.from, p.to);
+    if (value !== null) formats = [...formats, { from: p.from, to: p.to, format, value }];
+    return { ...b, formats };
+  });
+  return commit(s, blocks);
+}
+
+/** The value of a mark (font, size, colour, highlight) on the first selected character, or on the character before the caret. */
+export function formatValueAt(s: EditorState, format: TextFormat): string | undefined {
+  const pos = s.sel?.start ?? s.caret;
+  if (!pos) return undefined;
+  const at = s.sel ? pos.offset : Math.max(0, pos.offset - 1);
+  return s.blocks[pos.block]?.formats?.find((f) => f.format === format && f.from <= at && f.to > at)?.value;
+}
+
+/** The size (pt) in the toolbar box and the next one up or down: it moves one point at a time (plus and minus buttons). */
+export function bumpSize(s: EditorState, current: number, delta: 1 | -1): EditorState {
+  return setFormatValue(s, "size", String(Math.min(96, Math.max(1, current + delta))));
+}
+
+/** The look of the first selected character, as marks a "paint format" can carry to other text. */
+export function copyLook(s: EditorState): { format: TextFormat; value?: string }[] {
+  const pos = s.sel?.start;
+  if (!pos) return [];
+  const b = s.blocks[pos.block];
+  return (b.formats ?? []).filter((f) => f.from <= pos.offset && f.to > pos.offset).map((f) => ({ format: f.format, value: f.value }));
+}
+
+/** Paint format: give the selected text the copied look (the marks it had before go away). */
+export function paintLook(s: EditorState, look: { format: TextFormat; value?: string }[]): EditorState {
+  const parts = selectedParts(s);
+  if (!parts.length) return s;
+  const blocks = s.blocks.map((b, i) => {
+    const p = parts.find((x) => x.i === i);
+    if (!p) return b;
+    let formats = b.formats ?? [];
+    for (const f of ALL_FORMATS) formats = cut(formats, f, p.from, p.to);
+    formats = [...formats, ...look.map((l) => ({ from: p.from, to: p.to, format: l.format, value: l.value }))];
+    return { ...b, formats };
+  });
+  return commit(s, blocks);
+}
+
+/** Line & paragraph spacing for the block(s) the caret or selection touches. */
+export function setSpacing(s: EditorState, spacing: number): EditorState {
+  const idx = targetBlocks(s);
+  if (!idx.length) return s;
+  return commit(s, mapBlocks(s, idx, (b) => ({ ...b, spacing })));
+}
+
+/** Tick or untick a checklist item. */
+export function toggleChecked(s: EditorState, blockId: string): EditorState {
+  return commit(s, s.blocks.map((b) => (b.id === blockId && b.kind === "todo" ? { ...b, checked: !b.checked } : b)));
+}
+
 // ---- paragraph styles, alignment, indent ----------------------------------------------------------
 
 /** Format > Paragraph styles: Normal text (0) or Heading 1 to 6 for the block(s) the caret or selection touches. */
@@ -195,7 +267,7 @@ export function clearFormats(s: EditorState): EditorState {
   return commit(s, blocks);
 }
 
-const ALL_FORMATS: TextFormat[] = ["bold", "italic", "underline", "strike", "sup", "sub", "color", "highlight"];
+const ALL_FORMATS: TextFormat[] = ["bold", "italic", "underline", "strike", "sup", "sub", "color", "highlight", "font", "size"];
 
 /** A start state with marks already on some text: each mark names the text it sits on (`context`, found in the block) and the mark. */
 export type PreMark = { context: string; format: TextFormat; value?: string };
@@ -242,6 +314,9 @@ const TOOL_OF_FORMAT: Record<TextFormat, string> = {
   sub: "sub",
   color: "color",
   highlight: "highlight",
+  font: "font",
+  size: "size",
+  suggest: "suggest",
 };
 
 // ---- selecting a part of a paragraph -----------------------------------------------------------
