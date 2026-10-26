@@ -42,10 +42,10 @@ export const HOME = {
 export type RecentDoc = { name: string; date: string };
 
 export const RECENT_DOCS: RecentDoc[] = [
-  { name: "Product Roadmap", date: "10/16/2026" },
-  { name: "Untitled Document", date: "10/16/2026" },
+  { name: "Product Roadmap", date: "16/10/2026" },
+  { name: "Untitled Document", date: "16/10/2026" },
   { name: "Project Proposal", date: "10/10/2026" },
-  { name: "Untitled Document", date: "09/20/2026" },
+  { name: "Untitled Document", date: "20/09/2026" },
 ];
 
 /** Screen B: the gallery. Rows of 7; the third row is only partly visible. */

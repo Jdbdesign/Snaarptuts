@@ -17,4 +17,4 @@ export function docStats(blocks: Block[], table: TableState | null, pages: numbe
 }
 
 /** 2085 -> "2,085". */
-export const formatCount = (n: number) => n.toLocaleString("en-US");
+export const formatCount = (n: number) => n.toLocaleString("en-GB");

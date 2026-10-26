@@ -20,8 +20,8 @@ export const TABLE = {
   /** Header row, then the body rows. */
   header: ["Task", "Owner", "Due"],
   rows: [
-    ["Homepage design", "Jane Doe", "Nov 12"],
-    ["Content review", "Alex Kim", "Nov 26"],
+    ["Homepage design", "Jane Doe", "12 Nov"],
+    ["Content review", "Alex Kim", "26 Nov"],
   ],
 };
 

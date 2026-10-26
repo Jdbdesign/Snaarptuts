@@ -188,7 +188,7 @@ export const APPS = {
 export const VERSIONS = [
   { group: "Today", items: [{ time: "Today, 2:13 AM", current: true }, { time: "Today, 2:00 AM" }] },
   { group: "Yesterday", items: [{ time: "Yesterday, 6:01 PM" }, { time: "Yesterday, 1:16 PM" }, { time: "Yesterday, 1:05 PM" }] },
-  { group: "October 24", items: [{ time: "October 24, 5:00 AM" }, { time: "October 24, 3:52 AM" }] },
+  { group: "24 October", items: [{ time: "24 October, 5:00 AM" }, { time: "24 October, 3:52 AM" }] },
 ];
 export const VERSION_AUTHOR = "Jane Doe";
 export const VERSION_CURRENT = "Current version";

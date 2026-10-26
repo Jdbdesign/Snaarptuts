@@ -10,7 +10,7 @@ export const BRAND = "CLOUDFLARE";
 export const TOPBAR = {
   addSite: "Add site",
   support: "Support",
-  language: "English (US)",
+  language: "English (UK)",
 };
 
 export const NOTE = "Illustration of the Cloudflare dashboard. Your screen may look slightly different.";
