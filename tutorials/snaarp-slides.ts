@@ -62,6 +62,8 @@ import { Step31 } from "@/scenes/snaarp-slides/step31/Step31";
 import { runStep31, STEP31_DURATION_MS } from "@/scenes/snaarp-slides/step31/script";
 import { Step32 } from "@/scenes/snaarp-slides/step32/Step32";
 import { runStep32, STEP32_DURATION_MS } from "@/scenes/snaarp-slides/step32/script";
+import { Step33 } from "@/scenes/snaarp-slides/step33/Step33";
+import { runStep33, STEP33_DURATION_MS } from "@/scenes/snaarp-slides/step33/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -264,6 +266,12 @@ export const snaarpSlides: Tutorial = {
       title: "Insert shapes",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step32, run: runStep32, durationMs: STEP32_DURATION_MS },
+    },
+    {
+      id: "draw-line",
+      title: "Draw a line",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step33, run: runStep33, durationMs: STEP33_DURATION_MS },
     },
   ],
   groups: [
