@@ -105,6 +105,8 @@ import { Step52LinkImage } from "@/scenes/snaarp-doc/Step52LinkImage";
 import { runStep52, STEP52_DURATION_MS } from "@/scenes/snaarp-doc/step52-script";
 import { Step53Align } from "@/scenes/snaarp-doc/Step53Align";
 import { runStep53, STEP53_DURATION_MS } from "@/scenes/snaarp-doc/step53-script";
+import { Step54Spacing } from "@/scenes/snaarp-doc/Step54Spacing";
+import { runStep54, STEP54_DURATION_MS } from "@/scenes/snaarp-doc/step54-script";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
@@ -432,6 +434,12 @@ export const snaarpDoc: Tutorial = {
       title: "Align your text",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step53Align, run: runStep53, durationMs: STEP53_DURATION_MS },
+    },
+    {
+      id: "line-spacing",
+      title: "Line spacing",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step54Spacing, run: runStep54, durationMs: STEP54_DURATION_MS },
     },
   ],
   completion: {

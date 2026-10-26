@@ -95,7 +95,7 @@ export function ToolbarLayer({ tl, editor }: Props) {
       <PaletteCard open={menu === "highlight"} anchor="tool-highlight" id="highlight" title={COLOR_MENU.highlightTitle} rows={HIGHLIGHT_COLORS} none={COLOR_MENU.resetHighlight} />
 
       <Anchored to="tool-spacing" show={menu === "spacing"}>
-        <div data-tl="menu-spacing" className={`${CARD} w-[170px]`}>
+        <div data-tl="menu-spacing" className={`${CARD} w-[190px]`}>
           {SPACING_MENU.options.map((o) => (
             <div key={o.value} data-tl={`tm-spacing-${o.label.toLowerCase().replace(".", "")}`} className={ROW}>
               <span className="w-[10px] shrink-0">{(activeBlock(editor)?.spacing ?? SPACING_MENU.default) === o.value && <Icon name="check" size={9} />}</span>
@@ -104,7 +104,7 @@ export function ToolbarLayer({ tl, editor }: Props) {
           ))}
           <div className="mx-[8px] my-[3px] h-px bg-[#EEEEF1]" />
           {SPACING_MENU.extras.map((e) => (
-            <div key={e} className={`${ROW} pl-[23px] text-[#AEB2BC]`}>
+            <div key={e} className={`${ROW} whitespace-nowrap pl-[23px] text-[#AEB2BC]`}>
               {e}
             </div>
           ))}
