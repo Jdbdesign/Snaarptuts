@@ -99,7 +99,7 @@ export function StarredScreen() {
 export function TrashScreen({ items }: { items: { name: string; meta: string }[] }) {
   return (
     <div className="mx-auto h-full w-full max-w-[722px] overflow-hidden px-[8px] pt-[26px]">
-      <h1 data-tl="trash-title" className="text-[17px] font-bold leading-[22px]">{TRASH.title}</h1>
+      <h1 data-tl="trash-title" className="w-fit text-[17px] font-bold leading-[22px]">{TRASH.title}</h1>
       <p className="mt-[3px] text-[10.5px] text-[#6b7280]">{TRASH.intro}</p>
       {items.length === 0 ? (
         <p data-tl="trash-empty" className="mt-[40px] text-center text-[11px] text-[#6b7280]">{TRASH.empty}</p>

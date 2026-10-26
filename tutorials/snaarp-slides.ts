@@ -34,6 +34,8 @@ import { Step17 } from "@/scenes/snaarp-slides/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/snaarp-slides/step17/script";
 import { Step18 } from "@/scenes/snaarp-slides/step18/Step18";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/snaarp-slides/step18/script";
+import { Step19 } from "@/scenes/snaarp-slides/step19/Step19";
+import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-slides/step19/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -152,6 +154,12 @@ export const snaarpSlides: Tutorial = {
       title: "Options that are not available yet",
       url: SLIDES_URLS.editor,
       scene: { Component: Step18, run: runStep18, durationMs: STEP18_DURATION_MS },
+    },
+    {
+      id: "trash",
+      title: "Move a presentation to Trash",
+      url: SLIDES_URLS.editor,
+      scene: { Component: Step19, run: runStep19, durationMs: STEP19_DURATION_MS },
     },
   ],
   groups: [
