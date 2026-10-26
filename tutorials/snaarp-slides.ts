@@ -42,6 +42,8 @@ import { Step21 } from "@/scenes/snaarp-slides/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/snaarp-slides/step21/script";
 import { Step22 } from "@/scenes/snaarp-slides/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/snaarp-slides/step22/script";
+import { Step23 } from "@/scenes/snaarp-slides/step23/Step23";
+import { runStep23, STEP23_DURATION_MS } from "@/scenes/snaarp-slides/step23/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -184,6 +186,12 @@ export const snaarpSlides: Tutorial = {
       title: "Cut, copy and paste",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step22, run: runStep22, durationMs: STEP22_DURATION_MS },
+    },
+    {
+      id: "duplicate-delete",
+      title: "Duplicate and delete",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step23, run: runStep23, durationMs: STEP23_DURATION_MS },
     },
   ],
   groups: [
