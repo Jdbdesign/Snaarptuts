@@ -16,6 +16,8 @@ import { Step8 } from "@/scenes/snaarp-slides/step8/Step8";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/snaarp-slides/step8/script";
 import { Step9 } from "@/scenes/snaarp-slides/step9/Step9";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/snaarp-slides/step9/script";
+import { Step10 } from "@/scenes/snaarp-slides/step10/Step10";
+import { runStep10, STEP10_DURATION_MS } from "@/scenes/snaarp-slides/step10/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -80,6 +82,12 @@ export const snaarpSlides: Tutorial = {
       title: "Email the presentation",
       url: SLIDES_URLS.editor,
       scene: { Component: Step9, run: runStep9, durationMs: STEP9_DURATION_MS },
+    },
+    {
+      id: "download",
+      title: "Download in a format you need",
+      url: SLIDES_URLS.editor,
+      scene: { Component: Step10, run: runStep10, durationMs: STEP10_DURATION_MS },
     },
   ],
   groups: [
