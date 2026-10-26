@@ -89,6 +89,8 @@ import { runStep44, STEP44_DURATION_MS } from "@/scenes/snaarp-doc/step44-script
 import type { Tutorial } from "./types";
 import { Step45UndoRedo } from "@/scenes/snaarp-doc/Step45UndoRedo";
 import { runStep45, STEP45_DURATION_MS } from "@/scenes/snaarp-doc/step45-script";
+import { Step46PrintPaint } from "@/scenes/snaarp-doc/Step46PrintPaint";
+import { runStep46, STEP46_DURATION_MS } from "@/scenes/snaarp-doc/step46-script";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
@@ -368,6 +370,12 @@ export const snaarpDoc: Tutorial = {
       title: "Undo and redo",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step45UndoRedo, run: runStep45, durationMs: STEP45_DURATION_MS },
+    },
+    {
+      id: "print-paint",
+      title: "Print and Paint format",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step46PrintPaint, run: runStep46, durationMs: STEP46_DURATION_MS },
     },
   ],
   completion: {
