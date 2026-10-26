@@ -190,6 +190,7 @@ export const VERSIONS = [
   { group: "October 24", items: [{ time: "October 24, 5:00 AM" }, { time: "October 24, 3:52 AM" }] },
 ];
 export const VERSION_AUTHOR = "Jane Doe";
+export const VERSION_CURRENT = "Current version";
 export const VERSION_NOTE = "Changes since the previous version are highlighted.";
 
 /** The emoji picker uses the Symbols dialog's Emoji category; step 59 inserts this one. */
