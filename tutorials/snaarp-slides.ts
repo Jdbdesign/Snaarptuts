@@ -46,6 +46,8 @@ import { Step23 } from "@/scenes/snaarp-slides/step23/Step23";
 import { runStep23, STEP23_DURATION_MS } from "@/scenes/snaarp-slides/step23/script";
 import { Step24 } from "@/scenes/snaarp-slides/step24/Step24";
 import { runStep24, STEP24_DURATION_MS } from "@/scenes/snaarp-slides/step24/script";
+import { Step25 } from "@/scenes/snaarp-slides/step25/Step25";
+import { runStep25, STEP25_DURATION_MS } from "@/scenes/snaarp-slides/step25/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -201,11 +203,18 @@ export const snaarpSlides: Tutorial = {
       url: SLIDES_URLS.renamed,
       scene: { Component: Step24, run: runStep24, durationMs: STEP24_DURATION_MS },
     },
+    {
+      id: "speaker-notes",
+      title: "Add speaker notes",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step25, run: runStep25, durationMs: STEP25_DURATION_MS },
+    },
   ],
   groups: [
     { title: "Getting started", from: "open-slides" },
     { title: "File", from: "meet-file-menu" },
     { title: "Edit", from: "undo-redo" },
+    { title: "View", from: "speaker-notes" },
   ],
   completion: {
     text: "You know your way around Snaarp Slides and its File menu.",
