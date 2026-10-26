@@ -44,6 +44,8 @@ import { Step22 } from "@/scenes/snaarp-slides/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/snaarp-slides/step22/script";
 import { Step23 } from "@/scenes/snaarp-slides/step23/Step23";
 import { runStep23, STEP23_DURATION_MS } from "@/scenes/snaarp-slides/step23/script";
+import { Step24 } from "@/scenes/snaarp-slides/step24/Step24";
+import { runStep24, STEP24_DURATION_MS } from "@/scenes/snaarp-slides/step24/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -192,6 +194,12 @@ export const snaarpSlides: Tutorial = {
       title: "Duplicate and delete",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step23, run: runStep23, durationMs: STEP23_DURATION_MS },
+    },
+    {
+      id: "find-replace",
+      title: "Find and replace",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step24, run: runStep24, durationMs: STEP24_DURATION_MS },
     },
   ],
   groups: [
