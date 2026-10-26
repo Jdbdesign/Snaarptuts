@@ -48,7 +48,7 @@ export function ManageProductsDialog({ tl }: { tl: Timeline }) {
     >
       <p className="mb-2.5 text-[13.5px] font-semibold text-[#2a2d36]">{M.heading(NEW_USER.first + " " + NEW_USER.last)}</p>
 
-      <ul data-tl="mp-owned" className="overflow-hidden rounded-xl border border-[#F0F0F4]">
+      <ul data-tl="mp-owned" className="rounded-xl border border-[#F0F0F4]">
         {owned.map((id) => {
           const p = productById(id);
           return (
@@ -112,8 +112,8 @@ export function ManageProductsDialog({ tl }: { tl: Timeline }) {
             <div
               data-tl="mp-popover"
               onClick={(e) => e.stopPropagation()}
-              className={`absolute left-0 right-0 top-[46px] z-20 rounded-xl border border-[#EEEEF2] bg-white p-2 shadow-[0_16px_40px_-12px_rgba(17,17,17,0.25)] transition-all duration-150 ${
-                listOpen ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
+              className={`absolute left-0 right-0 top-[46px] z-20 rounded-xl border border-[#EEEEF2] bg-white p-2 shadow-[0_16px_40px_-12px_rgba(17,17,17,0.25)] ${
+                listOpen ? "tl-pop-in" : "hidden"
               }`}
             >
               <div

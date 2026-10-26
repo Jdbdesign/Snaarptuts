@@ -84,6 +84,25 @@ button {
 .tl-fade-in {
   animation: tl-fade-in 0.4s ease-out both;
 }
+/* Short pop for dropdown lists; closed lists are display:none so they never add scroll height */
+@keyframes tl-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.tl-pop-in {
+  animation: tl-pop-in 0.15s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-pop-in {
+    animation: none;
+  }
+}
 /* Skeleton shimmer and icon pop-in (products home) */
 @keyframes tl-shimmer {
   from {

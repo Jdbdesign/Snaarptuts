@@ -76,8 +76,8 @@ function Select({
       </div>
       <ul
         role="listbox"
-        className={`absolute left-0 right-0 top-[46px] z-20 rounded-xl border border-[#EEEEF2] bg-white p-1.5 shadow-[0_16px_40px_-12px_rgba(17,17,17,0.25)] transition-all duration-150 ${
-          open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
+        className={`absolute left-0 right-0 top-[46px] z-20 rounded-xl border border-[#EEEEF2] bg-white p-1.5 shadow-[0_16px_40px_-12px_rgba(17,17,17,0.25)] ${
+          open ? "tl-pop-in" : "hidden"
         }`}
       >
         {options.map((o) => (
