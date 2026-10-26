@@ -1037,4 +1037,70 @@ Each effect cycle (select, open Format, Text, item) takes about 4.5 s and is ide
 | 25.0 | Caption "Decrease indent moves it back". Format > Align & indent > Decrease indent; the line returns. |
 | 29.0 | Caption "Shortcuts also work on the toolbar". Ring on the four alignment buttons. |
 | 32.5 | Ring and caption clear. Hold. |
-| 35.6 | Quick white fade. Ends at 36.0. Step 34 is marked done; the completion card appears ("You're all set") because step 34 is the last step in the config. |
+| 35.6 | Quick white fade. Ends at 36.0. Step 34 is marked done; the completion card appeared ("You're all set") when step 34 was the last step in the config (steps 35 to 38 now follow). |
+
+
+## Doc step 35 - Bullets and numbered lists
+
+- Files: `Step35Lists.tsx`, `step35-script.ts`, `step35-data.ts`. `durationMs` 26000. URL pill `docs.snaarp.com/document/project-brief` (placeholder, same for steps 36 to 38). Starts with the sample document plus three Normal text lines after Contacts: "Homepage design", "Content review", "Launch". Recording: `ref/docs/Snaarp_Doc_format.mp4`, about 2:15-2:30. New in the editor: **lists** (`Block.list` "bullet" | "number"; `setList` in `format-state.ts`; round bullets or "1." numbers in a 30 px hanging indent, drawn by `DocumentView.tsx`; Checklist is the block kind "todo" of step 28; choosing another list type replaces the old one; the toolbar bullet / number buttons show active). The Bullets & numbering rows of the Format menu are wired. Helper `dragSelectBlocks` (the cursor drags over several paragraphs while the blue highlight grows).
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Select the lines you want in a list". The cursor drags from the start of "Homepage design" to the end of "Launch"; the three lines are highlighted. |
+| 3.5 | Caption "Click Format, then Bullets & numbering, then Bullet list". Open the menu; cursor to Bullets & numbering; its submenu opens; Bullet list, ring, click. The lines become a bulleted list. |
+| 8.5 | Caption "Checklist adds tick boxes for tasks". Format > Bullets & numbering > Checklist. The lines become checklist items (the selection stays). |
+| 13.5 | Caption "Numbered list shows the order of steps". Format > Bullets & numbering > Numbered list. The lines become "1. 2. 3.". |
+| 18.5 | Caption "Your list is ready". Ring on the list. |
+| 22.0 | Ring and caption clear. Hold. |
+| 25.6 | Quick white fade. Ends at 26.0. Step 35 is marked done. |
+
+## Doc step 36 - Headers, footers and page numbers
+
+- Files: `Step36HeaderFooter.tsx`, `step36-script.ts`, `step36-data.ts` (the sample header "Acme Studio brief" and footer "Confidential" are in the data). `durationMs` 32000. Starts with the sample document only. Recording: about 2:55-3:10 (the Format menu with Headers & footers and the Page numbers dialog). The Format menu rows are wired: **Headers & footers** (`insertHeaderFooter` in `insert-timeline.ts`: both zones appear with their dotted lines from step 25, the caret is in the header) and **Page numbers** (the step 27 dialog through `openPageNumbers`; defaults bottom, right, 1). `chooseFormatItem` (in `format-timeline.ts`) runs menu rows that have no submenu. `clickZone` scrolls the page to a zone and clicks it. The zones' text has the hooks `page-header-text` and `page-footer-text`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Format, then Headers & footers". Open the menu; Headers & footers, ring, click. The header and footer areas appear; the caret is in the header. |
+| 4.5 | Caption "Type your header text". Types "Acme Studio brief". |
+| 8.5 | Caption "Click the footer to add footer text". The page scrolls to its foot; the cursor clicks in the footer. |
+| 10.0 | Caption "Type your footer text". Types "Confidential". |
+| 14.0 | Caption "Click Format, then Page numbers". Open the menu; Page numbers, ring, click. The dialog opens. |
+| 17.0 | Caption "Choose the position and alignment". Click "Bottom (footer)", then "Right". |
+| 21.0 | Caption "Click Apply". Cursor to Apply, ring, click. The dialog closes and "1" shows at the right of the footer. |
+| 24.0 | Caption "Your header, footer and page number are set". The page scrolls up; ring on the header text; scrolls down; ring on the footer text, then on the number. |
+| 28.0 | Ring and caption clear. Hold. |
+| 31.6 | Quick white fade. Ends at 32.0. Step 36 is marked done. |
+
+## Doc step 37 - Change page orientation
+
+- Files: `Step37Orientation.tsx`, `step37-script.ts`, `step37-data.ts`. `durationMs` 27000. Starts with the sample document only, portrait. Recording: about 3:12-3:18 (only the dialog is shown). New shared pieces: **`PageOrientationDialog.tsx`** (340 px card on the shared `InsertDialog` frame: title "Page orientation", "Apply to" with a box showing "Whole document", "Orientation" with the radios Portrait / Landscape, Cancel and a black OK; copy and the landscape shape in `PAGE_ORIENTATION` in `format-menu-data.ts`; scene variables `insertDialog` = "orientation", `poChoice`, `pageOrientation`; hooks `po-apply-to`, `po-portrait`, `po-landscape`, `po-cancel`, `po-ok`, `po-close`) and **landscape pages** (`DocEditor` setting `landscape`: the page is 54.7% of the canvas width (92% on narrow screens), 11 : 8.5, with a border and a soft shadow; the ruler follows). Helpers in `format-timeline.ts`: `openPageOrientation`, `chooseOrientation`, `clickOrientationOk`.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Format, then Page orientation". Open the menu; Page orientation, ring, click. The dialog opens with Portrait selected. |
+| 4.0 | Caption "Choose which pages to change". Ring on the "Apply to" box. |
+| 6.5 | Caption "Choose Landscape". Cursor to Landscape, click; the radio switches. |
+| 9.5 | Caption "Click OK". Cursor to OK, ring, click. The dialog closes and the page becomes wide. |
+| 13.0 | Caption "The page is now wider than it is tall". Ring on the page. |
+| 16.5 | Caption "Switch back whenever you like". Format > Page orientation; the dialog opens with Landscape selected. |
+| 19.5 | Cursor to Portrait, click; then OK, ring, click. The page returns to portrait. |
+| 24.0 | Caption clears. Hold. |
+| 26.6 | Quick white fade. Ends at 27.0. Step 37 is marked done. |
+
+## Doc step 38 - Clear formatting (last step so far)
+
+- Files: `Step38ClearFormatting.tsx`, `step38-script.ts`, `step38-data.ts`. `durationMs` 22000. Starts with the sample document plus one pre-formatted paragraph after Contacts: "Special offer: book before December and save 20% on the redesign." ("Special offer:" bold and red, "December" italic, "20%" underlined and highlighted yellow, "redesign" struck through and blue; the marks are in `MARKS` in the data file). Recording: about 3:20-3:40. New in the editor: **colour and highlight marks** (static: `TextFormat` "color" and "highlight" with a `value`; `preformat` in `format-state.ts` puts them on text from data), a **soft selection** (`Selection.soft`: a light see-through blue, so the colours show under it) and **Clear formatting** (`clearFormats`: every inline mark comes off the selection, the words stay). Helper `dragSelectBlocks` with `soft`. The menu row shows the shortcut "Ctrl+\" as in the frames.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Select the text you want to reset". The cursor drags across the whole paragraph; it is highlighted and the floating toolbar appears. |
+| 4.0 | Caption "This text has bold, color, a highlight and a line through it". Ring on the paragraph. |
+| 7.0 | Caption "Click Format, then Clear formatting". Open the menu; Clear formatting (shortcut visible), ring, click. All the styling disappears; the words stay. |
+| 11.0 | Caption "The words stay, the styling goes". Ring on the paragraph. |
+| 15.0 | Caption "Shortcut: use the keys shown in the menu". Cursor hovers the toolbar area (no click). |
+| 18.0 | Caption clears. Hold. |
+| 21.6 | Quick white fade. Ends at 22.0. Step 38 is marked done; the completion card appears ("You're all set") because step 38 is the last step in the config. |
