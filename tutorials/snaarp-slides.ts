@@ -64,6 +64,8 @@ import { Step32 } from "@/scenes/snaarp-slides/step32/Step32";
 import { runStep32, STEP32_DURATION_MS } from "@/scenes/snaarp-slides/step32/script";
 import { Step33 } from "@/scenes/snaarp-slides/step33/Step33";
 import { runStep33, STEP33_DURATION_MS } from "@/scenes/snaarp-slides/step33/script";
+import { Step34 } from "@/scenes/snaarp-slides/step34/Step34";
+import { runStep34, STEP34_DURATION_MS } from "@/scenes/snaarp-slides/step34/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -272,6 +274,12 @@ export const snaarpSlides: Tutorial = {
       title: "Draw a line",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step33, run: runStep33, durationMs: STEP33_DURATION_MS },
+    },
+    {
+      id: "insert-table",
+      title: "Insert a table",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step34, run: runStep34, durationMs: STEP34_DURATION_MS },
     },
   ],
   groups: [
