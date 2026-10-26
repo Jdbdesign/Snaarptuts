@@ -383,3 +383,24 @@ The owner asked for UK currency and UK phone numbers everywhere. No behaviour, l
   - "US Letter" page shape in the landscape page comment (`format-menu-data.ts`): paper size, not currency or phone; changing it would change the layout (A4 is the UK size).
   - The recordings and reference images under `ref/` (untouched, as required) still show naira and Nigerian numbers.
   - Old values remain in git history and in the earlier sections of this file that describe the recording.
+
+
+## Snaarp Admin steps 1-8 (add users and give them products)
+
+Recording: `ref/admin/Snaarp_Admin_add_users.mp4` (the owner's `Downloads/1026 (1).mp4`, 1454x720, 193 s).
+
+- **No earlier Admin tutorial existed.** The brief said to continue after the last existing Admin step, but `tutorials/index.ts` only had Snaarp 360, Mail and Doc (no branch had one either). Snaarp Admin is therefore a new product with these 8 steps as steps 1-8. If an earlier Admin tutorial exists elsewhere, merge by renumbering. The rail logo is the Snaarp mark (`snaarp`) until a real Admin logo is added.
+- **Video file name.** The brief named `1026_1.mp4` / `02bb1f92...`; neither exists. The owner confirmed `C:\Users\HP\Downloads\1026 (1).mp4` (the only 1454x720, 193 s file).
+- **Sample data replaces everything real:** Dan Thomas / dan@snaarp.com became Sam Carter / sam@acme-studio.com; username `sam`; job title Designer (recording: Frontend); department Design (recording: Engineering); employee number EMP-100 (recording: Em-100); avatar JD (recording: A); the other people in the directory (real names and emails) became 20 invented people at acme-studio.com; the visible password in the recording became dots for a sample password; the "Granted" date is the sample `14/03/2026` (recording: the recording day). Not shown: browser bar, tabs, extensions, the "is presenting" and "is sharing your screen" overlays, the email autocomplete popup.
+- **Toast text.** "sam@acme-studio.com created" (as in the recording, with the sample email), not the shorter "User created" from the brief. White card, bottom right; on a phone it sits at the top so the caption does not cover it.
+- **Password rules.** Four rules, exactly as on the real page: At least 8 characters, One uppercase letter, One lowercase letter, One special character. The brief also listed "number"; the page has no such rule, so it is not shown.
+- **Counts.** Active users go from 40 to 41 (the "before" number is not legible in the recording). Suspended 1 and Administrators 9 are as recorded.
+- **Directory.** Before creation: page 1 of 3, "Showing 1-20 of 40", 20 sample rows. After creation: page 3 of 3 with only Sam, "Showing 41-41 of 41", as the recording jumps to the last page. Search, filters, tabs, Refresh, Create Email and the pagination are drawn but not interactive.
+- **Department list.** Only "Engineering" is visible in the recording. The rest of the list (No department, Design, Marketing, Sales, Support, Operations) is assumed. Design is chosen so the sample user matches the brief.
+- **Selects.** The Department and Role boxes in the Create user dialog are native selects in the recording (the Role list is the operating system's dark list). They are drawn as white lists in the Admin Panel style. The dialog's roles (Member, Admin, Owner) and the table's roles (User, Administrator, Super Administrator) are different lists, as recorded.
+- **Product list.** The recording's list also had internal names (Neo, Sendrit, Verifyrit, Zeus); they are left out. Twelve Snaarp products are offered (Books, CRM, Docs, Identity, Me, Meet, Projects, Sheet, Sign, Slides, Teams, Workforce). Snaarp Identity has no logo yet and uses a glyph on a lilac tile. Other icons are the real logos in `public/logos/` (SnaarpKey uses the lock logo); the Drive icon in the recording was a tiny dotted mark, here it is the real Drive logo.
+- **Make admin / Remove.** Only hovered, never clicked (as asked). The note under the list is ringed.
+- **Dialog scrolling.** As in the recording, the Manage Products body scrolls inside the dialog while the product list is open (the dialog gets extra room under the list).
+- **Sizes.** The recording's browser window was about 1210 CSS px wide; the scene is 1440 design px, so the Admin Panel content is slightly roomier than the recording. Dialog widths are 520 (Create user) and 600 (Manage Products).
+- **Narrow screens (390x844).** The scene is zoomed 2.4x (like Snaarp Doc), the 240 px menu column is hidden (`AdminPanelLayout` setting `hideMenuOnNarrow`), the table shows User, Role, Products and Actions only, and the Create Email button and the two filter dropdowns are hidden.
+- **To replace or confirm before launch:** the Snaarp Admin rail logo, the real Department list, the Identity logo, whether Create Email / filters should do anything, and the placeholder "Granted" date.

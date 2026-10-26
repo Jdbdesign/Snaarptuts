@@ -2,6 +2,7 @@
 
 import { Icon } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
+import { useNarrow } from "@/lib/useNarrow";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 
 export type AdminToastState = { id: number; text: string; visible: boolean };
@@ -24,9 +25,15 @@ export function showAdminToast(tl: Timeline, text: string, ms = 3200) {
 export function AdminToast({ tl }: { tl: Timeline }) {
   const toast = useTimelineVar<AdminToastState | null>(tl, "adminToast", null);
   const visible = !!toast?.visible;
+  const narrow = useNarrow();
 
   return (
-    <div role="status" aria-live="polite" className="pointer-events-none absolute bottom-6 right-6 z-50">
+    <div
+      role="status"
+      aria-live="polite"
+      // Bottom right as in the recording; on a phone the caption sits there, so it moves under the top bar.
+      className={`pointer-events-none absolute z-50 ${narrow ? "right-4 top-[72px]" : "bottom-6 right-6"}`}
+    >
       <div
         data-tl="admin-toast"
         className={`flex min-w-[270px] items-center gap-3 rounded-xl border border-[#EEEFF3] bg-white py-3 pl-4 pr-3.5 shadow-[0_10px_30px_-10px_rgba(17,24,39,0.3)] transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none ${

@@ -45,6 +45,7 @@ tutorials/                         PRODUCT CONFIGS
   completion.ts                    resolveCompletion(): config over defaults for the completion card text.
   snaarp-360.ts                    Snaarp 360 (5 steps, all built).
   snaarp-mail.ts                   Snaarp Mail (10 modules listed, none built).
+  snaarp-admin.ts                  Snaarp Admin (8 steps, all built; scenes in scenes/snaarp-admin/).
 
 scenes/snaarp-360/                 SCENES for Snaarp 360. One scene component + one script per step.
   Step1Pricing.tsx, step1-script.ts, pricing-data.ts

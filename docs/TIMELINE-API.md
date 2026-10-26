@@ -118,7 +118,7 @@ All are in `components/`. `tl` is the `Timeline`.
 
 | Component | Props | Notes |
 |---|---|---|
-| `AdminPanelLayout` | `tl, active, title, avatar = "S", onNavigate?, children` | The layout an admin user sees at `login.snaarp.com/admin`: slim icon rail (`PANEL_RAIL_ITEMS`), 240px white column with purple "Admin Panel" mark and menu (`PANEL_MENU`), small top bar, scrolling `<main data-tl="panel-main">`. Active item has a soft purple fill (`#F0E3FF`). Menu items are `[data-tl=panel-menu-<id>]`. Used in step 5 (screens F and G). Do not merge it with `AdminLayout`. |
+| `AdminPanelLayout` | `tl, active, title, avatar = "S", onNavigate?, hideMenuOnNarrow?, children` | The layout an admin user sees at `login.snaarp.com/admin`: slim icon rail (`PANEL_RAIL_ITEMS`), 240px white column with purple "Admin Panel" mark and menu (`PANEL_MENU`), small top bar, scrolling `<main data-tl="panel-main">`. Active item has a soft purple fill (`#F0E3FF`). Menu items are `[data-tl=panel-menu-<id>]`. Used in step 5 (screens F and G) and by every Snaarp Admin step (`hideMenuOnNarrow` hides the 240px menu column below 900px). Do not merge it with `AdminLayout`. |
 
 ## Icons and logos (`components/icons.tsx`)
 
