@@ -20,6 +20,8 @@ export const CAPTIONS = {
   menu: "Click the pen to change the editing mode",
   suggesting: "Choose Suggesting",
   mode: "The Suggesting pill is now on",
+  /** On narrow screens the header has no pills. */
+  modeNarrow: "Your edits are now suggestions",
   click: "Click at the end of the line",
   type: "Type a new sentence",
   suggested: "Your words show as a suggestion, so others can accept or reject them",

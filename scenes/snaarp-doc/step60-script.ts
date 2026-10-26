@@ -7,6 +7,8 @@ import { CAPTIONS, PRACTICE_ID, START_EDITOR, SUGGESTED, URLS } from "./step60-d
 export const STEP60_DURATION_MS = 33000;
 
 export async function runStep60(tl: Timeline) {
+  // Narrow screens have no Editing / Suggesting pills in the header, so there is nothing to ring there.
+  const pills = !window.matchMedia("(max-width: 899px)").matches;
   initEditor(tl, START_EDITOR);
   initToolbar(tl);
   tl.setVar("mode", "editing");
@@ -22,8 +24,8 @@ export async function runStep60(tl: Timeline) {
   tl.showCaption(CAPTIONS.suggesting);
   await chooseRow(tl, "tm-mode-suggesting", () => tl.setVar("mode", "suggesting"));
   await tl.at(7000);
-  tl.showCaption(CAPTIONS.mode);
-  tl.highlight("[data-tl=editor-mode]");
+  tl.showCaption(pills ? CAPTIONS.mode : CAPTIONS.modeNarrow);
+  if (pills) tl.highlight("[data-tl=editor-mode]");
 
   // Type a sentence: it shows as a suggestion
   await tl.at(10000);
@@ -47,7 +49,7 @@ export async function runStep60(tl: Timeline) {
   await chooseRow(tl, "tm-mode-editing", () => tl.setVar("mode", "editing"));
   await tl.at(27000);
   tl.showCaption(CAPTIONS.done);
-  tl.highlight("[data-tl=editor-mode]");
+  if (pills) tl.highlight("[data-tl=editor-mode]");
 
   await tl.at(29500);
   tl.clearHighlight();
