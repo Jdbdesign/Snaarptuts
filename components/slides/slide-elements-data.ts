@@ -59,7 +59,7 @@ export const EIV_SHAPE_ID = "s2-shape";
 
 /** What Insert drops onto the slide, and where. Everything lands in the empty band under the bullets (y 35 and down). */
 export const INSERTS = {
-  textBox: { x: 8, y: 41, w: 44, h: 8 },
+  textBox: { x: 8, y: 41, w: 62, h: 7 },
   image: { x: 8, y: 35, w: 30, h: 20, key: "desk" as const, alt: "Studio desk" },
   shapes: {
     rect: { x: 10, y: 38, w: 18, h: 13 },

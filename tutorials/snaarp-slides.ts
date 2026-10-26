@@ -56,6 +56,8 @@ import { Step28 } from "@/scenes/snaarp-slides/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/snaarp-slides/step28/script";
 import { Step29 } from "@/scenes/snaarp-slides/step29/Step29";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-slides/step29/script";
+import { Step30 } from "@/scenes/snaarp-slides/step30/Step30";
+import { runStep30, STEP30_DURATION_MS } from "@/scenes/snaarp-slides/step30/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -241,12 +243,19 @@ export const snaarpSlides: Tutorial = {
       url: SLIDES_URLS.renamed,
       scene: { Component: Step29, run: runStep29, durationMs: STEP29_DURATION_MS },
     },
+    {
+      id: "text-box",
+      title: "Add a text box",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step30, run: runStep30, durationMs: STEP30_DURATION_MS },
+    },
   ],
   groups: [
     { title: "Getting started", from: "open-slides" },
     { title: "File", from: "meet-file-menu" },
     { title: "Edit", from: "undo-redo" },
     { title: "View", from: "speaker-notes" },
+    { title: "Insert", from: "text-box" },
   ],
   completion: {
     text: "You know your way around Snaarp Slides and its File menu.",
