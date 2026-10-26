@@ -1,14 +1,17 @@
 import type { ReactNode } from "react";
 import { Icon } from "@/components/icons";
+import { RAIL_SEARCH } from "./rail-search-data";
 
 type Props = {
   url: string;
   /** Shown next to the traffic lights when the rail is collapsed. */
   onExpand?: () => void;
+  /** Search icon next to the expand button: opens the rail with the search box focused. */
+  onSearch?: () => void;
   children: ReactNode;
 };
 
-export function BrowserFrame({ url, onExpand, children }: Props) {
+export function BrowserFrame({ url, onExpand, onSearch, children }: Props) {
   return (
     <div className="relative flex h-full min-w-0 flex-1 flex-col overflow-hidden rounded-[14px] border border-[#E4E4EA] bg-white">
       <div className="flex h-[46px] shrink-0 items-center gap-3 border-b border-line px-4 min-[900px]:grid min-[900px]:grid-cols-[1fr_minmax(0,320px)_1fr]">
@@ -24,6 +27,16 @@ export function BrowserFrame({ url, onExpand, children }: Props) {
               className="ml-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#F4F4F6] text-[#4b5060] hover:bg-[#ECECF1]"
             >
               <Icon name="sidebar" size={15} />
+            </button>
+          )}
+          {onExpand && onSearch && (
+            <button
+              onClick={onSearch}
+              aria-label={RAIL_SEARCH.open}
+              title={RAIL_SEARCH.open}
+              className="-ml-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#F4F4F6] text-[#4b5060] hover:bg-[#ECECF1]"
+            >
+              <Icon name="search" size={15} />
             </button>
           )}
         </div>

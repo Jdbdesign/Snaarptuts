@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Icon } from "@/components/icons";
+import { clearPendingJump, peekPendingJump } from "@/lib/pending-jump";
 import { useNarrow } from "@/lib/useNarrow";
 import { getTutorial } from "@/tutorials";
 import { resolveCompletion } from "@/tutorials/completion";
@@ -18,12 +19,18 @@ export function TutorialPlayer({ productId }: { productId: string }) {
   const { steps } = tutorial;
   const firstBuilt = Math.max(0, steps.findIndex((s) => s.scene));
 
-  const [run, setRun] = useState({ current: firstBuilt, runKey: 0, status: "playing" as Status });
+  // A search result in another product asks for a given step; otherwise start on the first built step.
+  const [run, setRun] = useState(() => {
+    const jump = peekPendingJump(productId);
+    const current = jump !== null && steps[jump]?.scene ? jump : firstBuilt;
+    return { current, runKey: 0, status: "playing" as Status };
+  });
   const [done, setDone] = useState<boolean[]>(() => steps.map(() => false));
   const [paused, setPaused] = useState(false);
   const [liveUrl, setLiveUrl] = useState<string | null>(null); // set by scenes with several screens
   const [railOpen, setRailOpen] = useState(true); // wide screens
   const [drawerOpen, setDrawerOpen] = useState(false); // narrow screens
+  const [searchFocus, setSearchFocus] = useState(0);
   const narrow = useNarrow();
   const railVisible = narrow ? drawerOpen : railOpen;
 
@@ -32,6 +39,8 @@ export function TutorialPlayer({ productId }: { productId: string }) {
     setLiveUrl(null);
     setRun((r) => ({ current, runKey: r.runKey + 1, status: "playing" }));
   }, []);
+
+  useEffect(() => clearPendingJump(), []);
 
   const { current } = run;
   const handleDone = useCallback(() => {
@@ -57,6 +66,26 @@ export function TutorialPlayer({ productId }: { productId: string }) {
     },
     [steps, narrow, start],
   );
+
+  // Open the rail if it is collapsed and put the cursor in the search box.
+  const openSearch = useCallback(() => {
+    if (narrow) setDrawerOpen(true);
+    else setRailOpen(true);
+    setSearchFocus((n) => n + 1);
+  }, [narrow]);
+
+  // "/" = search.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable)) return;
+      e.preventDefault();
+      openSearch();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [openSearch]);
 
   // Space = pause / resume.
   useEffect(() => {
@@ -86,6 +115,7 @@ export function TutorialPlayer({ productId }: { productId: string }) {
       playing={playing}
       onSelect={select}
       onCollapse={() => (narrow ? setDrawerOpen(false) : setRailOpen(false))}
+      searchFocus={searchFocus}
     />
   );
 
@@ -94,8 +124,8 @@ export function TutorialPlayer({ productId }: { productId: string }) {
       {narrow ? (
         railVisible && (
           <>
-            <div className="fixed inset-0 z-30 bg-black/20" onClick={() => setDrawerOpen(false)} />
-            <div className="fixed bottom-4 left-4 top-4 z-40 shadow-2xl">{rail}</div>
+            <div className="fixed inset-0 z-[55] bg-black/20" onClick={() => setDrawerOpen(false)} />
+            <div className="fixed bottom-4 left-4 top-4 z-[60] shadow-2xl">{rail}</div>
           </>
         )
       ) : (
@@ -111,6 +141,7 @@ export function TutorialPlayer({ productId }: { productId: string }) {
       <BrowserFrame
         url={liveUrl ?? step.url}
         onExpand={railVisible ? undefined : () => (narrow ? setDrawerOpen(true) : setRailOpen(true))}
+        onSearch={openSearch}
       >
         {!steps.some((s) => s.scene) && <ComingSoon name={tutorial.product.name} count={steps.length} />}
         {step.scene && (

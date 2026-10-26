@@ -18,6 +18,7 @@ components/
   player/                          THE SHELL. Knows nothing about any product.
     TutorialPlayer.tsx             Owns run state (current step, done flags, pause, live URL, rail open). Space key. Renders rail + frame.
     Rail.tsx                       Left rail: Collapse, search, product dropdown, step list with done ticks.
+    RailSearch.tsx                 The rail search box and its results panel (products + modules). Copy: rail-search-data.ts; index: lib/search-index.ts.
     BrowserFrame.tsx               The browser window chrome (traffic lights, URL pill, expand-rail button) around the stage.
     ScenePlayer.tsx                Runs ONE scene: scales it, draws cursor, ripple, caption, progress line, creates the Timeline.
     CompletionCard.tsx             "You're all set" card shown over the stage after the last step.

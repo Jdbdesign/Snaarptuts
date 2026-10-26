@@ -135,7 +135,20 @@ import { runStep64, STEP64_DURATION_MS } from "@/scenes/snaarp-doc/step64-script
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.
  */
 export const snaarpDoc: Tutorial = {
-  product: { id: "snaarp-doc", name: "Snaarp Doc", logo: "docs" },
+  product: { id: "snaarp-doc", name: "Snaarp Doc", logo: "docs", aliases: ["docs", "document", "documents", "word processor"] },
+  // Menu groups for the rail search: each runs from the step named here to the step before the next group.
+  groups: [
+    { title: "Getting started", from: "explore" },
+    { title: "File", from: "editor-file-menu" },
+    { title: "Edit", from: "edit-menu" },
+    { title: "View", from: "editing-mode" },
+    { title: "Insert", from: "insert-menu" },
+    { title: "Format", from: "format-menu" },
+    { title: "Tools", from: "tools-menu" },
+    { title: "eSignature", from: "sign-document" },
+    { title: "Toolbar", from: "undo-redo" },
+    { title: "Header buttons", from: "editing-modes" },
+  ],
   steps: [
     {
       id: "explore",

@@ -1259,3 +1259,19 @@ Config: `tutorials/snaarp-admin.ts`, route `/tutorials/snaarp-admin`. **8 steps,
 | 8 | Confirm the new access | Manage products open, five products | 17.5 s | Ring Snaarp Books in the dialog; click x to close; the Products column reads "5 products" (ringed); open it: Snaarp Books is the fifth item (ringed). The last step, the completion card follows. |
 
 Hooks: page `btn-create-user`, `users-heading`, `users-directory`, `stat-active`, `row-sam`, `role-sam`, `products-sam`, `actions-sam`, `role-opt-<id>`, `products-list`, `products-item-<id>`, `action-<id>` (edit, products, password, deactivate, delete); Create dialog `create-dialog`, `create-scroll`, `field-<id>`, `select-dept`, `select-role`, `opt-dept-<name>`, `opt-role-<name>`, `password-rules`, `rule-<id>`, `password-hint`, `btn-submit-create`, `btn-cancel-create`, `btn-close-create`; Manage dialog `manage-dialog`, `manage-scroll`, `mp-owned`, `mp-row-<id>`, `mp-admin-<id>`, `mp-remove-<id>`, `mp-note`, `mp-select`, `mp-popover`, `mp-search`, `mp-list`, `mp-opt-<id>`, `btn-mp-add`, `btn-close-manage`; toast `admin-toast`.
+
+
+# Rail search (how the index is built)
+
+Not a tutorial step: the search box at the top of the player rail. Code: `components/player/RailSearch.tsx`, `lib/search-index.ts`, copy in `components/player/rail-search-data.ts`.
+
+**Index.** `buildSearchIndex(tutorials)` in `lib/search-index.ts` walks the registry in `tutorials/index.ts` at load time. There is no separate list, so every new tutorial and step is searchable automatically.
+- One **product** entry per tutorial: `product.name` plus the optional `product.aliases` (for example "docs", "document" for Snaarp Doc; "email", "inbox" for Snaarp Mail). Aliases find the product only, not its steps.
+- One **module** entry per step that has a `scene` (unbuilt steps cannot be opened, so they are left out). Searchable text: step title, group name, product name. The result shows the step title, then a small line "Snaarp Doc · eSignature · Step 41" (group left out when the tutorial has none; the step number is its position in the config).
+- **Groups** come from the optional `groups: [{ title, from }]` in a tutorial config: a group starts at the step whose `id` equals `from` and runs to the next group. Only Snaarp Doc has them (Getting started 1-2, File 3-9, Edit 10-13, View 14-18, Insert 19-30, Format 31-38, Tools 39-40, eSignature 41-44, Toolbar 45-59, Header buttons 60-64). A group is a match field and a label, not a result of its own.
+
+**Matching.** Case-insensitive, accents ignored (NFD), curly apostrophes straight, extra spaces squeezed. The query is split into words and every word must match somewhere in the entry. A match at the start of a word ranks above a match in the middle of a word; within that, title beats group beats product name; then an earlier position; then config order. Highlighted letters are the first match of each query word in the title, group and product name.
+
+**Results panel.** Opens over the product card and step list (they stay mounted underneath, `inert`, so closing the panel brings them back unchanged). Heads "Products" (max 6) and "Modules" (max 10), each with "Show N more" when there are more; empty state "No results for ..." with a hint. Roles: `combobox` (input), `listbox` > `group` > `option`, `aria-activedescendant`, a polite live region announces the count.
+
+**Opening a result.** A product result opens its tutorial at step 1 (in the open product it restarts step 1). A module result in the open tutorial calls the player's `select(index)`. A module result in another product stores `{ productId, step }` in `lib/pending-jump.ts` (client-side slot, expires after 5 s) and navigates to `/tutorials/<id>`; `TutorialPlayer` reads the slot in its initial state and starts on that step. After a pick the box clears, the panel closes and the box loses focus (so Space pauses again).

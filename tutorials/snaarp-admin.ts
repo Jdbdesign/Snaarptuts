@@ -23,7 +23,7 @@ import type { Tutorial } from "./types";
  * There was no earlier Admin tutorial in the repo, so these are steps 1-8.
  */
 export const snaarpAdmin: Tutorial = {
-  product: { id: "snaarp-admin", name: "Snaarp Admin", logo: "snaarp" },
+  product: { id: "snaarp-admin", name: "Snaarp Admin", logo: "snaarp", aliases: ["admin panel", "administration", "users", "user management"] },
   steps: [
     {
       id: "open-create-user",

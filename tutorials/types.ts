@@ -31,8 +31,20 @@ export type Completion = {
   backHref?: string;
 };
 
+/** A named run of steps (for example a menu). It starts at the step with id `from` and lasts until the next group. */
+export type StepGroup = { title: string; from: string };
+
 export type Tutorial = {
-  product: { id: string; name: string; /** Real logo shown in the rail (a name from PRODUCT_LOGOS). Falls back to the Snaarp mark. */ logo?: LogoName };
+  product: {
+    id: string;
+    name: string;
+    /** Real logo shown in the rail (a name from PRODUCT_LOGOS). Falls back to the Snaarp mark. */
+    logo?: LogoName;
+    /** Other words people may type to find this product in the rail search (for example "email" for Snaarp Mail). */
+    aliases?: string[];
+  };
   steps: Step[];
+  /** Optional step groups. The rail search matches on a group's name and shows it under each of its steps. */
+  groups?: StepGroup[];
   completion?: Completion;
 };
