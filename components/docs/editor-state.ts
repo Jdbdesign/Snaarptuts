@@ -6,8 +6,8 @@
 
 export type BlockKind = "h1" | "h2" | "p" | "quote" | "todo" | "code";
 /** Inline text styling (Format > Text, steps 31 and 32). */
-export type TextFormat = "bold" | "italic" | "underline" | "strike" | "sup" | "sub" | "color" | "highlight";
-/** `value`: the CSS colour of a "color" or "highlight" range. */
+export type TextFormat = "bold" | "italic" | "underline" | "strike" | "sup" | "sub" | "color" | "highlight" | "font" | "size" | "suggest";
+/** `value`: the CSS colour of a "color" or "highlight" range, the font name of a "font" range, the size in pt of a "size" range. */
 export type FormatRange = { from: number; to: number; format: TextFormat; value?: string };
 /** Format > Bullets & numbering (a checklist is the block kind "todo"). */
 export type ListKind = "bullet" | "number";
@@ -31,6 +31,8 @@ export type Block = {
   align?: Align;
   /** Number of indent steps (Format > Align & indent). Each step moves the paragraph IN_DENT px. */
   indent?: number;
+  /** Toolbar > Line & paragraph spacing: 1, 1.15 (the default look), 1.5 or 2. */
+  spacing?: number;
 };
 
 export type Pos = { block: number; offset: number };
@@ -116,6 +118,13 @@ export const HEADING_PT: Record<HeadingLevel, string> = { 1: "25", 2: "20", 3: "
 /** Font size (pt) shown in the toolbar's size box. */
 export const fontSizeOf = (s: EditorState) => {
   const b = activeBlock(s);
+  const pos = s.sel?.start ?? s.caret;
+  if (b && pos) {
+    // A "size" mark on the text at the caret or the start of the selection (toolbar size box, steps 49).
+    const at = s.sel ? pos.offset : Math.max(0, pos.offset - 1);
+    const mark = b.formats?.find((f) => f.format === "size" && f.from <= at && f.to > at);
+    if (mark?.value) return mark.value;
+  }
   if (b?.heading) return HEADING_PT[b.heading];
   return b?.kind === "h1" || b?.kind === "h2" ? "20" : "11";
 };

@@ -41,6 +41,9 @@ export const HEADER_ICONS: { id: string; icon: IconName; label: string }[] = [
   { id: "history", icon: "edHistory", label: "Version history" },
 ];
 
+/** The header buttons right of the icon row: Meet (video, with a chevron) and the Snaarp apps grid (steps 61 to 63). */
+export const HEADER_BUTTONS = { meet: "Meet", apps: "Snaarp apps" };
+
 export type ToolItem = {
   id: string;
   /** A button shows only its icon; a select shows `label` (and a chevron). */
@@ -54,6 +57,8 @@ export type ToolItem = {
   active?: boolean;
   /** Colour of the bar under the icon (text colour, highlight). */
   bar?: string;
+  /** The box is being typed into (the size box, step 49): a blue focus ring and a caret. */
+  editing?: boolean;
 };
 
 /** The toolbar, left to right. A thin divider sits between groups. */
@@ -103,7 +108,7 @@ export const TOOLBAR: ToolItem[][] = [
     { id: "indent", icon: "edIndent" },
     { id: "outdent", icon: "edOutdent" },
   ],
-  [{ id: "strike", icon: "edStrike" }],
+  [{ id: "clear", icon: "edStrike" }],
   [
     { id: "sup", icon: "edSup" },
     { id: "sub", icon: "edSub" },
@@ -115,10 +120,10 @@ export const TOOLBAR: ToolItem[][] = [
   ],
   [{ id: "fullscreen", icon: "edFullscreen" }],
   [
-    { id: "pen", icon: "edPen" },
-    { id: "pen-tag", icon: "edPenTag" },
+    { id: "esign", icon: "edPen" },
+    { id: "drawing", icon: "edPenTag" },
     { id: "emoji", icon: "edEmoji" },
-    { id: "signature", icon: "edSignature" },
+    { id: "shortcuts", icon: "edSignature" },
   ],
   [{ id: "pen-menu", icon: "edPen", chevron: true }],
 ];

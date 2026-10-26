@@ -135,3 +135,10 @@ All are in `components/`. `tl` is the `Timeline`.
 - `scenes/snaarp-360/step3/ProductsHome.tsx` - products home. Props: `tl`, `avatar` (letter), `tiles` (list of `ProductTile`, default all 16). Elements: `[data-tl=card-emails]`, `[data-tl=card-admin]`, `[data-tl=product-grid]`. Variable `loaded` swaps the skeleton for the tiles. Step 3 shows all 16; step 5 shows only "Project".
 - `scenes/snaarp-360/step3/LoadingScreen.tsx` - spinner screen; `label={null}` hides the text.
 - `scenes/snaarp-360/step4/DomainsPage.tsx` - `instant` prop turns off the entry fade (step 5 uses it to start on the same frame step 4 ended on).
+
+
+---
+
+# Snaarp Doc toolbar helpers (`components/docs/toolbar-timeline.ts`)
+
+Used by Snaarp Doc steps 45-64 (`EditorStage` with `tools`). Call `initToolbar(tl)` first in every script. `pointAt(tl, hook, {ms, tipMs, dx, dy})` glides to a button (`tool-<id>`, `header-meet`, `editor-share` ...), hovers it and shows its tooltip (scene variable `tip`); `pressButton(tl, hook)` rings, clicks and drops the tooltip; `clickTool(tl, id, run?, opts)` does both and runs what the tool does; `openMenu(tl, menu, hook, opts)` opens a dropdown card (scene variable `toolMenu`); `chooseRow(tl, rowHook, run?, opts)` hovers, rings and clicks a row (`tm-<card>-<id>`), closes the card and runs `run`; `closeMenu(tl)`; `edit(tl, fn)` applies a pure editor-state function and blinks "Unsaved changes"; `runUndo` / `runRedo`; `typeNewLine`, `typeSizeBox`, `typeSuggestion` type live. On narrow screens `pointAt` first scrolls the toolbar sideways so the button is in view. Cards and tooltips are drawn by `ToolbarLayer` / `Anchored` (see `CLAUDE.md`).

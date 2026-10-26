@@ -15,7 +15,7 @@ import { canRedo, createEditor, fontSizeOf, type EditorState } from "./editor-st
 import { FileMenu } from "./FileMenu";
 import { FormatMenu, type FormatSub } from "./FormatMenu";
 import type { Orientation } from "./format-menu-data";
-import { activeToolsOf, styleLabelOf } from "./format-state";
+import { activeToolsOf, formatValueAt, styleLabelOf } from "./format-state";
 import { FindReplacePanel } from "./FindReplacePanel";
 import { FullScreenView } from "./FullScreenView";
 import { InsertDialogs, type InsertDialogId } from "./InsertDialogs";
@@ -44,6 +44,8 @@ import {
   type ZoneState,
 } from "./insert-state";
 import { countWords } from "./sample-document";
+import { ToolbarLayer } from "./ToolbarLayer";
+import { FONT_MENU } from "./toolbar-data";
 import { VIEW_DEFAULTS } from "./view-menu-data";
 
 /** Used while a stage has no document (steps 4 to 9): never drawn. */
@@ -67,6 +69,12 @@ type Props = {
    * bold / italic / alignment buttons show their active look. Off, the toolbar looks as in steps 1 to 30.
    */
   formatting?: boolean;
+  /**
+   * Steps 45 to 64 (the toolbar and header buttons): draws the tooltips and dropdown cards (ToolbarLayer), keeps the header's
+   * Version history, Meet and apps buttons on narrow screens, and makes the toolbar show the font, size, zoom and colour bars.
+   * Scene variables: `tip`, `toolMenu`, `zoomPct`, `lastColor`, `lastHighlight`, `sizeBox`, `paint`. Implies `formatting`.
+   */
+  tools?: boolean;
 };
 
 /**
@@ -76,7 +84,7 @@ type Props = {
  * (steps 14 to 18): `mode`, `viewMenu`, `viewSub`, `ruler`, `printLayout`, `nonPrinting`, `fullScreen` (+ `fsHint`, `fsKey`, `fsPressed`), and the side panels
  * `commentsOpen` + `comments`, `outlineOpen`, and the Insert menu (steps 19 to 22): `insertMenu`, `insertSub`, `formatMenu`, `formatSub`, `toolsMenu`, `esigMenu` (steps 39 to 44), `pageImage`, `pageTable`, `linkDialog`, `bookmarkDialog`, `pageRules`, `pageBreak`, `pageBookmarks`, `pageHeader`, `pageFooter`, `watermark`. All default to off, so earlier steps are unchanged. The root carries data-scroller, where the timeline looks up targets.
  */
-export function EditorStage({ tl, startTitle, overlay, children, startDocument, formatting = false }: Props) {
+export function EditorStage({ tl, startTitle, overlay, children, startDocument, formatting = false, tools = false }: Props) {
   const intro = useTimelineVar(tl, "intro", 0);
   const fade = useTimelineVar(tl, "fade", false);
   const title = useTimelineVar(tl, "title", startTitle);
@@ -133,7 +141,13 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument, 
   const formatSub = useTimelineVar<FormatSub>(tl, "formatSub", "");
   const toolsMenu = useTimelineVar(tl, "toolsMenu", false);
   const esigMenu = useTimelineVar(tl, "esigMenu", false);
-  const menuOpen = fileMenu || editMenu || viewMenu || insertMenu || formatMenu || toolsMenu || esigMenu || linkDialog || bookmarkDialog || insertDialog !== "";
+  const zoomPct = useTimelineVar(tl, "zoomPct", 100);
+  const lastColor = useTimelineVar<string | null>(tl, "lastColor", null);
+  const lastHighlight = useTimelineVar<string | null>(tl, "lastHighlight", null);
+  const sizeBox = useTimelineVar<string | null>(tl, "sizeBox", null);
+  const paint = useTimelineVar<unknown>(tl, "paint", null);
+  const toolMenuOpen = useTimelineVar<string>(tl, "toolMenu", "") !== "";
+  const menuOpen = toolMenuOpen || fileMenu || editMenu || viewMenu || insertMenu || formatMenu || toolsMenu || esigMenu || linkDialog || bookmarkDialog || insertDialog !== "";
 
   return (
     <div data-scroller className="relative h-full w-full bg-white">
@@ -151,9 +165,27 @@ export function EditorStage({ tl, startTitle, overlay, children, startDocument, 
           outlineOpen={outlineOpen}
           decor={startDocument ? pageDecor(inserts) : undefined}
           landscape={pageOrientation === "landscape"}
+          zoom={tools ? zoomPct / 100 : 1}
+          narrowHeaderTools={tools}
+          toolLayer={tools ? <ToolbarLayer tl={tl} editor={editor} /> : undefined}
           live={
             startDocument
-              ? { size: fontSizeOf(editor), canUndo: true, canRedo: canRedo(editor), words: countWords(editor.blocks) + tableWords(pageTable), pages: pageCount(inserts), ...(formatting ? { style: styleLabelOf(editor), active: activeToolsOf(editor) } : {}) }
+              ? {
+                  size: fontSizeOf(editor),
+                  canUndo: true,
+                  canRedo: canRedo(editor),
+                  words: countWords(editor.blocks) + tableWords(pageTable),
+                  pages: pageCount(inserts),
+                  ...(formatting || tools ? { style: styleLabelOf(editor), active: [...activeToolsOf(editor), ...(paint ? ["paint"] : [])] } : {}),
+                  ...(tools
+                    ? {
+                        font: formatValueAt(editor, "font") ?? FONT_MENU.default,
+                        bars: { color: lastColor ?? undefined, highlight: lastHighlight ?? undefined },
+                        sizeBox,
+                        zoomPct,
+                      }
+                    : {}),
+                }
               : undefined
           }
           overlay={

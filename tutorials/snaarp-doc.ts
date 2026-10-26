@@ -87,6 +87,46 @@ import { runStep43, STEP43_DURATION_MS } from "@/scenes/snaarp-doc/step43-script
 import { Step44RequestSignature } from "@/scenes/snaarp-doc/Step44RequestSignature";
 import { runStep44, STEP44_DURATION_MS } from "@/scenes/snaarp-doc/step44-script";
 import type { Tutorial } from "./types";
+import { Step45UndoRedo } from "@/scenes/snaarp-doc/Step45UndoRedo";
+import { runStep45, STEP45_DURATION_MS } from "@/scenes/snaarp-doc/step45-script";
+import { Step46PrintPaint } from "@/scenes/snaarp-doc/Step46PrintPaint";
+import { runStep46, STEP46_DURATION_MS } from "@/scenes/snaarp-doc/step46-script";
+import { Step47Zoom } from "@/scenes/snaarp-doc/Step47Zoom";
+import { runStep47, STEP47_DURATION_MS } from "@/scenes/snaarp-doc/step47-script";
+import { Step48StyleFont } from "@/scenes/snaarp-doc/Step48StyleFont";
+import { runStep48, STEP48_DURATION_MS } from "@/scenes/snaarp-doc/step48-script";
+import { Step49FontSize } from "@/scenes/snaarp-doc/Step49FontSize";
+import { runStep49, STEP49_DURATION_MS } from "@/scenes/snaarp-doc/step49-script";
+import { Step50BoldItalic } from "@/scenes/snaarp-doc/Step50BoldItalic";
+import { runStep50, STEP50_DURATION_MS } from "@/scenes/snaarp-doc/step50-script";
+import { Step51Color } from "@/scenes/snaarp-doc/Step51Color";
+import { runStep51, STEP51_DURATION_MS } from "@/scenes/snaarp-doc/step51-script";
+import { Step52LinkImage } from "@/scenes/snaarp-doc/Step52LinkImage";
+import { runStep52, STEP52_DURATION_MS } from "@/scenes/snaarp-doc/step52-script";
+import { Step53Align } from "@/scenes/snaarp-doc/Step53Align";
+import { runStep53, STEP53_DURATION_MS } from "@/scenes/snaarp-doc/step53-script";
+import { Step54Spacing } from "@/scenes/snaarp-doc/Step54Spacing";
+import { runStep54, STEP54_DURATION_MS } from "@/scenes/snaarp-doc/step54-script";
+import { Step55Lists } from "@/scenes/snaarp-doc/Step55Lists";
+import { runStep55, STEP55_DURATION_MS } from "@/scenes/snaarp-doc/step55-script";
+import { Step56Indent } from "@/scenes/snaarp-doc/Step56Indent";
+import { runStep56, STEP56_DURATION_MS } from "@/scenes/snaarp-doc/step56-script";
+import { Step57ClearSupSub } from "@/scenes/snaarp-doc/Step57ClearSupSub";
+import { runStep57, STEP57_DURATION_MS } from "@/scenes/snaarp-doc/step57-script";
+import { Step58QuoteRuleTable } from "@/scenes/snaarp-doc/Step58QuoteRuleTable";
+import { runStep58, STEP58_DURATION_MS } from "@/scenes/snaarp-doc/step58-script";
+import { Step59FullDrawEmoji } from "@/scenes/snaarp-doc/Step59FullDrawEmoji";
+import { runStep59, STEP59_DURATION_MS } from "@/scenes/snaarp-doc/step59-script";
+import { Step60Modes } from "@/scenes/snaarp-doc/Step60Modes";
+import { runStep60, STEP60_DURATION_MS } from "@/scenes/snaarp-doc/step60-script";
+import { Step61Meet } from "@/scenes/snaarp-doc/Step61Meet";
+import { runStep61, STEP61_DURATION_MS } from "@/scenes/snaarp-doc/step61-script";
+import { Step62VersionHistory } from "@/scenes/snaarp-doc/Step62VersionHistory";
+import { runStep62, STEP62_DURATION_MS } from "@/scenes/snaarp-doc/step62-script";
+import { Step63Apps } from "@/scenes/snaarp-doc/Step63Apps";
+import { runStep63, STEP63_DURATION_MS } from "@/scenes/snaarp-doc/step63-script";
+import { Step64Share } from "@/scenes/snaarp-doc/Step64Share";
+import { runStep64, STEP64_DURATION_MS } from "@/scenes/snaarp-doc/step64-script";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
@@ -360,6 +400,126 @@ export const snaarpDoc: Tutorial = {
       title: "Request a signature",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step44RequestSignature, run: runStep44, durationMs: STEP44_DURATION_MS },
+    },
+    {
+      id: "undo-redo",
+      title: "Undo and redo",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step45UndoRedo, run: runStep45, durationMs: STEP45_DURATION_MS },
+    },
+    {
+      id: "print-paint",
+      title: "Print and Paint format",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step46PrintPaint, run: runStep46, durationMs: STEP46_DURATION_MS },
+    },
+    {
+      id: "zoom",
+      title: "Change the zoom",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step47Zoom, run: runStep47, durationMs: STEP47_DURATION_MS },
+    },
+    {
+      id: "style-font",
+      title: "Paragraph styles and fonts",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step48StyleFont, run: runStep48, durationMs: STEP48_DURATION_MS },
+    },
+    {
+      id: "font-size",
+      title: "Change the font size",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step49FontSize, run: runStep49, durationMs: STEP49_DURATION_MS },
+    },
+    {
+      id: "bold-italic-underline",
+      title: "Bold, italic, underline",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step50BoldItalic, run: runStep50, durationMs: STEP50_DURATION_MS },
+    },
+    {
+      id: "color-highlight",
+      title: "Text color and highlight",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step51Color, run: runStep51, durationMs: STEP51_DURATION_MS },
+    },
+    {
+      id: "link-image",
+      title: "Insert a link and an image",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step52LinkImage, run: runStep52, durationMs: STEP52_DURATION_MS },
+    },
+    {
+      id: "align",
+      title: "Align your text",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step53Align, run: runStep53, durationMs: STEP53_DURATION_MS },
+    },
+    {
+      id: "line-spacing",
+      title: "Line spacing",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step54Spacing, run: runStep54, durationMs: STEP54_DURATION_MS },
+    },
+    {
+      id: "toolbar-lists",
+      title: "Lists",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step55Lists, run: runStep55, durationMs: STEP55_DURATION_MS },
+    },
+    {
+      id: "indent-outdent",
+      title: "Indent and outdent",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step56Indent, run: runStep56, durationMs: STEP56_DURATION_MS },
+    },
+    {
+      id: "clear-sup-sub",
+      title: "Clear formatting, superscript and subscript",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step57ClearSupSub, run: runStep57, durationMs: STEP57_DURATION_MS },
+    },
+    {
+      id: "quote-rule-table",
+      title: "Quote, horizontal line and table",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step58QuoteRuleTable, run: runStep58, durationMs: STEP58_DURATION_MS },
+    },
+    {
+      id: "full-draw-emoji",
+      title: "Full screen, draw and emoji",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step59FullDrawEmoji, run: runStep59, durationMs: STEP59_DURATION_MS },
+    },
+    {
+      id: "editing-modes",
+      title: "Editing, Suggesting and Viewing modes",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step60Modes, run: runStep60, durationMs: STEP60_DURATION_MS },
+    },
+    {
+      id: "meet",
+      title: "Start or join a meeting",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step61Meet, run: runStep61, durationMs: STEP61_DURATION_MS },
+    },
+    {
+      id: "header-version-history",
+      title: "Check version history",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step62VersionHistory, run: runStep62, durationMs: STEP62_DURATION_MS },
+    },
+    {
+      id: "apps-panel",
+      title: "Open the Snaarp apps panel",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step63Apps, run: runStep63, durationMs: STEP63_DURATION_MS },
+    },
+    {
+      id: "header-share",
+      title: "Share your document",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step64Share, run: runStep64, durationMs: STEP64_DURATION_MS },
     },
   ],
   completion: {
