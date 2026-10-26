@@ -45,9 +45,9 @@ export const EIV_DECK: SlideData[] = [
     id: "e3",
     kind: "elements",
     elements: [
-      title("s3-title", 8, 17, 84, "Next steps", "center"),
-      { id: "s3-bar", kind: "shape", shape: "rounded", fill: BLUE, x: 45, y: 31, w: 10, h: 0.9 },
-      { id: "s3-sub", kind: "text", style: "subtitle", x: 8, y: 34.5, w: 84, h: 5, paras: ["hello@acme-studio.com"], align: "center" },
+      title("s3-title", 8, 17, 54, "Next steps", "center"),
+      { id: "s3-bar", kind: "shape", shape: "rounded", fill: BLUE, x: 30, y: 31, w: 10, h: 0.9 },
+      { id: "s3-sub", kind: "text", style: "subtitle", x: 8, y: 34.5, w: 54, h: 5, paras: ["hello@acme-studio.com"], align: "center" },
     ],
   },
 ];

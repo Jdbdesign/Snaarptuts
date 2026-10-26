@@ -50,7 +50,7 @@ function ElementBox({ el, selected, view }: { el: SlideEl; selected: boolean; vi
   const isLine = el.kind === "line";
   return (
     <div
-      data-tl={`el-${el.id}`}
+      data-tl={view ? `el-${el.id}` : undefined}
       onClick={onClick}
       className="absolute"
       style={{ left: cq(el.x), top: cq(el.y), width: cq(el.w), height: isLine ? cq(0.9) : cq(el.h), marginTop: isLine ? cq(-0.45) : 0 }}
@@ -199,7 +199,7 @@ function TableBody({ el, view }: { el: TableEl; view?: SlideViewState }) {
           return (
             <div
               key={`${r}-${c}`}
-              data-tl={`cell-${el.id}-${r}-${c}`}
+              data-tl={view ? `cell-${el.id}-${r}-${c}` : undefined}
               className={`relative flex items-center overflow-hidden whitespace-nowrap border-[#D5D8E0] px-[1.2cqw] ${r > 0 ? "border-t" : ""} ${c > 0 ? "border-l" : ""} ${r === 0 ? "bg-[#EEF0F4] font-semibold" : ""} ${
                 editing ? "z-10 shadow-[inset_0_0_0_0.22cqw_#2B6FEB]" : ""
               }`}

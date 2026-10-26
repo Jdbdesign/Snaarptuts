@@ -40,6 +40,8 @@ import { Step20 } from "@/scenes/snaarp-slides/step20/Step20";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/snaarp-slides/step20/script";
 import { Step21 } from "@/scenes/snaarp-slides/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/snaarp-slides/step21/script";
+import { Step22 } from "@/scenes/snaarp-slides/step22/Step22";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/snaarp-slides/step22/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -176,6 +178,12 @@ export const snaarpSlides: Tutorial = {
       title: "Select all",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step21, run: runStep21, durationMs: STEP21_DURATION_MS },
+    },
+    {
+      id: "cut-copy-paste",
+      title: "Cut, copy and paste",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step22, run: runStep22, durationMs: STEP22_DURATION_MS },
     },
   ],
   groups: [
