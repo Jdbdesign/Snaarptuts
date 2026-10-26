@@ -17,6 +17,8 @@ type Props = {
   /** Letter in the avatar, top right. */
   avatar?: string;
   onNavigate?: (menuId: string) => void;
+  /** Hide the 240px menu column on narrow screens too (wide pages such as the Users table need the room). */
+  hideMenuOnNarrow?: boolean;
   children: ReactNode;
 };
 
@@ -25,13 +27,14 @@ type Props = {
  * with a purple active item, small top bar. It is NOT the owner portal (AdminLayout): it has
  * purple actions and a soft-purple active item instead of a black pill.
  */
-export function AdminPanelLayout({ tl, active, title, avatar = "S", onNavigate, children }: Props) {
+export function AdminPanelLayout({ tl, active, title, avatar = "S", onNavigate, hideMenuOnNarrow, children }: Props) {
   const narrow = useNarrow();
 
   return (
     <div className="relative flex h-full w-full overflow-hidden bg-white text-ink">
       {!narrow && <IconRail items={PANEL_RAIL_ITEMS} />}
 
+      {!(narrow && hideMenuOnNarrow) && (
       <nav className="flex h-full w-[240px] shrink-0 flex-col border-r border-[#F0F0F4] bg-white px-3.5 pt-[18px]">
         <div className="flex items-center gap-2.5 px-1">
           <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-brand text-white">
@@ -66,6 +69,7 @@ export function AdminPanelLayout({ tl, active, title, avatar = "S", onNavigate, 
           <p className="mt-3.5 pl-[29px] text-[12px] text-[#9aa0ab]">Collapse</p>
         </div>
       </nav>
+      )}
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-[60px] shrink-0 items-center justify-between border-b border-[#F0F0F4] bg-white pl-8 pr-9">
