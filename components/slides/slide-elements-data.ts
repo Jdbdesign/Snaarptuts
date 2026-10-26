@@ -36,7 +36,7 @@ export const EIV_DECK: SlideData[] = [
     id: "e2",
     kind: "elements",
     elements: [
-      title("s2-title", 8, 6, 60, "Our services"),
+      title("s2-title", 8, 6, 44, "Our services"),
       { id: "s2-bullets", kind: "text", style: "body", bullets: true, x: 8, y: 17, w: 48, h: 16, paras: ["Brand identity", "Product design", "Launch campaigns"] },
       { id: "s2-shape", kind: "shape", shape: "rounded", fill: BLUE, x: 66, y: 17, w: 24, h: 15 },
     ],
