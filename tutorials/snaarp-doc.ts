@@ -78,6 +78,8 @@ import { Step39ToolsMenu } from "@/scenes/snaarp-doc/Step39ToolsMenu";
 import { runStep39, STEP39_DURATION_MS } from "@/scenes/snaarp-doc/step39-script";
 import { Step40WordCount } from "@/scenes/snaarp-doc/Step40WordCount";
 import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-doc/step40-script";
+import { Step41SignDocument } from "@/scenes/snaarp-doc/Step41SignDocument";
+import { runStep41, STEP41_DURATION_MS } from "@/scenes/snaarp-doc/step41-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -329,6 +331,12 @@ export const snaarpDoc: Tutorial = {
       title: "Check your word count",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step40WordCount, run: runStep40, durationMs: STEP40_DURATION_MS },
+    },
+    {
+      id: "sign-document",
+      title: "Sign your document",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step41SignDocument, run: runStep41, durationMs: STEP41_DURATION_MS },
     },
   ],
   completion: {
