@@ -68,11 +68,13 @@ import { Step34 } from "@/scenes/snaarp-slides/step34/Step34";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/snaarp-slides/step34/script";
 import { Step35 } from "@/scenes/snaarp-slides/step35/Step35";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-slides/step35/script";
+import { Step36 } from "@/scenes/snaarp-slides/step36/Step36";
+import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-slides/step36/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
 /**
- * Snaarp Slides ("How to use Snaarp Slides"): this round is the File menu. Recording: ref/slides/Snaarp_Slides_file.mp4
+ * Snaarp Slides ("How to use Snaarp Slides"): File menu (steps 1-19), then the Edit, View and Insert menus (steps 20-36). Recording: ref/slides/Snaarp_Slides_file.mp4
  * (1006x480, 3:48, git-ignored). Later rounds add Edit, View, Insert, Format, Slide, Arrange and Tools.
  * The completion card follows the last step in this list, so adding menus later moves it automatically.
  */
@@ -289,6 +291,12 @@ export const snaarpSlides: Tutorial = {
       url: SLIDES_URLS.renamed,
       scene: { Component: Step35, run: runStep35, durationMs: STEP35_DURATION_MS },
     },
+    {
+      id: "coming-soon",
+      title: "Features coming soon",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step36, run: runStep36, durationMs: STEP36_DURATION_MS },
+    },
   ],
   groups: [
     { title: "Getting started", from: "open-slides" },
@@ -298,6 +306,6 @@ export const snaarpSlides: Tutorial = {
     { title: "Insert", from: "text-box" },
   ],
   completion: {
-    text: "You know your way around Snaarp Slides and its File menu.",
+    text: "You know your way around Snaarp Slides and its File, Edit, View and Insert menus.",
   },
 };
