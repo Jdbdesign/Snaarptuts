@@ -163,6 +163,26 @@ export function insertZone(tl: Timeline, kind: ZoneKind) {
   markEdited(tl);
 }
 
+/** Format > Headers & footers: both zones appear with their dotted lines; the caret is in the header. */
+export function insertHeaderFooter(tl: Timeline) {
+  setEditor(tl, (s) => ({ ...s, caret: null, sel: null }));
+  tl.setVar("pageHeader", { text: "", focus: true } satisfies ZoneState);
+  tl.setVar("pageFooter", { text: "", focus: false } satisfies ZoneState);
+  markEdited(tl);
+}
+
+/** Scroll the page so the zone shows, glide to it and click: the caret moves into it (and leaves the other zone). */
+export async function clickZone(tl: Timeline, kind: ZoneKind, opts: { ms?: number } = {}) {
+  await tl.scrollPanelTo("[data-tl=editor-canvas]", kind === "header" ? "top" : "bottom", 900);
+  const sel = `[data-tl=page-${kind}]`;
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 800, dx: 40 });
+  await tl.click(sel);
+  (["header", "footer"] as const).forEach((k) => {
+    const zone = getZone(tl, k);
+    if (zone) tl.setVar(zoneVar(k), { ...zone, focus: k === kind });
+  });
+}
+
 /** Type into the header or footer, one character at a time. */
 export async function typeInZone(tl: Timeline, kind: ZoneKind, text: string, opts: { msPerChar?: number } = {}) {
   for (let n = 1; n <= text.length; n++) {

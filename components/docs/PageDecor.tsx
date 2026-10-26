@@ -58,7 +58,7 @@ function Zone({ kind, zone }: { kind: "header" | "footer"; zone: ZoneState }) {
       }`}
       style={{ fontFamily: "Arial, Helvetica, sans-serif" }}
     >
-      {zone.text}
+      <span data-tl={`page-${kind}-text`}>{zone.text}</span>
       {zone.focus && <span className="doc-caret text-[#111]" />}
     </div>
   );

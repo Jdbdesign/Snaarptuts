@@ -3,7 +3,8 @@ import { getEditor, markEdited, setEditor } from "./editor-timeline";
 import { placeCaret, selectRange } from "./editor-state";
 import { ALIGN_OF, FORMAT_MENU, FORMAT_OF, STYLE_OF, type FormatItemId, type FormatSubItemId } from "./format-menu-data";
 import type { FormatSub } from "./FormatMenu";
-import { changeIndent, selectText, setAlign, setHeading, setList, toggleFormat } from "./format-state";
+import { insertHeaderFooter, openPageNumbers } from "./insert-timeline";
+import { changeIndent, clearFormats, selectText, setAlign, setHeading, setList, toggleFormat } from "./format-state";
 
 /*
  * Timeline helpers that drive the Format menu and the formatting it does (Snaarp Doc steps 31 to 34). The scene
@@ -92,6 +93,28 @@ export async function chooseFormatSub(
   tl.clearHighlight();
   closeFormatMenu(tl);
   runSubAction(tl, id);
+}
+
+/** What a top-level Format menu item does (the ones without a submenu). Columns is greyed out and does nothing. */
+function runItemAction(tl: Timeline, id: FormatItemId) {
+  if (id === "headers") insertHeaderFooter(tl);
+  if (id === "page-numbers") openPageNumbers(tl);
+  if (id === "clear") {
+    setEditor(tl, clearFormats);
+    markEdited(tl);
+  }
+}
+
+/** With the Format menu open: move onto an item that has no submenu, ring it, click it, close the menu and run it. */
+export async function chooseFormatItem(tl: Timeline, id: FormatItemId, opts: { ms?: number } = {}) {
+  if (id === "columns") throw new Error('Format menu: "columns" is greyed out');
+  await hoverFormatItem(tl, id, { ms: opts.ms ?? 450 });
+  tl.highlight(item(id));
+  await tl.wait(150);
+  await tl.click(item(id));
+  tl.clearHighlight();
+  closeFormatMenu(tl);
+  runItemAction(tl, id);
 }
 
 // ---- cursor and selection inside the text ---------------------------------------------------------

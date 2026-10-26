@@ -68,6 +68,8 @@ import { Step34AlignIndent } from "@/scenes/snaarp-doc/Step34AlignIndent";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/snaarp-doc/step34-script";
 import { Step35Lists } from "@/scenes/snaarp-doc/Step35Lists";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-doc/step35-script";
+import { Step36HeaderFooter } from "@/scenes/snaarp-doc/Step36HeaderFooter";
+import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-doc/step36-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -289,6 +291,12 @@ export const snaarpDoc: Tutorial = {
       title: "Bullets and numbered lists",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step35Lists, run: runStep35, durationMs: STEP35_DURATION_MS },
+    },
+    {
+      id: "headers-footers",
+      title: "Headers, footers and page numbers",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step36HeaderFooter, run: runStep36, durationMs: STEP36_DURATION_MS },
     },
   ],
   completion: {
