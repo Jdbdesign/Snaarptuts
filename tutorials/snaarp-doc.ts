@@ -123,6 +123,8 @@ import { Step61Meet } from "@/scenes/snaarp-doc/Step61Meet";
 import { runStep61, STEP61_DURATION_MS } from "@/scenes/snaarp-doc/step61-script";
 import { Step62VersionHistory } from "@/scenes/snaarp-doc/Step62VersionHistory";
 import { runStep62, STEP62_DURATION_MS } from "@/scenes/snaarp-doc/step62-script";
+import { Step63Apps } from "@/scenes/snaarp-doc/Step63Apps";
+import { runStep63, STEP63_DURATION_MS } from "@/scenes/snaarp-doc/step63-script";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
@@ -504,6 +506,12 @@ export const snaarpDoc: Tutorial = {
       title: "Check version history",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step62VersionHistory, run: runStep62, durationMs: STEP62_DURATION_MS },
+    },
+    {
+      id: "apps-panel",
+      title: "Open the Snaarp apps panel",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step63Apps, run: runStep63, durationMs: STEP63_DURATION_MS },
     },
   ],
   completion: {

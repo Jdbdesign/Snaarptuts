@@ -180,6 +180,7 @@ export const APPS = {
     { id: "projects", label: "Project", logo: "projects" },
     { id: "zeus", label: "Zeus", logo: "zeus" },
     { id: "verifyrit", label: "Verifyrit", logo: "verifyrit" },
+    { id: "360", label: "360", logo: "360" },
   ] as { id: string; label: string; logo: LogoName; current?: boolean }[],
 };
 
