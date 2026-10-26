@@ -8,6 +8,8 @@ import { Step4 } from "@/scenes/snaarp-slides/step4/Step4";
 import { runStep4, STEP4_DURATION_MS } from "@/scenes/snaarp-slides/step4/script";
 import { Step5 } from "@/scenes/snaarp-slides/step5/Step5";
 import { runStep5, STEP5_DURATION_MS } from "@/scenes/snaarp-slides/step5/script";
+import { Step6 } from "@/scenes/snaarp-slides/step6/Step6";
+import { runStep6, STEP6_DURATION_MS } from "@/scenes/snaarp-slides/step6/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -48,6 +50,12 @@ export const snaarpSlides: Tutorial = {
       title: "Open a presentation",
       url: SLIDES_URLS.editor,
       scene: { Component: Step5, run: runStep5, durationMs: STEP5_DURATION_MS },
+    },
+    {
+      id: "import",
+      title: "Import slides",
+      url: SLIDES_URLS.editor,
+      scene: { Component: Step6, run: runStep6, durationMs: STEP6_DURATION_MS },
     },
   ],
   groups: [
