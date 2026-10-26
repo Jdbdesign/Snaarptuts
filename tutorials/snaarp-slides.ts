@@ -4,6 +4,8 @@ import { Step2 } from "@/scenes/snaarp-slides/step2/Step2";
 import { runStep2, STEP2_DURATION_MS } from "@/scenes/snaarp-slides/step2/script";
 import { Step3 } from "@/scenes/snaarp-slides/step3/Step3";
 import { runStep3, STEP3_DURATION_MS } from "@/scenes/snaarp-slides/step3/script";
+import { Step4 } from "@/scenes/snaarp-slides/step4/Step4";
+import { runStep4, STEP4_DURATION_MS } from "@/scenes/snaarp-slides/step4/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -32,6 +34,12 @@ export const snaarpSlides: Tutorial = {
       title: "Meet the File menu",
       url: SLIDES_URLS.editor,
       scene: { Component: Step3, run: runStep3, durationMs: STEP3_DURATION_MS },
+    },
+    {
+      id: "new",
+      title: "Start something new",
+      url: SLIDES_URLS.editor,
+      scene: { Component: Step4, run: runStep4, durationMs: STEP4_DURATION_MS },
     },
   ],
   groups: [
