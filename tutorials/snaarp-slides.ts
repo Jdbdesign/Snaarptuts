@@ -22,6 +22,8 @@ import { Step11 } from "@/scenes/snaarp-slides/step11/Step11";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/snaarp-slides/step11/script";
 import { Step12 } from "@/scenes/snaarp-slides/step12/Step12";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/snaarp-slides/step12/script";
+import { Step13 } from "@/scenes/snaarp-slides/step13/Step13";
+import { runStep13, STEP13_DURATION_MS } from "@/scenes/snaarp-slides/step13/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -104,6 +106,12 @@ export const snaarpSlides: Tutorial = {
       title: "Move it to a folder",
       url: SLIDES_URLS.editor,
       scene: { Component: Step12, run: runStep12, durationMs: STEP12_DURATION_MS },
+    },
+    {
+      id: "version-history",
+      title: "Use version history",
+      url: SLIDES_URLS.editor,
+      scene: { Component: Step13, run: runStep13, durationMs: STEP13_DURATION_MS },
     },
   ],
   groups: [
