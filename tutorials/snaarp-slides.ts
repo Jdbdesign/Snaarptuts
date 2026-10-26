@@ -36,6 +36,8 @@ import { Step18 } from "@/scenes/snaarp-slides/step18/Step18";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/snaarp-slides/step18/script";
 import { Step19 } from "@/scenes/snaarp-slides/step19/Step19";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-slides/step19/script";
+import { Step20 } from "@/scenes/snaarp-slides/step20/Step20";
+import { runStep20, STEP20_DURATION_MS } from "@/scenes/snaarp-slides/step20/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -161,10 +163,17 @@ export const snaarpSlides: Tutorial = {
       url: SLIDES_URLS.editor,
       scene: { Component: Step19, run: runStep19, durationMs: STEP19_DURATION_MS },
     },
+    {
+      id: "undo-redo",
+      title: "Undo and redo",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step20, run: runStep20, durationMs: STEP20_DURATION_MS },
+    },
   ],
   groups: [
     { title: "Getting started", from: "open-slides" },
     { title: "File", from: "meet-file-menu" },
+    { title: "Edit", from: "undo-redo" },
   ],
   completion: {
     text: "You know your way around Snaarp Slides and its File menu.",

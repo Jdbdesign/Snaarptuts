@@ -1,3 +1,4 @@
+import { SlideElements, type SlideViewState } from "./SlideElements";
 import { SLIDE_PLACEHOLDERS, type SlideData } from "./slides-data";
 
 type Props = {
@@ -6,20 +7,24 @@ type Props = {
   ratio: number;
   /** Fills its parent's height (the canvas) or its parent's width (a thumbnail). */
   className?: string;
+  /** Selection, text editing, find marks and guides: only the big canvas passes this (steps 20-36). */
+  view?: SlideViewState;
 };
 
 /**
  * One slide, drawn at any size: everything is sized in container-query units (cqw) of the slide itself,
  * so the same markup serves the big canvas and the thumbnails.
  */
-export function SlideView({ slide, ratio, className = "" }: Props) {
+export function SlideView({ slide, ratio, className = "", view }: Props) {
   return (
     <div
       data-slide={slide.id}
       className={`relative overflow-hidden bg-white [container-type:inline-size] ${className}`}
       style={{ aspectRatio: String(ratio) }}
+      // Clicking the empty page clears the selection (elements stop the click before it gets here).
+      onClick={view?.onSelect ? () => view.onSelect?.(null) : undefined}
     >
-      <Content slide={slide} />
+      {slide.elements ? <SlideElements elements={slide.elements} view={view} ratio={ratio} /> : <Content slide={slide} />}
     </div>
   );
 }

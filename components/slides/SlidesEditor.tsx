@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Icon, ProductLogo } from "@/components/icons";
 import { useNarrow } from "@/lib/useNarrow";
 import { SlideView } from "./SlideView";
+import type { SlideViewState } from "./SlideElements";
 import { SLIDES_NARROW_ZOOM } from "./SlidesLayout";
 import { EDITOR, MENUS, RAIL, SHELL, TOOLBAR, TOOLBAR_SELECTS, type SlideData } from "./slides-data";
 
@@ -26,13 +27,32 @@ type Props = {
   sidePanel?: ReactNode;
   /** Menus and dialogs. They sit inside the narrow-screen zoom, so they share the editor's coordinates. */
   overlay?: ReactNode;
+  /** Edit, View and Insert dropdowns, hung under their menu label (keyed by menu id). */
+  dropdowns?: Record<string, ReactNode>;
+  /** The toolbar tool that has the blue "on" look (default: the pointer). */
+  activeTool?: string;
+  /** What the toolbar's zoom box reads (default "100%"). */
+  zoomLabel?: string;
+  /** Size of the page on the canvas: 1 fits the canvas, 1.5 is a half larger and the canvas scrolls. */
+  zoom?: number;
+  /** View > Show ruler: strips along the top and left of the page, with a tick where the cursor is (`rulerMark`, in cqw). */
+  rulers?: boolean;
+  rulerMark?: { x: number; y: number } | null;
+  /** Selection, text editing, find marks and guides on the big page (steps 20-36). */
+  view?: SlideViewState;
+  /** The speaker-notes panel under the canvas, and the note's first words for the bar at the bottom. */
+  notesPanel?: ReactNode;
+  notesText?: string;
+  /** Width of the right-hand panel when `sidePanel` is shown (default 290). */
+  panelWidth?: number;
 };
 
 /**
  * The Snaarp Slides editor: header (title, menu bar, toolbar), the slide panel on the left, the canvas, the properties panel
- * and icon rail on the right, and the speaker-notes bar. Later menus (Edit, View, Insert...) hang their dropdowns in `overlay`.
+ * and icon rail on the right, and the speaker-notes bar. Edit, View and Insert hang their dropdowns under their menu label (`dropdowns`);
+ * File and the dialogs sit in `overlay`.
  * Hooks for scripts: deck-title, deck-star, editor-menu-<id>, tool-<id>, slide-panel, thumb-<n>, new-slide, editor-canvas,
- * canvas-slide, editor-share, rail-<id>, notes-bar.
+ * canvas-slide, editor-share, rail-<id>, notes-bar, ruler-top, ruler-left.
  */
 export function SlidesEditor({
   title,
@@ -46,6 +66,16 @@ export function SlidesEditor({
   ratio,
   sidePanel,
   overlay,
+  dropdowns,
+  activeTool,
+  zoomLabel,
+  zoom = 1,
+  rulers = false,
+  rulerMark = null,
+  view,
+  notesPanel,
+  notesText = "",
+  panelWidth = 290,
 }: Props) {
   const narrow = useNarrow();
   const current = slides[Math.min(selected, slides.length - 1)];
@@ -99,9 +129,10 @@ export function SlidesEditor({
             <span
               key={m.id}
               data-tl={`editor-menu-${m.id}`}
-              className={`flex h-[20px] items-center rounded-[4px] px-[7px] transition-colors data-[hover=true]:bg-[#F1F2F5] ${openMenu === m.id ? "bg-[#E9EAEE]" : ""}`}
+              className={`relative flex h-[20px] items-center rounded-[4px] px-[7px] transition-colors data-[hover=true]:bg-[#F1F2F5] ${openMenu === m.id ? "bg-[#E9EAEE]" : ""}`}
             >
               {m.label}
+              {dropdowns?.[m.id]}
             </span>
           ))}
         </nav>
@@ -117,10 +148,10 @@ export function SlidesEditor({
                     data-tl={`tool-${t.id}`}
                     className={`flex h-[24px] shrink-0 items-center justify-center rounded-[4px] text-[#1f2430] transition-colors data-[hover=true]:bg-[#F1F2F5] ${
                       t.label ? "gap-[3px] px-[7px] text-[9px]" : "w-[26px]"
-                    } ${t.active ? "bg-[#DCE9FC] text-[#2B6FEB]" : ""}`}
+                    } ${(activeTool ? t.id === activeTool : t.active) ? "bg-[#DCE9FC] text-[#2B6FEB]" : ""}`}
                   >
                     {t.icon && <Icon name={t.icon} size={13} />}
-                    {t.label}
+                    {t.id === "zoom" && zoomLabel ? zoomLabel : t.label}
                     {t.label && <Icon name="chevronDown" size={8} />}
                   </span>
                 ))}
@@ -162,13 +193,19 @@ export function SlidesEditor({
                 <div className="relative h-full">{sidePanel}</div>
               </aside>
             )}
-            <div data-tl="editor-canvas" className="flex min-w-0 flex-1 items-center justify-center bg-[#EEF1F5] [container-type:size]">
-              <div data-tl="canvas-slide" className="shadow-[0_1px_3px_rgba(17,24,39,0.08)]" style={{ width: `min(73cqw, calc(71cqh * ${ratio}))` }}>
-                <SlideView slide={current} ratio={ratio} />
+            <div className="flex min-w-0 flex-1 flex-col">
+              <div data-tl="editor-canvas" className="no-scrollbar relative flex min-h-0 min-w-0 flex-1 overflow-auto bg-[#EEF1F5] [container-type:size]">
+                <div className="m-auto shrink-0 p-[18px]">
+                  <div data-tl="canvas-slide" className="relative shadow-[0_1px_3px_rgba(17,24,39,0.08)]" style={{ width: `calc(min(73cqw, calc(71cqh * ${ratio})) * ${zoom})` }}>
+                    <SlideView slide={current} ratio={ratio} view={view} />
+                    {rulers && <Rulers ratio={ratio} mark={rulerMark} />}
+                  </div>
+                </div>
               </div>
+              {notesPanel}
             </div>
             {!narrow && (
-              <aside data-tl="right-panel" className="flex shrink-0 border-l border-[#E3E6EC] bg-white transition-[width] duration-300" style={{ width: sidePanel ? 290 : 253 }}>
+              <aside data-tl="right-panel" className="flex shrink-0 border-l border-[#E3E6EC] bg-white transition-[width] duration-300" style={{ width: sidePanel ? panelWidth : 253 }}>
                 <div className="relative min-w-0 flex-1">
                   {sidePanel ?? (
                     <p className="absolute inset-x-0 top-[60px] mx-auto w-[150px] text-center text-[9.5px] leading-[13px] text-[#6b7280]">{EDITOR.properties}</p>
@@ -192,11 +229,42 @@ export function SlidesEditor({
             <Icon name="grid4" size={10} />
             <Icon name="chevronLeft" size={10} />
           </span>
-          <span data-tl="notes-bar" className="pl-[11px]">{EDITOR.notes}</span>
+          <span data-tl="notes-bar" className={`truncate pl-[11px] ${notesPanel ? "opacity-0" : notesText ? "text-[#1f2430]" : ""}`}>{notesText || EDITOR.notes}</span>
         </footer>
 
         {overlay}
       </div>
     </div>
+  );
+}
+
+const RULER = 960; // the page is 960 units wide on the ruler
+
+/** The strips along the top and left of the page (View > Show ruler). `mark` is the cursor's spot on the page in cqw. */
+function Rulers({ ratio, mark }: { ratio: number; mark: { x: number; y: number } | null }) {
+  const across = Array.from({ length: Math.floor(RULER / 50) + 1 }, (_, i) => i * 50);
+  const down = Array.from({ length: Math.floor(RULER / ratio / 50) + 1 }, (_, i) => i * 50);
+  const strip = "absolute bg-[#F7F8FA] text-[5.5px] leading-none text-[#8b909c]";
+  return (
+    <>
+      <div data-tl="ruler-top" className={`${strip} bottom-full left-0 right-0 mb-[1px] h-[11px] border-b border-[#DADDE3]`}>
+        {across.map((u) => (
+          <span key={u} className="absolute bottom-0 flex flex-col items-start" style={{ left: `${(u / RULER) * 100}%` }}>
+            {u % 100 === 0 && <span className="translate-x-[2px] pb-[1px]">{u}</span>}
+            <i className={`block w-px bg-[#B9BDC8] ${u % 100 === 0 ? "h-[4px]" : "h-[2.5px]"}`} />
+          </span>
+        ))}
+        {mark && <i className="absolute inset-y-0 block w-px bg-[#2B6FEB]" style={{ left: `${Math.min(100, Math.max(0, mark.x))}%` }} />}
+      </div>
+      <div data-tl="ruler-left" className={`${strip} bottom-0 right-full top-0 mr-[1px] w-[11px] border-r border-[#DADDE3]`}>
+        {down.map((u) => (
+          <span key={u} className="absolute right-0 flex items-center" style={{ top: `${(u / (RULER / ratio)) * 100}%` }}>
+            {u % 100 === 0 && u > 0 && <span className="pr-[1px]">{u}</span>}
+            <i className={`block h-px bg-[#B9BDC8] ${u % 100 === 0 ? "w-[4px]" : "w-[2.5px]"}`} />
+          </span>
+        ))}
+        {mark && <i className="absolute inset-x-0 block h-px bg-[#2B6FEB]" style={{ top: `${Math.min(100, Math.max(0, (mark.y / (100 / ratio)) * 100))}%` }} />}
+      </div>
+    </>
   );
 }

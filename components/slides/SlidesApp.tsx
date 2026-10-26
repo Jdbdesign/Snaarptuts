@@ -9,14 +9,25 @@ import { useTimelineVar } from "@/lib/useTimelineVar";
 import { EmailCollabDialog, EmailFileDialog, MoveDialog, PublishDialog } from "./dialogs-share";
 import { ImportDialog, OpenDialog, StartDialog, TemplatesDialog } from "./dialogs-start";
 import { DetailsDialog, NameVersionDialog, PageSetupDialog, TrashDialog, VersionPanel } from "./dialogs-manage";
+import { ChartPanel, InsertImageDialog } from "./dialogs-insert";
 import { HomeScreen, StarredScreen, TrashScreen } from "./HomeScreens";
 import { Spinner } from "./parts";
 import { SlidesEditor } from "./SlidesEditor";
+import { SlidesDropdown } from "./SlidesDropdown";
 import { SlidesFileMenu } from "./SlidesFileMenu";
+import { SlidesFindPanel } from "./SlidesFindPanel";
+import { SlidesFullScreen } from "./SlidesFullScreen";
+import { SpeakerNotes } from "./SpeakerNotes";
+import type { SlideViewState } from "./SlideElements";
+import { elementsOf, findMatches, type SlideEl } from "./slide-elements";
+import type { CellEdit, TextEdit } from "./slides-edit";
+import { EIV_SELECTED } from "./slide-elements-data";
+import { ZOOM_FACTOR, ZOOM_LABEL } from "./slides-menus-data";
 import { SlidesLayout } from "./SlidesLayout";
 import { BLANK_SLIDE, LOADING, PRINT_SLIDES, TRASH, type FileSubId, type NavId, type SlideData } from "./slides-data";
 
 const ONE_SLIDE: SlideData[] = [BLANK_SLIDE];
+const NO_IDS: string[] = [];
 
 type Props = {
   tl: Timeline;
@@ -24,6 +35,10 @@ type Props = {
   startStage?: "home" | "editor";
   /** The presentation's name until the scene variable `title` is set (a rename). */
   startTitle: string;
+  /** The deck the step starts with (default: one blank title slide). Steps 20-36 pass the three-slide deck with element content. */
+  startSlides?: SlideData[];
+  /** The slide that is selected at the start (default: the first). */
+  startSelected?: number;
 };
 
 /**
@@ -34,9 +49,13 @@ type Props = {
  * ("" | selected | typing, text in `field:title`), `slides`, `selected`, `ratio`, `starred`, `fileMenu`, `fileSub`, `fileTip`,
  * `offline`, `dialog` (start | templates | open | import | publish | emailFile | emailCollab | move | nameVersion | details | pageSetup | trash),
  * `share`, `print`, `versionsOpen`, `trashItems`, `docToast`.
+ * Edit, View and Insert (steps 20-36) add: `menuOpen` (edit | view | insert), `menuSub`, `menuTip`, `sel` (selected element ids), `clip`,
+ * `undoStack` / `redoStack`, `textEdit` + `field:slideText`, `cellEdit` + `field:slideCell`, `findOpen` + `field:find` + `field:replace`
+ * + `findMatchCase` + `findOrigin` + `findIndex`, `notesOpen` + `field:notes`, `rulers`, `rulerMark`, `guides`, `snap`, `zoom`, `tool`,
+ * `draw`, `marker`, `fullScreen` + `fsHint` + `fsKey` + `fsPressed` + `fsArrow` + `fsSlide`, `imagePick`.
  * The root carries data-scroller, where the timeline looks up targets.
  */
-export function SlidesApp({ tl, startStage = "editor", startTitle }: Props) {
+export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides = ONE_SLIDE, startSelected = 0 }: Props) {
   const narrow = useNarrow();
   const intro = useTimelineVar(tl, "intro", 0);
   const fade = useTimelineVar(tl, "fade", false);
@@ -46,8 +65,8 @@ export function SlidesApp({ tl, startStage = "editor", startTitle }: Props) {
   const title = useTimelineVar(tl, "title", startTitle);
   const titleEdit = useTimelineVar<string>(tl, "titleEdit", "");
   const titleTyped = useTimelineVar<string | null>(tl, "field:title", null);
-  const slides = useTimelineVar<SlideData[]>(tl, "slides", ONE_SLIDE);
-  const selected = useTimelineVar(tl, "selected", 0);
+  const slides = useTimelineVar<SlideData[]>(tl, "slides", startSlides);
+  const selected = useTimelineVar(tl, "selected", startSelected);
   const ratio = useTimelineVar(tl, "ratio", 16 / 9);
   const starred = useTimelineVar(tl, "starred", false);
   const fileMenu = useTimelineVar(tl, "fileMenu", false);
@@ -56,6 +75,56 @@ export function SlidesApp({ tl, startStage = "editor", startTitle }: Props) {
   const offline = useTimelineVar(tl, "offline", false);
   const versionsOpen = useTimelineVar(tl, "versionsOpen", false);
   const trashItems = useTimelineVar<{ name: string; meta: string }[]>(tl, "trashItems", TRASH.items);
+
+  const menuOpen = useTimelineVar<string>(tl, "menuOpen", "");
+  const menuSub = useTimelineVar<string>(tl, "menuSub", "");
+  const menuTip = useTimelineVar<string>(tl, "menuTip", "");
+  const sel = useTimelineVar<string[]>(tl, "sel", NO_IDS);
+  const clip = useTimelineVar<SlideEl[] | null>(tl, "clip", null);
+  const textEdit = useTimelineVar<TextEdit | null>(tl, "textEdit", null);
+  const typed = useTimelineVar(tl, "field:slideText", "");
+  const cellEdit = useTimelineVar<CellEdit | null>(tl, "cellEdit", null);
+  const cellTyped = useTimelineVar(tl, "field:slideCell", "");
+  const findOpen = useTimelineVar(tl, "findOpen", false);
+  const findQuery = useTimelineVar(tl, "field:find", "");
+  const findCase = useTimelineVar(tl, "findMatchCase", false);
+  const findOrigin = useTimelineVar(tl, "findOrigin", EIV_SELECTED);
+  const findIndex = useTimelineVar(tl, "findIndex", 0);
+  const notesOpen = useTimelineVar(tl, "notesOpen", false);
+  const notesText = useTimelineVar(tl, "field:notes", "");
+  const rulers = useTimelineVar(tl, "rulers", false);
+  const rulerMark = useTimelineVar<{ x: number; y: number } | null>(tl, "rulerMark", null);
+  const guides = useTimelineVar(tl, "guides", false);
+  const snap = useTimelineVar<{ v?: number; h?: number } | null>(tl, "snap", null);
+  const zoom = useTimelineVar(tl, "zoom", "100");
+  const tool = useTimelineVar(tl, "tool", "select");
+  const draw = useTimelineVar<{ x: number; y: number; w: number; h: number } | null>(tl, "draw", null);
+  const marker = useTimelineVar<{ x: number; y: number } | null>(tl, "marker", null);
+
+  const matches = findOpen && findQuery ? findMatches(slides, findOrigin, findQuery, findCase) : [];
+  const view: SlideViewState = {
+    selected: sel,
+    editing: textEdit ? { ...textEdit, typed } : null,
+    cell: cellEdit ? { ...cellEdit, typed: cellTyped } : null,
+    find: findOpen && findQuery ? { query: findQuery, matchCase: findCase, current: matches[Math.min(findIndex, matches.length - 1)] ?? null } : undefined,
+    guides,
+    snap,
+    draw,
+    marker,
+    onSelect: (id) => tl.setVar("sel", id ? [id] : []),
+  };
+  const chartSel = sel.length === 1 ? elementsOf(slides, selected).find((e) => e.id === sel[0] && e.kind === "chart") : undefined;
+  const dropdown = (menu: "edit" | "view" | "insert") => (
+    <SlidesDropdown
+      menu={menu}
+      open={menuOpen === menu}
+      sub={menuSub}
+      tip={menuTip}
+      hasSelection={sel.length > 0}
+      hasClipboard={!!clip?.length}
+      checks={{ notes: notesOpen, ruler: rulers, guides }}
+    />
+  );
 
   const inEditor = stage === "editor";
   const spinner = stage === "loading";
@@ -90,11 +159,21 @@ export function SlidesApp({ tl, startStage = "editor", startTitle }: Props) {
             titleText={titleTyped ?? title}
             titleSelected={titleEdit === "selected"}
             starred={starred}
-            openMenu={fileMenu ? "file" : null}
+            openMenu={fileMenu ? "file" : menuOpen || null}
             slides={slides}
             selected={selected}
             ratio={ratio}
-            sidePanel={versionsOpen ? <VersionPanel tl={tl} /> : undefined}
+            sidePanel={versionsOpen ? <VersionPanel tl={tl} /> : chartSel?.kind === "chart" ? <ChartPanel tl={tl} chart={chartSel} /> : undefined}
+            panelWidth={versionsOpen ? 290 : 253}
+            dropdowns={{ edit: dropdown("edit"), view: dropdown("view"), insert: dropdown("insert") }}
+            activeTool={tool}
+            zoomLabel={ZOOM_LABEL[zoom]}
+            zoom={ZOOM_FACTOR[zoom] ?? 1}
+            rulers={rulers}
+            rulerMark={rulerMark}
+            view={view}
+            notesPanel={notesOpen ? <SpeakerNotes tl={tl} /> : undefined}
+            notesText={notesText}
             overlay={
               <>
                 <SlidesFileMenu open={fileMenu} sub={fileSub} offline={offline} tip={fileTip} />
@@ -110,9 +189,12 @@ export function SlidesApp({ tl, startStage = "editor", startTitle }: Props) {
                 <DetailsDialog tl={tl} title={title} slides={slides.length} />
                 <PageSetupDialog tl={tl} />
                 <TrashDialog tl={tl} title={title} />
+                <InsertImageDialog tl={tl} />
+                <SlidesFindPanel tl={tl} total={matches.length} current={findIndex} />
               </>
             }
           />
+          <SlidesFullScreen tl={tl} slides={slides} ratio={ratio} />
           <ShareDialog tl={tl} title={startTitle} />
           <PrintDialog tl={tl} copy={PRINT_SLIDES} landscape ratio={ratio} />
         </div>

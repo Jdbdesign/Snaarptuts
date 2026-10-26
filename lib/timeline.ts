@@ -183,9 +183,9 @@ export class Timeline {
     this.host.showCursor();
   }
 
-  /** Glide the cursor along an eased, slightly curved path to an element. */
-  async moveCursorTo(selector: string, opts: { dx?: number; dy?: number; ms?: number } = {}) {
-    const { dx = 0, dy = 0, ms = 900 } = opts;
+  /** Glide the cursor along an eased, slightly curved path to an element. `onMove` is called on every frame with the cursor's client position. */
+  async moveCursorTo(selector: string, opts: { dx?: number; dy?: number; ms?: number; onMove?: (clientX: number, clientY: number) => void } = {}) {
+    const { dx = 0, dy = 0, ms = 900, onMove } = opts;
     const el = this.query(selector);
     const c = this.centreOf(el);
     const from = { ...this.cursor };
@@ -196,12 +196,15 @@ export class Timeline {
     const nx = len ? -(to.y - from.y) / len : 0;
     const ny = len ? (to.x - from.x) / len : 0;
     const cp = { x: (from.x + to.x) / 2 + nx * bow, y: (from.y + to.y) / 2 + ny * bow };
+    const origin = onMove ? this.host.frame()!.getBoundingClientRect() : null;
     await this.tween(ms, easeInOut, (p) => {
       const q = 1 - p;
       const x = q * q * from.x + 2 * q * p * cp.x + p * p * to.x;
       const y = q * q * from.y + 2 * q * p * cp.y + p * p * to.y;
       this.cursor = { x, y };
       this.host.setCursor(x, y);
+      // Lets a scene drag something along with the cursor (client pixels, so it can be matched against any element).
+      if (onMove && origin) onMove(x + origin.left, y + origin.top);
     });
   }
 

@@ -1,4 +1,5 @@
 import type { IconName } from "@/components/icons";
+import type { SlideEl } from "./slide-elements";
 
 /*
  * Copy, menus and sample content of Snaarp Slides (the shell, the File menu and its dialogs).
@@ -307,8 +308,9 @@ export const IMPORT_DIALOG = {
   toast: "3 slides imported",
 };
 
-export type SlideKind = "blank" | "title" | "bullets" | "closing";
-export type SlideData = { id: string; kind: SlideKind; title?: string; subtitle?: string; bullets?: string[] };
+export type SlideKind = "blank" | "title" | "bullets" | "closing" | "elements";
+/** A slide with `elements` (steps 20-36) is drawn from them; the other kinds are drawn from title, subtitle and bullets. */
+export type SlideData = { id: string; kind: SlideKind; title?: string; subtitle?: string; bullets?: string[]; elements?: SlideEl[] };
 
 export const BLANK_SLIDE: SlideData = { id: "s1", kind: "blank" };
 
