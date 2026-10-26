@@ -6,8 +6,11 @@
 
 export type BlockKind = "h1" | "h2" | "p" | "quote" | "todo" | "code";
 /** Inline text styling (Format > Text, steps 31 and 32). */
-export type TextFormat = "bold" | "italic" | "underline" | "strike" | "sup" | "sub";
-export type FormatRange = { from: number; to: number; format: TextFormat };
+export type TextFormat = "bold" | "italic" | "underline" | "strike" | "sup" | "sub" | "color" | "highlight";
+/** `value`: the CSS colour of a "color" or "highlight" range. */
+export type FormatRange = { from: number; to: number; format: TextFormat; value?: string };
+/** Format > Bullets & numbering (a checklist is the block kind "todo"). */
+export type ListKind = "bullet" | "number";
 /** Format > Paragraph styles: Heading 1 to 6 (a block without `heading` is Normal text). */
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export type Align = "left" | "center" | "right" | "justify";
@@ -22,6 +25,8 @@ export type Block = {
   formats?: FormatRange[];
   /** A heading set from Format > Paragraph styles. It replaces the look of `kind`. */
   heading?: HeadingLevel;
+  /** Format > Bullets & numbering > Bullet list or Numbered list. */
+  list?: ListKind;
   /** Format > Align & indent. Left when missing. */
   align?: Align;
   /** Number of indent steps (Format > Align & indent). Each step moves the paragraph IN_DENT px. */
@@ -30,7 +35,10 @@ export type Block = {
 
 export type Pos = { block: number; offset: number };
 /** `toolbar`: show the floating dark selection toolbar (a drag selection does, Select all does not). */
-export type Selection = { start: Pos; end: Pos; toolbar: boolean; /** The floating toolbar hangs from the start of the selection (a word), not from the middle of a paragraph. */ compact?: boolean };
+export type Selection = { start: Pos; end: Pos; toolbar: boolean; /** The floating toolbar hangs from the start of the selection (a word), not from the middle of a paragraph. */ compact?: boolean;
+  /** The selection is a light, see-through blue, so colours and highlights under it stay visible (step 38). */
+  soft?: boolean;
+};
 
 /** What was copied. `whole`: the copy covered whole paragraphs, so pasting makes new paragraphs. */
 export type Clip = { text: string; whole: boolean };

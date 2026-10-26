@@ -9,6 +9,7 @@ import {
   type EditorState,
   type FormatRange,
   type HeadingLevel,
+  type ListKind,
   type TextFormat,
 } from "./editor-state";
 import { SAMPLE_BLOCKS } from "./sample-document";
@@ -149,6 +150,71 @@ export function changeIndent(s: EditorState, delta: 1 | -1): EditorState {
   );
 }
 
+// ---- lists (Format > Bullets & numbering) --------------------------------------------------------
+
+/** Bullet list, Numbered list or Checklist for the block(s) the selection touches. Another list type replaces the old one; the text stays. */
+export function setList(s: EditorState, list: ListKind | "check"): EditorState {
+  const idx = targetBlocks(s);
+  if (!idx.length) return s;
+  return commit(
+    s,
+    mapBlocks(s, idx, (b) => ({
+      ...b,
+      kind: list === "check" ? "todo" : "p",
+      list: list === "check" ? undefined : list,
+      heading: undefined,
+      checked: list === "check" ? false : undefined,
+    })),
+  );
+}
+
+/** The number a numbered list item shows: its place among the numbered items right above it. */
+export function listNumber(blocks: Block[], i: number): number {
+  let n = 1;
+  for (let k = i - 1; k >= 0 && blocks[k].list === "number"; k--) n++;
+  return n;
+}
+
+// ---- Clear formatting -----------------------------------------------------------------------------------
+
+/** Format > Clear formatting: every inline mark (bold, italic, underline, strikethrough, superscript, subscript, colour, highlight) comes off the selection. The words stay. */
+export function clearFormats(s: EditorState): EditorState {
+  if (!s.sel) return s;
+  const parts = targetBlocks(s).flatMap((i) => {
+    const p = selectedPart(s, i);
+    return p ? [{ i, ...p }] : [];
+  });
+  if (!parts.length) return s;
+  const blocks = s.blocks.map((b, i) => {
+    const p = parts.find((x) => x.i === i);
+    if (!p || !b.formats?.length) return b;
+    let formats = b.formats;
+    for (const f of ALL_FORMATS) formats = cut(formats, f, p.from, p.to);
+    return { ...b, formats };
+  });
+  return commit(s, blocks);
+}
+
+const ALL_FORMATS: TextFormat[] = ["bold", "italic", "underline", "strike", "sup", "sub", "color", "highlight"];
+
+/** A start state with marks already on some text: each mark names the text it sits on (`context`, found in the block) and the mark. */
+export type PreMark = { context: string; format: TextFormat; value?: string };
+
+export function preformat(s: EditorState, blockId: string, marks: PreMark[]): EditorState {
+  return {
+    ...s,
+    blocks: s.blocks.map((b) => {
+      if (b.id !== blockId) return b;
+      const formats: FormatRange[] = marks.map((m) => {
+        const from = b.text.indexOf(m.context);
+        if (from < 0) throw new Error(`preformat: "${m.context}" is not in block "${blockId}"`);
+        return { from, to: from + m.context.length, format: m.format, value: m.value };
+      });
+      return { ...b, formats };
+    }),
+  };
+}
+
 // ---- what the toolbar shows ----------------------------------------------------------------
 
 /** The text of the toolbar's style box ("Normal text", "Heading 1" ...). */
@@ -162,6 +228,8 @@ export function activeToolsOf(s: EditorState): string[] {
   const out: string[] = activeFormats(s).map((f) => TOOL_OF_FORMAT[f]);
   const b = activeBlock(s);
   if (b) out.push(`align-${b.align ?? "left"}`);
+  if (b?.list === "bullet") out.push("bullets");
+  if (b?.list === "number") out.push("numbers");
   return out;
 }
 
@@ -172,6 +240,8 @@ const TOOL_OF_FORMAT: Record<TextFormat, string> = {
   strike: "strike",
   sup: "sup",
   sub: "sub",
+  color: "color",
+  highlight: "highlight",
 };
 
 // ---- selecting a part of a paragraph -----------------------------------------------------------

@@ -66,6 +66,8 @@ import { Step33ParagraphStyles } from "@/scenes/snaarp-doc/Step33ParagraphStyles
 import { runStep33, STEP33_DURATION_MS } from "@/scenes/snaarp-doc/step33-script";
 import { Step34AlignIndent } from "@/scenes/snaarp-doc/Step34AlignIndent";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/snaarp-doc/step34-script";
+import { Step35Lists } from "@/scenes/snaarp-doc/Step35Lists";
+import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-doc/step35-script";
 import type { Tutorial } from "./types";
 
 /**
@@ -281,6 +283,12 @@ export const snaarpDoc: Tutorial = {
       title: "Align and indent text",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step34AlignIndent, run: runStep34, durationMs: STEP34_DURATION_MS },
+    },
+    {
+      id: "lists",
+      title: "Bullets and numbered lists",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step35Lists, run: runStep35, durationMs: STEP35_DURATION_MS },
     },
   ],
   completion: {

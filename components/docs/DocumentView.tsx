@@ -9,6 +9,7 @@ import { ObjectBlock } from "./ObjectBlock";
 import { TableBlock } from "./TableBlock";
 import { marksOf, matchesOf, type Block, type EditorState, type HeadingLevel, type Mark, type TextFormat } from "./editor-state";
 import { INDENT_PX } from "./format-menu-data";
+import { listNumber } from "./format-state";
 import { NO_INSERTS, PAGE_BODY_MIN, PAGE_TOP_PAD, type PageInserts } from "./insert-state";
 
 const BLOCK_STYLE: Record<Block["kind"], string> = {
@@ -33,6 +34,9 @@ const HEADING_STYLE: Record<HeadingLevel, string> = {
   6: "mb-[8px] mt-[12px] text-[10.8px] font-bold leading-[1.5] text-[#555d6b]",
 };
 
+// Format > Bullets & numbering: a hanging indent, the marker sits in the left gap.
+const LIST_STYLE = "relative mb-[5px] pl-[30px] text-[10.8px] leading-[1.5]";
+
 const MARK_STYLE: Record<Mark["kind"], string> = {
   sel: "bg-[#2F6BDB] text-white",
   current: "bg-[#8ED3A4]",
@@ -40,6 +44,9 @@ const MARK_STYLE: Record<Mark["kind"], string> = {
   comment: "bg-[#F9B208]",
   link: "text-[#1D63D9] underline decoration-[1.5px] underline-offset-2",
 };
+
+/** The selection when it must not hide colours: light see-through blue, text keeps its colour. */
+const MARK_STYLE_SOFT = "bg-[rgba(47,107,219,0.28)]";
 
 type Piece = { text: string; kind: Mark["kind"] | null; id?: string };
 
@@ -73,9 +80,11 @@ function splitAt(pieces: Piece[], at: number): Piece[] {
 }
 
 /** Inline style of a piece of text that has Format > Text styling (bold, italic, ...). */
-function formatStyle(b: Block, from: number, to: number): React.CSSProperties | undefined {
-  const on = new Set<TextFormat>((b.formats ?? []).filter((f) => f.from <= from && f.to >= to).map((f) => f.format));
+function formatStyle(b: Block, from: number, to: number, selected: boolean, soft: boolean): React.CSSProperties | undefined {
+  const covering = (b.formats ?? []).filter((f) => f.from <= from && f.to >= to);
+  const on = new Set<TextFormat>(covering.map((f) => f.format));
   if (!on.size) return undefined;
+  const value = (format: TextFormat) => covering.find((f) => f.format === format)?.value;
   const lines = [on.has("underline") ? "underline" : "", on.has("strike") ? "line-through" : ""].filter(Boolean).join(" ");
   return {
     fontWeight: on.has("bold") ? 700 : undefined,
@@ -83,6 +92,9 @@ function formatStyle(b: Block, from: number, to: number): React.CSSProperties | 
     textDecorationLine: lines || undefined,
     fontSize: on.has("sup") || on.has("sub") ? "0.7em" : undefined,
     verticalAlign: on.has("sup") ? "super" : on.has("sub") ? "sub" : undefined,
+    // A normal (solid blue) selection hides colour and highlight; a soft one lets them show through.
+    color: on.has("color") && (soft || !selected) ? value("color") : undefined,
+    backgroundColor: on.has("highlight") && (soft || !selected) ? value("highlight") : undefined,
   };
 }
 
@@ -127,8 +139,8 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
           nodes.push(
             <span
               key={n}
-              className={`${p.kind ? `${MARK_STYLE[p.kind]} rounded-[1px]` : ""} ${n === firstSel ? "relative" : ""}`}
-              style={b.formats?.length ? formatStyle(b, pos, pos + p.text.length) : undefined}
+              className={`${p.kind ? `${p.kind === "sel" && editor.sel?.soft ? MARK_STYLE_SOFT : MARK_STYLE[p.kind]} rounded-[1px]` : ""} ${n === firstSel ? "relative" : ""}`}
+              style={b.formats?.length ? formatStyle(b, pos, pos + p.text.length, p.kind === "sel", !!editor.sel?.soft) : undefined}
               {...(p.kind === "current" ? { "data-tl": "doc-match-current" } : {})}
               {...(p.kind === "comment" && p.id ? { "data-tl": `doc-comment-${p.id}` } : {})}
               {...(p.kind === "link" && p.id ? { "data-tl": `doc-link-${p.id}` } : {})}
@@ -146,11 +158,19 @@ export function DocumentView({ editor, showToolbar, nonPrinting = false, inserts
             {inserts.rules.includes(b.id) && <HorizontalRule />}
             <div
               data-tl={`doc-block-${b.id}`}
-              className={`${b.heading ? HEADING_STYLE[b.heading] : BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""} ${
+              className={`${b.list ? LIST_STYLE : b.heading ? HEADING_STYLE[b.heading] : BLOCK_STYLE[b.kind]} min-h-[1.5em] rounded-[2px] ${editor.flash === b.id ? "doc-pasted" : ""} ${
                 b.checked ? "text-[#9aa0ab] line-through" : ""
               } ${b.indent !== undefined ? "transition-[margin-left] duration-300 motion-reduce:transition-none" : ""}`}
               style={b.align || b.indent ? { textAlign: b.align, marginLeft: b.indent ? b.indent * INDENT_PX : undefined } : undefined}
             >
+              {b.list && (
+                <span
+                  data-tl={`doc-marker-${b.id}`}
+                  className="absolute left-[8px] top-[1px] flex h-[16px] w-[17px] items-center justify-end text-[10.8px] leading-[1.5]"
+                >
+                  {b.list === "bullet" ? <span className="mr-[4px] h-[5px] w-[5px] rounded-full bg-[#111]" /> : `${listNumber(editor.blocks, i)}.`}
+                </span>
+              )}
               {b.kind === "todo" && (
                 <span className="absolute left-[8px] top-[1px] flex h-[16px] w-[16px] items-center justify-center">
                   <span

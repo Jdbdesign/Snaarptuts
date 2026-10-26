@@ -1,9 +1,9 @@
 import type { Timeline } from "@/lib/timeline";
 import { getEditor, markEdited, setEditor } from "./editor-timeline";
-import { placeCaret } from "./editor-state";
+import { placeCaret, selectRange } from "./editor-state";
 import { ALIGN_OF, FORMAT_MENU, FORMAT_OF, STYLE_OF, type FormatItemId, type FormatSubItemId } from "./format-menu-data";
 import type { FormatSub } from "./FormatMenu";
-import { changeIndent, selectText, setAlign, setHeading, toggleFormat } from "./format-state";
+import { changeIndent, selectText, setAlign, setHeading, setList, toggleFormat } from "./format-state";
 
 /*
  * Timeline helpers that drive the Format menu and the formatting it does (Snaarp Doc steps 31 to 34). The scene
@@ -54,7 +54,7 @@ export async function hoverFormatSub(tl: Timeline, id: FormatSubItemId, opts: { 
   tl.hover(subItem(id));
 }
 
-/** What a submenu row does to the editor. Bullets & numbering rows do nothing yet (wired in a later round). */
+/** What a submenu row does to the editor. */
 function runSubAction(tl: Timeline, id: FormatSubItemId) {
   const format = FORMAT_OF[id];
   const level = STYLE_OF[id];
@@ -64,6 +64,9 @@ function runSubAction(tl: Timeline, id: FormatSubItemId) {
   else if (align) setEditor(tl, (s) => setAlign(s, align));
   else if (id === "indent-more") setEditor(tl, (s) => changeIndent(s, 1));
   else if (id === "indent-less") setEditor(tl, (s) => changeIndent(s, -1));
+  else if (id === "bullet-list") setEditor(tl, (s) => setList(s, "bullet"));
+  else if (id === "numbered-list") setEditor(tl, (s) => setList(s, "number"));
+  else if (id === "checklist") setEditor(tl, (s) => setList(s, "check"));
   else return;
   markEdited(tl);
 }
@@ -159,4 +162,47 @@ export async function clickInBlock(tl: Timeline, blockId: string, offset: number
   await tl.moveCursorTo(sel, { ms: opts.ms ?? 800 });
   await tl.click(sel);
   setEditor(tl, (s) => placeCaret(s, { block, offset }));
+}
+
+/**
+ * Select whole paragraphs with the mouse: the cursor goes to the start of the first one, presses, and drags to the end of
+ * the last one while the blue highlight grows over the text in between. `soft`: a light see-through blue (colours show).
+ */
+export async function dragSelectBlocks(tl: Timeline, blockIds: string[], opts: { approachMs?: number; dragMs?: number; soft?: boolean } = {}) {
+  const { approachMs = 750, dragMs = 1500, soft = false } = opts;
+  const first = blockIndex(tl, blockIds[0]);
+  const last = blockIndex(tl, blockIds[blockIds.length - 1]);
+  const lens = getEditor(tl).blocks.slice(first, last + 1).map((b) => b.text.length);
+  const total = lens.reduce((a, b) => a + b, 0);
+  const start = `[data-tl=doc-start-${blockIds[0]}]`;
+  const end = `[data-tl=doc-end-${blockIds[blockIds.length - 1]}]`;
+  const show = (chars: number) => {
+    // Walk the characters across the paragraphs to find where the drag has got to.
+    let left = chars;
+    let block = first;
+    while (block < last && left > lens[block - first]) {
+      left -= lens[block - first];
+      block++;
+    }
+    setEditor(tl, (s) => ({
+      ...selectRange(s, { block: first, offset: 0 }, { block, offset: Math.min(left, lens[block - first]) }, true),
+      sel: { start: { block: first, offset: 0 }, end: { block, offset: Math.min(left, lens[block - first]) }, toolbar: true, soft },
+    }));
+  };
+
+  await tl.moveCursorTo(start, { ms: approachMs });
+  await tl.click(start);
+  show(0);
+
+  const t0 = tl.elapsed;
+  let done = false;
+  tl.moveCursorTo(end, { ms: dragMs, dx: 4 }).then(
+    () => (done = true),
+    () => (done = true), // cancelled with the step; the next wait() rejects too
+  );
+  while (!done) {
+    await tl.wait(40);
+    show(Math.round(total * ease(Math.min(1, (tl.elapsed - t0) / dragMs))));
+  }
+  show(total);
 }
