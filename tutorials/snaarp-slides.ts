@@ -32,6 +32,8 @@ import { Step16 } from "@/scenes/snaarp-slides/step16/Step16";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/snaarp-slides/step16/script";
 import { Step17 } from "@/scenes/snaarp-slides/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/snaarp-slides/step17/script";
+import { Step18 } from "@/scenes/snaarp-slides/step18/Step18";
+import { runStep18, STEP18_DURATION_MS } from "@/scenes/snaarp-slides/step18/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -144,6 +146,12 @@ export const snaarpSlides: Tutorial = {
       title: "Print your presentation",
       url: SLIDES_URLS.editor,
       scene: { Component: Step17, run: runStep17, durationMs: STEP17_DURATION_MS },
+    },
+    {
+      id: "unavailable",
+      title: "Options that are not available yet",
+      url: SLIDES_URLS.editor,
+      scene: { Component: Step18, run: runStep18, durationMs: STEP18_DURATION_MS },
     },
   ],
   groups: [
