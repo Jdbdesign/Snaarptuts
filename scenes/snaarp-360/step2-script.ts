@@ -1,5 +1,6 @@
 import type { Timeline } from "@/lib/timeline";
-import { PASSWORD_RULES } from "./signup-data";
+import { BUSINESS_PRICE_360 } from "./pricing-data";
+import { PASSWORD_RULES, PHONE_360 } from "./signup-data";
 
 /** Step 2 — Create your account. Times are active milliseconds from the start of the step. */
 export const STEP2_DURATION_MS = 17300;
@@ -10,7 +11,7 @@ const SAMPLE = {
   last: "Doe",
   email: "jane@acme-studio.com",
   org: "Acme Studio",
-  phone: "801 234 5678",
+  phone: PHONE_360.sample,
   password: "Sample#Pass1",
 };
 
@@ -20,7 +21,7 @@ export async function runStep2(tl: Timeline) {
 
   // The plan is already chosen
   await tl.at(1000);
-  tl.showCaption("Your plan is already selected: Business, £99/month");
+  tl.showCaption(`Your plan is already selected: Business, ${BUSINESS_PRICE_360}/month`);
   tl.highlight("[data-tl=plan-header]");
   await tl.at(2800);
   tl.clearHighlight();

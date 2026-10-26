@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode, SVGProps } from "react";
+import { useId, type CSSProperties, type ReactNode, type SVGProps } from "react";
 
 /*
  * Every icon in the project lives here. To swap in the real Snaarp icons,
@@ -874,13 +874,26 @@ export function CursorArrow({ size = 24 }: { size?: number }) {
   );
 }
 
-/** Nigeria flag (green, white, green). */
-export function FlagNG({ width = 18 }: { width?: number }) {
+/** United Kingdom flag (Union Jack), drawn on a 3:2 box so it sits where the old flag did. */
+export function FlagGB({ width = 18 }: { width?: number }) {
+  const id = useId();
+  const box = `${id}-box`;
+  const cross = `${id}-cross`;
   return (
-    <svg width={width} height={width * 0.67} viewBox="0 0 18 12" aria-hidden="true" style={{ display: "block", borderRadius: 2 }}>
-      <rect width="18" height="12" fill="#fff" />
-      <rect width="6" height="12" fill="#008751" />
-      <rect x="12" width="6" height="12" fill="#008751" />
+    <svg width={width} height={width * 0.67} viewBox="0 0 60 40" aria-hidden="true" style={{ display: "block", borderRadius: 2 }}>
+      <clipPath id={box}>
+        <path d="M0 0h60v40H0z" />
+      </clipPath>
+      <clipPath id={cross}>
+        <path d="M30 20h30v20zv20H0V20zH0V0h30zV0h30z" />
+      </clipPath>
+      <g clipPath={`url(#${box})`}>
+        <path d="M0 0h60v40H0z" fill="#012169" />
+        <path d="M0 0l60 40M60 0L0 40" stroke="#fff" strokeWidth="8" />
+        <path d="M0 0l60 40M60 0L0 40" clipPath={`url(#${cross})`} stroke="#C8102E" strokeWidth="5" />
+        <path d="M30 0v40M0 20h60" stroke="#fff" strokeWidth="13" />
+        <path d="M30 0v40M0 20h60" stroke="#C8102E" strokeWidth="8" />
+      </g>
     </svg>
   );
 }

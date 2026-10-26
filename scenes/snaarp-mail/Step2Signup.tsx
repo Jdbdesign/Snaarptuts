@@ -2,7 +2,7 @@
 
 import { Checkbox } from "@/components/admin/Checkbox";
 import { TypedField } from "@/components/admin/TypedField";
-import { FlagNG, Icon } from "@/components/icons";
+import { FlagGB, Icon } from "@/components/icons";
 import { useNarrow } from "@/lib/useNarrow";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import type { Timeline } from "@/lib/timeline";
@@ -149,7 +149,7 @@ function SignupCard({ tl }: { tl: Timeline }) {
           data-tl="country"
           className="flex h-[39px] items-center gap-2 rounded-[5px] border border-[#E5E7EB] bg-white px-3 text-[12px] text-ink"
         >
-          <FlagNG width={14} />
+          <FlagGB width={14} />
           {FORM.country}
           <Icon name="chevronDown" size={15} className="ml-auto text-[#6B7280]" />
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import { FlagNG, Icon, ProductLogo } from "@/components/icons";
+import { FlagGB, Icon, ProductLogo } from "@/components/icons";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import type { SceneProps } from "@/tutorials/types";
 import { PRODUCT_TABS, type Plan, type PlanIcon, type PricingData } from "./pricing-types";
@@ -139,7 +139,7 @@ function Nav({ currency }: { currency: PricingData["currency"] }) {
           </span>
         ) : (
           <span data-tl="currency" className="inline-flex items-center gap-1.5">
-            <FlagNG width={16} />
+            <FlagGB width={16} />
             {currency.code} <Icon name="chevronDown" size={14} />
           </span>
         )}

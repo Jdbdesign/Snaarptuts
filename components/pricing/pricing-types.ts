@@ -6,7 +6,7 @@ export type PlanIcon = LogoName | "soon";
 export type Plan = {
   id: string;
   name: string;
-  /** Formatted with its currency sign, e.g. "£99" or "₦89,170.35". */
+  /** Formatted with its currency sign, e.g. "£99" or "£89.00". */
   price: string;
   /** Total for 12 months, formatted with its currency sign. */
   total: string;

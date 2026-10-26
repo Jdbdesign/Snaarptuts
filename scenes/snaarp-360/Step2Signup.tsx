@@ -1,12 +1,13 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { FlagNG, Icon, type LogoName, ProductLogo } from "@/components/icons";
+import { FlagGB, Icon, type LogoName, ProductLogo } from "@/components/icons";
+import { BUSINESS_PRICE_360 } from "./pricing-data";
 import { useNarrow } from "@/lib/useNarrow";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import type { Timeline } from "@/lib/timeline";
 import type { SceneProps } from "@/tutorials/types";
-import { PASSWORD_RULES } from "./signup-data";
+import { PASSWORD_RULES, PHONE_360 } from "./signup-data";
 
 /* The Snaarp sign-up page, rebuilt in HTML/CSS at a 1440px design width. */
 
@@ -135,7 +136,7 @@ function FormPanel({ tl }: { tl: Timeline }) {
               </span>
             </div>
             <p className="mt-3.5 flex items-baseline gap-1 text-[18px] font-bold leading-6 text-ink">
-              Business £99
+              Business {BUSINESS_PRICE_360}
               <span className="text-[12.5px] font-normal text-muted">/month</span>
             </p>
             <p className="mt-1.5 text-[12px] leading-[18px] text-[#2a2d36]">
@@ -161,8 +162,8 @@ function FormPanel({ tl }: { tl: Timeline }) {
               data-tl="country"
               className="flex h-[46px] items-center gap-2.5 rounded-[10px] border border-[#E6E6EC] bg-white px-4 text-[14px] text-ink"
             >
-              <FlagNG />
-              Nigeria
+              <FlagGB />
+              {PHONE_360.country}
               <Icon name="chevronDown" size={16} className="ml-auto text-[#6b7280]" />
             </div>
             <div className="grid grid-cols-[96px_1fr] gap-3">
@@ -170,7 +171,7 @@ function FormPanel({ tl }: { tl: Timeline }) {
                 data-tl="dial"
                 className="flex h-[46px] items-center rounded-[10px] border border-[#E6E6EC] bg-white px-4 text-[14px] text-ink"
               >
-                +234
+                {PHONE_360.dialCode}
               </div>
               <Field tl={tl} id="phone" placeholder="Phone Number" />
             </div>
