@@ -10,6 +10,7 @@ import { TableBlock } from "./TableBlock";
 import { marksOf, matchesOf, type Block, type EditorState, type HeadingLevel, type Mark, type TextFormat } from "./editor-state";
 import { INDENT_PX } from "./format-menu-data";
 import { listNumber } from "./format-state";
+import { FONT_MENU } from "./toolbar-data";
 import { NO_INSERTS, PAGE_BODY_MIN, PAGE_TOP_PAD, type PageInserts } from "./insert-state";
 
 const BLOCK_STYLE: Record<Block["kind"], string> = {
@@ -97,7 +98,7 @@ function formatStyle(b: Block, from: number, to: number, selected: boolean, soft
   const lines = [on.has("underline") || suggested ? "underline" : "", on.has("strike") ? "line-through" : ""].filter(Boolean).join(" ");
   const size = value("size");
   return {
-    fontFamily: value("font"),
+    fontFamily: value("font") ? (FONT_MENU.stacks[value("font")!] ?? value("font")) : undefined,
     fontWeight: on.has("bold") ? 700 : undefined,
     fontStyle: on.has("italic") ? "italic" : undefined,
     textDecorationLine: lines || undefined,
