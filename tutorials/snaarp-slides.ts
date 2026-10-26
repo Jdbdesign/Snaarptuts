@@ -1,5 +1,7 @@
 import { Step1Home } from "@/scenes/snaarp-slides/step1/Step1";
 import { runStep1, STEP1_DURATION_MS } from "@/scenes/snaarp-slides/step1/script";
+import { Step2 } from "@/scenes/snaarp-slides/step2/Step2";
+import { runStep2, STEP2_DURATION_MS } from "@/scenes/snaarp-slides/step2/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -15,6 +17,12 @@ export const snaarpSlides: Tutorial = {
       title: "Open Snaarp Slides",
       url: SLIDES_URLS.home,
       scene: { Component: Step1Home, run: runStep1, durationMs: STEP1_DURATION_MS },
+    },
+    {
+      id: "blank-presentation",
+      title: "Start a blank presentation",
+      url: SLIDES_URLS.home,
+      scene: { Component: Step2, run: runStep2, durationMs: STEP2_DURATION_MS },
     },
   ],
   groups: [{ title: "Getting started", from: "open-slides" }],
