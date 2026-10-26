@@ -119,7 +119,7 @@ export function TemplatesDialog({ tl }: { tl: Timeline }) {
 
 /**
  * File > Open: six tabs (scene variable `openTab`; `openLoading` shows the spinner on Recent; `openPicked` marks a file).
- * Hooks: open-dialog, open-tab-<id>, open-file-<n>, open-connect, open-select-device, open-browse, open-close.
+ * Hooks: open-dialog, open-list, open-tab-<id>, open-file-<n>, open-connect, open-select-device, open-browse, open-close.
  */
 export function OpenDialog({ tl }: { tl: Timeline }) {
   const open = useTimelineVar<string>(tl, "dialog", "") === "open";
@@ -151,7 +151,7 @@ export function OpenDialog({ tl }: { tl: Timeline }) {
               {OPEN_DIALOG.loading}
             </div>
           ) : (
-            <ul className="pt-[10px]">
+            <ul data-tl="open-list" className="pt-[10px]">
               {OPEN_DIALOG.files.map((f, i) => (
                 <li
                   key={f.name}
