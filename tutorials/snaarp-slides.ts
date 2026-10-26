@@ -58,6 +58,8 @@ import { Step29 } from "@/scenes/snaarp-slides/step29/Step29";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-slides/step29/script";
 import { Step30 } from "@/scenes/snaarp-slides/step30/Step30";
 import { runStep30, STEP30_DURATION_MS } from "@/scenes/snaarp-slides/step30/script";
+import { Step31 } from "@/scenes/snaarp-slides/step31/Step31";
+import { runStep31, STEP31_DURATION_MS } from "@/scenes/snaarp-slides/step31/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -248,6 +250,12 @@ export const snaarpSlides: Tutorial = {
       title: "Add a text box",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step30, run: runStep30, durationMs: STEP30_DURATION_MS },
+    },
+    {
+      id: "insert-image",
+      title: "Insert an image",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step31, run: runStep31, durationMs: STEP31_DURATION_MS },
     },
   ],
   groups: [
