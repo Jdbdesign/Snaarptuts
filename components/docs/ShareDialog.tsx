@@ -10,6 +10,8 @@ import { SHARE, type AccessId, type RoleId } from "./share-data";
 /** Same enlargement as DocEditor on narrow screens. */
 const NARROW_ZOOM = 2.4;
 
+const NO_ADDED: { name: string; email: string; initial: string; role: string }[] = [];
+
 type Props = {
   tl: Timeline;
   /** Document title used until the scene variable `title` is set. */
@@ -29,6 +31,9 @@ export function ShareDialog({ tl, title }: Props) {
   const role = useTimelineVar<RoleId>(tl, "shareRole", "viewer");
   const menu = useTimelineVar<string>(tl, "shareMenu", "");
   const focus = useTimelineVar(tl, "shareFocus", false);
+  // Optional (Snaarp Slides): text typed into the box, and people added to the list. Snaarp Doc never sets them.
+  const typed = useTimelineVar(tl, "field:share-input", "");
+  const added = useTimelineVar<{ name: string; email: string; initial: string; role: string }[]>(tl, "shareAdded", NO_ADDED);
   const docTitle = useTimelineVar(tl, "title", title);
   const narrow = useNarrow();
   const current = SHARE.roles.find((r) => r.id === role) ?? SHARE.roles[0];
@@ -54,8 +59,9 @@ export function ShareDialog({ tl, title }: Props) {
               focus ? "border-[#1A73E8] shadow-[0_0_0_1px_#1A73E8]" : "border-[#DADCE0]"
             }`}
           >
-            {focus && <i className="h-[15px] w-px shrink-0 bg-[#202124]" style={{ animation: "caret-blink 1s steps(1) infinite" }} />}
-            <span className="text-[#80868B]">{SHARE.inputPlaceholder}</span>
+            {focus && !typed && <i className="h-[15px] w-px shrink-0 bg-[#202124]" style={{ animation: "caret-blink 1s steps(1) infinite" }} />}
+            {typed ? <span>{typed}</span> : <span className="text-[#80868B]">{SHARE.inputPlaceholder}</span>}
+            {focus && typed && <i className="h-[15px] w-px shrink-0 bg-[#202124]" style={{ animation: "caret-blink 1s steps(1) infinite" }} />}
           </div>
 
           <p className="mt-[15px] flex h-[16px] items-center text-[10.5px] font-medium">{SHARE.peopleLabel}</p>
@@ -71,6 +77,17 @@ export function ShareDialog({ tl, title }: Props) {
             </span>
             <span className="text-[10.5px] text-[#5F6368]">{SHARE.owner}</span>
           </div>
+
+          {added.map((p) => (
+            <div key={p.email} data-tl="share-added" className="mt-[4px] flex h-[30px] items-center gap-[9px]">
+              <span className="flex h-[27px] w-[27px] shrink-0 items-center justify-center rounded-full bg-[#1E8E3E] text-[11px] font-medium text-white">{p.initial}</span>
+              <span className="flex-1 leading-[13px]">
+                <span className="block text-[10.5px] font-medium">{p.name}</span>
+                <span className="block text-[9px] text-[#5F6368]">{p.email}</span>
+              </span>
+              <span className="text-[10.5px] text-[#5F6368]">{p.role}</span>
+            </div>
+          ))}
 
           <p className="mt-[19px] flex h-[16px] items-center text-[10.5px] font-medium">{SHARE.accessLabel}</p>
           <div data-tl="share-access-row" className="relative mt-[6px] flex h-[32px] items-center gap-[9px]">

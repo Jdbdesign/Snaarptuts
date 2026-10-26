@@ -808,6 +808,80 @@ const bodies = {
       <path d="M6.5 14.5h3M6.5 17.5h1.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
     </>
   ),
+  // Snaarp Slides: toolbar tools, right-hand rail, home and dialogs
+  slHome: (
+    <path d="M4 11 12 4l8 7v8.2a.8.8 0 0 1-.8.8H15v-5.5H9V20H4.8a.8.8 0 0 1-.8-.8Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" fill="none" />
+  ),
+  slSelect: (
+    <path d="M5 4.5 19 10.2l-6.2 2.2-2.4 6.3Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" fill="none" />
+  ),
+  slText: <path d="M5 6.5V5h14v1.5M12 5v14M9 19h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  slShape: <rect x="5" y="5" width="14" height="14" rx="2.4" stroke="currentColor" strokeWidth="1.8" fill="none" />,
+  slLine: <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />,
+  slRailImage: (
+    <>
+      <rect x="4" y="5" width="16" height="14" rx="2.4" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <circle cx="9" cy="10" r="1.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="m5 17 4.5-4.5 3.2 3 2.3-2.2L19 16.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  slRailTemplates: (
+    <>
+      <rect x="4" y="4.5" width="16" height="4.5" rx="1.3" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <rect x="4" y="11.5" width="7" height="8" rx="1.3" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <rect x="13.5" y="11.5" width="6.5" height="8" rx="1.3" stroke="currentColor" strokeWidth="1.6" fill="none" />
+    </>
+  ),
+  slRailBlocks: (
+    <>
+      <rect x="4" y="9" width="10" height="10" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M8.5 6V5a1.5 1.5 0 0 1 1.5-1.5h8A1.5 1.5 0 0 1 19.5 5v8a1.5 1.5 0 0 1-1.5 1.5h-1" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  slRailMedia: (
+    <>
+      <rect x="5" y="4" width="14" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M5 9h14M5 15h14M9.5 4v16" stroke="currentColor" strokeWidth="1.4" />
+    </>
+  ),
+  slRailUpload: (
+    <>
+      <path d="M5 15v3a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 18v-3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+      <path d="M12 15V5m-3.5 3.5L12 5l3.5 3.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  slRailConvert: (
+    <>
+      <rect x="4" y="6" width="16" height="12" rx="2.2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="m10 9.5 4.5 2.5-4.5 2.5Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  slDrive: (
+    <>
+      <path d="M4.5 13.5 7 6.5a1.5 1.5 0 0 1 1.4-1h7.2a1.5 1.5 0 0 1 1.4 1l2.5 7" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <rect x="3.5" y="13.5" width="17" height="5.5" rx="1.8" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M7.5 16.3h.01M10.5 16.3h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </>
+  ),
+  slMonitor: (
+    <>
+      <rect x="3.5" y="4.5" width="17" height="11.5" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M9 20h6M12 16v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  slFilePptx: (
+    <>
+      <path d="M6.5 3.5h7L18 8v11.5a1 1 0 0 1-1 1H6.5a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="M13.5 3.5V8H18" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+      <path d="M9.5 17v-5h2a1.6 1.6 0 0 1 0 3.2h-2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  slPublish: (
+    <>
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.2 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.2-3.4-8.5S9.6 5.9 12 3.5Z" stroke="currentColor" strokeWidth="1.4" fill="none" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;
