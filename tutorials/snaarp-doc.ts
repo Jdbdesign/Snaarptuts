@@ -111,6 +111,8 @@ import { Step55Lists } from "@/scenes/snaarp-doc/Step55Lists";
 import { runStep55, STEP55_DURATION_MS } from "@/scenes/snaarp-doc/step55-script";
 import { Step56Indent } from "@/scenes/snaarp-doc/Step56Indent";
 import { runStep56, STEP56_DURATION_MS } from "@/scenes/snaarp-doc/step56-script";
+import { Step57ClearSupSub } from "@/scenes/snaarp-doc/Step57ClearSupSub";
+import { runStep57, STEP57_DURATION_MS } from "@/scenes/snaarp-doc/step57-script";
 
 /**
  * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
@@ -456,6 +458,12 @@ export const snaarpDoc: Tutorial = {
       title: "Indent and outdent",
       url: "docs.snaarp.com/document/project-brief",
       scene: { Component: Step56Indent, run: runStep56, durationMs: STEP56_DURATION_MS },
+    },
+    {
+      id: "clear-sup-sub",
+      title: "Clear formatting, superscript and subscript",
+      url: "docs.snaarp.com/document/project-brief",
+      scene: { Component: Step57ClearSupSub, run: runStep57, durationMs: STEP57_DURATION_MS },
     },
   ],
   completion: {
