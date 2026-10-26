@@ -252,7 +252,7 @@ function MeetCards({ tl, menu }: { tl: Timeline; menu: string }) {
   return (
     <>
       <Anchored to="header-meet" align="right" show={menu === "meet"}>
-        <div data-tl="menu-meet" className={`${CARD} w-[128px]`}>
+        <div data-tl="menu-meet" className={`${CARD} w-[142px] whitespace-nowrap`}>
           {MEET.items.map((i) => (
             <div key={i.id} data-tl={`tm-meet-${i.id}`} className={ROW}>
               <Icon name={i.id === "start" ? "edCamera" : "link"} size={11} className="shrink-0 text-[#4b5060]" />
