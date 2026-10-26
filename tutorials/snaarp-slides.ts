@@ -66,6 +66,8 @@ import { Step33 } from "@/scenes/snaarp-slides/step33/Step33";
 import { runStep33, STEP33_DURATION_MS } from "@/scenes/snaarp-slides/step33/script";
 import { Step34 } from "@/scenes/snaarp-slides/step34/Step34";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/snaarp-slides/step34/script";
+import { Step35 } from "@/scenes/snaarp-slides/step35/Step35";
+import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-slides/step35/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -280,6 +282,12 @@ export const snaarpSlides: Tutorial = {
       title: "Insert a table",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step34, run: runStep34, durationMs: STEP34_DURATION_MS },
+    },
+    {
+      id: "insert-chart",
+      title: "Insert a chart",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step35, run: runStep35, durationMs: STEP35_DURATION_MS },
     },
   ],
   groups: [
