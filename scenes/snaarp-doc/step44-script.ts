@@ -48,6 +48,7 @@ export async function runStep44(tl: Timeline) {
   await tl.click("[data-tl=esig-send]");
   tl.clearHighlight();
   closeInsertDialog(tl);
+  tl.hideCaption(); // the toast sits where a narrow screen's caption would cover it
   showDocToast(tl, ESIGN.request.sent, "success", 3200);
 
   // Hold, then the quick white fade (the completion card follows: it comes after the last step in the config)

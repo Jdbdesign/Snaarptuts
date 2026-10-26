@@ -1090,7 +1090,7 @@ Each effect cycle (select, open Format, Text, item) takes about 4.5 s and is ide
 | 24.0 | Caption clears. Hold. |
 | 26.6 | Quick white fade. Ends at 27.0. Step 37 is marked done. |
 
-## Doc step 38 - Clear formatting (last step so far)
+## Doc step 38 - Clear formatting
 
 - Files: `Step38ClearFormatting.tsx`, `step38-script.ts`, `step38-data.ts`. `durationMs` 22000. Starts with the sample document plus one pre-formatted paragraph after Contacts: "Special offer: book before December and save 20% on the redesign." ("Special offer:" bold and red, "December" italic, "20%" underlined and highlighted yellow, "redesign" struck through and blue; the marks are in `MARKS` in the data file). Recording: about 3:20-3:40. New in the editor: **colour and highlight marks** (static: `TextFormat` "color" and "highlight" with a `value`; `preformat` in `format-state.ts` puts them on text from data), a **soft selection** (`Selection.soft`: a light see-through blue, so the colours show under it) and **Clear formatting** (`clearFormats`: every inline mark comes off the selection, the words stay). Helper `dragSelectBlocks` with `soft`. The menu row shows the shortcut "Ctrl+\" as in the frames.
 
@@ -1103,4 +1103,110 @@ Each effect cycle (select, open Format, Text, item) takes about 4.5 s and is ide
 | 11.0 | Caption "The words stay, the styling goes". Ring on the paragraph. |
 | 15.0 | Caption "Shortcut: use the keys shown in the menu". Cursor hovers the toolbar area (no click). |
 | 18.0 | Caption clears. Hold. |
-| 21.6 | Quick white fade. Ends at 22.0. Step 38 is marked done; the completion card appears ("You're all set") because step 38 is the last step in the config. |
+| 21.6 | Quick white fade. Ends at 22.0. Step 38 is marked done. |
+
+## Doc steps 39-44 - shared pieces (Tools menu, Word count, eSignature menu and tabs)
+
+Recordings: `ref/docs/Snaarp_Doc_tools.mp4` (1910x910, 31 s; steps 39 and 40; frames `ref/docs/frames-step39/` and `frames-step40/`) and `ref/docs/Snaarp_Doc_esignature.mp4` (1000x480, 1:25; steps 41 to 44; frames `frames-step41/` to `frames-step44/`). All six steps start from the original sample document (title "Project Brief", Editing mode, panels closed, ruler on, one page, portrait) and use the placeholder address `docs.snaarp.com/document/project-brief`.
+
+- **`ToolsMenu.tsx`** (+ `tools-menu-data.ts`, helpers in `tools-menu-timeline.ts`): the Tools dropdown under "Tools" (196 px). Groups: Spelling and grammar (greyed) | Word count (Ctrl+Shift+C), Document outline (Ctrl+Alt+H) | Dictionary (greyed, Ctrl+Shift+Y) | Notification settings, Preferences, Accessibility (all greyed). Only Word count and Document outline do anything; greyed rows get no hover fill. Scene variable `toolsMenu`. Hooks `tools-item-<id>` (spelling, word-count, outline, dictionary, notifications, preferences, accessibility) and `tools-menu-card`. Helpers `clickToolsMenu`, `hoverToolsItem`, `chooseToolsItem` (Document outline flips `outlineOpen`, the same panel as View > Document outline; Word count opens the dialog).
+- **`WordCountDialog.tsx`** (+ `WORD_COUNT` copy in `tools-menu-data.ts`, numbers from `word-count.ts`): a 330 px card on the shared `InsertDialog` frame, opened with the scene variable `insertDialog` = "wordcount". Title "Word count", grey subtitle, four rows (Words, Characters, Characters (no spaces), Pages) with thin dividers, black "Done" button. The numbers are computed live from the document on screen (`docStats`), so Words always equals the footer's "N words". For the sample document: 85 words, 507 characters, 430 without spaces, 1 page. Hooks `wc-card` (the whole dialog), `wc-row-<words|characters|characters-no-spaces|pages>`, `wc-done`, `wc-close`. `InsertDialog` (`cardHook`) and the admin `Modal` (`hook`) gained an optional hook so a script can ring the whole card.
+- **`ESignatureMenu.tsx`** (+ `esignature-menu-data.ts`, helpers in `esignature-menu-timeline.ts`): the dropdown under "eSignature" (170 px): Sign document (pen), Request signature (paper plane), a divider, Signature history (greyed). Scene variable `esigMenu`. Hooks `esign-item-<sign|request|history>` and `esign-menu-card`. `chooseEsignatureItem` opens the dialog on Draw (Sign document) or on Request (Request signature).
+- **`ESignatureDialog.tsx`** (the step 29 dialog, extended): the scene variable `esigTab` picks the tab (draw, the default | type | upload | request); the selected tab has a blue underline and blue text. Draw is unchanged (step 29 plays as before). **Type:** grey hint, input `field:esig-name` (placeholder "Your full name"), a live preview of the name in an italic serif (28 px) under the input once text is typed, and a blue "Insert Signature" button that is pale until text is typed. **Upload:** dashed drop zone with an upload icon and "Click to upload (PNG, JPG)"; hover turns it light blue; the computer's file picker is not drawn. **Request:** two-line description, email input `field:esig-email` ("Recipient email address"), text area `field:esig-message` ("Optional message..."), and a blue "Send Request" button with a paper-plane icon, pale until the address looks valid (`isEmail`). `esigFocus` ("name" | "email" | "message") gives that input the dark border and caret. Hooks `esig-tab-<id>`, `esig-canvas`, `esig-stroke`, `esig-clear`, `esig-insert`, `esig-name`, `esig-preview`, `esig-drop`, `esig-email`, `esig-message`, `esig-request-hint`, `esig-send`, `esig-close`. Copy in `ESIGN` in `insert-data.ts`. Helpers `clickEsignatureTab` and `typeInEsignatureField`; `openEsignature(tl, tab)` resets the tab, focus and fields.
+- **Signature blocks in the page** (`ObjectBlock.tsx`): `ObjectState.kind` is now "signature" (drawn) | "drawing" | "typed" (the name in `text`, italic serif, 24 px) | "upload" (the second sample signature, `UPLOADED_SIGNATURE` in `stroke-data.ts`, 120 px wide, clean black stroke on a transparent background). A `selected` one sits in the shared `SelectionFrame` (thin blue outline, four corner handles, the dark floating toolbar); hooks `page-signature-block`, `page-signature`, `signature-handle-<tl|tr|bl|br>`, `signature-toolbar`. The drawn signature of step 29 is not selected and stays a plain stroke. `insertObject(tl, kind, { selected, text })`.
+- **Start state for steps 41 to 43:** `SIGN_SPOT_EDITOR` (in `esignature-menu-timeline.ts`): the sample document with a new empty line under Contacts and the caret in it; the signature goes under that line.
+
+## Doc step 39 - Explore the Tools menu
+
+- Files: `Step39ToolsMenu.tsx`, `step39-script.ts`, `step39-data.ts`. `durationMs` 24000. Recording: about 0:02-0:28 of the Tools video (the Comments panel and the small round pop-up near the end are left out). `initTabs` runs first so a replay starts with the outline closed.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Tools". Cursor to Tools, ring, click; the menu opens. |
+| 2.5 | Caption "The Tools menu has helpers for your document". Ring on the menu. |
+| 4.5 | Caption "Some tools are greyed out until they are available". Cursor hovers Spelling and grammar (stays greyed). |
+| 7.0 | Caption "Word count counts your words and pages". Cursor hovers Word count (shortcut visible). |
+| 9.5 | Caption "Document outline shows your tabs and headings". Cursor to Document outline, ring, click. The menu closes; the outline panel slides in on the left and the page shifts right. |
+| 12.5 | Caption "The outline opens right away". |
+| 14.5 | Caption "Click Tools again". Cursor to Tools, click; the menu opens. |
+| 16.5 | Caption "Dictionary, notifications, preferences and accessibility are not available yet". Cursor moves over those four greyed rows in turn (hover only). |
+| 20.0 | The menu closes. Caption "Click the back arrow to close the outline". Cursor to the panel's back arrow, ring, click; the panel closes and the page returns to the centre. |
+| 23.0 | Caption clears. Hold. |
+| 23.6 | Quick white fade. Ends at 24.0. Step 39 is marked done. |
+
+## Doc step 40 - Check your word count
+
+- Files: `Step40WordCount.tsx`, `step40-script.ts`, `step40-data.ts`. `durationMs` 18400. Recording: about 0:05-0:12 of the Tools video.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click Tools, then Word count". Open the menu; cursor to Word count, ring, click. The menu closes and the dialog opens with the live numbers. |
+| 4.0 | Caption "See your words, characters and pages". A ring moves down the four rows in turn (Words, Characters, Characters (no spaces), Pages). |
+| 9.0 | Caption "Shortcut: Ctrl+Shift+C opens it any time". Ring on the whole dialog. |
+| 12.5 | Caption "Click Done to close". Cursor to Done, ring, click. The dialog closes. |
+| 15.5 | Caption clears. Hold. |
+| 18.0 | Quick white fade. Ends at 18.4. Step 40 is marked done. |
+
+## Doc step 41 - Sign your document
+
+- Files: `Step41SignDocument.tsx`, `step41-script.ts`, `step41-data.ts`. `durationMs` 24000. Starts from `SIGN_SPOT_EDITOR`. Recording: about 0:00-0:28 of the eSignature video (the recording's own scribble is replaced by the sample stroke).
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in; the caret blinks on the empty line under Contacts. |
+| 0.8 | Caption "Click eSignature". Cursor to eSignature, ring, click; the menu opens. |
+| 2.5 | Caption "The eSignature menu signs documents and requests signatures". Ring on the menu; the cursor hovers Signature history (greyed). |
+| 5.0 | Caption "Click Sign document". Cursor to Sign document, ring, click. The dialog opens on Draw. |
+| 7.5 | Caption "Draw your signature with your mouse". The cursor follows the sample stroke (about 3 s) and the stroke appears behind it. |
+| 12.0 | Caption "Click Insert Signature". Cursor to the button, ring, click. The dialog closes; the signature is in the page with its handles and floating toolbar. |
+| 16.5 | Caption "Your signature is in the document". Ring on the signature. |
+| 21.0 | Ring and caption clear. Hold. |
+| 23.6 | Quick white fade. Ends at 24.0. Step 41 is marked done. |
+
+## Doc step 42 - Type your signature
+
+- Files: `Step42TypeSignature.tsx`, `step42-script.ts`, `step42-data.ts` (the sample name "Jane Doe" is in the data). `durationMs` 26000. Starts from `SIGN_SPOT_EDITOR`. Recording: about 0:26-0:52.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click eSignature, then Sign document". Open the menu; Sign document, ring, click. The dialog opens on Draw. |
+| 4.0 | Caption "Click Type". Cursor to the Type tab, ring, click; the tab switches. |
+| 6.5 | Caption "Type your full name". Cursor to the input, click; "Jane Doe" is typed. The button turns solid blue and the preview appears under the input. |
+| 12.0 | Caption "A signature is generated from your name". Ring on the preview. |
+| 15.5 | Caption "Click Insert Signature". Cursor to the button, ring, click. The dialog closes; the typed signature is in the page with its handles and floating toolbar. |
+| 19.5 | Caption "Your typed signature is in the document". Ring on it. |
+| 24.0 | Ring and caption clear. Hold. |
+| 25.6 | Quick white fade. Ends at 26.0. Step 42 is marked done. |
+
+## Doc step 43 - Upload a signature image
+
+- Files: `Step43UploadSignature.tsx`, `step43-script.ts`, `step43-data.ts`. `durationMs` 19000. Starts from `SIGN_SPOT_EDITOR`. Recording: about 0:54-1:14 (the computer's file picker is left out; the cursor rests on the drop zone for 1.1 s, `PICKER_REST_MS`).
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click eSignature, then Sign document". Open the menu; Sign document, ring, click. The dialog opens on Draw. |
+| 4.0 | Caption "Click Upload". Cursor to the Upload tab, ring, click; the dashed drop zone shows. |
+| 6.5 | Caption "Click the box and choose your signature image". Cursor to the drop zone (it turns light blue), ring, click; the cursor rests about 1 s. |
+| 9.5 | The dialog closes and the uploaded sample signature is in the page with its handles and floating toolbar. |
+| 12.0 | Caption "Your uploaded signature is in the document". Ring on it. |
+| 16.0 | Ring and caption clear. Hold. |
+| 18.6 | Quick white fade. Ends at 19.0. Step 43 is marked done. |
+
+## Doc step 44 - Request a signature (last step)
+
+- Files: `Step44RequestSignature.tsx`, `step44-script.ts`, `step44-data.ts` (the sample address "alex@acme-studio.com" and message are in the data). `durationMs` 24500. Starts from `SAMPLE_EDITOR` (no caret needed). Recording: about 1:08-1:25.
+
+| Time | What happens |
+|---|---|
+| 0.0 | The editor fades in. |
+| 0.8 | Caption "Click eSignature, then Request signature". Open the menu; Request signature, ring, click. The dialog opens on the Request tab. |
+| 4.0 | Caption "Ask someone else to sign your document". Ring on the grey description. |
+| 7.0 | Caption "Enter their email address". Cursor to the input, click; "alex@acme-studio.com" is typed. The Send Request button turns solid blue. |
+| 12.0 | Caption "Add a message if you like". Cursor to the text area, click; "Please sign the brief when you have a moment." is typed. |
+| 18.0 | Caption "Click Send Request". Cursor to the button, ring, click. The dialog closes, the caption clears (so a narrow screen's caption does not cover it) and a toast says "Signature request sent". |
+| 21.0 | Hold. |
+| 24.1 | Quick white fade. Ends at 24.5. Step 44 is marked done; the completion card appears ("You're all set") because step 44 is the last step in the config. |

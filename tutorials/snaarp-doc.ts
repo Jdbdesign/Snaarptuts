@@ -89,8 +89,7 @@ import { runStep44, STEP44_DURATION_MS } from "@/scenes/snaarp-doc/step44-script
 import type { Tutorial } from "./types";
 
 /**
- * Snaarp Doc: "How to use Snaarp Doc". The step list is PROVISIONAL (more steps will come from later
- * recordings): steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu). To add a step, give it a `scene`
+ * Snaarp Doc: "How to use Snaarp Doc". Steps 1 to 9 come from Snaarp_Doc_flow.mp4, steps 10 to 13 from Snaarp_Doc_edit.mp4, steps 14 to 18 from Snaarp_Doc_view.mp4, steps 19 to 30 from Snaarp_Doc_insert.mp4, steps 31 to 38 from Snaarp_Doc_format.mp4 (the whole Format menu), steps 39 and 40 from Snaarp_Doc_tools.mp4 (the Tools menu) and steps 41 to 44 from Snaarp_Doc_esignature.mp4 (the eSignature menu). The tutorial is complete at 44 steps (the Help menu is intentionally not included). To add a step, give it a `scene`
  * ({ Component, run, durationMs }) and add its folder under scenes/snaarp-doc/.
  * Recording: ref/docs/Snaarp_Doc_flow.mp4 (1010x480, 2:15, git-ignored).
  * URL pills are placeholders, except docs.snaarp.com/trash, which was seen in the recording.

@@ -292,6 +292,21 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 - **Step 36 needs scrolling** (the footer is at the foot of a tall page): the page scrolls down to the footer, and the closing rings visit the header (top) then the footer text and the number (bottom).
 - **Timings** follow the owner's brief; the fade starts 0.4 s before each step's end, as in the other steps.
 
+## Snaarp Doc steps 39-44 (Tools menu, word count, eSignature menu: sign, type, upload, request)
+
+- **Sample content instead of the recordings' content.** Every step uses the sample document ("Project Brief"). Left out of the recordings: the document's real text (private project notes, file paths, a real tool name), the real news image and table, the Comments panel with its real comments and username (Tools video), the small round globe pop-up near the end of the Tools video, the computer's own file picker, the real email address typed in the Request tab, the profile photo (the avatar says "JD"), and browser tooltips and cursors.
+- **Greyed items.** Spelling and grammar, Dictionary, Notification settings, Preferences, Accessibility and Signature history are shown greyed and are hover only (no hover fill, no click), as in the recording. Only Word count and Document outline are active in the Tools menu. The Help menu is not part of this tutorial.
+- **Word count numbers are live.** The recording shows its own long document (2,085 words, 13,246 characters, 5 pages). The tutorial computes the numbers from the sample document (85 words, 507 characters, 430 without spaces, 1 page); Words always equals the "N words" in the footer line. The dialog is 330 px wide (the brief's size), which is wider in proportion than the recording's.
+- **Document outline** (step 39) opens the same panel as View > Document outline (step 17).
+- **Sign document** opens the dialog on the Draw tab. **Request signature** opens it straight on the Request tab: in the frames the dialog opens on the tab used last (Upload) and then shows the Request content, so the tutorial skips that and opens on Request. Signature history stays greyed.
+- **Signatures.** The drawn signature reuses the step 29 sample stroke; the uploaded one is a second original signature (`UPLOADED_SIGNATURE`, a clean black stroke on a transparent background). The typed one is "Jane Doe" in an italic serif (Georgia): the frames show an italic serif but the exact font is not known. All three get the blue outline, four corner handles and the dark floating toolbar when inserted (step 29's own signature stays unselected, as approved). The recording types the word "Adjustment"; the sample name replaces it.
+- **Upload.** The recording opens the computer's file picker; the tutorial leaves it out: the cursor clicks the drop zone, rests about 1 s and the sample signature appears in the page.
+- **Request sent.** The recording ends with a browser alert ("docs.snaarp.com says: Signature request sent to ..." with an OK button). The brief says no browser popups, so a DocToast with a black check says "Signature request sent" instead (bottom right, about 3 s).
+- **Type tab icon.** The Type tab uses the same "A" icon as step 29's dialog (the frames show a serif "T"); changing it would alter step 29. Swap it in `ESIGN.tabs` in `components/docs/insert-data.ts` if wanted.
+- **Where the signature goes.** Steps 41 to 43 start with a new empty line under Contacts (caret in it); the signature is placed under that line, like step 29.
+- **Timings** follow the brief; each fade starts 0.4 s before the step's end. Step 40 ends at 18.4 s (the brief says about 20 s but its last beat is at 18.0 s) and step 44 at 24.5 s (the brief says about 27 s, last beat 24.0 s).
+- **Menu positions** are measured from the real menu row (Tools card 237 px, eSignature card 315 px from the editor's left edge at the 1440 design width), and both stay inside the frame on narrow screens.
+
 ## Snaarp Doc: double-check before launch
 
 1. **Placeholder URL pills:** every address except `docs.snaarp.com/trash` is a guess (`/documents`, `/templates`, `/document/new`, `/document/untitled`, `/document/untitled-copy`, `/document/version-history`). Replace them in `tutorials/snaarp-doc.ts` and the step data files (`stepN-data.ts`).
@@ -300,7 +315,8 @@ Rule: no real emails, passwords, names or domains anywhere in the app. All data 
 4. **Sample document names and data:** Product Roadmap, Project Proposal, "Untitled Document (Copy)", "Project Brief", user Jane Doe (jane@acme-studio.com). Change them in `scenes/snaarp-doc/step1-data.ts` and `components/docs/doc-titles.ts` if needed.
 5. **Toast texts** in step 6 ("Uploading to Drive...", "Saved to Drive: ...docx") come from the brief, not the recording.
 6. **Icons** in the editor, File menu and dialogs are redraws, close to but not identical to the real ones.
-7. **The step list is provisional:** more steps will be added from later videos; the completion card follows the last step in `tutorials/snaarp-doc.ts` automatically.
+7. **The Snaarp Doc tutorial is complete at 44 steps** (File, Edit, View, Insert, Format, Tools and eSignature menus; the Help menu is intentionally not included). If steps are added later, the completion card follows the last step in `tutorials/snaarp-doc.ts` automatically.
+8. **Request signature** shows a toast instead of the recording's browser alert, and the Type tab keeps step 29's "A" icon (see "Snaarp Doc steps 39-44").
 
 ## Choices that are not deviations (kept on purpose)
 
