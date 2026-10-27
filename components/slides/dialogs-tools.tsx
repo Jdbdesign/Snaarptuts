@@ -11,7 +11,7 @@ import { THEMES, type ThemeId } from "./slides-toolbar-data";
 /**
  * Tools > Explore: a panel on the right (it takes the place of the "Select an element" text) with a search box and three kinds of suggestion.
  * Scene variables: `explore` (open), `field:explore` (the search text) and `exploreDone` (the search has been run: suggestions show).
- * Clicking a suggestion puts it on the slide. Hooks: explore-panel, explore-close, field-explore, explore-layout-<id>, explore-image-<id>,
+ * Clicking a suggestion puts it on the slide. Hooks: explore-panel, explore-heading, explore-close, field-explore, explore-layout-<id>, explore-image-<id>,
  * explore-topic-<id>.
  */
 export function ExplorePanel({ tl }: { tl: Timeline }) {
@@ -21,7 +21,7 @@ export function ExplorePanel({ tl }: { tl: Timeline }) {
   const heading = "mb-[6px] mt-[12px] text-[8.5px] font-semibold uppercase tracking-[0.06em] text-[#6b7280]";
   return (
     <div data-tl="explore-panel" className="absolute inset-0 overflow-hidden bg-white">
-      <div className="flex h-[30px] items-center justify-between border-b border-[#F0F1F4] px-[12px]">
+      <div data-tl="explore-heading" className="flex h-[30px] items-center justify-between border-b border-[#F0F1F4] px-[12px]">
         <h3 className="text-[10.5px] font-semibold text-[#1f2430]">{E.title}</h3>
         <span data-tl="explore-close" onClick={() => closeExplore(tl)} className="flex h-[18px] w-[18px] items-center justify-center rounded-full text-[#4b5060] data-[hover=true]:bg-[#F1F3F4]">
           <Icon name="x" size={10} />

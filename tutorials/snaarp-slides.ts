@@ -94,6 +94,8 @@ import { Step47 } from "@/scenes/snaarp-slides/step47/Step47";
 import { runStep47, STEP47_DURATION_MS } from "@/scenes/snaarp-slides/step47/script";
 import { Step48 } from "@/scenes/snaarp-slides/step48/Step48";
 import { runStep48, STEP48_DURATION_MS } from "@/scenes/snaarp-slides/step48/script";
+import { Step49 } from "@/scenes/snaarp-slides/step49/Step49";
+import { runStep49, STEP49_DURATION_MS } from "@/scenes/snaarp-slides/step49/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -392,6 +394,12 @@ export const snaarpSlides: Tutorial = {
       title: "Check your spelling",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step48, run: runStep48, durationMs: STEP48_DURATION_MS },
+    },
+    {
+      id: "explore",
+      title: "Explore ideas",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step49, run: runStep49, durationMs: STEP49_DURATION_MS },
     },
   ],
   groups: [
