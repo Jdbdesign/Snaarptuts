@@ -92,6 +92,8 @@ import { Step46 } from "@/scenes/snaarp-slides/step46/Step46";
 import { runStep46, STEP46_DURATION_MS } from "@/scenes/snaarp-slides/step46/script";
 import { Step47 } from "@/scenes/snaarp-slides/step47/Step47";
 import { runStep47, STEP47_DURATION_MS } from "@/scenes/snaarp-slides/step47/script";
+import { Step48 } from "@/scenes/snaarp-slides/step48/Step48";
+import { runStep48, STEP48_DURATION_MS } from "@/scenes/snaarp-slides/step48/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -385,6 +387,12 @@ export const snaarpSlides: Tutorial = {
       url: SLIDES_URLS.renamed,
       scene: { Component: Step47, run: runStep47, durationMs: STEP47_DURATION_MS },
     },
+    {
+      id: "spelling",
+      title: "Check your spelling",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step48, run: runStep48, durationMs: STEP48_DURATION_MS },
+    },
   ],
   groups: [
     { title: "Getting started", from: "open-slides" },
@@ -395,6 +403,7 @@ export const snaarpSlides: Tutorial = {
     { title: "Format", from: "format-text" },
     { title: "Slide", from: "new-slide" },
     { title: "Arrange", from: "stacking-order" },
+    { title: "Tools", from: "spelling" },
   ],
   completion: {
     text: "You know your way around Snaarp Slides and its File, Edit, View and Insert menus.",

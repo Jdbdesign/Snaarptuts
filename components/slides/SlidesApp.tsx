@@ -10,6 +10,7 @@ import { EmailCollabDialog, EmailFileDialog, MoveDialog, PublishDialog } from ".
 import { ImportDialog, OpenDialog, StartDialog, TemplatesDialog } from "./dialogs-start";
 import { DetailsDialog, NameVersionDialog, PageSetupDialog, TrashDialog, VersionPanel } from "./dialogs-manage";
 import { ChartPanel, InsertImageDialog } from "./dialogs-insert";
+import { ExplorePanel, PreferencesDialog } from "./dialogs-tools";
 import { HomeScreen, StarredScreen, TrashScreen } from "./HomeScreens";
 import { Spinner } from "./parts";
 import { SlidesEditor } from "./SlidesEditor";
@@ -25,6 +26,8 @@ import type { CellEdit, TextEdit } from "./slides-edit";
 import { EIV_SELECTED } from "./slide-elements-data";
 import { ZOOM_FACTOR, ZOOM_LABEL, type DropdownId } from "./slides-menus-data";
 import { isFmtOn } from "./slides-format";
+import { findMisspellingIn, type SpellMark } from "./slides-tools";
+import { SPELLING } from "./slides-tools-data";
 import { ThemeContext } from "./slides-theme";
 import { DEFAULT_THEME, type ThemeId } from "./slides-toolbar-data";
 import { SlidesLayout } from "./SlidesLayout";
@@ -108,13 +111,20 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
   const marker = useTimelineVar<{ x: number; y: number } | null>(tl, "marker", null);
   const theme = useTimelineVar<ThemeId>(tl, "theme", DEFAULT_THEME);
   const toolMenu = useTimelineVar<string>(tl, "toolMenu", "");
+  const spellMark = useTimelineVar<SpellMark | null>(tl, "spell", null);
+  const spellAuto = useTimelineVar(tl, "pref:spell", false);
+  const exploreOpen = useTimelineVar(tl, "explore", false);
 
   const matches = findOpen && findQuery ? findMatches(slides, findOrigin, findQuery, findCase) : [];
+  // Preferences > Automatic spelling check marks a misspelt word, without the suggestion card.
+  const found = spellAuto ? findMisspellingIn(slides, selected) : null;
+  const autoSpell = found ? { ...found, open: false, suggestion: SPELLING.right } : null;
   const view: SlideViewState = {
     selected: sel,
     editing: textEdit ? { ...textEdit, typed } : null,
     cell: cellEdit ? { ...cellEdit, typed: cellTyped } : null,
     find: findOpen && findQuery ? { query: findQuery, matchCase: findCase, current: matches[Math.min(findIndex, matches.length - 1)] ?? null } : undefined,
+    spell: spellMark ? { ...spellMark, suggestion: SPELLING.right } : autoSpell,
     guides,
     snap,
     draw,
@@ -185,8 +195,8 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
             slides={slides}
             selected={selected}
             ratio={ratio}
-            sidePanel={versionsOpen ? <VersionPanel tl={tl} /> : chartSel?.kind === "chart" ? <ChartPanel tl={tl} chart={chartSel} /> : undefined}
-            panelWidth={versionsOpen ? 290 : 253}
+            sidePanel={versionsOpen ? <VersionPanel tl={tl} /> : exploreOpen ? <ExplorePanel tl={tl} /> : chartSel?.kind === "chart" ? <ChartPanel tl={tl} chart={chartSel} /> : undefined}
+            panelWidth={versionsOpen || exploreOpen ? 290 : 253}
             dropdowns={{ edit: dropdown("edit"), view: dropdown("view"), insert: dropdown("insert"), format: dropdown("format"), slide: dropdown("slide"), arrange: dropdown("arrange"), tools: dropdown("tools") }}
             toolMenu={toolMenu}
             onSelectSlide={(i) => {
@@ -219,6 +229,7 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
                 <PageSetupDialog tl={tl} />
                 <TrashDialog tl={tl} title={title} />
                 <InsertImageDialog tl={tl} />
+                <PreferencesDialog tl={tl} />
                 <SlidesFindPanel tl={tl} total={matches.length} current={findIndex} />
               </>
             }

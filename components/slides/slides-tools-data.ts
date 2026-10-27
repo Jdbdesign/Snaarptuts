@@ -13,18 +13,20 @@ export const SPELLING = {
   heading: "Spelling suggestion",
   ignore: "Ignore",
   toast: "Spelling fixed",
+  none: "No spelling mistakes found",
 };
 
 export const EXPLORE = {
   title: "Explore",
   placeholder: "Search ideas, images and topics",
+  hint: "Type a word and press Enter to see ideas for your slide.",
   query: "brand identity",
   layoutsHeading: "Layout ideas",
   imagesHeading: "Images",
   topicsHeading: "Related topics",
   layouts: [
-    { id: "quote", label: "Big quote", text: "Good design is good business." },
-    { id: "number", label: "Key number", text: "94% of clients return" },
+    { id: "quote", label: "Big quote", text: "Good design is good business.", fmt: { italic: true } },
+    { id: "number", label: "Key number", text: "94% of clients return", fmt: { bold: true } },
   ],
   images: [
     { id: "desk", name: "Studio desk", src: SAMPLE_IMAGES.desk },
@@ -37,6 +39,9 @@ export const EXPLORE = {
     { id: "type", label: "Typography" },
   ],
   insertedToast: (what: string) => `${what} added to the slide`,
+  /** Where an inserted topic and an inserted layout idea land (cqw): the band to the right of the sample image. */
+  topicBox: { x: 44, y: 37, w: 46, h: 6 },
+  layoutBox: { x: 44, y: 46, w: 48, h: 7 },
 };
 
 export const PREFERENCES = {

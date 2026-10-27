@@ -19,6 +19,7 @@ import {
 import type { ChartKind, ShapeKind } from "./slide-elements";
 import { DROPDOWNS, type DropdownId } from "./slides-menus-data";
 import { alignSel, changeIndent, deleteSlide, distribute, restack, rotateSel, duplicateSlide, newSlide, playableSlides, setAlign, setSpacing, toggleFormat, toggleSkip } from "./slides-format";
+import { openExplore, openPreferences, startSpelling } from "./slides-tools";
 import { pressOn } from "./slides-timeline";
 
 /*
@@ -105,6 +106,9 @@ ACTIONS["arrange.disth"] = (tl) => distribute(tl, "h");
 ACTIONS["arrange.distv"] = (tl) => distribute(tl, "v");
 ACTIONS["arrange.rotcw"] = (tl) => rotateSel(tl, 1);
 ACTIONS["arrange.rotccw"] = (tl) => rotateSel(tl, -1);
+ACTIONS["tools.spelling"] = startSpelling;
+ACTIONS["tools.explore"] = openExplore;
+ACTIONS["tools.prefs"] = openPreferences;
 ACTIONS["format.bold"] = (tl) => toggleFormat(tl, "bold");
 ACTIONS["format.italic"] = (tl) => toggleFormat(tl, "italic");
 ACTIONS["format.underline"] = (tl) => toggleFormat(tl, "underline");

@@ -61,6 +61,9 @@ export const FORMAT_DECK: SlideData[] = EIV_DECK.map((s) =>
 const deckWith = (change: (els: SlideEl[]) => SlideEl[]): SlideData[] => EIV_DECK.map((s) => (s.id === "e2" ? { ...s, elements: change(s.elements ?? []) } : s));
 const shape = (id: string, kind: ShapeKind, x: number, y: number, w: number, h: number, fill: string): SlideEl => ({ id, kind: "shape", shape: kind, x, y, w, h, fill });
 
+/** Steps 48 and 50 (Spelling, Preferences): slide 2 with its title misspelt ("serivces"). */
+export const SPELL_DECK: SlideData[] = deckWith((els) => els.map((e) => (e.id === "s2-title" && e.kind === "text" ? { ...e, paras: ["Our serivces"] } : e)));
+
 /**
  * Step 44 (Change the stacking order): slide 2 plus three overlapping squares under the bullets, back to front A, B, C. Each one has a
  * strip no other square covers (A's left edge, B's top edge, C's right edge), so the cursor can always click the one it means.
