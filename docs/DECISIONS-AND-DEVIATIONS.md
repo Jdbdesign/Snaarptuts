@@ -455,7 +455,7 @@ Recording: `ref/slides/Snaarp_Slides_file.mp4` (the owner's `C:\Users\HP\Downloa
 **To replace or confirm before launch (Snaarp Slides):** the sidebar title ("Slide" vs "Slides"), the Google Drive wording in Open, the placeholder URLs, the wording of every dialog and tooltip listed above as "ours", whether Slides really offers "From template" under New and "Selected slides" without a dialog, and the Starred / Shared with me empty states.
 
 
-## Snaarp Slides steps 20-36 (Edit, View and Insert round)
+## Snaarp Slides steps 20-35 (Edit, View and Insert round)
 
 Recording: `ref/slides/Snaarp_Slides_edit_view_insert.mp4` (the owner's `C:\Users\HP\Downloads\1026 (1)(2).mp4`, copied, never moved; 1006x480, 107 s; Edit 0:00-0:08, View about 0:09-0:40, Insert about 0:40-1:47). Menu labels, order, dividers, shortcut hints, arrows, ticks and greyed rows are read from the recording and match it. The recording shows a wedding deck ("Wendy & Derry got married", blue squares), a dark Windows file picker with real files and the owner's avatar photo; none of it is used. Sample deck: "Acme Studio Pitch 2026" with "Acme Studio", "Our services" and "Next steps".
 
@@ -474,17 +474,17 @@ Recording: `ref/slides/Snaarp_Slides_edit_view_insert.mp4` (the owner's `C:\User
 - Step 33: the recording's line is a plain black horizontal line; ours is 40 wide, selected with a handle at each end.
 - Step 34: the recording's table is a 3 x 3 grid with a grey header row. Typing is ours: Service / Price / Time, Logo design / £450 / 1 week, Website / £1,200 / 4 weeks (pounds; the brief's third price £900 is not used).
 - Step 35: the recording's chart has two series (blue and orange bars) and an empty "Chart Properties" panel. **Ours is one series** ("Website visits by month", Jan to Jun: 1,200, 1,800, 2,400, 3,100, 3,600, 4,200, plain counts) and the panel is built as the brief asks: chart title, a Bar / Line / Pie switch (it really changes the chart) and a data table. The title and the data are shown, not editable.
-- Step 36: "Coming soon" tooltips on Animations panel (View) and Video, Audio, Word art (Insert) are the recording's.
+- A step 36 "Features coming soon" (tooltips on Animations panel, Video, Audio, Word art) was built and then **removed at the owner's request**. The greyed "Coming soon" rows are still in the View and Insert menus and show their tooltip if hovered; the removed step is in git history (commit "Snaarp Slides: step 36 (Features coming soon)").
 
 **Other deviations and choices.**
 - Slides 1 and 3 of the sample deck and the layout of slide 2 (title, three bullets, one blue rounded rectangle) are ours; Arial-style text as in steps 1-19. Insert always lands in the empty band under the bullets so nothing covers the text.
-- Steps 20-36 start with three slides; steps 3-19 still start with one ("Acme Studio Pitch"). The deck name here is "Acme Studio Pitch 2026" and the address is the placeholder `slides.snaarp.com/presentation/acme-studio-pitch-2026`.
+- Steps 20-35 start with three slides; steps 3-19 still start with one ("Acme Studio Pitch"). The deck name here is "Acme Studio Pitch 2026" and the address is the placeholder `slides.snaarp.com/presentation/acme-studio-pitch-2026`.
 - Thumbnails draw the elements too, so they follow every change; selection frames and handles appear on the big canvas only.
 - Undo restores the deck and the slide that was showing; selecting things is not an undo step.
 - Dropdown widths (208 px) follow the File menu's, the recording's menus are the same width once scaled to the 1440 px scene.
 - **Narrow screens (390x844):** every menu, submenu, tooltip and the find card fit; the Chart properties panel overlays the canvas (as the Version history panel does), so the chart is partly hidden behind it while it is open. The editor is zoomed 2.4x like the rest of Snaarp Slides.
 - `lib/timeline.ts` got one additive option (`onMove` on `moveCursorTo`) so an element can follow the cursor while it is dragged. Nothing else outside `components/slides/`, `scenes/snaarp-slides/` and `tutorials/snaarp-slides.ts` changed.
-- The owner asked for steps 20-36 in one round (the usual rule is one step per round); each step is its own commit "Snaarp Slides: step N (title)".
+- The owner asked for steps 20-36 in one round (step 36 was later removed) (the usual rule is one step per round); each step is its own commit "Snaarp Slides: step N (title)".
 - Rail groups: "Edit" (20-24), "View" (25-29) and "Insert" (30-36), used by the rail search.
 
 **To replace or confirm before launch (Edit, View, Insert):** the wording of the demonstrations' captions, the zoom behaviour of "100%" versus "Fit" in the real product, whether Find and replace is really switched off in Snaarp Slides, the in-app image picker (the real product opens the computer's file window), the chart's one-series sample and the contents of the real Chart properties panel, and the sample text on slides 1 and 3.

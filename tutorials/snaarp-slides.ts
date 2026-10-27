@@ -68,14 +68,12 @@ import { Step34 } from "@/scenes/snaarp-slides/step34/Step34";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/snaarp-slides/step34/script";
 import { Step35 } from "@/scenes/snaarp-slides/step35/Step35";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-slides/step35/script";
-import { Step36 } from "@/scenes/snaarp-slides/step36/Step36";
-import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-slides/step36/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
 /**
- * Snaarp Slides ("How to use Snaarp Slides"): File menu (steps 1-19), then the Edit, View and Insert menus (steps 20-36). Recording: ref/slides/Snaarp_Slides_file.mp4
- * (1006x480, 3:48, git-ignored). Steps 20-36 add Edit, View and Insert (ref/slides/Snaarp_Slides_edit_view_insert.mp4); later rounds add Format, Slide, Arrange and Tools.
+ * Snaarp Slides ("How to use Snaarp Slides"): File menu (steps 1-19), then the Edit, View and Insert menus (steps 20-35). Recording: ref/slides/Snaarp_Slides_file.mp4
+ * (1006x480, 3:48, git-ignored). Steps 20-35 add Edit, View and Insert (ref/slides/Snaarp_Slides_edit_view_insert.mp4); later rounds add Format, Slide, Arrange and Tools.
  * The completion card follows the last step in this list, so adding menus later moves it automatically.
  */
 export const snaarpSlides: Tutorial = {
@@ -290,12 +288,6 @@ export const snaarpSlides: Tutorial = {
       title: "Insert a chart",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step35, run: runStep35, durationMs: STEP35_DURATION_MS },
-    },
-    {
-      id: "coming-soon",
-      title: "Features coming soon",
-      url: SLIDES_URLS.renamed,
-      scene: { Component: Step36, run: runStep36, durationMs: STEP36_DURATION_MS },
     },
   ],
   groups: [
