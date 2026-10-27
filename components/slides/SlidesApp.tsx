@@ -14,6 +14,7 @@ import { HomeScreen, StarredScreen, TrashScreen } from "./HomeScreens";
 import { Spinner } from "./parts";
 import { SlidesEditor } from "./SlidesEditor";
 import { SlidesDropdown } from "./SlidesDropdown";
+import { ToolbarCards } from "./ToolbarCards";
 import { SlidesFileMenu } from "./SlidesFileMenu";
 import { SlidesFindPanel } from "./SlidesFindPanel";
 import { SlidesFullScreen } from "./SlidesFullScreen";
@@ -55,7 +56,7 @@ type Props = {
  * Edit, View and Insert (steps 20-36) add: `menuOpen` (edit | view | insert), `menuSub`, `menuTip`, `sel` (selected element ids), `clip`,
  * `undoStack` / `redoStack`, `textEdit` + `field:slideText`, `cellEdit` + `field:slideCell`, `findOpen` + `field:find` + `field:replace`
  * + `findMatchCase` + `findOrigin` + `findIndex`, `notesOpen` + `field:notes`, `rulers`, `rulerMark`, `guides`, `snap`, `zoom`, `tool`,
- * `draw`, `marker`, `canvasX` / `canvasY` (0-1: how far a zoomed-in canvas is scrolled), `fullScreen` + `fsHint` + `fsKey` + `fsPressed` + `fsArrow` + `fsSlide`, `imagePick`.
+ * `toolMenu` (background | layout | theme | transition | zoom | shape: the open toolbar card), `theme`, `draw`, `marker`, `canvasX` / `canvasY` (0-1: how far a zoomed-in canvas is scrolled), `fullScreen` + `fsHint` + `fsKey` + `fsPressed` + `fsArrow` + `fsSlide`, `imagePick`.
  * The root carries data-scroller, where the timeline looks up targets.
  */
 export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides = ONE_SLIDE, startSelected = 0 }: Props) {
@@ -106,6 +107,7 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
   const draw = useTimelineVar<{ x: number; y: number; w: number; h: number } | null>(tl, "draw", null);
   const marker = useTimelineVar<{ x: number; y: number } | null>(tl, "marker", null);
   const theme = useTimelineVar<ThemeId>(tl, "theme", DEFAULT_THEME);
+  const toolMenu = useTimelineVar<string>(tl, "toolMenu", "");
 
   const matches = findOpen && findQuery ? findMatches(slides, findOrigin, findQuery, findCase) : [];
   const view: SlideViewState = {
@@ -186,6 +188,8 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
             sidePanel={versionsOpen ? <VersionPanel tl={tl} /> : chartSel?.kind === "chart" ? <ChartPanel tl={tl} chart={chartSel} /> : undefined}
             panelWidth={versionsOpen ? 290 : 253}
             dropdowns={{ edit: dropdown("edit"), view: dropdown("view"), insert: dropdown("insert"), format: dropdown("format"), slide: dropdown("slide"), arrange: dropdown("arrange"), tools: dropdown("tools") }}
+            toolMenu={toolMenu}
+            toolLayer={<ToolbarCards menu={toolMenu} theme={theme} bg={slides[Math.min(selected, slides.length - 1)]?.bg} transition={slides[Math.min(selected, slides.length - 1)]?.transition ?? "none"} zoom={zoom} />}
             activeTool={tool}
             zoomLabel={ZOOM_LABEL[zoom]}
             zoom={ZOOM_FACTOR[zoom] ?? 1}

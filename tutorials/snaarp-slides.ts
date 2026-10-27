@@ -72,6 +72,8 @@ import { Step36 } from "@/scenes/snaarp-slides/step36/Step36";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-slides/step36/script";
 import { Step37 } from "@/scenes/snaarp-slides/step37/Step37";
 import { runStep37, STEP37_DURATION_MS } from "@/scenes/snaarp-slides/step37/script";
+import { Step38 } from "@/scenes/snaarp-slides/step38/Step38";
+import { runStep38, STEP38_DURATION_MS } from "@/scenes/snaarp-slides/step38/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -304,6 +306,12 @@ export const snaarpSlides: Tutorial = {
       title: "Align and indent your text",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step37, run: runStep37, durationMs: STEP37_DURATION_MS },
+    },
+    {
+      id: "change-theme",
+      title: "Change the theme",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step38, run: runStep38, durationMs: STEP38_DURATION_MS },
     },
   ],
   groups: [

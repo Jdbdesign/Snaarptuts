@@ -45,6 +45,10 @@ type Props = {
   notesText?: string;
   /** Width of the right-hand panel when `sidePanel` is shown (default 290). */
   panelWidth?: number;
+  /** The toolbar dropdown that is open (background | layout | theme | transition | zoom | shape): its button gets the grey fill. */
+  toolMenu?: string;
+  /** Cards hung under toolbar and header buttons (Anchored): they cover the whole editor, inside the narrow-screen zoom. */
+  toolLayer?: ReactNode;
   /** Where a zoomed-in canvas is scrolled to, as 0-1 of the way along each direction (View > Zoom). */
   scroll?: { x: number; y: number };
 };
@@ -79,6 +83,8 @@ export function SlidesEditor({
   notesText = "",
   panelWidth = 290,
   scroll,
+  toolMenu = "",
+  toolLayer,
 }: Props) {
   const narrow = useNarrow();
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -158,7 +164,7 @@ export function SlidesEditor({
                     data-tl={`tool-${t.id}`}
                     className={`flex h-[24px] shrink-0 items-center justify-center rounded-[4px] text-[#1f2430] transition-colors data-[hover=true]:bg-[#F1F2F5] ${
                       t.label ? "gap-[3px] px-[7px] text-[9px]" : "w-[26px]"
-                    } ${(activeTool ? t.id === activeTool : t.active) ? "bg-[#DCE9FC] text-[#2B6FEB]" : ""}`}
+                    } ${(activeTool ? t.id === activeTool : t.active) ? "bg-[#DCE9FC] text-[#2B6FEB]" : toolMenu === t.id ? "bg-[#E9EAEE]" : ""}`}
                   >
                     {t.icon && <Icon name={t.icon} size={13} />}
                     {t.id === "zoom" && zoomLabel ? zoomLabel : t.label}
@@ -169,7 +175,11 @@ export function SlidesEditor({
             ))}
             <span className="mx-[7px] h-[16px] w-px shrink-0 bg-[#E3E5EA]" />
             {TOOLBAR_SELECTS.map((s) => (
-              <span key={s} className="flex h-[24px] shrink-0 items-center gap-[3px] px-[9px] text-[9px] text-[#1f2430]">
+              <span
+                key={s}
+                data-tl={`tb-${s.toLowerCase()}`}
+                className={`flex h-[24px] shrink-0 items-center gap-[3px] rounded-[4px] px-[9px] text-[9px] text-[#1f2430] transition-colors data-[hover=true]:bg-[#F1F2F5] ${toolMenu === s.toLowerCase() ? "bg-[#E9EAEE]" : ""}`}
+              >
                 {s}
                 <Icon name="chevronDown" size={8} />
               </span>
@@ -243,6 +253,9 @@ export function SlidesEditor({
         </footer>
 
         {overlay}
+        <div data-tl="tool-layer" className="pointer-events-none absolute inset-0 z-[36]">
+          {toolLayer}
+        </div>
       </div>
     </div>
   );

@@ -85,6 +85,8 @@ const ACTIONS: Record<string, (tl: Timeline) => void> = {
   "insert.line": insertLine,
   "insert.table": insertTable,
 };
+ACTIONS["format.theme"] = (tl) => tl.setVar("toolMenu", "theme");
+ACTIONS["format.background"] = (tl) => tl.setVar("toolMenu", "background");
 ACTIONS["format.bold"] = (tl) => toggleFormat(tl, "bold");
 ACTIONS["format.italic"] = (tl) => toggleFormat(tl, "italic");
 ACTIONS["format.underline"] = (tl) => toggleFormat(tl, "underline");
