@@ -70,6 +70,8 @@ import { Step35 } from "@/scenes/snaarp-slides/step35/Step35";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-slides/step35/script";
 import { Step36 } from "@/scenes/snaarp-slides/step36/Step36";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-slides/step36/script";
+import { Step37 } from "@/scenes/snaarp-slides/step37/Step37";
+import { runStep37, STEP37_DURATION_MS } from "@/scenes/snaarp-slides/step37/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -296,6 +298,12 @@ export const snaarpSlides: Tutorial = {
       title: "Format your text",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step36, run: runStep36, durationMs: STEP36_DURATION_MS },
+    },
+    {
+      id: "align-indent",
+      title: "Align and indent your text",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step37, run: runStep37, durationMs: STEP37_DURATION_MS },
     },
   ],
   groups: [

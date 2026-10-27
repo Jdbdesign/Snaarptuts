@@ -54,7 +54,8 @@ export function changeIndent(tl: Timeline, delta: 1 | -1) {
   mapText(tl, (e) => ({ ...e, indent: Math.max(0, Math.min(MAX_INDENT, (e.indent ?? 0) + delta)) }));
 }
 
-export const setSpacing = (tl: Timeline, spacing: number) => mapText(tl, (e) => ({ ...e, spacing }));
+/** Line spacing; a bullet list grows with it, so the selection frame still wraps the text. */
+export const setSpacing = (tl: Timeline, spacing: number) => mapText(tl, (e) => ({ ...e, spacing, h: e.bullets ? (e.h * spacing) / (e.spacing ?? 1) : e.h }));
 
 export const applyTheme = (tl: Timeline, id: ThemeId) => tl.setVar("theme", id);
 
