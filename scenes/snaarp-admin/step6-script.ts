@@ -1,68 +1,71 @@
 import type { Timeline } from "@/lib/timeline";
-import { CAPTIONS, URL } from "./step6-data";
+import { clickAway, hoverOn, press } from "./script-helpers";
+import { CAPTIONS, SEARCH_NAME, URL_USERS } from "./steps-data";
 
-/** Snaarp Admin, step 6 - Open Manage products. Times are active milliseconds from the start of the step. */
-export const STEP6_DURATION_MS = 30000;
+/** Snaarp Admin, step 6 - Find users with filters and search. Times are active milliseconds from the start of the step. */
+export const STEP6_DURATION_MS = 56000;
 
 export async function runStep6(tl: Timeline) {
-  tl.placeCursor(0.55, 0.62);
-  tl.setUrl(URL);
+  tl.placeCursor(0.5, 0.45);
+  tl.setUrl(URL_USERS);
 
-  // Open the row's Actions menu
-  await tl.at(400);
-  tl.showCaption(CAPTIONS.actions);
-  await tl.moveCursorTo("[data-tl=actions-sam]", { ms: 1000 });
-  tl.highlight("[data-tl=actions-sam]");
-  await tl.wait(350);
-  await tl.click("[data-tl=actions-sam]");
+  // Search box
+  await tl.at(500);
+  tl.showCaption(CAPTIONS.search);
+  await tl.fill("[data-tl=field-usersearch]", "usersearch", SEARCH_NAME, { moveMs: 1000, msPerChar: 130 });
+  tl.highlight("[data-tl=users-table]");
+  await tl.wait(2200);
   tl.clearHighlight();
+  tl.setVar("field:usersearch", "");
+  tl.setVar("focus", "");
 
-  // Look down the menu
-  await tl.at(3200);
-  tl.showCaption(CAPTIONS.menu);
-  for (const id of ["edit", "products", "password", "deactivate", "delete"]) {
-    const sel = `[data-tl=action-${id}]`;
-    await tl.moveCursorTo(sel, { ms: 450 });
-    tl.hover(sel);
-    await tl.wait(650);
-  }
-
-  // Click Manage Products
-  await tl.at(8000);
-  tl.showCaption(CAPTIONS.manage);
-  await tl.moveCursorTo("[data-tl=action-products]", { ms: 600 });
-  tl.hover("[data-tl=action-products]");
-  tl.highlight("[data-tl=action-products]");
+  // Department filter (multi-select)
+  await tl.at(7500);
+  tl.showCaption(CAPTIONS.dept);
+  await press(tl, "[data-tl=filter-dept]", { ms: 900 });
   await tl.wait(500);
-  await tl.click("[data-tl=action-products]");
+  await hoverOn(tl, "[data-tl=dept-opt-engineering]");
+  await tl.click("[data-tl=dept-opt-engineering]");
+  await tl.wait(500);
+  await hoverOn(tl, "[data-tl=dept-opt-hr]", { hold: 300 });
+  await tl.click("[data-tl=dept-opt-hr]");
   tl.hover(null);
-  tl.clearHighlight();
+  await tl.wait(500);
+  await clickAway(tl);
+  await tl.wait(2200);
 
-  // The dialog: what Sam has
-  await tl.at(11200);
-  tl.showCaption(CAPTIONS.products);
-  tl.highlight("[data-tl=mp-owned]");
-  await tl.at(14000);
-  tl.clearHighlight();
+  await tl.at(18500);
+  tl.showCaption(CAPTIONS.deptClear);
+  await press(tl, "[data-tl=btn-clear-filters]", { ms: 900 });
+  await tl.wait(1200);
 
-  // Make admin: hover only
-  tl.showCaption(CAPTIONS.makeAdmin);
-  await tl.moveCursorTo("[data-tl=mp-admin-mail]", { ms: 900 });
-  tl.hover("[data-tl=mp-admin-mail]");
-  await tl.at(18200);
-
-  // Remove: hover only
-  tl.showCaption(CAPTIONS.remove);
-  await tl.moveCursorTo("[data-tl=mp-remove-mail]", { ms: 600 });
-  tl.hover("[data-tl=mp-remove-mail]");
-  await tl.at(22000);
+  // Product filter
+  await tl.at(23500);
+  tl.showCaption(CAPTIONS.product);
+  await press(tl, "[data-tl=filter-product]", { ms: 900 });
+  await tl.wait(500);
+  await tl.moveCursorTo("[data-tl=product-opt-crm]", { ms: 600 });
+  await tl.scrollPanelTo("[data-tl=product-filter-list]", "bottom", 1500);
+  await tl.scrollPanelTo("[data-tl=product-filter-list]", "top", 900);
+  await hoverOn(tl, "[data-tl=product-opt-books]");
+  await tl.click("[data-tl=product-opt-books]");
   tl.hover(null);
-
-  // The note under the list
-  tl.showCaption(CAPTIONS.note);
-  await tl.moveCursorTo("[data-tl=mp-note]", { dx: 180, ms: 800 });
-  tl.highlight("[data-tl=mp-note]");
-  await tl.at(27400);
+  tl.highlight("[data-tl=users-table]");
+  await tl.wait(2500);
   tl.clearHighlight();
+
+  await tl.at(37000);
+  tl.showCaption(CAPTIONS.productClear);
+  await press(tl, "[data-tl=btn-clear-filters]", { ms: 900 });
+  await tl.wait(1200);
+
+  // Role dropdown on a row
+  await tl.at(42500);
+  tl.showCaption(CAPTIONS.role);
+  await press(tl, "[data-tl=role-lena]", { ms: 1000 });
+  await tl.wait(500);
+  await hoverOn(tl, "[data-tl=role-opt-administrator]");
+  await hoverOn(tl, "[data-tl=role-opt-super-administrator]", { hold: 700 });
+  await clickAway(tl);
   await tl.at(STEP6_DURATION_MS);
 }
