@@ -86,6 +86,8 @@ import { Step43 } from "@/scenes/snaarp-slides/step43/Step43";
 import { runStep43, STEP43_DURATION_MS } from "@/scenes/snaarp-slides/step43/script";
 import { Step44 } from "@/scenes/snaarp-slides/step44/Step44";
 import { runStep44, STEP44_DURATION_MS } from "@/scenes/snaarp-slides/step44/script";
+import { Step45 } from "@/scenes/snaarp-slides/step45/Step45";
+import { runStep45, STEP45_DURATION_MS } from "@/scenes/snaarp-slides/step45/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -360,6 +362,12 @@ export const snaarpSlides: Tutorial = {
       title: "Change the stacking order",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step44, run: runStep44, durationMs: STEP44_DURATION_MS },
+    },
+    {
+      id: "align-objects",
+      title: "Align objects",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step45, run: runStep45, durationMs: STEP45_DURATION_MS },
     },
   ],
   groups: [
