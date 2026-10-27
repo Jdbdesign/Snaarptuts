@@ -1,12 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Icon } from "@/components/icons";
 import { clearPendingJump, peekPendingJump } from "@/lib/pending-jump";
 import { useNarrow } from "@/lib/useNarrow";
 import { getTutorial } from "@/tutorials";
 import { resolveCompletion } from "@/tutorials/completion";
 import { BrowserFrame } from "./BrowserFrame";
+import { CanvasOverlay } from "./CanvasOverlay";
 import { CompletionCard } from "./CompletionCard";
 import { ComingSoon } from "./ComingSoon";
 import { Rail } from "./Rail";
@@ -120,7 +120,7 @@ export function TutorialPlayer({ productId }: { productId: string }) {
   );
 
   return (
-    <div className="fixed inset-0 flex overflow-hidden border border-line bg-page p-4">
+    <div data-paused={playing && paused} className="fixed inset-0 flex overflow-hidden border border-line bg-page p-4">
       {narrow ? (
         railVisible && (
           <>
@@ -154,11 +154,8 @@ export function TutorialPlayer({ productId }: { productId: string }) {
             onUrlChange={setLiveUrl}
           />
         )}
-        {playing && paused && (
-          <div className="pointer-events-none absolute left-4 top-4 z-50 inline-flex items-center gap-1.5 rounded-full bg-[#111] px-3.5 py-1.5 text-[12px] font-medium text-white shadow-lg">
-            <Icon name="pause" size={12} />
-            Paused · press Space to resume
-          </div>
+        {step.scene && (
+          <CanvasOverlay paused={playing && paused} interactive={playing} onToggle={() => setPaused((p) => !p)} />
         )}
         {run.status === "finished" && (
           <CompletionCard

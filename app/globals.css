@@ -302,3 +302,29 @@ button {
     animation: none;
   }
 }
+
+/* Player: click-to-pause. While paused, every CSS animation inside the scene is frozen (the timeline also pauses Web Animations). */
+[data-paused="true"] [data-scene],
+[data-paused="true"] [data-scene] *,
+[data-paused="true"] [data-scene] *::before,
+[data-paused="true"] [data-scene] *::after {
+  animation-play-state: paused !important;
+}
+@keyframes player-play-flash {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+.player-play-flash {
+  animation: player-play-flash 0.4s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .player-play-flash {
+    display: none;
+  }
+}

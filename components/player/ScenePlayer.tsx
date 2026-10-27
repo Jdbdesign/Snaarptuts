@@ -124,10 +124,11 @@ export function ScenePlayer({ scene, paused, onDone, onAdvance, onUrlChange }: P
   const scale = size ? size.w / DESIGN_WIDTH : 1;
 
   return (
-    <div ref={frameRef} className="absolute inset-0 overflow-hidden bg-white">
+    <div ref={frameRef} data-scene className="absolute inset-0 overflow-hidden bg-white">
       {size && tl && (
         <div
           ref={sceneRef}
+          inert
           style={{
             width: DESIGN_WIDTH,
             height: size.h / scale,
@@ -166,7 +167,7 @@ export function ScenePlayer({ scene, paused, onDone, onAdvance, onUrlChange }: P
 
       <div
         ref={progressRef}
-        className="absolute bottom-0 left-0 z-40 h-[3px] w-full origin-left bg-brand"
+        className="pointer-events-none absolute bottom-0 left-0 z-40 h-[3px] w-full origin-left bg-brand"
         style={{ transform: "scaleX(0)" }}
       />
     </div>
