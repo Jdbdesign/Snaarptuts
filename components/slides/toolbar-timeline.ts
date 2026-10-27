@@ -42,6 +42,18 @@ export async function clickTool(tl: Timeline, id: keyof typeof TOOL_ACTIONS, opt
   TOOL_ACTIONS[id](tl);
 }
 
+/** Show the chosen transition on the canvas: the selected slide hands over to the next one (see TransitionPreview). */
+export async function playTransition(tl: Timeline, id: string) {
+  if (id === "none") return;
+  tl.setVar("tpreview", { id, phase: "start" });
+  await tl.wait(120);
+  tl.setVar("tpreview", { id, phase: "run" });
+  await tl.wait(850);
+  tl.setVar("tpreview", { id, phase: "hold" });
+  await tl.wait(650);
+  tl.setVar("tpreview", null);
+}
+
 /** Click the toolbar button and open its card. */
 export async function openToolbar(tl: Timeline, menu: ToolbarMenu, opts: { ms?: number } = {}) {
   await pressOn(tl, `[data-tl=${BUTTON[menu]}]`, { ms: opts.ms ?? 700 });

@@ -16,6 +16,7 @@ import { Spinner } from "./parts";
 import { SlidesEditor } from "./SlidesEditor";
 import { SlidesDropdown } from "./SlidesDropdown";
 import { ToolbarCards } from "./ToolbarCards";
+import { TransitionPreview } from "./TransitionPreview";
 import { SlidesFileMenu } from "./SlidesFileMenu";
 import { SlidesFindPanel } from "./SlidesFindPanel";
 import { SlidesFullScreen } from "./SlidesFullScreen";
@@ -200,6 +201,7 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
             panelWidth={versionsOpen || exploreOpen ? 290 : 253}
             dropdowns={{ edit: dropdown("edit"), view: dropdown("view"), insert: dropdown("insert"), format: dropdown("format"), slide: dropdown("slide"), arrange: dropdown("arrange"), tools: dropdown("tools") }}
             toolMenu={toolMenu}
+            canvasOverlay={<TransitionPreview tl={tl} slides={slides} selected={selected} ratio={ratio} />}
             onSelectSlide={(i) => {
               tl.setVar("selected", i);
               tl.setVar("sel", []);

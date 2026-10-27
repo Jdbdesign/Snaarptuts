@@ -102,6 +102,8 @@ import { Step51 } from "@/scenes/snaarp-slides/step51/Step51";
 import { runStep51, STEP51_DURATION_MS } from "@/scenes/snaarp-slides/step51/script";
 import { Step52 } from "@/scenes/snaarp-slides/step52/Step52";
 import { runStep52, STEP52_DURATION_MS } from "@/scenes/snaarp-slides/step52/script";
+import { Step53 } from "@/scenes/snaarp-slides/step53/Step53";
+import { runStep53, STEP53_DURATION_MS } from "@/scenes/snaarp-slides/step53/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -424,6 +426,12 @@ export const snaarpSlides: Tutorial = {
       title: "Pick a layout",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step52, run: runStep52, durationMs: STEP52_DURATION_MS },
+    },
+    {
+      id: "transition",
+      title: "Add a slide transition",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step53, run: runStep53, durationMs: STEP53_DURATION_MS },
     },
   ],
   groups: [

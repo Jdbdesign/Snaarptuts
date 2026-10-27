@@ -46,6 +46,8 @@ type Props = {
   notesText?: string;
   /** Width of the right-hand panel when `sidePanel` is shown (default 290). */
   panelWidth?: number;
+  /** Drawn on top of the page inside the canvas (the transition preview). */
+  canvasOverlay?: ReactNode;
   /** Clicking a thumbnail in the slide panel selects that slide. */
   onSelectSlide?: (index: number) => void;
   /** The toolbar dropdown that is open (background | layout | theme | transition | zoom | shape): its button gets the grey fill. */
@@ -89,6 +91,7 @@ export function SlidesEditor({
   toolMenu = "",
   toolLayer,
   onSelectSlide,
+  canvasOverlay,
 }: Props) {
   const narrow = useNarrow();
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -229,6 +232,7 @@ export function SlidesEditor({
                   <div data-tl="canvas-slide" className="relative shadow-[0_1px_3px_rgba(17,24,39,0.08)]" style={{ width: `calc(min(73cqw, calc(71cqh * ${ratio})) * ${zoom})` }}>
                     <SlideView slide={current} ratio={ratio} view={view} />
                     {rulers && <Rulers ratio={ratio} mark={rulerMark} />}
+                    {canvasOverlay}
                   </div>
                 </div>
               </div>
