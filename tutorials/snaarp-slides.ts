@@ -88,6 +88,8 @@ import { Step44 } from "@/scenes/snaarp-slides/step44/Step44";
 import { runStep44, STEP44_DURATION_MS } from "@/scenes/snaarp-slides/step44/script";
 import { Step45 } from "@/scenes/snaarp-slides/step45/Step45";
 import { runStep45, STEP45_DURATION_MS } from "@/scenes/snaarp-slides/step45/script";
+import { Step46 } from "@/scenes/snaarp-slides/step46/Step46";
+import { runStep46, STEP46_DURATION_MS } from "@/scenes/snaarp-slides/step46/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -368,6 +370,12 @@ export const snaarpSlides: Tutorial = {
       title: "Align objects",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step45, run: runStep45, durationMs: STEP45_DURATION_MS },
+    },
+    {
+      id: "distribute-objects",
+      title: "Distribute objects",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step46, run: runStep46, durationMs: STEP46_DURATION_MS },
     },
   ],
   groups: [
