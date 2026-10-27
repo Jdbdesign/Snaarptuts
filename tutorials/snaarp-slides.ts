@@ -106,6 +106,8 @@ import { Step53 } from "@/scenes/snaarp-slides/step53/Step53";
 import { runStep53, STEP53_DURATION_MS } from "@/scenes/snaarp-slides/step53/script";
 import { Step54 } from "@/scenes/snaarp-slides/step54/Step54";
 import { runStep54, STEP54_DURATION_MS } from "@/scenes/snaarp-slides/step54/script";
+import { Step55 } from "@/scenes/snaarp-slides/step55/Step55";
+import { runStep55, STEP55_DURATION_MS } from "@/scenes/snaarp-slides/step55/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -440,6 +442,12 @@ export const snaarpSlides: Tutorial = {
       title: "Present your slides",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step54, run: runStep54, durationMs: STEP54_DURATION_MS },
+    },
+    {
+      id: "meeting",
+      title: "Join or start a meeting",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step55, run: runStep55, durationMs: STEP55_DURATION_MS },
     },
   ],
   groups: [
