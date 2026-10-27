@@ -78,6 +78,8 @@ import { Step39 } from "@/scenes/snaarp-slides/step39/Step39";
 import { runStep39, STEP39_DURATION_MS } from "@/scenes/snaarp-slides/step39/script";
 import { Step40 } from "@/scenes/snaarp-slides/step40/Step40";
 import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-slides/step40/script";
+import { Step41 } from "@/scenes/snaarp-slides/step41/Step41";
+import { runStep41, STEP41_DURATION_MS } from "@/scenes/snaarp-slides/step41/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -328,6 +330,12 @@ export const snaarpSlides: Tutorial = {
       title: "Add a new slide",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step40, run: runStep40, durationMs: STEP40_DURATION_MS },
+    },
+    {
+      id: "duplicate-slide",
+      title: "Duplicate a slide",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step41, run: runStep41, durationMs: STEP41_DURATION_MS },
     },
   ],
   groups: [
