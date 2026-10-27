@@ -25,7 +25,7 @@ import { elementsOf, findMatches, type SlideEl } from "./slide-elements";
 import type { CellEdit, TextEdit } from "./slides-edit";
 import { EIV_SELECTED } from "./slide-elements-data";
 import { ZOOM_FACTOR, ZOOM_LABEL, type DropdownId } from "./slides-menus-data";
-import { isFmtOn } from "./slides-format";
+import { applyPaint, isFmtOn } from "./slides-format";
 import { findMisspellingIn, type SpellMark } from "./slides-tools";
 import { SPELLING } from "./slides-tools-data";
 import { ThemeContext } from "./slides-theme";
@@ -129,7 +129,8 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
     snap,
     draw,
     marker,
-    onSelect: (id) => tl.setVar("sel", id ? [id] : []),
+    // Paint format: with a look picked up, the next element that is clicked gets it.
+    onSelect: (id) => (id && tl.getVar("paintLook", null) ? applyPaint(tl, id) : tl.setVar("sel", id ? [id] : [])),
   };
   const chartSel = sel.length === 1 ? elementsOf(slides, selected).find((e) => e.id === sel[0] && e.kind === "chart") : undefined;
   const selEls = elementsOf(slides, selected).filter((e) => sel.includes(e.id));

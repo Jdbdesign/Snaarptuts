@@ -61,6 +61,22 @@ export const FORMAT_DECK: SlideData[] = EIV_DECK.map((s) =>
 const deckWith = (change: (els: SlideEl[]) => SlideEl[]): SlideData[] => EIV_DECK.map((s) => (s.id === "e2" ? { ...s, elements: change(s.elements ?? []) } : s));
 const shape = (id: string, kind: ShapeKind, x: number, y: number, w: number, h: number, fill: string): SlideEl => ({ id, kind: "shape", shape: kind, x, y, w, h, fill });
 
+/**
+ * Step 51 (Meet the toolbar tools): slide 2 plus a grey rounded box under the blue one. Paint format copies the blue box's fill onto it.
+ * TOOLBAR_SPOTS is where each tool puts its element, so a text box, an image, a star, a line and the box all fit under the bullets.
+ */
+export const PAINT_DECK: SlideData[] = deckWith((els) => [...els, shape("paint-b", "rounded", 66, 44, 24, 10, "#9AA3B2")]);
+export const PAINT_SOURCE = "s2-shape";
+export const PAINT_TARGET = "paint-b";
+export const TOOLBAR_SPOTS = {
+  textBox: { x: 55, y: 36, w: 36, h: 6 },
+  insertAt: {
+    image: { x: 6, y: 36, w: 26, h: 17 },
+    shape: { x: 36, y: 36, w: 14, h: 14 },
+    line: { x: 36, y: 53, w: 26, h: 0 },
+  },
+};
+
 /** Steps 48 and 50 (Spelling, Preferences): slide 2 with its title misspelt ("serivces"). */
 export const SPELL_DECK: SlideData[] = deckWith((els) => els.map((e) => (e.id === "s2-title" && e.kind === "text" ? { ...e, paras: ["Our serivces"] } : e)));
 

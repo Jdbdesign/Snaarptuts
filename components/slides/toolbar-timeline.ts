@@ -1,6 +1,6 @@
 import type { Timeline } from "@/lib/timeline";
-import { insertShape } from "./slides-edit";
-import { applyLayout, applyTheme, setSlideBg, setTransition } from "./slides-format";
+import { insertLine, insertShape, redo, undo } from "./slides-edit";
+import { applyLayout, applyTheme, setSlideBg, setTransition, startPaint } from "./slides-format";
 import type { ShapeKind } from "./slide-elements";
 import { BACKGROUNDS, type ThemeId } from "./slides-toolbar-data";
 import { pressOn } from "./slides-timeline";
@@ -23,6 +23,24 @@ const BUTTON: Record<ToolbarMenu, string> = {
 };
 
 const option = (menu: ToolbarMenu, id: string) => `[data-tl=tbo-${menu}-${id}]`;
+
+/** What a plain toolbar button does when it is clicked. (Text, zoom and shape need more than one move: see the step 51 script.) */
+const TOOL_ACTIONS: Record<string, (tl: Timeline) => void> = {
+  undo,
+  redo,
+  print: (tl) => tl.setVar("print", true),
+  paint: startPaint,
+  select: (tl) => tl.setVar("tool", "select"),
+  text: (tl) => tl.setVar("tool", "text"),
+  image: (tl) => tl.setVar("dialog", "insertImage"),
+  line: insertLine,
+};
+
+/** Move to a toolbar button, ring it, click it and do what it does. */
+export async function clickTool(tl: Timeline, id: keyof typeof TOOL_ACTIONS, opts: { ms?: number } = {}) {
+  await pressOn(tl, `[data-tl=tool-${id}]`, { ms: opts.ms ?? 700 });
+  TOOL_ACTIONS[id](tl);
+}
 
 /** Click the toolbar button and open its card. */
 export async function openToolbar(tl: Timeline, menu: ToolbarMenu, opts: { ms?: number } = {}) {

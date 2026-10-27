@@ -34,6 +34,10 @@ button {
   outline: 2px solid #7014d9;
   outline-offset: 3px;
 }
+/* A ring on an element that is already absolutely positioned must not turn it into a relative one (it would jump). */
+.tl-hl.absolute {
+  position: absolute;
+}
 .tl-hl::after {
   content: "";
   position: absolute;

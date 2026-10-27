@@ -142,12 +142,16 @@ export function insertElement(tl: Timeline, el: SlideEl) {
   tl.setVar("tool", "select");
 }
 
+type Box = { x: number; y: number; w: number; h: number };
+/** Where an insert lands: the scene variable `insertAt` ({ image?, shape?, line? }) when a step sets it, else the default spot. */
+const insertSpot = (tl: Timeline, kind: "image" | "shape" | "line", fallback: Box): Box => tl.getVar<Partial<Record<string, Box>>>("insertAt", {})[kind] ?? fallback;
+
 export function insertShape(tl: Timeline, shape: ShapeKind) {
-  insertElement(tl, { id: newId(getSlides(tl), "shape"), kind: "shape", shape, fill: BLUE, ...INSERTS.shapes[shape] });
+  insertElement(tl, { id: newId(getSlides(tl), "shape"), kind: "shape", shape, fill: BLUE, ...insertSpot(tl, "shape", INSERTS.shapes[shape]) });
 }
 
 export function insertLine(tl: Timeline) {
-  insertElement(tl, { id: newId(getSlides(tl), "line"), kind: "line", ...INSERTS.line });
+  insertElement(tl, { id: newId(getSlides(tl), "line"), kind: "line", ...insertSpot(tl, "line", INSERTS.line) });
 }
 
 export function insertTable(tl: Timeline) {
@@ -159,7 +163,7 @@ export function insertChart(tl: Timeline, chart: ChartKind) {
 }
 
 export function insertImage(tl: Timeline, key: string, alt: string) {
-  insertElement(tl, { id: newId(getSlides(tl), "image"), kind: "image", ...INSERTS.image, src: key, alt });
+  insertElement(tl, { id: newId(getSlides(tl), "image"), kind: "image", ...INSERTS.image, ...insertSpot(tl, "image", INSERTS.image), src: key, alt });
 }
 
 /** Change the type of the selected chart (the Chart properties switch). */

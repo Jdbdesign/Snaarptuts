@@ -196,6 +196,33 @@ export function distribute(tl: Timeline, axis: "h" | "v") {
   mapSelected(tl, (e) => ({ ...e, [pos]: place.get(e.id) ?? e[pos] }));
 }
 
+/* ------------------------------------------------------------ Paint format */
+
+export type PaintLook = { fill?: string; fmt?: TextEl["fmt"]; align?: TextEl["align"] };
+
+/** Paint format, step 1: pick up the look (fill, or text style) of the selected element. The tool button turns blue while it holds a look. */
+export function startPaint(tl: Timeline) {
+  const el = selectedEls(tl)[0];
+  if (!el) return;
+  const look: PaintLook = el.kind === "shape" ? { fill: el.fill } : el.kind === "text" ? { fmt: el.fmt, align: el.align } : {};
+  tl.setVar("paintLook", look);
+  tl.setVar("tool", "paint");
+}
+
+/** Paint format, step 2: the next element that is clicked gets the look. */
+export function applyPaint(tl: Timeline, id: string) {
+  const look = tl.getVar<PaintLook | null>("paintLook", null);
+  tl.setVar("paintLook", null);
+  tl.setVar("tool", "select");
+  if (!look) return;
+  setSel(tl, [id]);
+  mapSelected(tl, (e) => {
+    if (e.kind === "shape" && look.fill) return { ...e, fill: look.fill };
+    if (e.kind === "text" && (look.fmt || look.align)) return { ...e, fmt: look.fmt, align: look.align };
+    return e;
+  });
+}
+
 /** Glide to a spot on the slide (cqw) and click the element that sits there. Pick a spot only that element covers. */
 export async function pickAt(tl: Timeline, id: string, spot: { x: number; y: number }, ms = 800) {
   await sweepTo(tl, spot.x, spot.y, ms);
