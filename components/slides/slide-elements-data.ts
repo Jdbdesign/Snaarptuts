@@ -77,6 +77,16 @@ export const TOOLBAR_SPOTS = {
   },
 };
 
+/** Step 52 (Pick a layout): the deck plus a fourth, new slide with a title slide's placeholders; the step starts on it (slide 4). */
+export const LAYOUT_DECK: SlideData[] = [
+  ...EIV_DECK,
+  { id: "sn1", kind: "elements", elements: [
+    { id: "ph-title", kind: "text", x: 8, y: 17, w: 84, h: 8, paras: ["Click to add title"], style: "title", align: "center", placeholder: true },
+    { id: "ph-sub", kind: "text", x: 8, y: 34, w: 84, h: 5, paras: ["Click to add subtitle"], style: "subtitle", align: "center", placeholder: true },
+  ] },
+];
+export const LAYOUT_SELECTED = 3;
+
 /** Steps 48 and 50 (Spelling, Preferences): slide 2 with its title misspelt ("serivces"). */
 export const SPELL_DECK: SlideData[] = deckWith((els) => els.map((e) => (e.id === "s2-title" && e.kind === "text" ? { ...e, paras: ["Our serivces"] } : e)));
 
