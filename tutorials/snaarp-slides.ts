@@ -108,13 +108,15 @@ import { Step54 } from "@/scenes/snaarp-slides/step54/Step54";
 import { runStep54, STEP54_DURATION_MS } from "@/scenes/snaarp-slides/step54/script";
 import { Step55 } from "@/scenes/snaarp-slides/step55/Step55";
 import { runStep55, STEP55_DURATION_MS } from "@/scenes/snaarp-slides/step55/script";
+import { Step56 } from "@/scenes/snaarp-slides/step56/Step56";
+import { runStep56, STEP56_DURATION_MS } from "@/scenes/snaarp-slides/step56/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
 /**
- * Snaarp Slides ("How to use Snaarp Slides"): File menu (steps 1-19), then the Edit, View and Insert menus (steps 20-35). Recording: ref/slides/Snaarp_Slides_file.mp4
- * (1006x480, 3:48, git-ignored). Steps 20-35 add Edit, View and Insert (ref/slides/Snaarp_Slides_edit_view_insert.mp4); later rounds add Format, Slide, Arrange and Tools.
- * The completion card follows the last step in this list, so adding menus later moves it automatically.
+ * Snaarp Slides ("How to use Snaarp Slides"): the File menu (steps 1-19), the Edit, View and Insert menus (steps 20-35), then Format, Slide, Arrange and Tools,
+ * the toolbar dropdowns and the header buttons (steps 36-56). Recordings (git-ignored): ref/slides/Snaarp_Slides_file.mp4, ref/slides/Snaarp_Slides_edit_view_insert.mp4,
+ * ref/slides/Snaarp_Slides_final.mp4. The completion card follows the last step in this list, so adding steps later moves it automatically.
  */
 export const snaarpSlides: Tutorial = {
   product: { id: "snaarp-slides", name: "Snaarp Slides", logo: "presentation", aliases: ["slides", "presentation", "presentations", "deck", "powerpoint"] },
@@ -449,6 +451,12 @@ export const snaarpSlides: Tutorial = {
       url: SLIDES_URLS.renamed,
       scene: { Component: Step55, run: runStep55, durationMs: STEP55_DURATION_MS },
     },
+    {
+      id: "share-permissions",
+      title: "Share and set permissions",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step56, run: runStep56, durationMs: STEP56_DURATION_MS },
+    },
   ],
   groups: [
     { title: "Getting started", from: "open-slides" },
@@ -464,6 +472,6 @@ export const snaarpSlides: Tutorial = {
     { title: "Header", from: "present" },
   ],
   completion: {
-    text: "You know your way around Snaarp Slides and its File, Edit, View and Insert menus.",
+    text: "You know your way around Snaarp Slides: all of its menus, the toolbar and the header buttons.",
   },
 };
