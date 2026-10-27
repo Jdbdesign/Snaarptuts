@@ -12,6 +12,10 @@ type Props = {
   /** Which menu item is the dark "active" pill. */
   active: string;
   onNavigate?: (menuId: string) => void;
+  /** Sidebar items. Defaults to the 360 portal menu; Snaarp Mail admin adds Migration. */
+  menuItems?: typeof MENU_ITEMS;
+  /** Drop the sidebar and the wide header pieces on a phone (pages that are zoomed in need the room). */
+  compactOnNarrow?: boolean;
   /** Rendered above everything (modals). */
   overlay?: ReactNode;
   children: ReactNode;
@@ -21,7 +25,7 @@ type Props = {
  * The Snaarp admin shell: far-left icon rail, second sidebar menu, top bar and a scrolling
  * main area. Shared by every admin step so it is never duplicated.
  */
-export function AdminLayout({ tl, active, onNavigate, overlay, children }: Props) {
+export function AdminLayout({ tl, active, onNavigate, menuItems, compactOnNarrow, overlay, children }: Props) {
   const narrow = useNarrow();
 
   return (
@@ -29,9 +33,9 @@ export function AdminLayout({ tl, active, onNavigate, overlay, children }: Props
       {!narrow && <IconRail />}
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <Header />
+        <Header compact={narrow && !!compactOnNarrow} />
         <div className="flex min-h-0 flex-1">
-          <Sidebar active={active} onNavigate={onNavigate} />
+          {!(narrow && compactOnNarrow) && <Sidebar active={active} onNavigate={onNavigate} items={menuItems ?? MENU_ITEMS} />}
           <main
             data-tl="admin-main"
             className="no-scrollbar min-w-0 flex-1 overflow-y-auto bg-[#F7F7F9] px-8 pb-10 pt-[22px]"
@@ -64,10 +68,11 @@ export function IconRail({ items = RAIL_ITEMS }: { items?: { label: string; logo
   );
 }
 
-function Header() {
+function Header({ compact }: { compact?: boolean }) {
   return (
     <header className="relative flex h-[85px] shrink-0 items-center border-b border-[#F0F0F4] bg-white">
       <p className="w-[252px] pl-[22px] text-[24px] font-bold tracking-tight">Snaarp</p>
+      {!compact && (<>
       <div
         className="absolute flex h-9 items-center justify-center gap-2 rounded-lg border border-[#E6E6EC] bg-white text-[12.5px] font-medium"
         style={{ left: 305, width: 150 }}
@@ -82,6 +87,7 @@ function Header() {
         <Icon name="search" size={16} />
         Search...
       </div>
+      </>)}
       <div className="absolute right-9 flex items-center gap-[26px] text-[#4b5060]">
         <Icon name="bell" size={20} />
         <Icon name="help" size={20} />
@@ -100,11 +106,11 @@ function Header() {
   );
 }
 
-function Sidebar({ active, onNavigate }: { active: string; onNavigate?: (id: string) => void }) {
+function Sidebar({ active, onNavigate, items }: { active: string; onNavigate?: (id: string) => void; items: typeof MENU_ITEMS }) {
   return (
     <nav className="flex h-full w-[252px] shrink-0 flex-col border-r border-[#F0F0F4] bg-white px-3.5 pt-[23px]">
       <ul className="flex flex-col gap-1">
-        {MENU_ITEMS.map((m) => (
+        {items.map((m) => (
           <li
             key={m.id}
             data-tl={`menu-${m.id}`}

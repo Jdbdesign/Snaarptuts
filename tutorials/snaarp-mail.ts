@@ -15,6 +15,23 @@ import { Step8Users } from "@/scenes/snaarp-mail/Step8Users";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/snaarp-mail/step8-script";
 import { Step9Finish } from "@/scenes/snaarp-mail/Step9Finish";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/snaarp-mail/step9-script";
+import { Step10BulkUpload } from "@/scenes/snaarp-mail/admin/Step10BulkUpload";
+import { runStep10 as runAdmin10, STEP10_DURATION_MS as ADMIN10_DURATION_MS } from "@/scenes/snaarp-mail/admin/step10-script";
+import { Step11BulkSignature } from "@/scenes/snaarp-mail/admin/Step11BulkSignature";
+import { runStep11 as runAdmin11, STEP11_DURATION_MS as ADMIN11_DURATION_MS } from "@/scenes/snaarp-mail/admin/step11-script";
+import { Step12AddAlias } from "@/scenes/snaarp-mail/admin/Step12AddAlias";
+import { runStep12 as runAdmin12, STEP12_DURATION_MS as ADMIN12_DURATION_MS } from "@/scenes/snaarp-mail/admin/step12-script";
+import { Step13BulkAliases } from "@/scenes/snaarp-mail/admin/Step13BulkAliases";
+import { runStep13 as runAdmin13, STEP13_DURATION_MS as ADMIN13_DURATION_MS } from "@/scenes/snaarp-mail/admin/step13-script";
+import { Step14ManageSignature } from "@/scenes/snaarp-mail/admin/Step14ManageSignature";
+import { runStep14 as runAdmin14, STEP14_DURATION_MS as ADMIN14_DURATION_MS } from "@/scenes/snaarp-mail/admin/step14-script";
+import { Step15CreateGroup } from "@/scenes/snaarp-mail/admin/Step15CreateGroup";
+import { runStep15 as runAdmin15, STEP15_DURATION_MS as ADMIN15_DURATION_MS } from "@/scenes/snaarp-mail/admin/step15-script";
+import { Step16GroupMembers } from "@/scenes/snaarp-mail/admin/Step16GroupMembers";
+import { runStep16 as runAdmin16, STEP16_DURATION_MS as ADMIN16_DURATION_MS } from "@/scenes/snaarp-mail/admin/step16-script";
+import { Step17Forwarding } from "@/scenes/snaarp-mail/admin/Step17Forwarding";
+import { runStep17 as runAdmin17, STEP17_DURATION_MS as ADMIN17_DURATION_MS } from "@/scenes/snaarp-mail/admin/step17-script";
+import { URL_ADMIN_GROUPS, URL_ADMIN_USERS } from "@/scenes/snaarp-mail/admin/data";
 import type { Tutorial } from "./types";
 
 /**
@@ -80,9 +97,57 @@ export const snaarpMail: Tutorial = {
       url: "login.snaarp.com/onboarding/complete",
       scene: { Component: Step9Finish, run: runStep9, durationMs: STEP9_DURATION_MS },
     },
+    {
+      id: "upload-users",
+      title: "Upload users in bulk",
+      url: URL_ADMIN_USERS,
+      scene: { Component: Step10BulkUpload, run: runAdmin10, durationMs: ADMIN10_DURATION_MS },
+    },
+    {
+      id: "bulk-signature",
+      title: "Request a bulk signature",
+      url: URL_ADMIN_USERS,
+      scene: { Component: Step11BulkSignature, run: runAdmin11, durationMs: ADMIN11_DURATION_MS },
+    },
+    {
+      id: "add-alias",
+      title: "Add an alias to one user",
+      url: URL_ADMIN_USERS,
+      scene: { Component: Step12AddAlias, run: runAdmin12, durationMs: ADMIN12_DURATION_MS },
+    },
+    {
+      id: "bulk-aliases",
+      title: "Add aliases in bulk",
+      url: URL_ADMIN_USERS,
+      scene: { Component: Step13BulkAliases, run: runAdmin13, durationMs: ADMIN13_DURATION_MS },
+    },
+    {
+      id: "manage-signature",
+      title: "Manage a user's signature",
+      url: URL_ADMIN_USERS,
+      scene: { Component: Step14ManageSignature, run: runAdmin14, durationMs: ADMIN14_DURATION_MS },
+    },
+    {
+      id: "create-group",
+      title: "Create a group",
+      url: URL_ADMIN_USERS,
+      scene: { Component: Step15CreateGroup, run: runAdmin15, durationMs: ADMIN15_DURATION_MS },
+    },
+    {
+      id: "group-members",
+      title: "Add members and use the group email",
+      url: URL_ADMIN_GROUPS,
+      scene: { Component: Step16GroupMembers, run: runAdmin16, durationMs: ADMIN16_DURATION_MS },
+    },
+    {
+      id: "email-forwarding",
+      title: "Forward emails to other users",
+      url: URL_ADMIN_USERS,
+      scene: { Component: Step17Forwarding, run: runAdmin17, durationMs: ADMIN17_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "Snaarp Mail is ready for your team.",
+    text: "Snaarp Mail is set up, and you know how to manage users, aliases, signatures, groups and forwarding.",
   },
 };
