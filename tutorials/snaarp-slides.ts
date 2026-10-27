@@ -82,6 +82,8 @@ import { Step41 } from "@/scenes/snaarp-slides/step41/Step41";
 import { runStep41, STEP41_DURATION_MS } from "@/scenes/snaarp-slides/step41/script";
 import { Step42 } from "@/scenes/snaarp-slides/step42/Step42";
 import { runStep42, STEP42_DURATION_MS } from "@/scenes/snaarp-slides/step42/script";
+import { Step43 } from "@/scenes/snaarp-slides/step43/Step43";
+import { runStep43, STEP43_DURATION_MS } from "@/scenes/snaarp-slides/step43/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -344,6 +346,12 @@ export const snaarpSlides: Tutorial = {
       title: "Skip a slide",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step42, run: runStep42, durationMs: STEP42_DURATION_MS },
+    },
+    {
+      id: "delete-slide",
+      title: "Delete a slide",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step43, run: runStep43, durationMs: STEP43_DURATION_MS },
     },
   ],
   groups: [
