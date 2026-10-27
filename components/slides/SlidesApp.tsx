@@ -10,7 +10,9 @@ import { EmailCollabDialog, EmailFileDialog, MoveDialog, PublishDialog } from ".
 import { ImportDialog, OpenDialog, StartDialog, TemplatesDialog } from "./dialogs-start";
 import { DetailsDialog, NameVersionDialog, PageSetupDialog, TrashDialog, VersionPanel } from "./dialogs-manage";
 import { ChartPanel, InsertImageDialog } from "./dialogs-insert";
-import { ExplorePanel, PreferencesDialog } from "./dialogs-tools";
+import { DisplayOptionsDialog, ExplorePanel, MeetingCodeDialog, PreferencesDialog } from "./dialogs-tools";
+import { HeaderCards } from "./HeaderCards";
+import { PresenterView } from "./PresenterView";
 import { HomeScreen, StarredScreen, TrashScreen } from "./HomeScreens";
 import { Spinner } from "./parts";
 import { SlidesEditor } from "./SlidesEditor";
@@ -112,6 +114,9 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
   const marker = useTimelineVar<{ x: number; y: number } | null>(tl, "marker", null);
   const theme = useTimelineVar<ThemeId>(tl, "theme", DEFAULT_THEME);
   const toolMenu = useTimelineVar<string>(tl, "toolMenu", "");
+  const headerTip = useTimelineVar<string>(tl, "headerTip", "");
+  const collab = useTimelineVar(tl, "collab", "1");
+  const collabOn = useTimelineVar(tl, "collabOn", false);
   const spellMark = useTimelineVar<SpellMark | null>(tl, "spell", null);
   const spellAuto = useTimelineVar(tl, "pref:spell", false);
   const exploreOpen = useTimelineVar(tl, "explore", false);
@@ -206,7 +211,9 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
               tl.setVar("selected", i);
               tl.setVar("sel", []);
             }}
-            toolLayer={<ToolbarCards menu={toolMenu} theme={theme} bg={slides[Math.min(selected, slides.length - 1)]?.bg} transition={slides[Math.min(selected, slides.length - 1)]?.transition ?? "none"} zoom={zoom} />}
+            collaborators={collab}
+            collabOn={collabOn}
+            toolLayer={<><HeaderCards menu={toolMenu} meetTip={headerTip === "meet"} castTip={headerTip === "cast"} /><ToolbarCards menu={toolMenu} theme={theme} bg={slides[Math.min(selected, slides.length - 1)]?.bg} transition={slides[Math.min(selected, slides.length - 1)]?.transition ?? "none"} zoom={zoom} /></>}
             activeTool={tool}
             zoomLabel={ZOOM_LABEL[zoom]}
             zoom={ZOOM_FACTOR[zoom] ?? 1}
@@ -233,11 +240,14 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
                 <TrashDialog tl={tl} title={title} />
                 <InsertImageDialog tl={tl} />
                 <PreferencesDialog tl={tl} />
+                <DisplayOptionsDialog tl={tl} />
+                <MeetingCodeDialog tl={tl} />
                 <SlidesFindPanel tl={tl} total={matches.length} current={findIndex} />
               </>
             }
           />
           <SlidesFullScreen tl={tl} slides={slides} ratio={ratio} />
+          <PresenterView tl={tl} slides={slides} ratio={ratio} />
           <ShareDialog tl={tl} title={startTitle} />
           <PrintDialog tl={tl} copy={PRINT_SLIDES} landscape ratio={ratio} />
         </div>

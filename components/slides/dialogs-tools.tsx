@@ -5,7 +5,8 @@ import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { DialogTitle, GhostButton, PrimaryButton, SDialog, SField } from "./parts";
 import { closeExplore, insertExploreImage, insertExploreLayout, insertExploreTopic, savePreferences } from "./slides-tools";
-import { EXPLORE, PREFERENCES } from "./slides-tools-data";
+import { showDocToast } from "@/components/docs/doc-toast-timeline";
+import { DISPLAY_OPTIONS, EXPLORE, MEETING, PREFERENCES } from "./slides-tools-data";
 import { THEMES, type ThemeId } from "./slides-toolbar-data";
 
 /**
@@ -155,6 +156,90 @@ export function PreferencesDialog({ tl }: { tl: Timeline }) {
           </span>
           <span onClick={() => savePreferences(tl)}>
             <PrimaryButton hook="pref-save">{P.save}</PrimaryButton>
+          </span>
+        </div>
+      </div>
+    </SDialog>
+  );
+}
+
+/**
+ * Slideshow > Presentation display options: which screen the show opens on, and the laser pointer switch. Scene variables: `dialog` =
+ * "displayOptions", `displayMonitor` (screen1 | screen2) and `laser`. The recording shows only the menu row, so the panel is built from the
+ * brief. Hooks: display-options-dialog, disp-monitor-<id>, disp-laser, disp-done, display-options-close.
+ */
+export function DisplayOptionsDialog({ tl }: { tl: Timeline }) {
+  const open = useTimelineVar<string>(tl, "dialog", "") === "displayOptions";
+  const monitor = useTimelineVar(tl, "displayMonitor", "screen1");
+  const laser = useTimelineVar(tl, "laser", false);
+  const D = DISPLAY_OPTIONS;
+  return (
+    <SDialog open={open} width={420} hook="display-options-dialog">
+      <DialogTitle id="display-options">{D.title}</DialogTitle>
+      <div className="px-[24px] pb-[20px] pt-[8px]">
+        <p className="mb-[8px] text-[9.5px] font-medium text-[#5F6368]">{D.monitorLabel}</p>
+        <div className="space-y-[6px]">
+          {D.monitors.map((m) => (
+            <div
+              key={m.id}
+              data-tl={`disp-monitor-${m.id}`}
+              onClick={() => tl.setVar("displayMonitor", m.id)}
+              className={`flex h-[36px] items-center gap-[10px] rounded-[8px] border px-[12px] text-[10.5px] transition-[border-color,background] data-[hover=true]:bg-[#F6F7F9] ${monitor === m.id ? "border-[#1A73E8] bg-[#F4F8FE]" : "border-[#E3E6EC]"}`}
+            >
+              <Icon name="slMonitor" size={14} className="text-[#4b5060]" />
+              <span className="flex-1">{m.label}</span>
+              <span className={`flex h-[14px] w-[14px] items-center justify-center rounded-full border-2 ${monitor === m.id ? "border-[#1A73E8]" : "border-[#9AA0A6]"}`}>
+                {monitor === m.id && <i className="block h-[6px] w-[6px] rounded-full bg-[#1A73E8]" />}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div data-tl="disp-laser" onClick={() => tl.setVar("laser", !laser)} className="mt-[14px] flex min-h-[44px] items-center gap-[12px] border-t border-[#F0F1F4] pt-[10px]">
+          <span className="flex-1 leading-[14px]">
+            <span className="block text-[10.5px] font-medium text-[#1f2430]">{D.laser.label}</span>
+            <span className="block text-[9px] text-[#6b7280]">{D.laser.hint}</span>
+          </span>
+          <Switch on={laser} />
+        </div>
+        <div className="mt-[14px] flex justify-end">
+          <span onClick={() => tl.setVar("dialog", "")}>
+            <PrimaryButton hook="disp-done">{D.done}</PrimaryButton>
+          </span>
+        </div>
+      </div>
+    </SDialog>
+  );
+}
+
+/**
+ * Meeting icon > Use a meeting code: "Have a meeting code?" with a text box (field `meetcode`), Cancel and Continue. Scene variable `dialog` =
+ * "meetCode". Continue closes it and a toast says the (sample) meeting is joining. Hooks: meeting-code-dialog, field-meetcode, meet-continue,
+ * meet-cancel, meeting-code-close.
+ */
+export function MeetingCodeDialog({ tl }: { tl: Timeline }) {
+  const open = useTimelineVar<string>(tl, "dialog", "") === "meetCode";
+  const code = useTimelineVar(tl, "field:meetcode", "");
+  const D = MEETING.codeDialog;
+  return (
+    <SDialog open={open} width={400} hook="meeting-code-dialog">
+      <DialogTitle id="meeting-code">{D.title}</DialogTitle>
+      <div className="px-[24px] pb-[20px] pt-[6px]">
+        <p className="mb-[10px] text-[10px] leading-[14px] text-[#6b7280]">{D.hint}</p>
+        <SField tl={tl} id="meetcode" placeholder={D.placeholder} />
+        <div className="mt-[18px] flex justify-end gap-[8px]">
+          <span onClick={() => tl.setVar("dialog", "")}>
+            <GhostButton hook="meet-cancel">{D.cancel}</GhostButton>
+          </span>
+          <span
+            onClick={() => {
+              if (!code) return;
+              tl.setVar("dialog", "");
+              showDocToast(tl, MEETING.joinToast, "success", 3200);
+            }}
+          >
+            <PrimaryButton hook="meet-continue" className={code ? "" : "opacity-50"}>
+              {D.continue}
+            </PrimaryButton>
           </span>
         </div>
       </div>

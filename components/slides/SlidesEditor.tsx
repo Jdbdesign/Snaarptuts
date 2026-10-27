@@ -46,6 +46,9 @@ type Props = {
   notesText?: string;
   /** Width of the right-hand panel when `sidePanel` is shown (default 290). */
   panelWidth?: number;
+  /** The count in the header's people pill (default "1") and whether the pill has the green "shared" look. */
+  collaborators?: string;
+  collabOn?: boolean;
   /** Drawn on top of the page inside the canvas (the transition preview). */
   canvasOverlay?: ReactNode;
   /** Clicking a thumbnail in the slide panel selects that slide. */
@@ -92,6 +95,8 @@ export function SlidesEditor({
   toolLayer,
   onSelectSlide,
   canvasOverlay,
+  collaborators = EDITOR.collaborators,
+  collabOn = false,
 }: Props) {
   const narrow = useNarrow();
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -124,20 +129,23 @@ export function SlidesEditor({
             <Icon name="star" size={14} className={starred ? "text-[#F5B400]" : "text-[#4b5060]"} />
           </div>
           <div className="absolute right-[8px] top-[5px] flex h-[26px] items-center gap-[12px]">
-            {!narrow && (
-              <>
-                <Icon name="edComment" size={14} className="text-[#374151]" />
-                <Icon name="edCamera" size={14} className="text-[#374151]" />
-                <span data-tl="slideshow-button" className="flex h-[24px] items-center overflow-hidden rounded-[4px] border border-[#E3E5EA] text-[9.5px] font-medium text-[#1f2430]">
-                  <span className="px-[9px]">{EDITOR.slideshow}</span>
-                  <span className="flex h-full w-[17px] items-center justify-center border-l border-[#E3E5EA]"><Icon name="chevronDown" size={9} /></span>
-                </span>
-                <span className="flex h-[19px] items-center gap-[3px] rounded-full bg-[#EEF0F4] px-[7px] text-[9px] text-[#4b5060]">
-                  <Icon name="users" size={10} />
-                  {EDITOR.collaborators}
-                </span>
-              </>
-            )}
+            {!narrow && <Icon name="edComment" size={14} className="text-[#374151]" />}
+            <span
+              data-tl="header-meet"
+              className={`flex h-[22px] w-[22px] items-center justify-center rounded-full text-[#374151] transition-colors data-[hover=true]:bg-[#F1F2F5] ${toolMenu === "meet" ? "bg-[#E9EAEE]" : ""}`}
+            >
+              <Icon name="edCamera" size={14} />
+            </span>
+            <span data-tl="slideshow-button" className="flex h-[24px] items-center overflow-hidden rounded-[4px] border border-[#E3E5EA] text-[9.5px] font-medium text-[#1f2430]">
+              <span data-tl="slideshow-start" className="px-[9px]">{EDITOR.slideshow}</span>
+              <span data-tl="slideshow-arrow" className={`flex h-full w-[17px] items-center justify-center border-l border-[#E3E5EA] transition-colors data-[hover=true]:bg-[#F1F2F5] ${toolMenu === "slideshow" ? "bg-[#E9EAEE]" : ""}`}>
+                <Icon name="chevronDown" size={9} />
+              </span>
+            </span>
+            <span data-tl="header-collab" className={`flex h-[19px] items-center gap-[3px] rounded-full px-[7px] text-[9px] transition-colors duration-300 ${collabOn ? "bg-[#E6F4EA] text-[#188038]" : "bg-[#EEF0F4] text-[#4b5060]"}`}>
+              <Icon name="users" size={10} />
+              {collaborators}
+            </span>
             <span data-tl="editor-share" className="flex h-[25px] items-center gap-[4px] rounded-full bg-[#1A73E8] px-[12px] text-[9.5px] font-semibold text-white transition-[filter] data-[hover=true]:brightness-95">
               <Icon name="padlock" size={10} />
               {EDITOR.share}

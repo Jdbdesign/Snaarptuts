@@ -104,6 +104,8 @@ import { Step52 } from "@/scenes/snaarp-slides/step52/Step52";
 import { runStep52, STEP52_DURATION_MS } from "@/scenes/snaarp-slides/step52/script";
 import { Step53 } from "@/scenes/snaarp-slides/step53/Step53";
 import { runStep53, STEP53_DURATION_MS } from "@/scenes/snaarp-slides/step53/script";
+import { Step54 } from "@/scenes/snaarp-slides/step54/Step54";
+import { runStep54, STEP54_DURATION_MS } from "@/scenes/snaarp-slides/step54/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -433,6 +435,12 @@ export const snaarpSlides: Tutorial = {
       url: SLIDES_URLS.renamed,
       scene: { Component: Step53, run: runStep53, durationMs: STEP53_DURATION_MS },
     },
+    {
+      id: "present",
+      title: "Present your slides",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step54, run: runStep54, durationMs: STEP54_DURATION_MS },
+    },
   ],
   groups: [
     { title: "Getting started", from: "open-slides" },
@@ -445,6 +453,7 @@ export const snaarpSlides: Tutorial = {
     { title: "Arrange", from: "stacking-order" },
     { title: "Tools", from: "spelling" },
     { title: "Toolbar", from: "toolbar-tools" },
+    { title: "Header", from: "present" },
   ],
   completion: {
     text: "You know your way around Snaarp Slides and its File, Edit, View and Insert menus.",
