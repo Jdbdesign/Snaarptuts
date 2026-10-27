@@ -90,6 +90,8 @@ import { Step45 } from "@/scenes/snaarp-slides/step45/Step45";
 import { runStep45, STEP45_DURATION_MS } from "@/scenes/snaarp-slides/step45/script";
 import { Step46 } from "@/scenes/snaarp-slides/step46/Step46";
 import { runStep46, STEP46_DURATION_MS } from "@/scenes/snaarp-slides/step46/script";
+import { Step47 } from "@/scenes/snaarp-slides/step47/Step47";
+import { runStep47, STEP47_DURATION_MS } from "@/scenes/snaarp-slides/step47/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -376,6 +378,12 @@ export const snaarpSlides: Tutorial = {
       title: "Distribute objects",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step46, run: runStep46, durationMs: STEP46_DURATION_MS },
+    },
+    {
+      id: "rotate-objects",
+      title: "Rotate objects",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step47, run: runStep47, durationMs: STEP47_DURATION_MS },
     },
   ],
   groups: [
