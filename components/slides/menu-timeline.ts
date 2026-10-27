@@ -18,7 +18,7 @@ import {
 } from "./slides-edit";
 import type { ChartKind, ShapeKind } from "./slide-elements";
 import { DROPDOWNS, type DropdownId } from "./slides-menus-data";
-import { changeIndent, setAlign, setSpacing, toggleFormat } from "./slides-format";
+import { changeIndent, deleteSlide, duplicateSlide, newSlide, playableSlides, setAlign, setSpacing, toggleFormat, toggleSkip } from "./slides-format";
 import { pressOn } from "./slides-timeline";
 
 /*
@@ -87,6 +87,10 @@ const ACTIONS: Record<string, (tl: Timeline) => void> = {
 };
 ACTIONS["format.theme"] = (tl) => tl.setVar("toolMenu", "theme");
 ACTIONS["format.background"] = (tl) => tl.setVar("toolMenu", "background");
+ACTIONS["slide.new"] = newSlide;
+ACTIONS["slide.duplicate"] = duplicateSlide;
+ACTIONS["slide.delete"] = deleteSlide;
+ACTIONS["slide.skip"] = toggleSkip;
 ACTIONS["format.bold"] = (tl) => toggleFormat(tl, "bold");
 ACTIONS["format.italic"] = (tl) => toggleFormat(tl, "italic");
 ACTIONS["format.underline"] = (tl) => toggleFormat(tl, "underline");
@@ -133,13 +137,16 @@ export async function chooseSubRow(tl: Timeline, menu: DropdownId, id: string, s
 
 /** In full screen: show an arrow key, press it and move to the next or previous slide (scene variables `fsArrow`, `fsPressed`, `fsSlide`). */
 export async function pressFullScreenArrow(tl: Timeline, dir: "next" | "previous") {
-  const slides = tl.getVar<unknown[]>("slides", []).length;
+  const deck = tl.getVar<{ skipped?: boolean }[]>("slides", []);
+  const play = playableSlides(deck as never);
   const at = tl.getVar<number>("fsSlide", 1);
   tl.setVar("fsArrow", dir);
   await tl.wait(600);
   tl.setVar("fsPressed", true);
   await tl.wait(220);
-  tl.setVar("fsSlide", Math.max(0, Math.min(slides - 1, at + (dir === "next" ? 1 : -1))));
+  // Skipped slides are left out of the slideshow: step to the next (or previous) slide that is not skipped.
+  const to = dir === "next" ? play.find((i) => i > at) : [...play].reverse().find((i) => i < at);
+  tl.setVar("fsSlide", to ?? at);
   await tl.wait(260);
   tl.setVar("fsPressed", false);
   await tl.wait(450);

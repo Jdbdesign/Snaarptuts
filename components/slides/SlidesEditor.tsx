@@ -6,6 +6,7 @@ import { useNarrow } from "@/lib/useNarrow";
 import { SlideView } from "./SlideView";
 import type { SlideViewState } from "./SlideElements";
 import { SLIDES_NARROW_ZOOM } from "./SlidesLayout";
+import { SLIDE_COPY } from "./slides-toolbar-data";
 import { EDITOR, MENUS, RAIL, SHELL, TOOLBAR, TOOLBAR_SELECTS, type SlideData } from "./slides-data";
 
 type Props = {
@@ -45,6 +46,8 @@ type Props = {
   notesText?: string;
   /** Width of the right-hand panel when `sidePanel` is shown (default 290). */
   panelWidth?: number;
+  /** Clicking a thumbnail in the slide panel selects that slide. */
+  onSelectSlide?: (index: number) => void;
   /** The toolbar dropdown that is open (background | layout | theme | transition | zoom | shape): its button gets the grey fill. */
   toolMenu?: string;
   /** Cards hung under toolbar and header buttons (Anchored): they cover the whole editor, inside the narrow-screen zoom. */
@@ -85,6 +88,7 @@ export function SlidesEditor({
   scroll,
   toolMenu = "",
   toolLayer,
+  onSelectSlide,
 }: Props) {
   const narrow = useNarrow();
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -191,13 +195,19 @@ export function SlidesEditor({
           <aside data-tl="slide-panel" className={`flex shrink-0 flex-col border-r border-[#E3E6EC] bg-[#F5F6F9] transition-[width] duration-300 ${narrow ? "w-[84px]" : "w-[205px]"}`}>
             <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-[7px] pb-[8px] pt-[8px]">
               {slides.map((s, i) => (
-                <div key={s.id} data-tl={`thumb-${i + 1}`} className="mb-[9px] flex items-start gap-[5px]">
+                <div key={s.id} data-tl={`thumb-${i + 1}`} onClick={onSelectSlide ? () => onSelectSlide(i) : undefined} className="relative mb-[9px] flex items-start gap-[5px]">
                   <span className="w-[10px] shrink-0 pt-[1px] text-right text-[7.5px] text-[#4b6b4b]">{i + 1}</span>
                   <SlideView
                     slide={s}
                     ratio={ratio}
-                    className={`min-w-0 flex-1 rounded-[3px] border-2 ${i === selected ? "border-[#2B6FEB]" : "border-[#E3E6EC]"}`}
+                    className={`min-w-0 flex-1 rounded-[3px] border-2 transition-opacity duration-200 ${s.skipped ? "opacity-45" : ""} ${i === selected ? "border-[#2B6FEB]" : "border-[#E3E6EC]"}`}
                   />
+                  {s.skipped && (
+                    <span data-tl={`thumb-skip-${i + 1}`} className="absolute right-[5px] top-[4px] flex items-center gap-[2px] rounded-full bg-[#111] px-[5px] py-[2px] text-[6.5px] font-medium leading-none text-white">
+                      <Icon name="ban" size={7} />
+                      {SLIDE_COPY.skipped}
+                    </span>
+                  )}
                 </div>
               ))}
             </div>

@@ -107,7 +107,7 @@ export function deleteSlide(tl: Timeline) {
   commit(tl, slides.filter((_, i) => i !== idx), slides);
   tl.setVar("selected", Math.min(idx, slides.length - 2));
   setSel(tl, []);
-  showDocToast(tl, SLIDE_COPY.deleteToast(idx + 1), "success", 6000, SLIDE_COPY.undo);
+  showDocToast(tl, SLIDE_COPY.deleteToast, "success", 6000, SLIDE_COPY.undo);
 }
 export const undoDelete = (tl: Timeline) => undo(tl);
 

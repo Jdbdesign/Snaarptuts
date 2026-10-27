@@ -87,7 +87,8 @@ export const LAYOUT_ELEMENTS: Record<string, SlideEl[]> = {
 export const SLIDE_COPY = {
   newSlideToast: "New slide added",
   duplicateToast: "Slide duplicated",
-  deleteToast: (n: number) => `Slide ${n} deleted`,
+  deleteToast: "Slide deleted",
+  restoredToast: "Slide restored",
   undo: "Undo",
   skipped: "Skipped",
 };

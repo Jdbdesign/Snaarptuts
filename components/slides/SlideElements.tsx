@@ -154,7 +154,7 @@ function textLook(el: TextEl): CSSProperties {
   const deco = [f.underline && "underline", f.strike && "line-through"].filter(Boolean).join(" ");
   const lh = (el.spacing ?? 1) * (el.style === "box" ? 1.2 : 1);
   return {
-    fontWeight: f.bold ?? el.style === "title" ? 700 : 400,
+    fontWeight: !el.placeholder && (f.bold ?? el.style === "title") ? 700 : 400,
     fontStyle: f.italic ? "italic" : "normal",
     textDecorationLine: deco || undefined,
     textAlign: el.align ?? "left",

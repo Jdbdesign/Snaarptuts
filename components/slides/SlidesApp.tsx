@@ -189,6 +189,10 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
             panelWidth={versionsOpen ? 290 : 253}
             dropdowns={{ edit: dropdown("edit"), view: dropdown("view"), insert: dropdown("insert"), format: dropdown("format"), slide: dropdown("slide"), arrange: dropdown("arrange"), tools: dropdown("tools") }}
             toolMenu={toolMenu}
+            onSelectSlide={(i) => {
+              tl.setVar("selected", i);
+              tl.setVar("sel", []);
+            }}
             toolLayer={<ToolbarCards menu={toolMenu} theme={theme} bg={slides[Math.min(selected, slides.length - 1)]?.bg} transition={slides[Math.min(selected, slides.length - 1)]?.transition ?? "none"} zoom={zoom} />}
             activeTool={tool}
             zoomLabel={ZOOM_LABEL[zoom]}

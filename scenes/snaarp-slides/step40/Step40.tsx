@@ -1,0 +1,9 @@
+"use client";
+
+import { EivStage } from "../EivStage";
+import type { SceneProps } from "@/tutorials/types";
+
+/* Snaarp Slides, step 40: Add a new slide. Starts in the editor on slide 2 of "Acme Studio Pitch 2026" (its script sets the rest). */
+export function Step40({ tl }: SceneProps) {
+  return <EivStage tl={tl} />;
+}

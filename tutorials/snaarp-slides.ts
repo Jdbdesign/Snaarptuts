@@ -76,6 +76,8 @@ import { Step38 } from "@/scenes/snaarp-slides/step38/Step38";
 import { runStep38, STEP38_DURATION_MS } from "@/scenes/snaarp-slides/step38/script";
 import { Step39 } from "@/scenes/snaarp-slides/step39/Step39";
 import { runStep39, STEP39_DURATION_MS } from "@/scenes/snaarp-slides/step39/script";
+import { Step40 } from "@/scenes/snaarp-slides/step40/Step40";
+import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-slides/step40/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -321,6 +323,12 @@ export const snaarpSlides: Tutorial = {
       url: SLIDES_URLS.renamed,
       scene: { Component: Step39, run: runStep39, durationMs: STEP39_DURATION_MS },
     },
+    {
+      id: "new-slide",
+      title: "Add a new slide",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step40, run: runStep40, durationMs: STEP40_DURATION_MS },
+    },
   ],
   groups: [
     { title: "Getting started", from: "open-slides" },
@@ -329,6 +337,7 @@ export const snaarpSlides: Tutorial = {
     { title: "View", from: "speaker-notes" },
     { title: "Insert", from: "text-box" },
     { title: "Format", from: "format-text" },
+    { title: "Slide", from: "new-slide" },
   ],
   completion: {
     text: "You know your way around Snaarp Slides and its File, Edit, View and Insert menus.",
