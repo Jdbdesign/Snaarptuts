@@ -74,6 +74,8 @@ import { Step37 } from "@/scenes/snaarp-slides/step37/Step37";
 import { runStep37, STEP37_DURATION_MS } from "@/scenes/snaarp-slides/step37/script";
 import { Step38 } from "@/scenes/snaarp-slides/step38/Step38";
 import { runStep38, STEP38_DURATION_MS } from "@/scenes/snaarp-slides/step38/script";
+import { Step39 } from "@/scenes/snaarp-slides/step39/Step39";
+import { runStep39, STEP39_DURATION_MS } from "@/scenes/snaarp-slides/step39/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -312,6 +314,12 @@ export const snaarpSlides: Tutorial = {
       title: "Change the theme",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step38, run: runStep38, durationMs: STEP38_DURATION_MS },
+    },
+    {
+      id: "slide-background",
+      title: "Change the slide background",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step39, run: runStep39, durationMs: STEP39_DURATION_MS },
     },
   ],
   groups: [
