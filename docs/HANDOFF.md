@@ -13,7 +13,7 @@ First product: **Snaarp 360**. More products will follow, each with its own modu
 ## Current state
 
 - Snaarp 360: **all 5 steps built and working**, plus the **completion screen**. Plays about 2:04 hands off from page load to the completion card. Verified at 1920x1080, 1440x900, 1280x720 and 390x844: no console errors, no scrollbars, no document scroll.
-- Product switcher in the rail: a dropdown of products (Snaarp 360 first). **Snaarp Mail** is listed with 9 steps, all built. **Snaarp Slides** (the whole product: File, Edit, View, Insert, Format, Slide, Arrange and Tools, the toolbar and the header buttons, 56 steps) is the newest product.
+- Product switcher in the rail: a dropdown of products (Snaarp 360 first). **Snaarp Mail** is listed with 17 steps (1-9 setup, 10-17 email admin), all built. **Snaarp Slides** (the whole product: File, Edit, View, Insert, Format, Slide, Arrange and Tools, the toolbar and the header buttons, 56 steps) is the newest product.
 - Real Snaarp product logos are in place on the pricing page, sign-up page, products home, both admin icon rails and the rail. Other icons are still redrawn placeholders.
 - No backend, accounts, cloud sync or AI features (named exclusions for v1). No automated tests. The folder is **not a git repository** (see known issues).
 
@@ -39,7 +39,7 @@ Route `/tutorials/snaarp-doc`, config `tutorials/snaarp-doc.ts` (**64 steps, all
 
 ## Snaarp Admin (fourth tutorial, complete)
 
-Route `/tutorials/snaarp-admin`, config `tutorials/snaarp-admin.ts`: **8 steps, all built**, about 2:59 (178.9 s measured at 1440x900) from load to the "You're all set" card (the card follows the last step in the config). Recording `ref/admin/Snaarp_Admin_add_users.mp4`. Every step is on the Admin Panel Users page and uses the one stage `scenes/snaarp-admin/UsersStage.tsx` with a start state from `admin-seed.ts`, so each step can be opened alone from the rail. Steps: Open the Create user form, Enter the user's details, Add job details and role, Set a temporary password and create the user, Check the user's access, Open Manage products, Add the user to another product, Confirm the new access. There was no earlier Admin tutorial in the repo (see `docs/DECISIONS-AND-DEVIATIONS.md`, "Snaarp Admin"). To add a step: add `StepNxxx.tsx` (wrap `UsersStage` with a start state; add a state to `admin-seed.ts` if needed), `stepN-script.ts`, `stepN-data.ts`, then list it in `tutorials/snaarp-admin.ts`. State is scene variables; click handlers live in `scenes/snaarp-admin/users/*` so scripts only move the cursor and click. Open items before launch: the Snaarp Admin rail logo (uses the Snaarp mark), the Department list beyond "Engineering", a real Snaarp Identity logo.
+Route `/tutorials/snaarp-admin`, config `tutorials/snaarp-admin.ts`: **12 steps, all built** (steps 5-12 replaced the old Manage products steps). Recording `ref/admin/Snaarp_Admin_add_users.mp4`. Every step is on the Admin Panel Users page and uses the one stage `scenes/snaarp-admin/UsersStage.tsx` with a start state from `admin-seed.ts`, so each step can be opened alone from the rail. Steps: Open the Create user form, Enter the user's details, Add job details and role, Set a temporary password and create the user, Check the user's access, Open Manage products, Add the user to another product, Confirm the new access. There was no earlier Admin tutorial in the repo (see `docs/DECISIONS-AND-DEVIATIONS.md`, "Snaarp Admin"). To add a step: add `StepNxxx.tsx` (wrap `UsersStage` with a start state; add a state to `admin-seed.ts` if needed), `stepN-script.ts`, `stepN-data.ts`, then list it in `tutorials/snaarp-admin.ts`. State is scene variables; click handlers live in `scenes/snaarp-admin/users/*` so scripts only move the cursor and click. Open items before launch: the Snaarp Admin rail logo (uses the Snaarp mark), the Department list beyond "Engineering", a real Snaarp Identity logo.
 
 ## Snaarp Slides (fifth tutorial, complete: 56 steps)
 
@@ -136,3 +136,8 @@ Never overwrite or delete Sign_up_for_snaarp_360.mp4 or reference.png. Use sampl
 Do not start building yet. Tell me, in five lines, what you understood about the project and its current state,
 then ask me what to build.
 ```
+
+
+## Latest round: Snaarp Mail admin (steps 10-17) and Snaarp Admin (steps 5-12)
+
+Mail admin (`scenes/snaarp-mail/admin/`): User Management with Bulk User Upload, Bulk Signature, Aliases (single and bulk), Manage Signature; Group Management with the Create New Group wizard, the group page and Add Members; a small mailbox showing the group address in From; Email Forwarding. Snaarp Admin: the Users page now has the Bulk user dialog, filters and the Products dropdown with plus / minus; the Organization page and New Department. The old Admin steps 5-8 (Manage products dialog) were replaced by steps 5-12. Read "Snaarp Mail admin and Snaarp Admin update" in `docs/DECISIONS-AND-DEVIATIONS.md` before launch: the recordings do not show the result of a bulk upload, the Add Members dialog, creating a department or adding a member to one, or the end of email forwarding; those are built from the brief. Two optional `AdminLayout` props were added (`menuItems`, `compactOnNarrow`). Recordings are in `ref/admin/` (git-ignored, never commit them). Build status per step: CLAUDE.md.

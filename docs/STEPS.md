@@ -1397,3 +1397,34 @@ Config: `tutorials/snaarp-slides.ts` (steps 36-56 follow the 35 earlier steps; r
 Hooks used by the scripts: `el-<id>`, `thumb-<n>`, `thumb-skip-<n>`, `tbo-<menu>-<id>` (a toolbar option: `tbo-theme-ocean-blue`, `tbo-background-navy`, `tbo-layout-two-content`, `tbo-transition-fade`, `tbo-zoom-75`, `tbo-shape-star`), `ss-presenter`, `ss-beginning`, `ss-chromecast`, `ss-options`, `mt-product`, `mt-start`, `mt-code`, `meet-tip`, `spell-word`, `spell-card`, `spell-fix`, `spell-ignore`, `explore-heading`, `explore-results`, `explore-image-<id>`, `explore-topic-<id>`, `explore-layout-<id>`, `pref-spell`, `pref-ruler`, `pref-theme`, `pref-theme-<id>`, `pref-save`, `disp-monitor-<id>`, `disp-laser`, `disp-done`, `field-meetcode`, `meet-continue`, `presenter-slide`, `presenter-notes`, `presenter-timer`, `presenter-next`, `presenter-end`, `toast-action`, `transition-preview`, `header-collab`, `editor-share`.
 
 Gotchas: **do not ring (`tl.highlight`) an element whose Tailwind class is `absolute` unless `.tl-hl.absolute` is in `globals.css`** (it is now). Never ring `spell-card`, `presenter-view` or `explore-panel` anyway (use `explore-heading`, `right-panel` is missing on narrow screens). After a `tl.setVar` that mounts or places a card, `await tl.wait(80..120)` before moving to it (`openToolbar` and `openHeader` already do).
+
+
+## Snaarp Mail admin steps 10-17 (email admin)
+
+All use `scenes/snaarp-mail/admin/MailAdminStage.tsx`; copy, sample people and captions are in `scenes/snaarp-mail/admin/data.ts`. Recordings `ref/admin/v306.mp4`, `v211.mp4`, `v33.mp4`. Hooks: `btn-bulk-signature`, `btn-bulk-upload`, `mu-actions-<user>`, `mu-action-<id>`, `mu-move-<dept>`, `mu-row-<user>`, dialogs `bu-*`, `bs-*`, `al-*`, `sg-*`, `wz-*`, `am-*`, `fw-*`, `mb-*`, sidebar `menu-<id>`. Scene variables: `page` (users / groups / forwarding / mailbox), `mUsers`, `mDialog`, `mTarget`, `mRowMenu`, `mFile`, `sigSel`, `aliasTab`, `aliasFile`, `groups`, `gPage`, `gId`, `wizStep`, `gInbox`, `gType`, `gMenu`, `gAddSel`, `fwdSel`, `fwdSup`, `fwdMenu`, `fwdAbout`, `fwdOn`, `mbCompose`, `mbFromOpen`, `mbFrom`, `field:<id>`.
+
+| Step | URL | Start state | Timeline |
+|---|---|---|---|
+| 10 Upload users in bulk (about 50 s) | admin.snaarp.com/admin/users | `users` | Bulk User Upload, Download Template (toast), scroll the format requirements, Browse Files (acme-users.csv), Upload Users, scroll to the three new rows |
+| 11 Request a bulk signature (about 42 s) | same | `users` | Bulk Signature, type the signature, untick Tom and Sam (Apply to 12 Users), Apply |
+| 12 Add an alias to one user (about 46 s) | same | `users` | Alex's three dots, Aliases, Add First Alias, type hello, Add Alias, Aliases (1) |
+| 13 Add aliases in bulk (about 50 s) | same | `users` | Aliases, Bulk Upload tab, how-to box, Download CSV Template, Choose CSV file, Upload & Process, open Priya's Aliases |
+| 14 Manage a user's signature (about 40 s) | same | `users` | Alex's three dots, Manage Signature, type, preview, Save Signature |
+| 15 Create a group (about 62 s) | admin.snaarp.com/admin/groups | `users` | Groups, Create Group, name and description, Next, Primary Inbox support@, Next, Security Group, Create Group, open the group page |
+| 16 Add members and use the group email (about 56 s) | groups, then mail.snaarp.com/inbox | `group-page` | Add Members, tick four, Add 4 members, Recent Members, mailbox Compose, From list, choose the group address |
+| 17 Forward emails to other users (about 56 s) | admin.snaarp.com/admin/email-forwarding | `users` | Email Forwarding, About, tick Mia and Noah, supervisor list, Jane Doe, Enable Forwarding for 2 User(s), status |
+
+## Snaarp Admin steps 5-12 (replace the old steps 5-8)
+
+All use `scenes/snaarp-admin/UsersStage.tsx` with a start state from `admin-seed.ts`; copy and captions in `admin-data.ts`, `people-data.ts`, `steps-data.ts`. Recording `ref/admin/v179.mp4`. Hooks: `btn-bulk-user`, `btn-csv-template`, `btn-choose-file`, `btn-add-row`, `bulk-row-<id>`, `field-bulk-<row>-<field>`, `btn-bulk-create`, `filter-dept`, `dept-opt-<id>`, `filter-product`, `product-opt-<id>`, `btn-clear-filters`, `role-<user>`, `products-<user>`, `pp-remove-<product>`, `pp-add-<product>`, `pp-scroll`, `panel-menu-organization`, `org-filter-<id>`, `btn-new-department`, `field-deptname`, `newdept-color-<n>`, `btn-newdept-create`, `org-actions-<user>`, `org-move-<dept>`, `org-empty`.
+
+| Step | Start state | Timeline |
+|---|---|---|
+| 5 Add many users with Bulk user (about 52 s) | `users` | Bulk user, CSV template toast, Choose file (acme-team.csv, 3 rows, 1 needs fixing), type the missing email, Add row and type a person, Create 4 users, new rows at the top (Active 42) |
+| 6 Find users with filters and search (about 56 s) | `users` | search "lena", All departments (tick Engineering and HR), Clear filters, All products (Snaarp Books), Clear filters, Role dropdown |
+| 7 Add a product to a user (about 40 s) | `users` | search "priya", Products dropdown (6 products), scroll to ADD PRODUCT, plus next to Snaarp Books (7 products) |
+| 8 Remove a product from a user (about 36 s) | `users` | search "alex", Products dropdown, minus next to Snaarp Books (5 products) |
+| 9 See your departments (about 36 s) | `users` | Organization menu, Filter list, Engineering, HR, Human Resources, Sales (empty), All members |
+| 10 Create a new department (about 36 s) | `org` | New Department, name Design, description, colour, Create, Design in the list with 0 members |
+| 11 Add a member to the department (about 38 s) | `org-design` | All members, Ada Okoye three dots, Move to department, Design, open Design (1 member) |
+| 12 Filter users by department (about 32 s) | `users-design` | All departments, tick Design, two members listed, Clear filters |
