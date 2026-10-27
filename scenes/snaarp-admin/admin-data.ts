@@ -12,7 +12,7 @@ export const URL_USERS = "login.snaarp.com/admin/users";
 export const ADMIN_AVATAR = "JD";
 
 /** The organisation's counts. Creating the user moves "Active users" from `before` to `after`. */
-export const COUNTS = { before: 40, after: 41, suspended: 1, admins: 9 };
+export const COUNTS = { before: 38, after: 39, suspended: 6, admins: 9 };
 
 /** A sample date (DD/MM/YYYY) shown as "Granted ..." in Manage products. */
 export const SAMPLE_DATE = "14/03/2026";
@@ -84,34 +84,9 @@ export const PASSWORD_RULES: { id: string; label: string; test: (p: string) => b
 /** The row Actions menu, in the order of the recording. */
 export const ROW_ACTIONS: { id: string; label: string; danger?: boolean; icon?: IconName; gap?: boolean }[] = [
   { id: "edit", label: "Edit Profile" },
-  { id: "products", label: "Manage Products" },
   { id: "password", label: "Change Password" },
   { id: "deactivate", label: "Deactivate", danger: true, gap: true },
   { id: "delete", label: "Delete user", danger: true, icon: "trash" },
-];
-
-/** The 20 people on page 1 before the new user exists (sample names). */
-export const DIRECTORY_USERS: { id: string; name: string; email: string; role: string; products: number | string }[] = [
-  { id: "d1", name: "Priya Shah", email: "priya@acme-studio.com", role: "Administrator", products: 5 },
-  { id: "d2", name: "Marcus Webb", email: "marcus@acme-studio.com", role: "Administrator", products: 12 },
-  { id: "d3", name: "Elena Rossi", email: "elena@acme-studio.com", role: "User", products: 9 },
-  { id: "d4", name: "Tom Okafor", email: "tom@acme-studio.com", role: "User", products: "Snaarp Mail" },
-  { id: "d5", name: "Hannah Lowe", email: "hannah@acme-studio.com", role: "User", products: 4 },
-  { id: "d6", name: "Ravi Menon", email: "ravi@acme-studio.com", role: "User", products: 6 },
-  { id: "d7", name: "Chloe Martin", email: "chloe@acme-studio.com", role: "User", products: 3 },
-  { id: "d8", name: "Daniel Ng", email: "daniel@acme-studio.com", role: "Administrator", products: 8 },
-  { id: "d9", name: "Aisha Khan", email: "aisha@acme-studio.com", role: "User", products: 4 },
-  { id: "d10", name: "Oscar Lind", email: "oscar@acme-studio.com", role: "User", products: 2 },
-  { id: "d11", name: "Mia Fontaine", email: "mia@acme-studio.com", role: "User", products: 5 },
-  { id: "d12", name: "Jonas Weber", email: "jonas@acme-studio.com", role: "User", products: 7 },
-  { id: "d13", name: "Lucy Hart", email: "lucy@acme-studio.com", role: "User", products: 4 },
-  { id: "d14", name: "Samir Patel", email: "samir@acme-studio.com", role: "User", products: 3 },
-  { id: "d15", name: "Grace Adeyemi", email: "grace@acme-studio.com", role: "User", products: 6 },
-  { id: "d16", name: "Leo Barnes", email: "leo@acme-studio.com", role: "User", products: 4 },
-  { id: "d17", name: "Nina Volkov", email: "nina@acme-studio.com", role: "User", products: 9 },
-  { id: "d18", name: "Ben Taylor", email: "ben@acme-studio.com", role: "User", products: 5 },
-  { id: "d19", name: "Isla Murray", email: "isla@acme-studio.com", role: "User", products: 4 },
-  { id: "d20", name: "Yusuf Ali", email: "yusuf@acme-studio.com", role: "User", products: 2 },
 ];
 
 /** Screen copy that is not step-specific. */
@@ -157,19 +132,17 @@ export const COPY = {
     submit: "Create user",
     toast: (email: string) => `${email} created`,
   },
-  manage: {
-    title: "Manage Products",
-    heading: (name: string) => `${name}'s products`,
-    granted: (date: string) => `Granted ${date}`,
-    makeAdmin: "Make admin",
-    remove: "Remove",
-    note: "promotes the user to admin for that product only. It takes effect on their next login or token refresh.",
-    addTitle: "Add products",
-    select: "Select a product...",
-    search: "Search products...",
-    noMatch: "No products found",
-    add: "Add",
-    hint: "Choose a product the user doesn't already have.",
-    toast: "Added 1 product",
+  product: {
+    list: "ADD PRODUCT",
+    remove: (name: string) => `Remove ${name}`,
+    add: (name: string) => `Add ${name}`,
+    added: (name: string, user: string) => `${name} added to ${user}`,
+    removed: (name: string, user: string) => `${name} removed from ${user}`,
+  },
+  filters: {
+    clear: "Clear filters",
+    noResults: "No users match these filters.",
+    roleChanged: (user: string, role: string) => `${user} is now ${role}`,
+    moved: (user: string, dept: string) => `${user} moved to ${dept}`,
   },
 };

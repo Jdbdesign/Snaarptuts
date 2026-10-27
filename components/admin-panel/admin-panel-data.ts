@@ -19,7 +19,6 @@ export const PANEL_RAIL_ITEMS: { label: string; logo: LogoName }[] = [
 export const PANEL_MENU: { id: string; label: string; icon: IconName; gap?: boolean }[] = [
   { id: "dashboard", label: "Dashboard", icon: "grid4" },
   { id: "users", label: "Users", icon: "user" },
-  { id: "bulk-users", label: "Bulk Users", icon: "users" },
   { id: "organization", label: "Organization", icon: "building" },
   { id: "profile", label: "Profile", icon: "user", gap: true },
   { id: "subscription", label: "Subscription", icon: "card" },

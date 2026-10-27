@@ -6,6 +6,7 @@ import { FieldText } from "@/components/admin/TypedField";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { COPY, DEFAULT_DEPARTMENT, DEPARTMENTS, DIALOG_ROLES, NEW_USER, PASSWORD_RULES } from "../admin-data";
+import { SAM, type Person } from "../people-data";
 import { AdminDialog } from "./AdminDialog";
 import { showAdminToast } from "./AdminToast";
 
@@ -26,7 +27,7 @@ function Labeled({ label, optional, children }: { label: string; optional?: bool
 
 /** A text input the timeline types into (scene variable `field:<id>`; click it to focus). */
 function Field({ tl, id, placeholder, mask }: { tl: Timeline; id: string; placeholder: string; mask?: boolean }) {
-  const focused = useTimelineVar(tl, "focus", "") === id;
+  const focused = useTimelineVar<string>(tl, "focus", "") === id;
   return (
     <div
       data-tl={`field-${id}`}
@@ -145,6 +146,8 @@ export function CreateUserDialog({ tl }: { tl: Timeline }) {
             onClick={() => {
               close();
               tl.setVar("created", true);
+              const now = tl.getVar<Person[]>("users", []);
+              if (!now.some((p) => p.id === SAM.id)) tl.setVar("users", [SAM, ...now]);
               showAdminToast(tl, C.toast(email || NEW_USER.email));
             }}
             className="h-[38px] rounded-full bg-brand px-5 text-[13.5px] font-semibold text-white transition-transform data-[pressed=true]:scale-95"
