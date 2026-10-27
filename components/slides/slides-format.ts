@@ -1,7 +1,7 @@
 import type { Timeline } from "@/lib/timeline";
 import { showDocToast } from "@/components/docs/doc-toast-timeline";
 import { elementsOf, withElements, type ElementSlide, type SlideEl, type TextEl, type TextFmt } from "./slide-elements";
-import { commit, getRatio, getSel, getSlideIndex, getSlides, setSel, undo } from "./slides-edit";
+import { commit, getRatio, getSel, getSlideIndex, getSlides, setSel, sweepTo, undo } from "./slides-edit";
 import type { SlideData } from "./slides-data";
 import { LAYOUT_ELEMENTS, SLIDE_COPY, type ThemeId } from "./slides-toolbar-data";
 
@@ -194,6 +194,23 @@ export function distribute(tl: Timeline, axis: "h" | "v") {
     at += e[size] + gap;
   }
   mapSelected(tl, (e) => ({ ...e, [pos]: place.get(e.id) ?? e[pos] }));
+}
+
+/** Glide to a spot on the slide (cqw) and click the element that sits there. Pick a spot only that element covers. */
+export async function pickAt(tl: Timeline, id: string, spot: { x: number; y: number }, ms = 800) {
+  await sweepTo(tl, spot.x, spot.y, ms);
+  await tl.click(`[data-tl=el-${id}]`);
+  await tl.wait(250);
+}
+
+/** Select several elements the way Shift-click does: click the first, then click each of the others while Shift is held. */
+export async function shiftSelect(tl: Timeline, picks: { id: string; x: number; y: number }[], ms = 800) {
+  const chosen: string[] = [];
+  for (const p of picks) {
+    await pickAt(tl, p.id, p, chosen.length ? Math.round(ms * 0.8) : ms);
+    chosen.push(p.id);
+    setSel(tl, [...chosen]);
+  }
 }
 
 /** Turn the selection a quarter turn. */

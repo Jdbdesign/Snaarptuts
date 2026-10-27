@@ -1,5 +1,5 @@
 import type { SlideData } from "./slides-data";
-import type { ChartEl, ShapeKind, TableEl, TextEl } from "./slide-elements";
+import type { ChartEl, ShapeKind, SlideEl, TableEl, TextEl } from "./slide-elements";
 import { SAMPLE_IMAGES } from "./sample-images";
 
 /*
@@ -56,6 +56,44 @@ export const EIV_DECK: SlideData[] = [
 export const FORMAT_DECK: SlideData[] = EIV_DECK.map((s) =>
   s.id === "e2" ? { ...s, elements: s.elements?.map((e) => (e.id === "s2-title" && e.kind === "text" ? { ...e, fmt: { bold: false } } : e)) } : s,
 );
+
+/** The EIV deck with slide 2's elements replaced (or added to). */
+const deckWith = (change: (els: SlideEl[]) => SlideEl[]): SlideData[] => EIV_DECK.map((s) => (s.id === "e2" ? { ...s, elements: change(s.elements ?? []) } : s));
+const shape = (id: string, kind: ShapeKind, x: number, y: number, w: number, h: number, fill: string): SlideEl => ({ id, kind: "shape", shape: kind, x, y, w, h, fill });
+
+/**
+ * Step 44 (Change the stacking order): slide 2 plus three overlapping squares under the bullets, back to front A, B, C. Each one has a
+ * strip no other square covers (A's left edge, B's top edge, C's right edge), so the cursor can always click the one it means.
+ */
+export const STACK_DECK: SlideData[] = deckWith((els) => [
+  ...els,
+  shape("stack-a", "rect", 8, 39, 20, 14, "#E8590C"),
+  shape("stack-b", "rect", 16, 34, 20, 14, "#1E7B3C"),
+  shape("stack-c", "rect", 24, 39, 20, 14, "#7C3AED"),
+]);
+/** Where to point at each square so it is the one the cursor is visibly on (cqw). */
+export const STACK_SPOTS = { "stack-a": { x: 11, y: 46 }, "stack-b": { x: 26, y: 36.5 }, "stack-c": { x: 41, y: 46 } };
+
+/** Steps 45-47 (Align, Distribute, Rotate): slide 2 cut down to a centred title, so a shape moved to an edge has nothing to land on. */
+const titleOnly = (els: SlideEl[]): SlideEl[] =>
+  els.filter((e) => e.id === "s2-title").map((e) => (e.kind === "text" ? { ...e, x: 8, w: 84, align: "center" as const } : e));
+
+/** Step 45: one circle, off-centre. */
+export const ALIGN_DECK: SlideData[] = deckWith((els) => [...titleOnly(els), shape("align-dot", "ellipse", 56, 26, 14, 14, BLUE)]);
+export const ALIGN_ID = "align-dot";
+
+/** Step 46: three squares spread unevenly in both directions. */
+export const DISTRIBUTE_DECK: SlideData[] = deckWith((els) => [
+  ...titleOnly(els),
+  shape("dist-a", "rounded", 8, 18, 9, 9, "#E8590C"),
+  shape("dist-b", "rounded", 24, 24, 9, 9, "#1E7B3C"),
+  shape("dist-c", "rounded", 70, 46, 9, 9, "#7C3AED"),
+]);
+export const DISTRIBUTE_IDS = ["dist-a", "dist-b", "dist-c"];
+
+/** Step 47: one arrow, so the turn is easy to see. */
+export const ROTATE_DECK: SlideData[] = deckWith((els) => [...titleOnly(els), shape("rot-arrow", "arrow", 38, 24, 24, 12, BLUE)]);
+export const ROTATE_ID = "rot-arrow";
 
 export const EIV_SELECTED = 1;
 export const EIV_TITLE_ID = "s2-title";

@@ -18,7 +18,7 @@ import {
 } from "./slides-edit";
 import type { ChartKind, ShapeKind } from "./slide-elements";
 import { DROPDOWNS, type DropdownId } from "./slides-menus-data";
-import { changeIndent, deleteSlide, duplicateSlide, newSlide, playableSlides, setAlign, setSpacing, toggleFormat, toggleSkip } from "./slides-format";
+import { alignSel, changeIndent, deleteSlide, distribute, restack, rotateSel, duplicateSlide, newSlide, playableSlides, setAlign, setSpacing, toggleFormat, toggleSkip } from "./slides-format";
 import { pressOn } from "./slides-timeline";
 
 /*
@@ -91,6 +91,20 @@ ACTIONS["slide.new"] = newSlide;
 ACTIONS["slide.duplicate"] = duplicateSlide;
 ACTIONS["slide.delete"] = deleteSlide;
 ACTIONS["slide.skip"] = toggleSkip;
+ACTIONS["arrange.front"] = (tl) => restack(tl, "front");
+ACTIONS["arrange.forward"] = (tl) => restack(tl, "forward");
+ACTIONS["arrange.backward"] = (tl) => restack(tl, "backward");
+ACTIONS["arrange.back"] = (tl) => restack(tl, "back");
+ACTIONS["arrange.alignh.left"] = (tl) => alignSel(tl, "h", "start");
+ACTIONS["arrange.alignh.center"] = (tl) => alignSel(tl, "h", "middle");
+ACTIONS["arrange.alignh.right"] = (tl) => alignSel(tl, "h", "end");
+ACTIONS["arrange.alignv.top"] = (tl) => alignSel(tl, "v", "start");
+ACTIONS["arrange.alignv.middle"] = (tl) => alignSel(tl, "v", "middle");
+ACTIONS["arrange.alignv.bottom"] = (tl) => alignSel(tl, "v", "end");
+ACTIONS["arrange.disth"] = (tl) => distribute(tl, "h");
+ACTIONS["arrange.distv"] = (tl) => distribute(tl, "v");
+ACTIONS["arrange.rotcw"] = (tl) => rotateSel(tl, 1);
+ACTIONS["arrange.rotccw"] = (tl) => rotateSel(tl, -1);
 ACTIONS["format.bold"] = (tl) => toggleFormat(tl, "bold");
 ACTIONS["format.italic"] = (tl) => toggleFormat(tl, "italic");
 ACTIONS["format.underline"] = (tl) => toggleFormat(tl, "underline");
