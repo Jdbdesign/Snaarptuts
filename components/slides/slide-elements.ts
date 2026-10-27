@@ -10,7 +10,7 @@ import type { SlideData } from "./slides-data";
 export type ShapeKind = "rect" | "rounded" | "ellipse" | "triangle" | "diamond" | "star" | "arrow";
 export type ChartKind = "bar" | "line" | "pie";
 
-type Base = { id: string; x: number; y: number; w: number; h: number };
+type Base = { id: string; x: number; y: number; w: number; h: number; /** Degrees, clockwise (Arrange > Rotate). */ rotate?: number };
 
 export type TextEl = Base & {
   kind: "text";
@@ -18,8 +18,18 @@ export type TextEl = Base & {
   paras: string[];
   style: "title" | "subtitle" | "body" | "box";
   bullets?: boolean;
-  align?: "left" | "center";
+  align?: "left" | "center" | "right" | "justify";
+  /** Format > Bold, Italic, Underline, Strikethrough. Bold falls back to the style (a title is bold unless this says false). */
+  fmt?: TextFmt;
+  /** Format > Align and indent: 0, 1, 2... steps of INDENT_STEP cqw. */
+  indent?: number;
+  /** Format > Line spacing: 1 = single. */
+  spacing?: number;
+  /** A layout placeholder ("Click to add title"): drawn grey. */
+  placeholder?: boolean;
 };
+export type TextFmt = { bold?: boolean; italic?: boolean; underline?: boolean; strike?: boolean };
+export const INDENT_STEP = 3;
 export type ShapeEl = Base & { kind: "shape"; shape: ShapeKind; fill: string };
 export type ImageEl = Base & { kind: "image"; src: string; alt: string };
 /** A straight horizontal line: `h` is 0. */

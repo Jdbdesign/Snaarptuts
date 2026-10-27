@@ -15,7 +15,9 @@ type Props = {
   hasSelection: boolean;
   /** Edit: something was copied or cut (Paste switches on). */
   hasClipboard: boolean;
-  /** View: which toggles are on (a tick shows in front of them). */
+  /** Arrange: three or more things are selected (Distribute switches on). */
+  hasThree?: boolean;
+  /** View and Format: which toggles are on (a tick shows in front of them; a row with an `altLabel` shows it). */
   checks: Record<string, boolean>;
 };
 
@@ -25,7 +27,7 @@ const card = "rounded-[8px] border border-[#E6E8EC] bg-white py-[6px] shadow-[0_
  * The Edit, View or Insert dropdown. SlidesEditor hangs it under its menu label, so it lines up with the label whatever the
  * screen size. Hooks: `<menu>-menu` (the card), `<menu>-group-<n>` (a block between dividers), `<menu>-item-<id>`, `<menu>-sub-<id>` and `<menu>-tip-<id>`.
  */
-export function SlidesDropdown({ menu, open, sub, tip, hasSelection, hasClipboard, checks }: Props) {
+export function SlidesDropdown({ menu, open, sub, tip, hasSelection, hasClipboard, hasThree = false, checks }: Props) {
   return (
     <div
       aria-hidden={!open}
@@ -38,7 +40,7 @@ export function SlidesDropdown({ menu, open, sub, tip, hasSelection, hasClipboar
         {DROPDOWNS[menu].map((group, g) => (
           <div key={g} data-tl={`${menu}-group-${g}`} className={g > 0 ? "mt-[5px] border-t border-[#EEEEF1] pt-[5px]" : ""}>
             {group.map((row) => {
-              const enabled = !row.soon && (row.needs === "selection" ? hasSelection : row.needs === "clipboard" ? hasClipboard : true);
+              const enabled = !row.soon && (row.needs === "selection" ? hasSelection : row.needs === "clipboard" ? hasClipboard : row.needs === "three" ? hasThree : true);
               return (
                 <div
                   key={row.id}
@@ -49,7 +51,7 @@ export function SlidesDropdown({ menu, open, sub, tip, hasSelection, hasClipboar
                   }`}
                 >
                   {row.toggle && checks[row.id] && <Icon name="check" size={10} className="absolute left-[8px] text-[#1f2430]" />}
-                  <span className="flex-1 truncate">{row.label}</span>
+                  <span className="flex-1 truncate">{row.altLabel && checks[row.id] ? row.altLabel : row.label}</span>
                   {row.shortcut && <span className="mr-[-12px] text-[8.5px] text-[#A3A8B3]">{row.shortcut}</span>}
                   {row.sub && <Icon name="chevronRight" size={9} className="mr-[-6px] text-[#6b7280]" />}
 
@@ -64,7 +66,7 @@ export function SlidesDropdown({ menu, open, sub, tip, hasSelection, hasClipboar
                           <div
                             key={s.id}
                             data-tl={`${menu}-sub-${s.id}`}
-                            className="flex h-[24px] items-center px-[14px] text-[10px] text-[#1f2430] transition-colors data-[hover=true]:bg-[#F1F2F5]"
+                            className={`flex items-center px-[14px] text-[10px] text-[#1f2430] transition-colors data-[hover=true]:bg-[#F1F2F5] ${s.divider ? "mt-[5px] h-[29px] border-t border-[#EEEEF1] pt-[5px]" : "h-[24px]"}`}
                           >
                             <span className="truncate">{s.label}</span>
                           </div>

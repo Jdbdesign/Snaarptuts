@@ -22,7 +22,10 @@ import type { SlideViewState } from "./SlideElements";
 import { elementsOf, findMatches, type SlideEl } from "./slide-elements";
 import type { CellEdit, TextEdit } from "./slides-edit";
 import { EIV_SELECTED } from "./slide-elements-data";
-import { ZOOM_FACTOR, ZOOM_LABEL } from "./slides-menus-data";
+import { ZOOM_FACTOR, ZOOM_LABEL, type DropdownId } from "./slides-menus-data";
+import { isFmtOn } from "./slides-format";
+import { ThemeContext } from "./slides-theme";
+import { DEFAULT_THEME, type ThemeId } from "./slides-toolbar-data";
 import { SlidesLayout } from "./SlidesLayout";
 import { BLANK_SLIDE, LOADING, PRINT_SLIDES, TRASH, type FileSubId, type NavId, type SlideData } from "./slides-data";
 
@@ -102,6 +105,7 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
   const scrollY = useTimelineVar(tl, "canvasY", 0);
   const draw = useTimelineVar<{ x: number; y: number; w: number; h: number } | null>(tl, "draw", null);
   const marker = useTimelineVar<{ x: number; y: number } | null>(tl, "marker", null);
+  const theme = useTimelineVar<ThemeId>(tl, "theme", DEFAULT_THEME);
 
   const matches = findOpen && findQuery ? findMatches(slides, findOrigin, findQuery, findCase) : [];
   const view: SlideViewState = {
@@ -116,7 +120,19 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
     onSelect: (id) => tl.setVar("sel", id ? [id] : []),
   };
   const chartSel = sel.length === 1 ? elementsOf(slides, selected).find((e) => e.id === sel[0] && e.kind === "chart") : undefined;
-  const dropdown = (menu: "edit" | "view" | "insert") => (
+  const selEls = elementsOf(slides, selected).filter((e) => sel.includes(e.id));
+  const every = (key: "bold" | "italic" | "underline" | "strike") => selEls.length > 0 && selEls.every((e) => isFmtOn(e, key));
+  const checks = {
+    notes: notesOpen,
+    ruler: rulers,
+    guides,
+    bold: every("bold"),
+    italic: every("italic"),
+    underline: every("underline"),
+    strike: every("strike"),
+    skip: !!slides[Math.min(selected, slides.length - 1)]?.skipped,
+  };
+  const dropdown = (menu: DropdownId) => (
     <SlidesDropdown
       menu={menu}
       open={menuOpen === menu}
@@ -124,7 +140,8 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
       tip={menuTip}
       hasSelection={sel.length > 0}
       hasClipboard={!!clip?.length}
-      checks={{ notes: notesOpen, ruler: rulers, guides }}
+      hasThree={sel.length >= 3}
+      checks={checks}
     />
   );
 
@@ -133,6 +150,7 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
 
   return (
     // The first data-scroller in the scene is where the timeline looks up targets, so it sits on the root.
+    <ThemeContext.Provider value={theme}>
     <div data-scroller className="relative h-full w-full bg-white">
       <div className={`absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${intro >= 1 ? "opacity-100" : "opacity-0"}`}>
         <div className={`absolute inset-0 ${stage === "home" ? "" : "pointer-events-none opacity-0"}`}>
@@ -167,7 +185,7 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
             ratio={ratio}
             sidePanel={versionsOpen ? <VersionPanel tl={tl} /> : chartSel?.kind === "chart" ? <ChartPanel tl={tl} chart={chartSel} /> : undefined}
             panelWidth={versionsOpen ? 290 : 253}
-            dropdowns={{ edit: dropdown("edit"), view: dropdown("view"), insert: dropdown("insert") }}
+            dropdowns={{ edit: dropdown("edit"), view: dropdown("view"), insert: dropdown("insert"), format: dropdown("format"), slide: dropdown("slide"), arrange: dropdown("arrange"), tools: dropdown("tools") }}
             activeTool={tool}
             zoomLabel={ZOOM_LABEL[zoom]}
             zoom={ZOOM_FACTOR[zoom] ?? 1}
@@ -206,5 +224,6 @@ export function SlidesApp({ tl, startStage = "editor", startTitle, startSlides =
       </div>
       <div className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${fade ? "opacity-100" : "opacity-0"}`} />
     </div>
+    </ThemeContext.Provider>
   );
 }

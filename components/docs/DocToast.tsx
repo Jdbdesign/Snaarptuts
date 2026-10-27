@@ -5,7 +5,7 @@ import { useNarrow } from "@/lib/useNarrow";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { Icon } from "@/components/icons";
 
-export type DocToastState = { id: number; text: string; kind: "success" | "loading"; visible: boolean };
+export type DocToastState = { id: number; text: string; kind: "success" | "loading"; visible: boolean; /** Optional link-style button after the text (Snaarp Slides: "Undo"); hook `toast-action`. */ action?: string };
 
 /** Same enlargement as DocEditor on narrow screens, so the toast stays readable. */
 const NARROW_ZOOM = 2.4;
@@ -40,6 +40,11 @@ export function DocToast({ tl }: { tl: Timeline }) {
           </span>
         )}
         <span className="text-[12.5px] font-medium leading-[18px] text-[#111]">{toast?.text}</span>
+        {toast?.action && (
+          <span data-tl="toast-action" className="ml-[6px] rounded-[5px] px-[6px] py-[2px] text-[12.5px] font-semibold text-[#1A73E8] transition-colors data-[hover=true]:bg-[#EEF4FE]">
+            {toast.action}
+          </span>
+        )}
       </div>
     </div>
   );

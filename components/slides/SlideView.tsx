@@ -1,5 +1,8 @@
+import { useContext, type CSSProperties } from "react";
 import { SlideElements, type SlideViewState } from "./SlideElements";
 import { SLIDE_PLACEHOLDERS, type SlideData } from "./slides-data";
+import { isDark, ThemeContext } from "./slides-theme";
+import { themeOf } from "./slides-toolbar-data";
 
 type Props = {
   slide: SlideData;
@@ -16,11 +19,24 @@ type Props = {
  * so the same markup serves the big canvas and the thumbnails.
  */
 export function SlideView({ slide, ratio, className = "", view }: Props) {
+  const theme = themeOf(useContext(ThemeContext));
+  // The theme paints elements slides; a slide's own background (Format > Slide background) beats it and flips the text to match.
+  const themed = !!slide.elements;
+  const bg = themed ? (slide.bg ?? theme.bg) : "#FFFFFF";
+  const onDark = themed && (slide.bg ? isDark(slide.bg) : isDark(theme.bg));
+  const vars = themed
+    ? ({
+        background: bg,
+        "--sl-fg": onDark ? "#FFFFFF" : slide.bg ? "#1F2430" : theme.fg,
+        "--sl-muted": onDark ? "#D6DBE8" : slide.bg ? "#6B7280" : theme.muted,
+        "--sl-accent": onDark === isDark(theme.bg) ? theme.accent : onDark ? "#8AB4F8" : "#2B6FEB",
+      } as CSSProperties)
+    : undefined;
   return (
     <div
       data-slide={slide.id}
       className={`relative overflow-hidden bg-white [container-type:inline-size] ${className}`}
-      style={{ aspectRatio: String(ratio) }}
+      style={{ aspectRatio: String(ratio), ...vars }}
       // Clicking the empty page clears the selection (elements stop the click before it gets here).
       onClick={view?.onSelect ? () => view.onSelect?.(null) : undefined}
     >

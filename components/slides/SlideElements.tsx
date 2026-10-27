@@ -1,7 +1,8 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { ChartGraphic } from "./ChartGraphic";
-import { guideLines, type FindMatch, type ShapeEl, type SlideEl, type TableEl, type TextEl } from "./slide-elements";
+import { guideLines, INDENT_STEP, type FindMatch, type ShapeEl, type SlideEl, type TableEl, type TextEl } from "./slide-elements";
 import { IMAGE_BY_KEY } from "./slide-elements-data";
+import { SPELLING } from "./slides-tools-data";
 
 /** What the big canvas shows on top of the slide's elements. Thumbnails pass none of it. */
 export type SlideViewState = {
@@ -17,6 +18,8 @@ export type SlideViewState = {
   snap?: { v?: number; h?: number } | null;
   /** The dashed outline of a text box while it is being drawn. */
   draw?: { x: number; y: number; w: number; h: number } | null;
+  /** Tools > Spelling: the misspelt word (underlined) and, while `open`, the card that offers the fix. */
+  spell?: { el: string; para: number; start: number; len: number; open: boolean; suggestion: string } | null;
   /** An invisible spot the cursor can glide to (scripts move it: `[data-tl=slide-marker]`). */
   marker?: { x: number; y: number } | null;
   onSelect?: (id: string | null) => void;
@@ -53,7 +56,15 @@ function ElementBox({ el, selected, view }: { el: SlideEl; selected: boolean; vi
       data-tl={view ? `el-${el.id}` : undefined}
       onClick={onClick}
       className="absolute"
-      style={{ left: cq(el.x), top: cq(el.y), width: cq(el.w), height: isLine ? cq(0.9) : cq(el.h), marginTop: isLine ? cq(-0.45) : 0 }}
+      style={{
+        left: cq(el.x),
+        top: cq(el.y),
+        width: cq(el.w),
+        height: isLine ? cq(0.9) : cq(el.h),
+        marginTop: isLine ? cq(-0.45) : 0,
+        transform: el.rotate ? `rotate(${el.rotate}deg)` : undefined,
+        transition: view ? "transform 380ms ease, left 380ms ease, top 380ms ease" : undefined,
+      }}
     >
       <Body el={el} view={view} />
       {selected && <Frame el={el} />}
@@ -88,13 +99,32 @@ function Body({ el, view }: { el: SlideEl; view?: SlideViewState }) {
 /* ------------------------------------------------------------------ text */
 
 const TEXT_STYLE: Record<TextEl["style"], string> = {
-  title: "text-[6.4cqw] font-bold leading-none text-[#1f2430]",
-  subtitle: "text-[3.6cqw] leading-none text-[#6b7280]",
-  body: "text-[3.8cqw] leading-none text-[#1f2430]",
-  box: "text-[3.4cqw] leading-[1.2] text-[#1f2430]",
+  title: "text-[6.4cqw] leading-none text-[var(--sl-fg,#1f2430)]",
+  subtitle: "text-[3.6cqw] leading-none text-[var(--sl-muted,#6b7280)]",
+  body: "text-[3.8cqw] leading-none text-[var(--sl-fg,#1f2430)]",
+  box: "text-[3.4cqw] leading-[1.2] text-[var(--sl-fg,#1f2430)]",
 };
 
 function Para({ text, el, para, view }: { text: string; el: TextEl; para: number; view?: SlideViewState }) {
+  const sp = view?.spell;
+  if (sp && sp.el === el.id && sp.para === para && text.length >= sp.start + sp.len) {
+    return (
+      <>
+        {text.slice(0, sp.start)}
+        <span data-tl="spell-word" className="relative" style={{ textDecorationLine: "underline", textDecorationStyle: "wavy", textDecorationColor: "#D93025", textUnderlineOffset: "0.45cqw" }}>
+          {text.slice(sp.start, sp.start + sp.len)}
+          {sp.open && (
+            <span data-tl="spell-card" className="absolute left-0 top-full z-20 mt-[1.2cqw] block w-[24cqw] whitespace-normal rounded-[1cqw] border border-[#E3E6EC] bg-white py-[0.7cqw] text-[2.3cqw] font-normal not-italic leading-none text-[#1f2430] shadow-[0_1cqw_3cqw_-0.6cqw_rgba(17,24,39,0.3)]" style={{ textDecorationLine: "none" }}>
+              <span className="block px-[1.6cqw] pb-[0.6cqw] pt-[0.4cqw] text-[1.9cqw] text-[#6b7280]">{SPELLING.heading}</span>
+              <span data-tl="spell-fix" className="block px-[1.6cqw] py-[1.1cqw] font-medium text-[#1A73E8] transition-colors data-[hover=true]:bg-[#F1F3F4]">{sp.suggestion}</span>
+              <span data-tl="spell-ignore" className="block px-[1.6cqw] py-[1.1cqw] text-[#4b5060] transition-colors data-[hover=true]:bg-[#F1F3F4]">{SPELLING.ignore}</span>
+            </span>
+          )}
+        </span>
+        {text.slice(sp.start + sp.len)}
+      </>
+    );
+  }
   const f = view?.find;
   if (!f?.query) return <>{text}</>;
   const q = f.matchCase ? f.query : f.query.toLowerCase();
@@ -118,17 +148,35 @@ function Para({ text, el, para, view }: { text: string; el: TextEl; para: number
 
 const Caret = () => <i className="ml-[0.2cqw] inline-block h-[1.05em] w-[0.22cqw] translate-y-[0.15em] bg-[#111]" style={{ animation: "caret-blink 1s steps(1) infinite" }} />;
 
+/** Everything Format changes about a text box: weight, slant, underline and strikethrough, alignment, indent, spacing, placeholder grey. */
+function textLook(el: TextEl): CSSProperties {
+  const f = el.fmt ?? {};
+  const deco = [f.underline && "underline", f.strike && "line-through"].filter(Boolean).join(" ");
+  const lh = (el.spacing ?? 1) * (el.style === "box" ? 1.2 : 1);
+  return {
+    fontWeight: f.bold ?? el.style === "title" ? 700 : 400,
+    fontStyle: f.italic ? "italic" : "normal",
+    textDecorationLine: deco || undefined,
+    textAlign: el.align ?? "left",
+    paddingLeft: el.indent ? cq(el.indent * INDENT_STEP) : undefined,
+    lineHeight: el.spacing || el.style === "box" ? lh : undefined,
+    color: el.placeholder ? "#A3A3A3" : undefined,
+  };
+}
+
 function TextBody({ el, view }: { el: TextEl; view?: SlideViewState }) {
   const ed = view?.editing && view.editing.id === el.id ? view.editing : null;
   const paras = ed ? (ed.mode === "append" ? [...el.paras, ed.typed] : [ed.typed]) : el.paras;
   const last = paras.length - 1;
-  const cls = `${TEXT_STYLE[el.style]} ${el.align === "center" ? "text-center" : ""}`;
+  const cls = TEXT_STYLE[el.style];
+  const look = textLook(el);
   if (el.bullets) {
+    const justify = el.align === "center" ? "justify-center" : el.align === "right" ? "justify-end" : "";
     return (
-      <ul className={`space-y-[2.2cqw] ${cls}`}>
+      <ul className={`flex flex-col ${cls}`} style={{ ...look, gap: cq(2.2 * (el.spacing ?? 1)), transition: "padding-left 300ms ease, gap 300ms ease" }}>
         {paras.map((p, i) => (
-          <li key={i} className="flex items-center gap-[1.8cqw] whitespace-nowrap">
-            <i className="inline-block h-[1.2cqw] w-[1.2cqw] shrink-0 rounded-full bg-[#2B6FEB]" />
+          <li key={i} className={`flex items-center gap-[1.8cqw] whitespace-nowrap ${justify}`}>
+            <i className="inline-block h-[1.2cqw] w-[1.2cqw] shrink-0 rounded-full bg-[var(--sl-accent,#2B6FEB)]" />
             <span>
               <Para text={p} el={el} para={i} view={view} />
               {ed && i === last && <Caret />}
@@ -139,7 +187,7 @@ function TextBody({ el, view }: { el: TextEl; view?: SlideViewState }) {
     );
   }
   return (
-    <div className={`${cls} ${el.style === "box" ? "" : "whitespace-nowrap"}`}>
+    <div className={`${cls} ${el.style === "box" ? "" : "whitespace-nowrap"}`} style={{ ...look, transition: "padding-left 300ms ease" }}>
       {paras.map((p, i) => (
         <p key={i}>
           <Para text={p} el={el} para={i} view={view} />
@@ -174,13 +222,16 @@ const POLYGONS: Partial<Record<ShapeEl["shape"], string>> = {
   arrow: "2,34 58,34 58,8 98,50 58,92 58,66 2,66",
 };
 
+/** The deck's blue is the theme accent: a theme recolours it. Any other fill (a pasted look) stays. */
+const fillOf = (fill: string) => (fill.toUpperCase() === BLUE ? "var(--sl-accent,#2B6FEB)" : fill);
+
 function ShapeBody({ el }: { el: ShapeEl }) {
   if (el.shape === "rect" || el.shape === "rounded") {
-    return <div className="h-full w-full" style={{ background: el.fill, borderRadius: el.shape === "rounded" ? cq(Math.min(1.4, el.h / 2)) : 0 }} />;
+    return <div className="h-full w-full" style={{ background: fillOf(el.fill), borderRadius: el.shape === "rounded" ? cq(Math.min(1.4, el.h / 2)) : 0 }} />;
   }
   return (
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-full w-full">
-      {el.shape === "ellipse" ? <ellipse cx="50" cy="50" rx="49" ry="49" fill={el.fill} /> : <polygon points={POLYGONS[el.shape]} fill={el.fill} strokeLinejoin="round" />}
+      {el.shape === "ellipse" ? <ellipse cx="50" cy="50" rx="49" ry="49" style={{ fill: fillOf(el.fill) }} /> : <polygon points={POLYGONS[el.shape]} style={{ fill: fillOf(el.fill) }} strokeLinejoin="round" />}
     </svg>
   );
 }

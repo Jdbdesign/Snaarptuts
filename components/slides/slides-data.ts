@@ -310,7 +310,20 @@ export const IMPORT_DIALOG = {
 
 export type SlideKind = "blank" | "title" | "bullets" | "closing" | "elements";
 /** A slide with `elements` (steps 20-36) is drawn from them; the other kinds are drawn from title, subtitle and bullets. */
-export type SlideData = { id: string; kind: SlideKind; title?: string; subtitle?: string; bullets?: string[]; elements?: SlideEl[] };
+export type SlideData = {
+  id: string;
+  kind: SlideKind;
+  title?: string;
+  subtitle?: string;
+  bullets?: string[];
+  elements?: SlideEl[];
+  /** Slide > Format > Slide background: this slide only (a hex colour). Beats the deck's theme. */
+  bg?: string;
+  /** Slide > Skip slide: the slide stays in the deck but is left out of the slideshow. */
+  skipped?: boolean;
+  /** The toolbar's Transition choice for this slide (an id from TRANSITIONS). */
+  transition?: string;
+};
 
 export const BLANK_SLIDE: SlideData = { id: "s1", kind: "blank" };
 

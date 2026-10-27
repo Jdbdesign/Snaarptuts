@@ -18,10 +18,11 @@ import {
 } from "./slides-edit";
 import type { ChartKind, ShapeKind } from "./slide-elements";
 import { DROPDOWNS, type DropdownId } from "./slides-menus-data";
+import { changeIndent, setAlign, setSpacing, toggleFormat } from "./slides-format";
 import { pressOn } from "./slides-timeline";
 
 /*
- * Timeline helpers for the Edit, View and Insert menus (Snaarp Slides steps 20-36). Same pattern as the File menu helpers in
+ * Timeline helpers for the Edit, View, Insert, Format, Slide, Arrange and Tools menus (Snaarp Slides steps 20-50). Same pattern as the File menu helpers in
  * slides-timeline.ts: the helpers move the cursor, ring and click, and then do what the click would do. The open menu is the
  * scene variable `menuOpen` (edit | view | insert), its open submenu `menuSub` and the greyed row showing its tooltip `menuTip`.
  */
@@ -33,7 +34,7 @@ const ROW_SUB = new Map<string, string | undefined>(
 const item = (menu: DropdownId, id: string) => `[data-tl=${menu}-item-${id}]`;
 const subRow = (menu: DropdownId, id: string) => `[data-tl=${menu}-sub-${id}]`;
 
-/** Move to the menu label ("Edit", "View" or "Insert"), ring it, click it and open the menu. */
+/** Move to the menu label ("Edit", "View", "Format"...), ring it, click it and open the menu. */
 export async function openMenu(tl: Timeline, menu: DropdownId, opts: { ms?: number } = {}) {
   await pressOn(tl, `[data-tl=editor-menu-${menu}]`, { ms: opts.ms ?? 700 });
   tl.setVar("menuSub", "");
@@ -84,6 +85,14 @@ const ACTIONS: Record<string, (tl: Timeline) => void> = {
   "insert.line": insertLine,
   "insert.table": insertTable,
 };
+ACTIONS["format.bold"] = (tl) => toggleFormat(tl, "bold");
+ACTIONS["format.italic"] = (tl) => toggleFormat(tl, "italic");
+ACTIONS["format.underline"] = (tl) => toggleFormat(tl, "underline");
+ACTIONS["format.strike"] = (tl) => toggleFormat(tl, "strike");
+for (const a of ["left", "center", "right", "justify"] as const) ACTIONS[`format.align.${a}`] = (tl) => setAlign(tl, a);
+ACTIONS["format.align.indent-more"] = (tl) => changeIndent(tl, 1);
+ACTIONS["format.align.indent-less"] = (tl) => changeIndent(tl, -1);
+for (const [id, n] of [["single", 1], ["s115", 1.15], ["s15", 1.5], ["double", 2]] as const) ACTIONS[`format.spacing.${id}`] = (tl) => setSpacing(tl, n);
 for (const z of ["50", "75", "100", "125", "150", "200", "fit"]) ACTIONS[`view.zoom.${z}`] = (tl) => tl.setVar("zoom", z);
 for (const s of ["rect", "ellipse", "triangle", "diamond", "star", "arrow"] as ShapeKind[]) ACTIONS[`insert.shape.${s}`] = (tl) => insertShape(tl, s);
 for (const c of ["bar", "line", "pie"] as ChartKind[]) ACTIONS[`insert.chart.${c}`] = (tl) => insertChart(tl, c);

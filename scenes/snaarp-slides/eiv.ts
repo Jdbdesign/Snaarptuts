@@ -1,5 +1,5 @@
 import { initDeck } from "@/components/slides/slides-edit";
-import { SLIDES_URLS } from "@/components/slides/slides-data";
+import { SLIDES_URLS, type SlideData } from "@/components/slides/slides-data";
 import type { Timeline } from "@/lib/timeline";
 import { begin } from "./shared";
 
@@ -8,9 +8,9 @@ import { begin } from "./shared";
 export const EIV_URL = SLIDES_URLS.renamed;
 
 /** Start of every step: the cursor, the address, the fade-in and the three-slide deck with slide 2 selected. */
-export function beginEiv(tl: Timeline, cursor: [number, number] = [0.55, 0.55]) {
+export function beginEiv(tl: Timeline, cursor: [number, number] = [0.55, 0.55], deck?: SlideData[]) {
   begin(tl, EIV_URL, cursor);
-  initDeck(tl);
+  initDeck(tl, deck);
 }
 
 /** Click an empty spot on the page (clears the selection). */

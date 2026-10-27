@@ -52,6 +52,11 @@ export const EIV_DECK: SlideData[] = [
   },
 ];
 
+/** Step 36 (Format your text): the same deck, but the slide 2 title starts in regular weight so Bold is visible when it is switched on. */
+export const FORMAT_DECK: SlideData[] = EIV_DECK.map((s) =>
+  s.id === "e2" ? { ...s, elements: s.elements?.map((e) => (e.id === "s2-title" && e.kind === "text" ? { ...e, fmt: { bold: false } } : e)) } : s,
+);
+
 export const EIV_SELECTED = 1;
 export const EIV_TITLE_ID = "s2-title";
 export const EIV_BULLETS_ID = "s2-bullets";

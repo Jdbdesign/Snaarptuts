@@ -35,8 +35,9 @@ export const getRatio = (tl: Timeline) => tl.getVar<number>("ratio", 16 / 9);
 const currentEls = (tl: Timeline) => elementsOf(getSlides(tl), getSlideIndex(tl));
 
 /** Start state of every step: the three-slide deck with slide 2 selected, nothing selected, empty history. */
-export function initDeck(tl: Timeline) {
-  tl.setVar("slides", EIV_DECK);
+export function initDeck(tl: Timeline, deck: SlideData[] = EIV_DECK) {
+  tl.setVar("slides", deck);
+  tl.setVar("theme", "simple-light");
   tl.setVar("selected", EIV_SELECTED);
   tl.setVar("sel", []);
   tl.setVar("undoStack", []);

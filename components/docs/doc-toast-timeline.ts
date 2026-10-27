@@ -5,9 +5,9 @@ import type { DocToastState } from "./DocToast";
  * Show (or change) the DocToast. Calling it again with new text updates the same toast in place, e.g.
  * loading -> success. `ms` hides it after that much active time, so Pause freezes it too.
  */
-export function showDocToast(tl: Timeline, text: string, kind: DocToastState["kind"], ms?: number) {
+export function showDocToast(tl: Timeline, text: string, kind: DocToastState["kind"], ms?: number, action?: string) {
   const id = (tl.getVar<DocToastState | null>("docToast", null)?.id ?? 0) + 1;
-  tl.setVar("docToast", { id, text, kind, visible: true } satisfies DocToastState);
+  tl.setVar("docToast", { id, text, kind, visible: true, action } satisfies DocToastState);
   if (ms) {
     tl.wait(ms)
       .then(() => {
