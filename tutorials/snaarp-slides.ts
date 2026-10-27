@@ -96,6 +96,8 @@ import { Step48 } from "@/scenes/snaarp-slides/step48/Step48";
 import { runStep48, STEP48_DURATION_MS } from "@/scenes/snaarp-slides/step48/script";
 import { Step49 } from "@/scenes/snaarp-slides/step49/Step49";
 import { runStep49, STEP49_DURATION_MS } from "@/scenes/snaarp-slides/step49/script";
+import { Step50 } from "@/scenes/snaarp-slides/step50/Step50";
+import { runStep50, STEP50_DURATION_MS } from "@/scenes/snaarp-slides/step50/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -400,6 +402,12 @@ export const snaarpSlides: Tutorial = {
       title: "Explore ideas",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step49, run: runStep49, durationMs: STEP49_DURATION_MS },
+    },
+    {
+      id: "preferences",
+      title: "Set your preferences",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step50, run: runStep50, durationMs: STEP50_DURATION_MS },
     },
   ],
   groups: [
