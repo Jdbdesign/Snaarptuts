@@ -80,6 +80,8 @@ import { Step40 } from "@/scenes/snaarp-slides/step40/Step40";
 import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-slides/step40/script";
 import { Step41 } from "@/scenes/snaarp-slides/step41/Step41";
 import { runStep41, STEP41_DURATION_MS } from "@/scenes/snaarp-slides/step41/script";
+import { Step42 } from "@/scenes/snaarp-slides/step42/Step42";
+import { runStep42, STEP42_DURATION_MS } from "@/scenes/snaarp-slides/step42/script";
 import { SLIDES_URLS } from "@/components/slides/slides-data";
 import type { Tutorial } from "./types";
 
@@ -336,6 +338,12 @@ export const snaarpSlides: Tutorial = {
       title: "Duplicate a slide",
       url: SLIDES_URLS.renamed,
       scene: { Component: Step41, run: runStep41, durationMs: STEP41_DURATION_MS },
+    },
+    {
+      id: "skip-slide",
+      title: "Skip a slide",
+      url: SLIDES_URLS.renamed,
+      scene: { Component: Step42, run: runStep42, durationMs: STEP42_DURATION_MS },
     },
   ],
   groups: [
