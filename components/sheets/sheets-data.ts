@@ -106,14 +106,14 @@ export const FILE_MENU: FileItem[][] = [
   [{ id: "print", label: "Print", icon: "edPrint", shortcut: "Ctrl+P" }],
 ];
 
-export const FILE_SUBS: Record<FileSubId, { id: string; label: string }[]> = {
+export const FILE_SUBS: Record<FileSubId, { id: string; label: string; ext?: string }[]> = {
   download: [
-    { id: "xlsx", label: "Microsoft Excel (.xlsx)" },
-    { id: "csv", label: "CSV (current sheet)" },
-    { id: "tsv", label: "TSV (current sheet)" },
-    { id: "txt", label: "Plain Text (.txt)" },
-    { id: "html", label: "HTML Table (.html)" },
-    { id: "pdf", label: "PDF Document (.pdf)" },
+    { id: "xlsx", ext: "xlsx", label: "Microsoft Excel (.xlsx)" },
+    { id: "csv", ext: "csv", label: "CSV (current sheet)" },
+    { id: "tsv", ext: "tsv", label: "TSV (current sheet)" },
+    { id: "txt", ext: "txt", label: "Plain Text (.txt)" },
+    { id: "html", ext: "html", label: "HTML Table (.html)" },
+    { id: "pdf", ext: "pdf", label: "PDF Document (.pdf)" },
   ],
   history: [
     { id: "name", label: "Name current version" },
