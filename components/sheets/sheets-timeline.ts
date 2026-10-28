@@ -124,3 +124,21 @@ export function begin(tl: Timeline, url: string, cursor: [number, number] = [0.5
   tl.setUrl(url);
   tl.setVar("intro", 1);
 }
+
+/** Click a tab of the Open / Import dialog (or of the Move / Shortcut picker with `var: "locateTab"`). */
+export async function pickTab(tl: Timeline, mode: string, id: string, opts: { ms?: number; var?: string } = {}) {
+  await pressOn(tl, `[data-tl=${mode}-tab-${id}]`, { ms: opts.ms ?? 600, ring: false });
+  tl.setVar(opts.var ?? "fileTab", id);
+}
+
+/** Swap the whole workbook behind a quick white fade (a new or opened file). */
+export async function swapWorkbook(tl: Timeline, title: string, sheets: unknown, url: string) {
+  tl.setVar("fade", true);
+  await tl.wait(330);
+  tl.setVar("title", title);
+  tl.setVar("sheets", sheets);
+  tl.setVar("activeSheet", (sheets as { id: string }[])[0].id);
+  tl.setUrl(url);
+  tl.setVar("fade", false);
+  await tl.wait(450);
+}

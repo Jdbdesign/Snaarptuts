@@ -63,7 +63,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
 
           <div
             data-tl="sheet-notice"
-            className={`absolute right-[332px] top-[6px] flex h-[28px] max-w-[330px] items-center gap-[7px] rounded-full border border-[#CDE9D4] bg-[#EAF6ED] px-[11px] text-[12px] text-[#137333] transition-opacity duration-300 motion-reduce:transition-none ${
+            className={`absolute right-[440px] top-[6px] flex h-[28px] max-w-[330px] items-center gap-[7px] rounded-full border border-[#CDE9D4] bg-[#EAF6ED] px-[11px] text-[12px] text-[#137333] transition-opacity duration-300 motion-reduce:transition-none ${
               notice ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
           >
@@ -230,7 +230,7 @@ function GridView({ rows }: { rows: SheetModel["rows"] }) {
   const cols = Array.from({ length: COLUMN_COUNT }, (_, i) => i);
   const lines = Array.from({ length: ROW_COUNT }, (_, i) => i);
   return (
-    <div className="absolute inset-0 select-none text-[12.5px]">
+    <div className="absolute inset-0 select-none text-[13px]" style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
       {/* column headers */}
       <div className="absolute left-0 right-0 top-0 flex h-[21.5px] border-b border-[#DADCE0] bg-[#F8F9FA] text-[12px] text-[#5F6368]">
         <span className="shrink-0 border-r border-[#DADCE0]" style={{ width: HEAD_W }} />
