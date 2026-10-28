@@ -40,6 +40,8 @@ import { Step19 } from "@/scenes/snaarp-sheets/step19/Step19";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-sheets/step19/script";
 import { Step20 } from "@/scenes/snaarp-sheets/step20/Step20";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/snaarp-sheets/step20/script";
+import { Step21 } from "@/scenes/snaarp-sheets/step21/Step21";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/snaarp-sheets/step21/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -173,6 +175,12 @@ export const snaarpSheets: Tutorial = {
       title: "Meet the Edit menu",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step20, run: runStep20, durationMs: STEP20_DURATION_MS },
+    },
+    {
+      id: "edit-undo",
+      title: "Undo a change",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step21, run: runStep21, durationMs: STEP21_DURATION_MS },
     },
   ],
 };

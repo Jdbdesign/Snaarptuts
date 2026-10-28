@@ -4,7 +4,7 @@ import { finish } from "../shared";
 import { CAPTIONS, COPIED, TARGET, URLS } from "./data";
 
 /** Snaarp Sheets, step 25 - Edit > Paste. Starts with Design tools to Cloud hosting (A2:B3) copied; ends with them also at F2. */
-export const STEP25_DURATION_MS = 17000;
+export const STEP25_DURATION_MS = 14500;
 
 export async function runStep25(tl: Timeline) {
   beginEdit(tl, URLS.renamed);

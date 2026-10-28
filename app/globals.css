@@ -346,3 +346,7 @@ button {
     animation: none;
   }
 }
+.sheet-ant-bg {
+  stroke: #fff;
+  stroke-width: 3;
+}

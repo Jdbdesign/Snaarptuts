@@ -211,14 +211,24 @@ function GroupGutter({ span, r }: { span: GroupSpan; r: number }) {
   );
 }
 
-/** Marching ants along the outer edges of the cut / copied range. */
+/** Marching ants along the outer edges of the cut / copied range (a white line under the dashes keeps them clear of the selection). */
 function Ants({ top, bottom, left, right }: { top: boolean; bottom: boolean; left: boolean; right: boolean }) {
+  const edges: [boolean, string, string, string, string][] = [
+    [top, "0", "0.5", "100%", "0.5"],
+    [bottom, "0", "100%", "100%", "100%"],
+    [left, "0.5", "0", "0.5", "100%"],
+    [right, "100%", "0", "100%", "100%"],
+  ];
   return (
     <svg className="pointer-events-none absolute inset-0 z-[5] h-full w-full overflow-visible" aria-hidden="true">
-      {top && <line className="sheet-ant" x1="0" y1="0.5" x2="100%" y2="0.5" />}
-      {bottom && <line className="sheet-ant" x1="0" y1="100%" x2="100%" y2="100%" />}
-      {left && <line className="sheet-ant" x1="0.5" y1="0" x2="0.5" y2="100%" />}
-      {right && <line className="sheet-ant" x1="100%" y1="0" x2="100%" y2="100%" />}
+      {edges.map(([on, x1, y1, x2, y2], i) =>
+        on ? (
+          <g key={i}>
+            <line className="sheet-ant-bg" x1={x1} y1={y1} x2={x2} y2={y2} />
+            <line className="sheet-ant" x1={x1} y1={y1} x2={x2} y2={y2} />
+          </g>
+        ) : null,
+      )}
     </svg>
   );
 }

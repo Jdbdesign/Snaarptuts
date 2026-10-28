@@ -4,7 +4,7 @@ import { finish } from "../shared";
 import { CAPTIONS, RANGE, URLS } from "./data";
 
 /** Snaarp Sheets, step 24 - Edit > Copy. Starts on the sample budget; ends with Design tools to Cloud hosting (A2:B3) copied. */
-export const STEP24_DURATION_MS = 17000;
+export const STEP24_DURATION_MS = 16600;
 
 export async function runStep24(tl: Timeline) {
   beginEdit(tl, URLS.renamed);

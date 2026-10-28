@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 
 /** Snaarp Sheets, step 21 - Edit > Undo. Starts on the sample budget; ends with C2 back at its old cost. */
-export const STEP21_DURATION_MS = 17000;
+export const STEP21_DURATION_MS = 15700;
 
 export async function runStep21(tl: Timeline) {
   beginEdit(tl, URLS.renamed);

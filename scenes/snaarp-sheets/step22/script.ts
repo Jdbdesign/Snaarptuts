@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 
 /** Snaarp Sheets, step 22 - Edit > Redo. Starts with the typed cost already undone (done instantly, so the step works alone). */
-export const STEP22_DURATION_MS = 14000;
+export const STEP22_DURATION_MS = 12600;
 
 export async function runStep22(tl: Timeline) {
   beginEdit(tl, URLS.renamed);
