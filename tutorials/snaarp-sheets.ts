@@ -26,6 +26,8 @@ import { Step12 } from "@/scenes/snaarp-sheets/step12/Step12";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/snaarp-sheets/step12/script";
 import { Step13 } from "@/scenes/snaarp-sheets/step13/Step13";
 import { runStep13, STEP13_DURATION_MS } from "@/scenes/snaarp-sheets/step13/script";
+import { Step14 } from "@/scenes/snaarp-sheets/step14/Step14";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/snaarp-sheets/step14/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -114,6 +116,12 @@ export const snaarpSheets: Tutorial = {
       title: "Move it to the trash",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step13, run: runStep13, durationMs: STEP13_DURATION_MS },
+    },
+    {
+      id: "name-version",
+      title: "Name this version",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step14, run: runStep14, durationMs: STEP14_DURATION_MS },
     },
   ],
 };
