@@ -18,6 +18,8 @@ import { Step8 } from "@/scenes/snaarp-sheets/step8/Step8";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/snaarp-sheets/step8/script";
 import { Step9 } from "@/scenes/snaarp-sheets/step9/Step9";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/snaarp-sheets/step9/script";
+import { Step10 } from "@/scenes/snaarp-sheets/step10/Step10";
+import { runStep10, STEP10_DURATION_MS } from "@/scenes/snaarp-sheets/step10/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -82,6 +84,12 @@ export const snaarpSheets: Tutorial = {
       title: "Download a copy",
       url: SHEETS_URLS.budget,
       scene: { Component: Step9, run: runStep9, durationMs: STEP9_DURATION_MS },
+    },
+    {
+      id: "rename",
+      title: "Rename your spreadsheet",
+      url: SHEETS_URLS.budget,
+      scene: { Component: Step10, run: runStep10, durationMs: STEP10_DURATION_MS },
     },
   ],
 };
