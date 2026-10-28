@@ -557,3 +557,13 @@ Completed steps are saved in the browser. `lib/progress.ts` keeps one localStora
 
 Decision: no config changes were needed because every step already had a unique, slug-style `id`. Replay used to clear the checks; it now keeps them.
 
+
+## Auto-scroll and visibility audit
+
+- **Engine, not scenes.** Hidden targets are fixed once in `lib/timeline.ts` (`ensureVisible`). Scene timing is unchanged where the target was already visible; a step grows by the scroll time (about 0.4-0.6 s) only where a scroll now happens.
+- **Pre-roll.** The brief asked for the scroll to start about 200 ms before the cursor moves. Built as: scroll first, wait until the target stops moving, then move the cursor (no extra pause), which gives the same order without an added delay.
+- **Caption moves to the top** for a moment when it would cover a small target that cannot be scrolled clear (Snaarp Doc page footer, Snaarp Slides speaker notes, Snaarp Mail user rows on a phone). New small look change; the caption slides back to the bottom afterwards.
+- **Popup menus under rows.** Snaarp Admin (Organization row menu), Snaarp Mail (user row menu, Cloudflare Type list) painted their popups under the next row; fixed with `relative z-20`. Snaarp Slides: on a phone the Arrange submenus open to the left instead of running off the right edge.
+- **Phone, Snaarp Doc step 16 (Manage comments).** The comments panel overlays the page on a phone, so the selected phrase and its comment highlight sit behind it. Accepted and listed in `docs/QA-VISIBILITY.md`; fixing it means changing that step's flow on phones.
+- **Create user dialog.** It already fit at 1440x900 and 390x844 (before and after screenshots match); `AdminDialog` already scrolls its body with pinned Cancel / Create user buttons, and the new engine scrolls to Role and Temporary password if a shorter frame needs it.
+- **Other accepted overlaps** (guide lines over a shape, table selection handles, overlapping squares in the stacking lesson, a bulk table row wider than its dialog) are listed with reasons in `docs/QA-VISIBILITY.md`.
