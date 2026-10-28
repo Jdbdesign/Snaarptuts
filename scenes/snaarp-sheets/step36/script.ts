@@ -4,7 +4,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 
 /** Snaarp Sheets, step 36 - View > Full screen (simulated inside the frame), then Esc. The last step: the completion card follows. */
-export const STEP36_DURATION_MS = 22000;
+export const STEP36_DURATION_MS = 17400;
 
 export async function runStep36(tl: Timeline) {
   beginEdit(tl, URLS.renamed);

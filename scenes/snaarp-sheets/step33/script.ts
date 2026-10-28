@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 
 /** Snaarp Sheets, step 33 - View > Comments > Show comments, add a comment on C3, close the panel. */
-export const STEP33_DURATION_MS = 40000;
+export const STEP33_DURATION_MS = 24700;
 
 export async function runStep33(tl: Timeline) {
   beginEdit(tl, URLS.renamed);

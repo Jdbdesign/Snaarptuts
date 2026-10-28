@@ -4,7 +4,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 
 /** Snaarp Sheets, step 34 - View > Hidden sheets, greyed out. Caption-only: no dialog is built. */
-export const STEP34_DURATION_MS = 12000;
+export const STEP34_DURATION_MS = 9700;
 
 export async function runStep34(tl: Timeline) {
   beginEdit(tl, URLS.renamed);

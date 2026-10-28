@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 
 /** Snaarp Sheets, step 35 - View > Zoom: 50%, 150%, 200%, then back to 100%. */
-export const STEP35_DURATION_MS = 40000;
+export const STEP35_DURATION_MS = 31900;
 
 async function zoomTo(tl: Timeline, level: number, click: string, done: string) {
   tl.showCaption(click);
