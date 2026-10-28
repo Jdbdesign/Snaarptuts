@@ -44,6 +44,8 @@ import { Step21 } from "@/scenes/snaarp-sheets/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/snaarp-sheets/step21/script";
 import { Step22 } from "@/scenes/snaarp-sheets/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/snaarp-sheets/step22/script";
+import { Step23 } from "@/scenes/snaarp-sheets/step23/Step23";
+import { runStep23, STEP23_DURATION_MS } from "@/scenes/snaarp-sheets/step23/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -189,6 +191,12 @@ export const snaarpSheets: Tutorial = {
       title: "Redo a change",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step22, run: runStep22, durationMs: STEP22_DURATION_MS },
+    },
+    {
+      id: "edit-cut",
+      title: "Cut cells",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step23, run: runStep23, durationMs: STEP23_DURATION_MS },
     },
   ],
 };
