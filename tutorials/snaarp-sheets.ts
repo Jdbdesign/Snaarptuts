@@ -50,6 +50,8 @@ import { Step24 } from "@/scenes/snaarp-sheets/step24/Step24";
 import { runStep24, STEP24_DURATION_MS } from "@/scenes/snaarp-sheets/step24/script";
 import { Step25 } from "@/scenes/snaarp-sheets/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/snaarp-sheets/step25/script";
+import { Step26 } from "@/scenes/snaarp-sheets/step26/Step26";
+import { runStep26, STEP26_DURATION_MS } from "@/scenes/snaarp-sheets/step26/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -213,6 +215,12 @@ export const snaarpSheets: Tutorial = {
       title: "Paste cells",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step25, run: runStep25, durationMs: STEP25_DURATION_MS },
+    },
+    {
+      id: "edit-paste-special",
+      title: "Paste special",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step26, run: runStep26, durationMs: STEP26_DURATION_MS },
     },
   ],
 };
