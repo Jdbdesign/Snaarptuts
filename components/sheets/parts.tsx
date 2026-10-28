@@ -55,17 +55,18 @@ export function TextButton({ hook, children }: { hook: string; children: ReactNo
 /**
  * A text box the timeline types into: `field:<id>` holds the text and the scene variable `focus` equals `id` while it is active
  * (blue ring and a caret). `initial` is the text before the script sets the variable (a prefilled box). `selected` shows the text
- * highlighted (a rename). Hook: `field-<id>`.
+ * highlighted (a rename). `floatLabel` is a small caption sitting on the top border. Hook: `field-<id>`.
  */
-export function ShField({ tl, id, placeholder, initial = "", multi = false, tone = BLUE, selected = false, className = "" }: { tl: Timeline; id: string; placeholder: string; initial?: string; multi?: boolean; tone?: string; selected?: boolean; className?: string }) {
+export function ShField({ tl, id, placeholder, initial = "", floatLabel, multi = false, tone = BLUE, selected = false, className = "" }: { tl: Timeline; id: string; placeholder: string; initial?: string; floatLabel?: string; multi?: boolean; tone?: string; selected?: boolean; className?: string }) {
   const value = useTimelineVar(tl, `field:${id}`, initial);
   const focus = useTimelineVar(tl, "focus", "") === id;
   return (
     <div
       data-tl={`field-${id}`}
-      className={`flex rounded-[8px] border bg-white px-[11px] text-[13px] text-[#1f2430] transition-[border-color,box-shadow] duration-150 ${multi ? "items-start pt-[9px]" : "h-[36px] items-center"} ${focus ? "" : "border-[#DADCE0]"} ${className}`}
+      className={`relative flex rounded-[8px] border bg-white px-[11px] text-[13px] text-[#1f2430] transition-[border-color,box-shadow] duration-150 ${multi ? "items-start pt-[9px]" : "h-[36px] items-center"} ${focus ? "" : "border-[#DADCE0]"} ${className}`}
       style={focus ? { borderColor: tone, boxShadow: `0 0 0 1px ${tone}` } : undefined}
     >
+      {floatLabel && <span className="pointer-events-none absolute left-[10px] top-[-7px] bg-white px-[3px] text-[10.5px] leading-[13px] text-[#80868B]">{floatLabel}</span>}
       <span className={multi ? "block w-full leading-[19px]" : "truncate"}>
         {value ? <span className={selected ? "rounded-[2px] bg-[#B4D5FE]" : ""}>{value}</span> : <span className="text-[#80868B]">{placeholder}</span>}
         {focus && value && !selected && <i className="ml-px inline-block h-[15px] w-px translate-y-[2px] bg-[#202124]" style={{ animation: "caret-blink 1s steps(1) infinite" }} />}

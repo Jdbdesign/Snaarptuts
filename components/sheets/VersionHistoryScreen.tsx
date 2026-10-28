@@ -37,7 +37,7 @@ export function VersionHistoryScreen({ tl, title }: { tl: Timeline; title: strin
       <div className="flex h-full w-full" style={{ zoom: narrow ? SHEETS_NARROW_ZOOM : 1 }}>
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex h-[46px] shrink-0 items-center gap-[18px] px-[12px]">
-            <span data-tl="versions-back" className="flex h-[30px] w-[30px] items-center justify-center rounded-full text-[#202124] data-[hover=true]:bg-[#F1F3F4]"><Icon name="arrowLeft" size={18} /></span>
+            <span data-tl="versions-back" className="flex h-[30px] w-[30px] items-center justify-center rounded-[6px] text-[#202124] data-[hover=true]:bg-[#F1F3F4]"><Icon name="arrowLeft" size={18} /></span>
             <span className="text-[16px] text-[#202124]">{row.time}</span>
             <span className="truncate text-[13px] text-[#80868B]">{title}</span>
           </div>

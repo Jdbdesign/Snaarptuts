@@ -515,6 +515,42 @@ Recording: `ref/slides/Snaarp_Slides_final.mp4` (the owner's `C:\Users\HP\Downlo
 **To replace or confirm before launch (this round):** whether Spelling and Explore are meant to be built or "coming soon" (the recording shows Spelling's "Coming soon" tooltip); what Format > Theme and Format > Slide background really open; the Align and indent and Line spacing wording; what Preferences really contains; what the toolbar's zoom box and shape tool open; the real Layout and Transition behaviour (and the preview style); the Presenter view and Presentation display options screens; what Snaarp Meeting (NEW) does when clicked; the theme colours; the sample texts (slide 4, "Hello team", "Logo design", the Explore suggestions).
 
 
+## Snaarp Sheets steps 1-19 (File menu round)
+
+Recording: `ref/sheets/Snaarp_Sheets_file.mp4` (1452x720, 3:33). Everything below is a difference from the recording, or something the brief asked for that the recording does not show.
+
+**Sample data replaces everything real.** The recording shows a real file (`inbox-upload-template-2026-10-27.csv` with real domains), a real avatar photo, a real e-mail address (design@…) and real files in the Recent and My Drive lists. All of it is replaced: sheet "Acme Studio – Q3 Budget" (renamed from "Budget draft"), `acme-contacts.csv`, Alex Morgan / Priya Shah / Jordan Lee / Sam Taylor, `*@example.com`, +44 7700 900xxx phones, and an "AM" initials avatar. Costs are numbers shown through `formatGBP` (£), dates DD/MM/YYYY, times 24-hour (the recording shows 9:42 PM).
+
+**Product name.** The recording's File details says "Type: Google Sheets"; it reads "Snaarp Sheets". The recording shows "Size —, Storage used 0 bytes"; the sample shows 12 KB.
+
+**Not built (not in the brief for this round).** The Sheets home (Starred, Trash, Template gallery; the first 18 s of the recording), the sheet-tab rename, and every menu other than File. Menu bar items other than File, the toolbar and the grid are drawn only (not interactive). The toolbar is laid out from the recording but is decorative.
+
+**Steps the recording does not show.**
+- Step 2 New: the recording never clicks New. The step opens a blank "Untitled spreadsheet" behind a quick white fade.
+- Step 13 Move to trash: not clicked in the recording. Built from the brief (an "In trash" pill, the toast "Moved to trash" with an Undo button, then Undo is clicked so the tutorial can carry on; the caption says so).
+- Step 14 Name current version: the recording only opens the submenu. The dialog (title "Name current version", one field, Cancel / Save) and the toast "Version named" are new, in the recording's dialog style.
+- Step 16 Make available offline: the recording hovers and clicks it with no visible result. The tick beside the item, the green cloud by the title and the toast "Available offline" are new.
+- Step 18 Settings: greyed out in the recording and nothing shows on hover (the pointer is a "not allowed" sign). The step is a caption-only highlight, "Not available in this view". It is kept as its own short step rather than folded into step 17.
+
+**Windows and OS parts replaced.**
+- Open and Import "Upload" tabs: the recording opens the Windows file picker. Both steps use a small in-app chooser under "browse" (three sample files) and then the file card. Step 4 picks `acme-contacts.csv`; step 3 ends by picking a recent file instead of uploading.
+- Print (step 19): the recording shows the browser's print window (destination "OneNote (Desktop)"). It is replaced by a Snaarp-styled print panel: preview on the left, Destination "Save as PDF", Pages All, Layout Portrait / Landscape (the paper turns), Color, More settings, Print and Cancel. Print closes the panel with a toast "Sent to print".
+- Email: the recording shows the browser's address suggestion under the To box ("Manage addresses…"). It is left out.
+- Download: no real file is downloaded; a "Downloading Microsoft Excel (.xlsx)…" toast turns into "Budget draft.xlsx downloaded".
+
+**Other differences.**
+- Step 5 Import location: the recording starts with "Insert new sheet(s)" already selected. The step starts with "Create new spreadsheet" selected (the first option) so that clicking Insert new sheet(s) is visible.
+- Open and Import: the Shared with me and Computers tabs say "… is not available yet." in the recording; they exist in the tab bar but the steps never visit them ("Coming soon" items are skipped). The small print on the Upload zone was hard to read; it reads ".xlsx, .xls, .ods, .csv, .tsv, .txt, .html, .htm, .xml · max 50 MB" (a best reading).
+- Share: the recording shows "Loading…" under People with access for a moment and has a help icon that does nothing; the rows (owner, then Priya Shah) and the gear page (Allow editors to change permissions and share; People who can download, copy and print: Editors, Commenters and viewers) follow the recording's wording.
+- Version history: the recording has one version. The sample has two ("Final budget", the current version, and an earlier one at 14:10 by Priya Shah in which two costs were £100 and £65), so that "Click a version" and "Show changes" have something to show. Show changes starts unticked in step 15.
+- Details: a small cross closes the panel (the recording closes it by clicking Details again).
+- Download submenu labels are the recording's: Microsoft Excel (.xlsx), CSV (current sheet), TSV (current sheet), Plain Text (.txt), HTML Table (.html), PDF Document (.pdf). The Email dialog's file types are PDF, Microsoft Excel (.xlsx), CSV (.csv), HTML (.html).
+- Shortcuts show "Ctrl+O" and "Ctrl+P" (the recording shows the Mac keys).
+- Fonts: the page uses Poppins (project rule); the grid and formula bar use Arial because the toolbar says Arial. Sizes follow the recording's pixel sizes.
+- On narrow screens (under 900 px) the whole editor is enlarged 2.4x like Snaarp Doc and Slides; the header keeps only Share and the avatar.
+
+**To replace or confirm before launch.** The placeholder addresses (`sheets.snaarp.com/sheet/untitled`, `/budget-draft`, `/acme-studio-q3-budget`, `/history`; the recording's real ids are not used), the two sample people on the Share and Email dialogs, and the Snaarp Sheets icon set (new `sh*` icons in `components/icons.tsx` are redrawn placeholders).
+
 ## Snaarp Mail admin and Snaarp Admin update
 
 Recordings (copied to `ref/admin/`, git-ignored, voice-over not heard): `v306.mp4` (5:06: email admin overview, Email Forwarding, then the Admin Panel), `v211.mp4` (3:31: email admin in detail), `v179.mp4` (2:59: Admin Panel bulk users, products, Organization), `v33.mp4` (0:33: Create New Group wizard). Sample data only: Acme Studio, acme-studio.com, Jane Doe (JD); no real names, emails, browser UI, "is presenting" overlays, mic control, OS file pickers or real mail contents.

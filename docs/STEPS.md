@@ -1429,6 +1429,38 @@ All use `scenes/snaarp-admin/UsersStage.tsx` with a start state from `admin-seed
 | 11 Add a member to the department (about 38 s) | `org-design` | All members, Ada Okoye three dots, Move to department, Design, open Design (1 member) |
 | 12 Filter users by department (about 32 s) | `users-design` | All departments, tick Design, two members listed, Clear filters |
 
+## Snaarp Sheets steps 1-19 (File menu round)
+
+Route `/tutorials/snaarp-sheets`, config `tutorials/snaarp-sheets.ts` (rail group "File menu" from step 1; later rounds append Edit, View, Insert, Format, Data, Tools... as new steps and groups). Recording: `ref/sheets/Snaarp_Sheets_file.mp4` (copy of `Downloads/1028.mp4`; 1452x720, 3:33; git-ignored; contact sheets in `ref/sheets/s1/`, full-size frames in `ref/sheets/f/`). The recording starts on the Sheets home (about 0:00-0:18, not built in this round) and never shows New, Make available offline, Name current version or Move to trash being used; those steps follow the owner's brief.
+
+All 19 steps use ONE stage, `components/sheets/SheetsApp.tsx` (the editor, the File menu, every dialog, the Version history page and the toast, all driven by scene variables). Each step is `scenes/snaarp-sheets/step<N>/Step<N>.tsx` (a one-line scene that picks the start workbook), `script.ts` and `data.ts` (captions, URLs). Steps 11 and 12 share `scenes/snaarp-sheets/locate.ts`. Start workbooks (`components/sheets/sheets-sample.ts`): **blank** = "Untitled spreadsheet" with an empty grid (steps 1, 3); **budget** = "Budget draft" with the sample budget (steps 2, 4-10); **named** = "Acme Studio – Q3 Budget" with the same data (steps 11-19). Every step also works alone from the rail.
+
+Sample data (all in `components/sheets/sheets-data.ts`, none from the recording): budget Item | Owner | Cost | Status (Design tools / Priya Shah / £120 / Paid; Cloud hosting / Alex Morgan / £340 / Pending; Stock photos / Jordan Lee / £85 / Paid; Team lunch / Sam Taylor / £210 / Pending); owner Alex Morgan; `acme-contacts.csv` (name, email, phone with +44 7700 900123 style numbers); emails on example.com; dates DD/MM/YYYY; times 24-hour.
+
+| Step | URL | Start | Timeline |
+|---|---|---|---|
+| 1 Meet the File menu (about 23 s) | sheets.snaarp.com/sheet/untitled | blank | File, ring the whole menu, then one beat per group (New/Open/Import, Make a copy, Share/Email/Download, Rename/Move/Shortcut/Trash, Version history/Offline, Details/Settings, Print) |
+| 2 Start a new spreadsheet (about 11 s) | .../budget-draft | budget | File, hover New, click New, quick white fade to a blank "Untitled spreadsheet" |
+| 3 Open a file (about 24 s) | .../untitled | blank | File > Open, Recent (spinner, then files), Starred (empty state "No starred files in your drive."), Upload (drop zone), back to Recent, click "Acme Studio – Q3 Budget", fade, green pill "Opened ..." |
+| 4 Import a file (about 21 s) | .../budget-draft | budget | File > Import, My Drive list, Upload, click browse, in-app chooser (no OS window), choose acme-contacts.csv, Next |
+| 5 Choose where to import (about 17 s) | .../budget-draft | budget + Import location open | hover the four options, click Insert new sheet(s), Import, new tab "acme-contacts" and the green pill "Imported ..." |
+| 6 Make a copy (about 16 s) | .../budget-draft | budget | File > Make a copy, name "Copy of Budget draft", folder My Drive, tick Share it with the same people and Copy comments, Make a copy, toast |
+| 7 Share your spreadsheet (about 27 s) | .../budget-draft | budget | File > Share, type priya.shah@example.com, click the suggestion, People with access row, Restricted > Anyone with the link, Copy link (toast), gear (Settings for ...), back, Done |
+| 8 Email the file (about 25 s) | .../budget-draft | budget | File > Email, To design@example.com, tick Send yourself a copy, Subject = title, type a message, File type list (PDF, Microsoft Excel (.xlsx), CSV (.csv), HTML (.html)), choose Excel, Send, toast |
+| 9 Download a copy (about 23 s) | .../budget-draft | budget | File, hover Download, hover each of the six formats with a caption, click Microsoft Excel (.xlsx), "Downloading ..." toast then "downloaded" (no real file) |
+| 10 Rename your spreadsheet (about 15 s) | .../budget-draft, then .../acme-studio-q3-budget | budget | File > Rename, name selected, type "Acme Studio – Q3 Budget", Rename (purple button, as in the recording), the title bar updates |
+| 11 Move it to a folder (about 21 s) | .../acme-studio-q3-budget | named | File > Move, Suggested, Starred, All locations, hover the four places, My Drive, Move, toast |
+| 12 Add a shortcut to Drive (about 21 s) | same | named | same picker as step 11, button "Add shortcut" |
+| 13 Move it to the trash (about 12 s) | same | named | File > Move to trash, "In trash" pill and toast "Moved to trash" with Undo, click Undo (the file comes back so the tutorial can carry on) |
+| 14 Name this version (about 14 s) | same | named | File > Version history > Name current version, type "Final budget", Save, toast |
+| 15 See the version history (about 19 s) | .../acme-studio-q3-budget/history | named, version named | File > Version history > See version history, full page (sheet on the left, list on the right), click the earlier version, tick Show changes (two cells turn yellow), back arrow |
+| 16 Make it available offline (about 13 s) | same | named | File > Make available offline, toast "Available offline", the cloud beside the title turns green, reopen File to show the tick |
+| 17 See the file details (about 18 s) | same | named | File > Details, the FILE DETAILS column slides in, hover rows, click Add a description and type, close |
+| 18 Settings (about 9 s) | same | named | File, hover the greyed Settings, caption "Not available in this view" (caption-only step, no dialog; kept as its own step) |
+| 19 Print your spreadsheet (about 17 s) | same | named | File > Print, in-app print preview, Layout Portrait > Landscape (the paper turns), Print, toast; the last step, the completion card follows |
+
+Scene variables, hooks and helpers: the header comment of `components/sheets/SheetsApp.tsx`; helpers in `components/sheets/sheets-timeline.ts` (see `docs/TIMELINE-API.md`). Hooks: `editor-menu-<id>`, `file-menu`, `file-group-<n>`, `file-item-<id>`, `file-sub-<id>`, `open-` / `import-` + `dialog | tab-<id> | recent-<n> | drive-<n> | zone | browse | chooser | local-<n> | primary`, `import-option-<id>`, `import-go`, `copy-*`, `share-*`, `email-*`, `rename-*`, `move-*` / `shortcut-*`, `version-*`, `versions-*`, `details-*`, `print-*`, `sheet-tab-<id>`, `sheet-notice`, `toast-action`.
+
 ## Player behaviour (all tutorials)
 The scene is view-only. `components/player/CanvasOverlay.tsx` (copy and limits in `canvas-overlay-data.ts`) is a transparent layer over the scene inside the browser frame (z-45, below the completion card): clicks, wheel, touch swipes, scroll keys, context menu and middle-click never reach the scene, and the scaled scene div is `inert` (no focus, no Tab). Scripted scrolling is unaffected. One click or tap (pointer events, drag over 8 px ignored, 150 ms debounce) or Enter on the focused overlay toggles the same `paused` state as Space, so both stay in sync. Pause freezes the timeline, cursor, captions and Web Animations (existing `Timeline.setPaused`), plus CSS animations through `data-paused` on the player root (rule in `app/globals.css`). The indicator (round pause icon + "Paused. Click to play") replaces the old top-left pill; a play icon flashes for 400 ms on resume (hidden with prefers-reduced-motion). The overlay does nothing once the completion card shows. Changing step, replay or opening another tutorial resets to playing. No scene, timing or content changed.
 

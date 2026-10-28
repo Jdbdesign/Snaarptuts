@@ -67,7 +67,7 @@ export function ShareDialog({ tl, title }: { tl: Timeline; title: string }) {
       {view === "settings" ? (
         <div className="px-[20px] pb-[22px] pt-[20px]">
           <h2 className="flex items-center gap-[10px] text-[15.5px] font-medium text-[#1f2430]">
-            <span data-tl="share-back" className="flex h-[26px] w-[26px] items-center justify-center rounded-full text-[#4b5060] data-[hover=true]:bg-[#F1F3F4]"><Icon name="arrowLeft" size={15} /></span>
+            <span data-tl="share-back" className="flex h-[26px] w-[26px] items-center justify-center rounded-[6px] text-[#4b5060] data-[hover=true]:bg-[#F1F3F4]"><Icon name="arrowLeft" size={15} /></span>
             <span className="truncate">{D.settings.title(title)}</span>
           </h2>
           <p className="mb-[8px] mt-[18px] text-[12.5px] font-medium text-[#5F6368]">{D.settings.access}</p>
@@ -84,8 +84,8 @@ export function ShareDialog({ tl, title }: { tl: Timeline; title: string }) {
           <div className="flex items-center justify-between">
             <h2 className="truncate text-[16px] font-medium text-[#1f2430]">{D.title(title)}</h2>
             <span className="flex items-center gap-[2px] text-[#5F6368]">
-              <span data-tl="share-help" className="flex h-[26px] w-[26px] items-center justify-center rounded-full data-[hover=true]:bg-[#F1F3F4]"><Icon name="shHelp" size={16} /></span>
-              <span data-tl="share-gear" className="flex h-[26px] w-[26px] items-center justify-center rounded-full data-[hover=true]:bg-[#F1F3F4]"><Icon name="shGear" size={16} /></span>
+              <span data-tl="share-help" className="flex h-[26px] w-[26px] items-center justify-center rounded-[6px] data-[hover=true]:bg-[#F1F3F4]"><Icon name="shHelp" size={16} /></span>
+              <span data-tl="share-gear" className="flex h-[26px] w-[26px] items-center justify-center rounded-[6px] data-[hover=true]:bg-[#F1F3F4]"><Icon name="shGear" size={16} /></span>
             </span>
           </div>
           <div className="relative mt-[12px]">
@@ -189,14 +189,11 @@ export function EmailDialog({ tl, title }: { tl: Timeline; title: string }) {
       <div className="px-[20px] pb-[18px] pt-[14px]">
         <ShField tl={tl} id="email-to" placeholder={D.to} />
         <span data-tl="email-copy" className="mt-[10px] flex items-center gap-[10px] text-[12.5px] text-[#4b5060]"><Tick on={copy} />{D.sendCopy}</span>
-        <div className="relative mt-[12px]">
-          <span className="absolute left-[10px] top-[-7px] z-[1] bg-white px-[3px] text-[10.5px] text-[#80868B]">{D.subject}</span>
-          <ShField tl={tl} id="email-subject" placeholder={D.subject} initial={title} />
-        </div>
+        <ShField tl={tl} id="email-subject" placeholder={D.subject} initial={title} floatLabel={D.subject} className="mt-[12px]" />
         <ShField tl={tl} id="email-message" placeholder={D.message} multi className="mt-[12px] h-[96px]" />
         <div className="relative mt-[12px]">
-          <span className="absolute left-[10px] top-[-7px] z-[1] bg-white px-[3px] text-[10.5px] text-[#80868B]">{D.fileType}</span>
-          <div data-tl="email-type" className="flex h-[38px] items-center justify-between rounded-[8px] border border-[#DADCE0] px-[11px] text-[13px] text-[#1f2430] transition-colors data-[hover=true]:border-[#9AA0A6]">
+          <div data-tl="email-type" className="relative flex h-[38px] items-center justify-between rounded-[8px] border border-[#DADCE0] px-[11px] text-[13px] text-[#1f2430] transition-colors data-[hover=true]:border-[#9AA0A6]">
+            <span className="pointer-events-none absolute left-[10px] top-[-7px] bg-white px-[3px] text-[10.5px] leading-[13px] text-[#80868B]">{D.fileType}</span>
             {type}
             <Icon name="chevronDown" size={11} />
           </div>
