@@ -22,6 +22,8 @@ import { Step10 } from "@/scenes/snaarp-sheets/step10/Step10";
 import { runStep10, STEP10_DURATION_MS } from "@/scenes/snaarp-sheets/step10/script";
 import { Step11 } from "@/scenes/snaarp-sheets/step11/Step11";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/snaarp-sheets/step11/script";
+import { Step12 } from "@/scenes/snaarp-sheets/step12/Step12";
+import { runStep12, STEP12_DURATION_MS } from "@/scenes/snaarp-sheets/step12/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -98,6 +100,12 @@ export const snaarpSheets: Tutorial = {
       title: "Move it to a folder",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step11, run: runStep11, durationMs: STEP11_DURATION_MS },
+    },
+    {
+      id: "shortcut",
+      title: "Add a shortcut to Drive",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step12, run: runStep12, durationMs: STEP12_DURATION_MS },
     },
   ],
 };
