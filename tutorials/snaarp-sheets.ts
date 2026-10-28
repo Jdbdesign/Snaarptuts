@@ -58,6 +58,8 @@ import { Step28 } from "@/scenes/snaarp-sheets/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/snaarp-sheets/step28/script";
 import { Step29 } from "@/scenes/snaarp-sheets/step29/Step29";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-sheets/step29/script";
+import { Step30 } from "@/scenes/snaarp-sheets/step30/Step30";
+import { runStep30, STEP30_DURATION_MS } from "@/scenes/snaarp-sheets/step30/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -246,6 +248,12 @@ export const snaarpSheets: Tutorial = {
       title: "Meet the View menu",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step29, run: runStep29, durationMs: STEP29_DURATION_MS },
+    },
+    {
+      id: "view-show",
+      title: "Show or hide parts of the sheet",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step30, run: runStep30, durationMs: STEP30_DURATION_MS },
     },
   ],
 };
