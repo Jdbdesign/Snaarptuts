@@ -30,6 +30,8 @@ import { Step14 } from "@/scenes/snaarp-sheets/step14/Step14";
 import { runStep14, STEP14_DURATION_MS } from "@/scenes/snaarp-sheets/step14/script";
 import { Step15 } from "@/scenes/snaarp-sheets/step15/Step15";
 import { runStep15, STEP15_DURATION_MS } from "@/scenes/snaarp-sheets/step15/script";
+import { Step16 } from "@/scenes/snaarp-sheets/step16/Step16";
+import { runStep16, STEP16_DURATION_MS } from "@/scenes/snaarp-sheets/step16/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -130,6 +132,12 @@ export const snaarpSheets: Tutorial = {
       title: "See the version history",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step15, run: runStep15, durationMs: STEP15_DURATION_MS },
+    },
+    {
+      id: "offline",
+      title: "Make it available offline",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step16, run: runStep16, durationMs: STEP16_DURATION_MS },
     },
   ],
 };
