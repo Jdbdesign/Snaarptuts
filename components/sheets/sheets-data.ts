@@ -24,7 +24,8 @@ export const SHEET = {
   tab: "Sheet1",
 };
 
-export type Cell = string | { text: string; bold?: boolean; align?: "right" };
+/** `fill` is a background colour, `formula` the text shown when View > Show > Formulas is on (the value stays in `text`). */
+export type Cell = string | { text: string; bold?: boolean; align?: "right"; fill?: string; formula?: string };
 
 /** Budget: columns Item | Owner | Cost | Status. Costs are numbers, shown with formatGBP. */
 export const BUDGET_ROWS: { item: string; owner: string; cost: number; status: string }[] = [

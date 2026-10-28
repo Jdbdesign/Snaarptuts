@@ -961,6 +961,15 @@ const bodies = {
       <path d="M9 12.5h6M9 16h6M12 10v8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
     </>
   ),
+  shFreeze: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="1.8" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M4 9.5h16M9.5 4v16" stroke="currentColor" strokeWidth="2.2" />
+    </>
+  ),
+  shGroup: <path d="M4.5 5.5h6v13h-6M13.5 8h6M13.5 12h6M13.5 16h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  shHidden: <rect x="4.5" y="4.5" width="15" height="15" rx="1.8" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2.6 2.6" fill="none" />,
+  shMinusBox: <path d="M7 12h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />,
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

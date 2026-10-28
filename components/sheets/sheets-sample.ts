@@ -1,4 +1,6 @@
 import { formatGBP } from "@/lib/money";
+import { EDIT_SAMPLE } from "./edit-view-data";
+import { recalc } from "./grid-state";
 import {
   BUDGET_HEADER,
   BUDGET_ROWS,
@@ -39,3 +41,12 @@ export const CONTACTS_SHEET: SheetModel = { id: "s2", name: CONTACTS_FILE.tab, r
 export function cellText(c: Cell | undefined): string {
   return c === undefined ? "" : typeof c === "string" ? c : c.text;
 }
+
+/** The Edit and View steps' sheet: the budget with a styled header row and a live =SUM total row (see edit-view-data.ts). */
+export function editRows(): Cell[][] {
+  const header: Cell[] = BUDGET_HEADER.map((text) => ({ text, bold: true, fill: EDIT_SAMPLE.headerFill }));
+  const body = budgetRows().slice(1);
+  const total: Cell[] = [EDIT_SAMPLE.totalLabel, "", { text: "", align: "right", formula: `=SUM(C2:C${body.length + 1})` }, ""];
+  return recalc([header, ...body, total]);
+}
+export const EDIT_BOOK: Workbook = { title: SHEET.budget, sheets: [{ id: "s1", name: SHEET.tab, rows: editRows() }] };

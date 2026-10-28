@@ -38,6 +38,8 @@ import { Step18 } from "@/scenes/snaarp-sheets/step18/Step18";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/snaarp-sheets/step18/script";
 import { Step19 } from "@/scenes/snaarp-sheets/step19/Step19";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-sheets/step19/script";
+import { Step20 } from "@/scenes/snaarp-sheets/step20/Step20";
+import { runStep20, STEP20_DURATION_MS } from "@/scenes/snaarp-sheets/step20/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -47,7 +49,10 @@ import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-sheets/step19/scr
  */
 export const snaarpSheets: Tutorial = {
   product: { id: "snaarp-sheets", name: "Snaarp Sheets", logo: "sheet", aliases: ["sheets", "sheet", "spreadsheet", "spreadsheets", "excel", "workbook"] },
-  groups: [{ title: "File menu", from: "meet-file-menu" }],
+  groups: [
+    { title: "File menu", from: "meet-file-menu" },
+    { title: "Edit menu", from: "meet-edit-menu" },
+  ],
   steps: [
     {
       id: "meet-file-menu",
@@ -162,6 +167,12 @@ export const snaarpSheets: Tutorial = {
       title: "Print your spreadsheet",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step19, run: runStep19, durationMs: STEP19_DURATION_MS },
+    },
+    {
+      id: "meet-edit-menu",
+      title: "Meet the Edit menu",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step20, run: runStep20, durationMs: STEP20_DURATION_MS },
     },
   ],
 };

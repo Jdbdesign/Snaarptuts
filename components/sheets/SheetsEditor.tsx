@@ -4,15 +4,12 @@ import type { ReactNode } from "react";
 import { Icon, ProductLogo, type IconName } from "@/components/icons";
 import { useNarrow } from "@/lib/useNarrow";
 import { cellText, type SheetModel } from "./sheets-sample";
-import { COLUMN_COUNT, HEADER, ROW_COUNT, TOOLBAR } from "./sheets-data";
+import { HEADER, TOOLBAR } from "./sheets-data";
+import { SheetGrid, type GridProps } from "./SheetGrid";
+import { obj, rangeRef, single, sorted, type Range } from "./grid-state";
 
 /** Narrow screens: the whole editor is enlarged so it stays readable once the scene is scaled down (same as Snaarp Doc and Slides). */
 export const SHEETS_NARROW_ZOOM = 2.4;
-
-const COL_W = 86;
-const ROW_H = 21.5;
-const HEAD_W = 36;
-const letter = (i: number) => String.fromCharCode(65 + i);
 
 type Props = {
   title: string;
@@ -32,6 +29,18 @@ type Props = {
   notice?: string;
   /** Menus and dialogs. They sit inside the narrow-screen zoom, so they share the editor's coordinates. */
   overlay?: ReactNode;
+  /** Dropdowns that hang under a menu-bar label (Edit, View), by menu id. */
+  menuSlots?: Record<string, ReactNode>;
+  /** The Edit / View steps: selection, clipboard ants, view settings. All optional; the File steps pass none of it. */
+  grid?: Omit<GridProps, "rows" | "widths">;
+  /** Name box and formula bar (View > Show > Formula bar). Default on. */
+  formulaBar?: boolean;
+  /** The toolbar's zoom box and the undo / redo buttons. */
+  zoomLabel?: string;
+  canUndo?: boolean;
+  canRedo?: boolean;
+  /** View > Full screen: the title row goes away and the sheet gets the room. */
+  fullScreen?: boolean;
 };
 
 /**
@@ -39,16 +48,18 @@ type Props = {
  * formula bar, the grid with its row and column headers, and the sheet tabs. Sizes are the recording's (about 1450 px wide).
  * Hooks: sheet-title, sheet-star, editor-menu-<id>, sheet-toolbar, sheet-grid, cell-a1, sheet-tab-<id>, sheet-add-tab, editor-share, sheet-notice, sheet-side.
  */
-export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, sidePanel, panelOpen = false, offline = false, trashed = false, notice = "", overlay }: Props) {
+export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, sidePanel, panelOpen = false, offline = false, trashed = false, notice = "", overlay, menuSlots, grid, formulaBar = true, zoomLabel, canUndo = false, canRedo = false, fullScreen = false }: Props) {
   const narrow = useNarrow();
   const current = sheets.find((s) => s.id === activeSheet) ?? sheets[0];
-  const a1 = cellText(current?.rows[0]?.[0]);
+  const sel = sorted(grid?.sel ?? single(0, 0));
+  const active = obj(current?.rows[sel.r1]?.[sel.c1]);
+  const bar = grid?.formulas && active.formula ? active.formula : cellText(current?.rows[sel.r1]?.[sel.c1]);
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white text-[#202124]">
       <div className="relative flex h-full w-full flex-col" style={{ zoom: narrow ? SHEETS_NARROW_ZOOM : 1 }}>
         {/* Title row */}
-        <div className="relative h-[40px] shrink-0">
+        <div className={`relative shrink-0 overflow-hidden transition-[height] duration-300 motion-reduce:transition-none ${fullScreen ? "h-0" : "h-[40px]"}`}>
           <ProductLogo name="sheet" size={30} className="absolute left-[3px] top-[5px] rounded-[7px]" />
           <div className="absolute left-[44px] top-[8px] flex h-[24px] items-center gap-[10px] whitespace-nowrap">
             <h1 data-tl="sheet-title" className="rounded-[4px] text-[17px] font-normal leading-[24px] text-[#1f2430]">{title}</h1>
@@ -95,30 +106,31 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
             <span
               key={m.id}
               data-tl={`editor-menu-${m.id}`}
-              className={`flex h-[24px] items-center rounded-[5px] px-[8px] transition-colors data-[hover=true]:bg-[#EDEFF2] ${openMenu === m.id ? "bg-[#E4E7EC]" : ""}`}
+              className={`relative flex h-[24px] items-center rounded-[5px] px-[8px] transition-colors data-[hover=true]:bg-[#EDEFF2] ${openMenu === m.id ? "bg-[#E4E7EC]" : ""}`}
             >
               {m.label}
+              {menuSlots?.[m.id]}
             </span>
           ))}
         </div>
 
         {/* Toolbar */}
-        <Toolbar />
+        <Toolbar zoomLabel={zoomLabel ?? TOOLBAR.zoom} canUndo={canUndo} canRedo={canRedo} />
 
         {/* Name box and formula bar */}
-        <div className="flex h-[28px] shrink-0 items-center border-b border-[#E3E5EA] text-[13px]">
-          <span className="ml-[3px] flex h-[22px] w-[66px] items-center justify-between rounded-[4px] bg-[#F1F3F4] pl-[8px] pr-[6px] text-[12.5px] text-[#202124]">
-            A1
+        <div data-tl="formula-bar" className={`flex shrink-0 items-center overflow-hidden border-[#E3E5EA] text-[13px] transition-[height] duration-200 motion-reduce:transition-none ${formulaBar ? "h-[28px] border-b" : "h-0"}`}>
+          <span className="ml-[3px] flex h-[22px] w-[66px] shrink-0 items-center justify-between rounded-[4px] bg-[#F1F3F4] pl-[8px] pr-[6px] text-[12.5px] text-[#202124]">
+            {rangeRef(sel as Range)}
             <Icon name="chevronDown" size={9} className="text-[#5F6368]" />
           </span>
           <span className="ml-[10px] mr-[10px] text-[12px] italic text-[#80868B]" style={{ fontFamily: "Georgia, serif" }}>fx</span>
-          <span className="truncate text-[13px] text-[#202124]">{a1}</span>
+          <span className="truncate text-[13px] text-[#202124]">{bar}</span>
         </div>
 
         {/* Grid + side panel */}
         <div className="flex min-h-0 flex-1">
           <div className="relative min-w-0 flex-1 overflow-hidden" data-tl="sheet-grid">
-            <GridView rows={current?.rows ?? []} widths={current?.widths} />
+            <SheetGrid rows={current?.rows ?? []} widths={current?.widths} {...grid} />
             <div aria-hidden className="pointer-events-none absolute bottom-[4px] right-0 top-0 w-[15px] bg-white">
               <Icon name="chevronDown" size={9} className="absolute left-[3px] top-[4px] rotate-180 text-[#80868B]" />
               <i className="absolute left-[4px] top-[16px] h-[16px] w-[7px] rounded-full bg-[#8A8F98]" />
@@ -131,7 +143,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
             className="relative shrink-0 overflow-hidden border-l border-[#E3E5EA] bg-white transition-[width] duration-300 ease-out motion-reduce:transition-none"
             style={{ width: panelOpen ? 272 : 0, borderLeftWidth: panelOpen ? 1 : 0 }}
           >
-            <div className="w-[272px]">{sidePanel}</div>
+            <div className="h-full w-[272px]">{sidePanel}</div>
           </div>
         </div>
 
@@ -165,12 +177,12 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
   );
 }
 
-type Tool = { x: number; icon?: IconName; text?: string; caret?: boolean; box?: { w: number; label: string }; dim?: boolean; bold?: boolean; sep?: boolean };
+type Tool = { id?: string; x: number; icon?: IconName; text?: string; caret?: boolean; box?: { w: number; label: string }; dim?: boolean; bold?: boolean; sep?: boolean };
 
 const TOOLS: Tool[] = [
   { x: 12, icon: "shSearch" },
-  { x: 46, icon: "edUndo", dim: true },
-  { x: 72, icon: "edRedo", dim: true },
+  { x: 46, icon: "edUndo", dim: true, id: "undo" },
+  { x: 72, icon: "edRedo", dim: true, id: "redo" },
   { x: 97, icon: "edPrint" },
   { x: 123, icon: "edPaintFormat" },
   { x: 148, box: { w: 44, label: TOOLBAR.zoom } },
@@ -202,14 +214,18 @@ const TOOLS: Tool[] = [
   { x: 1032, icon: "shSigma", caret: true },
 ];
 
-function Toolbar() {
+function Toolbar({ zoomLabel, canUndo, canRedo }: { zoomLabel: string; canUndo: boolean; canRedo: boolean }) {
   return (
     <div data-tl="sheet-toolbar" className="relative h-[36px] shrink-0 overflow-hidden border-t border-[#EEF0F3] bg-[#F9FBFD] text-[#444746]">
       {TOOLS.map((t, i) => (
-        <span key={i} className={`absolute top-[6px] flex h-[24px] items-center justify-center ${t.dim ? "opacity-35" : ""}`} style={{ left: t.box ? t.x : t.x - 11 }}>
+        <span
+          key={i}
+          className={`absolute top-[6px] flex h-[24px] items-center justify-center ${t.dim && !(t.id === "undo" ? canUndo : t.id === "redo" ? canRedo : false) ? "opacity-35" : ""}`}
+          style={{ left: t.box ? t.x : t.x - 11 }}
+        >
           {t.box ? (
             <span className="flex h-[24px] items-center justify-between rounded-[5px] bg-[#EDF1F8] px-[7px] text-[12px]" style={{ width: t.box.w }}>
-              {t.box.label}
+              {t.box.label === TOOLBAR.zoom ? zoomLabel : t.box.label}
               <Icon name="chevronDown" size={8} />
             </span>
           ) : (
@@ -222,57 +238,6 @@ function Toolbar() {
         </span>
       ))}
       <Icon name="dots" size={18} className="absolute right-[8px] top-[9px] rotate-90 text-[#444746]" />
-    </div>
-  );
-}
-
-function GridView({ rows, widths }: { rows: SheetModel["rows"]; widths?: number[] }) {
-  const w = (c: number) => widths?.[c] ?? COL_W;
-  const cols = Array.from({ length: COLUMN_COUNT }, (_, i) => i);
-  const lines = Array.from({ length: ROW_COUNT }, (_, i) => i);
-  return (
-    <div className="absolute inset-0 select-none text-[13px]" style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
-      {/* column headers */}
-      <div className="absolute left-0 right-0 top-0 flex h-[21.5px] border-b border-[#DADCE0] bg-[#F8F9FA] text-[12px] text-[#5F6368]">
-        <span className="shrink-0 border-r border-[#DADCE0]" style={{ width: HEAD_W }} />
-        {cols.map((c) => (
-          <span key={c} className={`flex shrink-0 items-center justify-center border-r border-[#DADCE0] ${c === 0 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : ""}`} style={{ width: w(c) }}>
-            {letter(c)}
-          </span>
-        ))}
-      </div>
-      {/* rows */}
-      <div className="absolute inset-x-0 bottom-0 top-[21.5px] overflow-hidden">
-        {lines.map((r) => (
-          <div key={r} className="flex border-b border-[#E2E3E3]" style={{ height: ROW_H }}>
-            <span className={`flex shrink-0 items-center justify-center border-r border-[#DADCE0] bg-[#F8F9FA] text-[11.5px] ${r === 0 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : "text-[#5F6368]"}`} style={{ width: HEAD_W }}>
-              {r + 1}
-            </span>
-            {cols.map((c) => {
-              const cell = rows[r]?.[c];
-              const text = cellText(cell);
-              const bold = typeof cell === "object" && cell.bold;
-              const right = typeof cell === "object" && cell.align === "right";
-              return (
-                <span
-                  key={c}
-                  {...(r === 0 && c === 0 ? { "data-tl": "cell-a1" } : {})}
-                  className={`relative block shrink-0 overflow-hidden whitespace-nowrap border-r border-[#E2E3E3] px-[4px] text-[#202124] ${bold ? "font-semibold" : ""} ${right ? "text-right" : ""}`}
-                  style={{ width: w(c), lineHeight: `${ROW_H - 1}px` }}
-                >
-                  {text}
-                  {r === 0 && c === 0 && (
-                    <>
-                      <i className="pointer-events-none absolute -inset-px border-2 border-[#2563EB]" />
-                      <i className="pointer-events-none absolute -bottom-[4px] -right-[4px] h-[6px] w-[6px] border border-white bg-[#2563EB]" />
-                    </>
-                  )}
-                </span>
-              );
-            })}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
