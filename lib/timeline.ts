@@ -4,6 +4,8 @@
  * All time is "active time": it stops while paused. cancel() rejects every pending call.
  */
 
+import { planScroll } from "@/lib/visibility";
+
 export class CancelledError extends Error {
   constructor() {
     super("Timeline cancelled");
@@ -24,7 +26,20 @@ export type TimelineHost = {
   setCaption: (text: string | null) => void;
   /** Change the address shown in the browser URL pill (for scenes with several screens). */
   setUrl: (url: string) => void;
+  /** Where the caption bubble is right now (null when hidden), so auto-scroll can keep targets clear of it. */
+  captionRect?: (where?: "bottom" | "top") => DOMRect | null;
+  /** Put the caption bubble at the bottom (normal) or the top of the frame. */
+  placeCaption?: (where: "bottom" | "top") => void;
 };
+
+/** QA hooks, set from outside the app (scripts/qa-visibility.ts). Both are ignored when absent. */
+type QaGlobals = {
+  /** Called when an action reaches its target: kind is cursor / click / highlight / hover / caption. */
+  __snaarpProbe?: (kind: string, selector: string, el: HTMLElement) => void;
+  /** Plays timelines faster than real time (active time runs this many times quicker). */
+  __snaarpSpeed?: number;
+};
+const qa = () => globalThis as unknown as QaGlobals;
 
 type Job = (dt: number) => boolean; // returns true when finished
 
@@ -47,6 +62,8 @@ export class Timeline {
   private vars = new Map<string, unknown>();
   private toastId = 0;
   private listeners = new Set<() => void>();
+  /** The scroll that is running or queued; later scrolls and cursor moves wait for it. */
+  private scrolling: Promise<unknown> | null = null;
 
   constructor(host: TimelineHost) {
     this.host = host;
@@ -91,7 +108,7 @@ export class Timeline {
 
   private tick = (now: number) => {
     if (this.cancelled) return;
-    const dt = Math.min(now - this.last, 100);
+    const dt = Math.min(now - this.last, 100) * (qa().__snaarpSpeed ?? 1);
     this.last = now;
     if (this.paused) {
       this.syncAnimations(); // freeze CSS animations that started late
@@ -167,6 +184,99 @@ export class Timeline {
     return { x: r.left - frame.left + r.width / 2, y: r.top - frame.top + r.height / 2 };
   }
 
+  private probe(kind: string, selector: string, el: HTMLElement) {
+    try {
+      qa().__snaarpProbe?.(kind, selector, el);
+    } catch {
+      /* QA hook only */
+    }
+  }
+
+  /**
+   * Scroll every scroll container the element lives in (modal body, panel, dropdown list, the page) until it is fully
+   * visible with `margin` design pixels of air, clear of sticky bars and the caption. Smooth (400-600 ms), pause-aware
+   * and cancelled with the step. Resolves true if anything scrolled, once the element has stopped moving. When the
+   * element is already in view it returns at once and costs no time.
+   */
+  async ensureVisible(el: HTMLElement, opts: { margin?: number } = {}): Promise<boolean> {
+    const margin = opts.margin ?? 24;
+    const root = this.host.frame();
+    if (!root) return false;
+    if (!this.scrolling && planScroll(el, root, margin, this.captionRect()).length === 0) return false;
+    const run = (this.scrolling ?? Promise.resolve()).then(async () => {
+      let scrolled = false;
+      // A second pass catches layout that shifted while the first scroll ran (a dropdown opening, images loading).
+      for (let pass = 0; pass < 3; pass++) {
+        const moves = planScroll(el, root, margin, this.captionRect());
+        if (moves.length === 0) break;
+        scrolled = true;
+        const distance = Math.max(...moves.map((m) => Math.abs(m.screen)));
+        const ms = Math.min(600, 400 + distance / 5);
+        if (this.reduced) {
+          moves.forEach((m) => (m.node[m.prop] = m.to));
+        } else {
+          await this.tween(ms, easeInOut, (p) => moves.forEach((m) => (m.node[m.prop] = m.from + (m.to - m.from) * p)));
+        }
+        await this.settle(el);
+      }
+      return scrolled;
+    });
+    const tracked: Promise<unknown> = run
+      .catch(() => undefined)
+      .then(() => {
+        if (this.scrolling === tracked) this.scrolling = null;
+      });
+    this.scrolling = tracked;
+    return run;
+  }
+
+  private captionRect(where: "bottom" | "top" = "bottom") {
+    return this.host.captionRect?.(where) ?? null;
+  }
+
+  /** The caption sits at the bottom. If it would cover the target and no scroll can clear it, show it at the top instead. */
+  private dodgeCaption(el: HTMLElement) {
+    const bottom = this.captionRect("bottom");
+    if (!bottom || !this.host.placeCaption) return;
+    const r = el.getBoundingClientRect();
+    const hits = (c: DOMRect) => r.right > c.left - 8 && r.left < c.right + 8 && r.bottom > c.top - 8 && r.top < c.bottom + 8;
+    const top = this.captionRect("top");
+    // A big region (a whole page or panel being ringed) is meant to sit behind the caption.
+    const f = this.host.frame()!.getBoundingClientRect();
+    const big = (r.width * r.height) / (f.width * f.height) > 0.35;
+    this.host.placeCaption(!big && hits(bottom) && !(top && hits(top)) ? "top" : "bottom");
+  }
+
+  /** Wait until the element's box has not moved for two frames (at most 1.5 s of active time). */
+  private async settle(el: HTMLElement) {
+    let prev = el.getBoundingClientRect();
+    let still = 0;
+    const start = this.elapsed;
+    await this.job(() => {
+      const r = el.getBoundingClientRect();
+      still = Math.abs(r.top - prev.top) < 0.5 && Math.abs(r.left - prev.left) < 0.5 ? still + 1 : 0;
+      prev = r;
+      return still >= 2 || this.elapsed - start > 1500;
+    });
+  }
+
+  /** For actions that cannot wait (highlight, hover, caption): start the scroll in the background, then run `done`. */
+  private reveal(el: HTMLElement, done: () => void) {
+    const root = this.host.frame();
+    // One frame later, so a caption shown just before has been drawn and can be measured.
+    const finish = () =>
+      requestAnimationFrame(() => {
+        if (this.cancelled) return;
+        this.dodgeCaption(el);
+        done();
+      });
+    if (!root || (!this.scrolling && planScroll(el, root, 24, this.captionRect()).length === 0)) {
+      finish();
+      return;
+    }
+    this.ensureVisible(el).then(finish, () => {}); // cancelled with the step
+  }
+
   /** Put the cursor somewhere instantly, as a fraction (0-1) of the frame. */
   placeCursor(fx: number, fy: number) {
     const f = this.host.frame()!.getBoundingClientRect();
@@ -187,7 +297,9 @@ export class Timeline {
   async moveCursorTo(selector: string, opts: { dx?: number; dy?: number; ms?: number; onMove?: (clientX: number, clientY: number) => void } = {}) {
     const { dx = 0, dy = 0, ms = 900, onMove } = opts;
     const el = this.query(selector);
-    const c = this.centreOf(el);
+    await this.ensureVisible(el);
+    this.dodgeCaption(el);
+    const c = this.centreOf(el); // after the scroll has settled, so it is the final position
     const from = { ...this.cursor };
     const to = { x: c.x + dx, y: c.y + dy };
     const len = Math.hypot(to.x - from.x, to.y - from.y);
@@ -206,6 +318,7 @@ export class Timeline {
       // Lets a scene drag something along with the cursor (client pixels, so it can be matched against any element).
       if (onMove && origin) onMove(x + origin.left, y + origin.top);
     });
+    this.probe("cursor", selector, el);
   }
 
   /**
@@ -215,6 +328,7 @@ export class Timeline {
    */
   async followPath(selector: string, ms: number, onProgress: (p: number) => void, opts: { approachMs?: number } = {}) {
     const path = this.query(selector) as unknown as SVGGeometryElement;
+    await this.ensureVisible(path as unknown as HTMLElement);
     const len = path.getTotalLength();
     const frame = () => this.host.frame()!.getBoundingClientRect();
     const at = (p: number) => {
@@ -239,6 +353,9 @@ export class Timeline {
   /** Press the target (pressed state + ripple), then fire its real click handler. */
   async click(selector: string) {
     const el = this.query(selector);
+    // Normally the cursor is already on the target. If it was off screen, scroll to it and bring the cursor along.
+    if (await this.ensureVisible(el)) await this.moveCursorTo(selector, { ms: 350 });
+    this.probe("click", selector, el);
     el.setAttribute("data-pressed", "true");
     this.host.press();
     this.host.ripple(this.cursor.x, this.cursor.y);
@@ -368,8 +485,14 @@ export class Timeline {
     return this.tween(ms, (t) => 1 - Math.pow(1 - t, 3), (p) => this.setVar(key, from + (to - from) * p));
   }
 
-  showCaption(text: string) {
+  /** Show a caption. Pass `target` when it talks about one element, so that element is scrolled into view. */
+  showCaption(text: string, opts: { target?: string } = {}) {
     this.host.setCaption(text);
+    const target = opts.target;
+    if (target) {
+      const el = this.query(target);
+      this.reveal(el, () => this.probe("caption", target, el));
+    }
   }
   hideCaption() {
     this.host.setCaption(null);
@@ -379,6 +502,7 @@ export class Timeline {
     const el = this.query(selector);
     el.classList.add("tl-hl");
     this.highlighted.add(el);
+    this.reveal(el, () => this.probe("highlight", selector, el));
   }
   clearHighlight() {
     this.highlighted.forEach((el) => el.classList.remove("tl-hl"));
@@ -390,8 +514,10 @@ export class Timeline {
     this.hovered?.removeAttribute("data-hover");
     this.hovered = null;
     if (selector) {
-      this.hovered = this.query(selector);
-      this.hovered.setAttribute("data-hover", "true");
+      const el = this.query(selector);
+      this.hovered = el;
+      el.setAttribute("data-hover", "true");
+      this.reveal(el, () => this.probe("hover", selector, el));
     }
   }
 

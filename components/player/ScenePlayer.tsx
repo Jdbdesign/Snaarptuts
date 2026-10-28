@@ -7,6 +7,7 @@ import type { Scene } from "@/tutorials/types";
 
 const DESIGN_WIDTH = 1440;
 const GAP_AFTER_STEP_MS = 500;
+const CAPTION_EDGE = 24; // gap between the caption bubble and the frame edge
 
 type Props = {
   scene: Scene;
@@ -26,9 +27,11 @@ export function ScenePlayer({ scene, paused, onDone, onAdvance, onUrlChange }: P
   const cursorRef = useRef<HTMLDivElement>(null);
   const rippleRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const captionRef = useRef<HTMLDivElement>(null);
 
   const [size, setSize] = useState<{ w: number; h: number } | null>(null);
   const [tl, setTl] = useState<Timeline | null>(null);
+  const [captionBottom, setCaptionBottom] = useState(CAPTION_EDGE);
   const [caption, setCaption] = useState<{ text: string; visible: boolean }>({ text: "", visible: false });
 
   const latest = useRef({ onDone, onAdvance, onUrlChange });
@@ -78,12 +81,46 @@ export function ScenePlayer({ scene, paused, onDone, onAdvance, onUrlChange }: P
         );
       },
       setUrl: (url) => latest.current.onUrlChange(url),
+      // Where the caption sits (or would sit) at the bottom or the top of the frame; null while hidden.
+      captionRect: (where = "bottom") => {
+        const c = captionRef.current;
+        const f = frameRef.current;
+        if (!c || !f || c.dataset.visible !== "true") return null;
+        const fr = f.getBoundingClientRect();
+        const r = c.getBoundingClientRect();
+        const top = where === "bottom" ? fr.bottom - CAPTION_EDGE - c.offsetHeight : fr.top + CAPTION_EDGE;
+        return new DOMRect(r.left, top, c.offsetWidth, c.offsetHeight);
+      },
+      // Move the caption to the top when it would cover the target and nothing could scroll it clear.
+      placeCaption: (where) => {
+        const c = captionRef.current;
+        const f = frameRef.current;
+        if (!c || !f) return;
+        setCaptionBottom(where === "bottom" ? CAPTION_EDGE : f.clientHeight - c.offsetHeight - CAPTION_EDGE);
+      },
       setCaption: (text) =>
         setCaption((c) => ({ text: text ?? c.text, visible: text !== null })),
     };
     const t = new Timeline(host);
     setTl(t);
     return () => t.cancel();
+  }, []);
+
+  // A dialog or panel that opens again starts from its top, so every replay looks the same.
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+    const mo = new MutationObserver((records) => {
+      for (const r of records) {
+        const el = r.target as HTMLElement;
+        if (r.oldValue !== "true" || el.getAttribute("aria-hidden") !== "false") continue;
+        el.querySelectorAll<HTMLElement>("*").forEach((n) => {
+          if (n.scrollTop > 0) n.scrollTop = 0;
+        });
+      }
+    });
+    mo.observe(frame, { subtree: true, attributes: true, attributeFilter: ["aria-hidden"], attributeOldValue: true });
+    return () => mo.disconnect();
   }, []);
 
   // Pause / resume.
@@ -157,8 +194,11 @@ export function ScenePlayer({ scene, paused, onDone, onAdvance, onUrlChange }: P
       </div>
 
       <div
+        ref={captionRef}
+        data-visible={caption.visible}
         aria-live="polite"
-        className={`pointer-events-none absolute bottom-6 left-1/2 z-40 max-w-[calc(100%-32px)] -translate-x-1/2 rounded-full bg-[#111] px-5 py-2.5 text-center text-[14px] font-medium leading-5 text-white shadow-lg transition-all duration-300 ${
+        style={{ bottom: captionBottom }}
+        className={`pointer-events-none absolute left-1/2 z-40 max-w-[calc(100%-32px)] -translate-x-1/2 rounded-full bg-[#111] px-5 py-2.5 text-center text-[14px] font-medium leading-5 text-white shadow-lg transition-all duration-300 ${
           caption.visible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
         }`}
       >
