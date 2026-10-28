@@ -883,6 +883,84 @@ const bodies = {
       <path d="M3.5 12h17M12 3.5c2.4 2.4 3.4 5.2 3.4 8.5s-1 6.1-3.4 8.5c-2.4-2.4-3.4-5.2-3.4-8.5S9.6 5.9 12 3.5Z" stroke="currentColor" strokeWidth="1.4" fill="none" />
     </>
   ),
+  // Snaarp Sheets (File menu, toolbar, header)
+  shImport: <path d="M4 12h11M11.5 7.5 16 12l-4.5 4.5M20 5v14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  shShare: (
+    <>
+      <circle cx="9.5" cy="8.5" r="3.2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M3.5 19c.4-3 2.7-4.8 6-4.8M17.5 12v6M14.5 15h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  shShortcut: <path d="M7 4.5h10a1 1 0 0 1 1 1v14l-6-3.8L6 19.5v-14a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />,
+  shOffline: (
+    <>
+      <path d="M7 17.5a4.2 4.2 0 0 1-.4-8.4 5.4 5.4 0 0 1 10.3 1.3A3.6 3.6 0 0 1 17 17.5H7Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="m9.5 12.5 1.8 1.8 3.2-3.4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  shGear: (
+    <>
+      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4 18 18M18 6l-1.6 1.6M7.6 16.4 6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  shHelp: (
+    <>
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M9.6 9.6a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 1.9M12 16.6h.01" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  shGrid: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M4 9.3h16M4 14.7h16M9.3 4v16M14.7 4v16" stroke="currentColor" strokeWidth="1.3" />
+    </>
+  ),
+  shSearch: (
+    <>
+      <circle cx="10.5" cy="10.5" r="5.5" stroke="currentColor" strokeWidth="1.7" fill="none" />
+      <path d="m15 15 5 5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </>
+  ),
+  shFilter: <path d="M4.5 5.5h15L14 12.5v6l-4-2v-4l-5.5-7Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />,
+  shSigma: <path d="M17.5 5.5h-11l5.5 6.5-5.5 6.5h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  shChart: <path d="M5 19.5v-6M10 19.5v-11M15 19.5v-8M20 19.5V6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />,
+  shAlignV: <path d="M5 5.5h14M5 18.5h14M8.5 15V9M12 15V9M15.5 15V9" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />,
+  shWrap: <path d="M4.5 6.5h15M4.5 12h11a2.5 2.5 0 0 1 0 5H12M14 14.8 11.8 17l2.2 2.2M4.5 17.5H8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  shRotate: <path d="M18.5 12a6.5 6.5 0 1 1-2-4.7M18.5 5v3.6h-3.6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  shMerge: <path d="M4.5 6.5v11M19.5 6.5v11M8 12h8M10.2 9.8 8 12l2.2 2.2M13.8 9.8 16 12l-2.2 2.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
+  shFile: (
+    <>
+      <path d="M7 3.5h7l4 4v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />
+      <path d="M9 12h6M9 15.5h6M12 10v7" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    </>
+  ),
+  shFolderOutline: <path d="M3.5 7a1.5 1.5 0 0 1 1.5-1.5h4l2 2.5h8A1.5 1.5 0 0 1 20.5 9.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5V7Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" fill="none" />,
+  shSharedDrive: (
+    <>
+      <rect x="4" y="9" width="16" height="9" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M8 9V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M8 14h.01M12 14h.01M16 14h.01" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  shComputer: (
+    <>
+      <rect x="3.5" y="5" width="17" height="11" rx="1.6" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M9 20h6M12 16v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  shLink: <path d="M10 14a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 0 0-5-5l-.8.8M14 10a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 0 0 5 5l.8-.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />,
+  shGlobe: (
+    <>
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M4 12h16M12 4c2.2 2.2 3.2 4.9 3.2 8s-1 5.8-3.2 8c-2.2-2.2-3.2-4.9-3.2-8S9.8 6.2 12 4Z" stroke="currentColor" strokeWidth="1.3" fill="none" />
+    </>
+  ),
+  shSheetFile: (
+    <>
+      <path d="M7 3.5h7l4 4v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+      <path d="M9 12.5h6M9 16h6M12 10v8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;
