@@ -55,26 +55,28 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, s
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={dropdownOpen}
             aria-haspopup="listbox"
-            className={`flex h-14 w-full items-center gap-2.5 rounded-[18px] border bg-white px-3 text-left transition-colors ${
+            className={`group flex h-14 w-full items-center gap-2.5 rounded-none border bg-white pl-3 pr-2 text-left outline-none transition-colors ${
               dropdownOpen ? "border-brand/40" : "border-[#E4D7F9]"
             }`}
           >
             <ProductMark tutorial={tutorial} size={32} />
             <span className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink">{tutorial.product.name}</span>
-            <span className="text-[12px] text-muted">
+            <span className="shrink-0 whitespace-nowrap text-[12px] text-muted">
               {doneCount}/{tutorial.steps.length}
             </span>
-            <Icon
-              name="chevronDown"
-              size={16}
-              className={`text-muted transition-transform ${dropdownOpen ? "rotate-180" : ""}`}
-            />
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] text-ink transition-colors group-hover:bg-[#F4F4F6] group-focus-visible:ring-2 group-focus-visible:ring-brand">
+              <Icon
+                name="chevronDown"
+                size={20}
+                className={`transition-transform motion-reduce:transition-none ${dropdownOpen ? "rotate-180" : ""}`}
+              />
+            </span>
           </button>
 
           {dropdownOpen && (
             <ul
               role="listbox"
-              className="absolute left-0 right-0 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-[18px] border border-line bg-white p-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
+              className="absolute left-0 right-0 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border border-line bg-white p-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
             >
               {tutorials.map((t) => {
                 const active = t.product.id === tutorial.product.id;
@@ -101,7 +103,7 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, s
         </div>
 
         {/* This product's own modules (steps). */}
-        <ol ref={listRef} className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto rounded-[18px] border border-line p-2">
+        <ol ref={listRef} className="-mt-px flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto rounded-none border border-t-0 border-[#E4D7F9] p-2">
           {tutorial.steps.map((s, i) => {
             const built = !!s.scene;
             const isActive = built && playing && i === current;

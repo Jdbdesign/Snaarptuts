@@ -283,7 +283,7 @@ export function RailSearch({ tutorial, focusSignal, onSelectStep, children }: Pr
       </div>
 
       <div className="relative flex min-h-0 flex-1 flex-col">
-        <div className="flex min-h-0 flex-1 flex-col gap-3" inert={open} aria-hidden={open || undefined}>
+        <div className="flex min-h-0 flex-1 flex-col" inert={open} aria-hidden={open || undefined}>
           {children}
         </div>
 
@@ -291,7 +291,7 @@ export function RailSearch({ tutorial, focusSignal, onSelectStep, children }: Pr
           <div
             ref={panelRef}
             onMouseDown={(e) => e.preventDefault()} // keep focus in the box while a result is clicked
-            className="tl-pop-in absolute inset-0 z-30 overflow-y-auto overscroll-contain rounded-[18px] border border-line bg-white p-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
+            className="tl-pop-in absolute inset-0 z-30 overflow-y-auto overscroll-contain rounded-none border border-line bg-white p-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
           >
             {hasOptions ? (
               <div id={listId} role="listbox" aria-label={COPY.label}>
