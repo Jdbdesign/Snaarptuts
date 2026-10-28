@@ -145,7 +145,7 @@ export function OrganizationPage({ tl }: { tl: Timeline }) {
             {members.map((u) => {
               const dept = depts.find((d) => d.name === u.dept);
               return (
-                <div key={u.id} data-tl={`org-row-${u.id}`} className={`grid ${cols} tl-fade-in items-center gap-3 py-[9px] text-[12.5px]`}>
+                <div key={u.id} data-tl={`org-row-${u.id}`} className={`grid ${cols} tl-fade-in items-center gap-3 py-[9px] text-[12.5px] ${menu === u.id ? "relative z-20" : ""}`}>
                   <div className="flex min-w-0 items-center gap-2.5">
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold text-white" style={{ background: tint(u.id) }}>
                       {initials(u.name)}
