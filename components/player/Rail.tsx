@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
 import { tutorials } from "@/tutorials";
 import type { Tutorial } from "@/tutorials/types";
 import { ProductMark } from "./ProductMark";
 import { RailSearch } from "./RailSearch";
+import { RAIL_SEARCH } from "./rail-search-data";
 
 type Props = {
   tutorial: Tutorial;
@@ -22,6 +23,8 @@ type Props = {
 export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, searchFocus }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const listRef = useRef<HTMLOListElement>(null);
+  const labelId = useId();
+  const buttonId = useId();
   const doneCount = done.filter(Boolean).length;
   const dropdownOpen = menuOpen;
 
@@ -51,7 +54,17 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, s
       <RailSearch tutorial={tutorial} focusSignal={searchFocus} onSelectStep={onSelect}>
         {/* Product switcher: the current product, with the full list of products as a dropdown. */}
         <div className="relative shrink-0">
+          <span
+            id={labelId}
+            data-rail-title
+            className="mb-2 flex items-center gap-1 text-[12px] font-semibold leading-4 tracking-[0.02em] text-[#6B5F8A]"
+          >
+            <Icon name="chevronDown" size={12} className="shrink-0" />
+            <span className="min-w-0 truncate">{RAIL_SEARCH.productLabel}</span>
+          </span>
           <button
+            id={buttonId}
+            aria-labelledby={`${labelId} ${buttonId}`}
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={dropdownOpen}
             aria-haspopup="listbox"

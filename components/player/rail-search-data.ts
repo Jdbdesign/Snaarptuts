@@ -1,5 +1,7 @@
 /** All copy and limits for the rail search. Components read from here; nothing is hard-coded in them. */
 export const RAIL_SEARCH = {
+  /** Small title above the product switcher; also its accessible label. */
+  productLabel: "Pick a product to learn",
   placeholder: "Search products, modules",
   label: "Search products and modules",
   clear: "Clear search",
