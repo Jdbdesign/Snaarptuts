@@ -118,7 +118,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
         {/* Grid + side panel */}
         <div className="flex min-h-0 flex-1">
           <div className="relative min-w-0 flex-1 overflow-hidden" data-tl="sheet-grid">
-            <GridView rows={current?.rows ?? []} />
+            <GridView rows={current?.rows ?? []} widths={current?.widths} />
             <div aria-hidden className="pointer-events-none absolute bottom-[4px] right-0 top-0 w-[15px] bg-white">
               <Icon name="chevronDown" size={9} className="absolute left-[3px] top-[4px] rotate-180 text-[#80868B]" />
               <i className="absolute left-[4px] top-[16px] h-[16px] w-[7px] rounded-full bg-[#8A8F98]" />
@@ -226,7 +226,8 @@ function Toolbar() {
   );
 }
 
-function GridView({ rows }: { rows: SheetModel["rows"] }) {
+function GridView({ rows, widths }: { rows: SheetModel["rows"]; widths?: number[] }) {
+  const w = (c: number) => widths?.[c] ?? COL_W;
   const cols = Array.from({ length: COLUMN_COUNT }, (_, i) => i);
   const lines = Array.from({ length: ROW_COUNT }, (_, i) => i);
   return (
@@ -235,7 +236,7 @@ function GridView({ rows }: { rows: SheetModel["rows"] }) {
       <div className="absolute left-0 right-0 top-0 flex h-[21.5px] border-b border-[#DADCE0] bg-[#F8F9FA] text-[12px] text-[#5F6368]">
         <span className="shrink-0 border-r border-[#DADCE0]" style={{ width: HEAD_W }} />
         {cols.map((c) => (
-          <span key={c} className={`flex shrink-0 items-center justify-center border-r border-[#DADCE0] ${c === 0 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : ""}`} style={{ width: COL_W }}>
+          <span key={c} className={`flex shrink-0 items-center justify-center border-r border-[#DADCE0] ${c === 0 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : ""}`} style={{ width: w(c) }}>
             {letter(c)}
           </span>
         ))}
@@ -257,7 +258,7 @@ function GridView({ rows }: { rows: SheetModel["rows"] }) {
                   key={c}
                   {...(r === 0 && c === 0 ? { "data-tl": "cell-a1" } : {})}
                   className={`relative block shrink-0 overflow-hidden whitespace-nowrap border-r border-[#E2E3E3] px-[4px] text-[#202124] ${bold ? "font-semibold" : ""} ${right ? "text-right" : ""}`}
-                  style={{ width: COL_W, lineHeight: `${ROW_H - 1}px` }}
+                  style={{ width: w(c), lineHeight: `${ROW_H - 1}px` }}
                 >
                   {text}
                   {r === 0 && c === 0 && (

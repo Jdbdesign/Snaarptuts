@@ -10,7 +10,7 @@ import {
 } from "./sheets-data";
 
 /** One tab of the workbook: its name and the cells (row by row, starting at A1). */
-export type SheetModel = { id: string; name: string; rows: Cell[][] };
+export type SheetModel = { id: string; name: string; rows: Cell[][]; /** Column widths in px (default 86 each), for imported data with long values. */ widths?: number[] };
 
 /** A whole workbook on screen: the title and its tabs. */
 export type Workbook = { title: string; sheets: SheetModel[] };
@@ -34,7 +34,7 @@ export function changedBudgetCells(costs: number[]): [number, number][] {
 export const BLANK_BOOK: Workbook = { title: SHEET.untitled, sheets: [{ id: "s1", name: SHEET.tab, rows: [] }] };
 export const BUDGET_BOOK: Workbook = { title: SHEET.draft, sheets: [{ id: "s1", name: SHEET.tab, rows: budgetRows() }] };
 export const NAMED_BOOK: Workbook = { title: SHEET.budget, sheets: [{ id: "s1", name: SHEET.tab, rows: budgetRows() }] };
-export const CONTACTS_SHEET: SheetModel = { id: "s2", name: CONTACTS_FILE.tab, rows: contactsRows() };
+export const CONTACTS_SHEET: SheetModel = { id: "s2", name: CONTACTS_FILE.tab, rows: contactsRows(), widths: [110, 210, 150] };
 
 export function cellText(c: Cell | undefined): string {
   return c === undefined ? "" : typeof c === "string" ? c : c.text;
