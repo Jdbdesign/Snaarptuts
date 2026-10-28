@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
+import { completedCount } from "@/lib/progress";
+import { useProgress } from "@/lib/useProgress";
 import { tutorials } from "@/tutorials";
 import type { Tutorial } from "@/tutorials/types";
 import { ProductMark } from "./ProductMark";
+import { ResetProgress } from "./ResetProgress";
 import { RailSearch } from "./RailSearch";
 import { RAIL_SEARCH } from "./rail-search-data";
 
@@ -13,6 +16,8 @@ type Props = {
   tutorial: Tutorial;
   current: number;
   done: boolean[];
+  /** False until the saved progress is read: counters stay invisible (keeping their space) for that first frame. */
+  ready: boolean;
   playing: boolean;
   onSelect: (index: number) => void;
   onCollapse: () => void;
@@ -20,12 +25,14 @@ type Props = {
   searchFocus: number;
 };
 
-export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, searchFocus }: Props) {
+export function Rail({ tutorial, current, done, ready, playing, onSelect, onCollapse, searchFocus }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const listRef = useRef<HTMLOListElement>(null);
   const labelId = useId();
   const buttonId = useId();
+  const { store } = useProgress();
   const doneCount = done.filter(Boolean).length;
+  const countClass = ready ? "" : "invisible";
   const dropdownOpen = menuOpen;
 
   // Keep the active step in view in a long list (a search result can jump to step 41 of 64).
@@ -73,7 +80,7 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, s
           >
             <ProductMark tutorial={tutorial} size={32} />
             <span className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink">{tutorial.product.name}</span>
-            <span className="shrink-0 whitespace-nowrap text-[12px] text-muted">
+            <span className={`shrink-0 whitespace-nowrap text-[12px] text-muted ${countClass}`}>
               {doneCount}/{tutorial.steps.length}
             </span>
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] text-ink transition-colors group-hover:bg-[#F4F4F6] group-focus-visible:ring-2 group-focus-visible:ring-brand">
@@ -103,8 +110,8 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, s
                     >
                       <ProductMark tutorial={t} size={24} />
                       <span className="min-w-0 flex-1 truncate">{t.product.name}</span>
-                      <span className="text-[12px] text-muted">
-                        {active ? doneCount : 0}/{t.steps.length}
+                      <span className={`text-[12px] text-muted ${countClass}`}>
+                        {completedCount(store, t.product.id, t.steps.map((x) => x.id))}/{t.steps.length}
                       </span>
                     </Link>
                   </li>
@@ -155,6 +162,8 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, s
           })}
         </ol>
       </RailSearch>
+
+      <ResetProgress />
     </aside>
   );
 }

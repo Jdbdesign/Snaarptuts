@@ -1,6 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { progressStore } from "@/lib/progress";
+import { useProgress } from "@/lib/useProgress";
 import { clearPendingJump, peekPendingJump } from "@/lib/pending-jump";
 import { useNarrow } from "@/lib/useNarrow";
 import { getTutorial } from "@/tutorials";
@@ -25,7 +27,9 @@ export function TutorialPlayer({ productId }: { productId: string }) {
     const current = jump !== null && steps[jump]?.scene ? jump : firstBuilt;
     return { current, runKey: 0, status: "playing" as Status };
   });
-  const [done, setDone] = useState<boolean[]>(() => steps.map(() => false));
+  const { store, ready } = useProgress();
+  const completed = store[tutorial.product.id]?.completed;
+  const done = useMemo(() => steps.map((s) => !!completed?.includes(s.id)), [steps, completed]);
   const [paused, setPaused] = useState(false);
   const [liveUrl, setLiveUrl] = useState<string | null>(null); // set by scenes with several screens
   const [railOpen, setRailOpen] = useState(true); // wide screens
@@ -44,8 +48,8 @@ export function TutorialPlayer({ productId }: { productId: string }) {
 
   const { current } = run;
   const handleDone = useCallback(() => {
-    setDone((d) => d.map((v, i) => v || i === current));
-  }, [current]);
+    progressStore.complete(tutorial.product.id, steps[current].id);
+  }, [tutorial, steps, current]);
 
   const handleAdvance = useCallback(() => {
     const next = steps.findIndex((s, i) => i > current && s.scene);
@@ -54,9 +58,8 @@ export function TutorialPlayer({ productId }: { productId: string }) {
   }, [steps, current, start]);
 
   const replay = useCallback(() => {
-    setDone(steps.map(() => false));
     start(firstBuilt);
-  }, [steps, firstBuilt, start]);
+  }, [firstBuilt, start]);
 
   const select = useCallback(
     (i: number) => {
@@ -112,6 +115,7 @@ export function TutorialPlayer({ productId }: { productId: string }) {
       tutorial={tutorial}
       current={run.current}
       done={done}
+      ready={ready}
       playing={playing}
       onSelect={select}
       onCollapse={() => (narrow ? setDrawerOpen(false) : setRailOpen(false))}
