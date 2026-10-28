@@ -1,6 +1,7 @@
 "use client";
 
 import { Icon } from "@/components/icons";
+import { useNarrow } from "@/lib/useNarrow";
 import { SOON } from "./slide-elements-data";
 import { DROPDOWN_SUBS, DROPDOWNS, type DropdownId } from "./slides-menus-data";
 
@@ -28,6 +29,8 @@ const card = "rounded-[8px] border border-[#E6E8EC] bg-white py-[6px] shadow-[0_
  * screen size. Hooks: `<menu>-menu` (the card), `<menu>-group-<n>` (a block between dividers), `<menu>-item-<id>`, `<menu>-sub-<id>` and `<menu>-tip-<id>`.
  */
 export function SlidesDropdown({ menu, open, sub, tip, hasSelection, hasClipboard, hasThree = false, checks }: Props) {
+  // On a phone the Arrange menu sits at the right edge of the frame, so its submenus open to the left instead of running off the screen.
+  const flip = useNarrow() && menu === "arrange";
   return (
     <div
       aria-hidden={!open}
@@ -57,7 +60,7 @@ export function SlidesDropdown({ menu, open, sub, tip, hasSelection, hasClipboar
 
                   {row.sub && (
                     <div
-                      className={`absolute left-full top-[-6px] ml-[2px] w-[158px] transition-opacity duration-150 motion-reduce:transition-none ${
+                      className={`absolute top-[-6px] w-[158px] transition-opacity ${flip ? "right-full mr-[2px]" : "left-full ml-[2px]"} duration-150 motion-reduce:transition-none ${
                         open && sub === row.sub ? "opacity-100" : "pointer-events-none opacity-0"
                       }`}
                     >
