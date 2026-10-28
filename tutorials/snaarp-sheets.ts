@@ -36,6 +36,8 @@ import { Step17 } from "@/scenes/snaarp-sheets/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/snaarp-sheets/step17/script";
 import { Step18 } from "@/scenes/snaarp-sheets/step18/Step18";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/snaarp-sheets/step18/script";
+import { Step19 } from "@/scenes/snaarp-sheets/step19/Step19";
+import { runStep19, STEP19_DURATION_MS } from "@/scenes/snaarp-sheets/step19/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
@@ -154,6 +156,12 @@ export const snaarpSheets: Tutorial = {
       title: "Settings",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step18, run: runStep18, durationMs: STEP18_DURATION_MS },
+    },
+    {
+      id: "print",
+      title: "Print your spreadsheet",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step19, run: runStep19, durationMs: STEP19_DURATION_MS },
     },
   ],
 };
