@@ -35,7 +35,7 @@ export function RecordForm({ tl, onSave }: { tl: Timeline; onSave: () => void })
   );
 
   return (
-    <div className="tl-fade-in mt-4">
+    <div className="tl-fade-in relative z-20 mt-4">
       {kind.multiline ? (
         <>
           <div className="flex flex-wrap items-start gap-x-4 gap-y-3">

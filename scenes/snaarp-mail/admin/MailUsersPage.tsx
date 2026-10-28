@@ -141,7 +141,7 @@ export function MailUsersPage({ tl }: { tl: Timeline }) {
             {users.map((u) => {
               const style = DEPT_STYLE[u.dept];
               return (
-                <div key={u.id} data-tl={`mu-row-${u.id}`} className={`grid ${COLUMNS} items-center px-6 py-[13px] text-[13.5px] tl-fade-in`}>
+                <div key={u.id} data-tl={`mu-row-${u.id}`} className={`grid ${COLUMNS} items-center px-6 py-[13px] text-[13.5px] tl-fade-in ${menu === u.id ? "relative z-20" : ""}`}>
                   <Checkbox checked={false} size={15} />
                   <div className="flex items-center gap-3">
                     <span className="flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-semibold text-white" style={{ background: tint(u.id) }}>
