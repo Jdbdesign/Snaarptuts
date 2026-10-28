@@ -57,9 +57,8 @@ export function Rail({ tutorial, current, done, playing, onSelect, onCollapse, s
           <span
             id={labelId}
             data-rail-title
-            className="mb-2 flex items-center gap-1 text-[12px] font-semibold leading-4 tracking-[0.02em] text-[#6B5F8A]"
+            className="mb-2 flex items-center text-[12px] font-semibold leading-4 tracking-[0.02em] text-[#6B5F8A]"
           >
-            <Icon name="chevronDown" size={12} className="shrink-0" />
             <span className="min-w-0 truncate">{RAIL_SEARCH.productLabel}</span>
           </span>
           <button
