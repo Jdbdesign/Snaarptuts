@@ -68,6 +68,8 @@ import { Step33 } from "@/scenes/snaarp-sheets/step33/Step33";
 import { runStep33, STEP33_DURATION_MS } from "@/scenes/snaarp-sheets/step33/script";
 import { Step34 } from "@/scenes/snaarp-sheets/step34/Step34";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/snaarp-sheets/step34/script";
+import { Step35 } from "@/scenes/snaarp-sheets/step35/Step35";
+import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-sheets/step35/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -286,6 +288,12 @@ export const snaarpSheets: Tutorial = {
       title: "Hidden sheets",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step34, run: runStep34, durationMs: STEP34_DURATION_MS },
+    },
+    {
+      id: "view-zoom",
+      title: "Change the zoom",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step35, run: runStep35, durationMs: STEP35_DURATION_MS },
     },
   ],
 };
