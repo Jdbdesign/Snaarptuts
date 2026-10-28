@@ -4,7 +4,7 @@ import { ring } from "@/components/sheets/sheets-timeline";
 import { finish } from "../shared";
 import { CAPTIONS, RANGE, TARGETS, URLS } from "./data";
 
-/** Snaarp Sheets, step 26 - Edit > Paste special, all three ways. Starts on the sample budget; ends with the paste-transposed result at K1. */
+/** Snaarp Sheets, step 26 - Edit > Paste special, all three ways. Starts on the sample budget; ends with the paste-transposed result at F5. */
 export const STEP26_DURATION_MS = 40500;
 
 const cell = (ref: string) => `[data-tl=cell-${ref}]`;

@@ -12,7 +12,7 @@ import type { SheetModel, Workbook } from "./sheets-sample";
 import { SheetsEditor } from "./SheetsEditor";
 import { SheetsFileMenu } from "./SheetsFileMenu";
 import { VersionHistoryScreen } from "./VersionHistoryScreen";
-import { CommentsPanel, FindCard, type CommentThread } from "./EditViewPanels";
+import { CommentsPanel, FindCard } from "./EditViewPanels";
 import { SheetMenu, type MenuState } from "./SheetMenu";
 import { FULLSCREEN } from "./edit-view-data";
 import { SHEETS_NARROW_ZOOM } from "./SheetsEditor";

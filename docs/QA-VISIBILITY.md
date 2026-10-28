@@ -26,3 +26,5 @@ These show up in the checks but are intended.
 | Add many users with Bulk user | `bulk-row-r3` | the row is wider than the dialog; the table scrolls sideways, so only its start shows |
 | Manage comments | `selection-comment` | on a phone the comments panel overlays the page (a documented phone layout choice) |
 | Manage comments | `doc-comment-t2` | on a phone the comments panel overlays the page (a documented phone layout choice) |
+
+**Snaarp Sheets Edit and View round (steps 20-36, added 2026-10-29).** The whole Sheets tutorial (36 steps, 144 step runs at the four sizes, speed x3) was swept: 5 findings, all fixed (the Comments panel ring was clipped by the editor edge, so the title is ringed instead; on a phone the Find and replace card covered cell D2 and then the toast covered Done, so it sits higher up on phones; the paste-transposed target moved from K1 to F5 because K1 is off screen on a phone). Re-checked clean at steps 26, 28 and 33.

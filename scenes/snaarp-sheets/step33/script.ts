@@ -17,7 +17,7 @@ export async function runStep33(tl: Timeline) {
   await chooseSub(tl, "comments", "comments-show", { ms: 500 });
   await tl.wait(800);
   tl.showCaption(CAPTIONS.panel);
-  await ring(tl, "[data-tl=comments-panel]", 2400);
+  await ring(tl, "[data-tl=comments-title]", 2400);
 
   tl.showCaption(CAPTIONS.cell);
   await clickCell(tl, COMMENTS.cell.toLowerCase(), { ms: 900 });

@@ -7,7 +7,7 @@ const copy = EDIT_MENU[1][1];
 
 /** The copied cells (the header and the first item) and where each paste lands. */
 export const RANGE = { from: "a1", to: "d2" };
-export const TARGETS = { values: "f1", format: "a6", transposed: "k1" };
+export const TARGETS = { values: "f1", format: "a6", transposed: "f5" };
 
 export const CAPTIONS = {
   select: "Select the cells you want to copy",

@@ -2,6 +2,7 @@
 
 import { Icon } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
+import { useNarrow } from "@/lib/useNarrow";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { COMMENTS, FIND } from "./edit-view-data";
 import { BLUE, BlueButton, CloseX, ShField, SheetGlyph, Tick } from "./parts";
@@ -20,7 +21,7 @@ export function CommentsPanel({ tl }: { tl: Timeline }) {
   return (
     <div data-tl="comments-panel" className="flex h-full w-[272px] flex-col bg-white text-[#1f2430]">
       <div className="flex items-center justify-between px-[16px] pb-[6px] pt-[14px]">
-        <h2 className="text-[15px] font-medium">{D.title}</h2>
+        <h2 data-tl="comments-title" className="text-[15px] font-medium">{D.title}</h2>
         <span className="flex items-center gap-[10px] text-[#4b5060]">
           <Icon name="shSearch" size={15} />
           <span data-tl="comments-close" className="flex h-[22px] w-[22px] items-center justify-center rounded-full transition-colors data-[hover=true]:bg-[#F1F3F4]">
@@ -94,11 +95,12 @@ export function FindCard({ tl }: { tl: Timeline }) {
   const entire = useTimelineVar(tl, "findEntire", false);
   const hits = useTimelineVar<[number, number][] | null>(tl, "findHits", null);
   const D = FIND;
+  const narrow = useNarrow();
   return (
     <div
       aria-hidden={!open}
       data-tl="find-card"
-      className={`absolute right-[28px] top-[104px] z-40 w-[372px] rounded-[12px] border border-[#DADCE0] bg-white p-[16px] text-[#1f2430] shadow-[0_14px_40px_-8px_rgba(17,24,39,0.32)] transition-[opacity,transform] duration-200 motion-reduce:transition-none ${
+      className={`absolute right-[28px] ${narrow ? "bottom-[150px]" : "top-[104px]"} z-40 w-[372px] rounded-[12px] border border-[#DADCE0] bg-white p-[16px] text-[#1f2430] shadow-[0_14px_40px_-8px_rgba(17,24,39,0.32)] transition-[opacity,transform] duration-200 motion-reduce:transition-none ${
         open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
       }`}
     >
