@@ -10,6 +10,7 @@ import { SHEETS_NARROW_ZOOM } from "./SheetsEditor";
 import { budgetRows, cellText, changedBudgetCells } from "./sheets-sample";
 
 const COLS = 10;
+const colW = (c: number) => (c < 4 ? 104 : 70);
 const ROWS = 20;
 
 /**
@@ -40,11 +41,11 @@ export function VersionHistoryScreen({ tl, title }: { tl: Timeline; title: strin
             <span className="text-[16px] text-[#202124]">{row.time}</span>
             <span className="truncate text-[13px] text-[#80868B]">{title}</span>
           </div>
-          <p data-tl="versions-count" className="h-[34px] border-b border-[#EEF0F3] px-[8px] pt-[8px] text-[13px] text-[#5F6368]">{V.changes(show ? changed.length : 0)}</p>
-          <div data-tl="versions-sheet" className="relative ml-[6px] mt-[14px] w-[740px] max-w-full overflow-hidden border border-[#DADCE0] text-[11.5px]">
+          <p data-tl="versions-count" className="h-[34px] border-b border-[#EEF0F3] px-[8px] pt-[8px] text-[13px] text-[#5F6368]">{V.changes(changed.length)}</p>
+          <div data-tl="versions-sheet" className="relative ml-[6px] mt-[14px] w-[780px] max-w-full overflow-hidden border border-[#DADCE0] text-[11.5px]">
             <div className="flex h-[19px] border-b border-[#DADCE0] bg-[#F8F9FA] text-[#5F6368]">
               <span className="w-[34px] shrink-0 border-r border-[#DADCE0]" />
-              {Array.from({ length: COLS }, (_, c) => <span key={c} className="flex w-[70px] shrink-0 items-center justify-center border-r border-[#DADCE0]">{String.fromCharCode(65 + c)}</span>)}
+              {Array.from({ length: COLS }, (_, c) => <span key={c} className="flex shrink-0 items-center justify-center border-r border-[#DADCE0]" style={{ width: colW(c) }}>{String.fromCharCode(65 + c)}</span>)}
             </div>
             {Array.from({ length: ROWS }, (_, r) => (
               <div key={r} className="flex h-[18px] border-b border-[#E7E8EA]">
@@ -52,7 +53,8 @@ export function VersionHistoryScreen({ tl, title }: { tl: Timeline; title: strin
                 {Array.from({ length: COLS }, (_, c) => (
                   <span
                     key={c}
-                    className={`block w-[70px] shrink-0 truncate border-r border-[#E7E8EA] px-[4px] leading-[17px] transition-colors duration-300 ${show && isChanged(r, c) ? "bg-[#FFF1B8]" : ""}`}
+                    style={{ width: colW(c) }}
+                    className={`block shrink-0 truncate border-r border-[#E7E8EA] px-[4px] leading-[17px] transition-colors duration-300 ${show && isChanged(r, c) ? "bg-[#FFF1B8]" : ""}`}
                   >
                     {cellText(rows[r]?.[c])}
                   </span>

@@ -185,7 +185,7 @@ export function PrintDialog({ tl, rows }: { tl: Timeline; rows: SheetModel["rows
   const D = PRINT;
   return (
     <ShDialog open={open} width={760} hook="print-dialog">
-      <div className="flex h-[440px] overflow-hidden rounded-[14px]">
+      <div className="flex h-[480px] overflow-hidden rounded-[14px]">
         <div className="flex flex-1 items-center justify-center bg-[#E9ECF1]">
           <div
             data-tl="print-paper"
