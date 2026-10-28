@@ -56,11 +56,13 @@ import { Step27 } from "@/scenes/snaarp-sheets/step27/Step27";
 import { runStep27, STEP27_DURATION_MS } from "@/scenes/snaarp-sheets/step27/script";
 import { Step28 } from "@/scenes/snaarp-sheets/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/snaarp-sheets/step28/script";
+import { Step29 } from "@/scenes/snaarp-sheets/step29/Step29";
+import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-sheets/step29/script";
 
 /**
- * Snaarp Sheets ("How to use Snaarp Sheets"). This first round covers only the File menu (steps 1-19). Later rounds add Edit, View,
- * Insert, Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
- * last step in this list, so it moves by itself. Recording (git-ignored): ref/sheets/Snaarp_Sheets_file.mp4.
+ * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
+ * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
+ * last step in this list, so it moves by itself. Recordings (git-ignored): ref/sheets/Snaarp_Sheets_file.mp4 (File), ref/sheets/Snaarp_Sheets_edit_view.mp4 (Edit, View).
  * Step ids are the saved identity of a step (browser progress): never rename or reuse one.
  */
 export const snaarpSheets: Tutorial = {
@@ -68,6 +70,7 @@ export const snaarpSheets: Tutorial = {
   groups: [
     { title: "File menu", from: "meet-file-menu" },
     { title: "Edit menu", from: "meet-edit-menu" },
+    { title: "View menu", from: "meet-view-menu" },
   ],
   steps: [
     {
@@ -237,6 +240,12 @@ export const snaarpSheets: Tutorial = {
       title: "Find and replace",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step28, run: runStep28, durationMs: STEP28_DURATION_MS },
+    },
+    {
+      id: "meet-view-menu",
+      title: "Meet the View menu",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step29, run: runStep29, durationMs: STEP29_DURATION_MS },
     },
   ],
 };

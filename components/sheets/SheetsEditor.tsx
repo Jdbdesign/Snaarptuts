@@ -185,7 +185,7 @@ const TOOLS: Tool[] = [
   { x: 72, icon: "edRedo", dim: true, id: "redo" },
   { x: 97, icon: "edPrint" },
   { x: 123, icon: "edPaintFormat" },
-  { x: 148, box: { w: 44, label: TOOLBAR.zoom } },
+  { x: 148, box: { w: 44, label: TOOLBAR.zoom }, id: "zoom" },
   { x: 215, text: "$", caret: true },
   { x: 248, text: "%" },
   { x: 272, text: ".0" },
@@ -220,6 +220,7 @@ function Toolbar({ zoomLabel, canUndo, canRedo }: { zoomLabel: string; canUndo: 
       {TOOLS.map((t, i) => (
         <span
           key={i}
+          {...(t.id ? { "data-tl": `tool-${t.id}` } : {})}
           className={`absolute top-[6px] flex h-[24px] items-center justify-center ${t.dim && !(t.id === "undo" ? canUndo : t.id === "redo" ? canRedo : false) ? "opacity-35" : ""}`}
           style={{ left: t.box ? t.x : t.x - 11 }}
         >
