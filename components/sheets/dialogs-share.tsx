@@ -83,9 +83,9 @@ export function ShareDialog({ tl, title }: { tl: Timeline; title: string }) {
         <div className="px-[20px] pb-[18px] pt-[20px]">
           <div className="flex items-center justify-between">
             <h2 className="truncate text-[16px] font-medium text-[#1f2430]">{D.title(title)}</h2>
-            <span className="flex items-center gap-[14px] text-[#5F6368]">
-              <Icon name="shHelp" size={16} data-tl="share-help" />
-              <Icon name="shGear" size={16} data-tl="share-gear" />
+            <span className="flex items-center gap-[2px] text-[#5F6368]">
+              <span data-tl="share-help" className="flex h-[26px] w-[26px] items-center justify-center rounded-full data-[hover=true]:bg-[#F1F3F4]"><Icon name="shHelp" size={16} /></span>
+              <span data-tl="share-gear" className="flex h-[26px] w-[26px] items-center justify-center rounded-full data-[hover=true]:bg-[#F1F3F4]"><Icon name="shGear" size={16} /></span>
             </span>
           </div>
           <div className="relative mt-[12px]">
