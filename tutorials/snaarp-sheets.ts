@@ -157,6 +157,8 @@ import { Step77 } from "@/scenes/snaarp-sheets/step77/Step77";
 import { runStep77, STEP77_DURATION_MS } from "@/scenes/snaarp-sheets/step77/script";
 import { Step78 } from "@/scenes/snaarp-sheets/step78/Step78";
 import { runStep78, STEP78_DURATION_MS } from "@/scenes/snaarp-sheets/step78/script";
+import { Step79 } from "@/scenes/snaarp-sheets/step79/Step79";
+import { runStep79, STEP79_DURATION_MS } from "@/scenes/snaarp-sheets/step79/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -642,6 +644,12 @@ export const snaarpSheets: Tutorial = {
       title: "Turn Autocomplete on and off",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step78, run: runStep78, durationMs: STEP78_DURATION_MS },
+    },
+    {
+      id: "tools-notifications",
+      title: "Set your notifications",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step79, run: runStep79, durationMs: STEP79_DURATION_MS },
     },
   ],
 };
