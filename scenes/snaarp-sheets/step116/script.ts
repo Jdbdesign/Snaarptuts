@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 116 - the Share button (the File > Share dialog) and the account menu. The last step; the completion card follows. Starts with A1 selected. */
-export const STEP116_DURATION_MS = 30000;
+export const STEP116_DURATION_MS = 18300;
 
 export async function runStep116(tl: Timeline) {
   beginTb(tl, "a1");
