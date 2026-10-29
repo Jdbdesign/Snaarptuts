@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 106 - Insert chart: Item and Cost as a column chart, switched to a pie, then Insert. Starts with A1 selected. */
-export const STEP106_DURATION_MS = 40000;
+export const STEP106_DURATION_MS = 25600;
 
 export async function runStep106(tl: Timeline) {
   beginTb(tl, "a1");
