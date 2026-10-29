@@ -182,6 +182,10 @@ import { Step90 } from "@/scenes/snaarp-sheets/step90/Step90";
 import { runStep90, STEP90_DURATION_MS } from "@/scenes/snaarp-sheets/step90/script";
 import { Step91 } from "@/scenes/snaarp-sheets/step91/Step91";
 import { runStep91, STEP91_DURATION_MS } from "@/scenes/snaarp-sheets/step91/script";
+import { Step92 } from "@/scenes/snaarp-sheets/step92/Step92";
+import { runStep92, STEP92_DURATION_MS } from "@/scenes/snaarp-sheets/step92/script";
+import { Step93 } from "@/scenes/snaarp-sheets/step93/Step93";
+import { runStep93, STEP93_DURATION_MS } from "@/scenes/snaarp-sheets/step93/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -747,6 +751,18 @@ export const snaarpSheets: Tutorial = {
       title: "Format as currency",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step91, run: runStep91, durationMs: STEP91_DURATION_MS },
+    },
+    {
+      id: "tb-percent-decimals",
+      title: "Percent and decimal places",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step92, run: runStep92, durationMs: STEP92_DURATION_MS },
+    },
+    {
+      id: "tb-more-formats",
+      title: "More formats",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step93, run: runStep93, durationMs: STEP93_DURATION_MS },
     },
   ],
 };
