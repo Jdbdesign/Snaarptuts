@@ -149,7 +149,7 @@ export function FindCard({ tl }: { tl: Timeline }) {
     <div
       aria-hidden={!open}
       data-tl="find-card"
-      className={`absolute right-[28px] ${narrow ? "bottom-[150px]" : "top-[104px]"} z-40 w-[340px] rounded-[12px] border border-[#DADCE0] bg-white p-[16px] text-[#1f2430] shadow-[0_14px_40px_-8px_rgba(17,24,39,0.32)] transition-[opacity,transform] duration-200 motion-reduce:transition-none ${
+      className={`absolute right-[28px] ${narrow ? "bottom-[150px]" : "top-[104px]"} z-40 w-[372px] rounded-[12px] border border-[#DADCE0] bg-white p-[16px] text-[#1f2430] shadow-[0_14px_40px_-8px_rgba(17,24,39,0.32)] transition-[opacity,transform] duration-200 motion-reduce:transition-none ${
         open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
       }`}
     >
@@ -182,10 +182,10 @@ export function FindCard({ tl }: { tl: Timeline }) {
         ))}
       </div>
       <div className="mt-[16px] flex items-center justify-end gap-[8px]">
-        <span data-tl="find-btn" className="flex h-[32px] items-center rounded-[7px] border border-[#DADCE0] px-[14px] text-[13px] font-medium text-[#3C4043] transition-colors data-[hover=true]:bg-[#F1F3F4] data-[pressed=true]:scale-95">{D.buttons.find}</span>
-        <span data-tl="find-replace" className={`flex h-[32px] items-center rounded-[7px] border px-[14px] text-[13px] font-medium transition-colors data-[pressed=true]:scale-95 ${hits?.length ? "border-[#DADCE0] text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]" : "border-[#ECEDEF] text-[#B0B5C0]"}`}>{D.buttons.replace}</span>
-        <span data-tl="find-replace-all" className={`flex h-[32px] items-center rounded-[7px] border px-[14px] text-[13px] font-medium transition-[transform,background] data-[pressed=true]:scale-95 ${query ? "border-[#DADCE0] text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]" : "border-[#ECEDEF] text-[#B0B5C0]"}`}>{D.buttons.replaceAll}</span>
-        <span data-tl="find-done" className="flex h-[32px] items-center rounded-[7px] bg-[#188038] px-[14px] text-[13px] font-medium text-white transition-[transform,filter] data-[hover=true]:brightness-90 data-[pressed=true]:scale-95">{D.buttons.done}</span>
+        <span data-tl="find-btn" className="flex h-[32px] items-center whitespace-nowrap rounded-[7px] border border-[#DADCE0] px-[14px] text-[13px] font-medium text-[#3C4043] transition-colors data-[hover=true]:bg-[#F1F3F4] data-[pressed=true]:scale-95">{D.buttons.find}</span>
+        <span data-tl="find-replace" className={`flex h-[32px] items-center whitespace-nowrap rounded-[7px] border px-[14px] text-[13px] font-medium transition-colors data-[pressed=true]:scale-95 ${hits?.length ? "border-[#DADCE0] text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]" : "border-[#ECEDEF] text-[#B0B5C0]"}`}>{D.buttons.replace}</span>
+        <span data-tl="find-replace-all" className={`flex h-[32px] items-center whitespace-nowrap rounded-[7px] border px-[14px] text-[13px] font-medium transition-[transform,background] data-[pressed=true]:scale-95 ${query ? "border-[#DADCE0] text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]" : "border-[#ECEDEF] text-[#B0B5C0]"}`}>{D.buttons.replaceAll}</span>
+        <span data-tl="find-done" className="flex h-[32px] items-center whitespace-nowrap rounded-[7px] bg-[#188038] px-[14px] text-[13px] font-medium text-white transition-[transform,filter] data-[hover=true]:brightness-90 data-[pressed=true]:scale-95">{D.buttons.done}</span>
       </div>
     </div>
   );
