@@ -7,7 +7,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 113 - the comments icon opens the same Comments panel as View > Comments. Starts with the step 105 comment on D3 (panel closed). */
-export const STEP113_DURATION_MS = 26000;
+export const STEP113_DURATION_MS = 18700;
 
 export async function runStep113(tl: Timeline) {
   beginTb(tl, "a1");
