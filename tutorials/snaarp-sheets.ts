@@ -127,6 +127,8 @@ import { Step62 } from "@/scenes/snaarp-sheets/step62/Step62";
 import { runStep62, STEP62_DURATION_MS } from "@/scenes/snaarp-sheets/step62/script";
 import { Step63 } from "@/scenes/snaarp-sheets/step63/Step63";
 import { runStep63, STEP63_DURATION_MS } from "@/scenes/snaarp-sheets/step63/script";
+import { Step64 } from "@/scenes/snaarp-sheets/step64/Step64";
+import { runStep64, STEP64_DURATION_MS } from "@/scenes/snaarp-sheets/step64/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -520,6 +522,12 @@ export const snaarpSheets: Tutorial = {
       title: "Clear formatting",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step63, run: runStep63, durationMs: STEP63_DURATION_MS },
+    },
+    {
+      id: "format-greyed",
+      title: "Options that are not available yet",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step64, run: runStep64, durationMs: STEP64_DURATION_MS },
     },
   ],
 };
