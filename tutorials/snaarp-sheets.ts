@@ -176,6 +176,10 @@ import { Step87 } from "@/scenes/snaarp-sheets/step87/Step87";
 import { runStep87, STEP87_DURATION_MS } from "@/scenes/snaarp-sheets/step87/script";
 import { Step88 } from "@/scenes/snaarp-sheets/step88/Step88";
 import { runStep88, STEP88_DURATION_MS } from "@/scenes/snaarp-sheets/step88/script";
+import { Step89 } from "@/scenes/snaarp-sheets/step89/Step89";
+import { runStep89, STEP89_DURATION_MS } from "@/scenes/snaarp-sheets/step89/script";
+import { Step90 } from "@/scenes/snaarp-sheets/step90/Step90";
+import { runStep90, STEP90_DURATION_MS } from "@/scenes/snaarp-sheets/step90/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -723,6 +727,18 @@ export const snaarpSheets: Tutorial = {
       title: "Print your spreadsheet with the toolbar",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step88, run: runStep88, durationMs: STEP88_DURATION_MS },
+    },
+    {
+      id: "tb-paint-format",
+      title: "Copy formatting with Paint format",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step89, run: runStep89, durationMs: STEP89_DURATION_MS },
+    },
+    {
+      id: "tb-zoom",
+      title: "Change the zoom",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step90, run: runStep90, durationMs: STEP90_DURATION_MS },
     },
   ],
 };
