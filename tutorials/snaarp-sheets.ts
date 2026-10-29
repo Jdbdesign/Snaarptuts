@@ -133,6 +133,8 @@ import { Step65 } from "@/scenes/snaarp-sheets/step65/Step65";
 import { runStep65, STEP65_DURATION_MS } from "@/scenes/snaarp-sheets/step65/script";
 import { Step66 } from "@/scenes/snaarp-sheets/step66/Step66";
 import { runStep66, STEP66_DURATION_MS } from "@/scenes/snaarp-sheets/step66/script";
+import { Step67 } from "@/scenes/snaarp-sheets/step67/Step67";
+import { runStep67, STEP67_DURATION_MS } from "@/scenes/snaarp-sheets/step67/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -545,6 +547,12 @@ export const snaarpSheets: Tutorial = {
       title: "Sort the whole sheet",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step66, run: runStep66, durationMs: STEP66_DURATION_MS },
+    },
+    {
+      id: "data-sort-range",
+      title: "Sort part of a sheet",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step67, run: runStep67, durationMs: STEP67_DURATION_MS },
     },
   ],
 };
