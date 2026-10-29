@@ -234,7 +234,7 @@ import { Step116 } from "@/scenes/snaarp-sheets/step116/Step116";
 import { runStep116, STEP116_DURATION_MS } from "@/scenes/snaarp-sheets/step116/script";
 
 /**
- * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
+ * Snaarp Sheets ("How to use Snaarp Sheets"). Round 5 (steps 85-116) is the toolbar and the header tools, the last round: the completion card follows step 116. Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
  * last step in this list, so it moves by itself. Recordings (git-ignored): ref/sheets/Snaarp_Sheets_file.mp4 (File), ref/sheets/Snaarp_Sheets_edit_view.mp4 (Edit, View).
  * Step ids are the saved identity of a step (browser progress): never rename or reuse one.
  */
@@ -250,6 +250,8 @@ export const snaarpSheets: Tutorial = {
     { title: "Tools menu", from: "tools-overview" },
     { title: "Extensions menu", from: "extensions-menu" },
     { title: "Help menu", from: "help-overview" },
+    { title: "Toolbar", from: "tb-overview" },
+    { title: "Header tools", from: "hdr-apps" },
   ],
   steps: [
     {
