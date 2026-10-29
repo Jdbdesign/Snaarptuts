@@ -167,6 +167,8 @@ import { Step82 } from "@/scenes/snaarp-sheets/step82/Step82";
 import { runStep82, STEP82_DURATION_MS } from "@/scenes/snaarp-sheets/step82/script";
 import { Step83 } from "@/scenes/snaarp-sheets/step83/Step83";
 import { runStep83, STEP83_DURATION_MS } from "@/scenes/snaarp-sheets/step83/script";
+import { Step84 } from "@/scenes/snaarp-sheets/step84/Step84";
+import { runStep84, STEP84_DURATION_MS } from "@/scenes/snaarp-sheets/step84/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -684,6 +686,12 @@ export const snaarpSheets: Tutorial = {
       title: "See the keyboard shortcuts",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step83, run: runStep83, durationMs: STEP83_DURATION_MS },
+    },
+    {
+      id: "help-about",
+      title: "About Snaarp Sheets",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step84, run: runStep84, durationMs: STEP84_DURATION_MS },
     },
   ],
 };
