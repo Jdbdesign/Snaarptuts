@@ -38,6 +38,8 @@ export type Tutorial = {
   product: {
     id: string;
     name: string;
+    /** Label for the rail's product dropdown and its trigger, when it differs from `name` (for example "Sign in to Snaarp 360"). Everywhere else `name` is used. */
+    railLabel?: string;
     /** Real logo shown in the rail (a name from PRODUCT_LOGOS). Falls back to the Snaarp mark. */
     logo?: LogoName;
     /** Other words people may type to find this product in the rail search (for example "email" for Snaarp Mail). */

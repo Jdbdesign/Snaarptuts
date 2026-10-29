@@ -12,7 +12,7 @@ import type { Tutorial } from "./types";
 
 /** Steps without a `scene` appear in the rail as "Coming soon". */
 export const snaarp360: Tutorial = {
-  product: { id: "snaarp-360", name: "Snaarp 360", logo: "360", aliases: ["snaarp360"] },
+  product: { id: "snaarp-360", name: "Snaarp 360", railLabel: "Sign in to Snaarp 360", logo: "360", aliases: ["snaarp360", "sign in"] },
   steps: [
     {
       id: "choose-plan",

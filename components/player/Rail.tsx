@@ -25,6 +25,8 @@ type Props = {
   searchFocus: number;
 };
 
+const railLabel = (t: Tutorial) => t.product.railLabel ?? t.product.name;
+
 export function Rail({ tutorial, current, done, ready, playing, onSelect, onCollapse, searchFocus }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
   const listRef = useRef<HTMLOListElement>(null);
@@ -74,12 +76,14 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
             onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={dropdownOpen}
             aria-haspopup="listbox"
-            className={`group flex h-14 w-full items-center gap-2.5 rounded-none border bg-white pl-3 pr-2 text-left outline-none transition-colors ${
+            className={`group flex h-14 w-full items-center gap-2.5 rounded-none border-2 bg-white pl-3 pr-2 text-left outline-none transition-colors ${
               dropdownOpen ? "border-brand/40" : "border-[#E4D7F9]"
             }`}
           >
             <ProductMark tutorial={tutorial} size={32} />
-            <span className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink">{tutorial.product.name}</span>
+            <span title={railLabel(tutorial)} className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink">
+              {railLabel(tutorial)}
+            </span>
             <span className={`shrink-0 whitespace-nowrap text-[12px] text-muted ${countClass}`}>
               {doneCount}/{tutorial.steps.length}
             </span>
@@ -95,7 +99,7 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
           {dropdownOpen && (
             <ul
               role="listbox"
-              className="absolute left-0 right-0 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border border-line bg-white p-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
+              className="absolute left-0 right-0 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border-2 border-line bg-white p-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
             >
               {tutorials.map((t) => {
                 const active = t.product.id === tutorial.product.id;
@@ -109,7 +113,9 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
                       }`}
                     >
                       <ProductMark tutorial={t} size={24} />
-                      <span className="min-w-0 flex-1 truncate">{t.product.name}</span>
+                      <span title={railLabel(t)} className="min-w-0 flex-1 truncate">
+                        {railLabel(t)}
+                      </span>
                       <span className={`text-[12px] text-muted ${countClass}`}>
                         {completedCount(store, t.product.id, t.steps.map((x) => x.id))}/{t.steps.length}
                       </span>
@@ -122,7 +128,7 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
         </div>
 
         {/* This product's own modules (steps). */}
-        <ol ref={listRef} className="-mt-px flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto rounded-none border border-t-0 border-[#E4D7F9] p-2">
+        <ol ref={listRef} className="-mt-px flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto rounded-none border-2 border-t-0 border-[#E4D7F9] p-2">
           {tutorial.steps.map((s, i) => {
             const built = !!s.scene;
             const isActive = built && playing && i === current;
