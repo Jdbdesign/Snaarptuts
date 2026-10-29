@@ -151,6 +151,8 @@ import { Step74 } from "@/scenes/snaarp-sheets/step74/Step74";
 import { runStep74, STEP74_DURATION_MS } from "@/scenes/snaarp-sheets/step74/script";
 import { Step75 } from "@/scenes/snaarp-sheets/step75/Step75";
 import { runStep75, STEP75_DURATION_MS } from "@/scenes/snaarp-sheets/step75/script";
+import { Step76 } from "@/scenes/snaarp-sheets/step76/Step76";
+import { runStep76, STEP76_DURATION_MS } from "@/scenes/snaarp-sheets/step76/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -618,6 +620,12 @@ export const snaarpSheets: Tutorial = {
       title: "Record a macro",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step75, run: runStep75, durationMs: STEP75_DURATION_MS },
+    },
+    {
+      id: "tools-manage-macros",
+      title: "Run and delete a macro",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step76, run: runStep76, durationMs: STEP76_DURATION_MS },
     },
   ],
 };

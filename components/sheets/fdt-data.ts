@@ -235,6 +235,7 @@ export const MACRO = {
   start: "Start Recording",
   recording: "Recording…",
   stop: "Stop",
+  stopped: (n: number) => `Recorded ${n} steps`,
   cancel: "Cancel",
   save: "Save Macro",
   sampleName: "Format Header Row",

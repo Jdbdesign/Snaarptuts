@@ -165,8 +165,8 @@ export function MacroDialog({ tl }: { tl: Timeline }) {
               ) : (
                 <div>
                   <div className="mb-[8px] flex items-center justify-between">
-                    <span className="flex items-center gap-[6px] text-[12px] font-medium text-[#C5221F]">{rec === "rec" && <i className="h-[8px] w-[8px] animate-pulse rounded-full bg-[#E5484D]" />}{MACRO.recording}</span>
-                    <span data-tl="mac-record" className="flex h-[24px] items-center gap-[5px] rounded-[6px] border border-[#DADCE0] bg-white px-[9px] text-[12px] text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]"><i className="h-[8px] w-[8px] rounded-[2px] bg-[#5F6368]" />{MACRO.stop}</span>
+                    <span className={`flex items-center gap-[6px] text-[12px] font-medium ${rec === "rec" ? "text-[#C5221F]" : "text-[#1E8E3E]"}`}>{rec === "rec" ? <i className="h-[8px] w-[8px] animate-pulse rounded-full bg-[#E5484D]" /> : <Icon name="circleCheck" size={13} />}{rec === "rec" ? MACRO.recording : MACRO.stopped(MACRO.steps.length)}</span>
+                    {rec === "rec" && <span data-tl="mac-record" className="flex h-[24px] items-center gap-[5px] rounded-[6px] border border-[#DADCE0] bg-white px-[9px] text-[12px] text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]"><i className="h-[8px] w-[8px] rounded-[2px] bg-[#5F6368]" />{MACRO.stop}</span>}
                   </div>
                   <ol data-tl="mac-steps" className="flex flex-col gap-[3px] text-[12.5px] text-[#3C4043]">
                     {MACRO.steps.slice(0, shown).map((s, i) => (
