@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS, W102 } from "./data";
 
 /** Snaarp Sheets, step 102 - Text wrapping: Overflow, Wrap, Clip on a long note (K7). Starts with that note made longer. */
-export const STEP102_DURATION_MS = 40000;
+export const STEP102_DURATION_MS = 30700;
 
 export async function runStep102(tl: Timeline) {
   beginTb(tl, "a1");
