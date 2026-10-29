@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS, CM105 } from "./data";
 
 /** Snaarp Sheets, step 105 - Insert comment on D3 with an @mention. Starts with A1 selected. */
-export const STEP105_DURATION_MS = 30000;
+export const STEP105_DURATION_MS = 20600;
 
 export async function runStep105(tl: Timeline) {
   beginTb(tl, "a1");
