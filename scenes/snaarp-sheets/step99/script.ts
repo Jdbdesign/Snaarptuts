@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS, M99 } from "./data";
 
 /** Snaarp Sheets, step 99 - Merge cells: Merge all on a title, vertically, horizontally, then Unmerge. Starts with a title row above the table (the table moves down one row). */
-export const STEP99_DURATION_MS = 60000;
+export const STEP99_DURATION_MS = 48800;
 
 export async function runStep99(tl: Timeline) {
   beginTb(tl, "a1");
