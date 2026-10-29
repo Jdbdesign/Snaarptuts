@@ -115,6 +115,8 @@ import { Step56 } from "@/scenes/snaarp-sheets/step56/Step56";
 import { runStep56, STEP56_DURATION_MS } from "@/scenes/snaarp-sheets/step56/script";
 import { Step57 } from "@/scenes/snaarp-sheets/step57/Step57";
 import { runStep57, STEP57_DURATION_MS } from "@/scenes/snaarp-sheets/step57/script";
+import { Step58 } from "@/scenes/snaarp-sheets/step58/Step58";
+import { runStep58, STEP58_DURATION_MS } from "@/scenes/snaarp-sheets/step58/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -472,6 +474,12 @@ export const snaarpSheets: Tutorial = {
       title: "Number formats",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step57, run: runStep57, durationMs: STEP57_DURATION_MS },
+    },
+    {
+      id: "format-text-styles",
+      title: "Bold, italic, underline and strikethrough",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step58, run: runStep58, durationMs: STEP58_DURATION_MS },
     },
   ],
 };
