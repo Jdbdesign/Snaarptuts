@@ -159,6 +159,8 @@ import { Step78 } from "@/scenes/snaarp-sheets/step78/Step78";
 import { runStep78, STEP78_DURATION_MS } from "@/scenes/snaarp-sheets/step78/script";
 import { Step79 } from "@/scenes/snaarp-sheets/step79/Step79";
 import { runStep79, STEP79_DURATION_MS } from "@/scenes/snaarp-sheets/step79/script";
+import { Step80 } from "@/scenes/snaarp-sheets/step80/Step80";
+import { runStep80, STEP80_DURATION_MS } from "@/scenes/snaarp-sheets/step80/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -650,6 +652,12 @@ export const snaarpSheets: Tutorial = {
       title: "Set your notifications",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step79, run: runStep79, durationMs: STEP79_DURATION_MS },
+    },
+    {
+      id: "tools-accessibility",
+      title: "Accessibility options",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step80, run: runStep80, durationMs: STEP80_DURATION_MS },
     },
   ],
 };
