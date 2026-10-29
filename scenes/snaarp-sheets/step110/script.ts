@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 110 - the More (three dots) button: the toolbar is collapsed (a narrow window) and More holds the tools that no longer fit. Starts with A1 selected. */
-export const STEP110_DURATION_MS = 34000;
+export const STEP110_DURATION_MS = 23400;
 
 export async function runStep110(tl: Timeline) {
   beginTb(tl, "a1");
