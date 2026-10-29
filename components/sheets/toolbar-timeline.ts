@@ -9,6 +9,7 @@ import { closeDialog, pressOn } from "./sheets-timeline";
 import { setLook } from "./fdt-state";
 import { bumpDecimals, copyLook, mergeCells, paintLook, setBorders, setColour, setTbFormat, type Look } from "./toolbar-state";
 import { BORDER_COLOR, TB_SAMPLE, TB_URL } from "./toolbar-data";
+import { formatValue } from "./number-format";
 import type { BorderLine } from "./sheets-data";
 
 /*
@@ -214,4 +215,18 @@ export async function hoverHeader(tl: Timeline, id: string, opts: { ms?: number;
 export function closeHeaderMenu(tl: Timeline) {
   tl.hover(null);
   tl.setVar("hdrMenu", "");
+}
+
+/** Click a cell and type a number into it: the cell keeps its format (so £400.00 stays a pound amount) and the Total follows. */
+export async function typeNumber(tl: Timeline, ref: string, value: number, opts: { msPerChar?: number } = {}) {
+  const [r, c] = parseRef(ref);
+  await clickCellTb(tl, ref);
+  tl.setVar("field:cell", "");
+  tl.setVar("cellEdit", { r, c });
+  await tl.typeText("cell", String(value), { msPerChar: opts.msPerChar ?? 140 });
+  await tl.wait(350);
+  const old = obj(getRows(tl)[r]?.[c]);
+  commit(tl, setCell(getRows(tl), r, c, { ...old, num: value, text: formatValue(value, old.nf ?? "automatic", old.dp) }));
+  tl.setVar("cellEdit", null);
+  tl.setVar("field:cell", "");
 }
