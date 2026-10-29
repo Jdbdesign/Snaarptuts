@@ -2,6 +2,8 @@ import { formatGBP } from "@/lib/money";
 import { EDIT_SAMPLE } from "./edit-view-data";
 import { INSERT_BODY, INSERT_FORECAST_ROWS, INSERT_HEADER, INSERT_SAMPLE, money } from "./insert-data";
 import { recalc } from "./grid-state";
+import { FDT } from "./fdt-data";
+import { formatNum } from "./fdt-state";
 import {
   BUDGET_HEADER,
   BUDGET_ROWS,
@@ -13,7 +15,7 @@ import {
 } from "./sheets-data";
 
 /** One tab of the workbook: its name and the cells (row by row, starting at A1). */
-export type SheetModel = { id: string; name: string; rows: Cell[][]; /** Column widths in px (default 86 each), for imported data with long values. */ widths?: number[] };
+export type SheetModel = { id: string; name: string; rows: Cell[][]; /** Data > Protected sheets: a lock beside the tab name. */ locked?: boolean; /** Column widths in px (default 86 each), for imported data with long values. */ widths?: number[] };
 
 /** A whole workbook on screen: the title and its tabs. */
 export type Workbook = { title: string; sheets: SheetModel[] };
@@ -61,3 +63,24 @@ export function insertRows(): Cell[][] {
 }
 export const FORECAST_SHEET: SheetModel = { id: "s2", name: INSERT_SAMPLE.tabs.forecast, rows: INSERT_FORECAST_ROWS.map((r, i) => r.map((text, j) => (i === 0 ? { text, bold: true } : j === 1 ? { text, align: "right" as const } : text))) };
 export const INSERT_BOOK: Workbook = { title: SHEET.budget, sheets: [{ id: "s1", name: SHEET.tab, rows: insertRows() }, FORECAST_SHEET] };
+
+/**
+ * The Format, Data, Tools, Extensions and Help steps' sheet (steps 56-84): the Acme Studio budget with a due date, an amount, a rate,
+ * a length and a long note, so each menu has something to act on. The header row is plain on purpose (the steps format it).
+ */
+export function fdtRows(): Cell[][] {
+  const header: Cell[] = FDT.header.map((text) => text);
+  const body: Cell[][] = FDT.body.map((r, i) => [
+    r.item,
+    r.owner,
+    { text: formatGBP(r.cost, { whole: true }), align: "right" },
+    r.status,
+    { text: formatNum(r.due, "date"), num: r.due, nf: "date", align: "right" },
+    { text: String(r.amount), num: r.amount, align: "right" },
+    { text: String(r.rate), num: r.rate, align: "right" },
+    i === 0 ? { text: String(FDT.lengthDay), num: FDT.lengthDay, align: "right" } : "",
+    r.note,
+  ]);
+  return [header, ...body];
+}
+export const FDT_BOOK: Workbook = { title: SHEET.budget, sheets: [{ id: "s1", name: FDT.tab, rows: fdtRows(), widths: FDT.widths }] };

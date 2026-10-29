@@ -43,6 +43,10 @@ type Props = {
   canRedo?: boolean;
   /** View > Full screen: the title row goes away and the sheet gets the room. */
   fullScreen?: boolean;
+  /** A bar between the formula bar and the grid (the open filter view). */
+  gridTop?: ReactNode;
+  /** The Name box: a label that replaces the range (a named range) and the list its arrow opens. */
+  nameBox?: { label?: string; open: boolean; list: { name: string; ref: string }[] };
 };
 
 /**
@@ -50,7 +54,7 @@ type Props = {
  * formula bar, the grid with its row and column headers, and the sheet tabs. Sizes are the recording's (about 1450 px wide).
  * Hooks: sheet-title, sheet-star, editor-menu-<id>, sheet-toolbar, sheet-grid, cell-a1, sheet-tab-<id>, sheet-add-tab, editor-share, sheet-notice, sheet-side.
  */
-export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, sidePanel, panelOpen = false, panelWidth = 272, offline = false, trashed = false, notice = "", overlay, menuSlots, grid, formulaBar = true, zoomLabel, canUndo = false, canRedo = false, fullScreen = false }: Props) {
+export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, sidePanel, panelOpen = false, panelWidth = 272, offline = false, trashed = false, notice = "", overlay, menuSlots, grid, formulaBar = true, zoomLabel, canUndo = false, canRedo = false, fullScreen = false, gridTop, nameBox }: Props) {
   const narrow = useNarrow();
   const current = sheets.find((s) => s.id === activeSheet) ?? sheets[0];
   const sel = sorted(grid?.sel ?? single(0, 0));
@@ -121,14 +125,30 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
 
         {/* Name box and formula bar */}
         <div data-tl="formula-bar" className={`flex shrink-0 items-center overflow-hidden border-[#E3E5EA] text-[13px] transition-[height] duration-200 motion-reduce:transition-none ${formulaBar ? "h-[28px] border-b" : "h-0"}`}>
-          <span className="ml-[3px] flex h-[22px] w-[66px] shrink-0 items-center justify-between rounded-[4px] bg-[#F1F3F4] pl-[8px] pr-[6px] text-[12.5px] text-[#202124]">
-            {rangeRef(sel as Range)}
-            <Icon name="chevronDown" size={9} className="text-[#5F6368]" />
+          <span data-tl="name-box" className="relative ml-[3px] flex h-[22px] w-[66px] shrink-0 items-center justify-between rounded-[4px] bg-[#F1F3F4] pl-[8px] pr-[6px] text-[12.5px] text-[#202124]">
+            <span className="truncate">{nameBox?.label ?? rangeRef(sel as Range)}</span>
+            <Icon name="chevronDown" size={9} className="shrink-0 text-[#5F6368]" data-tl="name-box-arrow" />
+            {nameBox && (
+              <span
+                data-tl="name-box-list"
+                aria-hidden={!nameBox.open}
+                className={`absolute left-0 top-[26px] z-30 w-[190px] rounded-[8px] border border-[#E6E8EC] bg-white py-[5px] shadow-[0_8px_24px_-6px_rgba(17,24,39,0.3)] transition-opacity duration-150 ${nameBox.open ? "opacity-100" : "pointer-events-none opacity-0"}`}
+              >
+                <span className="block px-[12px] pb-[3px] text-[11px] text-[#80868B]">Named ranges</span>
+                {nameBox.list.map((n) => (
+                  <span key={n.name} data-tl={`name-item-${n.name.toLowerCase()}`} className="flex items-center justify-between px-[12px] py-[5px] text-[12.5px] data-[hover=true]:bg-[#F1F3F4]">
+                    {n.name}
+                    <span className="text-[11.5px] text-[#80868B]">{n.ref}</span>
+                  </span>
+                ))}
+              </span>
+            )}
           </span>
           <span className="ml-[10px] mr-[10px] text-[12px] italic text-[#80868B]" style={{ fontFamily: "Georgia, serif" }}>fx</span>
           <span className="truncate text-[13px] text-[#202124]">{bar}</span>
         </div>
 
+        {gridTop}
         {/* Grid + side panel */}
         <div className="flex min-h-0 flex-1">
           <div className="relative min-w-0 flex-1 overflow-hidden" data-tl="sheet-grid">
@@ -166,6 +186,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
                 data-tl={`sheet-tab-${s.id}`}
                 className={`flex h-[30px] items-center gap-[6px] px-[12px] transition-colors ${s.id === current?.id ? "bg-white font-medium text-[#1C3F94] shadow-[inset_0_-2px_0_#2563EB]" : "text-[#4b5060]"}`}
               >
+                {s.locked && <Icon name="lock" size={11} className="text-[#5F6368]" data-tl={`sheet-lock-${s.id}`} />}
                 {s.name}
                 <Icon name="chevronDown" size={8} className="text-[#80868B]" />
               </span>
@@ -202,7 +223,7 @@ const TOOLS: Tool[] = [
   { x: 586, icon: "edStrike" },
   { x: 611, icon: "edUnderline" },
   { x: 637, icon: "edTextColor" },
-  { x: 663, icon: "edHighlight" },
+  { x: 663, icon: "edHighlight", id: "highlight" },
   { x: 699, icon: "edTable", caret: true },
   { x: 733, icon: "shMerge", caret: true },
   { x: 773, icon: "edAlignL", caret: true },

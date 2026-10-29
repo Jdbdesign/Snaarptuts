@@ -30,7 +30,23 @@ export type CellChip = { kind: "dropdown" | "people" | "date" | "place" | "file"
  * `image` is a picture drawn inside the cell (its source stays in `formula` as the =IMAGE(...) the formula bar shows), `box` a
  * checkbox, `chip` a dropdown or smart chip, `link` where a link points, `fx` shows the formula (not the value) in the formula bar, and `note` the text of a note (a small marker on the cell).
  */
-export type Cell = string | { text: string; bold?: boolean; align?: "right"; fill?: string; formula?: string; image?: string; box?: "on" | "off"; chip?: CellChip; link?: string; note?: string; fx?: boolean };
+export type CellLook = {
+  italic?: boolean;
+  underline?: boolean;
+  strike?: boolean;
+  /** Font size in points (default 10). */
+  size?: number;
+  valign?: "top" | "middle" | "bottom";
+  /** Format > Wrapping: text spills into empty neighbours, wraps inside the cell (the row grows) or is cut off. */
+  wrap?: "overflow" | "wrap" | "clip";
+  /** Format > Rotation. */
+  rotate?: "tiltup" | "tiltdown" | "stack" | "up";
+  /** A number (a date or time is a serial day count) and the Format > Number id that decides how `text` shows it. */
+  num?: number;
+  nf?: string;
+  nfCustom?: string;
+};
+export type Cell = string | ({ text: string; bold?: boolean; align?: "left" | "center" | "right"; fill?: string; formula?: string; image?: string; box?: "on" | "off"; chip?: CellChip; link?: string; note?: string; fx?: boolean } & CellLook);
 
 /** Budget: columns Item | Owner | Cost | Status. Costs are numbers, shown with formatGBP. */
 export const BUDGET_ROWS: { item: string; owner: string; cost: number; status: string }[] = [

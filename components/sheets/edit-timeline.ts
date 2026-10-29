@@ -255,7 +255,11 @@ export function toggleGroup(tl: Timeline, axis: "rows" | "cols") {
   if (span) tl.setVar("groups", { ...g, [axis]: { ...span, collapsed: !span.collapsed } });
 }
 
+/** Menus built in later rounds (Format, Data, Tools...) register what their rows do here; a handler returns true when it took the row. */
+export const EXTRA_ACTIONS: ((tl: Timeline, id: string) => boolean)[] = [];
+
 export function runAction(tl: Timeline, id: string) {
+  for (const handle of EXTRA_ACTIONS) if (handle(tl, id)) return;
   const rows = getRows(tl);
   const s = getSel(tl);
   const groups = tl.getVar<Groups>("groups", NO_GROUPS);

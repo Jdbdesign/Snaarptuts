@@ -20,6 +20,7 @@ export type DdOption = { label: string; tone: string };
  */
 export function ValidationPanel({ tl }: { tl: Timeline }) {
   const dv = useTimelineVar<DvState>(tl, "dv", DEFAULT_DV);
+  const rangeText = useTimelineVar(tl, "dvRange", "") || DROPDOWN.rangeText;
   return (
     <div data-tl="dv-panel" className="flex h-full flex-col bg-white text-[#1f2430]" style={{ width: CHART_PANEL_W }}>
       <div className="flex shrink-0 items-center justify-between px-[16px] pb-[8px] pt-[14px]">
@@ -29,7 +30,7 @@ export function ValidationPanel({ tl }: { tl: Timeline }) {
       <div data-tl="dv-scroll" className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-[16px] pb-[12px]">
         <p className="mb-[4px] mt-[6px] text-[11px] text-[#5F6368]">{DROPDOWN.rangeLabel}</p>
         <div data-tl="dv-range" className="flex h-[32px] items-center justify-between rounded-[6px] border border-[#DADCE0] px-[10px] text-[12.5px]">
-          {DROPDOWN.rangeText}
+          {rangeText}
           <Icon name="shGrid" size={14} className="text-[#5F6368]" />
         </div>
         <p className="mb-[4px] mt-[12px] text-[11px] text-[#5F6368]">{DROPDOWN.criteria}</p>

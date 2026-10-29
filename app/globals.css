@@ -350,3 +350,6 @@ button {
   stroke: #fff;
   stroke-width: 3;
 }
+
+/* Tools > Accessibility > Reduce motion (Snaarp Sheets): the sheet stops animating */
+[data-reduce-motion="on"] *, [data-reduce-motion="on"] *::before, [data-reduce-motion="on"] *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }

@@ -1,9 +1,9 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Icon } from "@/components/icons";
 import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
-import { colLabel, obj, refOf, single, sorted, type Range, type Rows } from "./grid-state";
+import { colLabel, obj, refOf, single, sorted, type CellObj, type Range, type Rows } from "./grid-state";
 
 export const COL_W = 86;
 export const ROW_H = 21.5;
@@ -28,7 +28,7 @@ export type GridProps = {
   /** The cells a formula points at: an orange outline (Insert > Function). */
   refRange?: Range | null;
   /** A cell being typed into. */
-  edit?: { r: number; c: number; text: string } | null;
+  edit?: { r: number; c: number; text: string; /** Autocomplete's grey suggestion after the typed text. */ ghost?: string } | null;
   /** Find matches, and which one is current. */
   hits?: [number, number][];
   hitNow?: number;
@@ -46,6 +46,14 @@ export type GridProps = {
   /** Taller rows (a picture in a cell), by row index, in px. */
   rowHeights?: Record<number, number>;
   floaters?: Floater[];
+  /** Rows a filter hides, the header columns that show a filter button (and which of them filter), and the rows whose numbers turn blue. */
+  hiddenRows?: Set<number>;
+  filterCols?: number[];
+  filteredCols?: number[];
+  filterRows?: [number, number] | null;
+  /** Tools > Accessibility: bigger text and rows, and stronger lines and text. */
+  large?: boolean;
+  contrast?: boolean;
 };
 
 const CHIP_ICONS = { dropdown: "shDropdown", people: "user", date: "shCalendar", place: "shPin", file: "shFile", finance: "shCoin", event: "shCalendar" } as const;
@@ -76,6 +84,12 @@ export function SheetGrid({
   groups = { rows: null, cols: null },
   rowHeights,
   floaters = [],
+  hiddenRows: hidden,
+  filterCols = [],
+  filteredCols = [],
+  filterRows = null,
+  large = false,
+  contrast = false,
 }: GridProps) {
   const z = zoom / 100;
   const rowCount = z < 1 ? 100 : ROW_COUNT;
@@ -84,10 +98,10 @@ export function SheetGrid({
   const a = ants ? sorted(ants) : null;
   const rr = refRange ? sorted(refRange) : null;
   const w = (c: number) => widths?.[c] ?? COL_W;
-  const line = gridlines ? "#E2E3E3" : "transparent";
+  const line = gridlines ? (contrast ? "#3C4043" : "#E2E3E3") : "transparent";
   const headLine = "#DADCE0";
 
-  const hiddenRow = (r: number) => !!groups.rows?.collapsed && within(groups.rows, r);
+  const hiddenRow = (r: number) => (!!groups.rows?.collapsed && within(groups.rows, r)) || !!hidden?.has(r);
   const hiddenCol = (c: number) => !!groups.cols?.collapsed && within(groups.cols, c);
   const rowIdx: number[] = [];
   for (let r = 0; r < rowCount; r++) if (!hiddenRow(r) && (r < frozenRows || r >= frozenRows + scrollRow)) rowIdx.push(r);
@@ -98,13 +112,14 @@ export function SheetGrid({
   const hasRowGroup = !!groups.rows;
   const hasColGroup = !!groups.cols;
   const gut = hasRowGroup ? GUTTER_W : 0;
-  const rh = (r: number) => rowHeights?.[r] ?? ROW_H;
+  const baseRow = large ? 28 : ROW_H;
+  const rh = (r: number) => rowHeights?.[r] ?? baseRow;
 
   return (
     <div
       data-tl="sheet-grid-inner"
       className="absolute left-0 top-0 select-none text-[13px]"
-      style={{ fontFamily: "Arial, Helvetica, sans-serif", zoom: z, width: `${100 / z}%`, height: `${100 / z}%` }}
+      style={{ fontFamily: "Arial, Helvetica, sans-serif", zoom: z, width: `${100 / z}%`, height: `${100 / z}%`, fontSize: large ? 16 : undefined, color: contrast ? "#000" : undefined }}
     >
       {/* column group band */}
       {hasColGroup && (
@@ -149,7 +164,7 @@ export function SheetGrid({
             {hasRowGroup && <GroupGutter span={groups.rows!} r={r} />}
             <span
               data-tl={`rowhead-${r + 1}`}
-              className={`flex shrink-0 items-center justify-center border-r bg-[#F8F9FA] text-[11.5px] ${r >= s.r1 && r <= s.r2 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : "text-[#5F6368]"}`}
+              className={`flex shrink-0 items-center justify-center border-r bg-[#F8F9FA] text-[11.5px] ${r >= s.r1 && r <= s.r2 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : filterRows && r >= filterRows[0] && r <= filterRows[1] ? "font-medium text-[#1A73E8]" : "text-[#5F6368]"}`}
               style={{ width: HEAD_W, borderColor: headLine }}
             >
               {r + 1}
@@ -169,9 +184,12 @@ export function SheetGrid({
                 <span
                   key={c}
                   data-tl={`cell-${refOf(r, c).toLowerCase()}`}
-                  className={`relative block shrink-0 overflow-hidden whitespace-nowrap border-r px-[4px] text-[#202124] ${o.bold ? "font-semibold" : ""} ${o.align === "right" ? "text-right" : ""} ${o.link ? "text-[#1155CC] underline" : ""}`}
+                  className={`relative block shrink-0 whitespace-nowrap border-r px-[4px] text-[#202124] ${o.wrap === "overflow" ? "z-[2] overflow-visible" : "overflow-hidden"} ${o.bold ? "font-semibold" : ""} ${o.italic ? "italic" : ""} ${o.align === "right" ? "text-right" : o.align === "center" ? "text-center" : ""} ${o.link ? "text-[#1155CC] underline" : ""} ${o.underline || o.strike ? "" : ""}`}
                   style={{
                     width: w(c),
+                    fontSize: o.size ? o.size * 1.3 : undefined,
+                    textDecoration: [o.underline && "underline", o.strike && "line-through"].filter(Boolean).join(" ") || undefined,
+                    paddingRight: filterCols.includes(c) && r === 0 ? 20 : undefined,
                     lineHeight: `${rh(r) - 1}px`,
                     borderColor: frozenEdge ? BLUE : line,
                     borderRightWidth: frozenEdge ? 2 : 1,
@@ -182,6 +200,7 @@ export function SheetGrid({
                     <span className="relative z-10 text-left">
                       {edit.text}
                       <i className="ml-px inline-block h-[14px] w-px translate-y-[2px] bg-[#202124]" style={{ animation: "caret-blink 1s steps(1) infinite" }} />
+                      {edit.ghost && <span data-tl="autocomplete-ghost" className="text-[#9AA0A6]">{edit.ghost}</span>}
                     </span>
                   ) : o.box ? (
                     <span className="flex h-full items-center justify-center">
@@ -200,7 +219,12 @@ export function SheetGrid({
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={o.image} alt="" className="absolute inset-[2px] h-[calc(100%-4px)] w-[calc(100%-4px)] object-contain" />
                   ) : (
-                    text
+                    <CellText o={o} text={text} />
+                  )}
+                  {r === 0 && filterCols.includes(c) && (
+                    <span data-tl={`filter-btn-${c}`} className={`absolute right-[2px] top-1/2 flex h-[16px] w-[16px] -translate-y-1/2 items-center justify-center rounded-[3px] transition-colors data-[hover=true]:bg-[#DCE6FA] ${filteredCols.includes(c) ? "bg-[#C8E6C9] text-[#137333]" : "text-[#5F6368]"}`}>
+                      <Icon name="shFilter" size={11} />
+                    </span>
                   )}
                   {inSel && multi && !active && <i className="pointer-events-none absolute inset-0" style={{ backgroundColor: "rgba(37,99,235,0.13)" }} />}
                   {inSel && (
@@ -283,5 +307,24 @@ function Ants({ top, bottom, left, right }: { top: boolean; bottom: boolean; lef
         ) : null,
       )}
     </svg>
+  );
+}
+
+/** The text of a cell. Plain cells are one clipped line; wrapped, vertically aligned and rotated cells are laid out inside the cell. */
+function CellText({ o, text }: { o: CellObj; text: string }) {
+  if (!(o.wrap === "wrap" || o.valign || o.rotate)) return <>{text}</>;
+  const justify = o.align === "right" ? "flex-end" : o.align === "center" ? "center" : "flex-start";
+  const rot = o.rotate;
+  const items = rot === "tiltup" || rot === "up" ? "flex-end" : rot === "tiltdown" ? "flex-start" : o.valign === "top" ? "flex-start" : o.valign === "bottom" ? "flex-end" : "center";
+  const inner: CSSProperties =
+    rot === "tiltup" ? { transform: "rotate(-45deg)", transformOrigin: "left bottom", whiteSpace: "nowrap", marginBottom: 2 }
+    : rot === "tiltdown" ? { transform: "rotate(45deg)", transformOrigin: "left top", whiteSpace: "nowrap", marginTop: 2 }
+    : rot === "up" ? { writingMode: "vertical-rl", transform: "rotate(180deg)", whiteSpace: "nowrap" }
+    : rot === "stack" ? { writingMode: "vertical-lr", textOrientation: "upright", whiteSpace: "nowrap", letterSpacing: "-1px" }
+    : { whiteSpace: o.wrap === "wrap" ? "normal" : "nowrap" };
+  return (
+    <span className="flex h-full w-full" style={{ alignItems: items, justifyContent: rot === "up" || rot === "stack" ? "center" : justify }}>
+      <span style={{ lineHeight: 1.25, textAlign: o.align === "center" ? "center" : o.align === "right" ? "right" : "left", ...inner }}>{text}</span>
+    </span>
   );
 }

@@ -16,7 +16,7 @@ import { CommentsPanel, FindCard } from "./EditViewPanels";
 import { SheetMenu, type MenuState } from "./SheetMenu";
 import { FULLSCREEN } from "./edit-view-data";
 import { SHEETS_NARROW_ZOOM } from "./SheetsEditor";
-import { single, type Range } from "./grid-state";
+import { obj, single, type Range } from "./grid-state";
 import type { Floater, Groups } from "./SheetGrid";
 import { ChartEditor, CHART_PANEL_W } from "./ChartEditor";
 import { ChartGraphic, CHART_H, CHART_W } from "./ChartGraphic";
@@ -27,6 +27,10 @@ import { SmartChipDialog } from "./SmartChipDialog";
 import { CommentBox, NoteDialog, NoteTip, type CommentPop } from "./dialogs-insert";
 import { FunctionCard, InsertImageDialog, LinkChipView, LinkPopover, type LinkChip, type LinkPop } from "./dialogs-insert";
 import type { Clip, EditHistory } from "./edit-timeline";
+import { AboutDialog, AccessibilityDialog, CustomFormatDialog, DEFAULT_A11Y, FilterPopup, FilterViewBar, ManageMacrosDialog, MacroDialog, NameRangeDialog, NotificationDialog, PaletteDialog, ProtectDialog, ProtectMessage, RangeEndDialog, ShortcutsDialog, SpellingDialog, type A11yState } from "./FdtDialogs";
+import { autoRowHeights, hiddenRows, NO_FILTER, suggestion, type FilterState } from "./fdt-state";
+import type { FView, Named } from "./fdt-timeline";
+import { FDT } from "./fdt-data";
 import type { Rows } from "./grid-state";
 
 // Stable fallbacks: useTimelineVar needs the same object every render.
@@ -36,6 +40,9 @@ const NO_CELLS: string[] = [];
 const NO_GROUPS: Groups = { rows: null, cols: null };
 const NO_ROW_HEIGHTS: Record<number, number> = {};
 const NO_OPTIONS: DdOption[] = [];
+const NO_VIEWS: FView[] = [];
+const NO_NAMES: Named[] = [];
+const ALL_COLS = Array.from({ length: FDT.header.length }, (_, i) => i);
 const NO_HISTORY: EditHistory = { past: [], future: [] };
 
 /**
@@ -113,8 +120,27 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   const ddPop = useTimelineVar<DdPop | null>(tl, "ddPop", null);
   const ddOptions = useTimelineVar<DdOption[]>(tl, "ddOptions", NO_OPTIONS);
   // Insert > Comment and Note: the comment box beside a cell, and the note that shows while a cell is hovered
+  // Format, Data, Tools and Help (steps 56-84): filters, named ranges, protection, accessibility, autocomplete
+  const filter = useTimelineVar<FilterState>(tl, "filter", NO_FILTER);
+  const fviews = useTimelineVar<FView[]>(tl, "fviews", NO_VIEWS);
+  const fvBar = useTimelineVar<string | null>(tl, "fvBar", null);
+  const fpCol = useTimelineVar(tl, "fpCol", -1);
+  const nameList = useTimelineVar<Named[]>(tl, "nameList", NO_NAMES);
+  const nameOpen = useTimelineVar(tl, "nameOpen", false);
+  const nameLabel = useTimelineVar(tl, "nameLabel", "");
+  const protMsg = useTimelineVar<{ r: number; c: number } | null>(tl, "protMsg", null);
+  const a11y = useTimelineVar<A11yState>(tl, "a11y", DEFAULT_A11Y);
+  const acOn = useTimelineVar(tl, "acOn", true);
   const commentPop = useTimelineVar<CommentPop | null>(tl, "commentPop", null);
   const noteTip = useTimelineVar<{ r: number; c: number; text: string } | null>(tl, "noteTip", null);
+  const active = sheets.find((x) => x.id === activeSheet) ?? sheets[0];
+  const shownRows = autoRowHeights(active?.rows ?? [], active?.widths);
+  const rowH = { ...shownRows, ...rowHeights };
+  const hidden = hiddenRows(active?.rows ?? [], filter);
+  const filtering = filter.on && sheets[0]?.rows.length > 0;
+  const filteredCols = Object.entries(filter.hidden).filter(([, v]) => v.length).map(([k]) => Number(k));
+  const cellNow = obj(active?.rows[sel.r1]?.[sel.c1]);
+  const ghost = acOn && cellEdit ? suggestion(active?.rows ?? [], cellEdit.c, cellText) : "";
   const floaters: Floater[] =
     liveChart && activeSheet === sheets[0]?.id
       ? [
@@ -135,6 +161,8 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
 
   if (ddPop && activeSheet === sheets[0]?.id) floaters.push({ id: "dd", r: ddPop.r + 1, c: ddPop.c, w: 150, h: 40 + ddOptions.length * 28, node: <DropdownList options={ddOptions} /> });
 
+  if (fpCol >= 0 && activeSheet === sheets[0]?.id) floaters.push({ id: "fpop", r: 1, c: fpCol, w: 220, h: 230, node: <FilterPopup tl={tl} /> });
+  if (protMsg && activeSheet === sheets[0]?.id) floaters.push({ id: "protmsg", r: protMsg.r, c: protMsg.c + 1, w: 210, h: 56, node: <ProtectMessage /> });
   if (commentPop && activeSheet === sheets[0]?.id) floaters.push({ id: "cmt", r: commentPop.r, c: commentPop.c + 1, w: 260, h: 140, node: <CommentBox tl={tl} /> });
   if (noteTip && activeSheet === sheets[0]?.id) floaters.push({ id: "note", r: noteTip.r, c: noteTip.c + 1, w: 180, h: 60, node: <NoteTip text={noteTip.text} /> });
 
@@ -144,11 +172,14 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
     ticks: [formulaBar && "show-bar", gridlines && "show-grid", formulas && "show-formulas", commentsOpen ? "comments-show" : "comments-hide", `zoom-${zoom}`].filter((t): t is string => !!t),
     hasRowGroup: !!groups.rows,
     hasColGroup: !!groups.cols,
+    labels: { ...(filter.on ? { "dat-filter": "Remove filter" } : {}), "tls-auto": acOn ? "Autocomplete ✓" : "Autocomplete" },
+    extraSubs: { fviews: fviews.map((v) => ({ id: `fv-view-${v.id}`, label: v.name })) },
+    tick: [`fs-${cellNow.size ?? 10}`],
   };
 
   return (
     // The first data-scroller in the scene is where the timeline looks up targets, so it sits on the root.
-    <div data-scroller className="relative h-full w-full bg-white">
+    <div data-scroller data-reduce-motion={a11y.motion ? "on" : undefined} className="relative h-full w-full bg-white">
       <div className={`absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${intro >= 1 ? "opacity-100" : "opacity-0"}`}>
         <SheetsEditor
           title={title}
@@ -159,12 +190,17 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
             edit: <SheetMenu menu="edit" open={emenu} sub={esub} state={menuState} />,
             view: <SheetMenu menu="view" open={emenu} sub={esub} state={menuState} />,
             insert: <SheetMenu menu="insert" open={emenu} sub={esub} state={menuState} />,
+            format: <SheetMenu menu="format" open={emenu} sub={esub} state={menuState} />,
+            data: <SheetMenu menu="data" open={emenu} sub={esub} state={menuState} />,
+            tools: <SheetMenu menu="tools" open={emenu} sub={esub} state={menuState} />,
+            extensions: <SheetMenu menu="extensions" open={emenu} sub={esub} state={menuState} />,
+            help: <SheetMenu menu="help" open={emenu} sub={esub} state={menuState} />,
           }}
           grid={{
             sel,
             ants: clip?.range ?? null,
             refRange,
-            edit: cellEdit ? { ...cellEdit, text: cellText } : null,
+            edit: cellEdit ? { ...cellEdit, text: cellText, ghost } : null,
             hits: hits ?? NO_HITS,
             hitNow,
             commented,
@@ -177,8 +213,16 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
             zoom,
             groups,
             floaters,
-            rowHeights,
+            rowHeights: rowH,
+            hiddenRows: hidden,
+            filterCols: filtering ? ALL_COLS : undefined,
+            filteredCols,
+            filterRows: filtering && hidden.size > 0 ? [1, Math.max(1, (active?.rows.length ?? 1) - 1)] : null,
+            large: a11y.large,
+            contrast: a11y.contrast,
           }}
+          gridTop={fvBar ? <FilterViewBar name={fvBar} /> : undefined}
+          nameBox={nameList.length || nameLabel ? { label: nameLabel || undefined, open: nameOpen, list: nameList } : undefined}
           formulaBar={formulaBar}
           zoomLabel={`${zoom}%`}
           canUndo={menuState.canUndo}
@@ -217,6 +261,18 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
               <EmojiDialog tl={tl} />
               <SmartChipDialog tl={tl} />
               <NoteDialog tl={tl} />
+              <CustomFormatDialog tl={tl} />
+              <NameRangeDialog tl={tl} />
+              <RangeEndDialog tl={tl} />
+              <ProtectDialog tl={tl} />
+              <MacroDialog tl={tl} />
+              <ManageMacrosDialog tl={tl} />
+              <SpellingDialog tl={tl} />
+              <NotificationDialog tl={tl} />
+              <AccessibilityDialog tl={tl} />
+              <ShortcutsDialog tl={tl} />
+              <AboutDialog tl={tl} />
+              <PaletteDialog tl={tl} />
             </>
           }
         />

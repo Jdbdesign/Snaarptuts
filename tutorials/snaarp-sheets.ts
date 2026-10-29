@@ -111,6 +111,8 @@ import { runStep54, STEP54_DURATION_MS } from "@/scenes/snaarp-sheets/step54/scr
 import { Step55 } from "@/scenes/snaarp-sheets/step55/Step55";
 import { runStep55, STEP55_DURATION_MS } from "@/scenes/snaarp-sheets/step55/script";
 
+import { Step56 } from "@/scenes/snaarp-sheets/step56/Step56";
+import { runStep56, STEP56_DURATION_MS } from "@/scenes/snaarp-sheets/step56/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -124,6 +126,7 @@ export const snaarpSheets: Tutorial = {
     { title: "Edit menu", from: "meet-edit-menu" },
     { title: "View menu", from: "meet-view-menu" },
     { title: "Insert menu", from: "insert-overview" },
+    { title: "Format menu", from: "format-overview" },
   ],
   steps: [
     {
@@ -455,6 +458,12 @@ export const snaarpSheets: Tutorial = {
       title: "Insert a note",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step55, run: runStep55, durationMs: STEP55_DURATION_MS },
+    },
+    {
+      id: "format-overview",
+      title: "Meet the Format menu",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step56, run: runStep56, durationMs: STEP56_DURATION_MS },
     },
   ],
 };
