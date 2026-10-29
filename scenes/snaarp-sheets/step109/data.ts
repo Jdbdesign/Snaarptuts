@@ -1,0 +1,18 @@
+export const CAPTIONS = {
+  open: "Open Functions and look below the quick list",
+  cats: "Functions are grouped into categories. Point at one to see its list",
+  array: "Array functions work on whole ranges",
+  datetime: "Date & Time functions work with dates",
+  financial: "Financial functions handle loans and investments",
+  web: "Google / Web functions bring in outside data",
+  logical: "Logical functions make decisions",
+  lookup: "Lookup & Reference functions find values. The list scrolls",
+  tryIf: "Try one: pick Logical, then IF",
+  ifDone: "IF checks each Status and answers Chase or OK",
+  fill: "The formula is copied down to every row",
+  tryDate: "Pick Date & Time, then TODAY",
+  dateDone: "TODAY shows today's date",
+  tryLookup: "Pick Lookup & Reference, then VLOOKUP",
+  lookupDone: "VLOOKUP finds Team lunch and returns its cost",
+  end: "Each result is worked out from the sheet, never typed in",
+};

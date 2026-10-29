@@ -194,6 +194,28 @@ import { Step96 } from "@/scenes/snaarp-sheets/step96/Step96";
 import { runStep96, STEP96_DURATION_MS } from "@/scenes/snaarp-sheets/step96/script";
 import { Step97 } from "@/scenes/snaarp-sheets/step97/Step97";
 import { runStep97, STEP97_DURATION_MS } from "@/scenes/snaarp-sheets/step97/script";
+import { Step98 } from "@/scenes/snaarp-sheets/step98/Step98";
+import { runStep98, STEP98_DURATION_MS } from "@/scenes/snaarp-sheets/step98/script";
+import { Step99 } from "@/scenes/snaarp-sheets/step99/Step99";
+import { runStep99, STEP99_DURATION_MS } from "@/scenes/snaarp-sheets/step99/script";
+import { Step100 } from "@/scenes/snaarp-sheets/step100/Step100";
+import { runStep100, STEP100_DURATION_MS } from "@/scenes/snaarp-sheets/step100/script";
+import { Step101 } from "@/scenes/snaarp-sheets/step101/Step101";
+import { runStep101, STEP101_DURATION_MS } from "@/scenes/snaarp-sheets/step101/script";
+import { Step102 } from "@/scenes/snaarp-sheets/step102/Step102";
+import { runStep102, STEP102_DURATION_MS } from "@/scenes/snaarp-sheets/step102/script";
+import { Step103 } from "@/scenes/snaarp-sheets/step103/Step103";
+import { runStep103, STEP103_DURATION_MS } from "@/scenes/snaarp-sheets/step103/script";
+import { Step104 } from "@/scenes/snaarp-sheets/step104/Step104";
+import { runStep104, STEP104_DURATION_MS } from "@/scenes/snaarp-sheets/step104/script";
+import { Step105 } from "@/scenes/snaarp-sheets/step105/Step105";
+import { runStep105, STEP105_DURATION_MS } from "@/scenes/snaarp-sheets/step105/script";
+import { Step106 } from "@/scenes/snaarp-sheets/step106/Step106";
+import { runStep106, STEP106_DURATION_MS } from "@/scenes/snaarp-sheets/step106/script";
+import { Step107 } from "@/scenes/snaarp-sheets/step107/Step107";
+import { runStep107, STEP107_DURATION_MS } from "@/scenes/snaarp-sheets/step107/script";
+import { Step108 } from "@/scenes/snaarp-sheets/step108/Step108";
+import { runStep108, STEP108_DURATION_MS } from "@/scenes/snaarp-sheets/step108/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -795,6 +817,72 @@ export const snaarpSheets: Tutorial = {
       title: "Text colour and fill colour",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step97, run: runStep97, durationMs: STEP97_DURATION_MS },
+    },
+    {
+      id: "tb-borders",
+      title: "Borders",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step98, run: runStep98, durationMs: STEP98_DURATION_MS },
+    },
+    {
+      id: "tb-merge",
+      title: "Merge cells",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step99, run: runStep99, durationMs: STEP99_DURATION_MS },
+    },
+    {
+      id: "tb-horizontal-align",
+      title: "Horizontal align",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step100, run: runStep100, durationMs: STEP100_DURATION_MS },
+    },
+    {
+      id: "tb-vertical-align",
+      title: "Vertical align",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step101, run: runStep101, durationMs: STEP101_DURATION_MS },
+    },
+    {
+      id: "tb-wrap",
+      title: "Text wrapping",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step102, run: runStep102, durationMs: STEP102_DURATION_MS },
+    },
+    {
+      id: "tb-rotate",
+      title: "Text rotation",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step103, run: runStep103, durationMs: STEP103_DURATION_MS },
+    },
+    {
+      id: "tb-link",
+      title: "Insert a link",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step104, run: runStep104, durationMs: STEP104_DURATION_MS },
+    },
+    {
+      id: "tb-comment",
+      title: "Insert a comment",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step105, run: runStep105, durationMs: STEP105_DURATION_MS },
+    },
+    {
+      id: "tb-chart",
+      title: "Insert a chart",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step106, run: runStep106, durationMs: STEP106_DURATION_MS },
+    },
+    {
+      id: "tb-filter",
+      title: "Create a filter",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step107, run: runStep107, durationMs: STEP107_DURATION_MS },
+    },
+    {
+      id: "tb-functions-quick",
+      title: "Functions: the quick list",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step108, run: runStep108, durationMs: STEP108_DURATION_MS },
     },
   ],
 };

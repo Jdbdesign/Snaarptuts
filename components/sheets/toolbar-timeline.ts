@@ -230,3 +230,28 @@ export async function typeNumber(tl: Timeline, ref: string, value: number, opts:
   tl.setVar("cellEdit", null);
   tl.setVar("field:cell", "");
 }
+
+/* ---------------- Functions menu ---------------- */
+
+/** Move onto a category of the open Functions menu: its list opens beside it. */
+export async function hoverCategory(tl: Timeline, id: string, opts: { ms?: number; wait?: number } = {}) {
+  const sel = `[data-tl=tm-functions-cat-${id}]`;
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 450 });
+  tl.hover(sel);
+  tl.setVar("tbSub", id);
+  await tl.wait(opts.wait ?? 700);
+}
+
+/** Open a category, click one function in its list and close the menu. */
+export async function chooseFn(tl: Timeline, cat: string, fn: string, apply: () => void | Promise<void>) {
+  await hoverCategory(tl, cat, { wait: 500 });
+  const sel = `[data-tl=tm-fn-${fn}]`;
+  await tl.moveCursorTo(sel, { ms: 500 });
+  tl.hover(sel);
+  tl.highlight(sel);
+  await tl.wait(250);
+  await tl.click(sel);
+  tl.clearHighlight();
+  closeToolMenu(tl);
+  await apply();
+}

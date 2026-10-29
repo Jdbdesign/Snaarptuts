@@ -299,7 +299,7 @@ const BORDER_CSS: Record<BorderLine["style"], [number, string]> = { solid: [1, "
 /** The lines a cell carries (Borders tool), drawn over its edges. */
 function CellBordersView({ b }: { b: CellBorders }) {
   const side = (l?: BorderLine) => (l ? `${BORDER_CSS[l.style][0]}px ${BORDER_CSS[l.style][1]} ${l.color}` : undefined);
-  return <i className="pointer-events-none absolute -inset-px z-[4]" style={{ borderTop: side(b.top), borderBottom: side(b.bottom), borderLeft: side(b.left), borderRight: side(b.right) }} />;
+  return <i className="pointer-events-none absolute inset-0 z-[4]" style={{ borderTop: side(b.top), borderBottom: side(b.bottom), borderLeft: side(b.left), borderRight: side(b.right) }} />;
 }
 
 /** The left gutter of a row group: a bracket along the grouped rows and the − / + button on the row after them. */

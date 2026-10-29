@@ -271,7 +271,7 @@ export function replaceOne(rows: Rows, at: [number, number], query: string, to: 
 
 /** Move every cell reference of a formula that sits at or beyond `at` (a row or column index) by `n`. */
 export function shiftRefs(formula: string, axis: "row" | "col", at: number, n: number): string {
-  return formula.replace(/([A-Z]+)(\d+)/g, (_, col: string, row: string) => {
+  return formula.replace(/\b([A-Z]+)(\d+)\b/g, (_, col: string, row: string) => {
     let [r, c] = parseRef(col + row);
     if (axis === "row" && r >= at) r += n;
     if (axis === "col" && c >= at) c += n;
