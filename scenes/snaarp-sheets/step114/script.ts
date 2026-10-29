@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 114 - the video call icon: Start new meeting (a sample link) and Join with link. No real meeting. Starts with A1 selected. */
-export const STEP114_DURATION_MS = 40000;
+export const STEP114_DURATION_MS = 30200;
 
 export async function runStep114(tl: Timeline) {
   beginTb(tl, "a1");
