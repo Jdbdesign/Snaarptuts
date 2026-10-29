@@ -170,8 +170,7 @@ import { runStep83, STEP83_DURATION_MS } from "@/scenes/snaarp-sheets/step83/scr
 import { Step84 } from "@/scenes/snaarp-sheets/step84/Step84";
 import { runStep84, STEP84_DURATION_MS } from "@/scenes/snaarp-sheets/step84/script";
 /**
- * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
- * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
+ * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
  * last step in this list, so it moves by itself. Recordings (git-ignored): ref/sheets/Snaarp_Sheets_file.mp4 (File), ref/sheets/Snaarp_Sheets_edit_view.mp4 (Edit, View).
  * Step ids are the saved identity of a step (browser progress): never rename or reuse one.
  */

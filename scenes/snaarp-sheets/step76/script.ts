@@ -6,7 +6,7 @@ import { beginFdt, deleteMacro, runMacro, seedMacro } from "@/components/sheets/
 import { closeDialog, pressOn, ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 76 - Tools > Manage macros: run the saved macro (the header row formats), then delete it. The macro is saved at the start. */
-export const STEP76_DURATION_MS = 40000;
+export const STEP76_DURATION_MS = 24900;
 
 export async function runStep76(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

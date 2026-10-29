@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 74 - the Tools menu group by group: macros, Spelling and Autocomplete, Notification settings and Accessibility. */
-export const STEP74_DURATION_MS = 18000;
+export const STEP74_DURATION_MS = 15400;
 
 export async function runStep74(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

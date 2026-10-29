@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 58 - Format > Bold, Italic, Underline and Strikethrough on A2:A4, then each one off again. */
-export const STEP58_DURATION_MS = 32000;
+export const STEP58_DURATION_MS = 36200;
 
 async function style(tl: Timeline, id: string, caption: string) {
   await openMenu(tl, "format", { ms: 500 });

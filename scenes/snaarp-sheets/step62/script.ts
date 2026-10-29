@@ -7,7 +7,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 62 - Format > Rotation on the header cell H1: Tilt up, Tilt down, Stack vertically, Rotate up, None. */
-export const STEP62_DURATION_MS = 30000;
+export const STEP62_DURATION_MS = 32800;
 
 async function rotate(tl: Timeline, id: string, caption: string) {
   await openMenu(tl, "format", { ms: 480 });

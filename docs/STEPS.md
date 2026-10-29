@@ -1551,3 +1551,45 @@ Same route and config (`tutorials/snaarp-sheets.ts`); rail group "Insert menu" (
 **Scene variables** (all off by default, reset by `beginInsert`): `chart` (a `ChartState`: type, stacking, series with on / order / colours / axis / labels, palette, background, font, titles style, legend, gridlines, `placed`, `selected`), `chartPanel`, `chartTab`, `chartAcc` (open Customize section), `chartDrop` (open select list), `field:ct-chart` / `ct-h` / `ct-v` (the three titles, drawn live); `dialog` also takes `insertImage`, `emoji`, `note`, `chips` and `chips-<kind>`; `imgTab`, `imgChooser`, `imgChosen`, `field:img-alt`, `field:img-url`, `imgOver` (the floating picture), `rowHeights`; `refRange`, `fnOpen`, `field:fn-search`; `linkPop`, `linkChip`, `field:link-search`; `dvPanel`, `dv` (items and colours), `field:dv-i1..i3`, `ddPop`, `ddOptions`; `emojiTab`, `field:emoji-search`; `chipValue`, `chipSuggest`, `field:chip-people` / `chip-place` / `chip-finance` / `chip-event`; `commentPop`, `field:cmt-pop`, `replyOpen`, `field:reply`, `noteTip`, `noteRef`, `field:note-text`. The Comments panel uses the existing `comments`, `commented`, `commentsOpen`.
 
 **Hooks.** Insert menu: `menu-insert`, `menu-insert-group-<0-4>`, `menu-item-ins-<cells|rows|cols|sheet|chart|pivot|image|drawing|function|link|checkbox|dropdown|emoji|chips|comment|note>`, `menu-sub-<cells-down|cells-right|row-above|row-below|col-left|col-right|img-cell|img-over|fn-sum|fn-average|fn-count|fn-max|fn-min|fn-if|fn-more>`; grid: `cell-<ref>`, `rowhead-<n>`, `colhead-<letter>`, `floater-<id>`, `chart-obj`, `chart-svg`, `float-img`, `float-img-handle`; Chart editor: `chart-panel`, `chart-scroll`, `chart-tab-<setup|customize>`, `cs-<select>`, `cd-<select>-<option>`, `cs-series-<id>`, `cs-tick-<id>`, `cs-grip-<id>`, `cs-sec-<id>`, `cs-check-<id>`, `cs-palette-<n>`, `cs-fmt-bold`, `cs-reset`, `chart-cancel`, `chart-insert`, `chart-close`; dialogs: `image-dialog`, `img-*`, `fn-card`, `fn-row-<NAME>`, `link-pop`, `link-sheet-<id>`, `link-apply`, `link-chip`, `link-copy` / `link-edit` / `link-remove`, `dv-*`, `dd-pop`, `dd-item-<label>`, `emoji-dialog`, `emoji-<id>`, `chips-dialog`, `chip-type-<kind>`, `chip-suggest-<n>`, `chip-day-<n>`, `chip-file-<n>`, `chip-insert`, `chip-back`, `comment-pop`, `cmt-post`, `comment-reply-<id>`, `reply-post`, `note-dialog`, `note-insert`, `note-tip`.
+
+## Snaarp Sheets steps 56-84 (Format, Data, Tools, Extensions and Help round)
+
+Recording `ref/sheets/Snaarp_Sheets_format_data_tools_help.mp4` (copy of `Downloads/1029.mp4`; 1450x720, 3:19). All 29 steps use the one stage `SheetsApp` and start from `FDT_BOOK` (`sheets-sample.ts`): sample sheet "Acme Studio – Q3 Budget" (Item, Owner, Cost, Status, Due date, Amount, Rate, Length, Note; five rows), A1 selected, nothing open (`beginFdt` in `components/sheets/fdt-timeline.ts`). Every step opens its menu itself. Durations are measured at 1440x900, speed 1, no console errors, no scrollbars (about 796 s for the 29 steps). Steps 61-63 call `phoneScroll` so far columns show on a phone. Rail groups: Format menu (56-64), Data menu (65-73), Tools menu (74-80), Extensions menu (81), Help menu (82-84).
+
+| Step | Title | What happens | Time |
+|---|---|---|---|
+| 56 | Meet the Format menu | Open Format, hover Number (list), the text styles, the four layout rows (each submenu), the three greyed rows, Clear formatting. | 24.5 s |
+| 57 | Number formats | Amount F2 in Number, Scientific, Accounting, Financial, Currency, Currency rounded; Rate G2 Percent; Due date E2 Time, Date time, Date, Custom date and time (preset, Cancel); Length H2 Duration; F2 Plain text, Custom number format (Cancel), Custom currency (£#,##0.00, Apply). | 90.6 s |
+| 58 | Bold, italic, underline and strikethrough | Drag A2:A4; Bold, Italic, Underline, Strikethrough from Format (captions give the shortcuts), then each off again. | 36.2 s |
+| 59 | Change the font size | A2:A3: Font size 14, 24, back to 10 (rows follow the text). | 23.6 s |
+| 60 | Align your cells | A2 in a tall row: Center, Right, Left, Top, Bottom, Middle. | 35.0 s |
+| 61 | Wrap long text | I2: Wrapping Overflow (spills right), Wrap (row grows), Clip. | 23.8 s |
+| 62 | Rotate text | H1: Tilt up, Tilt down, Stack vertically, Rotate up, None. | 32.8 s |
+| 63 | Clear formatting | F2:F3: Bold, fill (toolbar button), Currency, then Clear formatting. | 23.7 s |
+| 64 | Options that are not available yet | Hover Theme, Conditional formatting, Alternating colors (greyed, tip). | 14.2 s |
+| 65 | Meet the Data menu | Open Data and hover every group, with the Sort and Filter views submenus. | 21.2 s |
+| 66 | Sort the whole sheet | C2 selected; Sort sheet A to Z then Z to A (header stays). | 19.1 s |
+| 67 | Sort part of a sheet | A2:D4; Sort range A to Z then Z to A (rows 5-6 stay). | 21.4 s |
+| 68 | Sort a column A to Z | A3; Sort A to Z then Z to A by Item. | 14.2 s |
+| 69 | Create a filter | Create a filter; Status list (search, Clear, Select all, untick Paid, OK); rows hide, numbers blue; Remove filter. | 30.9 s |
+| 70 | Save a filter view | Create new filter view, name it Unpaid, hide Paid, Close; reopen from Filter views; Remove filter. | 40.8 s |
+| 71 | Add a dropdown with Data validation | D2:D6, Data validation panel: Paid / Pending / Overdue with colours, Done, pick Paid in D4. | 44.5 s |
+| 72 | Name a range | A2; Named ranges: Name range (Q3_Costs), Range end (C5), toast; Name box list. | 25.2 s |
+| 73 | Protect a sheet | Protected sheets: choice 1, lock on the tab, blocked-edit message in B3, lift the protection. | 29.5 s |
+| 74 | Meet the Tools menu | Open Tools and hover each group. | 15.4 s |
+| 75 | Record a macro | Create new macro: name, description, record four steps, Stop, Save Macro (header pill).  | 28.4 s |
+| 76 | Run and delete a macro | Manage macros starts with the macro saved: Run (header row formats), then delete (empty list), Cancel. | 24.9 s |
+| 77 | Check your spelling | A7 starts as Quartrly review; Spelling panel, Change, Spell check complete, Done. | 17.6 s |
+| 78 | Turn Autocomplete on and off | Autocomplete off (Pa suggests nothing) then on (grey id, Tab takes it) in D7. | 27.6 s |
+| 79 | Set your notifications | Notification settings: Edit notifications on, Comment replies off, Daily, Save. | 21.5 s |
+| 80 | Accessibility options | Accessibility: High contrast, Large text, Reduce motion on; Done; open again and switch off. | 38.3 s |
+| 81 | Meet the Extensions menu | Extensions: Add-ons, Apps Script, Macros greyed (hover); points to Tools. | 17.1 s |
+| 82 | Meet the Help menu and search the menus | A2; Help menu rows (greyed ones hovered); Search the menus, type bold, Enter applies Bold. | 22.7 s |
+| 83 | See the keyboard shortcuts | Keyboard shortcuts: grouped list scrolls inside the dialog, search bold, clear, Got it. | 19.1 s |
+| 84 | About Snaarp Sheets | About: logo, version, copyright, Close. Last step; the completion card follows. | 12.4 s |
+
+**Files.** `components/sheets/fdt-data.ts` (ALL copy: the five menus, submenus, number formats, dialogs, sample), `fdt-state.ts` (pure: `formatNum`, `setNumberFormat`, `toggleFlag`, `clearFormatting`, `sortRows`, `sortRange`, filters, `autoRowHeights`, `suggestion`), `fdt-timeline.ts` (helpers; registers the menu rows in `EXTRA_ACTIONS`), `FdtDialogs.tsx` (Custom format, Name range, Range end, Protect, Create / Manage macros, Spelling, Notification settings, Accessibility, Keyboard shortcuts, About, Search the menus, the filter list and the filter-view bar). Step 71 reuses the step 50 `ValidationPanel`.
+
+**Scene variables** (reset by `beginFdt`): `filter`, `fviews`, `fvBar`, `fpCol`, `fpValues`, `fpOff`, `nameList`, `nameOpen`, `nameLabel`, `nrStart`, `protMsg`, `macros`, `macRec`, `macShown`, `notif`, `a11y`, `acOn`, `spell`, `customKind`, `customNum`, `customPick`, `dvRange`, `dialog` (custom | nameRange | rangeEnd | protect | macroNew | macroManage | spelling | notif | a11y | shortcuts | about | palette) and the fields `field:custom-input`, `nr-name`, `nr-end`, `pr-choice`, `mac-name`, `mac-desc`, `mac-key`, `kb-q`, `pal-q`, `fp-q`.
+
+**Hooks.** Menus `menu-<format|data|tools|extensions|help>`, rows `menu-item-<fmt-*|dat-*|tls-*|ext-*|hlp-*>`, submenu rows `menu-sub-<nf-*|fs-N|al-*|wr-*|ro-*|sortsheet-*|sortrange-*|fv-*>`; `filter-btn-<col>`, `filter-pop`, `fp-*`, `fv-bar`, `fv-name`, `fv-close`, `name-box`, `name-box-arrow`, `name-box-list`, `sheet-lock-s1`, `protect-msg`, `tool-highlight`, dialog cards `custom-dialog`, `nr-dialog`, `re-dialog`, `pr-dialog`, `mac-dialog`, `man-dialog`, `spell-dialog`, `notif-dialog`, `a11y-dialog`, `kb-dialog`, `about-dialog`, `pal-dialog`.

@@ -7,7 +7,7 @@ import { beginFdt, recordSteps, saveMacro } from "@/components/sheets/fdt-timeli
 import { pressOn, ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 75 - Tools > Create new macro: name and describe it, record four steps, stop, Save Macro. */
-export const STEP75_DURATION_MS = 46000;
+export const STEP75_DURATION_MS = 28400;
 
 export async function runStep75(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

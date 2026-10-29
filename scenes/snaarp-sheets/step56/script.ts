@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 56 - the Format menu group by group: Number, text styles, layout, the greyed rows and Clear formatting. */
-export const STEP56_DURATION_MS = 27400;
+export const STEP56_DURATION_MS = 24500;
 
 export async function runStep56(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

@@ -6,7 +6,7 @@ import { beginFdt, flipA11y, toggleSwitch } from "@/components/sheets/fdt-timeli
 import { closeDialog, pressOn, ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 80 - Tools > Accessibility: High contrast, Large text and Reduce motion on (the sheet changes behind the panel), the quick reference, Done, then reset. */
-export const STEP80_DURATION_MS = 56000;
+export const STEP80_DURATION_MS = 38300;
 
 export async function runStep80(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

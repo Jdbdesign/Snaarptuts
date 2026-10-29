@@ -7,7 +7,7 @@ import { beginFdt, closeNameBox, nameRangeDone, nameRangeNext, openNameBox } fro
 import { pressOn, ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 72 - Data > Named ranges: name A2:C5 "Q3_Costs" through the two dialogs, then open the Name box's list. */
-export const STEP72_DURATION_MS = 42000;
+export const STEP72_DURATION_MS = 25200;
 
 export async function runStep72(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

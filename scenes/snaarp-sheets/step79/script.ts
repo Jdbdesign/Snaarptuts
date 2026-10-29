@@ -6,7 +6,7 @@ import { beginFdt, flipNotif, saveNotif, setNotif, toggleSwitch } from "@/compon
 import { pressOn, ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 79 - Tools > Notification settings: Edit notifications on, Comment replies off, frequency Daily, Save. */
-export const STEP79_DURATION_MS = 34000;
+export const STEP79_DURATION_MS = 21500;
 
 export async function runStep79(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

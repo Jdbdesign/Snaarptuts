@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 60 - Format > Alignment on A2 (a tall row): Center, Right, Left, then Top, Bottom, Middle. */
-export const STEP60_DURATION_MS = 30000;
+export const STEP60_DURATION_MS = 35000;
 
 async function align(tl: Timeline, id: string, caption: string) {
   await openMenu(tl, "format", { ms: 480 });

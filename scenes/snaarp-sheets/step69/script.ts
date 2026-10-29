@@ -6,7 +6,7 @@ import { beginFdt, confirmFilter, filterAll, openFilterPop, toggleFilterValue } 
 import { pressOn, ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 69 - Data > Create a filter: the Status list (search, Clear, Select all, untick Paid, OK), then Remove filter. */
-export const STEP69_DURATION_MS = 42000;
+export const STEP69_DURATION_MS = 30900;
 
 export async function runStep69(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

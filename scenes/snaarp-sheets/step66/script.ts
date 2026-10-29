@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 66 - Data > Sort sheet by the Cost column: A to Z, then Z to A; the header row stays. */
-export const STEP66_DURATION_MS = 28000;
+export const STEP66_DURATION_MS = 19100;
 
 export async function runStep66(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

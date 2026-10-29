@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { closeDialog, pressOn, ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 83 - Help > Keyboard shortcuts: the grouped list (scrolls inside the dialog), a search for "bold", then Got it. */
-export const STEP83_DURATION_MS = 34000;
+export const STEP83_DURATION_MS = 19100;
 
 export async function runStep83(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

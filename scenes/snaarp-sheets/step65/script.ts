@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 65 - the Data menu group by group: Sort sheet and Sort range, Sort A-Z / Z-A, filters, Data validation, Named ranges, Protected sheets. */
-export const STEP65_DURATION_MS = 22000;
+export const STEP65_DURATION_MS = 21200;
 
 export async function runStep65(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

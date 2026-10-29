@@ -7,7 +7,7 @@ import { beginFdt, runPaletteResult } from "@/components/sheets/fdt-timeline";
 import { ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 82 - the Help menu and Search the menus: type "bold", Enter runs Format > Bold on A2. */
-export const STEP82_DURATION_MS = 40000;
+export const STEP82_DURATION_MS = 22700;
 
 export async function runStep82(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

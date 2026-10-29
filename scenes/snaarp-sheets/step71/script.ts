@@ -8,7 +8,7 @@ import { addItem, openCellDropdown, pickDropdownValue, pickItemColour, renameIte
 import { pressOn, ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 71 - Data > Data validation on the Status cells: a Paid / Pending / Overdue dropdown, Done, then pick a value. */
-export const STEP71_DURATION_MS = 40000;
+export const STEP71_DURATION_MS = 44500;
 
 export async function runStep71(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

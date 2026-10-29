@@ -7,7 +7,7 @@ import { beginFdt, seedTypo, spellChange } from "@/components/sheets/fdt-timelin
 import { closeDialog, pressOn, ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 77 - Tools > Spelling: A7 starts with "Quartrly review"; the panel suggests Quarterly, Change fixes it, Done. */
-export const STEP77_DURATION_MS = 30000;
+export const STEP77_DURATION_MS = 17600;
 
 export async function runStep77(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

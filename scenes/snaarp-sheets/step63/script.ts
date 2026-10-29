@@ -9,7 +9,7 @@ import { single, sorted, type Range } from "@/components/sheets/grid-state";
 import { pressOn, ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 63 - make F2:F3 bold, shaded and £, then Format > Clear formatting (⌘\) puts it all back. */
-export const STEP63_DURATION_MS = 32000;
+export const STEP63_DURATION_MS = 23700;
 
 export async function runStep63(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

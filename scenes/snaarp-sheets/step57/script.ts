@@ -8,7 +8,7 @@ import { CUSTOM_FMT, NUM_CELLS } from "@/components/sheets/fdt-data";
 import { closeDialog, pressOn, ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 57 - Format > Number: each format on the cell it suits (before and after), then the three Custom dialogs (the currency one is applied). */
-export const STEP57_DURATION_MS = 100000;
+export const STEP57_DURATION_MS = 90600;
 
 /** Select nothing new: open Format > Number, click one format, close, and ring the result. */
 async function applyNumber(tl: Timeline, cell: string, nf: string, caption: string) {

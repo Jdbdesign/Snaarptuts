@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 67 - Data > Sort range on A2:D4: A to Z, then Z to A; rows 5 and 6 do not move. */
-export const STEP67_DURATION_MS = 30000;
+export const STEP67_DURATION_MS = 21400;
 
 export async function runStep67(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

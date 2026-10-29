@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 68 - Data > Sort A to Z and Sort Z to A with a cell of the Item column selected. */
-export const STEP68_DURATION_MS = 24000;
+export const STEP68_DURATION_MS = 14200;
 
 export async function runStep68(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

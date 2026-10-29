@@ -5,7 +5,7 @@ import { closeMenus, hoverRow, openMenu } from "@/components/sheets/edit-timelin
 import { beginFdt } from "@/components/sheets/fdt-timeline";
 
 /** Snaarp Sheets, step 64 - the greyed Format rows (Theme, Conditional formatting, Alternating colors): hover only, each with a short tip. */
-export const STEP64_DURATION_MS = 17000;
+export const STEP64_DURATION_MS = 14200;
 
 export async function runStep64(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

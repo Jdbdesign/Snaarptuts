@@ -8,7 +8,7 @@ import { parseRef, setCellText } from "@/components/sheets/grid-state";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 78 - Tools > Autocomplete: off (typing Pa suggests nothing), then on (a grey "id" appears and Tab takes it). */
-export const STEP78_DURATION_MS = 42000;
+export const STEP78_DURATION_MS = 27600;
 
 export async function runStep78(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

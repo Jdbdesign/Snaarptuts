@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 59 - Format > Font size on A2:A3: 14, then 24, then back to 10 (the rows follow the text). */
-export const STEP59_DURATION_MS = 26000;
+export const STEP59_DURATION_MS = 23600;
 
 async function size(tl: Timeline, n: number, caption: string) {
   await openMenu(tl, "format", { ms: 500 });

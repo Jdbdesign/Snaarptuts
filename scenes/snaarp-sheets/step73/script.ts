@@ -6,7 +6,7 @@ import { beginFdt, protectNext, tryTypeProtected } from "@/components/sheets/fdt
 import { pressOn, ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 73 - Data > Protected sheets and ranges: choice 1 locks the sheet (a lock on the tab, typing is refused), then the same dialog lifts it. */
-export const STEP73_DURATION_MS = 40000;
+export const STEP73_DURATION_MS = 29500;
 
 export async function runStep73(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

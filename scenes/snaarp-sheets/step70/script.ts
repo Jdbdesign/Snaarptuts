@@ -7,7 +7,7 @@ import { FILTER } from "@/components/sheets/fdt-data";
 import { pressOn, ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 70 - Data > Filter views: create a view, name it, hide Paid, close it, open it again from the menu, then Remove filter. */
-export const STEP70_DURATION_MS = 52000;
+export const STEP70_DURATION_MS = 40800;
 
 export async function runStep70(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

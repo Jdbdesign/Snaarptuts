@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { closeDialog, pressOn, ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 84 - Help > About: the logo, the version and the copyright, then Close. The last step before the completion card. */
-export const STEP84_DURATION_MS = 18000;
+export const STEP84_DURATION_MS = 12400;
 
 export async function runStep84(tl: Timeline) {
   beginFdt(tl, URLS.renamed);

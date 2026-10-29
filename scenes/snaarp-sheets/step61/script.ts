@@ -7,7 +7,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 61 - Format > Wrapping on the long note in I2: Overflow (spills right), Wrap (the row grows), Clip (cut off). */
-export const STEP61_DURATION_MS = 28000;
+export const STEP61_DURATION_MS = 23800;
 
 async function wrap(tl: Timeline, id: string, caption: string) {
   await openMenu(tl, "format", { ms: 480 });

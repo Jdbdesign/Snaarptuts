@@ -6,7 +6,7 @@ import { beginFdt } from "@/components/sheets/fdt-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 81 - the Extensions menu: Add-ons, Apps Script and Macros are all greyed out (hover only); macros live under Tools. */
-export const STEP81_DURATION_MS = 26000;
+export const STEP81_DURATION_MS = 17100;
 
 export async function runStep81(tl: Timeline) {
   beginFdt(tl, URLS.renamed);
