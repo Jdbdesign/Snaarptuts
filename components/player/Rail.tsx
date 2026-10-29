@@ -77,7 +77,7 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
             aria-expanded={dropdownOpen}
             aria-haspopup="listbox"
             className={`group relative flex h-14 w-full items-center gap-2.5 rounded-none bg-white pl-[14px] pr-[10px] text-left outline-none transition-colors before:absolute before:-left-3 before:-right-3 before:top-0 before:h-[2px] before:bg-[var(--sel-line)] after:absolute after:-left-3 after:-right-3 after:bottom-0 after:h-[2px] after:bg-[var(--sel-line)] ${
-              "[--sel-line:#DEDEE4]"
+              "[--sel-line:#E4D7F9]"
             }`}
           >
             <ProductMark tutorial={tutorial} size={32} />
@@ -99,7 +99,7 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
           {dropdownOpen && (
             <ul
               role="listbox"
-              className="absolute -left-3 -right-3 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border-x-0 border-y-2 border-[#DEDEE4] bg-white px-[20px] py-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
+              className="absolute -left-3 -right-3 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border-x-0 border-y-2 border-[#E4D7F9] bg-white px-[20px] py-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
             >
               {tutorials.map((t) => {
                 const active = t.product.id === tutorial.product.id;
