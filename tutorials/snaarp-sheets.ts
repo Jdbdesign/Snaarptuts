@@ -96,6 +96,12 @@ import { Step47 } from "@/scenes/snaarp-sheets/step47/Step47";
 import { runStep47, STEP47_DURATION_MS } from "@/scenes/snaarp-sheets/step47/script";
 import { Step48 } from "@/scenes/snaarp-sheets/step48/Step48";
 import { runStep48, STEP48_DURATION_MS } from "@/scenes/snaarp-sheets/step48/script";
+import { Step49 } from "@/scenes/snaarp-sheets/step49/Step49";
+import { runStep49, STEP49_DURATION_MS } from "@/scenes/snaarp-sheets/step49/script";
+import { Step50 } from "@/scenes/snaarp-sheets/step50/Step50";
+import { runStep50, STEP50_DURATION_MS } from "@/scenes/snaarp-sheets/step50/script";
+import { Step51 } from "@/scenes/snaarp-sheets/step51/Step51";
+import { runStep51, STEP51_DURATION_MS } from "@/scenes/snaarp-sheets/step51/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -399,6 +405,24 @@ export const snaarpSheets: Tutorial = {
       title: "Insert a link",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step48, run: runStep48, durationMs: STEP48_DURATION_MS },
+    },
+    {
+      id: "insert-checkbox",
+      title: "Insert a checkbox",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step49, run: runStep49, durationMs: STEP49_DURATION_MS },
+    },
+    {
+      id: "insert-dropdown",
+      title: "Insert a dropdown",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step50, run: runStep50, durationMs: STEP50_DURATION_MS },
+    },
+    {
+      id: "insert-emoji",
+      title: "Insert an emoji",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step51, run: runStep51, durationMs: STEP51_DURATION_MS },
     },
   ],
 };

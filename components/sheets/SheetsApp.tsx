@@ -22,6 +22,7 @@ import { ChartEditor, CHART_PANEL_W } from "./ChartEditor";
 import { ChartGraphic, CHART_H, CHART_W } from "./ChartGraphic";
 import type { ChartState } from "./chart-state";
 import { CHART } from "./insert-data";
+import { DropdownList, EmojiDialog, ValidationPanel, type DdOption, type DdPop } from "./InsertPanels";
 import { FunctionCard, InsertImageDialog, LinkChipView, LinkPopover, type LinkChip, type LinkPop } from "./dialogs-insert";
 import type { Clip, EditHistory } from "./edit-timeline";
 import type { Rows } from "./grid-state";
@@ -32,6 +33,7 @@ const NO_HITS: [number, number][] = [];
 const NO_CELLS: string[] = [];
 const NO_GROUPS: Groups = { rows: null, cols: null };
 const NO_ROW_HEIGHTS: Record<number, number> = {};
+const NO_OPTIONS: DdOption[] = [];
 const NO_HISTORY: EditHistory = { past: [], future: [] };
 
 /**
@@ -104,6 +106,10 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   const refRange = useTimelineVar<Range | null>(tl, "refRange", null);
   const linkPop = useTimelineVar<LinkPop | null>(tl, "linkPop", null);
   const linkChip = useTimelineVar<LinkChip | null>(tl, "linkChip", null);
+  // Insert > Dropdown: the Data validation rules panel and the list under a dropdown cell
+  const dvPanel = useTimelineVar(tl, "dvPanel", false);
+  const ddPop = useTimelineVar<DdPop | null>(tl, "ddPop", null);
+  const ddOptions = useTimelineVar<DdOption[]>(tl, "ddOptions", NO_OPTIONS);
   const floaters: Floater[] =
     liveChart && activeSheet === sheets[0]?.id
       ? [
@@ -121,6 +127,8 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
 
   if (linkPop && activeSheet === sheets[0]?.id) floaters.push({ id: "linkpop", r: linkPop.r + 1, c: linkPop.c, w: 290, h: 180, node: <LinkPopover tl={tl} sheets={sheets} /> });
   if (linkChip && !linkPop && activeSheet === sheets[0]?.id) floaters.push({ id: "linkchip", r: linkChip.r + 1, c: linkChip.c, w: 260, h: 30, node: <LinkChipView chip={linkChip} /> });
+
+  if (ddPop && activeSheet === sheets[0]?.id) floaters.push({ id: "dd", r: ddPop.r + 1, c: ddPop.c, w: 150, h: 40 + ddOptions.length * 28, node: <DropdownList options={ddOptions} /> });
 
   const menuState: MenuState = {
     canUndo: history.past.length > 0,
@@ -170,13 +178,14 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
           fullScreen={full}
           sidePanel={
             <>
-              <div className={detailsOpen && !commentsOpen && !chartPanel ? "" : "hidden"}><DetailsPanel tl={tl} /></div>
-              <div className={(detailsOpen && !commentsOpen) || chartPanel ? "hidden" : "h-full"}><CommentsPanel tl={tl} /></div>
+              <div className={detailsOpen && !commentsOpen && !chartPanel && !dvPanel ? "" : "hidden"}><DetailsPanel tl={tl} /></div>
+              <div className={(detailsOpen && !commentsOpen) || chartPanel || dvPanel ? "hidden" : "h-full"}><CommentsPanel tl={tl} /></div>
               <div className={chartPanel ? "h-full" : "hidden"}><ChartEditor tl={tl} /></div>
+              <div className={dvPanel ? "h-full" : "hidden"}><ValidationPanel tl={tl} /></div>
             </>
           }
-          panelOpen={detailsOpen || commentsOpen || chartPanel}
-          panelWidth={chartPanel ? CHART_PANEL_W : 272}
+          panelOpen={detailsOpen || commentsOpen || chartPanel || dvPanel}
+          panelWidth={chartPanel || dvPanel ? CHART_PANEL_W : 272}
           offline={offline}
           trashed={trashed}
           notice={notice}
@@ -197,6 +206,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
               <FindCard tl={tl} />
               <InsertImageDialog tl={tl} />
               <FunctionCard tl={tl} />
+              <EmojiDialog tl={tl} />
             </>
           }
         />

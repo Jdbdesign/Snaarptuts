@@ -1,6 +1,7 @@
 import type { Timeline } from "@/lib/timeline";
 import { beginEdit, chooseRow, chooseSub, commit, getRows, setRows } from "./edit-timeline";
-import { FUNCTIONS, IMAGE, LINK } from "./insert-data";
+import { CHECKBOX, DROPDOWN, EMOJI, FUNCTIONS, IMAGE, INSERT_SAMPLE, LINK } from "./insert-data";
+import { DEFAULT_DV, type DvState } from "./InsertPanels";
 import type { FloatingImage } from "./SheetsApp";
 import { toast } from "./sheets-timeline";
 import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
@@ -24,6 +25,7 @@ export function beginInsert(tl: Timeline, url: string, cursor?: [number, number]
   resetChart(tl);
   resetImage(tl);
   resetFunctionLink(tl);
+  resetControls(tl);
 }
 
 /** The sample sheet again (between two demos in one step): A1 selected, no history. */
@@ -275,3 +277,144 @@ export function placeLink(tl: Timeline, ref: string, label: string, href: string
 }
 
 export const linkRef = (r: number, c: number) => refOf(r, c).toLowerCase();
+
+/* ---------------- Checkbox, Dropdown, Emoji (steps 49-51) ---------------- */
+
+export function resetControls(tl: Timeline) {
+  tl.setVar("dvPanel", false);
+  tl.setVar("dv", DEFAULT_DV);
+  DROPDOWN.start.forEach((t, i) => tl.setVar(`field:dv-i${i + 1}`, t));
+  tl.setVar("field:dv-i3", "");
+  tl.setVar("ddPop", null);
+  tl.setVar("ddOptions", []);
+  tl.setVar("emojiTab", EMOJI.tabs[0]);
+  tl.setVar("field:emoji-search", "");
+}
+
+const cellAt = (tl: Timeline, ref: string) => {
+  const [r, c] = parseRef(ref);
+  return { r, c, cell: obj(getRows(tl)[r]?.[c]) };
+};
+
+/** A header cell in the style of the sample's header row (used where a step needs a new column). */
+export function addHeader(tl: Timeline, ref: string, text: string) {
+  const [r, c] = parseRef(ref);
+  setRows(tl, setCell(getRows(tl), r, c, { text, bold: true, fill: INSERT_SAMPLE.headerFill }));
+}
+
+/** Insert > Checkbox on the selected range: every cell gets an empty tick box. */
+export function applyCheckboxes(tl: Timeline) {
+  const s = tl.getVar("sel", single(0, 0));
+  let rows = getRows(tl);
+  for (let r = Math.min(s.r1, s.r2); r <= Math.max(s.r1, s.r2); r++)
+    for (let c = Math.min(s.c1, s.c2); c <= Math.max(s.c1, s.c2); c++) rows = setCell(rows, r, c, { text: "FALSE", box: "off" });
+  commit(tl, rows);
+}
+
+/** Click a checkbox cell: it ticks or unticks. */
+export async function clickBox(tl: Timeline, ref: string) {
+  await pressOn(tl, `[data-tl=cell-${ref}]`, { ms: 650, ring: false });
+  const { r, c, cell } = cellAt(tl, ref);
+  const on = cell.box !== "on";
+  commit(tl, setCell(getRows(tl), r, c, { ...cell, text: on ? "TRUE" : "FALSE", box: on ? "on" : "off" }));
+  tl.setVar("sel", single(r, c));
+  await tl.wait(500);
+}
+
+export const getDv = (tl: Timeline) => tl.getVar<DvState>("dv", DEFAULT_DV);
+const dvLabel = (tl: Timeline, id: string) => tl.getVar<string>(`field:dv-${id}`, "").trim();
+
+/** Insert > Dropdown has been clicked: the Data validation rules panel opens. */
+export const openValidation = (tl: Timeline) => {
+  tl.setVar("dv", DEFAULT_DV);
+  tl.setVar("dvPanel", true);
+};
+
+/** Click an item's text box, clear it and type a new name. */
+export async function renameItem(tl: Timeline, id: string, text: string) {
+  const sel = `[data-tl=field-dv-${id}]`;
+  await tl.moveCursorTo(sel, { ms: 600 });
+  await tl.click(sel);
+  tl.setVar("focus", `dv-${id}`);
+  tl.setVar("field:dv-" + id, "");
+  await tl.typeText(`dv-${id}`, text, { msPerChar: 70 });
+  await tl.wait(300);
+}
+
+/** Open an item's colour picker and click a colour. */
+export async function pickItemColour(tl: Timeline, id: string, hex: string) {
+  await pressOn(tl, `[data-tl=dv-dot-${id}]`, { ms: 650, ring: false });
+  tl.setVar("dv", { ...getDv(tl), pick: id });
+  await tl.wait(450);
+  const sel = `[data-tl=dv-color-${hex.replace("#", "")}]`;
+  await tl.moveCursorTo(sel, { ms: 500 });
+  tl.hover(sel);
+  await tl.wait(200);
+  await tl.click(sel);
+  tl.hover(null);
+  const dv = getDv(tl);
+  tl.setVar("dv", { items: dv.items.map((i) => (i.id === id ? { ...i, tone: hex } : i)), pick: "" });
+  await tl.wait(400);
+}
+
+/** "Add another item": a third row appears. */
+export async function addItem(tl: Timeline) {
+  await pressOn(tl, "[data-tl=dv-add]", { ms: 650, ring: false });
+  const dv = getDv(tl);
+  tl.setVar("dv", { ...dv, items: [...dv.items, { id: `i${dv.items.length + 1}`, tone: "#E6E6E6" }] });
+  await tl.wait(500);
+}
+
+/** Done: the rule is applied. Cells in the range whose text matches an item turn into that item's coloured chip. */
+export function applyDropdownRule(tl: Timeline) {
+  const dv = getDv(tl);
+  const options = dv.items.map((i) => ({ label: dvLabel(tl, i.id), tone: i.tone })).filter((o) => o.label);
+  const { r1, c1, r2, c2 } = DROPDOWN.rangeCells;
+  let rows = getRows(tl);
+  for (let r = r1; r <= r2; r++)
+    for (let c = c1; c <= c2; c++) {
+      const cell = obj(rows[r]?.[c]);
+      const hit = options.find((o) => o.label.toLowerCase() === cell.text.trim().toLowerCase());
+      if (hit) rows = setCell(rows, r, c, { ...cell, chip: { kind: "dropdown", label: hit.label, tone: hit.tone } });
+    }
+  commit(tl, rows);
+  tl.setVar("ddOptions", options);
+  tl.setVar("dvPanel", false);
+  toast(tl, DROPDOWN.toast);
+}
+
+/** Click a dropdown cell: its list opens under it. */
+export async function openCellDropdown(tl: Timeline, ref: string) {
+  await pressOn(tl, `[data-tl=cell-${ref}]`, { ms: 700, ring: false });
+  const { r, c } = cellAt(tl, ref);
+  tl.setVar("sel", single(r, c));
+  tl.setVar("ddPop", { r, c });
+  await tl.wait(600);
+}
+
+/** Pick one value from the open list: the cell shows that chip. */
+export async function pickDropdownValue(tl: Timeline, label: string) {
+  const sel = `[data-tl=dd-item-${label.toLowerCase()}]`;
+  await tl.moveCursorTo(sel, { ms: 600 });
+  tl.hover(sel);
+  await tl.wait(250);
+  await tl.click(sel);
+  tl.hover(null);
+  const pop = tl.getVar<{ r: number; c: number }>("ddPop", { r: 0, c: 0 });
+  const opt = tl.getVar<{ label: string; tone: string }[]>("ddOptions", []).find((o) => o.label === label)!;
+  const cell = obj(getRows(tl)[pop.r]?.[pop.c]);
+  commit(tl, setCell(getRows(tl), pop.r, pop.c, { ...cell, text: label, chip: { kind: "dropdown", label, tone: opt.tone } }));
+  tl.setVar("ddPop", null);
+  await tl.wait(500);
+}
+
+/** Pick an emoji: it is added to the selected cell's text and the picker closes. */
+export function insertEmoji(tl: Timeline, ref: string, id: string) {
+  const ch = EMOJI.list.find((e) => e[1] === id)![2];
+  const { r, c, cell } = cellAt(tl, ref);
+  commit(tl, setCell(getRows(tl), r, c, { ...cell, text: `${cell.text} ${ch}`.trim() }));
+  tl.setVar("dialog", "");
+  tl.setVar("focus", "");
+}
+
+export const checkboxCells = CHECKBOX;

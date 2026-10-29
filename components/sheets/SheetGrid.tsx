@@ -181,6 +181,15 @@ export function SheetGrid({
                       {edit.text}
                       <i className="ml-px inline-block h-[14px] w-px translate-y-[2px] bg-[#202124]" style={{ animation: "caret-blink 1s steps(1) infinite" }} />
                     </span>
+                  ) : o.box ? (
+                    <span className="flex h-full items-center justify-center">
+                      <i className={`flex h-[14px] w-[14px] items-center justify-center rounded-[3px] border ${o.box === "on" ? "border-[#2563EB] bg-[#2563EB] text-white" : "border-[#80868B] bg-white"}`}>{o.box === "on" && <Icon name="check" size={11} />}</i>
+                    </span>
+                  ) : o.chip ? (
+                    <span className="absolute inset-y-[3px] left-[3px] right-[3px] flex items-center justify-between rounded-full px-[7px] text-[11.5px] leading-none text-[#1f2430]" style={{ background: o.chip.tone ?? "#E8F0FE" }}>
+                      <span className="truncate">{o.chip.label}</span>
+                      {o.chip.kind === "dropdown" && <Icon name="chevronDown" size={8} className="ml-[3px] shrink-0 text-[#5F6368]" />}
+                    </span>
                   ) : o.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={o.image} alt="" className="absolute inset-[2px] h-[calc(100%-4px)] w-[calc(100%-4px)] object-contain" />
