@@ -119,6 +119,8 @@ import { Step58 } from "@/scenes/snaarp-sheets/step58/Step58";
 import { runStep58, STEP58_DURATION_MS } from "@/scenes/snaarp-sheets/step58/script";
 import { Step59 } from "@/scenes/snaarp-sheets/step59/Step59";
 import { runStep59, STEP59_DURATION_MS } from "@/scenes/snaarp-sheets/step59/script";
+import { Step60 } from "@/scenes/snaarp-sheets/step60/Step60";
+import { runStep60, STEP60_DURATION_MS } from "@/scenes/snaarp-sheets/step60/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -488,6 +490,12 @@ export const snaarpSheets: Tutorial = {
       title: "Change the font size",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step59, run: runStep59, durationMs: STEP59_DURATION_MS },
+    },
+    {
+      id: "format-alignment",
+      title: "Align your cells",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step60, run: runStep60, durationMs: STEP60_DURATION_MS },
     },
   ],
 };
