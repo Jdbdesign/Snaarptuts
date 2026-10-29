@@ -22,6 +22,7 @@ import { ChartEditor, CHART_PANEL_W } from "./ChartEditor";
 import { ChartGraphic, CHART_H, CHART_W } from "./ChartGraphic";
 import type { ChartState } from "./chart-state";
 import { CHART } from "./insert-data";
+import { InsertImageDialog } from "./dialogs-insert";
 import type { Clip, EditHistory } from "./edit-timeline";
 import type { Rows } from "./grid-state";
 
@@ -30,6 +31,7 @@ const A1: Range = single(0, 0);
 const NO_HITS: [number, number][] = [];
 const NO_CELLS: string[] = [];
 const NO_GROUPS: Groups = { rows: null, cols: null };
+const NO_ROW_HEIGHTS: Record<number, number> = {};
 const NO_HISTORY: EditHistory = { past: [], future: [] };
 
 /**
@@ -95,6 +97,9 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   const ctV = useTimelineVar(tl, "field:ct-v", "");
   const liveChart = chart ? { ...chart, titles: { chart: ctChart, h: ctH, v: ctV } } : null;
   const dataRows = sheets[0]?.rows ?? [];
+  // Insert > Image: a picture floating over the cells, and taller rows for a picture inside a cell
+  const imgOver = useTimelineVar<FloatingImage | null>(tl, "imgOver", null);
+  const rowHeights = useTimelineVar<Record<number, number>>(tl, "rowHeights", NO_ROW_HEIGHTS);
   const floaters: Floater[] =
     liveChart && activeSheet === sheets[0]?.id
       ? [
@@ -108,6 +113,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
           },
         ]
       : [];
+  if (imgOver && activeSheet === sheets[0]?.id) floaters.push({ id: "img", r: imgOver.r, c: imgOver.c, w: imgOver.w, h: imgOver.h, node: <FloatImage img={imgOver} /> });
 
   const menuState: MenuState = {
     canUndo: history.past.length > 0,
@@ -147,6 +153,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
             zoom,
             groups,
             floaters,
+            rowHeights,
           }}
           formulaBar={formulaBar}
           zoomLabel={`${zoom}%`}
@@ -180,6 +187,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
               <NameVersionDialog tl={tl} />
               <PrintDialog tl={tl} rows={sheets[0]?.rows ?? []} />
               <FindCard tl={tl} />
+              <InsertImageDialog tl={tl} />
             </>
           }
         />
@@ -214,6 +222,22 @@ function ChartObject({ chart, rows }: { chart: ChartState; rows: Rows }) {
           ))}
         </>
       )}
+    </div>
+  );
+}
+
+export type FloatingImage = { r: number; c: number; w: number; h: number; src: string; alt: string; selected: boolean };
+
+/** A picture over the cells: selected = blue outline and eight handles (the bottom-right one is `float-img-handle`). */
+function FloatImage({ img }: { img: FloatingImage }) {
+  return (
+    <div data-tl="float-img" className={`relative h-full w-full bg-white ${img.selected ? "outline outline-[2px] outline-[#2563EB]" : ""}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={img.src} alt={img.alt} className="h-full w-full object-cover" draggable={false} />
+      {img.selected &&
+        [[0, 0], [0, 50], [0, 100], [50, 0], [50, 100], [100, 0], [100, 50], [100, 100]].map(([t, l]) => (
+          <i key={`${t}-${l}`} data-tl={t === 100 && l === 100 ? "float-img-handle" : undefined} className="absolute h-[8px] w-[8px] rounded-full border border-white bg-[#2563EB]" style={{ top: `${t}%`, left: `${l}%`, transform: "translate(-50%,-50%)" }} />
+        ))}
     </div>
   );
 }

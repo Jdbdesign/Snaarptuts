@@ -1,7 +1,10 @@
 import type { Timeline } from "@/lib/timeline";
-import { beginEdit, chooseRow, chooseSub, setRows } from "./edit-timeline";
+import { beginEdit, chooseRow, chooseSub, commit, getRows, setRows } from "./edit-timeline";
+import { IMAGE } from "./insert-data";
+import type { FloatingImage } from "./SheetsApp";
+import { toast } from "./sheets-timeline";
 import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
-import { parseRef, single } from "./grid-state";
+import { parseRef, setCell, single } from "./grid-state";
 import { INSERT_BOOK, insertRows } from "./sheets-sample";
 import { pressOn } from "./sheets-timeline";
 import { defaultChart, moveSeries, patchSeries, type ChartState } from "./chart-state";
@@ -19,6 +22,7 @@ export function beginInsert(tl: Timeline, url: string, cursor?: [number, number]
   tl.setVar("activeSheet", INSERT_BOOK.sheets[0].id);
   tl.setVar("title", INSERT_BOOK.title);
   resetChart(tl);
+  resetImage(tl);
 }
 
 /** The sample sheet again (between two demos in one step): A1 selected, no history. */
@@ -141,4 +145,80 @@ export async function dragSeries(tl: Timeline, id: string, onto: string) {
   setChart(tl, moveSeries(c, id, by));
   tl.hover(null);
   await tl.wait(500);
+}
+
+/* ---------------- Images (steps 45-46) ---------------- */
+
+export function resetImage(tl: Timeline) {
+  tl.setVar("dialog", "");
+  tl.setVar("imgTab", "upload");
+  tl.setVar("imgChooser", false);
+  tl.setVar("imgChosen", "");
+  tl.setVar("field:img-alt", "");
+  tl.setVar("field:img-url", "");
+  tl.setVar("imgOver", null);
+  tl.setVar("rowHeights", {});
+  tl.setVar("focus", "");
+}
+
+export const openImageDialog = (tl: Timeline) => tl.setVar("dialog", "insertImage");
+export const closeImageDialog = (tl: Timeline) => {
+  tl.hover(null);
+  tl.setVar("focus", "");
+  tl.setVar("dialog", "");
+};
+
+/** Click the drop area, then pick one of the sample pictures in the chooser: the preview appears. */
+export async function chooseImageFile(tl: Timeline, id: string) {
+  await pressOn(tl, "[data-tl=img-drop]", { ms: 700, ring: false });
+  tl.setVar("imgChooser", true);
+  await tl.wait(500);
+  const sel = `[data-tl=img-file-${id}]`;
+  await tl.moveCursorTo(sel, { ms: 550 });
+  tl.hover(sel);
+  await tl.wait(250);
+  await tl.click(sel);
+  tl.hover(null);
+  tl.setVar("imgChooser", false);
+  tl.setVar("imgChosen", id);
+  await tl.wait(600);
+}
+
+/** Insert in cell: the cell shows the picture (its row grows), the formula bar keeps the =IMAGE(...) text. */
+export function placeImageInCell(tl: Timeline, id: string) {
+  const file = IMAGE.files.find((f) => f.id === id)!;
+  const [r, c] = parseRef(IMAGE.cell);
+  commit(tl, setCell(getRows(tl), r, c, { text: "", image: file.src, formula: IMAGE.cellFormula }));
+  tl.setVar("rowHeights", { [IMAGE.tallRow.row]: IMAGE.tallRow.px });
+  tl.setVar("sel", single(r, c));
+  closeImageDialog(tl);
+  toast(tl, IMAGE.toastCell);
+}
+
+/** Insert over cells: the picture floats over the grid, selected, with its handles. */
+export function placeImageOver(tl: Timeline, id: string) {
+  const file = IMAGE.files.find((f) => f.id === id)!;
+  const fi: FloatingImage = { ...IMAGE.over, src: file.src, alt: file.alt, selected: true };
+  tl.setVar("imgOver", fi);
+  closeImageDialog(tl);
+  toast(tl, IMAGE.toastOver);
+}
+
+/** Drag the picture's bottom-right handle: the picture grows with the cursor, to the final size. */
+export async function resizeFloatingImage(tl: Timeline, to: { w: number; h: number }) {
+  const start = tl.getVar<FloatingImage>("imgOver", null as unknown as FloatingImage);
+  const box = document.querySelector("[data-tl=float-img]")!.getBoundingClientRect();
+  const scale = box.width / start.w;
+  const handle = "[data-tl=float-img-handle]";
+  await tl.moveCursorTo(handle, { ms: 700 });
+  const hb = document.querySelector(handle)!.getBoundingClientRect();
+  const x0 = hb.left + hb.width / 2;
+  const y0 = hb.top + hb.height / 2;
+  await tl.moveCursorTo(handle, {
+    ms: 1000,
+    dx: (to.w - start.w) * scale,
+    dy: (to.h - start.h) * scale,
+    onMove: (x, y) => tl.setVar("imgOver", { ...start, w: start.w + (x - x0) / scale, h: start.h + (y - y0) / scale }),
+  });
+  tl.setVar("imgOver", { ...start, w: to.w, h: to.h });
 }

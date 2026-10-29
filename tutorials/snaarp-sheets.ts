@@ -88,6 +88,10 @@ import { Step43 } from "@/scenes/snaarp-sheets/step43/Step43";
 import { runStep43, STEP43_DURATION_MS } from "@/scenes/snaarp-sheets/step43/script";
 import { Step44 } from "@/scenes/snaarp-sheets/step44/Step44";
 import { runStep44, STEP44_DURATION_MS } from "@/scenes/snaarp-sheets/step44/script";
+import { Step45 } from "@/scenes/snaarp-sheets/step45/Step45";
+import { runStep45, STEP45_DURATION_MS } from "@/scenes/snaarp-sheets/step45/script";
+import { Step46 } from "@/scenes/snaarp-sheets/step46/Step46";
+import { runStep46, STEP46_DURATION_MS } from "@/scenes/snaarp-sheets/step46/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -367,6 +371,18 @@ export const snaarpSheets: Tutorial = {
       title: "Chart: series, legend and axes",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step44, run: runStep44, durationMs: STEP44_DURATION_MS },
+    },
+    {
+      id: "insert-image-cell",
+      title: "Insert an image in a cell",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step45, run: runStep45, durationMs: STEP45_DURATION_MS },
+    },
+    {
+      id: "insert-image-over",
+      title: "Insert an image over cells",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step46, run: runStep46, durationMs: STEP46_DURATION_MS },
     },
   ],
 };

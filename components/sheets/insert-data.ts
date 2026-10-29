@@ -170,3 +170,34 @@ export const CHART = {
   typed: { chart: "Q3 spend by item", h: "Item", v: "Spend (GBP)" },
   where: { row: 8, col: 0 },
 };
+
+/* ---------------- Images (steps 45-46) ---------------- */
+
+export const IMAGE = {
+  title: "Insert image",
+  tabs: [opt("upload", "Upload"), opt("url", "By URL")],
+  drop: "Click to upload an image",
+  types: "PNG, JPG, GIF, SVG up to 5MB",
+  chooser: "Choose an image",
+  alt: "Alt text (optional)",
+  altPlaceholder: "Describe the image",
+  preview: "Preview",
+  urlLabel: "Image URL",
+  urlPlaceholder: "https://example.com/picture.png",
+  urlHint: "Paste a link to a picture on the web",
+  cancel: "Cancel",
+  insert: "Insert",
+  files: [
+    { id: "desk", name: "studio-desk.svg", src: "/sheets-sample/studio-desk.svg", alt: "Acme Studio desk" },
+    { id: "skyline", name: "acme-skyline.svg", src: "/sheets-sample/acme-skyline.svg", alt: "Acme skyline" },
+    { id: "logo", name: "acme-logo.svg", src: "/sheets-sample/acme-logo.svg", alt: "Acme logo" },
+  ],
+  /** The cell the picture goes in, and the formula the formula bar keeps showing (the picture itself is drawn in the cell). */
+  cell: "e8",
+  cellFormula: '=IMAGE("https://example.com/sample.png","image")',
+  tallRow: { row: 7, px: 64 },
+  over: { r: 8, c: 0, w: 300, h: 200 },
+  overResized: { w: 360, h: 240 },
+  toastCell: "Image inserted in cell",
+  toastOver: "Image inserted over cells",
+};

@@ -176,6 +176,9 @@ export function SheetGrid({
                       {edit.text}
                       <i className="ml-px inline-block h-[14px] w-px translate-y-[2px] bg-[#202124]" style={{ animation: "caret-blink 1s steps(1) infinite" }} />
                     </span>
+                  ) : o.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={o.image} alt="" className="absolute inset-[2px] h-[calc(100%-4px)] w-[calc(100%-4px)] object-contain" />
                   ) : (
                     text
                   )}

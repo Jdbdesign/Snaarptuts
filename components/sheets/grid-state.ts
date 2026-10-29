@@ -258,3 +258,10 @@ export function insertCellsRight(rows: Rows, rg: Range): Rows {
   }
   return recalc(out);
 }
+
+/** Put a whole cell (text plus image, checkbox, chip...) into (r, c). */
+export function setCell(rows: Rows, r: number, c: number, cell: Cell): Rows {
+  const out = grown(rows, r, c);
+  out[r][c] = cell;
+  return recalc(out);
+}
