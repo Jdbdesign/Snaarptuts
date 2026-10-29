@@ -161,6 +161,8 @@ import { Step79 } from "@/scenes/snaarp-sheets/step79/Step79";
 import { runStep79, STEP79_DURATION_MS } from "@/scenes/snaarp-sheets/step79/script";
 import { Step80 } from "@/scenes/snaarp-sheets/step80/Step80";
 import { runStep80, STEP80_DURATION_MS } from "@/scenes/snaarp-sheets/step80/script";
+import { Step81 } from "@/scenes/snaarp-sheets/step81/Step81";
+import { runStep81, STEP81_DURATION_MS } from "@/scenes/snaarp-sheets/step81/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -177,6 +179,8 @@ export const snaarpSheets: Tutorial = {
     { title: "Format menu", from: "format-overview" },
     { title: "Data menu", from: "data-overview" },
     { title: "Tools menu", from: "tools-overview" },
+    { title: "Extensions menu", from: "extensions-menu" },
+    { title: "Help menu", from: "help-overview" },
   ],
   steps: [
     {
@@ -658,6 +662,12 @@ export const snaarpSheets: Tutorial = {
       title: "Accessibility options",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step80, run: runStep80, durationMs: STEP80_DURATION_MS },
+    },
+    {
+      id: "extensions-menu",
+      title: "Meet the Extensions menu",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step81, run: runStep81, durationMs: STEP81_DURATION_MS },
     },
   ],
 };
