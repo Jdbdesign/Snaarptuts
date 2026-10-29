@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS, L104 } from "./data";
 
 /** Snaarp Sheets, step 104 - Insert link: L2 to a web address, L3 to the Vendors sheet. Starts with A1 selected. */
-export const STEP104_DURATION_MS = 40000;
+export const STEP104_DURATION_MS = 29800;
 
 export async function runStep104(tl: Timeline) {
   beginTb(tl, "a1");
