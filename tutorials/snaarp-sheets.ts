@@ -155,6 +155,8 @@ import { Step76 } from "@/scenes/snaarp-sheets/step76/Step76";
 import { runStep76, STEP76_DURATION_MS } from "@/scenes/snaarp-sheets/step76/script";
 import { Step77 } from "@/scenes/snaarp-sheets/step77/Step77";
 import { runStep77, STEP77_DURATION_MS } from "@/scenes/snaarp-sheets/step77/script";
+import { Step78 } from "@/scenes/snaarp-sheets/step78/Step78";
+import { runStep78, STEP78_DURATION_MS } from "@/scenes/snaarp-sheets/step78/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -634,6 +636,12 @@ export const snaarpSheets: Tutorial = {
       title: "Check your spelling",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step77, run: runStep77, durationMs: STEP77_DURATION_MS },
+    },
+    {
+      id: "tools-autocomplete",
+      title: "Turn Autocomplete on and off",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step78, run: runStep78, durationMs: STEP78_DURATION_MS },
     },
   ],
 };
