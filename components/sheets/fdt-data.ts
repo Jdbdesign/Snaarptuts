@@ -157,7 +157,7 @@ export const FDT = {
   tab: "Sheet1",
   header: ["Item", "Owner", "Cost", "Status", "Due date", "Amount", "Rate", "Length", "Note"],
   /** Column widths in px (A..I). Note is narrow on purpose: it is the text that wraps, spills and is cut off. */
-  widths: [110, 100, 80, 86, 100, 86, 70, 80, 130],
+  widths: [110, 100, 80, 86, 150, 86, 70, 80, 130],
   /** 14/11/2026 12:30 as a serial day count (days since 30/12/1899), and 12 h 30 min as a fraction of a day. */
   dueSerial: 46340.6041667,
   lengthDay: 0.5208333,
