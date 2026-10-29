@@ -48,6 +48,8 @@ export type GridProps = {
   floaters?: Floater[];
 };
 
+const CHIP_ICONS = { dropdown: "shDropdown", people: "user", date: "shCalendar", place: "shPin", file: "shFile", finance: "shCoin", event: "shCalendar" } as const;
+
 const within = (g: GroupSpan | null, i: number) => !!g && i >= g.from && i <= g.to;
 
 /**
@@ -187,7 +189,11 @@ export function SheetGrid({
                     </span>
                   ) : o.chip ? (
                     <span className="absolute inset-y-[3px] left-[3px] right-[3px] flex items-center justify-between rounded-full px-[7px] text-[11.5px] leading-none text-[#1f2430]" style={{ background: o.chip.tone ?? "#E8F0FE" }}>
-                      <span className="truncate">{o.chip.label}</span>
+                      <span className="flex min-w-0 items-center gap-[4px]">
+                        {o.chip.kind !== "dropdown" && <Icon name={CHIP_ICONS[o.chip.kind]} size={11} className="shrink-0 text-[#5F6368]" />}
+                        <span className="truncate">{o.chip.label}</span>
+                        {o.chip.sub && <span className="shrink-0 text-[#137333]">{o.chip.sub}</span>}
+                      </span>
                       {o.chip.kind === "dropdown" && <Icon name="chevronDown" size={8} className="ml-[3px] shrink-0 text-[#5F6368]" />}
                     </span>
                   ) : o.image ? (

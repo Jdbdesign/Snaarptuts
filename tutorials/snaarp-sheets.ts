@@ -102,6 +102,10 @@ import { Step50 } from "@/scenes/snaarp-sheets/step50/Step50";
 import { runStep50, STEP50_DURATION_MS } from "@/scenes/snaarp-sheets/step50/script";
 import { Step51 } from "@/scenes/snaarp-sheets/step51/Step51";
 import { runStep51, STEP51_DURATION_MS } from "@/scenes/snaarp-sheets/step51/script";
+import { Step52 } from "@/scenes/snaarp-sheets/step52/Step52";
+import { runStep52, STEP52_DURATION_MS } from "@/scenes/snaarp-sheets/step52/script";
+import { Step53 } from "@/scenes/snaarp-sheets/step53/Step53";
+import { runStep53, STEP53_DURATION_MS } from "@/scenes/snaarp-sheets/step53/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -423,6 +427,18 @@ export const snaarpSheets: Tutorial = {
       title: "Insert an emoji",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step51, run: runStep51, durationMs: STEP51_DURATION_MS },
+    },
+    {
+      id: "insert-smart-chip-people",
+      title: "Smart chips: add a person",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step52, run: runStep52, durationMs: STEP52_DURATION_MS },
+    },
+    {
+      id: "insert-smart-chips-more",
+      title: "Smart chips: dates, places, files and more",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step53, run: runStep53, durationMs: STEP53_DURATION_MS },
     },
   ],
 };

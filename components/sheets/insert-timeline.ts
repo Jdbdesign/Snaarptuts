@@ -1,12 +1,13 @@
 import type { Timeline } from "@/lib/timeline";
 import { beginEdit, chooseRow, chooseSub, commit, getRows, setRows } from "./edit-timeline";
-import { CHECKBOX, DROPDOWN, EMOJI, FUNCTIONS, IMAGE, INSERT_SAMPLE, LINK } from "./insert-data";
+import { CHECKBOX, CHIP_TONES, DROPDOWN, EMOJI, FUNCTIONS, IMAGE, INSERT_SAMPLE, LINK, SMART_CHIPS } from "./insert-data";
+import type { ChipValue } from "./SmartChipDialog";
 import { DEFAULT_DV, type DvState } from "./InsertPanels";
 import type { FloatingImage } from "./SheetsApp";
 import { toast } from "./sheets-timeline";
 import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
 import { obj, parseRef, refOf, setCell, single } from "./grid-state";
-import { INSERT_BOOK, insertRows } from "./sheets-sample";
+import { INSERT_BOOK, insertRows, type SheetModel } from "./sheets-sample";
 import { pressOn } from "./sheets-timeline";
 import { defaultChart, moveSeries, patchSeries, type ChartState } from "./chart-state";
 
@@ -26,6 +27,7 @@ export function beginInsert(tl: Timeline, url: string, cursor?: [number, number]
   resetImage(tl);
   resetFunctionLink(tl);
   resetControls(tl);
+  resetChips(tl);
 }
 
 /** The sample sheet again (between two demos in one step): A1 selected, no history. */
@@ -418,3 +420,72 @@ export function insertEmoji(tl: Timeline, ref: string, id: string) {
 }
 
 export const checkboxCells = CHECKBOX;
+
+/* ---------------- Smart chips (steps 52-53) ---------------- */
+
+export function resetChips(tl: Timeline) {
+  tl.setVar("chipValue", null);
+  tl.setVar("chipSuggest", false);
+  for (const k of ["people", "place", "finance", "event"]) tl.setVar(`field:chip-${k}`, "");
+}
+
+/** Insert > Smart chips has been clicked: the list of chip types opens. */
+export const openChipList = (tl: Timeline) => {
+  tl.setVar("chipValue", null);
+  tl.setVar("chipSuggest", false);
+  tl.setVar("dialog", "chips");
+};
+
+/** Click one of the chip types: its insert dialog replaces the list. */
+export async function openChipType(tl: Timeline, kind: string) {
+  await pressOn(tl, `[data-tl=chip-type-${kind}]`, { ms: 700, ring: false });
+  tl.setVar("chipValue", null);
+  tl.setVar("chipSuggest", false);
+  tl.setVar("dialog", `chips-${kind}`);
+  await tl.wait(500);
+}
+
+/** Click "Back": the dialog returns to the list of chip types. */
+export async function chipBack(tl: Timeline) {
+  await pressOn(tl, "[data-tl=chip-back]", { ms: 650, ring: false });
+  tl.setVar("chipValue", null);
+  tl.setVar("chipSuggest", false);
+  tl.setVar("dialog", "chips");
+  await tl.wait(500);
+}
+
+/** Pick one row of the suggestion list under the box: the box and the preview take it. */
+export async function pickSuggestion(tl: Timeline, n: number, boxText: string, value: ChipValue) {
+  const sel = `[data-tl=chip-suggest-${n}]`;
+  await tl.moveCursorTo(sel, { ms: 600 });
+  tl.hover(sel);
+  await tl.wait(300);
+  await tl.click(sel);
+  tl.hover(null);
+  const kind = tl.getVar<string>("dialog", "").slice(6);
+  if (boxText) tl.setVar(`field:chip-${kind}`, boxText);
+  tl.setVar("chipSuggest", false);
+  tl.setVar("chipValue", value);
+  await tl.wait(500);
+}
+
+/** Click Insert in the chip dialog: the dialog closes and the cell shows the chip. */
+export async function insertChip(tl: Timeline, ref: string, kind: string, value: ChipValue, text: string, toastText: string) {
+  await pressOn(tl, "[data-tl=chip-insert]", { ms: 700 });
+  const { r, c, cell } = cellAt(tl, ref);
+  commit(tl, setCell(getRows(tl), r, c, { ...cell, text, chip: { kind: kind as "people", label: value.label, sub: value.sub, tone: CHIP_TONES[kind] } }));
+  tl.setVar("sel", single(r, c));
+  tl.setVar("dialog", "");
+  tl.setVar("focus", "");
+  toast(tl, toastText);
+}
+
+export const chipData = SMART_CHIPS;
+
+/** Make one column wider (a chip with a long label needs the room). */
+export function widenColumn(tl: Timeline, col: number, px: number) {
+  const sheets = tl.getVar<SheetModel[]>("sheets", []);
+  const widths = Array.from({ length: Math.max(col + 1, 8) }, (_, i) => sheets[0].widths?.[i] ?? 86);
+  widths[col] = px;
+  tl.setVar("sheets", [{ ...sheets[0], widths }, ...sheets.slice(1)]);
+}

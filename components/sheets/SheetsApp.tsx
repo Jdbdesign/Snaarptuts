@@ -23,6 +23,7 @@ import { ChartGraphic, CHART_H, CHART_W } from "./ChartGraphic";
 import type { ChartState } from "./chart-state";
 import { CHART } from "./insert-data";
 import { DropdownList, EmojiDialog, ValidationPanel, type DdOption, type DdPop } from "./InsertPanels";
+import { SmartChipDialog } from "./SmartChipDialog";
 import { FunctionCard, InsertImageDialog, LinkChipView, LinkPopover, type LinkChip, type LinkPop } from "./dialogs-insert";
 import type { Clip, EditHistory } from "./edit-timeline";
 import type { Rows } from "./grid-state";
@@ -207,6 +208,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
               <InsertImageDialog tl={tl} />
               <FunctionCard tl={tl} />
               <EmojiDialog tl={tl} />
+              <SmartChipDialog tl={tl} />
             </>
           }
         />

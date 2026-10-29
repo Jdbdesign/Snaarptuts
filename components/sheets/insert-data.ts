@@ -343,3 +343,44 @@ export const EMOJI = {
     ["Nature", "earth", "🌍", "globe showing Europe-Africa"],
   ] as [string, string, string, string][],
 };
+
+/* ---------------- Smart chips (steps 52-53) ---------------- */
+
+export const CHIP_TONES: Record<string, string> = { people: "#E8F0FE", date: "#E6F4EA", place: "#FCE8E6", file: "#F3E8FD", finance: "#FEF7E0", event: "#E0F2F1" };
+
+export const SMART_CHIPS = {
+  title: "Smart chips",
+  search: "Search chip types...",
+  back: "Back",
+  insert: "Insert",
+  preview: "Preview",
+  types: [
+    { id: "people", label: "People", desc: "Mention a person" },
+    { id: "date", label: "Date", desc: "Insert a date chip" },
+    { id: "place", label: "Place", desc: "Reference a location" },
+    { id: "file", label: "File", desc: "Link to a file" },
+    { id: "finance", label: "Finance", desc: "Stock or financial reference" },
+    { id: "event", label: "Event", desc: "Reference a calendar event" },
+  ],
+  header: "Reviewer",
+  headerCell: "h1",
+  cell: "h2",
+  /** Step 53 puts one chip of each of the other five kinds in column H. */
+  chipsHeader: "Smart chips",
+  chipCells: { date: "h2", place: "h3", file: "h4", finance: "h5", event: "h6" } as Record<string, string>,
+  toast: "Person chip inserted",
+  toastOther: (kind: string) => `${kind} chip inserted`,
+  people: {
+    title: "Insert People",
+    label: "People",
+    placeholder: "Enter name or email...",
+    typed: "pri",
+    person: { name: "Priya Shah", email: "priya.shah@example.com" },
+    manage: "Manage addresses…",
+  },
+  date: { title: "Insert Date", label: "Date", month: "November 2026", days: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"], offset: 6, count: 30, pick: 14, value: "14/11/2026" },
+  place: { title: "Insert Place", label: "Place", placeholder: "Search for a place", typed: "lon", options: ["London, UK", "Leeds, UK", "Manchester, UK"], value: "London, UK" },
+  file: { title: "Insert File", label: "File", files: ["Q3 budget.xlsx", "Brand guidelines.pdf", "Team photo.png"], value: "Q3 budget.xlsx" },
+  finance: { title: "Insert Finance", label: "Finance", placeholder: "Ticker or company", typed: "ac", name: "Acme Studio plc", ticker: "ACME", price: 12.4 },
+  event: { title: "Insert Event", label: "Event", placeholder: "Event title", typed: "quar", value: "Quarterly review, 14/11/2026" },
+};
