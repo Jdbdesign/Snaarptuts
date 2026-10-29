@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 101 - Vertical align on a tall row: Top, Middle, Bottom. Starts with row 3 made taller (64 px). */
-export const STEP101_DURATION_MS = 40000;
+export const STEP101_DURATION_MS = 33700;
 
 export async function runStep101(tl: Timeline) {
   beginTb(tl, "a1");
