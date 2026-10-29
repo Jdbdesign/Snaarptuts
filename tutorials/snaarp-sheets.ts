@@ -117,6 +117,8 @@ import { Step57 } from "@/scenes/snaarp-sheets/step57/Step57";
 import { runStep57, STEP57_DURATION_MS } from "@/scenes/snaarp-sheets/step57/script";
 import { Step58 } from "@/scenes/snaarp-sheets/step58/Step58";
 import { runStep58, STEP58_DURATION_MS } from "@/scenes/snaarp-sheets/step58/script";
+import { Step59 } from "@/scenes/snaarp-sheets/step59/Step59";
+import { runStep59, STEP59_DURATION_MS } from "@/scenes/snaarp-sheets/step59/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -480,6 +482,12 @@ export const snaarpSheets: Tutorial = {
       title: "Bold, italic, underline and strikethrough",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step58, run: runStep58, durationMs: STEP58_DURATION_MS },
+    },
+    {
+      id: "format-font-size",
+      title: "Change the font size",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step59, run: runStep59, durationMs: STEP59_DURATION_MS },
     },
   ],
 };
