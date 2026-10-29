@@ -141,6 +141,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   const hdrMenu = useTimelineVar<string>(tl, "hdrMenu", "");
   const paint = useTimelineVar<Look | null>(tl, "tbPaint", null);
   const collapsed = useTimelineVar(tl, "tbCollapsed", false);
+  const typedSize = useTimelineVar<string>(tl, "field:size", "");
   const active = sheets.find((x) => x.id === activeSheet) ?? sheets[0];
   const shownRows = autoRowHeights(active?.rows ?? [], active?.widths);
   const rowH = { ...shownRows, ...rowHeights };
@@ -179,7 +180,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
     on: [cellNow.bold && "bold", cellNow.italic && "italic", cellNow.strike && "strike", cellNow.underline && "underline", paint && "paint", cellNow.wrap === "wrap" && "wrap"].filter((t): t is string => !!t),
     open: hdrMenu ? `hdr:${hdrMenu}` : tbMenu,
     font: labels.font,
-    size: labels.size,
+    size: typedSize || labels.size,
     collapsed,
     hAlign: cellNow.align === "center" ? "edAlignC" : cellNow.align === "right" ? "edAlignR" : undefined,
   };

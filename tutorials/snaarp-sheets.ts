@@ -186,6 +186,14 @@ import { Step92 } from "@/scenes/snaarp-sheets/step92/Step92";
 import { runStep92, STEP92_DURATION_MS } from "@/scenes/snaarp-sheets/step92/script";
 import { Step93 } from "@/scenes/snaarp-sheets/step93/Step93";
 import { runStep93, STEP93_DURATION_MS } from "@/scenes/snaarp-sheets/step93/script";
+import { Step94 } from "@/scenes/snaarp-sheets/step94/Step94";
+import { runStep94, STEP94_DURATION_MS } from "@/scenes/snaarp-sheets/step94/script";
+import { Step95 } from "@/scenes/snaarp-sheets/step95/Step95";
+import { runStep95, STEP95_DURATION_MS } from "@/scenes/snaarp-sheets/step95/script";
+import { Step96 } from "@/scenes/snaarp-sheets/step96/Step96";
+import { runStep96, STEP96_DURATION_MS } from "@/scenes/snaarp-sheets/step96/script";
+import { Step97 } from "@/scenes/snaarp-sheets/step97/Step97";
+import { runStep97, STEP97_DURATION_MS } from "@/scenes/snaarp-sheets/step97/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -763,6 +771,30 @@ export const snaarpSheets: Tutorial = {
       title: "More formats",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step93, run: runStep93, durationMs: STEP93_DURATION_MS },
+    },
+    {
+      id: "tb-font",
+      title: "Change the font",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step94, run: runStep94, durationMs: STEP94_DURATION_MS },
+    },
+    {
+      id: "tb-font-size",
+      title: "Change the font size",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step95, run: runStep95, durationMs: STEP95_DURATION_MS },
+    },
+    {
+      id: "tb-text-styles",
+      title: "Bold italic underline and strikethrough",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step96, run: runStep96, durationMs: STEP96_DURATION_MS },
+    },
+    {
+      id: "tb-colours",
+      title: "Text colour and fill colour",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step97, run: runStep97, durationMs: STEP97_DURATION_MS },
     },
   ],
 };
