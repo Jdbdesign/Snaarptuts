@@ -376,3 +376,15 @@ export function runPaletteResult(tl: Timeline) {
   closeDialog(tl);
   if (hit) runAction(tl, hit.id);
 }
+
+/** "Select all" / "Clear" in the open filter list. */
+export async function filterAll(tl: Timeline, all: boolean) {
+  await pressOn(tl, all ? "[data-tl=fp-all]" : "[data-tl=fp-clear]", { ms: 600, ring: false });
+  tl.setVar("fpOff", all ? [] : tl.getVar<string[]>("fpValues", []));
+  await tl.wait(500);
+}
+
+/** Cancel in the open filter list: nothing changes. */
+export function cancelFilterPop(tl: Timeline) {
+  tl.setVar("fpCol", -1);
+}
