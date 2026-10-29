@@ -174,6 +174,8 @@ import { Step86 } from "@/scenes/snaarp-sheets/step86/Step86";
 import { runStep86, STEP86_DURATION_MS } from "@/scenes/snaarp-sheets/step86/script";
 import { Step87 } from "@/scenes/snaarp-sheets/step87/Step87";
 import { runStep87, STEP87_DURATION_MS } from "@/scenes/snaarp-sheets/step87/script";
+import { Step88 } from "@/scenes/snaarp-sheets/step88/Step88";
+import { runStep88, STEP88_DURATION_MS } from "@/scenes/snaarp-sheets/step88/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -715,6 +717,12 @@ export const snaarpSheets: Tutorial = {
       title: "Undo and redo",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step87, run: runStep87, durationMs: STEP87_DURATION_MS },
+    },
+    {
+      id: "tb-print",
+      title: "Print your spreadsheet with the toolbar",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step88, run: runStep88, durationMs: STEP88_DURATION_MS },
     },
   ],
 };
