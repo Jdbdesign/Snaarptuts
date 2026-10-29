@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 
 /** Snaarp Sheets, step 112 - the clock icon opens the same Version history page as File > Version history (step 15). Starts with A1 selected. */
-export const STEP112_DURATION_MS = 24000;
+export const STEP112_DURATION_MS = 19000;
 
 export async function runStep112(tl: Timeline) {
   beginTb(tl, "a1");
