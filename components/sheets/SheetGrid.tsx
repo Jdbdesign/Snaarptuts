@@ -223,6 +223,7 @@ export function SheetGrid({
                     />
                   )}
                   {inAnts && <Ants top={r === a!.r1} bottom={r === a!.r2} left={c === a!.c1} right={c === a!.c2} />}
+                  {o.note && <i className="pointer-events-none absolute right-0 top-0 h-0 w-0 border-l-[8px] border-t-[8px] border-l-transparent border-t-[#3C4043]" />}
                   {commented.includes(refOf(r, c)) && <i className="pointer-events-none absolute right-0 top-0 h-0 w-0 border-l-[8px] border-t-[8px] border-l-transparent border-t-[#F4B400]" />}
                 </span>
               );

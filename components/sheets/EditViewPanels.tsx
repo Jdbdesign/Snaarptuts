@@ -5,9 +5,23 @@ import type { Timeline } from "@/lib/timeline";
 import { useNarrow } from "@/lib/useNarrow";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { COMMENTS, FIND } from "./edit-view-data";
+import { COMMENT_INS } from "./insert-data";
 import { BLUE, BlueButton, CloseX, ShField, SheetGlyph, Tick } from "./parts";
 
-export type CommentThread = { id: string; author: string; initials: string; text: string; time: string; cell: string };
+export type CommentReply = { author: string; initials: string; text: string; time: string };
+export type CommentThread = {
+  id: string;
+  author: string;
+  initials: string;
+  text: string;
+  time: string;
+  cell: string;
+  /** A "Reply" link under the thread (the Insert > Comment step). */
+  canReply?: boolean;
+  replies?: CommentReply[];
+  /** A note, listed in the same panel under the name "Note". */
+  note?: boolean;
+};
 
 /**
  * View > Comments: the right-hand Comments panel. Scene variables: `commentsOpen` (the panel itself, handled by SheetsApp),
@@ -17,6 +31,7 @@ export type CommentThread = { id: string; author: string; initials: string; text
 export function CommentsPanel({ tl }: { tl: Timeline }) {
   const threads = useTimelineVar<CommentThread[]>(tl, "comments", NO_THREADS);
   const ui = useTimelineVar<string>(tl, "commentUi", "");
+  const replyOpen = useTimelineVar<string>(tl, "replyOpen", "");
   const D = COMMENTS;
   return (
     <div data-tl="comments-panel" className="flex h-full w-[272px] flex-col bg-white text-[#1f2430]">
@@ -63,9 +78,29 @@ export function CommentsPanel({ tl }: { tl: Timeline }) {
                 <span className="block text-[12.5px] font-medium leading-[15px]">{t.author}</span>
                 <span className="block text-[10.5px] leading-[13px] text-[#80868B]">{t.time}</span>
               </span>
-              <span className="rounded-[4px] bg-[#E8F0FE] px-[6px] py-[1px] text-[10.5px] font-medium text-[#1C3F94]">{t.cell}</span>
+              <span className="rounded-[4px] bg-[#E8F0FE] px-[6px] py-[1px] text-[10.5px] font-medium text-[#1C3F94]">{t.note ? `Note · ${t.cell}` : t.cell}</span>
             </div>
             <p className="mt-[8px] text-[12.5px] leading-[17px]">{t.text}</p>
+            {t.replies?.map((rp, i) => (
+              <div key={i} data-tl={`reply-${t.id}-${i}`} className="mt-[8px] border-t border-[#F0F1F3] pt-[8px]">
+                <div className="flex items-center gap-[8px]">
+                  <span className="flex h-[20px] w-[20px] items-center justify-center rounded-full bg-[#7014D9] text-[9px] font-medium text-white">{rp.initials}</span>
+                  <span className="text-[12px] font-medium">{rp.author}</span>
+                  <span className="text-[10.5px] text-[#80868B]">{rp.time}</span>
+                </div>
+                <p className="mt-[4px] text-[12.5px] leading-[17px]">{rp.text}</p>
+              </div>
+            ))}
+            {t.canReply && replyOpen !== t.id && <span data-tl={`comment-reply-${t.id}`} className="mt-[6px] inline-block text-[12px] text-[#2563EB] data-[hover=true]:underline">{COMMENT_INS.reply}</span>}
+            {replyOpen === t.id && (
+              <div className="mt-[8px]">
+                <ShField tl={tl} id="reply" placeholder={COMMENT_INS.replyPlaceholder} className="!h-[30px] !text-[12.5px]" />
+                <div className="mt-[8px] flex justify-end gap-[8px]">
+                  <span data-tl="reply-cancel" className="flex h-[26px] items-center rounded-full px-[10px] text-[12px] font-medium text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]">{COMMENTS.cancel}</span>
+                  <BlueButton hook="reply-post" round className="!h-[26px] !px-[12px] !text-[12px]">{COMMENT_INS.reply}</BlueButton>
+                </div>
+              </div>
+            )}
           </div>
         ))}
         {threads.length === 0 && ui !== "compose" && (

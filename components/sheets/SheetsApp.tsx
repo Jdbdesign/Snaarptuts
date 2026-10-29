@@ -24,6 +24,7 @@ import type { ChartState } from "./chart-state";
 import { CHART } from "./insert-data";
 import { DropdownList, EmojiDialog, ValidationPanel, type DdOption, type DdPop } from "./InsertPanels";
 import { SmartChipDialog } from "./SmartChipDialog";
+import { CommentBox, NoteDialog, NoteTip, type CommentPop } from "./dialogs-insert";
 import { FunctionCard, InsertImageDialog, LinkChipView, LinkPopover, type LinkChip, type LinkPop } from "./dialogs-insert";
 import type { Clip, EditHistory } from "./edit-timeline";
 import type { Rows } from "./grid-state";
@@ -111,6 +112,9 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   const dvPanel = useTimelineVar(tl, "dvPanel", false);
   const ddPop = useTimelineVar<DdPop | null>(tl, "ddPop", null);
   const ddOptions = useTimelineVar<DdOption[]>(tl, "ddOptions", NO_OPTIONS);
+  // Insert > Comment and Note: the comment box beside a cell, and the note that shows while a cell is hovered
+  const commentPop = useTimelineVar<CommentPop | null>(tl, "commentPop", null);
+  const noteTip = useTimelineVar<{ r: number; c: number; text: string } | null>(tl, "noteTip", null);
   const floaters: Floater[] =
     liveChart && activeSheet === sheets[0]?.id
       ? [
@@ -130,6 +134,9 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   if (linkChip && !linkPop && activeSheet === sheets[0]?.id) floaters.push({ id: "linkchip", r: linkChip.r + 1, c: linkChip.c, w: 260, h: 30, node: <LinkChipView chip={linkChip} /> });
 
   if (ddPop && activeSheet === sheets[0]?.id) floaters.push({ id: "dd", r: ddPop.r + 1, c: ddPop.c, w: 150, h: 40 + ddOptions.length * 28, node: <DropdownList options={ddOptions} /> });
+
+  if (commentPop && activeSheet === sheets[0]?.id) floaters.push({ id: "cmt", r: commentPop.r, c: commentPop.c + 1, w: 260, h: 140, node: <CommentBox tl={tl} /> });
+  if (noteTip && activeSheet === sheets[0]?.id) floaters.push({ id: "note", r: noteTip.r, c: noteTip.c + 1, w: 180, h: 60, node: <NoteTip text={noteTip.text} /> });
 
   const menuState: MenuState = {
     canUndo: history.past.length > 0,
@@ -209,6 +216,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
               <FunctionCard tl={tl} />
               <EmojiDialog tl={tl} />
               <SmartChipDialog tl={tl} />
+              <NoteDialog tl={tl} />
             </>
           }
         />

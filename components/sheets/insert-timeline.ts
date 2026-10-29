@@ -1,8 +1,9 @@
 import type { Timeline } from "@/lib/timeline";
 import { beginEdit, chooseRow, chooseSub, commit, getRows, setRows } from "./edit-timeline";
-import { CHECKBOX, CHIP_TONES, DROPDOWN, EMOJI, FUNCTIONS, IMAGE, INSERT_SAMPLE, LINK, SMART_CHIPS } from "./insert-data";
+import { COMMENT_INS, NOTE, CHECKBOX, CHIP_TONES, DROPDOWN, EMOJI, FUNCTIONS, IMAGE, INSERT_SAMPLE, LINK, SMART_CHIPS } from "./insert-data";
 import type { ChipValue } from "./SmartChipDialog";
 import { DEFAULT_DV, type DvState } from "./InsertPanels";
+import type { CommentThread } from "./EditViewPanels";
 import type { FloatingImage } from "./SheetsApp";
 import { toast } from "./sheets-timeline";
 import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
@@ -28,6 +29,7 @@ export function beginInsert(tl: Timeline, url: string, cursor?: [number, number]
   resetFunctionLink(tl);
   resetControls(tl);
   resetChips(tl);
+  resetNotes(tl);
 }
 
 /** The sample sheet again (between two demos in one step): A1 selected, no history. */
@@ -488,4 +490,79 @@ export function widenColumn(tl: Timeline, col: number, px: number) {
   const widths = Array.from({ length: Math.max(col + 1, 8) }, (_, i) => sheets[0].widths?.[i] ?? 86);
   widths[col] = px;
   tl.setVar("sheets", [{ ...sheets[0], widths }, ...sheets.slice(1)]);
+}
+
+/* ---------------- Comment and Note (steps 54-55) ---------------- */
+
+export function resetNotes(tl: Timeline) {
+  tl.setVar("commentPop", null);
+  tl.setVar("noteTip", null);
+  tl.setVar("replyOpen", "");
+  for (const k of ["cmt-pop", "reply", "note-text"]) tl.setVar(`field:${k}`, "");
+  tl.setVar("noteRef", "");
+}
+
+type Thread = CommentThread;
+
+/** Insert > Comment on a cell: the comment box appears beside it. */
+export async function openCommentBox(tl: Timeline, ref: string) {
+  const [r, c] = parseRef(ref);
+  tl.setVar("field:cmt-pop", "");
+  tl.setVar("commentPop", { r, c });
+  await tl.wait(500);
+}
+
+/** Click Comment: the box closes, the thread joins the Comments panel (which opens) and the cell gets its orange corner. */
+export function postInsertComment(tl: Timeline, ref: string, text: string) {
+  const thread: Thread = { id: "t1", author: COMMENT_INS.author, initials: COMMENT_INS.initials, text, time: COMMENT_INS.time, cell: ref.toUpperCase(), canReply: true, replies: [] };
+  tl.setVar("comments", [thread]);
+  tl.setVar("commented", [ref.toUpperCase()]);
+  tl.setVar("commentPop", null);
+  tl.setVar("field:cmt-pop", "");
+  tl.setVar("focus", "");
+  tl.setVar("commentsOpen", true);
+}
+
+/** Click "Reply" under a thread: a reply box opens there. */
+export async function openReply(tl: Timeline, id: string) {
+  await pressOn(tl, `[data-tl=comment-reply-${id}]`, { ms: 750, ring: false });
+  tl.setVar("field:reply", "");
+  tl.setVar("replyOpen", id);
+  await tl.wait(400);
+}
+
+/** Click the Reply button: the reply is added under the comment. */
+export function postReply(tl: Timeline, id: string, text: string) {
+  const threads = tl.getVar<Thread[]>("comments", []);
+  tl.setVar("comments", threads.map((t) => (t.id === id ? { ...t, replies: [...(t.replies ?? []), { author: COMMENT_INS.author, initials: COMMENT_INS.initials, text, time: COMMENT_INS.time }] } : t)));
+  tl.setVar("replyOpen", "");
+  tl.setVar("field:reply", "");
+  tl.setVar("focus", "");
+}
+
+/** Insert > Note on a cell: the Insert note dialog opens. */
+export function openNoteDialog(tl: Timeline, ref: string) {
+  tl.setVar("field:note-text", "");
+  tl.setVar("noteRef", ref);
+  tl.setVar("dialog", "note");
+}
+
+/** Click Insert in the note dialog: the cell carries the note (a dark corner) and the note is listed in the Comments panel. */
+export function placeNote(tl: Timeline, ref: string, text: string) {
+  const { r, c, cell } = cellAt(tl, ref);
+  commit(tl, setCell(getRows(tl), r, c, { ...cell, note: text }));
+  const threads = tl.getVar<Thread[]>("comments", []);
+  tl.setVar("comments", [...threads, { id: "n1", author: NOTE.author, initials: NOTE.initials, text, time: NOTE.time, cell: ref.toUpperCase(), canReply: true, note: true }]);
+  tl.setVar("dialog", "");
+  tl.setVar("focus", "");
+  toast(tl, NOTE.toast);
+}
+
+/** Rest the mouse on a cell that has a note: the note shows beside it. */
+export async function hoverNote(tl: Timeline, ref: string, text: string) {
+  const sel = `[data-tl=cell-${ref}]`;
+  await tl.moveCursorTo(sel, { ms: 700 });
+  tl.hover(sel);
+  const { r, c } = cellAt(tl, ref);
+  tl.setVar("noteTip", { r, c, text });
 }

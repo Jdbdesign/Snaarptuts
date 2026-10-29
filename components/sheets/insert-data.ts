@@ -384,3 +384,33 @@ export const SMART_CHIPS = {
   finance: { title: "Insert Finance", label: "Finance", placeholder: "Ticker or company", typed: "ac", name: "Acme Studio plc", ticker: "ACME", price: 12.4 },
   event: { title: "Insert Event", label: "Event", placeholder: "Event title", typed: "quar", value: "Quarterly review, 14/11/2026" },
 };
+
+/* ---------------- Comment and Note (steps 54-55) ---------------- */
+
+export const COMMENT_INS = {
+  cell: "c3",
+  text: "Thank you",
+  placeholder: "Comment or add others with @",
+  cancel: "Cancel",
+  post: "Comment",
+  reply: "Reply",
+  replyPlaceholder: "Reply",
+  replyText: "You're welcome",
+  time: "Just now",
+  author: SHEET.owner,
+  initials: "AM",
+};
+
+export const NOTE = {
+  title: "Insert note",
+  placeholder: "Type your note here...",
+  hint: "Notes are attached to cells and visible on hover. Press ⌘+Enter to save.",
+  cancel: "Cancel",
+  insert: "Insert",
+  cell: "d4",
+  text: "Okay… Seen",
+  toast: "Note added",
+  author: "Note",
+  initials: "N",
+  time: "Just now",
+};

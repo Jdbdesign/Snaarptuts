@@ -106,6 +106,10 @@ import { Step52 } from "@/scenes/snaarp-sheets/step52/Step52";
 import { runStep52, STEP52_DURATION_MS } from "@/scenes/snaarp-sheets/step52/script";
 import { Step53 } from "@/scenes/snaarp-sheets/step53/Step53";
 import { runStep53, STEP53_DURATION_MS } from "@/scenes/snaarp-sheets/step53/script";
+import { Step54 } from "@/scenes/snaarp-sheets/step54/Step54";
+import { runStep54, STEP54_DURATION_MS } from "@/scenes/snaarp-sheets/step54/script";
+import { Step55 } from "@/scenes/snaarp-sheets/step55/Step55";
+import { runStep55, STEP55_DURATION_MS } from "@/scenes/snaarp-sheets/step55/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -439,6 +443,18 @@ export const snaarpSheets: Tutorial = {
       title: "Smart chips: dates, places, files and more",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step53, run: runStep53, durationMs: STEP53_DURATION_MS },
+    },
+    {
+      id: "insert-comment",
+      title: "Insert a comment",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step54, run: runStep54, durationMs: STEP54_DURATION_MS },
+    },
+    {
+      id: "insert-note",
+      title: "Insert a note",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step55, run: runStep55, durationMs: STEP55_DURATION_MS },
     },
   ],
 };

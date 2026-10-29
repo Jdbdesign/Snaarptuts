@@ -3,7 +3,7 @@
 import { Icon } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { FUNCTIONS, IMAGE, LINK } from "./insert-data";
+import { COMMENT_INS, FUNCTIONS, IMAGE, LINK, NOTE } from "./insert-data";
 import type { SheetModel } from "./sheets-sample";
 import { BLUE, BlueButton, CloseX, ShDialog, ShField } from "./parts";
 
@@ -158,6 +158,61 @@ export function LinkChipView({ chip }: { chip: LinkChip }) {
       <span data-tl="link-copy" className="flex h-[20px] w-[20px] items-center justify-center rounded-full text-[#5F6368] data-[hover=true]:bg-[#F1F3F4]"><Icon name="copy" size={13} /></span>
       <span data-tl="link-edit" className="flex h-[20px] w-[20px] items-center justify-center rounded-full text-[#5F6368] data-[hover=true]:bg-[#F1F3F4]"><Icon name="pencil" size={13} /></span>
       <span data-tl="link-remove" className="flex h-[20px] w-[20px] items-center justify-center rounded-full text-[#5F6368] data-[hover=true]:bg-[#F1F3F4]"><Icon name="shUnlink" size={13} /></span>
+    </div>
+  );
+}
+
+export type CommentPop = { r: number; c: number };
+
+/** The comment box beside a cell (Insert > Comment). Hooks: comment-pop, field-cmt-pop, cmt-cancel, cmt-post. */
+export function CommentBox({ tl }: { tl: Timeline }) {
+  const text = useTimelineVar(tl, "field:cmt-pop", "");
+  return (
+    <div data-tl="comment-pop" className="w-[260px] rounded-[10px] border border-[#DADCE0] bg-white p-[12px] shadow-[0_10px_30px_-6px_rgba(17,24,39,0.35)]">
+      <div className="mb-[8px] flex items-center gap-[8px] text-[12.5px] font-medium">
+        <span className="flex h-[24px] w-[24px] items-center justify-center rounded-full bg-[#7014D9] text-[10px] text-white">{COMMENT_INS.initials}</span>
+        {COMMENT_INS.author}
+      </div>
+      <ShField tl={tl} id="cmt-pop" placeholder={COMMENT_INS.placeholder} multi className="min-h-[54px] !text-[12.5px]" />
+      <div className="mt-[10px] flex justify-end gap-[8px]">
+        <span data-tl="cmt-cancel" className="flex h-[28px] items-center rounded-full px-[12px] text-[12.5px] font-medium text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]">{COMMENT_INS.cancel}</span>
+        <BlueButton hook="cmt-post" round disabled={!text} className="!h-[28px] !px-[14px] !text-[12.5px]">{COMMENT_INS.post}</BlueButton>
+      </div>
+    </div>
+  );
+}
+
+/** Insert > Note: the Insert note dialog. Scene variables: `dialog` = "note", `noteRef` (cell shown in the title), `field:note-text`, `focus`. Hooks: note-dialog, field-note-text, note-cancel, note-insert, note-close. */
+export function NoteDialog({ tl }: { tl: Timeline }) {
+  const open = useTimelineVar<string>(tl, "dialog", "") === "note";
+  const ref = useTimelineVar<string>(tl, "noteRef", "");
+  const text = useTimelineVar(tl, "field:note-text", "");
+  return (
+    <ShDialog open={open} width={340} hook="note-dialog">
+      <div className="p-[18px] text-[#1f2430]">
+        <div className="mb-[12px] flex items-center justify-between">
+          <h2 className="flex items-center gap-[8px] text-[14px] font-medium">
+            <Icon name="shNote" size={15} className="text-[#F4B400]" />
+            {NOTE.title} <span className="text-[12px] font-normal text-[#80868B]">({ref.toUpperCase()})</span>
+          </h2>
+          <CloseX id="note" />
+        </div>
+        <ShField tl={tl} id="note-text" placeholder={NOTE.placeholder} multi className="min-h-[92px]" />
+        <p className="mt-[10px] text-[11.5px] leading-[16px] text-[#80868B]">{NOTE.hint}</p>
+        <div className="mt-[14px] flex items-center justify-end gap-[10px] border-t border-[#E8EAED] pt-[12px]">
+          <span data-tl="note-cancel" className="flex h-[34px] items-center rounded-[7px] px-[14px] text-[13px] font-medium text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]">{NOTE.cancel}</span>
+          <BlueButton hook="note-insert" disabled={!text}>{NOTE.insert}</BlueButton>
+        </div>
+      </div>
+    </ShDialog>
+  );
+}
+
+/** The note shown when the mouse rests on a cell that has one. Hook: note-tip. */
+export function NoteTip({ text }: { text: string }) {
+  return (
+    <div data-tl="note-tip" className="w-[180px] rounded-[4px] border border-[#E0C97A] bg-[#FFF8D6] px-[10px] py-[8px] text-[12px] text-[#3C4043] shadow-[0_6px_16px_-4px_rgba(17,24,39,0.3)]">
+      {text}
     </div>
   );
 }
