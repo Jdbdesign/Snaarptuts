@@ -1,10 +1,10 @@
 import type { Timeline } from "@/lib/timeline";
 import { beginEdit, chooseRow, chooseSub, commit, getRows, setRows } from "./edit-timeline";
-import { IMAGE } from "./insert-data";
+import { FUNCTIONS, IMAGE, LINK } from "./insert-data";
 import type { FloatingImage } from "./SheetsApp";
 import { toast } from "./sheets-timeline";
 import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
-import { parseRef, setCell, single } from "./grid-state";
+import { obj, parseRef, refOf, setCell, single } from "./grid-state";
 import { INSERT_BOOK, insertRows } from "./sheets-sample";
 import { pressOn } from "./sheets-timeline";
 import { defaultChart, moveSeries, patchSeries, type ChartState } from "./chart-state";
@@ -23,6 +23,7 @@ export function beginInsert(tl: Timeline, url: string, cursor?: [number, number]
   tl.setVar("title", INSERT_BOOK.title);
   resetChart(tl);
   resetImage(tl);
+  resetFunctionLink(tl);
 }
 
 /** The sample sheet again (between two demos in one step): A1 selected, no history. */
@@ -222,3 +223,55 @@ export async function resizeFloatingImage(tl: Timeline, to: { w: number; h: numb
   });
   tl.setVar("imgOver", { ...start, w: to.w, h: to.h });
 }
+
+/* ---------------- Function and Link (steps 47-48) ---------------- */
+
+export function resetFunctionLink(tl: Timeline) {
+  tl.setVar("refRange", null);
+  tl.setVar("fnOpen", false);
+  tl.setVar("field:fn-search", "");
+  tl.setVar("linkPop", null);
+  tl.setVar("linkChip", null);
+  tl.setVar("field:link-search", "");
+}
+
+/** The function has been clicked: its formula is typed into the next result cell (the cells it reads are outlined) and the value appears. */
+export async function applyFunction(tl: Timeline, id: string, index: number) {
+  const r = FUNCTIONS.firstRow + index;
+  const c = FUNCTIONS.resultCol;
+  tl.setVar("refRange", FUNCTIONS.rangeCells);
+  tl.setVar("sel", single(r, c));
+  tl.setVar("field:cell", "");
+  tl.setVar("cellEdit", { r, c });
+  await tl.typeText("cell", FUNCTIONS.formulas[id], { msPerChar: 38 });
+  await tl.wait(400);
+  let rows = setCell(getRows(tl), r, FUNCTIONS.labelCol, FUNCTIONS.labels[id]);
+  rows = setCell(rows, r, c, { text: "", formula: FUNCTIONS.formulas[id], fx: true, align: "right" });
+  commit(tl, rows);
+  tl.setVar("cellEdit", null);
+  tl.setVar("field:cell", "");
+}
+
+/** Insert > Link on the selected cell: the popover opens under it showing the cell's text. */
+export async function openLinkPopover(tl: Timeline, ref: string) {
+  const [r, c] = parseRef(ref);
+  const text = obj(getRows(tl)[r]?.[c]).text;
+  tl.setVar("field:link-search", "");
+  tl.setVar("linkChip", null);
+  tl.setVar("linkPop", { r, c, text });
+  await tl.wait(500);
+}
+
+/** The cell becomes a link: its text turns blue and underlined, the popover closes and the chip appears under it. */
+export function placeLink(tl: Timeline, ref: string, label: string, href: string) {
+  const [r, c] = parseRef(ref);
+  const cell = obj(getRows(tl)[r]?.[c]);
+  commit(tl, setCell(getRows(tl), r, c, { ...cell, link: href }));
+  tl.setVar("linkPop", null);
+  tl.setVar("linkChip", { r, c, label });
+  tl.setVar("field:link-search", "");
+  tl.setVar("focus", "");
+  toast(tl, LINK.toast);
+}
+
+export const linkRef = (r: number, c: number) => refOf(r, c).toLowerCase();

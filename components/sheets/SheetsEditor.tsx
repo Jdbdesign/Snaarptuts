@@ -55,7 +55,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
   const current = sheets.find((s) => s.id === activeSheet) ?? sheets[0];
   const sel = sorted(grid?.sel ?? single(0, 0));
   const active = obj(current?.rows[sel.r1]?.[sel.c1]);
-  const bar = (grid?.formulas || active.image) && active.formula ? active.formula : cellText(current?.rows[sel.r1]?.[sel.c1]);
+  const bar = (grid?.formulas || active.image || active.fx) && active.formula ? active.formula : cellText(current?.rows[sel.r1]?.[sel.c1]);
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-white text-[#202124]">

@@ -25,6 +25,8 @@ export type GridProps = {
   sel?: Range;
   /** Cut / copied range with the marching ants. */
   ants?: Range | null;
+  /** The cells a formula points at: an orange outline (Insert > Function). */
+  refRange?: Range | null;
   /** A cell being typed into. */
   edit?: { r: number; c: number; text: string } | null;
   /** Find matches, and which one is current. */
@@ -57,6 +59,7 @@ export function SheetGrid({
   widths,
   sel,
   ants = null,
+  refRange = null,
   edit = null,
   hits = [],
   hitNow = -1,
@@ -77,6 +80,7 @@ export function SheetGrid({
   const colCount = z < 1 ? 40 : COLUMN_COUNT;
   const s = sorted(sel ?? single(0, 0));
   const a = ants ? sorted(ants) : null;
+  const rr = refRange ? sorted(refRange) : null;
   const w = (c: number) => widths?.[c] ?? COL_W;
   const line = gridlines ? "#E2E3E3" : "transparent";
   const headLine = "#DADCE0";
@@ -156,13 +160,14 @@ export function SheetGrid({
               const multi = s.r1 !== s.r2 || s.c1 !== s.c2;
               const editing = edit && edit.r === r && edit.c === c;
               const hit = hitSet.get(`${r},${c}`);
+              const inRef = !!rr && r >= rr.r1 && r <= rr.r2 && c >= rr.c1 && c <= rr.c2;
               const inAnts = !!a && r >= a.r1 && r <= a.r2 && c >= a.c1 && c <= a.c2;
               const frozenEdge = frozenCols > 0 && c === frozenCols - 1;
               return (
                 <span
                   key={c}
                   data-tl={`cell-${refOf(r, c).toLowerCase()}`}
-                  className={`relative block shrink-0 overflow-hidden whitespace-nowrap border-r px-[4px] text-[#202124] ${o.bold ? "font-semibold" : ""} ${o.align === "right" ? "text-right" : ""}`}
+                  className={`relative block shrink-0 overflow-hidden whitespace-nowrap border-r px-[4px] text-[#202124] ${o.bold ? "font-semibold" : ""} ${o.align === "right" ? "text-right" : ""} ${o.link ? "text-[#1155CC] underline" : ""}`}
                   style={{
                     width: w(c),
                     lineHeight: `${rh(r) - 1}px`,
@@ -196,6 +201,12 @@ export function SheetGrid({
                     />
                   )}
                   {inSel && r === s.r2 && c === s.c2 && !editing && <i className="pointer-events-none absolute -bottom-[4px] -right-[4px] z-10 h-[6px] w-[6px] border border-white" style={{ backgroundColor: BLUE }} />}
+                  {inRef && (
+                    <i
+                      className="pointer-events-none absolute -inset-px border-dashed"
+                      style={{ borderColor: "#E8710A", borderTopWidth: r === rr!.r1 ? 2 : 0, borderBottomWidth: r === rr!.r2 ? 2 : 0, borderLeftWidth: c === rr!.c1 ? 2 : 0, borderRightWidth: c === rr!.c2 ? 2 : 0, backgroundColor: "rgba(232,113,10,0.07)" }}
+                    />
+                  )}
                   {inAnts && <Ants top={r === a!.r1} bottom={r === a!.r2} left={c === a!.c1} right={c === a!.c2} />}
                   {commented.includes(refOf(r, c)) && <i className="pointer-events-none absolute right-0 top-0 h-0 w-0 border-l-[8px] border-t-[8px] border-l-transparent border-t-[#F4B400]" />}
                 </span>

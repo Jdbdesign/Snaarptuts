@@ -92,6 +92,10 @@ import { Step45 } from "@/scenes/snaarp-sheets/step45/Step45";
 import { runStep45, STEP45_DURATION_MS } from "@/scenes/snaarp-sheets/step45/script";
 import { Step46 } from "@/scenes/snaarp-sheets/step46/Step46";
 import { runStep46, STEP46_DURATION_MS } from "@/scenes/snaarp-sheets/step46/script";
+import { Step47 } from "@/scenes/snaarp-sheets/step47/Step47";
+import { runStep47, STEP47_DURATION_MS } from "@/scenes/snaarp-sheets/step47/script";
+import { Step48 } from "@/scenes/snaarp-sheets/step48/Step48";
+import { runStep48, STEP48_DURATION_MS } from "@/scenes/snaarp-sheets/step48/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -383,6 +387,18 @@ export const snaarpSheets: Tutorial = {
       title: "Insert an image over cells",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step46, run: runStep46, durationMs: STEP46_DURATION_MS },
+    },
+    {
+      id: "insert-function",
+      title: "Insert a function",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step47, run: runStep47, durationMs: STEP47_DURATION_MS },
+    },
+    {
+      id: "insert-link",
+      title: "Insert a link",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step48, run: runStep48, durationMs: STEP48_DURATION_MS },
     },
   ],
 };

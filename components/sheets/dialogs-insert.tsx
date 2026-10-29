@@ -3,7 +3,8 @@
 import { Icon } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { IMAGE } from "./insert-data";
+import { FUNCTIONS, IMAGE, LINK } from "./insert-data";
+import type { SheetModel } from "./sheets-sample";
 import { BLUE, BlueButton, CloseX, ShDialog, ShField } from "./parts";
 
 /**
@@ -79,5 +80,84 @@ export function InsertImageDialog({ tl }: { tl: Timeline }) {
         </div>
       </div>
     </ShDialog>
+  );
+}
+
+/**
+ * Insert > Function > More functions: a small searchable list. Scene variables: `fnOpen`, `field:fn-search`, `focus`.
+ * Hooks: fn-card, field-fn-search, fn-row-<name>, fn-close.
+ */
+export function FunctionCard({ tl }: { tl: Timeline }) {
+  const open = useTimelineVar(tl, "fnOpen", false);
+  const q = useTimelineVar(tl, "field:fn-search", "").trim().toLowerCase();
+  const rows = FUNCTIONS.moreList.filter((f) => !q || f.name.toLowerCase().includes(q));
+  return (
+    <div
+      aria-hidden={!open}
+      data-tl="fn-card"
+      className={`absolute right-[28px] top-[110px] z-40 w-[330px] rounded-[12px] border border-[#DADCE0] bg-white p-[16px] text-[#1f2430] shadow-[0_14px_40px_-8px_rgba(17,24,39,0.32)] transition-[opacity,transform] duration-200 motion-reduce:transition-none ${open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"}`}
+    >
+      <div className="mb-[10px] flex items-center justify-between">
+        <h2 className="text-[15px] font-semibold">{FUNCTIONS.moreTitle}</h2>
+        <CloseX id="fn" />
+      </div>
+      <ShField tl={tl} id="fn-search" placeholder={FUNCTIONS.moreSearch} />
+      <div className="mt-[10px] max-h-[250px] overflow-y-auto">
+        {rows.map((f) => (
+          <div key={f.name} data-tl={`fn-row-${f.name}`} className="rounded-[6px] px-[8px] py-[6px] transition-colors data-[hover=true]:bg-[#E8F0FE]">
+            <p className="text-[12.5px] font-medium">{f.name}</p>
+            <p className="text-[11px] text-[#5F6368]">{f.desc}</p>
+          </div>
+        ))}
+        {!rows.length && <p className="px-[8px] py-[10px] text-[12px] text-[#80868B]">{FUNCTIONS.moreNone}</p>}
+      </div>
+    </div>
+  );
+}
+
+export type LinkPop = { r: number; c: number; text: string };
+
+/** The Link popover under a cell (Ctrl+K): the cell's text, a search / paste box, the workbook's sheets and a footer. Hooks: link-pop, link-top, field-link-search, link-apply, link-sheet-<id>, link-footer. */
+export function LinkPopover({ tl, sheets }: { tl: Timeline; sheets: SheetModel[] }) {
+  const q = useTimelineVar(tl, "field:link-search", "");
+  const pop = useTimelineVar<LinkPop | null>(tl, "linkPop", null);
+  return (
+    <div data-tl="link-pop" className="w-[290px] rounded-[10px] border border-[#DADCE0] bg-white p-[8px] text-[12.5px] shadow-[0_10px_30px_-6px_rgba(17,24,39,0.35)]">
+      <div data-tl="link-top" className="flex h-[32px] items-center gap-[8px] rounded-[6px] border border-[#2563EB] px-[10px] text-[#1f2430]">
+        <Icon name="shLink" size={13} className="text-[#5F6368]" />
+        <span className="truncate">{pop?.text}</span>
+      </div>
+      <div className="relative mt-[8px]">
+        <ShField tl={tl} id="link-search" placeholder={LINK.search} className="!h-[32px] !text-[12.5px]" />
+        <span data-tl="link-apply" className={`absolute right-[8px] top-[8px] text-[12px] font-medium transition-[transform] data-[pressed=true]:scale-90 ${q ? "text-[#2563EB]" : "text-[#B0B5C0]"}`}>{LINK.apply}</span>
+      </div>
+      <div className="mt-[6px]">
+        {sheets.map((s) => (
+          <div key={s.id} data-tl={`link-sheet-${s.id}`} className="flex h-[30px] items-center gap-[8px] rounded-[6px] px-[8px] transition-colors data-[hover=true]:bg-[#F1F3F4]">
+            <Icon name="shFile" size={14} className="text-[#5F6368]" />
+            {s.name}
+          </div>
+        ))}
+      </div>
+      <div data-tl="link-footer" className="mt-[4px] flex items-center justify-between border-t border-[#E8EAED] px-[8px] pt-[8px] text-[12px] text-[#3C4043]">
+        {LINK.footer}
+        <Icon name="chevronRight" size={11} className="text-[#80868B]" />
+      </div>
+    </div>
+  );
+}
+
+export type LinkChip = { r: number; c: number; label: string };
+
+/** The little chip under a cell with a link: where it goes, and copy, edit and remove. Hooks: link-chip, link-copy, link-edit, link-remove. */
+export function LinkChipView({ chip }: { chip: LinkChip }) {
+  return (
+    <div data-tl="link-chip" className="inline-flex h-[30px] items-center gap-[10px] rounded-full border border-[#DADCE0] bg-white px-[12px] text-[12px] shadow-[0_4px_14px_-4px_rgba(17,24,39,0.3)]">
+      <Icon name="shGlobe" size={13} className="text-[#5F6368]" />
+      <span className="text-[#1155CC] underline">{chip.label}</span>
+      <span data-tl="link-copy" className="flex h-[20px] w-[20px] items-center justify-center rounded-full text-[#5F6368] data-[hover=true]:bg-[#F1F3F4]"><Icon name="copy" size={13} /></span>
+      <span data-tl="link-edit" className="flex h-[20px] w-[20px] items-center justify-center rounded-full text-[#5F6368] data-[hover=true]:bg-[#F1F3F4]"><Icon name="pencil" size={13} /></span>
+      <span data-tl="link-remove" className="flex h-[20px] w-[20px] items-center justify-center rounded-full text-[#5F6368] data-[hover=true]:bg-[#F1F3F4]"><Icon name="shUnlink" size={13} /></span>
+    </div>
   );
 }

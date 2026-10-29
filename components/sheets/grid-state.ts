@@ -42,7 +42,7 @@ function grown(rows: Rows, r: number, c: number): Rows {
   return out;
 }
 
-const RANGE_FN = /^=(SUM|AVERAGE|COUNT|MAX|MIN)\(([A-Z]+\d+):([A-Z]+\d+)\)$/;
+const RANGE_FN = /^=(SUM|AVERAGE|COUNT|MAX|MIN|MEDIAN)\(([A-Z]+\d+):([A-Z]+\d+)\)$/;
 const IF_FN = /^=IF\(([A-Z]+\d+)([<>])(\d+(?:\.\d+)?),"([^"]*)","([^"]*)"\)$/;
 
 function numberOf(c: Cell | undefined): number | null {
@@ -51,6 +51,12 @@ function numberOf(c: Cell | undefined): number | null {
   if (m !== null) return m;
   return /^-?\d+(\.\d+)?$/.test(t) ? Number(t) : null;
 }
+
+const median = (n: number[]) => {
+  const a = n.slice().sort((x, y) => x - y);
+  const h = Math.floor(a.length / 2);
+  return a.length % 2 ? a[h] : (a[h - 1] + a[h]) / 2;
+};
 
 /** The value a formula shows (SUM, AVERAGE, COUNT, MAX, MIN over a range of pounds or numbers, and a one-condition IF), or null if it is not one we know. */
 export function evalFormula(rows: Rows, formula: string): string | null {
@@ -65,7 +71,7 @@ export function evalFormula(rows: Rows, formula: string): string | null {
         if (n !== null) nums.push(n);
       }
     const sum = nums.reduce((a, b) => a + b, 0);
-    const v = m[1] === "SUM" ? sum : m[1] === "AVERAGE" ? (nums.length ? sum / nums.length : 0) : m[1] === "MAX" ? Math.max(...nums) : m[1] === "MIN" ? Math.min(...nums) : nums.length;
+    const v = m[1] === "SUM" ? sum : m[1] === "AVERAGE" ? (nums.length ? sum / nums.length : 0) : m[1] === "MAX" ? Math.max(...nums) : m[1] === "MIN" ? Math.min(...nums) : m[1] === "MEDIAN" ? median(nums) : nums.length;
     if (m[1] === "COUNT") return String(v);
     return formatGBP(v, { whole: Number.isInteger(v) });
   }

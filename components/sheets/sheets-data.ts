@@ -28,9 +28,9 @@ export const SHEET = {
 export type CellChip = { kind: "dropdown" | "people" | "date" | "place" | "file" | "finance" | "event"; label: string; tone?: string; sub?: string };
 /**
  * `image` is a picture drawn inside the cell (its source stays in `formula` as the =IMAGE(...) the formula bar shows), `box` a
- * checkbox, `chip` a dropdown or smart chip, `link` the label of a link chip and `note` the text of a note (a small marker on the cell).
+ * checkbox, `chip` a dropdown or smart chip, `link` where a link points, `fx` shows the formula (not the value) in the formula bar, and `note` the text of a note (a small marker on the cell).
  */
-export type Cell = string | { text: string; bold?: boolean; align?: "right"; fill?: string; formula?: string; image?: string; box?: "on" | "off"; chip?: CellChip; link?: string; note?: string };
+export type Cell = string | { text: string; bold?: boolean; align?: "right"; fill?: string; formula?: string; image?: string; box?: "on" | "off"; chip?: CellChip; link?: string; note?: string; fx?: boolean };
 
 /** Budget: columns Item | Owner | Cost | Status. Costs are numbers, shown with formatGBP. */
 export const BUDGET_ROWS: { item: string; owner: string; cost: number; status: string }[] = [

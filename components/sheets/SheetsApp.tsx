@@ -22,7 +22,7 @@ import { ChartEditor, CHART_PANEL_W } from "./ChartEditor";
 import { ChartGraphic, CHART_H, CHART_W } from "./ChartGraphic";
 import type { ChartState } from "./chart-state";
 import { CHART } from "./insert-data";
-import { InsertImageDialog } from "./dialogs-insert";
+import { FunctionCard, InsertImageDialog, LinkChipView, LinkPopover, type LinkChip, type LinkPop } from "./dialogs-insert";
 import type { Clip, EditHistory } from "./edit-timeline";
 import type { Rows } from "./grid-state";
 
@@ -100,6 +100,10 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   // Insert > Image: a picture floating over the cells, and taller rows for a picture inside a cell
   const imgOver = useTimelineVar<FloatingImage | null>(tl, "imgOver", null);
   const rowHeights = useTimelineVar<Record<number, number>>(tl, "rowHeights", NO_ROW_HEIGHTS);
+  // Insert > Function (the orange outline on the cells a formula reads) and Insert > Link (the popover and the chip under a cell)
+  const refRange = useTimelineVar<Range | null>(tl, "refRange", null);
+  const linkPop = useTimelineVar<LinkPop | null>(tl, "linkPop", null);
+  const linkChip = useTimelineVar<LinkChip | null>(tl, "linkChip", null);
   const floaters: Floater[] =
     liveChart && activeSheet === sheets[0]?.id
       ? [
@@ -114,6 +118,9 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
         ]
       : [];
   if (imgOver && activeSheet === sheets[0]?.id) floaters.push({ id: "img", r: imgOver.r, c: imgOver.c, w: imgOver.w, h: imgOver.h, node: <FloatImage img={imgOver} /> });
+
+  if (linkPop && activeSheet === sheets[0]?.id) floaters.push({ id: "linkpop", r: linkPop.r + 1, c: linkPop.c, w: 290, h: 180, node: <LinkPopover tl={tl} sheets={sheets} /> });
+  if (linkChip && !linkPop && activeSheet === sheets[0]?.id) floaters.push({ id: "linkchip", r: linkChip.r + 1, c: linkChip.c, w: 260, h: 30, node: <LinkChipView chip={linkChip} /> });
 
   const menuState: MenuState = {
     canUndo: history.past.length > 0,
@@ -140,6 +147,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
           grid={{
             sel,
             ants: clip?.range ?? null,
+            refRange,
             edit: cellEdit ? { ...cellEdit, text: cellText } : null,
             hits: hits ?? NO_HITS,
             hitNow,
@@ -188,6 +196,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
               <PrintDialog tl={tl} rows={sheets[0]?.rows ?? []} />
               <FindCard tl={tl} />
               <InsertImageDialog tl={tl} />
+              <FunctionCard tl={tl} />
             </>
           }
         />

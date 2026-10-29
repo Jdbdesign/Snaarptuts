@@ -201,3 +201,54 @@ export const IMAGE = {
   toastCell: "Image inserted in cell",
   toastOver: "Image inserted over cells",
 };
+
+/* ---------------- Function (step 47) and Link (step 48) ---------------- */
+
+export const FUNCTIONS = {
+  /** The numbers the functions work on, and where the results go: labels in column H, results in column I, from row 2. */
+  range: "C2:C5",
+  rangeCells: { r1: 1, c1: 2, r2: 4, c2: 2 },
+  labelCol: 7,
+  resultCol: 8,
+  firstRow: 1,
+  labels: { sum: "Sum", average: "Average", count: "Count", max: "Highest", min: "Lowest", if: `Over ${money(200)}?`, median: "Median" } as Record<string, string>,
+  formulas: {
+    sum: "=SUM(C2:C5)",
+    average: "=AVERAGE(C2:C5)",
+    count: "=COUNT(C2:C5)",
+    max: "=MAX(C2:C5)",
+    min: "=MIN(C2:C5)",
+    if: '=IF(C2>200,"High","Low")',
+    median: "=MEDIAN(C2:C5)",
+  } as Record<string, string>,
+  moreTitle: "Functions",
+  moreSearch: "Search functions",
+  moreQuery: "med",
+  moreList: [
+    { name: "ABS", desc: "Absolute value of a number" },
+    { name: "CONCATENATE", desc: "Join pieces of text together" },
+    { name: "LEN", desc: "Number of characters in text" },
+    { name: "MEDIAN", desc: "Middle value of a range" },
+    { name: "PRODUCT", desc: "Multiply the numbers in a range" },
+    { name: "ROUND", desc: "Round a number to some decimals" },
+    { name: "TODAY", desc: "Today's date" },
+    { name: "UPPER", desc: "Text in capital letters" },
+  ],
+  moreNone: "No functions match",
+};
+
+export const LINK = {
+  cell: "a2",
+  urlCell: "a3",
+  topPlaceholder: "Text",
+  search: "Search or paste a link",
+  apply: "Apply",
+  footer: "Sheets and named ranges",
+  url: "https://example.com",
+  toast: "Link inserted",
+  copy: "Copy link",
+  edit: "Edit link",
+  remove: "Remove link",
+  /** The sheet the first link points at (a tab of the sample workbook). */
+  sheetId: "s2",
+};
