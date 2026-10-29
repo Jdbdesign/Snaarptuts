@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 100 - Horizontal align: centre the header, right-align the numbers. Starts with Cost and Qty aligned left. */
-export const STEP100_DURATION_MS = 40000;
+export const STEP100_DURATION_MS = 31100;
 
 export async function runStep100(tl: Timeline) {
   beginTb(tl, "a1");
