@@ -17,8 +17,13 @@ import { SheetMenu, type MenuState } from "./SheetMenu";
 import { FULLSCREEN } from "./edit-view-data";
 import { SHEETS_NARROW_ZOOM } from "./SheetsEditor";
 import { single, type Range } from "./grid-state";
-import type { Groups } from "./SheetGrid";
+import type { Floater, Groups } from "./SheetGrid";
+import { ChartEditor, CHART_PANEL_W } from "./ChartEditor";
+import { ChartGraphic, CHART_H, CHART_W } from "./ChartGraphic";
+import type { ChartState } from "./chart-state";
+import { CHART } from "./insert-data";
 import type { Clip, EditHistory } from "./edit-timeline";
+import type { Rows } from "./grid-state";
 
 // Stable fallbacks: useTimelineVar needs the same object every render.
 const A1: Range = single(0, 0);
@@ -82,6 +87,28 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   const banner = useTimelineVar(tl, "fsBanner", false);
   const escPressed = useTimelineVar(tl, "fsPressed", false);
 
+  // Insert > Chart: the chart object over the cells and its editor panel (see chart-state.ts)
+  const chart = useTimelineVar<ChartState | null>(tl, "chart", null);
+  const chartPanel = useTimelineVar(tl, "chartPanel", false);
+  const ctChart = useTimelineVar(tl, "field:ct-chart", "");
+  const ctH = useTimelineVar(tl, "field:ct-h", "");
+  const ctV = useTimelineVar(tl, "field:ct-v", "");
+  const liveChart = chart ? { ...chart, titles: { chart: ctChart, h: ctH, v: ctV } } : null;
+  const dataRows = sheets[0]?.rows ?? [];
+  const floaters: Floater[] =
+    liveChart && activeSheet === sheets[0]?.id
+      ? [
+          {
+            id: "chart",
+            r: CHART.where.row,
+            c: CHART.where.col,
+            w: CHART_W * (liveChart.maximize ? 1.25 : 1),
+            h: CHART_H * (liveChart.maximize ? 1.25 : 1),
+            node: <ChartObject chart={liveChart} rows={dataRows} />,
+          },
+        ]
+      : [];
+
   const menuState: MenuState = {
     canUndo: history.past.length > 0,
     canRedo: history.future.length > 0,
@@ -119,6 +146,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
             scrollCol: Math.round(scrollCol),
             zoom,
             groups,
+            floaters,
           }}
           formulaBar={formulaBar}
           zoomLabel={`${zoom}%`}
@@ -127,11 +155,13 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
           fullScreen={full}
           sidePanel={
             <>
-              <div className={detailsOpen && !commentsOpen ? "" : "hidden"}><DetailsPanel tl={tl} /></div>
-              <div className={detailsOpen && !commentsOpen ? "hidden" : "h-full"}><CommentsPanel tl={tl} /></div>
+              <div className={detailsOpen && !commentsOpen && !chartPanel ? "" : "hidden"}><DetailsPanel tl={tl} /></div>
+              <div className={(detailsOpen && !commentsOpen) || chartPanel ? "hidden" : "h-full"}><CommentsPanel tl={tl} /></div>
+              <div className={chartPanel ? "h-full" : "hidden"}><ChartEditor tl={tl} /></div>
             </>
           }
-          panelOpen={detailsOpen || commentsOpen}
+          panelOpen={detailsOpen || commentsOpen || chartPanel}
+          panelWidth={chartPanel ? CHART_PANEL_W : 272}
           offline={offline}
           trashed={trashed}
           notice={notice}
@@ -166,6 +196,24 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
         <DocToast tl={tl} />
       </div>
       <div className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${fade ? "opacity-100" : "opacity-0"}`} />
+    </div>
+  );
+}
+
+/** The chart on the sheet: a dashed frame while it is only a preview, a plain frame once inserted, handles when selected. */
+function ChartObject({ chart, rows }: { chart: ChartState; rows: Rows }) {
+  const sel = chart.selected;
+  return (
+    <div data-tl="chart-obj" className={`relative h-full w-full bg-white transition-[box-shadow] ${chart.placed ? (sel ? "outline outline-[2px] outline-[#2563EB]" : "outline outline-1 outline-[#DADCE0]") : "outline outline-[1.5px] outline-dashed outline-[#2563EB]"}`}>
+      <ChartGraphic chart={chart} rows={rows} />
+      {sel && (
+        <>
+          <span className="absolute right-[6px] top-[6px] flex h-[22px] w-[22px] items-center justify-center rounded-full bg-white/90 text-[#5F6368] shadow">⋮</span>
+          {[[-4, -4], [-4, "50%"], [-4, "100%"], ["50%", -4], ["50%", "100%"], ["100%", -4], ["100%", "50%"], ["100%", "100%"]].map(([t, l], i) => (
+            <i key={i} className="absolute h-[7px] w-[7px] rounded-full border border-white bg-[#2563EB]" style={{ top: t as number | string, left: l as number | string, transform: "translate(-50%,-50%)" }} />
+          ))}
+        </>
+      )}
     </div>
   );
 }

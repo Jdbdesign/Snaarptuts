@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { Icon } from "@/components/icons";
 import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
 import { colLabel, obj, refOf, single, sorted, type Range, type Rows } from "./grid-state";
@@ -10,6 +11,9 @@ const HEAD_W = 36;
 const GUTTER_W = 16;
 const BAND_H = 14;
 const BLUE = "#2563EB";
+
+/** An object floating over the cells (a chart, a picture): its top-left corner sits on cell (r, c). */
+export type Floater = { id: string; r: number; c: number; w: number; h: number; node: ReactNode };
 
 export type GroupSpan = { from: number; to: number; collapsed: boolean };
 export type Groups = { rows: GroupSpan | null; cols: GroupSpan | null };
@@ -37,6 +41,9 @@ export type GridProps = {
   scrollCol?: number;
   zoom?: number;
   groups?: Groups;
+  /** Taller rows (a picture in a cell), by row index, in px. */
+  rowHeights?: Record<number, number>;
+  floaters?: Floater[];
 };
 
 const within = (g: GroupSpan | null, i: number) => !!g && i >= g.from && i <= g.to;
@@ -62,6 +69,8 @@ export function SheetGrid({
   scrollCol = 0,
   zoom = 100,
   groups = { rows: null, cols: null },
+  rowHeights,
+  floaters = [],
 }: GridProps) {
   const z = zoom / 100;
   const rowCount = z < 1 ? 100 : ROW_COUNT;
@@ -83,6 +92,7 @@ export function SheetGrid({
   const hasRowGroup = !!groups.rows;
   const hasColGroup = !!groups.cols;
   const gut = hasRowGroup ? GUTTER_W : 0;
+  const rh = (r: number) => rowHeights?.[r] ?? ROW_H;
 
   return (
     <div
@@ -128,7 +138,7 @@ export function SheetGrid({
           <div
             key={r}
             className="flex border-b"
-            style={{ height: ROW_H, borderColor: frozenRows > 0 && r === frozenRows - 1 ? BLUE : line, borderBottomWidth: frozenRows > 0 && r === frozenRows - 1 ? 2 : 1 }}
+            style={{ height: rh(r), borderColor: frozenRows > 0 && r === frozenRows - 1 ? BLUE : line, borderBottomWidth: frozenRows > 0 && r === frozenRows - 1 ? 2 : 1 }}
           >
             {hasRowGroup && <GroupGutter span={groups.rows!} r={r} />}
             <span
@@ -155,7 +165,7 @@ export function SheetGrid({
                   className={`relative block shrink-0 overflow-hidden whitespace-nowrap border-r px-[4px] text-[#202124] ${o.bold ? "font-semibold" : ""} ${o.align === "right" ? "text-right" : ""}`}
                   style={{
                     width: w(c),
-                    lineHeight: `${ROW_H - 1}px`,
+                    lineHeight: `${rh(r) - 1}px`,
                     borderColor: frozenEdge ? BLUE : line,
                     borderRightWidth: frozenEdge ? 2 : 1,
                     backgroundColor: editing ? "#fff" : hit !== undefined ? (hit === hitNow ? "#F9C74F" : "#FFF0A8") : o.fill,
@@ -191,6 +201,18 @@ export function SheetGrid({
           </div>
         ))}
       </div>
+
+      {floaters.map((f) => {
+        let left = HEAD_W + gut;
+        for (let c = 0; c < f.c; c++) left += w(c);
+        let top = (hasColGroup ? BAND_H : 0) + ROW_H;
+        for (let r = 0; r < f.r; r++) top += rh(r);
+        return (
+          <div key={f.id} data-tl={`floater-${f.id}`} className="absolute z-[6]" style={{ left, top, width: f.w, height: f.h }}>
+            {f.node}
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -82,6 +82,12 @@ import { Step40 } from "@/scenes/snaarp-sheets/step40/Step40";
 import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-sheets/step40/script";
 import { Step41 } from "@/scenes/snaarp-sheets/step41/Step41";
 import { runStep41, STEP41_DURATION_MS } from "@/scenes/snaarp-sheets/step41/script";
+import { Step42 } from "@/scenes/snaarp-sheets/step42/Step42";
+import { runStep42, STEP42_DURATION_MS } from "@/scenes/snaarp-sheets/step42/script";
+import { Step43 } from "@/scenes/snaarp-sheets/step43/Step43";
+import { runStep43, STEP43_DURATION_MS } from "@/scenes/snaarp-sheets/step43/script";
+import { Step44 } from "@/scenes/snaarp-sheets/step44/Step44";
+import { runStep44, STEP44_DURATION_MS } from "@/scenes/snaarp-sheets/step44/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -343,6 +349,24 @@ export const snaarpSheets: Tutorial = {
       title: "Add a sheet",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step41, run: runStep41, durationMs: STEP41_DURATION_MS },
+    },
+    {
+      id: "insert-chart-setup",
+      title: "Chart: choose a type",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step42, run: runStep42, durationMs: STEP42_DURATION_MS },
+    },
+    {
+      id: "insert-chart-style",
+      title: "Chart: style and titles",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step43, run: runStep43, durationMs: STEP43_DURATION_MS },
+    },
+    {
+      id: "insert-chart-series",
+      title: "Chart: series, legend and axes",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step44, run: runStep44, durationMs: STEP44_DURATION_MS },
     },
   ],
 };

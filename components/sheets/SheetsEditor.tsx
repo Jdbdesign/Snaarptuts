@@ -21,6 +21,8 @@ type Props = {
   /** The right-hand column (File details). */
   sidePanel?: ReactNode;
   panelOpen?: boolean;
+  /** Width of the right-hand column in px (default 272; the Chart editor is wider). */
+  panelWidth?: number;
   /** "Make available offline" is on: the cloud beside the title gets a tick. */
   offline?: boolean;
   /** The sheet is in the trash: a small pill sits beside the title. */
@@ -48,7 +50,7 @@ type Props = {
  * formula bar, the grid with its row and column headers, and the sheet tabs. Sizes are the recording's (about 1450 px wide).
  * Hooks: sheet-title, sheet-star, editor-menu-<id>, sheet-toolbar, sheet-grid, cell-a1, sheet-tab-<id>, sheet-add-tab, editor-share, sheet-notice, sheet-side.
  */
-export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, sidePanel, panelOpen = false, offline = false, trashed = false, notice = "", overlay, menuSlots, grid, formulaBar = true, zoomLabel, canUndo = false, canRedo = false, fullScreen = false }: Props) {
+export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, sidePanel, panelOpen = false, panelWidth = 272, offline = false, trashed = false, notice = "", overlay, menuSlots, grid, formulaBar = true, zoomLabel, canUndo = false, canRedo = false, fullScreen = false }: Props) {
   const narrow = useNarrow();
   const current = sheets.find((s) => s.id === activeSheet) ?? sheets[0];
   const sel = sorted(grid?.sel ?? single(0, 0));
@@ -141,9 +143,9 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
             data-tl="sheet-side"
             aria-hidden={!panelOpen}
             className="relative shrink-0 overflow-hidden border-l border-[#E3E5EA] bg-white transition-[width] duration-300 ease-out motion-reduce:transition-none"
-            style={{ width: panelOpen ? 272 : 0, borderLeftWidth: panelOpen ? 1 : 0 }}
+            style={{ width: panelOpen ? panelWidth : 0, borderLeftWidth: panelOpen ? 1 : 0 }}
           >
-            <div className="h-full w-[272px]">{sidePanel}</div>
+            <div className="h-full" style={{ width: panelWidth }}>{sidePanel}</div>
           </div>
         </div>
 
