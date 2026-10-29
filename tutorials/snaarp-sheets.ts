@@ -74,6 +74,8 @@ import { Step36 } from "@/scenes/snaarp-sheets/step36/Step36";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-sheets/step36/script";
 import { Step37 } from "@/scenes/snaarp-sheets/step37/Step37";
 import { runStep37, STEP37_DURATION_MS } from "@/scenes/snaarp-sheets/step37/script";
+import { Step38 } from "@/scenes/snaarp-sheets/step38/Step38";
+import { runStep38, STEP38_DURATION_MS } from "@/scenes/snaarp-sheets/step38/script";
 import { Step40 } from "@/scenes/snaarp-sheets/step40/Step40";
 import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-sheets/step40/script";
 import { Step41 } from "@/scenes/snaarp-sheets/step41/Step41";
@@ -315,6 +317,12 @@ export const snaarpSheets: Tutorial = {
       title: "Meet the Insert menu",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step37, run: runStep37, durationMs: STEP37_DURATION_MS },
+    },
+    {
+      id: "insert-cells",
+      title: "Insert cells",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step38, run: runStep38, durationMs: STEP38_DURATION_MS },
     },
     {
       id: "insert-columns",
