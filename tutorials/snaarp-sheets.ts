@@ -180,6 +180,8 @@ import { Step89 } from "@/scenes/snaarp-sheets/step89/Step89";
 import { runStep89, STEP89_DURATION_MS } from "@/scenes/snaarp-sheets/step89/script";
 import { Step90 } from "@/scenes/snaarp-sheets/step90/Step90";
 import { runStep90, STEP90_DURATION_MS } from "@/scenes/snaarp-sheets/step90/script";
+import { Step91 } from "@/scenes/snaarp-sheets/step91/Step91";
+import { runStep91, STEP91_DURATION_MS } from "@/scenes/snaarp-sheets/step91/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -739,6 +741,12 @@ export const snaarpSheets: Tutorial = {
       title: "Change the zoom",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step90, run: runStep90, durationMs: STEP90_DURATION_MS },
+    },
+    {
+      id: "tb-currency",
+      title: "Format as currency",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step91, run: runStep91, durationMs: STEP91_DURATION_MS },
     },
   ],
 };
