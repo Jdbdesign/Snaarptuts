@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS, C97 } from "./data";
 
 /** Snaarp Sheets, step 97 - Text color (red on Overdue) and Fill color (yellow header, green Paid). Starts with A1 selected. */
-export const STEP97_DURATION_MS = 50000;
+export const STEP97_DURATION_MS = 76500;
 
 const hex = (h: string) => `#${h.toUpperCase()}`;
 
