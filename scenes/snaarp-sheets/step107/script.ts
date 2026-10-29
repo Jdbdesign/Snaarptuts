@@ -7,7 +7,7 @@ import { finish } from "../shared";
 import { CAPTIONS, F107 } from "./data";
 
 /** Snaarp Sheets, step 107 - the filter tool: filter Status to Overdue, then remove the filter. Starts with A1 selected. */
-export const STEP107_DURATION_MS = 40000;
+export const STEP107_DURATION_MS = 25800;
 
 export async function runStep107(tl: Timeline) {
   beginTb(tl, "a1");
