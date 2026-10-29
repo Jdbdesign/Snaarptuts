@@ -125,6 +125,8 @@ import { Step61 } from "@/scenes/snaarp-sheets/step61/Step61";
 import { runStep61, STEP61_DURATION_MS } from "@/scenes/snaarp-sheets/step61/script";
 import { Step62 } from "@/scenes/snaarp-sheets/step62/Step62";
 import { runStep62, STEP62_DURATION_MS } from "@/scenes/snaarp-sheets/step62/script";
+import { Step63 } from "@/scenes/snaarp-sheets/step63/Step63";
+import { runStep63, STEP63_DURATION_MS } from "@/scenes/snaarp-sheets/step63/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -512,6 +514,12 @@ export const snaarpSheets: Tutorial = {
       title: "Rotate text",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step62, run: runStep62, durationMs: STEP62_DURATION_MS },
+    },
+    {
+      id: "format-clear",
+      title: "Clear formatting",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step63, run: runStep63, durationMs: STEP63_DURATION_MS },
     },
   ],
 };
