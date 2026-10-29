@@ -153,6 +153,8 @@ import { Step75 } from "@/scenes/snaarp-sheets/step75/Step75";
 import { runStep75, STEP75_DURATION_MS } from "@/scenes/snaarp-sheets/step75/script";
 import { Step76 } from "@/scenes/snaarp-sheets/step76/Step76";
 import { runStep76, STEP76_DURATION_MS } from "@/scenes/snaarp-sheets/step76/script";
+import { Step77 } from "@/scenes/snaarp-sheets/step77/Step77";
+import { runStep77, STEP77_DURATION_MS } from "@/scenes/snaarp-sheets/step77/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -626,6 +628,12 @@ export const snaarpSheets: Tutorial = {
       title: "Run and delete a macro",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step76, run: runStep76, durationMs: STEP76_DURATION_MS },
+    },
+    {
+      id: "tools-spelling",
+      title: "Check your spelling",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step77, run: runStep77, durationMs: STEP77_DURATION_MS },
     },
   ],
 };
