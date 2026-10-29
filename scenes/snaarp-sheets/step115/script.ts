@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 115 - the lock icon: its tooltip and the access card (Restricted, with a Change link). Starts with A1 selected. */
-export const STEP115_DURATION_MS = 20000;
+export const STEP115_DURATION_MS = 12800;
 
 export async function runStep115(tl: Timeline) {
   beginTb(tl, "a1");
