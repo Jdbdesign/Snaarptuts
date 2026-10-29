@@ -141,6 +141,8 @@ import { Step69 } from "@/scenes/snaarp-sheets/step69/Step69";
 import { runStep69, STEP69_DURATION_MS } from "@/scenes/snaarp-sheets/step69/script";
 import { Step70 } from "@/scenes/snaarp-sheets/step70/Step70";
 import { runStep70, STEP70_DURATION_MS } from "@/scenes/snaarp-sheets/step70/script";
+import { Step71 } from "@/scenes/snaarp-sheets/step71/Step71";
+import { runStep71, STEP71_DURATION_MS } from "@/scenes/snaarp-sheets/step71/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -577,6 +579,12 @@ export const snaarpSheets: Tutorial = {
       title: "Save a filter view",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step70, run: runStep70, durationMs: STEP70_DURATION_MS },
+    },
+    {
+      id: "data-validation",
+      title: "Add a dropdown with Data validation",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step71, run: runStep71, durationMs: STEP71_DURATION_MS },
     },
   ],
 };
