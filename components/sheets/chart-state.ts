@@ -54,6 +54,11 @@ export type ChartState = {
   legend: LegendPos;
   gridlines: boolean;
   minorGrid: boolean;
+  /** The toolbar steps' chart reads its data rows (default 4) and takes its categories from this column (default A). */
+  rowCount?: number;
+  catCol?: number;
+  /** Where the chart sits on the sheet (default: the Insert steps' spot). */
+  at?: { row: number; col: number };
   /** Dashed preview (not inserted yet), or on the sheet. */
   placed: boolean;
   selected: boolean;
@@ -73,7 +78,7 @@ export const TITLE_COLOURS = ["auto", "#202124", "#1C3F94", "#C5221F", "#137333"
 
 const monthCols: [string, number][] = [["Cost", 2], ...INSERT_SAMPLE.months.map((m, i): [string, number] => [m, 4 + i])];
 
-function makeSeries(label: string, col: number, on: boolean): ChartSeries {
+export function makeSeries(label: string, col: number, on: boolean): ChartSeries {
   return { id: label.toLowerCase(), label, col, on, fillOpacity: 100, lineOpacity: 0, thickness: 0, axis: "left", errorBars: false, dataLabels: false, trendline: false };
 }
 
@@ -113,14 +118,15 @@ export type ChartData = { cats: string[]; series: { s: ChartSeries; colour: stri
 
 /** Read the chart's categories (the X-axis column) and the values of every ticked series from the sheet. */
 export function chartData(rows: Rows, c: ChartState): ChartData {
-  const cats = [1, 2, 3, 4].map((r) => obj(rows[r]?.[0]).text);
+  const idx = Array.from({ length: c.rowCount ?? 4 }, (_, i) => i + 1);
+  const cats = idx.map((r) => obj(rows[r]?.[c.catCol ?? 0]).text);
   const on = c.series.filter((s) => s.on);
   return {
     cats,
     series: on.map((s) => ({
       s,
       colour: seriesColour(c, s, c.series.indexOf(s)),
-      values: [1, 2, 3, 4].map((r) => parseMoney(obj(rows[r]?.[s.col]).text) ?? 0),
+      values: idx.map((r) => obj(rows[r]?.[s.col]).num ?? parseMoney(obj(rows[r]?.[s.col]).text) ?? 0),
     })),
   };
 }

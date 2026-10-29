@@ -4,6 +4,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { Icon } from "@/components/icons";
 import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
 import { colLabel, obj, refOf, single, sorted, type CellObj, type Range, type Rows } from "./grid-state";
+import type { BorderLine, CellBorders } from "./sheets-data";
+import { FONT_CSS } from "./toolbar-data";
 
 export const COL_W = 86;
 export const ROW_H = 21.5;
@@ -109,6 +111,14 @@ export function SheetGrid({
   for (let c = 0; c < colCount; c++) if (!hiddenCol(c) && (c < frozenCols || c >= frozenCols + scrollCol)) colIdx.push(c);
 
   const hitSet = new Map(hits.map(([r, c], i) => [`${r},${c}`, i]));
+  // Merged cells (Merge cells tool): the covered cells, keyed by position, point at the cell that holds the merge.
+  const covered = new Map<string, [number, number]>();
+  rows.forEach((row, r) =>
+    row.forEach((cell, c) => {
+      const m = obj(cell).merge;
+      if (m) for (let i = 0; i < m.rows; i++) for (let j = 0; j < m.cols; j++) if (i || j) covered.set(`${r + i},${c + j}`, [r, c]);
+    }),
+  );
   const hasRowGroup = !!groups.rows;
   const hasColGroup = !!groups.cols;
   const gut = hasRowGroup ? GUTTER_W : 0;
@@ -180,20 +190,32 @@ export function SheetGrid({
               const inRef = !!rr && r >= rr.r1 && r <= rr.r2 && c >= rr.c1 && c <= rr.c2;
               const inAnts = !!a && r >= a.r1 && r <= a.r2 && c >= a.c1 && c <= a.c2;
               const frozenEdge = frozenCols > 0 && c === frozenCols - 1;
+              const under = covered.get(`${r},${c}`);
+              if (under && under[0] === r) return null;
+              if (under) return <span key={c} data-tl={`cell-${refOf(r, c).toLowerCase()}`} className="relative block shrink-0 border-r bg-white" style={{ width: w(c), borderColor: line }} />;
+              let spanW = w(c);
+              let spanH = 0;
+              if (o.merge) {
+                for (let j = 1; j < o.merge.cols; j++) spanW += w(c + j);
+                for (let i = 0; i < o.merge.rows; i++) spanH += rh(r + i);
+              }
               return (
                 <span
                   key={c}
                   data-tl={`cell-${refOf(r, c).toLowerCase()}`}
                   className={`relative block shrink-0 whitespace-nowrap border-r px-[4px] text-[#202124] ${o.wrap === "overflow" ? "z-[2] overflow-visible" : "overflow-hidden"} ${o.bold ? "font-semibold" : ""} ${o.italic ? "italic" : ""} ${o.align === "right" ? "text-right" : o.align === "center" ? "text-center" : ""} ${o.link ? "text-[#1155CC] underline" : ""} ${o.underline || o.strike ? "" : ""}`}
                   style={{
-                    width: w(c),
+                    width: spanW,
+                    ...(o.merge ? { zIndex: 3, alignSelf: "flex-start", height: spanH, backgroundColor: "#fff" } : {}),
+                    color: o.color,
+                    fontFamily: o.font ? FONT_CSS[o.font] : undefined,
                     fontSize: o.size ? o.size * 1.3 : undefined,
                     textDecoration: [o.underline && "underline", o.strike && "line-through"].filter(Boolean).join(" ") || undefined,
                     paddingRight: filterCols.includes(c) && r === 0 ? 20 : undefined,
                     lineHeight: `${rh(r) - 1}px`,
                     borderColor: frozenEdge ? BLUE : line,
                     borderRightWidth: frozenEdge ? 2 : 1,
-                    backgroundColor: editing ? "#fff" : hit !== undefined ? (hit === hitNow ? "#F9C74F" : "#FFF0A8") : o.fill,
+                    backgroundColor: editing ? "#fff" : hit !== undefined ? (hit === hitNow ? "#F9C74F" : "#FFF0A8") : o.fill ?? (o.merge ? "#fff" : undefined),
                   }}
                 >
                   {editing ? (
@@ -219,8 +241,9 @@ export function SheetGrid({
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={o.image} alt="" className="absolute inset-[2px] h-[calc(100%-4px)] w-[calc(100%-4px)] object-contain" />
                   ) : (
-                    <CellText o={o} text={text} />
+                    <CellText o={o.merge && o.merge.rows > 1 ? { ...o, valign: o.valign ?? "bottom" } : o} text={text} />
                   )}
+                  {o.borders && <CellBordersView b={o.borders} />}
                   {r === 0 && filterCols.includes(c) && (
                     <span data-tl={`filter-btn-${c}`} className={`absolute right-[2px] top-1/2 flex h-[16px] w-[16px] -translate-y-1/2 items-center justify-center rounded-[3px] transition-colors data-[hover=true]:bg-[#DCE6FA] ${filteredCols.includes(c) ? "bg-[#C8E6C9] text-[#137333]" : "text-[#5F6368]"}`}>
                       <Icon name="shFilter" size={11} />
@@ -269,6 +292,14 @@ export function SheetGrid({
       })}
     </div>
   );
+}
+
+const BORDER_CSS: Record<BorderLine["style"], [number, string]> = { solid: [1, "solid"], medium: [2, "solid"], thick: [3, "solid"], dotted: [1, "dotted"], dashed: [1, "dashed"], double: [3, "double"] };
+
+/** The lines a cell carries (Borders tool), drawn over its edges. */
+function CellBordersView({ b }: { b: CellBorders }) {
+  const side = (l?: BorderLine) => (l ? `${BORDER_CSS[l.style][0]}px ${BORDER_CSS[l.style][1]} ${l.color}` : undefined);
+  return <i className="pointer-events-none absolute -inset-px z-[4]" style={{ borderTop: side(b.top), borderBottom: side(b.bottom), borderLeft: side(b.left), borderRight: side(b.right) }} />;
 }
 
 /** The left gutter of a row group: a bracket along the grouped rows and the − / + button on the row after them. */

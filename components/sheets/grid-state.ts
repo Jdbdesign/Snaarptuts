@@ -1,5 +1,6 @@
 import { formatGBP } from "@/lib/money";
 import type { Cell } from "./sheets-data";
+import { formatValue, todaySerial, weekdayOf } from "./number-format";
 
 /*
  * Pure functions on the cells of one sheet (rows of cells, starting at A1). The Edit and View steps keep the sheet in the scene
@@ -46,7 +47,9 @@ const RANGE_FN = /^=(SUM|AVERAGE|COUNT|MAX|MIN|MEDIAN)\(([A-Z]+\d+):([A-Z]+\d+)\
 const IF_FN = /^=IF\(([A-Z]+\d+)([<>])(\d+(?:\.\d+)?),"([^"]*)","([^"]*)"\)$/;
 
 function numberOf(c: Cell | undefined): number | null {
-  const t = textOf(c).trim();
+  const o = obj(c);
+  if (o.num !== undefined) return o.num;
+  const t = o.text.trim();
   const m = parseMoney(t);
   if (m !== null) return m;
   return /^-?\d+(\.\d+)?$/.test(t) ? Number(t) : null;
@@ -59,7 +62,7 @@ const median = (n: number[]) => {
 };
 
 /** The value a formula shows (SUM, AVERAGE, COUNT, MAX, MIN over a range of pounds or numbers, and a one-condition IF), or null if it is not one we know. */
-export function evalFormula(rows: Rows, formula: string): string | null {
+export function evalFormula(rows: Rows, formula: string, fmt?: (n: number) => string): string | null {
   const m = RANGE_FN.exec(formula);
   if (m) {
     const [r1, c1] = parseRef(m[2]);
@@ -73,7 +76,7 @@ export function evalFormula(rows: Rows, formula: string): string | null {
     const sum = nums.reduce((a, b) => a + b, 0);
     const v = m[1] === "SUM" ? sum : m[1] === "AVERAGE" ? (nums.length ? sum / nums.length : 0) : m[1] === "MAX" ? Math.max(...nums) : m[1] === "MIN" ? Math.min(...nums) : m[1] === "MEDIAN" ? median(nums) : nums.length;
     if (m[1] === "COUNT") return String(v);
-    return formatGBP(v, { whole: Number.isInteger(v) });
+    return fmt ? fmt(v) : formatGBP(v, { whole: Number.isInteger(v) });
   }
   const f = IF_FN.exec(formula);
   if (f) {
@@ -81,6 +84,42 @@ export function evalFormula(rows: Rows, formula: string): string | null {
     const n = numberOf(rows[r]?.[c]) ?? 0;
     const lim = Number(f[3]);
     return (f[2] === ">" ? n > lim : n < lim) ? f[4] : f[5];
+  }
+  return evalLookup(rows, formula);
+}
+
+const IF_TEXT = /^=IF\(([A-Z]+\d+)="([^"]*)","([^"]*)","([^"]*)"\)$/;
+const VLOOKUP_FN = /^=VLOOKUP\("([^"]*)",([A-Z]+\d+):([A-Z]+\d+),(\d+),FALSE\)$/;
+const INDEX_MATCH = /^=INDEX\(([A-Z]+\d+):([A-Z]+\d+),MATCH\("([^"]*)",([A-Z]+\d+):([A-Z]+\d+),0\)\)$/;
+
+/** The toolbar steps' extra functions: IF on text, TODAY, WEEKDAY, VLOOKUP and INDEX / MATCH. A lookup shows the text of the cell it finds. */
+function evalLookup(rows: Rows, formula: string): string | null {
+  const t = IF_TEXT.exec(formula);
+  if (t) {
+    const [r, c] = parseRef(t[1]);
+    return textOf(rows[r]?.[c]) === t[2] ? t[3] : t[4];
+  }
+  if (formula === "=TODAY()") return formatValue(todaySerial(), "date");
+  const w = /^=WEEKDAY\(([A-Z]+\d+)\)$/.exec(formula);
+  if (w) {
+    const [r, c] = parseRef(w[1]);
+    const n = numberOf(rows[r]?.[c]);
+    return n === null ? "#VALUE!" : String(weekdayOf(n));
+  }
+  const v = VLOOKUP_FN.exec(formula);
+  if (v) {
+    const [r1, c1] = parseRef(v[2]);
+    const [r2] = parseRef(v[3]);
+    for (let r = r1; r <= r2; r++) if (textOf(rows[r]?.[c1]) === v[1]) return textOf(rows[r]?.[c1 + Number(v[4]) - 1]);
+    return "#N/A";
+  }
+  const im = INDEX_MATCH.exec(formula);
+  if (im) {
+    const [ir1, ic] = parseRef(im[1]);
+    const [mr1, mc] = parseRef(im[4]);
+    const [mr2] = parseRef(im[5]);
+    for (let r = mr1; r <= mr2; r++) if (textOf(rows[r]?.[mc]) === im[3]) return textOf(rows[ir1 + (r - mr1)]?.[ic]);
+    return "#N/A";
   }
   return null;
 }
@@ -90,7 +129,7 @@ export function recalc(rows: Rows): Rows {
   return rows.map((row) =>
     row.map((cell) => {
       const o = obj(cell);
-      const v = o.formula && !o.image ? evalFormula(rows, o.formula) : null;
+      const v = o.formula && !o.image ? evalFormula(rows, o.formula, o.nf ? (n) => formatValue(n, o.nf!, o.dp) : undefined) : null;
       return v === null ? cell : { ...o, text: v };
     }),
   );
@@ -176,28 +215,56 @@ export function deleteCols(rows: Rows, c1: number, c2: number): Rows {
   return recalc(shiftFormulas(out, "col", c1, c2));
 }
 
-export type FindOptions = { matchCase?: boolean; entire?: boolean };
+export type FindOptions = { matchCase?: boolean; entire?: boolean; regex?: boolean };
+
+function matcher(query: string, opts: FindOptions): (t: string) => boolean {
+  if (opts.regex) {
+    try {
+      const re = new RegExp(opts.entire ? `^(?:${query})$` : query, opts.matchCase ? "" : "i");
+      return (t) => re.test(t);
+    } catch {
+      return () => false;
+    }
+  }
+  const q = opts.matchCase ? query : query.toLowerCase();
+  return (t) => {
+    const x = opts.matchCase ? t : t.toLowerCase();
+    return opts.entire ? x === q : x.includes(q);
+  };
+}
 
 export function findCells(rows: Rows, query: string, opts: FindOptions = {}): [number, number][] {
   if (!query) return [];
-  const q = opts.matchCase ? query : query.toLowerCase();
+  const test = matcher(query, opts);
   const hits: [number, number][] = [];
   rows.forEach((row, r) =>
     row.forEach((cell, c) => {
-      const t = opts.matchCase ? textOf(cell) : textOf(cell).toLowerCase();
-      if (t && (opts.entire ? t === q : t.includes(q))) hits.push([r, c]);
+      const t = textOf(cell);
+      if (t && test(t)) hits.push([r, c]);
     }),
   );
   return hits;
 }
 
+/** The pattern a replace works with: the text itself (escaped), or the regular expression. */
+function replacer(query: string, opts: FindOptions, global: boolean): RegExp {
+  const src = opts.regex ? query : query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(opts.entire ? `^(?:${src})$` : src, (opts.matchCase ? "" : "i") + (global ? "g" : ""));
+}
+
 export function replaceAll(rows: Rows, query: string, to: string, opts: FindOptions = {}): { rows: Rows; count: number } {
   const hits = findCells(rows, query, opts);
   const out = rows.map((row) => row.slice());
-  const esc = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const re = new RegExp(opts.entire ? `^${esc}$` : esc, opts.matchCase ? "g" : "gi");
+  const re = replacer(query, opts, true);
   for (const [r, c] of hits) out[r][c] = { ...obj(out[r][c]), text: textOf(out[r][c]).replace(re, to) };
   return { rows: out, count: hits.length };
+}
+
+/** Replace in one cell only (the Replace button): the first match inside it. */
+export function replaceOne(rows: Rows, at: [number, number], query: string, to: string, opts: FindOptions = {}): Rows {
+  const out = rows.map((row) => row.slice());
+  out[at[0]][at[1]] = { ...obj(out[at[0]][at[1]]), text: textOf(out[at[0]][at[1]]).replace(replacer(query, opts, false), to) };
+  return out;
 }
 
 /* ---------------- Insert: cells, rows, columns ---------------- */

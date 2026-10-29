@@ -4,6 +4,8 @@ import { INSERT_BODY, INSERT_FORECAST_ROWS, INSERT_HEADER, INSERT_SAMPLE, money 
 import { recalc } from "./grid-state";
 import { FDT } from "./fdt-data";
 import { formatNum } from "./fdt-state";
+import { formatValue } from "./number-format";
+import { TB_SAMPLE } from "./toolbar-data";
 import {
   BUDGET_HEADER,
   BUDGET_ROWS,
@@ -84,3 +86,32 @@ export function fdtRows(): Cell[][] {
   return [header, ...body];
 }
 export const FDT_BOOK: Workbook = { title: SHEET.budget, sheets: [{ id: "s1", name: FDT.tab, rows: fdtRows(), widths: FDT.widths }] };
+
+/**
+ * The toolbar and header-tool steps' sheet (85-116): the Acme Studio budget with Item | Owner | Region | Cost | Qty | Status | Due date,
+ * a Margin, a Code, a Reference number, a long Note, two link cells and an Action column, eight rows and a live Total
+ * (=SUM(D2:D9)). Costs carry their number (`num`) and the GBP format, so the Total and every format change work from the numbers.
+ */
+export function tbRows(): Cell[][] {
+  const S = TB_SAMPLE;
+  const header: Cell[] = S.header.map((text) => text);
+  const body: Cell[][] = S.body.map((r, i) => [
+    r.item,
+    r.owner,
+    r.region,
+    { text: formatValue(r.cost, "currency:GBP"), num: r.cost, nf: "currency:GBP", align: "right" },
+    { text: String(r.qty), num: r.qty, align: "right" },
+    r.status,
+    { text: formatValue(r.due, "date"), num: r.due, nf: "date", align: "right" },
+    { text: String(r.margin), num: r.margin, align: "right" },
+    { text: String(Number(r.code)), num: Number(r.code), raw: r.code, align: "right" },
+    { text: String(r.ref), num: r.ref, align: "right" },
+    r.note,
+    i < S.linkCells.length ? S.linkCells[i] : "",
+    "",
+  ]);
+  const total: Cell[] = [S.totalLabel, "", "", { text: "", num: undefined, nf: "currency:GBP", align: "right", bold: true, formula: `=SUM(D2:D${S.body.length + 1})` }];
+  return recalc([header, ...body, total]);
+}
+export const VENDORS_SHEET: SheetModel = { id: "s2", name: TB_SAMPLE.vendorsTab, rows: [TB_SAMPLE.vendors.header.map((text) => ({ text, bold: true })), ...TB_SAMPLE.vendors.rows] };
+export const TB_BOOK: Workbook = { title: TB_SAMPLE.title, sheets: [{ id: "s1", name: TB_SAMPLE.tab, rows: tbRows(), widths: TB_SAMPLE.widths }, VENDORS_SHEET] };

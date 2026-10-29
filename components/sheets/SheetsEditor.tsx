@@ -47,18 +47,24 @@ type Props = {
   gridTop?: ReactNode;
   /** The Name box: a label that replaces the range (a named range) and the list its arrow opens. */
   nameBox?: { label?: string; open: boolean; list: { name: string; ref: string }[] };
+  /** Toolbar steps (85-116): which tools show as on or pressed, the font and size boxes, the collapsed toolbar (More), and the layer that holds the dropdowns. */
+  toolState?: ToolState;
+  toolLayer?: ReactNode;
 };
+
+export type ToolState = { on?: string[]; open?: string; font?: string; size?: string; formatLabel?: string; collapsed?: boolean; hAlign?: IconName };
 
 /**
  * The Snaarp Sheets editor: header (title, star, folder, status, header icons, Share, avatar), menu bar, toolbar, name box and
  * formula bar, the grid with its row and column headers, and the sheet tabs. Sizes are the recording's (about 1450 px wide).
  * Hooks: sheet-title, sheet-star, editor-menu-<id>, sheet-toolbar, sheet-grid, cell-a1, sheet-tab-<id>, sheet-add-tab, editor-share, sheet-notice, sheet-side.
  */
-export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, sidePanel, panelOpen = false, panelWidth = 272, offline = false, trashed = false, notice = "", overlay, menuSlots, grid, formulaBar = true, zoomLabel, canUndo = false, canRedo = false, fullScreen = false, gridTop, nameBox }: Props) {
+export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, sidePanel, panelOpen = false, panelWidth = 272, offline = false, trashed = false, notice = "", overlay, menuSlots, grid, formulaBar = true, zoomLabel, canUndo = false, canRedo = false, fullScreen = false, gridTop, nameBox, toolState, toolLayer }: Props) {
   const narrow = useNarrow();
   const current = sheets.find((s) => s.id === activeSheet) ?? sheets[0];
   const sel = sorted(grid?.sel ?? single(0, 0));
   const active = obj(current?.rows[sel.r1]?.[sel.c1]);
+  const hdrOn = (id: string) => (toolState?.open === `hdr:${id}` ? "bg-[#E4E7EC]" : "");
   const bar = (grid?.formulas || active.image || active.fx) && active.formula ? active.formula : cellText(current?.rows[sel.r1]?.[sel.c1]);
 
   return (
@@ -88,21 +94,19 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
             <span className="truncate">{notice}</span>
           </div>
 
-          <div className="absolute right-[10px] top-[5px] flex h-[30px] items-center gap-[22px] text-[#4b5060]">
-            {!narrow && (
-              <>
-                <Icon name="shGrid" size={18} />
-                <Icon name="restore" size={18} />
-                <Icon name="edComment" size={18} />
-                <span className="flex items-center gap-[2px]"><Icon name="edCamera" size={19} /><Icon name="chevronDown" size={9} /></span>
-                <Icon name="lock" size={17} />
-              </>
-            )}
+          <div className="absolute right-[10px] top-[5px] flex h-[30px] items-center text-[#4b5060]" style={{ gap: narrow ? 6 : 14 }}>
+            <>
+              <span data-tl="hdr-apps" className={`${HDR_BTN} ${hdrOn("apps")}`}><Icon name="shGrid" size={18} /></span>
+              <span data-tl="hdr-history" className={HDR_BTN}><Icon name="restore" size={18} /></span>
+              <span data-tl="hdr-comments" className={HDR_BTN}><Icon name="edComment" size={18} /></span>
+              <span data-tl="hdr-video" className={`${HDR_BTN} gap-[2px] ${hdrOn("video")}`}><Icon name="edCamera" size={19} /><Icon name="chevronDown" size={9} /></span>
+              <span data-tl="hdr-lock" className={`${HDR_BTN} ${hdrOn("lock")}`}><Icon name="lock" size={17} /></span>
+            </>
             <span data-tl="editor-share" className="flex h-[30px] items-center gap-[7px] rounded-full bg-[#DDE7FB] px-[16px] text-[13px] font-medium text-[#1C3F94] transition-[filter] data-[hover=true]:brightness-95 data-[pressed=true]:scale-95">
               <Icon name="shShare" size={16} />
               {HEADER.share}
             </span>
-            <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#7014D9] text-[11px] font-medium text-white">{HEADER.avatar}</span>
+            <span data-tl="hdr-avatar" className="ml-[4px] flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#7014D9] text-[11px] font-medium text-white transition-[box-shadow] data-[hover=true]:shadow-[0_0_0_3px_rgba(112,20,217,0.2)]">{HEADER.avatar}</span>
           </div>
         </div>
 
@@ -121,7 +125,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
         </div>
 
         {/* Toolbar */}
-        <Toolbar zoomLabel={zoomLabel ?? TOOLBAR.zoom} canUndo={canUndo} canRedo={canRedo} />
+        <Toolbar zoomLabel={zoomLabel ?? TOOLBAR.zoom} canUndo={canUndo} canRedo={canRedo} state={toolState} narrow={narrow} />
 
         {/* Name box and formula bar */}
         <div data-tl="formula-bar" className={`flex shrink-0 items-center border-[#E3E5EA] text-[13px] transition-[height] duration-200 motion-reduce:transition-none ${formulaBar ? "h-[28px] border-b" : "h-0 overflow-hidden"}`}>
@@ -195,73 +199,103 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
         </div>
 
         {overlay}
+        {toolLayer}
       </div>
     </div>
   );
 }
 
+const HDR_BTN = "flex h-[28px] min-w-[28px] items-center justify-center rounded-full transition-colors data-[hover=true]:bg-[#EDEFF2]";
+
 type Tool = { id?: string; x: number; icon?: IconName; text?: string; caret?: boolean; box?: { w: number; label: string }; dim?: boolean; bold?: boolean; sep?: boolean };
 
 const TOOLS: Tool[] = [
-  { x: 12, icon: "shSearch" },
+  { x: 12, icon: "shSearch", id: "search" },
   { x: 46, icon: "edUndo", dim: true, id: "undo" },
   { x: 72, icon: "edRedo", dim: true, id: "redo" },
-  { x: 97, icon: "edPrint" },
-  { x: 123, icon: "edPaintFormat" },
-  { x: 148, box: { w: 44, label: TOOLBAR.zoom }, id: "zoom" },
-  { x: 215, text: "$", caret: true },
-  { x: 248, text: "%" },
-  { x: 272, text: ".0" },
-  { x: 296, text: ".00" },
-  { x: 313, box: { w: 42, label: TOOLBAR.format123 } },
-  { x: 366, box: { w: 68, label: TOOLBAR.font } },
-  { x: 455, text: "−" },
-  { x: 466, box: { w: 26, label: TOOLBAR.size } },
-  { x: 500, text: "+" },
-  { x: 534, icon: "edBold" },
-  { x: 560, icon: "edItalic" },
-  { x: 586, icon: "edStrike" },
-  { x: 611, icon: "edUnderline" },
-  { x: 637, icon: "edTextColor" },
+  { x: 97, icon: "edPrint", id: "print" },
+  { x: 123, icon: "edPaintFormat", id: "paint" },
+  { x: 148, box: { w: 54, label: TOOLBAR.zoom }, id: "zoom" },
+  { x: 215, text: "$", caret: true, id: "currency" },
+  { x: 248, text: "%", id: "percent" },
+  { x: 272, text: ".0", id: "decrease" },
+  { x: 296, text: ".00", id: "increase" },
+  { x: 313, box: { w: 42, label: TOOLBAR.format123 }, id: "formats" },
+  { x: 366, box: { w: 68, label: TOOLBAR.font }, id: "font" },
+  { x: 452, text: "−", id: "size-minus" },
+  { x: 468, box: { w: 34, label: TOOLBAR.size }, id: "size" },
+  { x: 512, text: "+", id: "size-plus" },
+  { x: 534, icon: "edBold", id: "bold" },
+  { x: 560, icon: "edItalic", id: "italic" },
+  { x: 586, icon: "edStrike", id: "strike" },
+  { x: 611, icon: "edUnderline", id: "underline" },
+  { x: 637, icon: "edTextColor", id: "textcolor" },
   { x: 663, icon: "edHighlight", id: "highlight" },
-  { x: 699, icon: "edTable", caret: true },
-  { x: 733, icon: "shMerge", caret: true },
-  { x: 773, icon: "edAlignL", caret: true },
-  { x: 806, icon: "shAlignV", caret: true },
-  { x: 840, icon: "shWrap", caret: true },
-  { x: 872, icon: "shRotate", caret: true },
-  { x: 911, icon: "edLink" },
-  { x: 937, icon: "edComment" },
-  { x: 963, icon: "shChart" },
-  { x: 998, icon: "shFilter" },
-  { x: 1032, icon: "shSigma", caret: true },
+  { x: 699, icon: "edTable", caret: true, id: "borders" },
+  { x: 733, icon: "shMerge", caret: true, id: "merge" },
+  { x: 773, icon: "edAlignL", caret: true, id: "halign" },
+  { x: 806, icon: "shAlignV", caret: true, id: "valign" },
+  { x: 840, icon: "shWrap", caret: true, id: "wrap" },
+  { x: 872, icon: "shRotate", caret: true, id: "rotate" },
+  { x: 911, icon: "edLink", id: "link" },
+  { x: 937, icon: "edComment", id: "comment" },
+  { x: 963, icon: "shChart", id: "chart" },
+  { x: 998, icon: "shFilter", id: "filter" },
+  { x: 1032, icon: "shSigma", caret: true, id: "functions" },
 ];
 
-function Toolbar({ zoomLabel, canUndo, canRedo }: { zoomLabel: string; canUndo: boolean; canRedo: boolean }) {
+/** Where the first tool tucked into More (Borders) sits, and the boxes' tint (grey when its menu is open). */
+const COLLAPSE_AT = 699;
+
+/** Invisible boxes over the toolbar's groups, so a step can ring a whole group (tool-group-<id>). */
+const TOOL_GROUPS = [
+  { id: "edit", from: 0, to: 138 },
+  { id: "numbers", from: 200, to: 362 },
+  { id: "style", from: 356, to: 690 },
+  { id: "layout", from: 688, to: 892 },
+  { id: "insert", from: 896, to: 978 },
+  { id: "data", from: 984, to: 1050 },
+];
+
+function Toolbar({ zoomLabel, canUndo, canRedo, state, narrow }: { zoomLabel: string; canUndo: boolean; canRedo: boolean; state?: ToolState; narrow: boolean }) {
+  const on = new Set(state?.on ?? []);
+  const collapsed = !!state?.collapsed;
   return (
-    <div data-tl="sheet-toolbar" className="relative h-[36px] shrink-0 overflow-hidden border-t border-[#EEF0F3] bg-[#F9FBFD] text-[#444746]">
-      {TOOLS.map((t, i) => (
-        <span
-          key={i}
-          {...(t.id ? { "data-tl": `tool-${t.id}` } : {})}
-          className={`absolute top-[6px] flex h-[24px] items-center justify-center ${t.dim && !(t.id === "undo" ? canUndo : t.id === "redo" ? canRedo : false) ? "opacity-35" : ""}`}
-          style={{ left: t.box ? t.x : t.x - 11 }}
-        >
-          {t.box ? (
-            <span className="flex h-[24px] items-center justify-between rounded-[5px] bg-[#EDF1F8] px-[7px] text-[12px]" style={{ width: t.box.w }}>
-              {t.box.label === TOOLBAR.zoom ? zoomLabel : t.box.label}
-              <Icon name="chevronDown" size={8} />
+    <div data-tl="sheet-toolbar" className={`relative h-[36px] shrink-0 border-t border-[#EEF0F3] bg-[#F9FBFD] text-[#444746] ${narrow ? "overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" : "overflow-hidden"}`}>
+      <div className="relative h-full" style={{ width: narrow ? 1070 : "100%" }}>
+        {TOOL_GROUPS.map((g) => (
+          <span key={g.id} data-tl={`tool-group-${g.id}`} className="pointer-events-none absolute top-[3px] h-[30px] rounded-[7px]" style={{ left: g.from, width: g.to - g.from }} />
+        ))}
+        {TOOLS.filter((t) => !(collapsed && t.x >= COLLAPSE_AT)).map((t) => {
+          const label = t.id === "font" ? state?.font : t.id === "size" ? state?.size : t.id === "formats" ? state?.formatLabel : t.id === "zoom" ? zoomLabel : undefined;
+          const active = on.has(t.id!) || state?.open === t.id;
+          const disabled = t.dim && !(t.id === "undo" ? canUndo : t.id === "redo" ? canRedo : false);
+          return (
+            <span
+              key={t.id}
+              data-tl={`tool-${t.id}`}
+              className={`absolute top-[6px] flex h-[24px] items-center justify-center rounded-[5px] transition-colors data-[hover=true]:bg-[#E9ECF1] ${disabled ? "opacity-35" : ""} ${active ? "bg-[#E9E1F8] text-[#6B21C8]" : ""}`}
+              style={{ left: t.box ? t.x : t.x - 11, minWidth: t.box ? undefined : 22, paddingInline: t.box ? 0 : 2 }}
+            >
+              {t.box ? (
+                <span className={`flex h-[24px] items-center justify-between rounded-[5px] px-[6px] text-[12px] ${active ? "" : "bg-[#EDF1F8]"}`} style={{ width: t.box.w }}>
+                  <span className="whitespace-nowrap">{label ?? t.box.label}</span>
+                  <Icon name="chevronDown" size={8} />
+                </span>
+              ) : (
+                <>
+                  {t.icon && <Icon name={t.id === "halign" && state?.hAlign ? state.hAlign : t.icon} size={17} />}
+                  {t.text && <span className="text-[13px]">{t.text}</span>}
+                  {t.caret && <Icon name="chevronDown" size={8} className="ml-[1px]" />}
+                </>
+              )}
             </span>
-          ) : (
-            <>
-              {t.icon && <Icon name={t.icon} size={17} />}
-              {t.text && <span className="text-[13px]">{t.text}</span>}
-              {t.caret && <Icon name="chevronDown" size={8} className="ml-[1px]" />}
-            </>
-          )}
+          );
+        })}
+        <span data-tl="tool-more" className={`absolute top-[6px] flex h-[24px] w-[22px] items-center justify-center rounded-[5px] transition-colors data-[hover=true]:bg-[#E9ECF1] ${state?.open === "more" ? "bg-[#E9E1F8]" : ""}`} style={collapsed ? { left: COLLAPSE_AT - 11 } : { right: 4 }}>
+          <Icon name="dots" size={18} className="rotate-90 text-[#444746]" />
         </span>
-      ))}
-      <Icon name="dots" size={18} className="absolute right-[8px] top-[9px] rotate-90 text-[#444746]" />
+      </div>
     </div>
   );
 }

@@ -4,7 +4,8 @@ import { Icon } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useNarrow } from "@/lib/useNarrow";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { COMMENTS, FIND } from "./edit-view-data";
+import { COMMENTS } from "./edit-view-data";
+import { FIND_DIALOG } from "./toolbar-data";
 import { COMMENT_INS } from "./insert-data";
 import { BLUE, BlueButton, CloseX, ShField, SheetGlyph, Tick } from "./parts";
 
@@ -120,22 +121,35 @@ export function CommentsPanel({ tl }: { tl: Timeline }) {
 const NO_THREADS: CommentThread[] = [];
 
 /**
- * Edit > Find and replace: a floating card (not a dimmed dialog, so the highlighted matches stay visible in the grid).
- * Scene variables: `findOpen`, `field:find`, `field:replace`, `focus`, `findCase`, `findEntire`, `findHits`.
- * Hooks: find-card, field-find, field-replace, find-case, find-entire, find-btn, find-replace, find-replace-all, find-done, find-count.
+ * Find and replace: ONE card for Edit > Find and replace (step 28) and the toolbar's Search tool (step 86), laid out as in the recording:
+ * Find, Replace with, Search (All sheets / This sheet), five options, and Find, Replace, Replace all, Done. It floats (not a dimmed dialog),
+ * so the highlighted matches stay visible in the grid.
+ * Scene variables: `findOpen`, `field:find`, `field:replace`, `focus`, `findCase`, `findEntire`, `findRegex`, `findFormulas`, `findLinks`,
+ * `findScope`, `findScopeOpen`, `findHits`, `findNow`.
+ * Hooks: find-card, field-find, field-replace, find-scope, find-scope-<all|this>, find-case, find-entire, find-regex, find-regex-help,
+ * find-formulas, find-links, find-btn, find-replace, find-replace-all, find-done, find-count.
  */
 export function FindCard({ tl }: { tl: Timeline }) {
   const open = useTimelineVar(tl, "findOpen", false);
-  const matchCase = useTimelineVar(tl, "findCase", false);
-  const entire = useTimelineVar(tl, "findEntire", false);
+  const flags = {
+    case: useTimelineVar(tl, "findCase", false),
+    entire: useTimelineVar(tl, "findEntire", false),
+    regex: useTimelineVar(tl, "findRegex", false),
+    formulas: useTimelineVar(tl, "findFormulas", false),
+    links: useTimelineVar(tl, "findLinks", false),
+  } as Record<string, boolean>;
   const hits = useTimelineVar<[number, number][] | null>(tl, "findHits", null);
-  const D = FIND;
+  const now = useTimelineVar(tl, "findNow", -1);
+  const scope = useTimelineVar<string>(tl, "findScope", FIND_DIALOG.scopes[0]);
+  const scopeOpen = useTimelineVar(tl, "findScopeOpen", false);
+  const query = useTimelineVar<string>(tl, "field:find", "");
+  const D = FIND_DIALOG;
   const narrow = useNarrow();
   return (
     <div
       aria-hidden={!open}
       data-tl="find-card"
-      className={`absolute right-[28px] ${narrow ? "bottom-[150px]" : "top-[104px]"} z-40 w-[372px] rounded-[12px] border border-[#DADCE0] bg-white p-[16px] text-[#1f2430] shadow-[0_14px_40px_-8px_rgba(17,24,39,0.32)] transition-[opacity,transform] duration-200 motion-reduce:transition-none ${
+      className={`absolute right-[28px] ${narrow ? "bottom-[150px]" : "top-[104px]"} z-40 w-[340px] rounded-[12px] border border-[#DADCE0] bg-white p-[16px] text-[#1f2430] shadow-[0_14px_40px_-8px_rgba(17,24,39,0.32)] transition-[opacity,transform] duration-200 motion-reduce:transition-none ${
         open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
       }`}
     >
@@ -144,24 +158,34 @@ export function FindCard({ tl }: { tl: Timeline }) {
         <CloseX id="find" />
       </div>
       <ShField tl={tl} id="find" placeholder={D.find} floatLabel={D.find} />
-      <p data-tl="find-count" className="mb-[10px] mt-[4px] h-[14px] text-[11px] text-[#5F6368]">{hits ? D.count(hits.length) : ""}</p>
+      <p data-tl="find-count" className="mb-[8px] mt-[4px] h-[14px] text-[11px] text-[#5F6368]">{hits ? D.count(Math.max(now, 0) + 1, hits.length) : ""}</p>
       <ShField tl={tl} id="replace" placeholder={D.replace} floatLabel={D.replace} />
-      <div className="mt-[12px] flex items-center gap-[8px] text-[12.5px] text-[#3C4043]">
-        <span>{D.within}</span>
-        <span className="flex h-[28px] items-center gap-[6px] rounded-[6px] border border-[#DADCE0] px-[10px]">
-          {D.withinValue}
+      <div className="relative mt-[12px] flex items-center gap-[10px] text-[12.5px] text-[#3C4043]">
+        <span className="w-[48px]">{D.search}</span>
+        <span data-tl="find-scope" className="flex h-[28px] min-w-[110px] items-center justify-between gap-[8px] rounded-[6px] border border-[#DADCE0] px-[10px]">
+          {scope}
           <Icon name="chevronDown" size={8} />
         </span>
+        <div aria-hidden={!scopeOpen} className={`absolute left-[58px] top-[30px] z-10 w-[118px] rounded-[6px] border border-[#DADCE0] bg-white py-[4px] shadow-[0_6px_18px_-4px_rgba(17,24,39,0.25)] transition-opacity duration-150 ${scopeOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}>
+          {D.scopes.map((sc, i) => (
+            <span key={sc} data-tl={`find-scope-${i ? "this" : "all"}`} className={`block px-[10px] py-[5px] data-[hover=true]:bg-[#F1F3F4] ${sc === scope ? "text-[#1C3F94]" : ""}`}>{sc}</span>
+          ))}
+        </div>
       </div>
       <div className="mt-[10px] flex flex-col gap-[7px] text-[12.5px] text-[#3C4043]">
-        <span data-tl="find-case" className="flex items-center gap-[8px]"><Tick on={matchCase} />{D.matchCase}</span>
-        <span data-tl="find-entire" className="flex items-center gap-[8px]"><Tick on={entire} />{D.entire}</span>
+        {D.options.map((o) => (
+          <span key={o.id} data-tl={`find-${o.id}`} className="flex items-center gap-[8px]">
+            <Tick on={!!flags[o.id]} />
+            {o.label}
+            {o.help && <span data-tl="find-regex-help" className="text-[11px] text-[#2563EB] underline">{o.help}</span>}
+          </span>
+        ))}
       </div>
       <div className="mt-[16px] flex items-center justify-end gap-[8px]">
-        <span data-tl="find-btn" className="flex h-[32px] items-center rounded-[7px] border border-[#DADCE0] px-[14px] text-[13px] font-medium text-[#3C4043] transition-colors data-[hover=true]:bg-[#F1F3F4] data-[pressed=true]:scale-95">{D.findBtn}</span>
-        <span data-tl="find-replace" className="flex h-[32px] items-center rounded-[7px] border border-[#DADCE0] px-[14px] text-[13px] font-medium text-[#3C4043] transition-colors data-[hover=true]:bg-[#F1F3F4] data-[pressed=true]:scale-95">{D.replaceBtn}</span>
-        <BlueButton hook="find-replace-all" className="!h-[32px]">{D.replaceAllBtn}</BlueButton>
-        <span data-tl="find-done" className="flex h-[32px] items-center rounded-[7px] px-[12px] text-[13px] font-medium text-[#1C3F94] transition-colors data-[hover=true]:bg-[#F1F3F4] data-[pressed=true]:scale-95">{D.done}</span>
+        <span data-tl="find-btn" className="flex h-[32px] items-center rounded-[7px] border border-[#DADCE0] px-[14px] text-[13px] font-medium text-[#3C4043] transition-colors data-[hover=true]:bg-[#F1F3F4] data-[pressed=true]:scale-95">{D.buttons.find}</span>
+        <span data-tl="find-replace" className={`flex h-[32px] items-center rounded-[7px] border px-[14px] text-[13px] font-medium transition-colors data-[pressed=true]:scale-95 ${hits?.length ? "border-[#DADCE0] text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]" : "border-[#ECEDEF] text-[#B0B5C0]"}`}>{D.buttons.replace}</span>
+        <span data-tl="find-replace-all" className={`flex h-[32px] items-center rounded-[7px] border px-[14px] text-[13px] font-medium transition-[transform,background] data-[pressed=true]:scale-95 ${query ? "border-[#DADCE0] text-[#3C4043] data-[hover=true]:bg-[#F1F3F4]" : "border-[#ECEDEF] text-[#B0B5C0]"}`}>{D.buttons.replaceAll}</span>
+        <span data-tl="find-done" className="flex h-[32px] items-center rounded-[7px] bg-[#188038] px-[14px] text-[13px] font-medium text-white transition-[transform,filter] data-[hover=true]:brightness-90 data-[pressed=true]:scale-95">{D.buttons.done}</span>
       </div>
     </div>
   );

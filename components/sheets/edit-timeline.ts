@@ -15,6 +15,7 @@ import {
   parseRef,
   pasteCells,
   replaceAll,
+  replaceOne,
   setCellText,
   single,
   sorted,
@@ -351,12 +352,28 @@ export function postComment(tl: Timeline) {
 
 /* ---------------- Find and replace ---------------- */
 
-const findOpts = (tl: Timeline) => ({ matchCase: tl.getVar("findCase", false), entire: tl.getVar("findEntire", false) });
+const findOpts = (tl: Timeline) => ({ matchCase: tl.getVar("findCase", false), entire: tl.getVar("findEntire", false), regex: tl.getVar("findRegex", false) });
 
+/** The Find button: the first press lists the matches (the first one is current), pressing it again moves on to the next. */
 export function runFind(tl: Timeline) {
   const hits = findCells(getRows(tl), tl.getVar("field:find", ""), findOpts(tl));
+  const old = tl.getVar<[number, number][] | null>("findHits", null);
+  const same = !!old && old.length === hits.length && hits.every((h, i) => h[0] === old[i][0] && h[1] === old[i][1]);
   tl.setVar("findHits", hits);
-  tl.setVar("findNow", hits.length ? 0 : -1);
+  const now = tl.getVar("findNow", -1);
+  tl.setVar("findNow", !hits.length ? -1 : same && now >= 0 ? (now + 1) % hits.length : 0);
+}
+
+/** The Replace button: the current match changes, the list is worked out again and the next match becomes current. */
+export function runReplaceOne(tl: Timeline) {
+  const hits = tl.getVar<[number, number][] | null>("findHits", null);
+  const now = tl.getVar("findNow", -1);
+  if (!hits || now < 0) return;
+  const q = tl.getVar<string>("field:find", "");
+  commit(tl, replaceOne(getRows(tl), hits[now], q, tl.getVar<string>("field:replace", ""), findOpts(tl)));
+  const left = findCells(getRows(tl), q, findOpts(tl));
+  tl.setVar("findHits", left);
+  tl.setVar("findNow", left.length ? Math.min(now, left.length - 1) : -1);
 }
 
 export function runReplaceAll(tl: Timeline) {
@@ -372,5 +389,6 @@ export function closeFind(tl: Timeline) {
   tl.setVar("findOpen", false);
   tl.setVar("findHits", null);
   tl.setVar("findNow", -1);
+  tl.setVar("findScopeOpen", false);
   tl.setVar("focus", "");
 }

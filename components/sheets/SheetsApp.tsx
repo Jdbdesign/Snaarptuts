@@ -31,6 +31,9 @@ import { AboutDialog, AccessibilityDialog, CustomFormatDialog, DEFAULT_A11Y, Fil
 import { autoRowHeights, hiddenRows, NO_FILTER, suggestion, type FilterState } from "./fdt-state";
 import type { FView, Named } from "./fdt-timeline";
 import { FDT } from "./fdt-data";
+import { CurrencyDialog, MeetingDialogs, ToolbarLayer, toolLabels } from "./ToolbarMenus";
+import type { Look } from "./toolbar-state";
+import type { ToolState } from "./SheetsEditor";
 import type { Rows } from "./grid-state";
 
 // Stable fallbacks: useTimelineVar needs the same object every render.
@@ -133,6 +136,11 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   const acOn = useTimelineVar(tl, "acOn", true);
   const commentPop = useTimelineVar<CommentPop | null>(tl, "commentPop", null);
   const noteTip = useTimelineVar<{ r: number; c: number; text: string } | null>(tl, "noteTip", null);
+  // Toolbar and header tools (steps 85-116): the open dropdown (`tbMenu`), the open header popover (`hdrMenu`), Paint format and the collapsed toolbar
+  const tbMenu = useTimelineVar<string>(tl, "tbMenu", "");
+  const hdrMenu = useTimelineVar<string>(tl, "hdrMenu", "");
+  const paint = useTimelineVar<Look | null>(tl, "tbPaint", null);
+  const collapsed = useTimelineVar(tl, "tbCollapsed", false);
   const active = sheets.find((x) => x.id === activeSheet) ?? sheets[0];
   const shownRows = autoRowHeights(active?.rows ?? [], active?.widths);
   const rowH = { ...shownRows, ...rowHeights };
@@ -146,8 +154,8 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
       ? [
           {
             id: "chart",
-            r: CHART.where.row,
-            c: CHART.where.col,
+            r: liveChart.at?.row ?? CHART.where.row,
+            c: liveChart.at?.col ?? CHART.where.col,
             w: CHART_W * (liveChart.maximize ? 1.25 : 1),
             h: CHART_H * (liveChart.maximize ? 1.25 : 1),
             node: <ChartObject chart={liveChart} rows={dataRows} />,
@@ -166,6 +174,15 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
   if (commentPop && activeSheet === sheets[0]?.id) floaters.push({ id: "cmt", r: commentPop.r, c: commentPop.c + 1, w: 260, h: 140, node: <CommentBox tl={tl} /> });
   if (noteTip && activeSheet === sheets[0]?.id) floaters.push({ id: "note", r: noteTip.r, c: noteTip.c + 1, w: 180, h: 60, node: <NoteTip text={noteTip.text} /> });
 
+  const labels = toolLabels(cellNow);
+  const toolState: ToolState = {
+    on: [cellNow.bold && "bold", cellNow.italic && "italic", cellNow.strike && "strike", cellNow.underline && "underline", paint && "paint", cellNow.wrap === "wrap" && "wrap"].filter((t): t is string => !!t),
+    open: hdrMenu ? `hdr:${hdrMenu}` : tbMenu,
+    font: labels.font,
+    size: labels.size,
+    collapsed,
+    hAlign: cellNow.align === "center" ? "edAlignC" : cellNow.align === "right" ? "edAlignR" : undefined,
+  };
   const menuState: MenuState = {
     canUndo: history.past.length > 0,
     canRedo: history.future.length > 0,
@@ -221,6 +238,8 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
             large: a11y.large,
             contrast: a11y.contrast,
           }}
+          toolState={toolState}
+          toolLayer={<ToolbarLayer tl={tl} cell={cellNow} zoom={zoom} />}
           gridTop={fvBar ? <FilterViewBar name={fvBar} /> : undefined}
           nameBox={nameList.length || nameLabel ? { label: nameLabel || undefined, open: nameOpen, list: nameList } : undefined}
           formulaBar={formulaBar}
@@ -273,6 +292,8 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
               <ShortcutsDialog tl={tl} />
               <AboutDialog tl={tl} />
               <PaletteDialog tl={tl} />
+              <CurrencyDialog tl={tl} />
+              <MeetingDialogs tl={tl} />
             </>
           }
         />

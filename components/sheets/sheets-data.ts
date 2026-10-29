@@ -45,7 +45,16 @@ export type CellLook = {
   num?: number;
   nf?: string;
   nfCustom?: string;
+  /** Toolbar steps (85-116): text colour, font family, decimals shown, the text as typed (Plain text), borders and a merge (on its top-left cell). */
+  color?: string;
+  font?: string;
+  dp?: number;
+  raw?: string;
+  borders?: CellBorders;
+  merge?: { rows: number; cols: number };
 };
+export type BorderLine = { style: "solid" | "medium" | "thick" | "dotted" | "dashed" | "double"; color: string };
+export type CellBorders = { top?: BorderLine; bottom?: BorderLine; left?: BorderLine; right?: BorderLine };
 export type Cell = string | ({ text: string; bold?: boolean; align?: "left" | "center" | "right"; fill?: string; formula?: string; image?: string; box?: "on" | "off"; chip?: CellChip; link?: string; note?: string; fx?: boolean } & CellLook);
 
 /** Budget: columns Item | Owner | Cost | Status. Costs are numbers, shown with formatGBP. */

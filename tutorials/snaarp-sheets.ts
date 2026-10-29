@@ -168,7 +168,9 @@ import { runStep82, STEP82_DURATION_MS } from "@/scenes/snaarp-sheets/step82/scr
 import { Step83 } from "@/scenes/snaarp-sheets/step83/Step83";
 import { runStep83, STEP83_DURATION_MS } from "@/scenes/snaarp-sheets/step83/script";
 import { Step84 } from "@/scenes/snaarp-sheets/step84/Step84";
-import { runStep84, STEP84_DURATION_MS } from "@/scenes/snaarp-sheets/step84/script";
+import { runStep84, STEP84_DURATION_MS } from "@/scenes/snaarp-sheets/step84/script";import { Step85 } from "@/scenes/snaarp-sheets/step85/Step85";
+import { runStep85, STEP85_DURATION_MS } from "@/scenes/snaarp-sheets/step85/script";
+
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
  * last step in this list, so it moves by itself. Recordings (git-ignored): ref/sheets/Snaarp_Sheets_file.mp4 (File), ref/sheets/Snaarp_Sheets_edit_view.mp4 (Edit, View).
@@ -691,6 +693,12 @@ export const snaarpSheets: Tutorial = {
       title: "About Snaarp Sheets",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step84, run: runStep84, durationMs: STEP84_DURATION_MS },
+    },
+    {
+      id: "tb-overview",
+      title: "Meet the toolbar",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step85, run: runStep85, durationMs: STEP85_DURATION_MS },
     },
   ],
 };
