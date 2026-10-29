@@ -23,7 +23,7 @@ export function ValidationPanel({ tl }: { tl: Timeline }) {
   return (
     <div data-tl="dv-panel" className="flex h-full flex-col bg-white text-[#1f2430]" style={{ width: CHART_PANEL_W }}>
       <div className="flex shrink-0 items-center justify-between px-[16px] pb-[8px] pt-[14px]">
-        <h2 className="text-[14px] font-medium">{DROPDOWN.title}</h2>
+        <h2 data-tl="dv-title" className="text-[14px] font-medium">{DROPDOWN.title}</h2>
         <CloseX id="dv" />
       </div>
       <div data-tl="dv-scroll" className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-[16px] pb-[12px]">

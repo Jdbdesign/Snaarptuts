@@ -83,7 +83,7 @@ export function ChartEditor({ tl }: { tl: Timeline }) {
   return (
     <div data-tl="chart-panel" className="flex h-full flex-col bg-white text-[#1f2430]" style={{ width: CHART_PANEL_W }}>
       <div className="flex shrink-0 items-center justify-between px-[16px] pb-[6px] pt-[12px]">
-        <h2 className="text-[14px] font-medium">{CHART.title}</h2>
+        <h2 data-tl="chart-title-bar" className="text-[14px] font-medium">{CHART.title}</h2>
         <span data-tl="chart-close" className="flex h-[22px] w-[22px] items-center justify-center rounded-full text-[#4b5060] data-[hover=true]:bg-[#F1F3F4]">
           <Icon name="x" size={14} />
         </span>

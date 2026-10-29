@@ -3,7 +3,7 @@ import { SHEETS_URLS } from "@/components/sheets/sheets-data";
 export const URLS = SHEETS_URLS;
 
 export const CAPTIONS = {
-  select: "Select the data for your chart. Here, A1 to G5",
+  select: "Select the data for your chart",
   open: "Click Insert, then Chart",
   inserted: "A chart appears over the cells and the Chart editor opens",
   type: "Open Chart type to see every kind of chart",

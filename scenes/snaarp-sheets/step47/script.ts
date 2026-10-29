@@ -3,7 +3,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 import { FUNCTIONS } from "@/components/sheets/insert-data";
 import { chooseSub, dragSelect, openMenu } from "@/components/sheets/edit-timeline";
-import { applyFunction, beginInsert } from "@/components/sheets/insert-timeline";
+import { applyFunction, beginInsert, phoneScroll } from "@/components/sheets/insert-timeline";
 import { pressOn, ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 47 - Insert > Function: SUM, AVERAGE, COUNT, MAX, MIN and IF on the Cost column, then More functions (MEDIAN). */
@@ -17,6 +17,7 @@ export async function runStep47(tl: Timeline) {
   tl.showCaption(CAPTIONS.select);
   await dragSelect(tl, a, b, { ms: 750 });
   await tl.wait(300);
+  phoneScroll(tl, 5);
 
   const six = [
     ["sum", CAPTIONS.sum],

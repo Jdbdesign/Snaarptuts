@@ -4,7 +4,7 @@ import { CAPTIONS, URLS } from "./data";
 import { SMART_CHIPS as S } from "@/components/sheets/insert-data";
 import { formatGBP } from "@/lib/money";
 import { chooseRow, clickCell, openMenu } from "@/components/sheets/edit-timeline";
-import { addHeader, beginInsert, widenColumn, chipBack, insertChip, openChipList, openChipType, pickSuggestion } from "@/components/sheets/insert-timeline";
+import { addHeader, beginInsert, phoneScroll, widenColumn, chipBack, insertChip, openChipList, openChipType, pickSuggestion } from "@/components/sheets/insert-timeline";
 import { pressOn, ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 53 - Smart chips: Date, Place, File, Finance and Event, one chip each in H2:H6 (the recording only shows People). */
@@ -26,6 +26,7 @@ export async function runStep53(tl: Timeline) {
   addHeader(tl, "h1", S.chipsHeader);
   widenColumn(tl, 7, 190);
   const price = formatGBP(S.finance.price);
+  phoneScroll(tl, 5);
 
   await tl.at(700);
   // Date

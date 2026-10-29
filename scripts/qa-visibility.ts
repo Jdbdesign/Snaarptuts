@@ -38,6 +38,9 @@ const VIEWPORTS = (arg("viewport") ? [arg("viewport")!] : ["1920x1080", "1440x90
  * fail the run. Match on a part of the step title and of the target; `viewport` narrows it to one screen size.
  */
 const ACCEPTED: { step: string; target: string; viewport?: string; why: string }[] = [
+  { step: "Insert a link", target: "field-link-search", why: "the Apply label sits inside the search box on purpose; the cursor clicks the box's left part" },
+  { step: "Chart: choose a type", target: "chart-obj", viewport: "390x844", why: "on a phone the Chart editor overlays the right half of the page (a documented phone layout choice)" },
+  { step: "Chart: style and titles", target: "chart-obj", viewport: "390x844", why: "on a phone the Chart editor overlays the right half of the page (a documented phone layout choice)" },
   { step: "Show guides", target: "el-s2-shape", why: "the guide lines are drawn across the shape on purpose" },
   { step: "Insert a table", target: "cell-table-", why: "the table's selection handles sit on its edge cells" },
   { step: "Change the stacking order", target: "el-stack-", why: "the squares overlap each other: that is the lesson" },

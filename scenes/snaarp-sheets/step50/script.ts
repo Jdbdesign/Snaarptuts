@@ -22,7 +22,7 @@ export async function runStep50(tl: Timeline) {
   openValidation(tl);
   await tl.wait(700);
   tl.showCaption(CAPTIONS.panel);
-  await ring(tl, "[data-tl=dv-panel]", 1600);
+  await ring(tl, "[data-tl=dv-title]", 1600);
   tl.showCaption(CAPTIONS.range);
   await ring(tl, "[data-tl=dv-range]", 1500);
 

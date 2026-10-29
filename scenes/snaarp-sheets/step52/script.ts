@@ -3,7 +3,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 import { SMART_CHIPS } from "@/components/sheets/insert-data";
 import { chooseRow, clickCell, openMenu } from "@/components/sheets/edit-timeline";
-import { addHeader, beginInsert, widenColumn, insertChip, openChipList, openChipType, pickSuggestion } from "@/components/sheets/insert-timeline";
+import { addHeader, beginInsert, phoneScroll, widenColumn, insertChip, openChipList, openChipType, pickSuggestion } from "@/components/sheets/insert-timeline";
 import { ring, typeInto } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 52 - Insert > Smart chips > People: type "pri", pick Priya Shah, Insert; the cell H2 shows the chip. */
@@ -14,6 +14,7 @@ export async function runStep52(tl: Timeline) {
   addHeader(tl, SMART_CHIPS.headerCell, SMART_CHIPS.header);
   widenColumn(tl, 7, 190);
   const P = SMART_CHIPS.people.person;
+  phoneScroll(tl, 4);
 
   await tl.at(700);
   tl.showCaption(CAPTIONS.select);

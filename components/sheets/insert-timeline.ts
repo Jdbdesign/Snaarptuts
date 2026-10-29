@@ -566,3 +566,8 @@ export async function hoverNote(tl: Timeline, ref: string, text: string) {
   const { r, c } = cellAt(tl, ref);
   tl.setVar("noteTip", { r, c, text });
 }
+
+/** On a phone the grid shows only the first few columns: scroll it sideways so a far column (H, I) is on screen. Call it after any step that needs the first columns. */
+export function phoneScroll(tl: Timeline, cols: number) {
+  if (typeof window !== "undefined" && window.matchMedia("(max-width: 899px)").matches) tl.setVar("gridScrollCol", cols);
+}

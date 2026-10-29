@@ -15,7 +15,7 @@ export async function runStep42(tl: Timeline) {
 
   await tl.at(700);
   tl.showCaption(CAPTIONS.select);
-  await dragSelect(tl, "a1", "g5", { ms: 800 });
+  await dragSelect(tl, "a1", window.matchMedia("(max-width: 899px)").matches ? "f5" : "g5", { ms: 800 });
   await tl.wait(300);
   tl.showCaption(CAPTIONS.open);
   await openMenu(tl, "insert", { ms: 800 });
@@ -23,7 +23,7 @@ export async function runStep42(tl: Timeline) {
   insertChart(tl);
   await tl.wait(700);
   tl.showCaption(CAPTIONS.inserted);
-  await ring(tl, "[data-tl=chart-panel]", 2000);
+  await ring(tl, "[data-tl=chart-title-bar]", 2000);
 
   tl.showCaption(CAPTIONS.type);
   const order: ChartType[] = ["line", "pie", "area", "scatter", "line"];

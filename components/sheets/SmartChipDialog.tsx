@@ -88,7 +88,7 @@ export function SmartChipDialog({ tl }: { tl: Timeline }) {
               {D.date.days.map((d) => <span key={d} className="py-[3px] text-[11px] text-[#80868B]">{d}</span>)}
               {Array.from({ length: D.date.offset }).map((_, i) => <span key={`b${i}`} />)}
               {Array.from({ length: D.date.count }).map((_, i) => (
-                <span key={i} data-tl={`chip-day-${i + 1}`} className={`mx-auto flex h-[26px] w-[26px] items-center justify-center rounded-full transition-colors data-[hover=true]:bg-[#E8F0FE] ${value?.label === D.date.value && i + 1 === D.date.pick ? "bg-[#2563EB] text-white" : ""}`}>{i + 1}</span>
+                <span key={i} data-tl={`chip-day-${i + 1}`} className={`mx-auto flex h-[26px] w-[26px] items-center justify-center rounded-[8px] transition-colors data-[hover=true]:bg-[#E8F0FE] ${value?.label === D.date.value && i + 1 === D.date.pick ? "bg-[#2563EB] text-white" : ""}`}>{i + 1}</span>
               ))}
             </div>
           </>

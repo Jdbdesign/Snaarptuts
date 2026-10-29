@@ -3,7 +3,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 import { CHECKBOX } from "@/components/sheets/insert-data";
 import { chooseRow, dragSelect, openMenu } from "@/components/sheets/edit-timeline";
-import { addHeader, applyCheckboxes, beginInsert, clickBox } from "@/components/sheets/insert-timeline";
+import { addHeader, applyCheckboxes, beginInsert, clickBox, phoneScroll } from "@/components/sheets/insert-timeline";
 import { ring } from "@/components/sheets/sheets-timeline";
 
 /** Snaarp Sheets, step 49 - Insert > Checkbox: boxes in H2:H5 (under a new "Approved" header), then tick two and untick one. */
@@ -14,6 +14,7 @@ export async function runStep49(tl: Timeline) {
   addHeader(tl, CHECKBOX.headerCell, CHECKBOX.header);
   const [a, b] = CHECKBOX.range;
   const [t1, t2] = CHECKBOX.tick;
+  phoneScroll(tl, 4);
 
   await tl.at(700);
   tl.showCaption(CAPTIONS.select);
