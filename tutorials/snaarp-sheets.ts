@@ -163,6 +163,8 @@ import { Step80 } from "@/scenes/snaarp-sheets/step80/Step80";
 import { runStep80, STEP80_DURATION_MS } from "@/scenes/snaarp-sheets/step80/script";
 import { Step81 } from "@/scenes/snaarp-sheets/step81/Step81";
 import { runStep81, STEP81_DURATION_MS } from "@/scenes/snaarp-sheets/step81/script";
+import { Step82 } from "@/scenes/snaarp-sheets/step82/Step82";
+import { runStep82, STEP82_DURATION_MS } from "@/scenes/snaarp-sheets/step82/script";
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
  * Format, Data, Tools and so on: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -668,6 +670,12 @@ export const snaarpSheets: Tutorial = {
       title: "Meet the Extensions menu",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step81, run: runStep81, durationMs: STEP81_DURATION_MS },
+    },
+    {
+      id: "help-overview",
+      title: "Meet the Help menu and search the menus",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step82, run: runStep82, durationMs: STEP82_DURATION_MS },
     },
   ],
 };
