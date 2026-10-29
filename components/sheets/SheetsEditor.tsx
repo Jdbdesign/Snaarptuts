@@ -124,7 +124,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
         <Toolbar zoomLabel={zoomLabel ?? TOOLBAR.zoom} canUndo={canUndo} canRedo={canRedo} />
 
         {/* Name box and formula bar */}
-        <div data-tl="formula-bar" className={`flex shrink-0 items-center overflow-hidden border-[#E3E5EA] text-[13px] transition-[height] duration-200 motion-reduce:transition-none ${formulaBar ? "h-[28px] border-b" : "h-0"}`}>
+        <div data-tl="formula-bar" className={`flex shrink-0 items-center border-[#E3E5EA] text-[13px] transition-[height] duration-200 motion-reduce:transition-none ${formulaBar ? "h-[28px] border-b" : "h-0 overflow-hidden"}`}>
           <span data-tl="name-box" style={{ width: nameBox?.label ? 96 : 66 }} className="relative ml-[3px] flex h-[22px] shrink-0 items-center justify-between rounded-[4px] bg-[#F1F3F4] pl-[8px] pr-[6px] text-[12.5px] text-[#202124]">
             <span className="truncate">{nameBox?.label ?? rangeRef(sel as Range)}</span>
             <span data-tl="name-box-arrow" className="flex h-[18px] w-[16px] shrink-0 items-center justify-center rounded-[3px] data-[hover=true]:bg-[#DDE1E6]"><Icon name="chevronDown" size={9} className="text-[#5F6368]" /></span>

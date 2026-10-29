@@ -7,6 +7,7 @@
  *   npm run qa:visibility -- --tutorial snaarp-admin   one tutorial
  *   npm run qa:visibility -- --viewport 1280x720 --step 3 --tutorial snaarp-admin
  *   npm run qa:visibility -- --speed 4 --workers 6     faster playback / more pages at once
+ *   npm run qa:visibility -- --tutorial snaarp-sheets --from 56   only the steps from 56 on
  *
  * Needs the app running (npm run dev, or npm run build && npm start) on --url (default http://localhost:3000).
  * Writes docs/QA-VISIBILITY.md (or --out). The timeline's QA hooks (window.__snaarpProbe, __snaarpSpeed) do the work.
@@ -24,10 +25,12 @@ const SPEED = Number(arg("speed", "3"));
 const WORKERS = Number(arg("workers", "5"));
 const ONLY_TUTORIAL = arg("tutorial");
 const ONLY_STEP = arg("step") ? Number(arg("step")) : null;
+// --from <n>: only steps n and later (a new round of steps)
+const FROM = arg("from") ? Number(arg("from")) : 1;
 const OUT = arg("out", "docs/QA-VISIBILITY.md")!;
 // --retry <report.md>: replay only the steps (and viewports) that a previous report listed, e.g. at --speed 1 to rule out playback-speed artefacts
 const RETRY = arg("retry");
-const TUTORIALS = ["snaarp-360", "snaarp-mail", "snaarp-doc", "snaarp-admin", "snaarp-slides"];
+const TUTORIALS = ["snaarp-360", "snaarp-mail", "snaarp-doc", "snaarp-admin", "snaarp-slides", "snaarp-sheets"];
 const VIEWPORTS = (arg("viewport") ? [arg("viewport")!] : ["1920x1080", "1440x900", "1280x720", "390x844"]).map((v) => {
   const [w, h] = v.split("x").map(Number);
   return { w, h, name: v };
@@ -37,7 +40,19 @@ const VIEWPORTS = (arg("viewport") ? [arg("viewport")!] : ["1920x1080", "1440x90
  * Findings that are the point of the scene, not mistakes. They are listed in the report under "Accepted" and do not
  * fail the run. Match on a part of the step title and of the target; `viewport` narrows it to one screen size.
  */
+const SHEETS_PHONE: { step: string; target: string }[] = [
+  { step: "Record a macro", target: "sheet-notice" },
+  { step: "Turn Autocomplete on and off", target: "sheet-notice" },
+  { step: "Set your notifications", target: "sheet-notice" },
+];
+
+const SHEETS_SUBMENU: { step: string; target: string }[] = [
+  { step: "Meet the Format menu", target: "menu-" },
+  { step: "Meet the Data menu", target: "menu-" },
+];
 const ACCEPTED: { step: string; target: string; viewport?: string; why: string }[] = [
+  ...SHEETS_SUBMENU.map((a) => ({ ...a, viewport: "390x844", why: "on a phone a submenu opens over its own menu, so it covers the rows the overview hovers next" })),
+  ...SHEETS_PHONE.map((a) => ({ ...a, viewport: "390x844", why: "the green header pill is wider than a phone header; its text is repeated in the caption" })),
   { step: "Insert a link", target: "field-link-search", why: "the Apply label sits inside the search box on purpose; the cursor clicks the box's left part" },
   { step: "Chart: choose a type", target: "chart-obj", viewport: "390x844", why: "on a phone the Chart editor overlays the right half of the page (a documented phone layout choice)" },
   { step: "Chart: style and titles", target: "chart-obj", viewport: "390x844", why: "on a phone the Chart editor overlays the right half of the page (a documented phone layout choice)" },
@@ -297,6 +312,7 @@ async function main() {
     for (const vp of VIEWPORTS) {
       for (const { index, title } of indexes) {
         if (ONLY_STEP !== null && index !== ONLY_STEP - 1) continue;
+        if (index < FROM - 1) continue;
         if (retry && !retry.has(`${tutorial}|${title}|${vp.name}`)) continue;
         jobs.push({ tutorial, index, vp });
       }

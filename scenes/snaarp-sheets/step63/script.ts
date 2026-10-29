@@ -1,4 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
+import { phoneScroll } from "@/components/sheets/insert-timeline";
 import { finish } from "../shared";
 import { CAPTIONS, FILL, RANGE, URLS } from "./data";
 import { chooseRow, chooseSub, commit, dragSelect, getRows, openMenu } from "@/components/sheets/edit-timeline";
@@ -12,6 +13,7 @@ export const STEP63_DURATION_MS = 32000;
 
 export async function runStep63(tl: Timeline) {
   beginFdt(tl, URLS.renamed);
+  phoneScroll(tl, 4);
 
   await tl.at(600);
   tl.showCaption(CAPTIONS.select);
@@ -24,7 +26,8 @@ export async function runStep63(tl: Timeline) {
   await tl.wait(500);
 
   tl.showCaption(CAPTIONS.fill);
-  await pressOn(tl, "[data-tl=tool-highlight]", { ms: 700 });
+  // the toolbar is clipped on a phone, so there the colour is applied without the click
+  if (!window.matchMedia("(max-width: 899px)").matches) await pressOn(tl, "[data-tl=tool-highlight]", { ms: 700 });
   const s = sorted(tl.getVar<Range>("sel", single(0, 0)));
   commit(tl, setLook(getRows(tl), s, { fill: FILL }));
   await tl.wait(500);

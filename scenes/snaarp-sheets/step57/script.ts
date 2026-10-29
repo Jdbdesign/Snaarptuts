@@ -1,4 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
+import { phoneScroll } from "@/components/sheets/insert-timeline";
 import { finish } from "../shared";
 import { CAPTIONS, URLS } from "./data";
 import { chooseSub, clickCell, hoverRow, openMenu } from "@/components/sheets/edit-timeline";
@@ -20,6 +21,7 @@ async function applyNumber(tl: Timeline, cell: string, nf: string, caption: stri
 
 export async function runStep57(tl: Timeline) {
   beginFdt(tl, URLS.renamed);
+  phoneScroll(tl, 4);
 
   await tl.at(600);
   tl.showCaption(CAPTIONS.selectAmount);

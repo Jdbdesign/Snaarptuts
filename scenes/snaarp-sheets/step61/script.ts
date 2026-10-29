@@ -1,4 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
+import { phoneScroll } from "@/components/sheets/insert-timeline";
 import { finish } from "../shared";
 import { CAPTIONS, CELL, URLS } from "./data";
 import { chooseSub, clickCell, hoverRow, openMenu } from "@/components/sheets/edit-timeline";
@@ -18,6 +19,7 @@ async function wrap(tl: Timeline, id: string, caption: string) {
 
 export async function runStep61(tl: Timeline) {
   beginFdt(tl, URLS.renamed);
+  phoneScroll(tl, 6);
 
   await tl.at(600);
   tl.showCaption(CAPTIONS.select);

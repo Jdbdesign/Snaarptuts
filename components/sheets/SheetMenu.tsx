@@ -1,6 +1,7 @@
 "use client";
 
 import { Icon } from "@/components/icons";
+import { useNarrow } from "@/lib/useNarrow";
 import { MENUS, MENU_SUBS, UNGROUP_COLS, UNGROUP_ROWS, type MenuId, type SubRow } from "./edit-view-data";
 
 /** What the menus need to know about the sheet: which rows are greyed and which sub-rows carry a tick. */
@@ -38,6 +39,9 @@ const TICKABLE = new Set(["show", "comments", "zoom", "fontsize"]);
  */
 export function SheetMenu({ menu, open, sub, state }: Props) {
   const isOpen = open === menu;
+  // On a phone the submenu opens on top of its menu and the last menus hang from their right edge, so nothing runs off the screen.
+  const narrow = useNarrow();
+  const rightAligned = narrow && (menu === "extensions" || menu === "help");
   const subRows = (id: string): SubRow[] => {
     const base = MENU_SUBS[id] ?? [];
     const more = state.extraSubs?.[id] ?? [];
@@ -49,7 +53,7 @@ export function SheetMenu({ menu, open, sub, state }: Props) {
     <div
       aria-hidden={!isOpen}
       data-tl={`menu-${menu}`}
-      className={`pointer-events-none absolute left-0 top-[calc(100%+2px)] z-30 w-[236px] text-left transition-[opacity,transform] duration-150 ease-out motion-reduce:transition-none ${
+      className={`pointer-events-none absolute ${rightAligned ? "right-0" : "left-0"} top-[calc(100%+2px)] z-30 w-[236px] text-left transition-[opacity,transform] duration-150 ease-out motion-reduce:transition-none ${
         isOpen ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0"
       }`}
     >
@@ -76,7 +80,7 @@ export function SheetMenu({ menu, open, sub, state }: Props) {
                   )}
                   {it.sub && !it.disabled && (
                     <div
-                      className={`absolute left-full top-[-6px] ml-[2px] w-[216px] transition-opacity duration-150 motion-reduce:transition-none ${
+                      className={`absolute ${narrow ? "left-[28px] top-[22px] z-10" : "left-full top-[-6px] ml-[2px]"} w-[216px] transition-opacity duration-150 motion-reduce:transition-none ${
                         isOpen && sub === it.sub ? "opacity-100" : "pointer-events-none opacity-0"
                       }`}
                     >
