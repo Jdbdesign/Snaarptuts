@@ -6,7 +6,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 109 - Functions, the categories: browse six lists, then IF, TODAY and VLOOKUP with real results. Starts with A1 selected. */
-export const STEP109_DURATION_MS = 80000;
+export const STEP109_DURATION_MS = 65000;
 
 const R = FUNCTION_RUN;
 

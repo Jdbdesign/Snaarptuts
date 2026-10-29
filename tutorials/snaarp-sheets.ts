@@ -216,6 +216,22 @@ import { Step107 } from "@/scenes/snaarp-sheets/step107/Step107";
 import { runStep107, STEP107_DURATION_MS } from "@/scenes/snaarp-sheets/step107/script";
 import { Step108 } from "@/scenes/snaarp-sheets/step108/Step108";
 import { runStep108, STEP108_DURATION_MS } from "@/scenes/snaarp-sheets/step108/script";
+import { Step109 } from "@/scenes/snaarp-sheets/step109/Step109";
+import { runStep109, STEP109_DURATION_MS } from "@/scenes/snaarp-sheets/step109/script";
+import { Step110 } from "@/scenes/snaarp-sheets/step110/Step110";
+import { runStep110, STEP110_DURATION_MS } from "@/scenes/snaarp-sheets/step110/script";
+import { Step111 } from "@/scenes/snaarp-sheets/step111/Step111";
+import { runStep111, STEP111_DURATION_MS } from "@/scenes/snaarp-sheets/step111/script";
+import { Step112 } from "@/scenes/snaarp-sheets/step112/Step112";
+import { runStep112, STEP112_DURATION_MS } from "@/scenes/snaarp-sheets/step112/script";
+import { Step113 } from "@/scenes/snaarp-sheets/step113/Step113";
+import { runStep113, STEP113_DURATION_MS } from "@/scenes/snaarp-sheets/step113/script";
+import { Step114 } from "@/scenes/snaarp-sheets/step114/Step114";
+import { runStep114, STEP114_DURATION_MS } from "@/scenes/snaarp-sheets/step114/script";
+import { Step115 } from "@/scenes/snaarp-sheets/step115/Step115";
+import { runStep115, STEP115_DURATION_MS } from "@/scenes/snaarp-sheets/step115/script";
+import { Step116 } from "@/scenes/snaarp-sheets/step116/Step116";
+import { runStep116, STEP116_DURATION_MS } from "@/scenes/snaarp-sheets/step116/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36), round 3 Insert (37-55), round 4 Format, Data, Tools, Extensions and Help (56-84). Later rounds (the toolbar) add steps: append the steps to `steps` and a group to `groups`; the completion card follows the
@@ -883,6 +899,54 @@ export const snaarpSheets: Tutorial = {
       title: "Functions: the quick list",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step108, run: runStep108, durationMs: STEP108_DURATION_MS },
+    },
+    {
+      id: "tb-functions-categories",
+      title: "Functions: the categories",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step109, run: runStep109, durationMs: STEP109_DURATION_MS },
+    },
+    {
+      id: "tb-more",
+      title: "More (three dots)",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step110, run: runStep110, durationMs: STEP110_DURATION_MS },
+    },
+    {
+      id: "hdr-apps",
+      title: "Snaarp apps icon",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step111, run: runStep111, durationMs: STEP111_DURATION_MS },
+    },
+    {
+      id: "hdr-version-history",
+      title: "Version history icon",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step112, run: runStep112, durationMs: STEP112_DURATION_MS },
+    },
+    {
+      id: "hdr-comments",
+      title: "Comments icon",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step113, run: runStep113, durationMs: STEP113_DURATION_MS },
+    },
+    {
+      id: "hdr-video-call",
+      title: "Video call",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step114, run: runStep114, durationMs: STEP114_DURATION_MS },
+    },
+    {
+      id: "hdr-lock",
+      title: "Lock icon",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step115, run: runStep115, durationMs: STEP115_DURATION_MS },
+    },
+    {
+      id: "hdr-share-profile",
+      title: "Share and profile",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step116, run: runStep116, durationMs: STEP116_DURATION_MS },
     },
   ],
 };
