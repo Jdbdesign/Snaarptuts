@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 103 - Text rotation on the narrow headers E1:I1: Tilt up, Tilt down, Vertical, Rotate up, None. Starts with A1 selected. */
-export const STEP103_DURATION_MS = 50000;
+export const STEP103_DURATION_MS = 41500;
 
 type Turn = "tiltup" | "tiltdown" | "stack" | "up" | "none";
 
