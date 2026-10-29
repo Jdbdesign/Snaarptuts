@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS } from "./data";
 
 /** Snaarp Sheets, step 111 - the apps icon: the product switcher. Starts with A1 selected. */
-export const STEP111_DURATION_MS = 26000;
+export const STEP111_DURATION_MS = 17900;
 
 export async function runStep111(tl: Timeline) {
   beginTb(tl, "a1");
