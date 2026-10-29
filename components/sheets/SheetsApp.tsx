@@ -102,6 +102,7 @@ export function SheetsApp({ tl, start }: { tl: Timeline; start: Workbook }) {
           menuSlots={{
             edit: <SheetMenu menu="edit" open={emenu} sub={esub} state={menuState} />,
             view: <SheetMenu menu="view" open={emenu} sub={esub} state={menuState} />,
+            insert: <SheetMenu menu="insert" open={emenu} sub={esub} state={menuState} />,
           }}
           grid={{
             sel,

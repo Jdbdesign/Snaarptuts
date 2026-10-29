@@ -1,5 +1,6 @@
 import { formatGBP } from "@/lib/money";
 import { EDIT_SAMPLE } from "./edit-view-data";
+import { INSERT_BODY, INSERT_FORECAST_ROWS, INSERT_HEADER, INSERT_SAMPLE, money } from "./insert-data";
 import { recalc } from "./grid-state";
 import {
   BUDGET_HEADER,
@@ -50,3 +51,13 @@ export function editRows(): Cell[][] {
   return recalc([header, ...body, total]);
 }
 export const EDIT_BOOK: Workbook = { title: SHEET.budget, sheets: [{ id: "s1", name: SHEET.tab, rows: editRows() }] };
+
+/** The Insert steps' first tab: the budget with the monthly costs beside it and a live =SUM total under the Cost column. */
+export function insertRows(): Cell[][] {
+  const header: Cell[] = INSERT_HEADER.map((text) => ({ text, bold: true, fill: INSERT_SAMPLE.headerFill }));
+  const body: Cell[][] = INSERT_BODY.map((r) => [r.item, r.owner, { text: money(r.cost), align: "right" }, r.status, ...r.months.map((m): Cell => ({ text: money(m), align: "right" }))]);
+  const total: Cell[] = [INSERT_SAMPLE.totalLabel, "", { text: "", align: "right", formula: `=SUM(C2:C${body.length + 1})` }, ""];
+  return recalc([header, ...body, total]);
+}
+export const FORECAST_SHEET: SheetModel = { id: "s2", name: INSERT_SAMPLE.tabs.forecast, rows: INSERT_FORECAST_ROWS.map((r, i) => r.map((text, j) => (i === 0 ? { text, bold: true } : j === 1 ? { text, align: "right" as const } : text))) };
+export const INSERT_BOOK: Workbook = { title: SHEET.budget, sheets: [{ id: "s1", name: SHEET.tab, rows: insertRows() }, FORECAST_SHEET] };

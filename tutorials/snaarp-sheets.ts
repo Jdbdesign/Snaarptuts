@@ -72,6 +72,12 @@ import { Step35 } from "@/scenes/snaarp-sheets/step35/Step35";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/snaarp-sheets/step35/script";
 import { Step36 } from "@/scenes/snaarp-sheets/step36/Step36";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/snaarp-sheets/step36/script";
+import { Step37 } from "@/scenes/snaarp-sheets/step37/Step37";
+import { runStep37, STEP37_DURATION_MS } from "@/scenes/snaarp-sheets/step37/script";
+import { Step40 } from "@/scenes/snaarp-sheets/step40/Step40";
+import { runStep40, STEP40_DURATION_MS } from "@/scenes/snaarp-sheets/step40/script";
+import { Step41 } from "@/scenes/snaarp-sheets/step41/Step41";
+import { runStep41, STEP41_DURATION_MS } from "@/scenes/snaarp-sheets/step41/script";
 
 /**
  * Snaarp Sheets ("How to use Snaarp Sheets"). Round 1 covers the File menu (steps 1-19), round 2 the Edit and View menus (steps 20-36). Later rounds add Insert,
@@ -85,6 +91,7 @@ export const snaarpSheets: Tutorial = {
     { title: "File menu", from: "meet-file-menu" },
     { title: "Edit menu", from: "meet-edit-menu" },
     { title: "View menu", from: "meet-view-menu" },
+    { title: "Insert menu", from: "insert-overview" },
   ],
   steps: [
     {
@@ -302,6 +309,24 @@ export const snaarpSheets: Tutorial = {
       title: "Go full screen",
       url: SHEETS_URLS.renamed,
       scene: { Component: Step36, run: runStep36, durationMs: STEP36_DURATION_MS },
+    },
+    {
+      id: "insert-overview",
+      title: "Meet the Insert menu",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step37, run: runStep37, durationMs: STEP37_DURATION_MS },
+    },
+    {
+      id: "insert-columns",
+      title: "Insert columns",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step40, run: runStep40, durationMs: STEP40_DURATION_MS },
+    },
+    {
+      id: "insert-sheet",
+      title: "Add a sheet",
+      url: SHEETS_URLS.renamed,
+      scene: { Component: Step41, run: runStep41, durationMs: STEP41_DURATION_MS },
     },
   ],
 };

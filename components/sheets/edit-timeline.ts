@@ -1,12 +1,17 @@
 import type { Timeline } from "@/lib/timeline";
 import { showDocToast } from "@/components/docs/doc-toast-timeline";
 import { COMMENTS, FIND, MENU_SUBS, type MenuId } from "./edit-view-data";
+import { COLUMN_COUNT, ROW_COUNT } from "./sheets-data";
 import {
   clearRange,
   copyCells,
   deleteCols,
   deleteRows,
   findCells,
+  insertCellsDown,
+  insertCellsRight,
+  insertCols,
+  insertRows,
   parseRef,
   pasteCells,
   replaceAll,
@@ -39,7 +44,7 @@ const NO_GROUPS: Groups = { rows: null, cols: null };
 export function getRows(tl: Timeline): Rows {
   return tl.getVar<SheetModel[]>("sheets", EDIT_BOOK.sheets)[0].rows;
 }
-function setRows(tl: Timeline, rows: Rows) {
+export function setRows(tl: Timeline, rows: Rows) {
   const sheets = tl.getVar<SheetModel[]>("sheets", EDIT_BOOK.sheets);
   tl.setVar("sheets", [{ ...sheets[0], rows }, ...sheets.slice(1)]);
 }
@@ -267,6 +272,22 @@ export function runAction(tl: Timeline, id: string) {
     case "delete-row": return commit(tl, deleteRows(rows, s.r1, s.r2));
     case "delete-col": return commit(tl, deleteCols(rows, s.c1, s.c2));
     case "find": return tl.setVar("findOpen", true);
+    case "cells-down": return commit(tl, insertCellsDown(rows, s));
+    case "cells-right": return commit(tl, insertCellsRight(rows, s));
+    case "row-above":
+    case "row-below": {
+      const at = id === "row-above" ? s.r1 : s.r2 + 1;
+      const n = s.r2 - s.r1 + 1;
+      commit(tl, insertRows(rows, at, n));
+      return tl.setVar("sel", { r1: at, c1: 0, r2: at + n - 1, c2: COLUMN_COUNT - 1 });
+    }
+    case "col-left":
+    case "col-right": {
+      const at = id === "col-left" ? s.c1 : s.c2 + 1;
+      const n = s.c2 - s.c1 + 1;
+      commit(tl, insertCols(rows, at, n));
+      return tl.setVar("sel", { r1: 0, c1: at, r2: ROW_COUNT - 1, c2: at + n - 1 });
+    }
     case "show-bar": return toggle(tl, "vFormulaBar", true);
     case "show-grid": return toggle(tl, "vGridlines", true);
     case "show-formulas": return toggle(tl, "vFormulas", false);

@@ -42,18 +42,50 @@ function grown(rows: Rows, r: number, c: number): Rows {
   return out;
 }
 
-/** =SUM(C2:C5) cells show the live total of their range (the one formula the sample sheet uses). */
+const RANGE_FN = /^=(SUM|AVERAGE|COUNT|MAX|MIN)\(([A-Z]+\d+):([A-Z]+\d+)\)$/;
+const IF_FN = /^=IF\(([A-Z]+\d+)([<>])(\d+(?:\.\d+)?),"([^"]*)","([^"]*)"\)$/;
+
+function numberOf(c: Cell | undefined): number | null {
+  const t = textOf(c).trim();
+  const m = parseMoney(t);
+  if (m !== null) return m;
+  return /^-?\d+(\.\d+)?$/.test(t) ? Number(t) : null;
+}
+
+/** The value a formula shows (SUM, AVERAGE, COUNT, MAX, MIN over a range of pounds or numbers, and a one-condition IF), or null if it is not one we know. */
+export function evalFormula(rows: Rows, formula: string): string | null {
+  const m = RANGE_FN.exec(formula);
+  if (m) {
+    const [r1, c1] = parseRef(m[2]);
+    const [r2, c2] = parseRef(m[3]);
+    const nums: number[] = [];
+    for (let r = Math.min(r1, r2); r <= Math.max(r1, r2); r++)
+      for (let c = Math.min(c1, c2); c <= Math.max(c1, c2); c++) {
+        const n = numberOf(rows[r]?.[c]);
+        if (n !== null) nums.push(n);
+      }
+    const sum = nums.reduce((a, b) => a + b, 0);
+    const v = m[1] === "SUM" ? sum : m[1] === "AVERAGE" ? (nums.length ? sum / nums.length : 0) : m[1] === "MAX" ? Math.max(...nums) : m[1] === "MIN" ? Math.min(...nums) : nums.length;
+    if (m[1] === "COUNT") return String(v);
+    return formatGBP(v, { whole: Number.isInteger(v) });
+  }
+  const f = IF_FN.exec(formula);
+  if (f) {
+    const [r, c] = parseRef(f[1]);
+    const n = numberOf(rows[r]?.[c]) ?? 0;
+    const lim = Number(f[3]);
+    return (f[2] === ">" ? n > lim : n < lim) ? f[4] : f[5];
+  }
+  return null;
+}
+
+/** Formula cells show the live value of their formula (the Total row's =SUM, and the Function step's results). */
 export function recalc(rows: Rows): Rows {
   return rows.map((row) =>
     row.map((cell) => {
       const o = obj(cell);
-      const m = o.formula ? /^=SUM\(([A-Z]+)(\d+):([A-Z]+)(\d+)\)$/.exec(o.formula) : null;
-      if (!m) return cell;
-      const [r1, c1] = parseRef(m[1] + m[2]);
-      const [r2, c2] = parseRef(m[3] + m[4]);
-      let sum = 0;
-      for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) sum += parseMoney(textOf(rows[r]?.[c])) ?? 0;
-      return { ...o, text: formatGBP(sum, { whole: true }) };
+      const v = o.formula && !o.image ? evalFormula(rows, o.formula) : null;
+      return v === null ? cell : { ...o, text: v };
     }),
   );
 }
@@ -160,4 +192,69 @@ export function replaceAll(rows: Rows, query: string, to: string, opts: FindOpti
   const re = new RegExp(opts.entire ? `^${esc}$` : esc, opts.matchCase ? "g" : "gi");
   for (const [r, c] of hits) out[r][c] = { ...obj(out[r][c]), text: textOf(out[r][c]).replace(re, to) };
   return { rows: out, count: hits.length };
+}
+
+/* ---------------- Insert: cells, rows, columns ---------------- */
+
+/** Move every cell reference of a formula that sits at or beyond `at` (a row or column index) by `n`. */
+export function shiftRefs(formula: string, axis: "row" | "col", at: number, n: number): string {
+  return formula.replace(/([A-Z]+)(\d+)/g, (_, col: string, row: string) => {
+    let [r, c] = parseRef(col + row);
+    if (axis === "row" && r >= at) r += n;
+    if (axis === "col" && c >= at) c += n;
+    return refOf(r, c);
+  });
+}
+
+function withShiftedFormulas(rows: Rows, axis: "row" | "col", at: number, n: number): Rows {
+  return rows.map((line) =>
+    line.map((cell) => {
+      const o = obj(cell);
+      return o.formula && !o.image ? { ...o, formula: shiftRefs(o.formula, axis, at, n) } : cell;
+    }),
+  );
+}
+
+/** A blank row at index `at`; the rows from there move down and formulas follow them. */
+export function insertRows(rows: Rows, at: number, n = 1): Rows {
+  const out = withShiftedFormulas(rows, "row", at, n);
+  const width = Math.max(0, ...out.map((r) => r.length));
+  out.splice(at, 0, ...Array.from({ length: n }, () => Array<Cell>(width).fill("")));
+  return recalc(out);
+}
+
+/** A blank column at index `at`; the columns from there move right and formulas follow them. */
+export function insertCols(rows: Rows, at: number, n = 1): Rows {
+  const out = withShiftedFormulas(rows, "col", at, n).map((line) => {
+    const row = line.slice();
+    while (row.length < at) row.push("");
+    row.splice(at, 0, ...Array<Cell>(n).fill(""));
+    return row;
+  });
+  return recalc(out);
+}
+
+/** Insert blank cells over the range and push the cells below it (in the same columns) down. */
+export function insertCellsDown(rows: Rows, rg: Range): Rows {
+  const s = sorted(rg);
+  const h = s.r2 - s.r1 + 1;
+  const out = grown(rows, Math.max(rows.length - 1, s.r2) + h, s.c2);
+  for (let c = s.c1; c <= s.c2; c++) {
+    const col = out.map((row) => row[c]);
+    col.splice(s.r1, 0, ...Array<Cell>(h).fill(""));
+    out.forEach((row, r) => (row[c] = col[r] ?? ""));
+  }
+  return recalc(out);
+}
+
+/** Insert blank cells over the range and push the cells to its right (in the same rows) along. */
+export function insertCellsRight(rows: Rows, rg: Range): Rows {
+  const s = sorted(rg);
+  const w = s.c2 - s.c1 + 1;
+  const out = grown(rows, s.r2, 0);
+  for (let r = s.r1; r <= s.r2; r++) {
+    while (out[r].length < s.c1) out[r].push("");
+    out[r].splice(s.c1, 0, ...Array<Cell>(w).fill(""));
+  }
+  return recalc(out);
 }

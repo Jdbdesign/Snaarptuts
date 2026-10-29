@@ -1,6 +1,7 @@
 import type { IconName } from "@/components/icons";
 import { formatGBP } from "@/lib/money";
 import { SHEET } from "./sheets-data";
+import { INSERT_MENU, INSERT_SUBS } from "./insert-data";
 
 /*
  * Copy, menus and sample content of the Snaarp Sheets Edit and View menus (steps 20-36).
@@ -23,7 +24,7 @@ export type MenuRow = {
   tip?: string;
 };
 
-export type MenuId = "edit" | "view";
+export type MenuId = "edit" | "view" | "insert";
 
 export const EDIT_MENU: MenuRow[][] = [
   [
@@ -54,7 +55,7 @@ export const VIEW_MENU: MenuRow[][] = [
   ],
 ];
 
-export const MENUS: Record<MenuId, MenuRow[][]> = { edit: EDIT_MENU, view: VIEW_MENU };
+export const MENUS: Record<MenuId, MenuRow[][]> = { edit: EDIT_MENU, view: VIEW_MENU, insert: INSERT_MENU };
 
 export const ZOOM_LEVELS = [50, 75, 90, 100, 125, 150, 200];
 
@@ -95,6 +96,7 @@ export const MENU_SUBS: Record<string, SubRow[]> = {
   ],
   hidden: [],
   zoom: ZOOM_LEVELS.map((z) => ({ id: `zoom-${z}`, label: `${z}%` })),
+  ...INSERT_SUBS,
 };
 
 /** Shown in the Group submenu once a group exists (the recording adds "Ungroup rows" after grouping). */

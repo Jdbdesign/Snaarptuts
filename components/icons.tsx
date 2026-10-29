@@ -970,6 +970,95 @@ const bodies = {
   shGroup: <path d="M4.5 5.5h6v13h-6M13.5 8h6M13.5 12h6M13.5 16h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />,
   shHidden: <rect x="4.5" y="4.5" width="15" height="15" rx="1.8" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2.6 2.6" fill="none" />,
   shMinusBox: <path d="M7 12h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />,
+  shInsCells: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M4 12h16M12 4v16" stroke="currentColor" strokeWidth="1.3" />
+    </>
+  ),
+  shInsRows: (
+    <>
+      <rect x="4" y="5" width="16" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M4 9.7h16M4 14.3h16" stroke="currentColor" strokeWidth="1.3" />
+    </>
+  ),
+  shInsCols: (
+    <>
+      <rect x="5" y="4" width="14" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M9.7 4v16M14.3 4v16" stroke="currentColor" strokeWidth="1.3" />
+    </>
+  ),
+  shInsSheet: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M12 8v8M8 12h8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  shPivot: (
+    <>
+      <rect x="4" y="4" width="16" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M4 9h16M9 9v11M13.5 13h3M13.5 16h3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    </>
+  ),
+  shImage: (
+    <>
+      <rect x="4" y="5" width="16" height="14" rx="1.8" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <circle cx="9" cy="10" r="1.4" fill="currentColor" />
+      <path d="m5 17 4.5-4.2 3 2.6 3-3.4L19 16" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  shDrawing: <path d="M5 19c2-5 4-8 6-8s1 4 3 4 3-5 5-8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" fill="none" />,
+  shCheckbox: (
+    <>
+      <rect x="4.5" y="4.5" width="15" height="15" rx="2.2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="m8.2 12.2 2.6 2.6 5-5.4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  shDropdown: (
+    <>
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="m8.8 10.8 3.2 3.2 3.2-3.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  shEmoji: (
+    <>
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M9 14.2a3.6 3.6 0 0 0 6 0M9.2 9.6h.01M14.8 9.6h.01" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </>
+  ),
+  shChip: (
+    <>
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <circle cx="12" cy="12" r="2.6" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    </>
+  ),
+  shNote: (
+    <>
+      <path d="M6 4.5h12a1 1 0 0 1 1 1V15l-4.5 4.5H6a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+      <path d="M14.5 19.5V15H19" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  shCalendar: (
+    <>
+      <rect x="4.5" y="5.5" width="15" height="14" rx="1.8" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M4.5 10h15M8.5 4v3M15.5 4v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </>
+  ),
+  shPin: (
+    <>
+      <path d="M12 20c-3.6-4-5.5-6.7-5.5-9.3a5.5 5.5 0 0 1 11 0C17.5 13.3 15.6 16 12 20Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
+      <circle cx="12" cy="10.7" r="1.9" stroke="currentColor" strokeWidth="1.4" fill="none" />
+    </>
+  ),
+  shCoin: (
+    <>
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M14.6 9.6c-.5-.9-1.4-1.3-2.6-1.3-1.5 0-2.4.7-2.4 1.8 0 2.4 5 1.2 5 3.7 0 1.1-1 1.9-2.6 1.9-1.2 0-2.2-.5-2.7-1.5M12 6.8v1.5M12 15.7v1.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  shGrip: <path d="M9 7h.01M9 12h.01M9 17h.01M15 7h.01M15 12h.01M15 17h.01" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />,
+  shUnlink: <path d="M10 14a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 0 0-5-5M14 10a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 0 0 5 5M5 5l14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />,
+  shSettings: <path d="M5 8h9M18 8h1M5 16h1M10 16h9M16 6v4M8 14v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />,
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;

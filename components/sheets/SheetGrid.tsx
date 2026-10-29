@@ -116,7 +116,7 @@ export function SheetGrid({
       <div className="absolute left-0 right-0 flex h-[21.5px] border-b bg-[#F8F9FA] text-[12px] text-[#5F6368]" style={{ top: hasColGroup ? BAND_H : 0, borderColor: headLine }}>
         <span className="shrink-0 border-r" style={{ width: HEAD_W + gut, borderColor: headLine }} />
         {colIdx.map((c) => (
-          <span key={c} className={`flex shrink-0 items-center justify-center border-r ${c >= s.c1 && c <= s.c2 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : ""}`} style={{ width: w(c), borderColor: headLine }}>
+          <span key={c} data-tl={`colhead-${colLabel(c).toLowerCase()}`} className={`flex shrink-0 items-center justify-center border-r ${c >= s.c1 && c <= s.c2 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : ""}`} style={{ width: w(c), borderColor: headLine }}>
             {colLabel(c)}
           </span>
         ))}
@@ -132,6 +132,7 @@ export function SheetGrid({
           >
             {hasRowGroup && <GroupGutter span={groups.rows!} r={r} />}
             <span
+              data-tl={`rowhead-${r + 1}`}
               className={`flex shrink-0 items-center justify-center border-r bg-[#F8F9FA] text-[11.5px] ${r >= s.r1 && r <= s.r2 ? "bg-[#E1E8F6] font-medium text-[#1f2430]" : "text-[#5F6368]"}`}
               style={{ width: HEAD_W, borderColor: headLine }}
             >
