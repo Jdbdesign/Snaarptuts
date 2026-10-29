@@ -1,8 +1,10 @@
 import type { Timeline } from "@/lib/timeline";
-import { AUTOCOMPLETE, FILTER, MACRO, NAMED, NOTIF, PROTECT, SPELL } from "./fdt-data";
+import { AUTOCOMPLETE, DATA, FILTER, MACRO, NAMED, NOTIF, PROTECT, SPELL } from "./fdt-data";
+import { DROPDOWN } from "./insert-data";
+import { openValidation } from "./insert-timeline";
 import { clearFormatting, columnValues, lastRow, NO_FILTER, setLook, setNumberFormat, sortRange, sortRows, toggleFlag, type FilterState } from "./fdt-state";
 import { DEFAULT_A11Y, DEFAULT_NOTIF, paletteResults, type A11yState, type Macro, type NotifState } from "./FdtDialogs";
-import { colLabel, obj, parseRef, rangeRef, setCellText, single, sorted, type Range, type Rows } from "./grid-state";
+import { colLabel, obj, parseRef, rangeRef, setCell, setCellText, single, sorted, type Range, type Rows } from "./grid-state";
 import { EXTRA_ACTIONS, beginEdit, commit, getRows, runAction, setRows } from "./edit-timeline";
 import { FDT_BOOK } from "./sheets-sample";
 import { closeDialog, notice, openDialog, pressOn, toast } from "./sheets-timeline";
@@ -82,6 +84,7 @@ function fdtAction(tl: Timeline, id: string): boolean {
     case "dat-filter": return toggleFilter(tl);
     case "fv-new": return newFilterView(tl);
     case "fv-remove": return removeFilters(tl);
+    case "dat-validation": tl.setVar("dvRange", DATA.dvRange); openValidation(tl); return true;
     case "dat-named": return openNameRange(tl);
     case "dat-protect": tl.setVar("field:pr-choice", ""); openDialog(tl, "protect"); return true;
     case "tls-macro": openMacro(tl); return true;
@@ -388,3 +391,53 @@ export async function filterAll(tl: Timeline, all: boolean) {
 export function cancelFilterPop(tl: Timeline) {
   tl.setVar("fpCol", -1);
 }
+
+/** Click the view's name in the bar and type a new one. */
+export async function renameFilterView(tl: Timeline, name: string) {
+  await pressOn(tl, "[data-tl=fv-name]", { ms: 650, ring: false });
+  for (let i = 1; i <= name.length; i++) {
+    tl.setVar("fvBar", name.slice(0, i));
+    await tl.wait(120);
+  }
+  await tl.wait(300);
+}
+
+/** The cursor clicks a saved view's row in the open Filter views submenu. */
+export async function chooseSavedView(tl: Timeline, id: string) {
+  const sel = `[data-tl=menu-sub-fv-view-${id}]`;
+  await tl.moveCursorTo(sel, { ms: 380, dx: -40 });
+  tl.hover(sel);
+  tl.highlight(sel);
+  await tl.wait(150);
+  await tl.click(sel);
+  tl.clearHighlight();
+  runAction(tl, `fv-view-${id}`);
+  tl.hover(null);
+  tl.setVar("esub", "");
+  tl.setVar("emenu", "");
+}
+
+/** Done in the Data validation panel: the Status cells turn into coloured chips and the panel closes. */
+export function applyStatusRule(tl: Timeline) {
+  const dv = tl.getVar<{ items: { id: string; tone: string }[] }>("dv", { items: [] });
+  const options = dv.items.map((i) => ({ label: tl.getVar<string>(`field:dv-${i.id}`, "").trim(), tone: i.tone })).filter((o) => o.label);
+  let rows = getRows(tl);
+  for (let r = 1; r <= lastRow(rows); r++) {
+    const cell = obj(rows[r]?.[DATA.statusCol]);
+    const hit = options.find((o) => o.label.toLowerCase() === cell.text.trim().toLowerCase());
+    if (hit) rows = setCell(rows, r, DATA.statusCol, { ...cell, chip: { kind: "dropdown", label: hit.label, tone: hit.tone } });
+  }
+  commit(tl, rows);
+  tl.setVar("ddOptions", options);
+  tl.setVar("dvPanel", false);
+  toast(tl, DROPDOWN.toast);
+}
+
+/** Next in the Protect dialog: choice 1 protects the sheet, or lifts the protection when it already has it. */
+export function protectNext(tl: Timeline) {
+  const locked = !!tl.getVar<{ locked?: boolean }[]>("sheets", [])[0]?.locked;
+  protectSheet(tl, !locked);
+}
+
+/** Close the Name box's list again. */
+export const closeNameBox = (tl: Timeline) => tl.setVar("nameOpen", false);
