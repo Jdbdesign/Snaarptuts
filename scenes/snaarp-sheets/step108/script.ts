@@ -7,7 +7,7 @@ import { finish } from "../shared";
 import { CAPTIONS, FN108 } from "./data";
 
 /** Snaarp Sheets, step 108 - Functions, the quick list: SUM, AVERAGE, COUNT, MAX, MIN on the Cost column. Starts with the Total cell empty. */
-export const STEP108_DURATION_MS = 60000;
+export const STEP108_DURATION_MS = 61400;
 
 const R = FUNCTION_RUN;
 
