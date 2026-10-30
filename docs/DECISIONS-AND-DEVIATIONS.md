@@ -686,6 +686,8 @@ Recording `ref/sheets/Snaarp_Sheets_toolbar.mp4` (1446x720, 2:57; the file the b
 
 **To replace or confirm before launch.** The assumed tooltips above, the app switcher entries and the Current badge, the lock card wording ("Restricted", "Only people you add can open this spreadsheet"), the colour grid, the account menu ("Manage your account", "Sign out"), the placeholder address, and the meeting link.
 
+**Shorter rail labels (label-only change).** `product.railLabel` is now "Sign in to 360", "Sign in to Admin", "Sign in to Email", "Doc Tutorial", "Slides Tutorial" and "Sheets Tutorial" (copied from the brief; the brief also wrote "Sheet Tutorial" in one place, the list wins). Real names stay everywhere else; rail search also indexes the label (`lib/search-index.ts`), so "tutorial" and "sign in" find products as well as the real names. In the selected-product box the label still gets only about 90 px (the count and chevron share the row), so "Sign in to Admin / Email", "Slides Tutorial" and "Sheets Tutorial" end in an ellipsis there (the tooltip and the open list show the full label); the layout was left alone on purpose.
+
 ## Rail: product order, sign-in labels, thicker dropdown border
 
 **Order.** The rail dropdown lists Snaarp 360, Snaarp Admin, Snaarp Mail, Snaarp Doc, Snaarp Slides, Snaarp Sheets. The order is the array in `tutorials/index.ts` (the dropdown, search tie-breaks and the default all read it); only Admin and Mail moved.

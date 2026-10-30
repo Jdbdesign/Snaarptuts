@@ -124,9 +124,10 @@ export function buildSearchIndex(tutorials: Tutorial[]): SearchIndex {
   let order = 0;
 
   for (const t of tutorials) {
-    const { id, name, aliases = [] } = t.product;
+    const { id, name, aliases = [], railLabel } = t.product;
     const nameFolded = fold(name);
-    const aliasFolded = aliases.map(fold);
+    // The label shown in the rail also finds the product, next to its real name and aliases.
+    const aliasFolded = [...aliases, ...(railLabel ? [railLabel] : [])].map(fold);
 
     products.push({
       kind: "product",

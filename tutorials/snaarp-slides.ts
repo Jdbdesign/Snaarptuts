@@ -119,7 +119,7 @@ import type { Tutorial } from "./types";
  * ref/slides/Snaarp_Slides_final.mp4. The completion card follows the last step in this list, so adding steps later moves it automatically.
  */
 export const snaarpSlides: Tutorial = {
-  product: { id: "snaarp-slides", name: "Snaarp Slides", logo: "presentation", aliases: ["slides", "presentation", "presentations", "deck", "powerpoint"] },
+  product: { id: "snaarp-slides", name: "Snaarp Slides", railLabel: "Slides Tutorial", logo: "presentation", aliases: ["slides", "presentation", "presentations", "deck", "powerpoint"] },
   steps: [
     {
       id: "open-slides",

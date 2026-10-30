@@ -40,7 +40,7 @@ import type { Tutorial } from "./types";
  * URL pills of steps 2-5 and 7-9 are placeholders because the address bar is not visible in the recording.
  */
 export const snaarpMail: Tutorial = {
-  product: { id: "snaarp-mail", name: "Snaarp Mail", railLabel: "Sign in to Snaarp Mail", logo: "mail", aliases: ["sign in", "email", "e-mail", "inbox", "mailbox"] },
+  product: { id: "snaarp-mail", name: "Snaarp Mail", railLabel: "Sign in to Email", logo: "mail", aliases: ["sign in", "email", "e-mail", "inbox", "mailbox"] },
   steps: [
     {
       id: "choose-plan",

@@ -239,7 +239,7 @@ import { runStep116, STEP116_DURATION_MS } from "@/scenes/snaarp-sheets/step116/
  * Step ids are the saved identity of a step (browser progress): never rename or reuse one.
  */
 export const snaarpSheets: Tutorial = {
-  product: { id: "snaarp-sheets", name: "Snaarp Sheets", logo: "sheet", aliases: ["sheets", "sheet", "spreadsheet", "spreadsheets", "excel", "workbook"] },
+  product: { id: "snaarp-sheets", name: "Snaarp Sheets", railLabel: "Sheets Tutorial", logo: "sheet", aliases: ["sheets", "sheet", "spreadsheet", "spreadsheets", "excel", "workbook"] },
   groups: [
     { title: "File menu", from: "meet-file-menu" },
     { title: "Edit menu", from: "meet-edit-menu" },

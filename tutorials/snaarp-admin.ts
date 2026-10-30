@@ -32,7 +32,7 @@ import type { Tutorial } from "./types";
  * products from the Products dropdown and departments (ref/admin/v179.mp4, 1498x720, 2:59; both git-ignored).
  */
 export const snaarpAdmin: Tutorial = {
-  product: { id: "snaarp-admin", name: "Snaarp Admin", railLabel: "Sign in to Snaarp Admin", logo: "snaarp", aliases: ["sign in", "admin panel", "administration", "users", "user management", "bulk users", "departments", "organization", "products"] },
+  product: { id: "snaarp-admin", name: "Snaarp Admin", railLabel: "Sign in to Admin", logo: "snaarp", aliases: ["sign in", "admin panel", "administration", "users", "user management", "bulk users", "departments", "organization", "products"] },
   steps: [
     {
       id: "open-create-user",
