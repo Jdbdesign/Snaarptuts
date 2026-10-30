@@ -1593,3 +1593,50 @@ Recording `ref/sheets/Snaarp_Sheets_format_data_tools_help.mp4` (copy of `Downlo
 **Scene variables** (reset by `beginFdt`): `filter`, `fviews`, `fvBar`, `fpCol`, `fpValues`, `fpOff`, `nameList`, `nameOpen`, `nameLabel`, `nrStart`, `protMsg`, `macros`, `macRec`, `macShown`, `notif`, `a11y`, `acOn`, `spell`, `customKind`, `customNum`, `customPick`, `dvRange`, `dialog` (custom | nameRange | rangeEnd | protect | macroNew | macroManage | spelling | notif | a11y | shortcuts | about | palette) and the fields `field:custom-input`, `nr-name`, `nr-end`, `pr-choice`, `mac-name`, `mac-desc`, `mac-key`, `kb-q`, `pal-q`, `fp-q`.
 
 **Hooks.** Menus `menu-<format|data|tools|extensions|help>`, rows `menu-item-<fmt-*|dat-*|tls-*|ext-*|hlp-*>`, submenu rows `menu-sub-<nf-*|fs-N|al-*|wr-*|ro-*|sortsheet-*|sortrange-*|fv-*>`; `filter-btn-<col>`, `filter-pop`, `fp-*`, `fv-bar`, `fv-name`, `fv-close`, `name-box`, `name-box-arrow`, `name-box-list`, `sheet-lock-s1`, `protect-msg`, `tool-highlight`, dialog cards `custom-dialog`, `nr-dialog`, `re-dialog`, `pr-dialog`, `mac-dialog`, `man-dialog`, `spell-dialog`, `notif-dialog`, `a11y-dialog`, `kb-dialog`, `about-dialog`, `pal-dialog`.
+
+## Snaarp Sheets steps 85-116 (toolbar and header tools, the last round)
+
+Recording `ref/sheets/Snaarp_Sheets_toolbar.mp4` (copy of `Downloads/1029(1).mp4`; 1446x720, 2:57). All 32 steps use the one stage `SheetsApp` with the sample from `TB_BOOK` in `sheets-sample.ts`, and each starts through `beginTb(tl, "<cell or range>")` in `components/sheets/toolbar-timeline.ts`: the sample sheet open, the stated cell selected, nothing open. **Sample (`TB_SAMPLE` in `toolbar-data.ts`)**: Acme Studio - Q3 Budget, columns Item | Owner | Region | Cost | Qty | Status | Due date | Margin | Code | Reference | Note | Link | Action, eight rows (Design tools 120, Cloud hosting 340.50, Team lunch 85, Cloud backup 210, Domain renewal 45, Stock photos 180, Event ticket - cancelled 250, Cloud storage 200), a live Total in D10 (=SUM(D2:D9), 1,430.50) and a second tab "Vendors". Three "Cloud" cells, four "Paid", two "Overdue".
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 85 | Meet the toolbar | A1; rings the toolbar, then each group (edit, numbers, text style, layout, insert, data), hovers More. | 24 s |
+| 86 | Find and replace with Search | A1; Search opens the shared Find card: Cloud (1 of 3, then 2 of 3), Replace one, scope list, Paid to Settled with Replace all. | 40.5 s |
+| 87 | Undo and redo | D3; both greyed, type 400, Undo, Redo. | 25.2 s |
+| 88 | Print your spreadsheet with the toolbar | Print opens the File > Print preview; Landscape; Print. | 19 s |
+| 89 | Copy formatting with Paint format | A1 bold + yellow fill, Paint format, click B1. | 23.2 s |
+| 90 | Change the zoom | Zoom list: 50%, 150%, 100%. | 25.7 s |
+| 91 | Format as currency | Cost column starts in USD; column D, GBP from the list; Custom currency dialog (scroll, search pound, Apply). | 32.5 s |
+| 92 | Percent and decimal places | H2:H9: percent (15%, 7.5%), decrease (8%), increase twice (7.50%). | 26.8 s |
+| 93 | More formats | Due date column starts as plain numbers; Date, Number (1,200), Scientific, Plain text (007). | 42.2 s |
+| 94 | Change the font | Header row: Georgia, then Arial. | 25.8 s |
+| 95 | Change the font size | Header row: plus x3 (10 to 13), then type 12. | 21 s |
+| 96 | Bold, italic, underline and strikethrough | Header row, then strikethrough on A8, then off. | 32.2 s |
+| 97 | Text colour and fill colour | Red text on Overdue, light yellow header, light green Paid cells. | 76.5 s |
+| 98 | Borders | Outer frame, style and colour lists, bottom border, Clear. | 48.5 s |
+| 99 | Merge cells | A title row is inserted above the table; Merge all, vertically, horizontally, Unmerge. | 48.8 s |
+| 100 | Horizontal align | Cost and Qty start left-aligned; header centred, numbers right. | 31.1 s |
+| 101 | Vertical align | Row 3 is 64 px tall; Top, Middle, Bottom. | 33.7 s |
+| 102 | Text wrapping | K7 holds a long note; Overflow, Wrap (row grows), Clip. | 30.7 s |
+| 103 | Text rotation | E1:I1; Tilt up, Tilt down, Vertical, Rotate up, None. | 41.5 s |
+| 104 | Insert a link | L2 to https://example.com, L3 to the Vendors sheet. | 29.8 s |
+| 105 | Insert a comment | D3, comment with @Priya Shah, Comments panel opens. | 20.6 s |
+| 106 | Insert a chart | A1:D9; Chart editor, column to Pie, Insert. | 25.6 s |
+| 107 | Create a filter | Filter tool; Status list, Clear, Overdue only, OK; remove. | 25.8 s |
+| 108 | Functions: the quick list | Total cell empty; SUM, AVERAGE, COUNT, MAX, MIN typed into cells under the Cost column. | 61.4 s |
+| 109 | Functions: the categories | Six category lists browsed; IF (filled down), TODAY, VLOOKUP with live results. | 65 s |
+| 110 | More (three dots) | Toolbar collapses; More holds the hidden tools. | 23.4 s |
+| 111 | Snaarp apps icon | Product switcher (six products, Sheets marked Current). | 17.9 s |
+| 112 | Version history icon | Same page as step 15 (second version, Show changes). | 19 s |
+| 113 | Comments icon | Starts with the step 105 comment; panel opens and closes. | 18.7 s |
+| 114 | Video call | Start new meeting (sample link, Copy), Join with link. No real meeting. | 30.2 s |
+| 115 | Lock icon | Tooltip and the Restricted card with Change. | 12.8 s |
+| 116 | Share and profile | Share dialog (same as step 7), account menu (Alex Morgan). Last step; the completion card follows. | 18.3 s |
+
+**Files.** `components/sheets/toolbar-data.ts` (ALL copy: sample, tooltips, currency list and dialog, number formats, fonts, sizes, palette, border icons, merge / align / wrap / rotate rows, the function lists, Find dialog, header popovers), `number-format.ts` (`formatValue`, `formatCurrency` (GBP through `formatGBP`), `toSerial`), `toolbar-state.ts` (pure: `setTbFormat`, `bumpDecimals`, `setColour`, `setBorders`, `mergeCells`, `copyLook` / `paintLook`), `ToolbarMenus.tsx` (`ToolbarLayer`: tooltip bubble, every dropdown card and the header popovers, hung under their button with `Anchored`; `CurrencyDialog`, `MeetingDialogs`), `toolbar-timeline.ts` (helpers: `beginTb`, `hoverTool`, `openTool`, `pressTool`, `pickRow`, `hoverCategory`, `chooseFn`, `enterFormula`, `fillDown`, `typeNumber`, `startTbChart`, `pressHeader`, `hoverHeader`, `doFormat`, `doDecimals`, `doColour`, `doBorders`, `doMerge`, `doLook`, `doToggle`, `pickUpLook` / `dropLook`).
+
+**Scene variables** (reset by `beginTb`): `tbMenu` (open dropdown: zoom, currency, formats, font, size, textcolor, highlight, borders, merge, halign, valign, wrap, rotate, functions, more), `tbSub` (borders: style / color; functions: category id), `tbTip` (tooltip of a tool, or `hdr-<id>`), `hdrMenu` (apps, video, lock, account), `tbCollapsed`, `tbPaint`, `borderStyle`, `borderColor`, `curPick`, `meetCopied`, `field:size`, `field:cur-search`, `field:join`, plus the Find card's `findRegex`, `findFormulas`, `findLinks`, `findScope`, `findScopeOpen`.
+
+**Hooks.** Tools `tool-<search|undo|redo|print|paint|zoom|currency|percent|decrease|increase|formats|font|size-minus|size|size-plus|bold|italic|strike|underline|textcolor|highlight|borders|merge|halign|valign|wrap|rotate|link|comment|chart|filter|functions|more>`, groups `tool-group-<edit|numbers|style|layout|insert|data>`, header `hdr-<apps|history|comments|video|lock|avatar>` and `editor-share`, dropdown rows `tm-<menu>-<id>` (`tm-functions-cat-<id>`, `tm-fn-<NAME>`, `tm-borders-<id>`, palette swatches `tm-<textcolor|highlight|borders-color>-<hex>`), `tool-tip`, `cur-dialog`, `field-cur-search`, `cur-list`, `cur-row-<CODE>`, `cur-apply`, `meet-dialog`, `meet-copy`, `meet-done`, `join-dialog`, `field-join`, `join-continue`, `join-back`, `find-scope`, `find-scope-<all|this>`, `find-regex`.
+
+**Shared code changed** (additive): `Cell` gained `color`, `font`, `dp`, `raw`, `borders`, `merge`; `SheetGrid` draws them (a merge spans the covered cells); `grid-state` (`numberOf` prefers `num`, formulas keep their number format, `IF` on text, `TODAY`, `WEEKDAY`, `VLOOKUP`, `INDEX`/`MATCH`, regex find, `replaceOne`); `SheetsEditor` (a hook on every tool and header icon, active / open looks, the collapsed toolbar and More, a scrolling toolbar and a visible header on phones); `ChartState` (`rowCount`, `catCol`, `at`); `FindCard` is the one shared Find and replace card.

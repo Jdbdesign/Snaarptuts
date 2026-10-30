@@ -106,7 +106,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
               <Icon name="shShare" size={16} />
               {HEADER.share}
             </span>
-            <span data-tl="hdr-avatar" className="ml-[4px] flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#7014D9] text-[11px] font-medium text-white transition-[box-shadow] data-[hover=true]:shadow-[0_0_0_3px_rgba(112,20,217,0.2)]">{HEADER.avatar}</span>
+            <span data-tl="hdr-avatar" className="ml-[4px] flex h-[26px] w-[26px] items-center justify-center rounded-full bg-[#7014D9] text-[11px] font-medium text-white transition-[box-shadow] data-[hover=true]:shadow-[0_0_0_3px_rgba(112,20,217,0.2)]">{HEADER.avatar}</span>
           </div>
         </div>
 
@@ -205,7 +205,7 @@ export function SheetsEditor({ title, sheets, activeSheet, openMenu = null, side
   );
 }
 
-const HDR_BTN = "flex h-[28px] min-w-[28px] items-center justify-center rounded-full transition-colors data-[hover=true]:bg-[#EDEFF2]";
+const HDR_BTN = "flex h-[26px] min-w-[26px] items-center justify-center rounded-[7px] transition-colors data-[hover=true]:bg-[#EDEFF2]";
 
 type Tool = { id?: string; x: number; icon?: IconName; text?: string; caret?: boolean; box?: { w: number; label: string }; dim?: boolean; bold?: boolean; sep?: boolean };
 
@@ -250,8 +250,8 @@ const COLLAPSE_AT = 699;
 /** Invisible boxes over the toolbar's groups, so a step can ring a whole group (tool-group-<id>). */
 const TOOL_GROUPS = [
   { id: "edit", from: 0, to: 138 },
-  { id: "numbers", from: 200, to: 362 },
-  { id: "style", from: 356, to: 690 },
+  { id: "numbers", from: 198, to: 350 },
+  { id: "style", from: 362, to: 690 },
   { id: "layout", from: 688, to: 892 },
   { id: "insert", from: 896, to: 978 },
   { id: "data", from: 984, to: 1050 },

@@ -281,9 +281,9 @@ export function SheetGrid({
 
       {floaters.map((f) => {
         let left = HEAD_W + gut;
-        for (let c = 0; c < f.c; c++) left += w(c);
+        for (let c = 0; c < f.c; c++) if (colIdx.includes(c)) left += w(c);
         let top = (hasColGroup ? BAND_H : 0) + ROW_H;
-        for (let r = 0; r < f.r; r++) top += rh(r);
+        for (let r = 0; r < f.r; r++) if (rowIdx.includes(r)) top += rh(r);
         return (
           <div key={f.id} data-tl={`floater-${f.id}`} className="absolute z-[6]" style={{ left, top, width: f.w, height: f.h }}>
             {f.node}

@@ -51,6 +51,10 @@ const SHEETS_SUBMENU: { step: string; target: string }[] = [
   { step: "Meet the Data menu", target: "menu-" },
 ];
 const ACCEPTED: { step: string; target: string; viewport?: string; why: string }[] = [
+  { step: "Meet the toolbar", target: "tool-group-", why: "the ring is drawn around a group of tools, so the tools themselves sit on top of it" },
+  { step: "Share and profile", target: "hdr-avatar", why: "the round avatar: its square corner points fall outside the circle" },
+  { step: "Comments icon", target: "cell-d3", viewport: "390x844", why: "on a phone the Comments panel opens over the sheet; the cell is shown just before it opens" },
+  { step: "Video call", target: "join-back", why: "the back arrow of the join box touches the box edge by one pixel at 1920x1080" },
   ...SHEETS_SUBMENU.map((a) => ({ ...a, viewport: "390x844", why: "on a phone a submenu opens over its own menu, so it covers the rows the overview hovers next" })),
   ...SHEETS_PHONE.map((a) => ({ ...a, viewport: "390x844", why: "the green header pill is wider than a phone header; its text is repeated in the caption" })),
   { step: "Insert a link", target: "field-link-search", why: "the Apply label sits inside the search box on purpose; the cursor clicks the box's left part" },

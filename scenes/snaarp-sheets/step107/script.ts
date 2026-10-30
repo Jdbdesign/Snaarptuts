@@ -1,7 +1,7 @@
 import type { Timeline } from "@/lib/timeline";
 import { runAction } from "@/components/sheets/edit-timeline";
 import { confirmFilter, filterAll, openFilterPop, toggleFilterValue } from "@/components/sheets/fdt-timeline";
-import { beginTb, hoverTool, pressTool } from "@/components/sheets/toolbar-timeline";
+import { beginTb, focusCol, hoverTool, pressTool } from "@/components/sheets/toolbar-timeline";
 import { pressOn, ring } from "@/components/sheets/sheets-timeline";
 import { finish } from "../shared";
 import { CAPTIONS, F107 } from "./data";
@@ -23,6 +23,7 @@ export async function runStep107(tl: Timeline) {
   await ring(tl, "[data-tl=cell-a1]", 1600);
 
   tl.showCaption(CAPTIONS.status);
+  focusCol(tl, "f1");
   await openFilterPop(tl, F107.col);
   await tl.wait(400);
   tl.showCaption(CAPTIONS.clear);

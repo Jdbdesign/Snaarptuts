@@ -5,7 +5,7 @@ import { finish } from "../shared";
 import { CAPTIONS, URL } from "./data";
 
 /** Snaarp Sheets, step 85 - the toolbar, group by group. Starts on the sample budget with A1 selected. */
-export const STEP85_DURATION_MS = 26000;
+export const STEP85_DURATION_MS = 24000;
 
 export async function runStep85(tl: Timeline) {
   beginTb(tl, "a1");

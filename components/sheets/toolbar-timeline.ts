@@ -1,5 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
-import { commit, dragSelect, getRows, setRows } from "./edit-timeline";
+import { commit, dragSelect as rawDragSelect, getRows, setRows } from "./edit-timeline";
 import { beginFdt } from "./fdt-timeline";
 import { resetChart, resetFunctionLink, resetNotes } from "./insert-timeline";
 import { defaultChart, makeSeries, type ChartState } from "./chart-state";
@@ -145,8 +145,28 @@ export function dropLook(tl: Timeline) {
 
 /* ---------------- Selecting with the cursor ---------------- */
 
-export { dragSelect };
+const onPhone = () => typeof window !== "undefined" && window.matchMedia("(max-width: 899px)").matches;
+
+/** On a phone the grid shows about three columns: scroll sideways (only when needed) so the column of `ref` is on screen. */
+export function focusCol(tl: Timeline, ref: string) {
+  if (!onPhone()) return;
+  const [, c] = parseRef(ref);
+  const now = Math.round(tl.getVar<number>("gridScrollCol", 0));
+  if (c < now || c > now + 2) tl.setVar("gridScrollCol", Math.max(0, c - 1));
+}
+
+/** Press on one cell and drag to another. On a phone the far end cannot be on screen too, so the range just appears. */
+export async function dragSelect(tl: Timeline, from: string, to: string, opts: { ms?: number; moveMs?: number } = {}) {
+  if (!onPhone()) return rawDragSelect(tl, from, to, opts);
+  await clickCellTb(tl, from, opts.moveMs ?? 600);
+  const [r1, c1] = parseRef(from);
+  const [r2, c2] = parseRef(to);
+  tl.setVar("sel", { r1, c1, r2, c2 });
+}
+
 export async function clickCellTb(tl: Timeline, ref: string, ms = 600) {
+  focusCol(tl, ref);
+  await tl.wait(onPhone() ? 150 : 0);
   await tl.moveCursorTo(cellSel(ref), { ms });
   await tl.click(cellSel(ref));
   const [r, c] = parseRef(ref);
@@ -188,6 +208,7 @@ export function fillDown(tl: Timeline, col: number, fromRow: number, toRow: numb
 
 /** The toolbar chart: Item and Cost, eight rows, placed under the table. */
 export function startTbChart(tl: Timeline) {
+  if (onPhone()) tl.setVar("gridScrollCol", 3);
   const chart: ChartState = { ...defaultChart(), range: "A1:D9", xAxis: "A2:A9", series: [makeSeries("Cost", TB_SAMPLE.costCol, true)], seriesSel: "cost", rowCount: 8, catCol: 0, at: { row: 11, col: 4 } };
   tl.setVar("chart", chart);
   tl.setVar("chartTab", "setup");
