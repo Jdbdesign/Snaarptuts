@@ -20,6 +20,8 @@ import { Step10 } from "@/scenes/workforce/step10/Step10";
 import { runStep10, STEP10_DURATION_MS } from "@/scenes/workforce/step10/script";
 import { Step11 } from "@/scenes/workforce/step11/Step11";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/workforce/step11/script";
+import { Step12 } from "@/scenes/workforce/step12/Step12";
+import { runStep12, STEP12_DURATION_MS } from "@/scenes/workforce/step12/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -97,6 +99,12 @@ export const workforce: Tutorial = {
       title: "My onboarding",
       url: "workforce.snaarp.com/my-space",
       scene: { Component: Step11, run: runStep11, durationMs: STEP11_DURATION_MS },
+    },
+    {
+      id: "onboarding-record",
+      title: "Open an onboarding record",
+      url: "workforce.snaarp.com/my-space/onboarding",
+      scene: { Component: Step12, run: runStep12, durationMs: STEP12_DURATION_MS },
     },
   ],
   completion: {
