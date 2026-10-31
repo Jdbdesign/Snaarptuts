@@ -56,6 +56,8 @@ import { Step28 } from "@/scenes/workforce/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/workforce/step28/script";
 import { Step29 } from "@/scenes/workforce/step29/Step29";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/workforce/step29/script";
+import { Step30 } from "@/scenes/workforce/step30/Step30";
+import { runStep30, STEP30_DURATION_MS } from "@/scenes/workforce/step30/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -241,6 +243,12 @@ export const workforce: Tutorial = {
       title: "Leave requests",
       url: "workforce.snaarp.com/leave",
       scene: { Component: Step29, run: runStep29, durationMs: STEP29_DURATION_MS },
+    },
+    {
+      id: "your-shift",
+      title: "Your shift",
+      url: "workforce.snaarp.com/leave",
+      scene: { Component: Step30, run: runStep30, durationMs: STEP30_DURATION_MS },
     },
   ],
   completion: {
