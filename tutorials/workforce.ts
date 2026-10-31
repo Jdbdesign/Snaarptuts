@@ -40,6 +40,8 @@ import { Step20 } from "@/scenes/workforce/step20/Step20";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/workforce/step20/script";
 import { Step21 } from "@/scenes/workforce/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/workforce/step21/script";
+import { Step22 } from "@/scenes/workforce/step22/Step22";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/workforce/step22/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -177,6 +179,12 @@ export const workforce: Tutorial = {
       title: "Exit tasks",
       url: "workforce.snaarp.com/my-space/exit-tasks",
       scene: { Component: Step21, run: runStep21, durationMs: STEP21_DURATION_MS },
+    },
+    {
+      id: "holidays",
+      title: "Holidays",
+      url: "workforce.snaarp.com/organization/holidays",
+      scene: { Component: Step22, run: runStep22, durationMs: STEP22_DURATION_MS },
     },
   ],
   completion: {
