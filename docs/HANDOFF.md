@@ -168,10 +168,11 @@ Because users can no longer scroll the canvas, the timeline scrolls for them: `T
 
 ## Workforce (seventh tutorial, Dashboard, My Space, Salary advances, Resignation, Exit tasks, Holidays, HR Cases)
 
-Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **24 steps, all built**, followed by the data-driven completion card.
+Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **44 steps, all built**, followed by the data-driven completion card.
 - Recordings:
   - `ref/workforce/Workforce_clip1.mp4` (1234x720, 97s, 30fps; copy of `Downloads/1030.mp4`; steps 1–17).
   - `ref/workforce/workforce-clip2.mp4` (1234x720, 65s, 30fps; copy of `Downloads/1030(1).mp4`; steps 18–24).
+  - `ref/workforce/workforce-clip3.mp4` (1234x720, 104s, 30fps; copy of `Downloads/1030(2).mp4`; steps 25–44).
 
 How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and shell `components/workforce/WorkforceShell.tsx` (the thin Snaarp suite rail, collapsible 220px Workforce sidebar, and top bar with Notifications popover, admin-only Add Users button, Apps suite popover, and Avatar menu). Views:
 - `DashboardView.tsx`: company overview, stat cards, tasks and requests, announcements.
@@ -183,9 +184,14 @@ How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and sh
 - `ExitTasksView.tsx`: clearance tasks heading and empty state ("No exit tasks assigned.").
 - `HolidaysView.tsx`: top bar becomes Organization, October 2026 calendar with 1 Oct "GB: Founders' Day" lilac chip, 30 Oct purple circle today marker.
 - `HrCasesView.tsx`: top bar HR Cases, grievances table, HR case details modal, and Submit grievance modal with Type select dropdown, October 2026 calendar picker (day 28), Description ring, and Cancel dismissal.
+- `AttendanceView.tsx`: live attendance timer counting up, Check out flow with 0.8s loading spinner, checked out duration summary card, and October 2026 monthly attendance calendar with today marker (day 30) and status legend.
+- `LeaveTrackerView.tsx`: leave balance summary cards, annual leave progress bar (14/20 days), by leave type breakdown, request leave modal with field highlights, leave requests table with details modal, and assigned shift details card (Europe/London 09:00 - 17:00, 8h 00m).
+- `TimeTrackerView.tsx`: live project/job timer with Start/Stop toggle, Jobs table with status filters, priorities, and overdue badges, Time logs table with total hours pill (14h 45m), Timesheets empty state with date range picker, and Job schedule week/month calendar grid with today column and scheduled jobs.
+- `GoalsView.tsx`: Goals list with progress bar, Actions "..." popup, interactive edit modal with progress slider (updated to 75%) and save toast, KPIs table, and KPI details modal with target facts, feedback, and audit history.
+- `AppraisalsView.tsx`: Performance appraisals list with stat cards, 16-question interactive appraisal review form (`/performance/reviews/sample`) with rating selects, textareas, character-by-character typing, and submit flow, assigned reviews empty state, and review result view with self & manager scoring cards and acknowledgment button.
 
 Every script strictly follows the house patterns in `docs/SCENE-PATTERNS.md`: `beginWorkforce` places the cursor on frame 1, `pressOn` for active clicks, `hoverOn` for hovers, `ring` for inspections, and `finishWorkforce` for the standard white fade finish.
-Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 96 runs (24 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
+Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 176 runs (44 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
 
 ## Workforce: mouse pointer visibility fix
 In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cursor: [number, number] = [0.5, 0.42]` and calls `tl.placeCursor(cursor[0], cursor[1])` as its first action, ensuring the pointer is visible from frame 1 before the first caption. Steps continuing on the same screen use `tl.placeCursorOn(...)` (or matching fraction for step 12) to place the cursor seamlessly where the previous step ended. Spacebar and canvas-click pause freeze the pointer in place. Verified visible across all 17 steps with automated test and visual inspection at 1440 and 1024 widths. Added house pattern rule to `docs/SCENE-PATTERNS.md`.

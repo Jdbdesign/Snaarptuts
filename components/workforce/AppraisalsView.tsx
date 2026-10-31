@@ -537,7 +537,6 @@ export function ReviewFormView({
  * Result & Acknowledgement View (Step 44)
  */
 export function ReviewResultView({
-  _tl,
   onBack,
 }: {
   _tl?: Timeline;

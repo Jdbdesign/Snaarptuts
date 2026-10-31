@@ -741,3 +741,23 @@ Recording: `ref/workforce/workforce-clip2.mp4` (1234x720, 1:05, 30fps; copy of `
 3. **Resignation exit interview link**: The "View submitted answers" link on the exit interview card is rendered in read-only form but not clicked, matching the screen recording.
 4. **Holidays top bar title**: When clicking "Holidays", the top bar title changes to "Organization" while the sidebar retains "My Space" open with "Holidays" active, matching the recording.
 5. **Submit grievance modal interactions**: The modal supports Type selection (opens dropdown with Bullying, Discrimination, Pay dispute, Working conditions, Other; selecting "Pay dispute" updates the field), date picker popup for October 2026 (day 28 selected), and Description textarea explanation beat without typing, closing via Cancel button without submitting.
+
+## Workforce steps 25-44 (Attendance, Leave, Time Tracker, Goals, My Appraisals)
+
+Recording: `ref/workforce/workforce-clip3.mp4` (1234x720, 1:44, 30fps; copy of `Downloads/1030(2).mp4`).
+
+**Sample data only (no real personal data).**
+- Employee: Alex Morgan (`alex.morgan@snaarp.com`, Engineering, Employee).
+- Managers / Peers: Sam Taylor, Jordan Lee.
+- Dates & times: UK conventions (DD/MM/YYYY) across UI surfaces, except where the product specifically uses ISO dates (e.g. Leave Requests, Projects, Jobs, Time Logs tables).
+- Shift details: Europe/London, 09:00 - 17:00 | 8h 00m, Grace period 15 minutes.
+- Attendance: Live timer starts at 08:31:56 counting up every second. On check out, a brief 0.8s loading spinner shows, followed by the checked-out card showing 08:32:00 duration. Today marker on October 2026 calendar is day 30.
+- Time Tracker: Live timer tied to timeline keyframes. Start/Stop toggles smoothly.
+- Goals: Progress slider moves smoothly to 75% on edit; KPI target facts, review feedback, and history audit log match the recording layout.
+- Appraisals: Sample appraisal review with 16 performance and core value questions, rating select dropdowns, accomplishments textarea, self and manager review result cards, and acknowledgement banner.
+
+**Decisions & deviations:**
+1. **Rating label consistency**: The option "1 - Unsatisfactory" uses the UK standard spelling consistent with the rest of the application.
+2. **Review questions and responses**: Sample responses for the self-review and manager review cards are realistic placeholder text matching the engineering role, avoiding any real-world personal information.
+3. **Form typing and submissions**: Step 42 types "System design" into the key accomplishments textarea using character-by-character timeline typing, followed by clicking "Submit review".
+4. **Unclicked sub-actions**: Secondary tabs (e.g. Regularization tab under Attendance, Timeline tab under Attendance, Create Goal, Log Time, and Submit timesheet buttons) remain unclicked to reflect the exact focus of the screen recording beats.

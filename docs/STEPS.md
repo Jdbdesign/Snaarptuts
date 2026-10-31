@@ -1644,12 +1644,13 @@ Recording `ref/sheets/Snaarp_Sheets_toolbar.mp4` (copy of `Downloads/1029(1).mp4
 
 # Steps of the Workforce tutorial
 
-Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 6 minutes 30 seconds across 24 steps.
+Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 12 minutes across 44 steps.
 
 ## Source recording map
 
 - `Workforce_clip1.mp4`, 1234x720, 1:37, 30fps (Steps 1–17).
 - `Workforce_clip2.mp4` (`1030(1).mp4`), 1234x720, 1:05, 30fps (Steps 18–24).
+- `Workforce_clip3.mp4` (`1030(2).mp4`), 1234x720, 1:44, 30fps (Steps 25–44).
 
 | Step | Title | Recording |
 |---|---|---|
@@ -1677,6 +1678,26 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 22 | Holidays | Clip 2: 0:42 - 0:51 |
 | 23 | My HR cases | Clip 2: 0:51 - 0:58 |
 | 24 | Submit a grievance | Clip 2: 0:58 - 1:05 |
+| 25 | Check out | Clip 3: 0:00 - 0:06 |
+| 26 | Attendance calendar | Clip 3: 0:06 - 0:13 |
+| 27 | Leave summary | Clip 3: 0:13 - 0:19 |
+| 28 | Request leave | Clip 3: 0:19 - 0:24 |
+| 29 | Leave requests | Clip 3: 0:24 - 0:31 |
+| 30 | Your shift | Clip 3: 0:31 - 0:36 |
+| 31 | Time Tracker | Clip 3: 0:36 - 0:43 |
+| 32 | Jobs | Clip 3: 0:43 - 0:49 |
+| 33 | Time logs | Clip 3: 0:49 - 0:54 |
+| 34 | Timesheets | Clip 3: 0:54 - 0:59 |
+| 35 | Job schedule | Clip 3: 0:59 - 1:05 |
+| 36 | Goals | Clip 3: 1:05 - 1:11 |
+| 37 | Edit a goal | Clip 3: 1:11 - 1:17 |
+| 38 | KPIs | Clip 3: 1:17 - 1:23 |
+| 39 | KPI details | Clip 3: 1:23 - 1:28 |
+| 40 | My Appraisals | Clip 3: 1:28 - 1:33 |
+| 41 | Open a review | Clip 3: 1:33 - 1:38 |
+| 42 | Fill in the review | Clip 3: 1:38 - 1:41 |
+| 43 | Assigned reviews | Clip 3: 1:41 - 1:43 |
+| 44 | View your result | Clip 3: 1:43 - 1:44 |
 
 ---
 
@@ -1707,11 +1728,31 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 21 | Exit tasks | Starts Resignation. Clicks Exit tasks in sidebar. Reviews clearance tasks heading and empty state ("No exit tasks assigned."). | 8 s |
 | 22 | Holidays | Starts Exit tasks. Clicks Holidays in sidebar. Top bar becomes Organization. Reviews October 2026 calendar, 1 Oct lilac chip "GB: Founders' Day", scrolls to today (30 Oct solid purple circle), hovers next-month arrow. | 18 s |
 | 23 | My HR cases | Starts Holidays. Clicks My HR cases in sidebar. Top bar becomes HR Cases. Reviews grievances table row (Alex Morgan, Bullying, 2026-10-15, Closed), clicks View case, reviews details modal, closes with X. | 16 s |
-| 24 | Submit a grievance | Starts My HR cases. Clicks Submit grievance. Opens modal, chooses "Pay dispute" from Type select dropdown, clicks date field to open October 2026 calendar picker and picks day 28, rings Description box, clicks Cancel to dismiss without submitting. Completion card follows. | 20 s |
+| 24 | Submit a grievance | Starts My HR cases. Clicks Submit grievance. Opens modal, chooses "Pay dispute" from Type select dropdown, clicks date field to open October 2026 calendar picker and picks day 28, rings Description box, clicks Cancel to dismiss without submitting. | 20 s |
+| 25 | Check out | Starts checked in at attendance page. Reviews live timer counting up, clicks Check out button, 0.8s loading spinner, renders checked out summary card with 08:32:00 duration. | 14 s |
+| 26 | Attendance calendar | Starts Attendance > Calendar tab. Reviews 4 summary stat pills, reviews October 2026 calendar grid, today marker day 30, scrolls down panel to explain status legend. | 16 s |
+| 27 | Leave summary | Starts Attendance. Clicks Leave in sidebar. Reviews 4 summary stat cards, Annual leave balance progress bar (14/20 days), reviews by leave type breakdown table. | 16 s |
+| 28 | Request leave | Starts Leave > Summary. Clicks Request leave button. Modal opens, selects Annual Leave type, rings date fields, rings reason textarea, clicks Cancel to dismiss. | 16 s |
+| 29 | Leave requests | Starts Leave > Summary. Clicks Requests tab. Reviews filter bar, reviews table row (Alex Morgan, Annual Leave, Approved), clicks View details, reviews modal, closes with X. | 18 s |
+| 30 | Your shift | Starts Leave > Requests. Clicks Shift tab. Reviews assigned shift card: Europe/London, 09:00 - 17:00, 8h 00m, Grace period 15 minutes. | 12 s |
+| 31 | Time Tracker | Starts Leave. Clicks Time Tracker in sidebar. Reviews live project/job timer, selects Project and Job, clicks Stop to pause timer, clicks Start to resume. | 16 s |
+| 32 | Jobs | Starts Time Tracker > Timer. Clicks Jobs tab. Reviews status filter pills (All, In Progress, Completed), reviews jobs table with priorities and overdue chips. | 14 s |
+| 33 | Time logs | Starts Time Tracker > Jobs. Clicks Time logs tab. Reviews logs table with date, task and billable status, reviews total hours summary pill (14h 45m). | 14 s |
+| 34 | Timesheets | Starts Time Tracker > Time logs. Clicks Timesheets tab. Reviews date range picker, reviews empty state card ("No timesheet found for this period"). | 12 s |
+| 35 | Job schedule | Starts Time Tracker > Timesheets. Clicks Job schedule tab. Reviews Week/Month view tabs, reviews calendar schedule grid with today column and scheduled jobs. | 16 s |
+| 36 | Goals | Starts Time Tracker. Clicks Goals in sidebar. Reviews Goals and KPIs tabs, reviews goals table with progress bar and Actions "..." icon. | 14 s |
+| 37 | Edit a goal | Starts Goals > Goals tab. Clicks Actions "...", clicks Edit goal. Modal opens, interacts with progress slider updating to 75%, clicks Save changes, shows success toast. | 18 s |
+| 38 | KPIs | Starts Goals. Clicks KPIs tab. Reviews KPIs table with Code, Target, Measurement, and Actions "..." icon. | 14 s |
+| 39 | KPI details | Starts Goals > KPIs tab. Clicks Actions "...", clicks View details. Details modal opens with target facts, feedback, and audit history, closes with X. | 18 s |
+| 40 | My Appraisals | Starts Goals. Clicks My Appraisals in sidebar. Reviews stat cards (Completed, In Review, Pending), reviews Reviews table with sample review row. | 16 s |
+| 41 | Open a review | Starts My Appraisals > Reviews. Clicks Actions "...", clicks View review. Navigates to `/performance/reviews/sample` with 16 appraisal questions and rating options. | 16 s |
+| 42 | Fill in the review | Starts review form. Rates performance question 1 as "3 - Meets Expectations", scrolls down panel, types accomplishments into textarea, clicks Submit review, shows success banner. | 22 s |
+| 43 | Assigned reviews | Starts My Appraisals. Clicks Assigned Reviews tab. Reviews empty state card ("No reviews assigned to you at this time."). | 12 s |
+| 44 | View your result | Starts review form submitted. Navigates to result view, reviews Self Review score, reviews Manager Review score, clicks Acknowledge result. Completion card follows. | 18 s |
 
 **Files.**
 - Config: `tutorials/workforce.ts`
 - Reusable Shell & Stage: `components/workforce/WorkforceShell.tsx`, `components/workforce/WorkforceStage.tsx`
-- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`
+- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`
 - Central Data & Helpers: `components/workforce/workforce-data.ts`, `components/workforce/workforce-timeline.ts`
-- Step Scenes & Scripts: `scenes/workforce/step<1..24>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/workforce/step<1..44>/Step<N>.tsx`, `script.ts`, `data.ts`
