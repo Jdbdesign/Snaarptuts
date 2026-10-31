@@ -19,6 +19,7 @@ Dev machine is Windows 11. Use Windows-appropriate paths and commands.
 
 ## How we work
 
+- Before writing or editing any scene script, read docs/SCENE-PATTERNS.md. Every 'Click X' caption must call click(); copy the structure of scenes/snaarp-sheets/step20/script.ts.
 - The owner is a product designer and does not write code. Give short, plain summaries. Do not explain technical steps unless asked. Give numbered steps for anything to do by hand.
 - Build **one step (one video segment) per round**. Finish, verify, then stop and wait for feedback.
 - Do not build a step or product until the owner asks.
