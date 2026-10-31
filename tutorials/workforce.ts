@@ -94,6 +94,8 @@ import { Step47 } from "@/scenes/workforce/step47/Step47";
 import { runStep47, STEP47_DURATION_MS } from "@/scenes/workforce/step47/script";
 import { Step48 } from "@/scenes/workforce/step48/Step48";
 import { runStep48, STEP48_DURATION_MS } from "@/scenes/workforce/step48/script";
+import { Step49 } from "@/scenes/workforce/step49/Step49";
+import { runStep49, STEP49_DURATION_MS } from "@/scenes/workforce/step49/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -393,6 +395,12 @@ export const workforce: Tutorial = {
       title: "Learning Hub",
       url: "workforce.snaarp.com/learning",
       scene: { Component: Step48, run: runStep48, durationMs: STEP48_DURATION_MS },
+    },
+    {
+      id: "open-a-course",
+      title: "Open a course",
+      url: "workforce.snaarp.com/learning/course/engineering",
+      scene: { Component: Step49, run: runStep49, durationMs: STEP49_DURATION_MS },
     },
   ],
   completion: {
