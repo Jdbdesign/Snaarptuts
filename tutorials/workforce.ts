@@ -84,6 +84,8 @@ import { Step42 } from "@/scenes/workforce/step42/Step42";
 import { runStep42, STEP42_DURATION_MS } from "@/scenes/workforce/step42/script";
 import { Step43 } from "@/scenes/workforce/step43/Step43";
 import { runStep43, STEP43_DURATION_MS } from "@/scenes/workforce/step43/script";
+import { Step44 } from "@/scenes/workforce/step44/Step44";
+import { runStep44, STEP44_DURATION_MS } from "@/scenes/workforce/step44/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -354,9 +356,15 @@ export const workforce: Tutorial = {
       url: "workforce.snaarp.com/performance?tab=Assigned+Reviews",
       scene: { Component: Step43, run: runStep43, durationMs: STEP43_DURATION_MS },
     },
+    {
+      id: "view-your-result",
+      title: "View your result",
+      url: "workforce.snaarp.com/performance/reviews/sample",
+      scene: { Component: Step44, run: runStep44, durationMs: STEP44_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "You now know how to navigate the Workforce Dashboard, My Space, Salary advances, Resignation, Exit tasks, Holidays and HR cases.",
+    text: "You now know how to navigate the Workforce Dashboard, My Space, Attendance, Leave Tracker, Time Tracker, Goals, and My Appraisals.",
   },
 };
