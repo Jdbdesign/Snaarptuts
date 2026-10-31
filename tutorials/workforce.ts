@@ -44,6 +44,8 @@ import { Step22 } from "@/scenes/workforce/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/workforce/step22/script";
 import { Step23 } from "@/scenes/workforce/step23/Step23";
 import { runStep23, STEP23_DURATION_MS } from "@/scenes/workforce/step23/script";
+import { Step24 } from "@/scenes/workforce/step24/Step24";
+import { runStep24, STEP24_DURATION_MS } from "@/scenes/workforce/step24/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -194,9 +196,15 @@ export const workforce: Tutorial = {
       url: "workforce.snaarp.com/hr-cases",
       scene: { Component: Step23, run: runStep23, durationMs: STEP23_DURATION_MS },
     },
+    {
+      id: "submit-grievance",
+      title: "Submit a grievance",
+      url: "workforce.snaarp.com/hr-cases",
+      scene: { Component: Step24, run: runStep24, durationMs: STEP24_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "You now know how to navigate the Workforce Dashboard, My Space, Onboarding and Profile.",
+    text: "You now know how to navigate the Workforce Dashboard, My Space, Salary advances, Resignation, Exit tasks, Holidays and HR cases.",
   },
 };
