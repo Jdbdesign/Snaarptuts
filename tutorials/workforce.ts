@@ -12,6 +12,8 @@ import { Step6 } from "@/scenes/workforce/step6/Step6";
 import { runStep6, STEP6_DURATION_MS } from "@/scenes/workforce/step6/script";
 import { Step7 } from "@/scenes/workforce/step7/Step7";
 import { runStep7, STEP7_DURATION_MS } from "@/scenes/workforce/step7/script";
+import { Step8 } from "@/scenes/workforce/step8/Step8";
+import { runStep8, STEP8_DURATION_MS } from "@/scenes/workforce/step8/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -65,6 +67,12 @@ export const workforce: Tutorial = {
       title: "Find your way around",
       url: "workforce.snaarp.com/dashboard",
       scene: { Component: Step7, run: runStep7, durationMs: STEP7_DURATION_MS },
+    },
+    {
+      id: "my-space-overview",
+      title: "My Space",
+      url: "workforce.snaarp.com/dashboard",
+      scene: { Component: Step8, run: runStep8, durationMs: STEP8_DURATION_MS },
     },
   ],
   completion: {
