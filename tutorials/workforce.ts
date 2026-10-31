@@ -66,6 +66,8 @@ import { Step33 } from "@/scenes/workforce/step33/Step33";
 import { runStep33, STEP33_DURATION_MS } from "@/scenes/workforce/step33/script";
 import { Step34 } from "@/scenes/workforce/step34/Step34";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/workforce/step34/script";
+import { Step35 } from "@/scenes/workforce/step35/Step35";
+import { runStep35, STEP35_DURATION_MS } from "@/scenes/workforce/step35/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -281,6 +283,12 @@ export const workforce: Tutorial = {
       title: "Timesheets",
       url: "workforce.snaarp.com/time-tracker",
       scene: { Component: Step34, run: runStep34, durationMs: STEP34_DURATION_MS },
+    },
+    {
+      id: "job-schedule",
+      title: "Job schedule",
+      url: "workforce.snaarp.com/time-tracker",
+      scene: { Component: Step35, run: runStep35, durationMs: STEP35_DURATION_MS },
     },
   ],
   completion: {
