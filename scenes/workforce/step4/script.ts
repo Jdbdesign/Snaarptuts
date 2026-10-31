@@ -1,5 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
-import { beginWorkforce } from "@/components/workforce/workforce-timeline";
+import { beginWorkforce, finishWorkforce, hoverOn, ring } from "@/components/workforce/workforce-timeline";
 import { CAPTIONS, URLS } from "./data";
 
 export const STEP4_DURATION_MS = 11000;
@@ -10,18 +10,15 @@ export async function runStep4(tl: Timeline) {
   // 1. Next 7 days card
   await tl.at(500);
   tl.showCaption(CAPTIONS.next7Days);
-  await tl.moveCursorTo("[data-tl=card-next-7-days]", { ms: 700 });
-  tl.highlight("[data-tl=card-next-7-days]");
+  await hoverOn(tl, "[data-tl=card-next-7-days]", { ms: 650 });
+  await ring(tl, "[data-tl=card-next-7-days]", 2800);
 
   // 2. Announcements card
   await tl.at(5000);
-  tl.clearHighlight();
   tl.showCaption(CAPTIONS.announcements);
-  await tl.moveCursorTo("[data-tl=card-announcements]", { ms: 700 });
-  tl.highlight("[data-tl=card-announcements]");
+  await hoverOn(tl, "[data-tl=card-announcements]", { ms: 650 });
+  await ring(tl, "[data-tl=card-announcements]", 2800);
 
-  await tl.at(10000);
-  tl.clearHighlight();
-  tl.hideCaption();
-  await tl.at(STEP4_DURATION_MS);
+  // 3. End fade
+  await finishWorkforce(tl, 9800, STEP4_DURATION_MS);
 }
