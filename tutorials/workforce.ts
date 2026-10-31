@@ -102,6 +102,8 @@ import { Step51 } from "@/scenes/workforce/step51/Step51";
 import { runStep51, STEP51_DURATION_MS } from "@/scenes/workforce/step51/script";
 import { Step52 } from "@/scenes/workforce/step52/Step52";
 import { runStep52, STEP52_DURATION_MS } from "@/scenes/workforce/step52/script";
+import { Step53 } from "@/scenes/workforce/step53/Step53";
+import { runStep53, STEP53_DURATION_MS } from "@/scenes/workforce/step53/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -425,6 +427,12 @@ export const workforce: Tutorial = {
       title: "Your certificate",
       url: "workforce.snaarp.com/learning/course/engineering",
       scene: { Component: Step52, run: runStep52, durationMs: STEP52_DURATION_MS },
+    },
+    {
+      id: "learning-record",
+      title: "Learning Record",
+      url: "workforce.snaarp.com/learning?tab=record",
+      scene: { Component: Step53, run: runStep53, durationMs: STEP53_DURATION_MS },
     },
   ],
   completion: {
