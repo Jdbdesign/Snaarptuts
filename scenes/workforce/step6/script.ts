@@ -1,5 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
-import { beginWorkforce, closePopovers } from "@/components/workforce/workforce-timeline";
+import { beginWorkforce, closePopovers, finishWorkforce, hoverOn, pressOn, ring } from "@/components/workforce/workforce-timeline";
 import { CAPTIONS, URLS } from "./data";
 
 export const STEP6_DURATION_MS = 18000;
@@ -10,44 +10,47 @@ export async function runStep6(tl: Timeline) {
   // 1. Add Users
   await tl.at(500);
   tl.showCaption(CAPTIONS.addUsers);
-  await tl.moveCursorTo("[data-tl=top-add-users]", { ms: 600 });
-  await tl.click("[data-tl=top-add-users]");
+  await pressOn(tl, "[data-tl=top-add-users]", { ms: 600 });
   tl.setVar("wfOpenPopover", "add-users");
+  await tl.wait(100);
   tl.highlight("[data-tl=add-users-popover]");
+  await tl.wait(800);
+  tl.clearHighlight();
 
-  await tl.at(3000);
-  await tl.moveCursorTo("[data-tl=add-user-email]", { ms: 500 });
-  await tl.typeText("colleague@example.com", "field:invite-email");
+  await tl.at(2800);
+  await tl.fill("[data-tl=add-user-email]", "invite-email", "colleague@example.com", { moveMs: 550, msPerChar: 55 });
+  await tl.wait(300);
 
   await tl.at(5200);
-  await tl.moveCursorTo("[data-tl=add-user-cancel]", { ms: 500 });
-  await tl.click("[data-tl=add-user-cancel]");
-  tl.clearHighlight();
+  await pressOn(tl, "[data-tl=add-user-cancel]", { ms: 500 });
   tl.setVar("wfOpenPopover", null);
+  await tl.wait(100);
 
   // 2. Apps Grid
-  await tl.at(7000);
+  await tl.at(6800);
   tl.showCaption(CAPTIONS.appsGrid);
-  await tl.moveCursorTo("[data-tl=top-apps-grid]", { ms: 600 });
-  await tl.click("[data-tl=top-apps-grid]");
+  await pressOn(tl, "[data-tl=top-apps-grid]", { ms: 600 });
   tl.setVar("wfOpenPopover", "apps");
+  await tl.wait(100);
   tl.highlight("[data-tl=apps-grid-popover]");
+  await tl.wait(1800);
+  tl.clearHighlight();
 
   // 3. Avatar menu
-  await tl.at(11000);
-  tl.clearHighlight();
+  await tl.at(10500);
   tl.showCaption(CAPTIONS.avatar);
-  await tl.moveCursorTo("[data-tl=top-avatar]", { ms: 600 });
-  await tl.click("[data-tl=top-avatar]");
+  await pressOn(tl, "[data-tl=top-avatar]", { ms: 600 });
   tl.setVar("wfOpenPopover", "avatar");
+  await tl.wait(100);
   tl.highlight("[data-tl=avatar-dropdown]");
-
-  await tl.at(14000);
-  await tl.moveCursorTo("[data-tl=avatar-profile-link]", { ms: 600 });
-
-  await tl.at(16800);
+  await tl.wait(1200);
   tl.clearHighlight();
-  tl.hideCaption();
+
+  await tl.at(13500);
+  await hoverOn(tl, "[data-tl=avatar-profile-link]", { ms: 500 });
+  await ring(tl, "[data-tl=avatar-profile-link]", 1600);
+
+  // 4. Close & Finish
   await closePopovers(tl);
-  await tl.at(STEP6_DURATION_MS);
+  await finishWorkforce(tl, 16800, STEP6_DURATION_MS);
 }
