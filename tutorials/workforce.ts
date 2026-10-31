@@ -82,6 +82,8 @@ import { Step41 } from "@/scenes/workforce/step41/Step41";
 import { runStep41, STEP41_DURATION_MS } from "@/scenes/workforce/step41/script";
 import { Step42 } from "@/scenes/workforce/step42/Step42";
 import { runStep42, STEP42_DURATION_MS } from "@/scenes/workforce/step42/script";
+import { Step43 } from "@/scenes/workforce/step43/Step43";
+import { runStep43, STEP43_DURATION_MS } from "@/scenes/workforce/step43/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -345,6 +347,12 @@ export const workforce: Tutorial = {
       title: "Fill in the review",
       url: "workforce.snaarp.com/performance/reviews/sample",
       scene: { Component: Step42, run: runStep42, durationMs: STEP42_DURATION_MS },
+    },
+    {
+      id: "assigned-reviews",
+      title: "Assigned reviews",
+      url: "workforce.snaarp.com/performance?tab=Assigned+Reviews",
+      scene: { Component: Step43, run: runStep43, durationMs: STEP43_DURATION_MS },
     },
   ],
   completion: {
