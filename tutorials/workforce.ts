@@ -38,6 +38,8 @@ import { Step19 } from "@/scenes/workforce/step19/Step19";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/workforce/step19/script";
 import { Step20 } from "@/scenes/workforce/step20/Step20";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/workforce/step20/script";
+import { Step21 } from "@/scenes/workforce/step21/Step21";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/workforce/step21/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -169,6 +171,12 @@ export const workforce: Tutorial = {
       title: "Resignation",
       url: "workforce.snaarp.com/my-space/resignation",
       scene: { Component: Step20, run: runStep20, durationMs: STEP20_DURATION_MS },
+    },
+    {
+      id: "exit-tasks",
+      title: "Exit tasks",
+      url: "workforce.snaarp.com/my-space/exit-tasks",
+      scene: { Component: Step21, run: runStep21, durationMs: STEP21_DURATION_MS },
     },
   ],
   completion: {
