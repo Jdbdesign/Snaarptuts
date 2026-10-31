@@ -72,6 +72,8 @@ import { Step36 } from "@/scenes/workforce/step36/Step36";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/workforce/step36/script";
 import { Step37 } from "@/scenes/workforce/step37/Step37";
 import { runStep37, STEP37_DURATION_MS } from "@/scenes/workforce/step37/script";
+import { Step38 } from "@/scenes/workforce/step38/Step38";
+import { runStep38, STEP38_DURATION_MS } from "@/scenes/workforce/step38/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -305,6 +307,12 @@ export const workforce: Tutorial = {
       title: "Edit a goal",
       url: "workforce.snaarp.com/goals?tab=goals",
       scene: { Component: Step37, run: runStep37, durationMs: STEP37_DURATION_MS },
+    },
+    {
+      id: "kpis",
+      title: "KPIs",
+      url: "workforce.snaarp.com/goals?tab=kpis",
+      scene: { Component: Step38, run: runStep38, durationMs: STEP38_DURATION_MS },
     },
   ],
   completion: {
