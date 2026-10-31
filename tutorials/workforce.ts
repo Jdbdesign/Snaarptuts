@@ -48,6 +48,8 @@ import { Step24 } from "@/scenes/workforce/step24/Step24";
 import { runStep24, STEP24_DURATION_MS } from "@/scenes/workforce/step24/script";
 import { Step25 } from "@/scenes/workforce/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/workforce/step25/script";
+import { Step26 } from "@/scenes/workforce/step26/Step26";
+import { runStep26, STEP26_DURATION_MS } from "@/scenes/workforce/step26/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -209,6 +211,12 @@ export const workforce: Tutorial = {
       title: "Check out",
       url: "workforce.snaarp.com/attendance",
       scene: { Component: Step25, run: runStep25, durationMs: STEP25_DURATION_MS },
+    },
+    {
+      id: "attendance-calendar",
+      title: "Attendance calendar",
+      url: "workforce.snaarp.com/attendance",
+      scene: { Component: Step26, run: runStep26, durationMs: STEP26_DURATION_MS },
     },
   ],
   completion: {
