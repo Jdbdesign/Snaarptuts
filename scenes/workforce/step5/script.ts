@@ -1,5 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
-import { beginWorkforce, closePopovers } from "@/components/workforce/workforce-timeline";
+import { beginWorkforce, closePopovers, finishWorkforce, hoverOn, pressOn, ring } from "@/components/workforce/workforce-timeline";
 import { CAPTIONS, URLS } from "./data";
 
 export const STEP5_DURATION_MS = 16000;
@@ -10,29 +10,29 @@ export async function runStep5(tl: Timeline) {
   // 1. Open notifications popover
   await tl.at(500);
   tl.showCaption(CAPTIONS.open);
-  await tl.moveCursorTo("[data-tl=top-bell]", { ms: 600 });
-  await tl.click("[data-tl=top-bell]");
+  await pressOn(tl, "[data-tl=top-bell]", { ms: 600 });
   tl.setVar("wfOpenPopover", "notifications");
+  await tl.wait(100);
 
   // 2. Highlight popover & scroll down to later items
   await tl.at(3500);
   tl.showCaption(CAPTIONS.scroll);
   tl.highlight("[data-tl=notifications-dropdown]");
+  await tl.wait(1200);
+  tl.clearHighlight();
 
-  await tl.at(6000);
-  // Auto-scroll inside notif-list to item n6 using moveCursorTo
-  await tl.moveCursorTo("[data-tl=notif-item-n6]", { ms: 800 });
+  await tl.at(5500);
+  await hoverOn(tl, "[data-tl=notif-item-n6]", { ms: 800 });
+  await ring(tl, "[data-tl=notif-item-n6]", 1800);
 
   // 3. Mark all read
-  await tl.at(10000);
-  tl.clearHighlight();
+  await tl.at(9500);
   tl.showCaption(CAPTIONS.markRead);
-  await tl.moveCursorTo("[data-tl=notif-mark-read]", { ms: 600 });
-  await tl.click("[data-tl=notif-mark-read]");
+  await pressOn(tl, "[data-tl=notif-mark-read]", { ms: 600 });
   tl.setVar("wfUnreadCount", 0);
+  await tl.wait(600);
 
-  await tl.at(14500);
-  tl.hideCaption();
+  // 4. Close and finish
   await closePopovers(tl);
-  await tl.at(STEP5_DURATION_MS);
+  await finishWorkforce(tl, 14500, STEP5_DURATION_MS);
 }
