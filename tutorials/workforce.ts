@@ -16,6 +16,8 @@ import { Step8 } from "@/scenes/workforce/step8/Step8";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/workforce/step8/script";
 import { Step9 } from "@/scenes/workforce/step9/Step9";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/workforce/step9/script";
+import { Step10 } from "@/scenes/workforce/step10/Step10";
+import { runStep10, STEP10_DURATION_MS } from "@/scenes/workforce/step10/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -81,6 +83,12 @@ export const workforce: Tutorial = {
       title: "Today's attendance",
       url: "workforce.snaarp.com/my-space",
       scene: { Component: Step9, run: runStep9, durationMs: STEP9_DURATION_MS },
+    },
+    {
+      id: "activity-payslips",
+      title: "Activity",
+      url: "workforce.snaarp.com/my-space",
+      scene: { Component: Step10, run: runStep10, durationMs: STEP10_DURATION_MS },
     },
   ],
   completion: {
