@@ -23,6 +23,9 @@ import {
   ReviewFormView,
   ReviewResultView,
 } from "./AppraisalsView";
+import { PoliciesView } from "./PoliciesView";
+import { LearningHubView } from "./LearningHubView";
+import { NotificationsView } from "./NotificationsView";
 import { WorkforceShell } from "./WorkforceShell";
 import { URLS, type MySpaceSubId, type WorkforceNavId } from "./workforce-data";
 
@@ -44,7 +47,13 @@ export type WorkforcePage =
   | "goals"
   | "performance"
   | "performance-review"
-  | "performance-result";
+  | "performance-result"
+  | "policies"
+  | "policies-folder"
+  | "policy-details"
+  | "learning"
+  | "learning-course"
+  | "notifications";
 
 type Props = {
   tl: Timeline;
@@ -130,6 +139,19 @@ export function WorkforceStage({
   ) {
     activeNav = "appraisals";
     topTitle = "My Appraisals";
+  } else if (
+    page === "policies" ||
+    page === "policies-folder" ||
+    page === "policy-details"
+  ) {
+    activeNav = "policies";
+    topTitle = "Workforce";
+  } else if (page === "learning" || page === "learning-course") {
+    activeNav = "learning-hub";
+    topTitle = "Learning Hub";
+  } else if (page === "notifications") {
+    activeNav = "notifications";
+    topTitle = "Notifications";
   }
 
   const handleNavigateNav = (nav: WorkforceNavId) => {
@@ -155,6 +177,16 @@ export function WorkforceStage({
     } else if (nav === "appraisals") {
       tl.setVar("wfPage", "performance");
       tl.setUrl(URLS.performance);
+    } else if (nav === "policies") {
+      tl.setVar("wfPage", "policies");
+      tl.setUrl(URLS.policies);
+    } else if (nav === "learning-hub") {
+      tl.setVar("wfPage", "learning");
+      tl.setUrl(URLS.learning);
+    } else if (nav === "notifications") {
+      tl.setVar("wfPage", "notifications");
+      tl.setVar("wfUnreadCount", 0);
+      tl.setUrl(URLS.notifications);
     }
   };
 
@@ -365,6 +397,13 @@ export function WorkforceStage({
           }}
         />
       )}
+      {(page === "policies" ||
+        page === "policies-folder" ||
+        page === "policy-details") && <PoliciesView tl={tl} />}
+      {(page === "learning" || page === "learning-course") && (
+        <LearningHubView tl={tl} />
+      )}
+      {page === "notifications" && <NotificationsView tl={tl} />}
       <div
         className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${
           fade ? "opacity-100" : "opacity-0"

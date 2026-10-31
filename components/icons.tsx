@@ -134,6 +134,16 @@ const bodies = {
   ),
   pause: <path d="M8 5v14M16 5v14" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />,
   play: <path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />,
+  volumeMute: (
+    <path
+      d="M11 5L6 9H2v6h4l5 4V5zM22 9l-6 6M16 9l6 6"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    />
+  ),
   logoMark: (
     <>
       <rect x="1" y="1" width="22" height="22" rx="6.5" fill="currentColor" />

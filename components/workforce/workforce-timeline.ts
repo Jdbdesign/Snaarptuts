@@ -66,6 +66,17 @@ export function beginWorkforce(
   tl.setVar("wfReviewSubmitting", false);
   tl.setVar("wfReviewSubmitted", false);
   tl.setVar("wfActiveReviewSelect", null);
+  tl.setVar("wfPolicyViewerOpen", false);
+  tl.setVar("wfCertificateViewerOpen", false);
+  tl.setVar("wfCertificateToast", false);
+  tl.setVar("wfLearningTab", "hub");
+  tl.setVar("wfLearningCategoryOpen", false);
+  tl.setVar("wfLearningLoading", false);
+  tl.setVar("wfLessonState", "ready");
+  tl.setVar("wfLessonSeconds", 0);
+  tl.setVar("wfLessonCompleted", false);
+  tl.setVar("wfCourseCompleted", false);
+  tl.setVar("wfLessonSpinner", false);
   tl.setVar("fade", false);
 }
 

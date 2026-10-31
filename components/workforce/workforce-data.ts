@@ -276,6 +276,14 @@ export const URLS = {
   performance: "workforce.snaarp.com/performance",
   performanceReview: "workforce.snaarp.com/performance/reviews/sample",
   performanceAssigned: "workforce.snaarp.com/performance?tab=Assigned+Reviews",
+  policies: "workforce.snaarp.com/policies",
+  policiesEngineering: "workforce.snaarp.com/policies/folders/engineering",
+  policyDetails: "workforce.snaarp.com/policies/documents/engineering-policy",
+  learning: "workforce.snaarp.com/learning",
+  learningCategory: "workforce.snaarp.com/learning?category=engineering",
+  learningCourse: "workforce.snaarp.com/learning/course/engineering",
+  learningRecord: "workforce.snaarp.com/learning?tab=record",
+  notifications: "workforce.snaarp.com/notifications",
 };
 
 export const SAMPLE_SALARY_ADVANCE = {
@@ -634,3 +642,117 @@ export const SAMPLE_APPRAISALS = {
     "5 - Outstanding",
   ],
 };
+
+export const SAMPLE_POLICIES = {
+  department: "Engineering",
+  folderCount: 1,
+  document: {
+    title: "ENGINEERING POLICY",
+    version: "1.0",
+    status: "Approved",
+    uploadedDate: "30/10/2026",
+    uploadedBy: "Sam Taylor",
+    uploadedTimestamp: "30/10/2026, 7:49:43 AM",
+    reviewedTimestamp: "30/10/2026, 7:51:51 AM",
+    fileName: "engineering-policy.pdf",
+    fileSize: "5 KB",
+    description: "Policies for engineering department",
+  },
+};
+
+export const SAMPLE_LEARNING = {
+  courseTitle: "Engineering course",
+  category: "Engineering",
+  duration: "31m",
+  durationHours: "0.5 hrs",
+  status: "published",
+  docType: "documented course",
+  overdueText: "Overdue - you can still complete this course · 0% · 0 minutes tracked",
+  completedDate: "30 Oct 2026",
+};
+
+export const FULL_NOTIFICATIONS_LIST = [
+  {
+    id: "notif-1",
+    linkText: "View course",
+    title: "Training completed",
+    detail: "Alex Morgan completed Engineering course.",
+    time: "30/10/2026, 10:10:35 AM",
+  },
+  {
+    id: "notif-2",
+    tag: "NEW MONTH CELEBRATIONS",
+    title: "Celebrating a new month",
+    detail: "Celebrating a new month",
+    time: "30/10/2026, 9:00:00 AM",
+  },
+  {
+    id: "notif-3",
+    linkText: "View onboarding",
+    title: "Onboarding updated",
+    detail: "Alex Morgan: Onboarding - complete.",
+    time: "30/10/2026, 8:09:47 AM",
+  },
+  {
+    id: "notif-4",
+    linkText: "View onboarding",
+    title: "Onboarding updated",
+    detail: "Alex Morgan: Upload identity document - approve.",
+    time: "30/10/2026, 8:09:24 AM",
+  },
+  {
+    id: "notif-5",
+    linkText: "View onboarding",
+    title: "Onboarding updated",
+    detail: "Alex Morgan: Complete your employee profile - approve.",
+    time: "30/10/2026, 8:09:00 AM",
+  },
+  {
+    id: "notif-6",
+    linkText: "View onboarding",
+    title: "Onboarding assigned",
+    detail: "Onboarding tasks are ready for Alex Morgan.",
+    time: "30/10/2026, 8:08:42 AM",
+  },
+  {
+    id: "notif-7",
+    linkText: "View compliance policy",
+    title: "Policy approved",
+    detail: "ENGINEERING POLICY: approved.",
+    time: "30/10/2026, 7:51:51 AM",
+  },
+  {
+    id: "notif-8",
+    linkText: "Upload department policies",
+    title: "Policy upload assigned",
+    detail: "You can upload policies to Engineering policies. Open the folder and use Upload policy.",
+    time: "30/10/2026, 7:48:32 AM",
+  },
+  {
+    id: "notif-9",
+    linkText: "View performance review",
+    title: "2027 Appraisal cycle: acknowledge your appraisal result",
+    detail: "2027 Appraisal cycle: acknowledge your appraisal result",
+    time: "30/10/2026, 1:00:01 AM",
+  },
+  {
+    id: "notif-10",
+    title: "Attendance automatically stopped",
+    detail: "Your attendance was stopped at 18:15 (Europe/London) after your attendance cutoff.",
+    time: "29/10/2026, 6:15:00 PM",
+  },
+  {
+    id: "notif-11",
+    linkText: "View performance review",
+    title: "Q4 cycle: self assessment due 2026-10-28",
+    detail: "Q4 cycle: self assessment due 2026-10-28",
+    time: "29/10/2026, 5:46:40 PM",
+  },
+  {
+    id: "notif-12",
+    linkText: "View performance review",
+    title: "2027 Appraisal cycle: self assessment due 2026-10-27",
+    detail: "2027 Appraisal cycle: self assessment due 2026-10-27",
+    time: "26/10/2026, 3:10:00 PM",
+  },
+];

@@ -111,7 +111,7 @@ export function WorkforceShell({
           </div>
 
           {/* Navigation items list */}
-          <div className="flex-1 overflow-y-auto no-scrollbar py-3 px-2 flex flex-col justify-between">
+          <div data-scroller="workforce-sidebar" className="flex-1 overflow-y-auto no-scrollbar py-3 px-2 flex flex-col justify-between">
             <div>
               {!sidebarCollapsed && (
                 <div className="px-3 pb-2 pt-1 text-[10px] font-semibold tracking-wider text-[#9CA3AF]">

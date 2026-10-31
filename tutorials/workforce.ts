@@ -86,6 +86,8 @@ import { Step43 } from "@/scenes/workforce/step43/Step43";
 import { runStep43, STEP43_DURATION_MS } from "@/scenes/workforce/step43/script";
 import { Step44 } from "@/scenes/workforce/step44/Step44";
 import { runStep44, STEP44_DURATION_MS } from "@/scenes/workforce/step44/script";
+import { Step45 } from "@/scenes/workforce/step45/Step45";
+import { runStep45, STEP45_DURATION_MS } from "@/scenes/workforce/step45/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -361,6 +363,12 @@ export const workforce: Tutorial = {
       title: "View your result",
       url: "workforce.snaarp.com/performance/reviews/sample",
       scene: { Component: Step44, run: runStep44, durationMs: STEP44_DURATION_MS },
+    },
+    {
+      id: "policies",
+      title: "Policies",
+      url: "workforce.snaarp.com/policies",
+      scene: { Component: Step45, run: runStep45, durationMs: STEP45_DURATION_MS },
     },
   ],
   completion: {
