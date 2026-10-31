@@ -28,6 +28,8 @@ import { Step14 } from "@/scenes/workforce/step14/Step14";
 import { runStep14, STEP14_DURATION_MS } from "@/scenes/workforce/step14/script";
 import { Step15 } from "@/scenes/workforce/step15/Step15";
 import { runStep15, STEP15_DURATION_MS } from "@/scenes/workforce/step15/script";
+import { Step16 } from "@/scenes/workforce/step16/Step16";
+import { runStep16, STEP16_DURATION_MS } from "@/scenes/workforce/step16/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -129,6 +131,12 @@ export const workforce: Tutorial = {
       title: "Activity tab",
       url: "workforce.snaarp.com/my-space/onboarding/records/rec-001",
       scene: { Component: Step15, run: runStep15, durationMs: STEP15_DURATION_MS },
+    },
+    {
+      id: "my-profile",
+      title: "My Profile",
+      url: "workforce.snaarp.com/my-space",
+      scene: { Component: Step16, run: runStep16, durationMs: STEP16_DURATION_MS },
     },
   ],
   completion: {
