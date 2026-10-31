@@ -6,6 +6,7 @@ export const STEP2_DURATION_MS = 16000;
 
 export async function runStep2(tl: Timeline) {
   beginWorkforce(tl, URLS.dashboard, "dashboard");
+  tl.placeCursorOn("[data-tl=your-overview]");
 
   // 1. My leave
   await tl.at(500);

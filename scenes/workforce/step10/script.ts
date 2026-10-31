@@ -6,6 +6,7 @@ export const STEP10_DURATION_MS = 28000;
 
 export async function runStep10(tl: Timeline) {
   beginWorkforce(tl, URLS.mySpace, "my-space", "overview");
+  tl.placeCursorOn("[data-tl=stat-worked]");
 
   // 1. Activities
   await tl.at(500);

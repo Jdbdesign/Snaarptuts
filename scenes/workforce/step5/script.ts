@@ -6,6 +6,7 @@ export const STEP5_DURATION_MS = 16000;
 
 export async function runStep5(tl: Timeline) {
   beginWorkforce(tl, URLS.dashboard, "dashboard");
+  tl.placeCursorOn("[data-tl=card-announcements]");
 
   // 1. Open notifications popover
   await tl.at(500);

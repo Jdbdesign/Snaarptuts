@@ -7,6 +7,7 @@ export const STEP11_DURATION_MS = 18000;
 export async function runStep11(tl: Timeline) {
   beginWorkforce(tl, URLS.mySpace, "my-space", "overview");
   tl.setVar("wfOnboardingStatus", "Active");
+  tl.placeCursorOn("[data-tl=card-payslips]");
 
   // 1. Open My onboarding
   await tl.at(500);

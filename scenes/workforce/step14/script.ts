@@ -7,6 +7,7 @@ export const STEP14_DURATION_MS = 11000;
 export async function runStep14(tl: Timeline) {
   beginWorkforce(tl, URLS.onboardingRecord, "onboarding-record");
   tl.setVar("wfActiveRecordTab", "overview");
+  tl.placeCursorOn("[data-tl=btn-back-onboarding-record]");
 
   // 1. Click Documents tab
   await tl.at(500);

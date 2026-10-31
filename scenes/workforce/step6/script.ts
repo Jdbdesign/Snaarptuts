@@ -6,6 +6,7 @@ export const STEP6_DURATION_MS = 18000;
 
 export async function runStep6(tl: Timeline) {
   beginWorkforce(tl, URLS.dashboard, "dashboard");
+  tl.placeCursorOn("[data-tl=top-bell]");
 
   // 1. Add Users
   await tl.at(500);

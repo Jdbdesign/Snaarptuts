@@ -7,6 +7,7 @@ export const STEP13_DURATION_MS = 18000;
 export async function runStep13(tl: Timeline) {
   beginWorkforce(tl, URLS.onboardingRecord, "onboarding-record");
   tl.setVar("wfActiveRecordTab", "checklist");
+  tl.placeCursorOn("[data-tl=record-progress-card]");
 
   // 1. Checklist tab overview
   await tl.at(500);

@@ -5,7 +5,7 @@ import { CAPTIONS, URLS } from "./data";
 export const STEP12_DURATION_MS = 15000;
 
 export async function runStep12(tl: Timeline) {
-  beginWorkforce(tl, URLS.onboarding, "onboarding", "onboarding");
+  beginWorkforce(tl, URLS.onboarding, "onboarding", "onboarding", [0.45, 0.58]);
   tl.setVar("wfOnboardingStatus", "Completed");
   tl.setVar("wfActiveRecordTab", "overview");
 

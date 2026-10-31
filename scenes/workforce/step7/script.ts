@@ -6,6 +6,7 @@ export const STEP7_DURATION_MS = 28000;
 
 export async function runStep7(tl: Timeline) {
   beginWorkforce(tl, URLS.dashboard, "dashboard");
+  tl.placeCursorOn("[data-tl=top-avatar]");
 
   // 1. Suite Rail
   await tl.at(500);

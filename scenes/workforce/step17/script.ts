@@ -9,6 +9,7 @@ export async function runStep17(tl: Timeline) {
   tl.setVar("field:contact-phone", "");
   tl.setVar("field:address-line", "");
   tl.setVar("field:city", "");
+  tl.placeCursorOn("[data-tl=card-contact-details]");
 
   // 1. Form introduction
   await tl.at(500);

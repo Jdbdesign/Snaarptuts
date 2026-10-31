@@ -6,6 +6,7 @@ export const STEP4_DURATION_MS = 11000;
 
 export async function runStep4(tl: Timeline) {
   beginWorkforce(tl, URLS.dashboard, "dashboard");
+  tl.placeCursorOn("[data-tl=tab-sickness]");
 
   // 1. Next 7 days card
   await tl.at(500);

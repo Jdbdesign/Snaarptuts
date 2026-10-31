@@ -7,6 +7,7 @@ export const STEP9_DURATION_MS = 16000;
 export async function runStep9(tl: Timeline) {
   beginWorkforce(tl, URLS.mySpace, "my-space", "overview");
   tl.setVar("wfCheckedIn", true);
+  tl.placeCursorOn("[data-tl=link-edit-profile]");
 
   // 1. Live Attendance timer
   await tl.at(500);

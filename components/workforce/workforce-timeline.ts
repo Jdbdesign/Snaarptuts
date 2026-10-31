@@ -12,8 +12,10 @@ export function beginWorkforce(
   tl: Timeline,
   url: string = URLS.dashboard,
   page: WorkforcePage = "dashboard",
-  subpage: MySpaceSubId = "overview"
+  subpage: MySpaceSubId = "overview",
+  cursor: [number, number] = [0.5, 0.42]
 ) {
+  tl.placeCursor(cursor[0], cursor[1]);
   tl.setUrl(url);
   tl.setVar("wfPage", page);
   tl.setVar("wfSubpage", subpage);

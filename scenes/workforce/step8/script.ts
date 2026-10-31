@@ -7,6 +7,7 @@ export const STEP8_DURATION_MS = 15000;
 export async function runStep8(tl: Timeline) {
   beginWorkforce(tl, URLS.dashboard, "dashboard");
   tl.setVar("wfMySpaceExpanded", false);
+  tl.placeCursorOn("[data-tl=wf-collapse-btn]");
 
   // 1. Click My Space to expand
   await tl.at(500);

@@ -119,6 +119,7 @@ To ensure rock-solid playback that never drifts regardless of CPU performance or
 - Gaps between beats are typically 2.5s to 4.0s to allow viewers time to absorb each action and read captions.
 - Speeds: Use `ms: 700 - 900` for long cross-screen glides; `ms: 450 - 600` for short local adjustments.
 - Continuity: When Step N+1 starts on the same screen where Step N ended, use `tl.placeCursorOn(selector)` to resume seamlessly from the previous cursor position; otherwise use `tl.placeCursor(x, y)`.
+- Every step helper (begin*) MUST call tl.placeCursor; without it the pointer is invisible.
 - Step Conclusion: Every step concludes with `tl.hideCaption()`, setting `tl.setVar("fade", true)` for the clean white transition, and awaiting the full step duration: `await tl.at(STEP_DURATION_MS)`.
 
 ---

@@ -7,6 +7,7 @@ export const STEP15_DURATION_MS = 15000;
 export async function runStep15(tl: Timeline) {
   beginWorkforce(tl, URLS.onboardingRecord, "onboarding-record");
   tl.setVar("wfActiveRecordTab", "overview");
+  tl.placeCursorOn("[data-tl=tab-rec-documents]");
 
   // 1. Click Activity tab
   await tl.at(500);

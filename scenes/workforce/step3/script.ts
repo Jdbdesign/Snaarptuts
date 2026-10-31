@@ -6,6 +6,7 @@ export const STEP3_DURATION_MS = 15000;
 
 export async function runStep3(tl: Timeline) {
   beginWorkforce(tl, URLS.dashboard, "dashboard");
+  tl.placeCursorOn("[data-tl=btn-view-tasks]");
 
   // 1. Tasks tab
   await tl.at(500);
