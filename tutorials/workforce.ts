@@ -90,6 +90,8 @@ import { Step45 } from "@/scenes/workforce/step45/Step45";
 import { runStep45, STEP45_DURATION_MS } from "@/scenes/workforce/step45/script";
 import { Step46 } from "@/scenes/workforce/step46/Step46";
 import { runStep46, STEP46_DURATION_MS } from "@/scenes/workforce/step46/script";
+import { Step47 } from "@/scenes/workforce/step47/Step47";
+import { runStep47, STEP47_DURATION_MS } from "@/scenes/workforce/step47/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -377,6 +379,12 @@ export const workforce: Tutorial = {
       title: "Engineering policies",
       url: "workforce.snaarp.com/policies/folders/engineering",
       scene: { Component: Step46, run: runStep46, durationMs: STEP46_DURATION_MS },
+    },
+    {
+      id: "policy-details",
+      title: "Policy details",
+      url: "workforce.snaarp.com/policies/documents/engineering-policy",
+      scene: { Component: Step47, run: runStep47, durationMs: STEP47_DURATION_MS },
     },
   ],
   completion: {
