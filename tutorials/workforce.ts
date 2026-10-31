@@ -104,6 +104,8 @@ import { Step52 } from "@/scenes/workforce/step52/Step52";
 import { runStep52, STEP52_DURATION_MS } from "@/scenes/workforce/step52/script";
 import { Step53 } from "@/scenes/workforce/step53/Step53";
 import { runStep53, STEP53_DURATION_MS } from "@/scenes/workforce/step53/script";
+import { Step54 } from "@/scenes/workforce/step54/Step54";
+import { runStep54, STEP54_DURATION_MS } from "@/scenes/workforce/step54/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -434,9 +436,15 @@ export const workforce: Tutorial = {
       url: "workforce.snaarp.com/learning?tab=record",
       scene: { Component: Step53, run: runStep53, durationMs: STEP53_DURATION_MS },
     },
+    {
+      id: "notifications-page",
+      title: "Notifications",
+      url: "workforce.snaarp.com/notifications",
+      scene: { Component: Step54, run: runStep54, durationMs: STEP54_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "You now know how to navigate the Workforce Dashboard, My Space, Attendance, Leave Tracker, Time Tracker, Goals, and My Appraisals.",
+    text: "You now know how to navigate the Workforce Dashboard, My Space, Attendance, Leave Tracker, Time Tracker, Goals, My Appraisals, Policies, Learning Hub, and Notifications.",
   },
 };
