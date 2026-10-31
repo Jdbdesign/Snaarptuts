@@ -6,6 +6,8 @@ import { Step3 } from "@/scenes/workforce/step3/Step3";
 import { runStep3, STEP3_DURATION_MS } from "@/scenes/workforce/step3/script";
 import { Step4 } from "@/scenes/workforce/step4/Step4";
 import { runStep4, STEP4_DURATION_MS } from "@/scenes/workforce/step4/script";
+import { Step5 } from "@/scenes/workforce/step5/Step5";
+import { runStep5, STEP5_DURATION_MS } from "@/scenes/workforce/step5/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -41,6 +43,12 @@ export const workforce: Tutorial = {
       title: "Next 7 days and Announcements",
       url: "workforce.snaarp.com/dashboard",
       scene: { Component: Step4, run: runStep4, durationMs: STEP4_DURATION_MS },
+    },
+    {
+      id: "notifications",
+      title: "Notifications",
+      url: "workforce.snaarp.com/dashboard",
+      scene: { Component: Step5, run: runStep5, durationMs: STEP5_DURATION_MS },
     },
   ],
   completion: {
