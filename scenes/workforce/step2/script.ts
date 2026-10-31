@@ -24,7 +24,7 @@ export async function runStep2(tl: Timeline) {
   await tl.at(8000);
   tl.clearHighlight();
   tl.showCaption(CAPTIONS.goals);
-  await tl.moveCursorTo("[data-tl=btn-view-goals]", { ms: 700 });
+  await tl.moveCursorTo("[data-tl=btn-view-objectives]", { ms: 700 });
   tl.highlight("[data-tl=overview-card-objectives]");
 
   // 4. My tasks

@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 import { Icon, ProductLogo } from "@/components/icons";
-import { useNarrow } from "@/lib/useNarrow";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
@@ -13,8 +12,6 @@ import {
   type MySpaceSubId,
   type WorkforceNavId,
 } from "./workforce-data";
-
-export const WORKFORCE_NARROW_ZOOM = 2.4;
 
 type Props = {
   tl: Timeline;
@@ -39,8 +36,6 @@ export function WorkforceShell({
   overlay,
   children,
 }: Props) {
-  const narrow = useNarrow();
-
   // Scene variables for dynamic state
   const sidebarCollapsed = useTimelineVar(tl, "wfSidebarCollapsed", false);
   const mySpaceExpanded = useTimelineVar(tl, "wfMySpaceExpanded", activeNav === "my-space" || !!activeSub);
@@ -55,20 +50,18 @@ export function WorkforceShell({
 
   return (
     <div data-scroller className="relative h-full w-full overflow-hidden bg-[#F8F9FB] text-[#111827] font-['Poppins',sans-serif]">
-      <div className="flex h-full w-full" style={{ zoom: narrow ? WORKFORCE_NARROW_ZOOM : 1 }}>
+      <div className="flex h-full w-full">
         {/* 1. Thin far-left Snaarp suite rail */}
         <aside
           data-tl="suite-rail"
-          className={`relative flex h-full shrink-0 flex-col items-center border-r border-[#E5E7EB] bg-white pt-4 select-none ${
-            narrow ? "w-[34px]" : "w-[62px]"
-          }`}
+          className="relative flex h-full shrink-0 flex-col items-center border-r border-[#E5E7EB] bg-white pt-4 select-none w-[62px]"
         >
           <button
             type="button"
             data-tl="suite-hamburger"
             className="flex h-8 w-8 items-center justify-center rounded-lg text-[#6B7280] hover:bg-gray-100 transition-colors"
           >
-            <Icon name="menu" size={narrow ? 14 : 20} />
+            <Icon name="menu" size={20} />
           </button>
 
           <ul className="mt-5 flex min-h-0 flex-col items-center gap-2 overflow-y-auto no-scrollbar pb-16">
@@ -76,24 +69,20 @@ export function WorkforceShell({
               <li
                 key={item.id}
                 data-tl={`suite-app-${item.id}`}
-                className={`flex shrink-0 flex-col items-center justify-center rounded-xl transition-all cursor-pointer ${
-                  narrow ? "h-7 w-7" : "h-11 w-12 gap-1 py-1"
-                } hover:bg-purple-50`}
+                className="flex shrink-0 flex-col items-center justify-center rounded-xl transition-all cursor-pointer h-11 w-12 gap-1 py-1 hover:bg-purple-50"
               >
-                <ProductLogo name={item.logo} size={narrow ? 16 : 22} className="rounded-md" />
-                {!narrow && <span className="text-[9px] font-medium leading-[11px] text-[#6B7280]">{item.label}</span>}
+                <ProductLogo name={item.logo} size={22} className="rounded-md" />
+                <span className="text-[9px] font-medium leading-[11px] text-[#6B7280]">{item.label}</span>
               </li>
             ))}
           </ul>
 
           <div
             data-tl="suite-logout"
-            className={`absolute bottom-3 flex flex-col items-center bg-white cursor-pointer ${
-              narrow ? "" : "w-full gap-1 pt-1"
-            }`}
+            className="absolute bottom-3 flex flex-col items-center bg-white cursor-pointer w-full gap-1 pt-1"
           >
-            <Icon name="logout" size={narrow ? 14 : 18} className="text-[#4B5563]" />
-            {!narrow && <span className="text-[9px] font-medium text-[#6B7280]">Logout</span>}
+            <Icon name="logout" size={18} className="text-[#4B5563]" />
+            <span className="text-[9px] font-medium text-[#6B7280]">Logout</span>
           </div>
         </aside>
 
@@ -101,40 +90,32 @@ export function WorkforceShell({
         <aside
           data-tl="wf-sidebar"
           className={`flex h-full shrink-0 flex-col border-r border-[#E5E7EB] bg-white transition-all duration-200 select-none ${
-            sidebarCollapsed
-              ? narrow
-                ? "w-[36px]"
-                : "w-[64px]"
-              : narrow
-              ? "w-[44px]"
-              : "w-[220px]"
+            sidebarCollapsed ? "w-[64px]" : "w-[220px]"
           }`}
         >
           {/* Logo & collapse header */}
           <div className="flex h-14 shrink-0 items-center justify-between border-b border-[#F3F4F6] px-4">
             <div className="flex items-center gap-2 overflow-hidden">
               <ProductLogo name="workforce" size={sidebarCollapsed ? 26 : 28} className="rounded-lg shrink-0" />
-              {!sidebarCollapsed && !narrow && (
+              {!sidebarCollapsed && (
                 <span className="font-semibold text-base tracking-tight text-[#111827]">Workforce</span>
               )}
             </div>
-            {!narrow && (
-              <button
-                type="button"
-                data-tl="wf-collapse-btn"
-                onClick={() => tl.setVar("wfSidebarCollapsed", !sidebarCollapsed)}
-                className="flex h-7 w-7 items-center justify-center rounded-md text-[#6B7280] hover:bg-gray-100 transition-colors"
-                title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-              >
-                <Icon name={sidebarCollapsed ? "wfExpand" : "wfCollapse"} size={16} />
-              </button>
-            )}
+            <button
+              type="button"
+              data-tl="wf-collapse-btn"
+              onClick={() => tl.setVar("wfSidebarCollapsed", !sidebarCollapsed)}
+              className="flex h-7 w-7 items-center justify-center rounded-md text-[#6B7280] hover:bg-gray-100 transition-colors"
+              title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              <Icon name={sidebarCollapsed ? "wfExpand" : "wfCollapse"} size={16} />
+            </button>
           </div>
 
           {/* Navigation items list */}
           <div className="flex-1 overflow-y-auto no-scrollbar py-3 px-2 flex flex-col justify-between">
             <div>
-              {!sidebarCollapsed && !narrow && (
+              {!sidebarCollapsed && (
                 <div className="px-3 pb-2 pt-1 text-[10px] font-semibold tracking-wider text-[#9CA3AF]">
                   WORKSPACE
                 </div>
@@ -156,7 +137,7 @@ export function WorkforceShell({
                           onNavigateNav?.(item.id);
                         }}
                         className={`group flex items-center rounded-lg text-xs font-medium transition-colors ${
-                          sidebarCollapsed || narrow
+                          sidebarCollapsed
                             ? "h-9 w-9 justify-center mx-auto"
                             : "h-9 px-3 gap-3 justify-between"
                         } ${
@@ -171,11 +152,11 @@ export function WorkforceShell({
                             size={18}
                             className={`shrink-0 ${isActive ? "text-[#7014D9]" : "text-[#6B7280] group-hover:text-[#111827]"}`}
                           />
-                          {!sidebarCollapsed && !narrow && (
+                          {!sidebarCollapsed && (
                             <span className="truncate">{item.label}</span>
                           )}
                         </div>
-                        {isExpandable && !sidebarCollapsed && !narrow && (
+                        {isExpandable && !sidebarCollapsed && (
                           <span
                             data-tl="nav-my-space-chevron"
                             className={`transition-transform duration-200 text-[#6B7280] ${
@@ -188,7 +169,7 @@ export function WorkforceShell({
                       </button>
 
                       {/* Expandable sub-items (My Space) */}
-                      {isExpandable && mySpaceExpanded && !sidebarCollapsed && !narrow && item.subItems && (
+                      {isExpandable && mySpaceExpanded && !sidebarCollapsed && item.subItems && (
                         <div data-tl="my-space-sublist" className="mt-1 ml-4 pl-3 border-l border-[#E5E7EB] flex flex-col gap-0.5">
                           {item.subItems.map((sub) => {
                             const isSubActive = activeSub === sub.id;
@@ -223,22 +204,22 @@ export function WorkforceShell({
                 data-tl="nav-report-bug"
                 onClick={() => onNavigateNav?.("report-bug")}
                 className={`flex items-center rounded-lg text-xs font-medium text-[#EF4444] hover:bg-red-50 transition-colors ${
-                  sidebarCollapsed || narrow ? "h-9 w-9 justify-center mx-auto" : "h-9 px-3 gap-3"
+                  sidebarCollapsed ? "h-9 w-9 justify-center mx-auto" : "h-9 px-3 gap-3"
                 }`}
               >
                 <Icon name="bug" size={18} className="shrink-0 text-[#EF4444]" />
-                {!sidebarCollapsed && !narrow && <span>Report a Bug</span>}
+                {!sidebarCollapsed && <span>Report a Bug</span>}
               </button>
               <button
                 type="button"
                 data-tl="nav-admin-panel"
                 onClick={() => onNavigateNav?.("admin-panel")}
                 className={`flex items-center rounded-lg text-xs font-medium text-[#4B5563] hover:bg-gray-100 transition-colors ${
-                  sidebarCollapsed || narrow ? "h-9 w-9 justify-center mx-auto" : "h-9 px-3 gap-3"
+                  sidebarCollapsed ? "h-9 w-9 justify-center mx-auto" : "h-9 px-3 gap-3"
                 }`}
               >
                 <Icon name="adminSquare" size={18} className="shrink-0 text-[#6B7280]" />
-                {!sidebarCollapsed && !narrow && <span>Admin Panel</span>}
+                {!sidebarCollapsed && <span>Admin Panel</span>}
               </button>
             </div>
           </div>

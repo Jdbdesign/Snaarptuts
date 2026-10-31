@@ -30,6 +30,8 @@ import { Step15 } from "@/scenes/workforce/step15/Step15";
 import { runStep15, STEP15_DURATION_MS } from "@/scenes/workforce/step15/script";
 import { Step16 } from "@/scenes/workforce/step16/Step16";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/workforce/step16/script";
+import { Step17 } from "@/scenes/workforce/step17/Step17";
+import { runStep17, STEP17_DURATION_MS } from "@/scenes/workforce/step17/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -137,6 +139,12 @@ export const workforce: Tutorial = {
       title: "My Profile",
       url: "workforce.snaarp.com/my-space",
       scene: { Component: Step16, run: runStep16, durationMs: STEP16_DURATION_MS },
+    },
+    {
+      id: "edit-contact-details",
+      title: "Edit contact details",
+      url: "workforce.snaarp.com/my-space/profile",
+      scene: { Component: Step17, run: runStep17, durationMs: STEP17_DURATION_MS },
     },
   ],
   completion: {

@@ -10,7 +10,7 @@ import { OnboardingRecordView } from "./OnboardingRecordView";
 import { ProfileView } from "./ProfileView";
 import { TaskDetailView } from "./TaskDetailView";
 import { WorkforceShell } from "./WorkforceShell";
-import { URLS, type ActivityTabId, type MySpaceSubId, type WorkforceNavId } from "./workforce-data";
+import { URLS, type MySpaceSubId, type WorkforceNavId } from "./workforce-data";
 
 export type WorkforcePage =
   | "dashboard"
