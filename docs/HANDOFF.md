@@ -164,3 +164,12 @@ Manual test of saved progress (no unit-test runner in the project): 1) finish a 
 ## Auto-scroll and visibility QA (latest)
 
 Because users can no longer scroll the canvas, the timeline scrolls for them: `Timeline.ensureVisible` (`lib/timeline.ts`, geometry in `lib/visibility.ts`) runs before every cursor move, click, highlight, hover, follow-path and targeted caption. Details and the rule for scenes: `CLAUDE.md` ("Auto-scroll and visibility QA") and `docs/STEPS.md`. `npm run qa:visibility` plays all 154 steps at four viewport sizes (about 25 minutes at `--speed 2`) and writes `docs/QA-VISIBILITY.md`; last run: no open findings. Test-only hooks on `window` (`__snaarpProbe`, `__snaarpSpeed`) are read by the timeline and ignored when absent. Playwright (`playwright`, `tsx`) is now a dev dependency; browsers are the ones Playwright installs. Not pushed yet: the work sits on local `main` commits waiting for the owner's approval.
+
+
+## Workforce (seventh tutorial, Dashboard & My Space round)
+
+Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **17 steps, all built** (the first module: "Dashboard & My Space", followed by the data-driven completion card). Recording: `ref/workforce/Workforce_clip1.mp4` (copy of `Downloads/1030.mp4`; 1234x720, 97s, 30fps; 194 extracted reference frames in `ref/workforce/frames/`).
+
+How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and shell `components/workforce/WorkforceShell.tsx` (the thin Snaarp suite rail, collapsible 220px Workforce sidebar, and top bar with Notifications popover, Add Users popover, Apps suite popover, and Avatar menu). Driven entirely by scene variables (`wfActiveTaskTab`, `wfOpenPopover`, `wfUnreadCount`, `wfSidebarCollapsed`, `wfMySpaceExpanded`, `wfTimerSeconds`, `wfTimerRunning`, `wfActiveActivityTab`, `wfOnboardingFilter`, `wfOnboardingSearch`, `wfOnboardingTab`, `wfProfileToast`, `field:*`).
+Central sample data: `components/workforce/workforce-data.ts` (Alex Morgan, Engineering, EMP-2026-0042, Sam Taylor, UK formatting: DD/MM/YYYY, 24h clock, £ currency, Ofcom drama phone numbers).
+Tested with `npm run qa:visibility -- --tutorial workforce`: 0 findings across all 68 runs (17 steps x 4 viewports).

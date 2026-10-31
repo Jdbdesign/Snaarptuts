@@ -699,3 +699,24 @@ Recording `ref/sheets/Snaarp_Sheets_toolbar.mp4` (1446x720, 2:57; the file the b
 **Border.** The product trigger, the open list panel and the module list container went from 1 px to 2 px (same colours, straight corners, hover and focus ring kept). Boxes use border-box and the trigger has a fixed height, so nothing shifts.
 
 **Rail selector lines.** The product selector lost its box outline: it now has a 2 px light purple (#E4D7F9, the module list border colour) line along the top and bottom, running edge to edge of the rail card (pseudo-elements with -12 px side offsets), and no side borders. The open list has the same top and bottom lines (side borders removed, padding compensated). Content positions are unchanged (pixel diff of the rail before and after differs only inside the selector row and the open list edges); the module list keeps its side borders and there is no doubled line where they meet.
+
+
+## Workforce steps 1-17 (Dashboard & My Space round)
+
+Recording: `ref/workforce/Workforce_clip1.mp4` (1234x720, 1:37, 30fps; copy of `Downloads/1030.mp4`).
+
+**Sample data only (no real personal data).** The recording showed real employee information, internal announcements, and organizational names. All replaced by sample data:
+- Employee: Alex Morgan, initials "A", role Team Member, department Engineering, email alex.morgan@example.com, employee ID EMP-2026-0042, start date 14/10/2026, date of birth 01/09/1990, status ACTIVE, shift MORNING SHIFT, manager "Not provided".
+- Task owners / colleagues: Sam Taylor (instead of the recording's animator name).
+- Dates: DD/MM/YYYY format; times in 24h format (e.g., 09:05 AM formatted to match the recording's clock style); money in pounds (£).
+- Phone: +44 7700 900123 / 900456 (Ofcom UK drama range).
+- Address: 10 Acme Way, London, SW1A 1AA.
+
+**Decisions & deviations:**
+1. **"1 active goals" preserved**: The video displayed the grammar slip "1 active goals" on the Objectives overview card. Preserved verbatim to match the recording.
+2. **"View identity-document.pdf" button**: On the identity document task detail view, the recording showed a button labelled "View appraisal.pdf" (a clear label mismatch in the product). Corrected to "View identity-document.pdf".
+3. **Tasks and requests sample data**: In the recording, the tasks and requests list was empty. Populated with realistic sample tasks ("Submit Q3 timesheet" due 03/11/2026, "Read updated remote-work policy" due 05/11/2026) and leave request ("Annual leave 24/11/2026 to 26/11/2026 – Pending approval") for demo and educational value.
+4. **Next 7 days sample data**: Populated with "Team stand-up, Mon 02/11/2026" and "Approved leave: none".
+5. **Edit contact details form**: In the recording, only the card heading "Edit contact details" was shown. Built a fully interactive form with 6 inputs (phone, personal email, address line, city, postcode, emergency contact name and phone), Save changes button, and success toast ("Contact details updated").
+6. **Popovers built**: Functional popovers for Add Users (email + role invite form with Cancel and Send invite), Snaarp Suite Apps (8 suite apps grid), and Avatar menu (employee details, My profile link, Logout).
+7. **Browser chrome**: Browser navigation toolbar/tabs and OS chrome are omitted; app begins cleanly at the top bar with realistic URL pills (`workforce.snaarp.com/...`).

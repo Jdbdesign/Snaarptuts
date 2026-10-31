@@ -1640,3 +1640,63 @@ Recording `ref/sheets/Snaarp_Sheets_toolbar.mp4` (copy of `Downloads/1029(1).mp4
 **Hooks.** Tools `tool-<search|undo|redo|print|paint|zoom|currency|percent|decrease|increase|formats|font|size-minus|size|size-plus|bold|italic|strike|underline|textcolor|highlight|borders|merge|halign|valign|wrap|rotate|link|comment|chart|filter|functions|more>`, groups `tool-group-<edit|numbers|style|layout|insert|data>`, header `hdr-<apps|history|comments|video|lock|avatar>` and `editor-share`, dropdown rows `tm-<menu>-<id>` (`tm-functions-cat-<id>`, `tm-fn-<NAME>`, `tm-borders-<id>`, palette swatches `tm-<textcolor|highlight|borders-color>-<hex>`), `tool-tip`, `cur-dialog`, `field-cur-search`, `cur-list`, `cur-row-<CODE>`, `cur-apply`, `meet-dialog`, `meet-copy`, `meet-done`, `join-dialog`, `field-join`, `join-continue`, `join-back`, `find-scope`, `find-scope-<all|this>`, `find-regex`.
 
 **Shared code changed** (additive): `Cell` gained `color`, `font`, `dp`, `raw`, `borders`, `merge`; `SheetGrid` draws them (a merge spans the covered cells); `grid-state` (`numberOf` prefers `num`, formulas keep their number format, `IF` on text, `TODAY`, `WEEKDAY`, `VLOOKUP`, `INDEX`/`MATCH`, regex find, `replaceOne`); `SheetsEditor` (a hook on every tool and header icon, active / open looks, the collapsed toolbar and More, a scrolling toolbar and a visible header on phones); `ChartState` (`rowCount`, `catCol`, `at`); `FindCard` is the one shared Find and replace card.
+
+
+# Steps of the Workforce tutorial
+
+Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 4 minutes 30 seconds across 17 steps.
+
+## Source recording map
+
+`Workforce_clip1.mp4`, 1234x720, 1:37, 30fps.
+
+| Step | Title | Recording |
+|---|---|---|
+| 1 | Welcome to Workforce | 0:00 - 0:08 |
+| 2 | Your overview cards | 0:08 - 0:17 |
+| 3 | Your tasks and requests | 0:17 - 0:26 |
+| 4 | Next 7 days and Announcements | 0:26 - 0:34 |
+| 5 | Notifications | 0:34 - 0:43 |
+| 6 | Top bar tools | 0:43 - 0:52 |
+| 7 | Find your way around | 0:52 - 1:04 |
+| 8 | My Space | 1:04 - 1:11 |
+| 9 | Today's attendance | 1:11 - 1:17 |
+| 10 | Activity | 1:17 - 1:23 |
+| 11 | My onboarding | 1:23 - 1:28 |
+| 12 | Open an onboarding record | 1:28 - 1:31 |
+| 13 | Checklist | 1:31 - 1:34 |
+| 14 | Documents tab | 1:34 - 1:35 |
+| 15 | Activity tab | 1:35 - 1:36 |
+| 16 | My Profile | 1:36 - 1:37 |
+| 17 | Edit contact details | 1:37 (extended) |
+
+---
+
+## Steps summary
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 1 | Welcome to Workforce | Dashboard page; captions introducing Workforce HR software, highlights company overview stats and greeting. | 14 s |
+| 2 | Your overview cards | Dashboard; highlights My leave, My sickness, Objectives ("1 active goals"), and My tasks cards with view action buttons. | 16 s |
+| 3 | Your tasks and requests | Switches between Tasks (2 items), Leave (1 item), and Sickness (0 items) tabs. | 12 s |
+| 4 | Next 7 days and Announcements | Highlights Next 7 days agenda items and company Announcement card. | 12 s |
+| 5 | Notifications | Bell icon clicked, opens scrollable notifications dropdown (6 items), scrolls list, clicks Mark all read, badge disappears. | 16 s |
+| 6 | Top bar tools | Hovers Add Users, opens invite popover; opens Apps grid popover (8 Snaarp suite apps); opens Avatar menu with employee info. | 20 s |
+| 7 | Find your way around | Reviews far-left suite rail (Mail to PDF), WORKSPACE sidebar items (Dashboard to Admin Panel), collapses and expands sidebar. | 28 s |
+| 8 | My Space | Clicks My Space in sidebar, expands sub-items, navigates to Overview: profile card, monthly stats, direct reportees. | 14 s |
+| 9 | Today's attendance | Live attendance counter starting at 00:09:11 counting up every second; clicks Stop (timer stops, turns green Start), clicks Start. | 14 s |
+| 10 | Activity | Browses 8 activity tabs: Activities, Feeds, Approvals, Leave, Profile, Attendance, Time Logs, Timesheets. | 18 s |
+| 11 | My onboarding | Navigates to My onboarding list; switches status filter to Active (empty state), then back to Completed with onboarding table. | 16 s |
+| 12 | Open an onboarding record | Clicks onboarding record; opens detail page with 100% complete progress bar, 5 of 5 tasks badge, and Overview tab. | 14 s |
+| 13 | Checklist | Switches to Checklist tab (5 tasks); clicks "Upload identity document" task, opens task detail view with "View identity-document.pdf" button, navigates back. | 18 s |
+| 14 | Documents tab | Switches to Documents tab showing uploaded identity document record and Completed status badge. | 12 s |
+| 15 | Activity tab | Switches to Activity tab showing full chronological milestone timeline from start to completion. | 14 s |
+| 16 | My Profile | Navigates to My Profile in sidebar; inspects read-only Personal and employment details 3-column grid. | 14 s |
+| 17 | Edit contact details | Scrolls to Edit contact details card, fills contact fields (phone, email, address, emergency contact), clicks Save changes, shows success toast. Completion card follows. | 18 s |
+
+**Files.**
+- Config: `tutorials/workforce.ts`
+- Reusable Shell & Stage: `components/workforce/WorkforceShell.tsx`, `components/workforce/WorkforceStage.tsx`
+- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`
+- Central Data & Helpers: `components/workforce/workforce-data.ts`, `components/workforce/workforce-timeline.ts`
+- Step Scenes & Scripts: `scenes/workforce/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
