@@ -35,6 +35,7 @@ export function WorkforceStage({
 }: Props) {
   const page = useTimelineVar<WorkforcePage>(tl, "wfPage", startPage);
   const subpage = useTimelineVar<MySpaceSubId>(tl, "wfSubpage", startSubpage);
+  const fade = useTimelineVar(tl, "fade", false);
 
   // Map current page to sidebar activeNav and activeSub
   let activeNav: WorkforceNavId = "dashboard";
@@ -156,6 +157,11 @@ export function WorkforceStage({
           }}
         />
       )}
+      <div
+        className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${
+          fade ? "opacity-100" : "opacity-0"
+        }`}
+      />
     </WorkforceShell>
   );
 }

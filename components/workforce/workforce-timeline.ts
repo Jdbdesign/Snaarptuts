@@ -2,6 +2,9 @@ import type { Timeline } from "@/lib/timeline";
 import { URLS, type MySpaceSubId } from "./workforce-data";
 import type { WorkforcePage } from "./WorkforceStage";
 
+// Re-export generic house helpers from sheets-timeline
+export { pressOn, hoverOn, ring, endFade } from "@/components/sheets/sheets-timeline";
+
 /**
  * Resets Workforce scene variables to a clean starting state for any step.
  */
@@ -23,16 +26,32 @@ export function beginWorkforce(
   tl.setVar("wfCheckedIn", true);
   tl.setVar("wfOnboardingStatus", "Active");
   tl.setVar("wfActiveRecordTab", "overview");
+  tl.setVar("fade", false);
 }
 
 export async function openNotifications(tl: Timeline) {
   await tl.moveCursorTo("[data-tl=top-bell]", { ms: 600 });
+  tl.highlight("[data-tl=top-bell]");
+  await tl.wait(150);
   await tl.click("[data-tl=top-bell]");
+  tl.clearHighlight();
   tl.setVar("wfOpenPopover", "notifications");
-  await tl.wait(100);
+  await tl.wait(120);
 }
 
 export async function closePopovers(tl: Timeline) {
   tl.setVar("wfOpenPopover", null);
-  await tl.wait(50);
+  await tl.wait(80);
 }
+
+/**
+ * Standard white fade finish for Workforce steps.
+ */
+export async function finishWorkforce(tl: Timeline, atMs: number, endMs: number) {
+  await tl.at(atMs);
+  tl.clearHighlight();
+  tl.hideCaption();
+  tl.setVar("fade", true);
+  await tl.at(endMs);
+}
+
