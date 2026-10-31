@@ -1059,6 +1059,79 @@ const bodies = {
   shGrip: <path d="M9 7h.01M9 12h.01M9 17h.01M15 7h.01M15 12h.01M15 17h.01" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />,
   shUnlink: <path d="M10 14a3.5 3.5 0 0 0 5 0l3-3a3.5 3.5 0 0 0-5-5M14 10a3.5 3.5 0 0 0-5 0l-3 3a3.5 3.5 0 0 0 5 5M5 5l14 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />,
   shSettings: <path d="M5 8h9M18 8h1M5 16h1M10 16h9M16 6v4M8 14v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />,
+  // Workforce icons
+  wfThermometer: (
+    <>
+      <path d="M14 14.76V5a2 2 0 0 0-4 0v9.76a4 4 0 1 0 4 0Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <circle cx="12" cy="17" r="2" fill="currentColor" />
+      <path d="M12 9v5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  wfPlane: (
+    <path d="m19 12-7-8v3H4l2 5-2 5h8v3l7-8Z" fill="currentColor" />
+  ),
+  wfGift: (
+    <>
+      <rect x="3" y="8" width="18" height="4" rx="1" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    </>
+  ),
+  wfTarget: (
+    <>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+    </>
+  ),
+  wfCollapse: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M9 4v16" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M15 10l-2 2 2 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  wfExpand: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M9 4v16" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M13 10l2 2-2 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  wfStop: (
+    <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" />
+  ),
+  wfBook: (
+    <>
+      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M6 6h10M6 10h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </>
+  ),
+  wfGraduation: (
+    <>
+      <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <path d="M6 12v5c0 3 3 5 6 5s6-2 6-5v-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  wfAppraisal: (
+    <>
+      <circle cx="12" cy="8" r="5" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="m8.2 12.5-2.2 8.5 6-3 6 3-2.2-8.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </>
+  ),
+  wfTimer: (
+    <>
+      <circle cx="12" cy="13" r="8" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <path d="M12 9v4l2.5 2.5M10 2h4M12 2v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+    </>
+  ),
+  wfBadge: (
+    <>
+      <rect x="4" y="3" width="16" height="18" rx="3" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+      <path d="M8 16c0-1.8 1.8-2.8 4-2.8s4 1 4 2.8M10 5h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+    </>
+  ),
 } satisfies Record<string, ReactNode>;
 
 export type IconName = keyof typeof bodies;
