@@ -1644,11 +1644,12 @@ Recording `ref/sheets/Snaarp_Sheets_toolbar.mp4` (copy of `Downloads/1029(1).mp4
 
 # Steps of the Workforce tutorial
 
-Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 4 minutes 30 seconds across 17 steps.
+Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 6 minutes 30 seconds across 24 steps.
 
 ## Source recording map
 
-`Workforce_clip1.mp4`, 1234x720, 1:37, 30fps.
+- `Workforce_clip1.mp4`, 1234x720, 1:37, 30fps (Steps 1–17).
+- `Workforce_clip2.mp4` (`1030(1).mp4`), 1234x720, 1:05, 30fps (Steps 18–24).
 
 | Step | Title | Recording |
 |---|---|---|
@@ -1669,6 +1670,13 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 15 | Activity tab | 1:35 - 1:36 |
 | 16 | My Profile | 1:36 - 1:37 |
 | 17 | Edit contact details | 1:37 (extended) |
+| 18 | Salary advances | Clip 2: 0:00 - 0:12 |
+| 19 | Advance details | Clip 2: 0:12 - 0:22 |
+| 20 | Resignation | Clip 2: 0:22 - 0:35 |
+| 21 | Exit tasks | Clip 2: 0:35 - 0:42 |
+| 22 | Holidays | Clip 2: 0:42 - 0:51 |
+| 23 | My HR cases | Clip 2: 0:51 - 0:58 |
+| 24 | Submit a grievance | Clip 2: 0:58 - 1:05 |
 
 ---
 
@@ -1692,11 +1700,18 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 14 | Documents tab | Switches to Documents tab showing uploaded identity document record and Completed status badge. | 12 s |
 | 15 | Activity tab | Switches to Activity tab showing full chronological milestone timeline from start to completion. | 14 s |
 | 16 | My Profile | Navigates to My Profile in sidebar; inspects read-only Personal and employment details 3-column grid. | 14 s |
-| 17 | Edit contact details | Scrolls to Edit contact details card, fills contact fields (phone, email, address, emergency contact), clicks Save changes, shows success toast. Completion card follows. | 18 s |
+| 17 | Edit contact details | Scrolls to Edit contact details card, fills contact fields (phone, email, address, emergency contact), clicks Save changes, shows success toast. | 18 s |
+| 18 | Salary advances | Starts My Space > Overview. Clicks Salary advances in sidebar. Explains info box (limit £1,500.00), reviews stat cards, explains locked Request advance button, rings table row. | 18 s |
+| 19 | Advance details | Starts Salary advances. Hovers Actions "...", clicks "View details". Modal opens (?advance=sample), rings amount and status, scrolls to Proposed repayments, scrolls to History, scrolls up, closes with X. | 21 s |
+| 20 | Resignation | Starts Salary advances. Clicks Resignation in sidebar. Brief 0.8s loading spinner, reviews approved resignation card, dates, scrolls to Timeline, reviews Exit interview card. | 18 s |
+| 21 | Exit tasks | Starts Resignation. Clicks Exit tasks in sidebar. Reviews clearance tasks heading and empty state ("No exit tasks assigned."). | 8 s |
+| 22 | Holidays | Starts Exit tasks. Clicks Holidays in sidebar. Top bar becomes Organization. Reviews October 2026 calendar, 1 Oct lilac chip "GB: Founders' Day", scrolls to today (30 Oct solid purple circle), hovers next-month arrow. | 18 s |
+| 23 | My HR cases | Starts Holidays. Clicks My HR cases in sidebar. Top bar becomes HR Cases. Reviews grievances table row (Alex Morgan, Bullying, 2026-10-15, Closed), clicks View case, reviews details modal, closes with X. | 16 s |
+| 24 | Submit a grievance | Starts My HR cases. Clicks Submit grievance. Opens modal, chooses "Pay dispute" from Type select dropdown, clicks date field to open October 2026 calendar picker and picks day 28, rings Description box, clicks Cancel to dismiss without submitting. Completion card follows. | 20 s |
 
 **Files.**
 - Config: `tutorials/workforce.ts`
 - Reusable Shell & Stage: `components/workforce/WorkforceShell.tsx`, `components/workforce/WorkforceStage.tsx`
-- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`
+- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`
 - Central Data & Helpers: `components/workforce/workforce-data.ts`, `components/workforce/workforce-timeline.ts`
-- Step Scenes & Scripts: `scenes/workforce/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/workforce/step<1..24>/Step<N>.tsx`, `script.ts`, `data.ts`

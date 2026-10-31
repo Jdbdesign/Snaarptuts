@@ -166,14 +166,26 @@ Manual test of saved progress (no unit-test runner in the project): 1) finish a 
 Because users can no longer scroll the canvas, the timeline scrolls for them: `Timeline.ensureVisible` (`lib/timeline.ts`, geometry in `lib/visibility.ts`) runs before every cursor move, click, highlight, hover, follow-path and targeted caption. Details and the rule for scenes: `CLAUDE.md` ("Auto-scroll and visibility QA") and `docs/STEPS.md`. `npm run qa:visibility` plays all 154 steps at four viewport sizes (about 25 minutes at `--speed 2`) and writes `docs/QA-VISIBILITY.md`; last run: no open findings. Test-only hooks on `window` (`__snaarpProbe`, `__snaarpSpeed`) are read by the timeline and ignored when absent. Playwright (`playwright`, `tsx`) is now a dev dependency; browsers are the ones Playwright installs. Not pushed yet: the work sits on local `main` commits waiting for the owner's approval.
 
 
-## Workforce (seventh tutorial, Dashboard & My Space round)
+## Workforce (seventh tutorial, Dashboard, My Space, Salary advances, Resignation, Exit tasks, Holidays, HR Cases)
 
-Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **17 steps, all built** (the first module: "Dashboard & My Space", followed by the data-driven completion card). Recording: `ref/workforce/Workforce_clip1.mp4` (copy of `Downloads/1030.mp4`; 1234x720, 97s, 30fps; 194 extracted reference frames in `ref/workforce/frames/`).
+Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **24 steps, all built**, followed by the data-driven completion card.
+- Recordings:
+  - `ref/workforce/Workforce_clip1.mp4` (1234x720, 97s, 30fps; copy of `Downloads/1030.mp4`; steps 1–17).
+  - `ref/workforce/workforce-clip2.mp4` (1234x720, 65s, 30fps; copy of `Downloads/1030(1).mp4`; steps 18–24).
 
-How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and shell `components/workforce/WorkforceShell.tsx` (the thin Snaarp suite rail, collapsible 220px Workforce sidebar, and top bar with Notifications popover, admin-only Add Users button, Apps suite popover, and Avatar menu). Driven entirely by scene variables (`wfActiveTaskTab`, `wfOpenPopover`, `wfUnreadCount`, `wfSidebarCollapsed`, `wfMySpaceExpanded`, `wfTimerSeconds`, `wfTimerRunning`, `wfActiveActivityTab`, `wfOnboardingFilter`, `wfOnboardingSearch`, `wfOnboardingTab`, `wfProfileToast`, `field:*`, `fade`).
-Every script strictly follows the house patterns in `docs/SCENE-PATTERNS.md`: `pressOn` for active clicks (glide -> highlight -> wait(150) -> click -> clearHighlight), `hoverOn` for hovers, `ring` for inspections, `tl.fill` for inputs, post-mount delays (80ms/250ms), and `finishWorkforce` for the standard white fade finish.
-Central sample data: `components/workforce/workforce-data.ts` (Alex Morgan, Engineering, Employee, alex.morgan@snaarp.com, EMP-2026-0042, Sam Taylor, UK formatting: DD/MM/YYYY, 24h clock, £ currency, Ofcom drama phone numbers).
-Tested with `npm run qa:visibility -- --tutorial workforce`: 0 findings across all 68 runs (17 steps x 4 viewports). Space and canvas-click pause/resume verified.
+How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and shell `components/workforce/WorkforceShell.tsx` (the thin Snaarp suite rail, collapsible 220px Workforce sidebar, and top bar with Notifications popover, admin-only Add Users button, Apps suite popover, and Avatar menu). Views:
+- `DashboardView.tsx`: company overview, stat cards, tasks and requests, announcements.
+- `MySpaceOverviewView.tsx`: live attendance timer, 8 activity tabs, payslips.
+- `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`: onboarding checklist, documents, activity.
+- `ProfileView.tsx`: read-only employee information and interactive edit contact details form.
+- `SalaryAdvancesView.tsx`: limit info box, stat cards, locked request button, table row, and details modal (?advance=sample) with scrollable repayments and history.
+- `ResignationView.tsx`: brief 0.8s loading spinner, approved resignation request card, timeline, exit interview card.
+- `ExitTasksView.tsx`: clearance tasks heading and empty state ("No exit tasks assigned.").
+- `HolidaysView.tsx`: top bar becomes Organization, October 2026 calendar with 1 Oct "GB: Founders' Day" lilac chip, 30 Oct purple circle today marker.
+- `HrCasesView.tsx`: top bar HR Cases, grievances table, HR case details modal, and Submit grievance modal with Type select dropdown, October 2026 calendar picker (day 28), Description ring, and Cancel dismissal.
+
+Every script strictly follows the house patterns in `docs/SCENE-PATTERNS.md`: `beginWorkforce` places the cursor on frame 1, `pressOn` for active clicks, `hoverOn` for hovers, `ring` for inspections, and `finishWorkforce` for the standard white fade finish.
+Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 96 runs (24 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
 
 ## Workforce: mouse pointer visibility fix
 In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cursor: [number, number] = [0.5, 0.42]` and calls `tl.placeCursor(cursor[0], cursor[1])` as its first action, ensuring the pointer is visible from frame 1 before the first caption. Steps continuing on the same screen use `tl.placeCursorOn(...)` (or matching fraction for step 12) to place the cursor seamlessly where the previous step ended. Spacebar and canvas-click pause freeze the pointer in place. Verified visible across all 17 steps with automated test and visual inspection at 1440 and 1024 widths. Added house pattern rule to `docs/SCENE-PATTERNS.md`.

@@ -721,3 +721,23 @@ Recording: `ref/workforce/Workforce_clip1.mp4` (1234x720, 1:37, 30fps; copy of `
 6. **Add Users is admin-only & popovers**: In Workforce the viewer is an employee. The "Add Users" button in the top bar is for admins only (for admins it opens the Snaarp Admin page, already built in the Admin tutorial); for employees it does nothing (no popover, no navigation), and Step 6 explains this with a hover-and-ring beat. Functional popovers are built for Snaarp Suite Apps (8 suite apps grid), Notifications (with mark all read), and the Avatar dropdown. The Avatar menu matches the real product with the employee's email on the first line (alex.morgan@snaarp.com), uppercase EMPLOYEE role beneath it, a divider, and two action rows: Settings (with gear icon) and Logout (in red text).
 7. **Browser chrome**: Browser navigation toolbar/tabs and OS chrome are omitted; app begins cleanly at the top bar with realistic URL pills (`workforce.snaarp.com/...`).
 8. **Overview cards hover beats (Step 2)**: In Step 2, each overview card action button ("View leave", "View requests", "View goals", "View tasks") is hovered and its card highlighted without navigating away, following the brief's explicit requirement ("hover each with a caption and its button; do not navigate away") to maintain step independence on the dashboard.
+
+## Workforce steps 18-24 (Salary advances, Resignation, Exit tasks, Holidays, HR Cases)
+
+Recording: `ref/workforce/workforce-clip2.mp4` (1234x720, 1:05, 30fps; copy of `Downloads/1030(1).mp4`).
+
+**Sample data only (no real personal data).**
+- Employee: Alex Morgan (`alex.morgan@snaarp.com`, Engineering, Employee).
+- HR approver in audit trail: Sam Taylor.
+- Currency and dates: Product in recording shows NGN and MM/DD/YYYY; our tutorial uses £ and DD/MM/YYYY following Snaarp UK conventions. Amounts: request limit £1,500.00, advance £700.00, two repayments of £350.00 (23/10/2026, 23/11/2026).
+- Reasons: Advance reason "Unexpected car repair", Resignation reason "Moving to a new role elsewhere".
+- Resignation dates: Submitted 19/10/2026, Proposed and Approved Last Working Day 27/11/2026. Exit interview submission recorded at 19/10/2026, 1:32:11 PM.
+- Holiday label on 1 October 2026: "GB: Founders' Day" (sample). Today date: 30 October 2026.
+- HR case: Alex Morgan, Type: Bullying, Incident date: 2026-10-15, Status: Closed.
+
+**Decisions & deviations:**
+1. **Currency and date formats**: £ and DD/MM/YYYY instead of NGN and MM/DD/YYYY, consistent with the rest of the Snaarp suite.
+2. **HR cases ISO date preservation**: Incident date kept in ISO format (`2026-10-15`) because the product specifically shows it in ISO format in both the table and details modal.
+3. **Resignation exit interview link**: The "View submitted answers" link on the exit interview card is rendered in read-only form but not clicked, matching the screen recording.
+4. **Holidays top bar title**: When clicking "Holidays", the top bar title changes to "Organization" while the sidebar retains "My Space" open with "Holidays" active, matching the recording.
+5. **Submit grievance modal interactions**: The modal supports Type selection (opens dropdown with Bullying, Discrimination, Pay dispute, Working conditions, Other; selecting "Pay dispute" updates the field), date picker popup for October 2026 (day 28 selected), and Description textarea explanation beat without typing, closing via Cancel button without submitting.

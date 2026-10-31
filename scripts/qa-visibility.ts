@@ -30,7 +30,7 @@ const FROM = arg("from") ? Number(arg("from")) : 1;
 const OUT = arg("out", "docs/QA-VISIBILITY.md")!;
 // --retry <report.md>: replay only the steps (and viewports) that a previous report listed, e.g. at --speed 1 to rule out playback-speed artefacts
 const RETRY = arg("retry");
-const TUTORIALS = ["snaarp-360", "snaarp-mail", "snaarp-doc", "snaarp-admin", "snaarp-slides", "snaarp-sheets"];
+const TUTORIALS = ["snaarp-360", "snaarp-mail", "snaarp-doc", "snaarp-admin", "snaarp-slides", "snaarp-sheets", "workforce"];
 const VIEWPORTS = (arg("viewport") ? [arg("viewport")!] : ["1920x1080", "1440x900", "1280x720", "390x844"]).map((v) => {
   const [w, h] = v.split("x").map(Number);
   return { w, h, name: v };
@@ -53,6 +53,7 @@ const SHEETS_SUBMENU: { step: string; target: string }[] = [
 const ACCEPTED: { step: string; target: string; viewport?: string; why: string }[] = [
   { step: "Meet the toolbar", target: "tool-group-", why: "the ring is drawn around a group of tools, so the tools themselves sit on top of it" },
   { step: "Share and profile", target: "hdr-avatar", why: "the round avatar: its square corner points fall outside the circle" },
+  { step: "Holidays", target: "holiday-today-circle", why: "the round today date circle: its square corner points fall outside the circle" },
   { step: "Comments icon", target: "cell-d3", viewport: "390x844", why: "on a phone the Comments panel opens over the sheet; the cell is shown just before it opens" },
   { step: "Video call", target: "join-back", why: "the back arrow of the join box touches the box edge by one pixel at 1920x1080" },
   ...SHEETS_SUBMENU.map((a) => ({ ...a, viewport: "390x844", why: "on a phone a submenu opens over its own menu, so it covers the rows the overview hovers next" })),
