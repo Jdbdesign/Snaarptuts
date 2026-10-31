@@ -10,6 +10,8 @@ import { Step5 } from "@/scenes/workforce/step5/Step5";
 import { runStep5, STEP5_DURATION_MS } from "@/scenes/workforce/step5/script";
 import { Step6 } from "@/scenes/workforce/step6/Step6";
 import { runStep6, STEP6_DURATION_MS } from "@/scenes/workforce/step6/script";
+import { Step7 } from "@/scenes/workforce/step7/Step7";
+import { runStep7, STEP7_DURATION_MS } from "@/scenes/workforce/step7/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -57,6 +59,12 @@ export const workforce: Tutorial = {
       title: "Top bar tools",
       url: "workforce.snaarp.com/dashboard",
       scene: { Component: Step6, run: runStep6, durationMs: STEP6_DURATION_MS },
+    },
+    {
+      id: "navigation-sidebar",
+      title: "Find your way around",
+      url: "workforce.snaarp.com/dashboard",
+      scene: { Component: Step7, run: runStep7, durationMs: STEP7_DURATION_MS },
     },
   ],
   completion: {
