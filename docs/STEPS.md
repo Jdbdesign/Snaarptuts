@@ -1644,13 +1644,15 @@ Recording `ref/sheets/Snaarp_Sheets_toolbar.mp4` (copy of `Downloads/1029(1).mp4
 
 # Steps of the Workforce tutorial
 
-Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 12 minutes across 44 steps.
+Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 15 minutes across 54 steps.
 
 ## Source recording map
 
 - `Workforce_clip1.mp4`, 1234x720, 1:37, 30fps (Steps 1–17).
 - `Workforce_clip2.mp4` (`1030(1).mp4`), 1234x720, 1:05, 30fps (Steps 18–24).
 - `Workforce_clip3.mp4` (`1030(2).mp4`), 1234x720, 1:44, 30fps (Steps 25–44).
+- `workforce-clip4.mp4` (`1030(3).mp4`), 1234x720, 0:42, 30fps (Steps 45–48).
+- `workforce-clip5.mp4` (`1030(5).mp4`), 1284x720, 0:44, 30fps (Steps 49–54).
 
 | Step | Title | Recording |
 |---|---|---|
@@ -1698,6 +1700,16 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 42 | Fill in the review | Clip 3: 1:38 - 1:41 |
 | 43 | Assigned reviews | Clip 3: 1:41 - 1:43 |
 | 44 | View your result | Clip 3: 1:43 - 1:44 |
+| 45 | Policies | Clip 4: 0:00 - 0:10 |
+| 46 | Engineering policies | Clip 4: 0:10 - 0:20 |
+| 47 | Policy details | Clip 4: 0:20 - 0:30 |
+| 48 | Learning Hub | Clip 4: 0:30 - 0:42 |
+| 49 | Open a course | Clip 5: 0:00 - 0:08 |
+| 50 | Watch a lesson | Clip 5: 0:08 - 0:18 |
+| 51 | Complete a course | Clip 5: 0:18 - 0:26 |
+| 52 | Your certificate | Clip 5: 0:26 - 0:34 |
+| 53 | Learning Record | Clip 5: 0:34 - 0:39 |
+| 54 | Notifications | Clip 5: 0:39 - 0:44 |
 
 ---
 
@@ -1748,11 +1760,21 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 41 | Open a review | Starts My Appraisals > Reviews. Clicks Actions "...", clicks View review. Navigates to `/performance/reviews/sample` with 16 appraisal questions and rating options. | 16 s |
 | 42 | Fill in the review | Starts review form. Rates performance question 1 as "3 - Meets Expectations", scrolls down panel, types accomplishments into textarea, clicks Submit review, shows success banner. | 22 s |
 | 43 | Assigned reviews | Starts My Appraisals. Clicks Assigned Reviews tab. Reviews empty state card ("No reviews assigned to you at this time."). | 12 s |
-| 44 | View your result | Starts review form submitted. Navigates to result view, reviews Self Review score, reviews Manager Review score, clicks Acknowledge result. Completion card follows. | 18 s |
+| 44 | View your result | Starts review form submitted. Navigates to result view, reviews Self Review score, reviews Manager Review score, clicks Acknowledge result. | 18 s |
+| 45 | Policies | Starts My Appraisals result. Clicks Policies in sidebar. Reviews search bar, reviews Engineering folder card with "1" badge. | 11 s |
+| 46 | Engineering policies | Starts Policies. Clicks Engineering folder. Reviews policies table with Engineering Policy, Version 1.0, Approved lilac pill, 30/10/2026. | 11 s |
+| 47 | Policy details | Starts Engineering policies. Clicks View. Reviews document details page with author Sam Taylor and file size, clicks View document, in-app viewer modal opens, closes with X. | 14 s |
+| 48 | Learning Hub | Starts Policy details. Clicks Learning Hub in sidebar. Top bar becomes Learning Hub. Reviews Hub and Learning Record tabs, Assigned Courses, and Categories to Explore. | 14 s |
+| 49 | Open a course | Starts Learning Hub. Clicks Engineering category. 0.8s loading spinner, navigates to course page with 3 lessons, course progress card, clicks play. | 14 s |
+| 50 | Watch a lesson | Starts course page. Reviews video player slideshow with animated slides, toggles play/pause, seek bar, time counter, clicks Complete Lesson. | 15 s |
+| 51 | Complete a course | Starts lesson completed. Reviews 3 completed modules with checkmarks, 100% course progress, clicks Complete Course button. | 12 s |
+| 52 | Your certificate | Starts course completed. Clicks Download Certificate, certificate downloaded toast notice, in-app certificate viewer modal opens, closes with X. | 11 s |
+| 53 | Learning Record | Starts Learning Hub course. Clicks Back pill, clicks Learning Record tab, reviews completed courses table, completion dates, and certificates. | 12 s |
+| 54 | Notifications | Starts Learning Record. Clicks notifications bell in top bar. Top bar becomes Notifications. Reviews full-page notifications list with 12 items, clicks Mark all as read, clicks Clear all. Completion card follows. | 14 s |
 
 **Files.**
 - Config: `tutorials/workforce.ts`
 - Reusable Shell & Stage: `components/workforce/WorkforceShell.tsx`, `components/workforce/WorkforceStage.tsx`
-- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`
+- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`, `PoliciesView.tsx`, `LearningHubView.tsx`, `NotificationsView.tsx`, `DocumentViewerModal.tsx`
 - Central Data & Helpers: `components/workforce/workforce-data.ts`, `components/workforce/workforce-timeline.ts`
-- Step Scenes & Scripts: `scenes/workforce/step<1..44>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/workforce/step<1..54>/Step<N>.tsx`, `script.ts`, `data.ts`

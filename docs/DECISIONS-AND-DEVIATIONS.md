@@ -761,3 +761,25 @@ Recording: `ref/workforce/workforce-clip3.mp4` (1234x720, 1:44, 30fps; copy of `
 2. **Review questions and responses**: Sample responses for the self-review and manager review cards are realistic placeholder text matching the engineering role, avoiding any real-world personal information.
 3. **Form typing and submissions**: Step 42 types "System design" into the key accomplishments textarea using character-by-character timeline typing, followed by clicking "Submit review".
 4. **Unclicked sub-actions**: Secondary tabs (e.g. Regularization tab under Attendance, Timeline tab under Attendance, Create Goal, Log Time, and Submit timesheet buttons) remain unclicked to reflect the exact focus of the screen recording beats.
+
+## Workforce steps 45-54 (Policies, Learning Hub, Notifications)
+
+Recordings:
+- `ref/workforce/workforce-clip4.mp4` (1234x720, 0:42, 30fps; copy of `Downloads/1030(3).mp4`).
+- `ref/workforce/workforce-clip5.mp4` (1284x720, 0:44, 30fps; copy of `Downloads/1030(5).mp4`).
+
+**Sample data only (no real personal data).**
+- Employee: Alex Morgan (`alex.morgan@snaarp.com`, Engineering, Employee).
+- Policy Author: Sam Taylor.
+- Organization: Acme Ltd (Certificate issued by Acme Ltd to Alex Morgan for completing "Engineering Practices 101" on 30 October 2026).
+- Policy: "Engineering Policy", Version 1.0, Approved lilac pill, 30/10/2026, 1.4 MB.
+- Learning Courses: "Engineering Practices 101" (3 modules: "1. Overview of Engineering Standards", "2. Architecture & Code Quality Guidelines", "3. Testing, Security & Deployment Protocols"), 1 hr 30 mins total duration.
+- Learning Record: Completed course record showing 100% progress, completed 30/10/2026, with "View Certificate" button.
+- Notifications: 12 scrollable notification items covering appraisals, policies, leave approvals, salary advance, and system reminders.
+
+**Decisions & deviations:**
+1. **Document Viewer Modal (in-app viewer)**: In the recording, clicking "View document" on a policy or downloading/viewing a certificate opened a separate browser tab with the browser's native PDF viewer or download bar. In our player, opening OS/browser windows or second tabs breaks the self-contained tutorial sandbox. We built `DocumentViewerModal.tsx`, an authentic in-app viewer with dark top bar, page 1/2 indicator, 100% zoom control, page thumbnail strip, white sheet document preview, and close button `doc-viewer-close`.
+2. **Video Course Player Animation**: The recording plays video lessons with dynamic frames. We built an animated course player slideshow with 3 lesson slides, play/pause controls, seek bar, live lesson timer (`wfLessonSeconds`), and module checkmarks that update when lessons complete.
+3. **Certificate download notice**: Step 52 demonstrates clicking "Download Certificate", which displays a top-right notification toast ("Certificate downloaded - Engineering Practices 101") before opening the in-app viewer modal.
+4. **Notifications detail view**: In the recording, clicking a notification item expanded or opened details. In our notifications view, all 12 notifications are clearly presented in the scrollable list with sample titles, timestamps, and read/unread markers, with "Mark all as read" and "Clear all" functional actions.
+5. **Excluded recording artifacts**: Omitted the Windows taskbar, screen-share overlay ("senting"), the second browser tab with the browser PDF viewer, the file path `C:/Users/...`, the browser download bubble (`weekly_planner.pdf`), and the floating round pin and ellipsis overlay buttons from the screen recordings.

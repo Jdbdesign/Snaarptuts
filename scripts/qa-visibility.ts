@@ -56,6 +56,8 @@ const ACCEPTED: { step: string; target: string; viewport?: string; why: string }
   { step: "Holidays", target: "holiday-today-circle", why: "the round today date circle: its square corner points fall outside the circle" },
   { step: "Attendance calendar", target: "attendance-today-circle", why: "the round today date circle: its square corner points fall outside the circle" },
   { step: "Job schedule", target: "schedule-today-circle", why: "the round today date circle: its square corner points fall outside the circle" },
+  { step: "Open a course", target: "player-play-btn", why: "the round play button: its square corner points fall outside the circle" },
+  { step: "Watch a lesson", target: "player-play-btn", why: "the round play button: its square corner points fall outside the circle" },
   { step: "Comments icon", target: "cell-d3", viewport: "390x844", why: "on a phone the Comments panel opens over the sheet; the cell is shown just before it opens" },
   { step: "Video call", target: "join-back", why: "the back arrow of the join box touches the box edge by one pixel at 1920x1080" },
   ...SHEETS_SUBMENU.map((a) => ({ ...a, viewport: "390x844", why: "on a phone a submenu opens over its own menu, so it covers the rows the overview hovers next" })),
