@@ -275,8 +275,13 @@ export function ReviewFormView({
     "wfReviewAnswers",
     {}
   );
-  const skills = useTimelineVar(tl, "wfReviewSkills", "");
-  const comments = useTimelineVar(tl, "wfReviewComments", "");
+  const typedSkills = useTimelineVar(tl, "field:skills", "");
+  const defaultSkills = useTimelineVar(tl, "wfReviewSkills", "");
+  const skills = typedSkills || defaultSkills;
+
+  const typedComments = useTimelineVar(tl, "field:comments", "");
+  const defaultComments = useTimelineVar(tl, "wfReviewComments", "");
+  const comments = typedComments || defaultComments;
   const submitting = useTimelineVar(tl, "wfReviewSubmitting", false);
   const activeSelect = useTimelineVar<number | null>(
     tl,
