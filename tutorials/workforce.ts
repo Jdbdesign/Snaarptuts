@@ -42,6 +42,8 @@ import { Step21 } from "@/scenes/workforce/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/workforce/step21/script";
 import { Step22 } from "@/scenes/workforce/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/workforce/step22/script";
+import { Step23 } from "@/scenes/workforce/step23/Step23";
+import { runStep23, STEP23_DURATION_MS } from "@/scenes/workforce/step23/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -185,6 +187,12 @@ export const workforce: Tutorial = {
       title: "Holidays",
       url: "workforce.snaarp.com/organization/holidays",
       scene: { Component: Step22, run: runStep22, durationMs: STEP22_DURATION_MS },
+    },
+    {
+      id: "my-hr-cases",
+      title: "My HR cases",
+      url: "workforce.snaarp.com/hr-cases",
+      scene: { Component: Step23, run: runStep23, durationMs: STEP23_DURATION_MS },
     },
   ],
   completion: {
