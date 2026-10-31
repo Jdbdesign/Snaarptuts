@@ -32,6 +32,8 @@ import { Step16 } from "@/scenes/workforce/step16/Step16";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/workforce/step16/script";
 import { Step17 } from "@/scenes/workforce/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/workforce/step17/script";
+import { Step18 } from "@/scenes/workforce/step18/Step18";
+import { runStep18, STEP18_DURATION_MS } from "@/scenes/workforce/step18/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -145,6 +147,12 @@ export const workforce: Tutorial = {
       title: "Edit contact details",
       url: "workforce.snaarp.com/my-space/profile",
       scene: { Component: Step17, run: runStep17, durationMs: STEP17_DURATION_MS },
+    },
+    {
+      id: "salary-advances",
+      title: "Salary advances",
+      url: "workforce.snaarp.com/my-space/salary-advances",
+      scene: { Component: Step18, run: runStep18, durationMs: STEP18_DURATION_MS },
     },
   ],
   completion: {

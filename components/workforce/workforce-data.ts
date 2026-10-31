@@ -263,4 +263,108 @@ export const URLS = {
   onboardingRecord: "workforce.snaarp.com/my-space/onboarding/records/rec-001",
   taskDetail: "workforce.snaarp.com/my-space/onboarding/records/rec-001/tasks/task-upload-id",
   profile: "workforce.snaarp.com/my-space/profile",
+  salaryAdvances: "workforce.snaarp.com/my-space/salary-advances",
+  resignation: "workforce.snaarp.com/my-space/resignation",
+  exitTasks: "workforce.snaarp.com/my-space/exit-tasks",
+  holidays: "workforce.snaarp.com/organization/holidays",
+  hrCases: "workforce.snaarp.com/hr-cases",
+};
+
+export const SAMPLE_SALARY_ADVANCE = {
+  limit: "£1,500.00",
+  terms: "Up to 3 instalments · Monthly salary",
+  note: "You already have a pending or approved request",
+  stats: {
+    pending: 0,
+    approved: 1,
+    rejected: 0,
+    cancelled: 0,
+  },
+  record: {
+    employee: "Alex Morgan",
+    amount: "£700.00",
+    requestedDate: "22/10/2026",
+    instalments: 2,
+    status: "Approved - not paid",
+    reason: "Unexpected car repair",
+    planNote: "Requested 22/10/2026 · Monthly salary · Plan acknowledged 22/10/2026",
+    repayments: [
+      { date: "23/10/2026", amount: "£350.00" },
+      { date: "23/11/2026", amount: "£350.00" },
+    ],
+    history: [
+      {
+        action: "approve",
+        actor: "Sam Taylor",
+        date: "22/10/2026, 10:19 AM",
+        amount: "£700.00",
+        reason: "Unexpected car repair",
+      },
+      {
+        action: "request",
+        actor: "Alex Morgan",
+        date: "22/10/2026, 08:10 AM",
+        amount: "£700.00",
+        reason: "Unexpected car repair",
+      },
+    ],
+  },
+};
+
+export const SAMPLE_RESIGNATION = {
+  status: "Approved",
+  submittedOn: "19/10/2026",
+  proposedLastDay: "27/11/2026",
+  approvedLastDay: "27/11/2026",
+  reason: "Moving to a new role elsewhere",
+  timeline: [
+    { title: "Submitted", status: "completed" },
+    { title: "Approved", status: "completed" },
+  ],
+  exitInterview: {
+    title: "Exit interview submitted",
+    subtitle: "Your answers are read-only.",
+    date: "19/10/2026, 1:32:11 PM",
+    linkText: "View submitted answers",
+  },
+};
+
+export const SAMPLE_EXIT_TASKS = {
+  title: "Exit tasks",
+  subtitle: "Your clearance tasks and responsibilities for employee exits.",
+  emptyMessage: "No exit tasks assigned.",
+};
+
+export const SAMPLE_HOLIDAYS = {
+  month: "October 2026",
+  holiday: {
+    day: 1,
+    weekday: "Thursday",
+    label: "GB: Founders' Day",
+  },
+  today: 30,
+};
+
+export const SAMPLE_HR_CASES = {
+  title: "HR Cases",
+  subtitle: "Grievances and disciplinary records",
+  tab: "Grievances",
+  tabSubtitle: "Your private grievances and HR responses",
+  cases: [
+    {
+      id: "case-001",
+      employee: "Alex Morgan",
+      type: "Bullying",
+      incidentDate: "2026-10-15",
+      status: "Closed",
+      caseNote: "Case note",
+    },
+  ],
+  types: [
+    "Bullying",
+    "Discrimination",
+    "Pay dispute",
+    "Working conditions",
+    "Other",
+  ],
 };

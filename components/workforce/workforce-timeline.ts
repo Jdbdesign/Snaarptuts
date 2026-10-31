@@ -28,6 +28,15 @@ export function beginWorkforce(
   tl.setVar("wfCheckedIn", true);
   tl.setVar("wfOnboardingStatus", "Active");
   tl.setVar("wfActiveRecordTab", "overview");
+  tl.setVar("wfSalaryAdvanceModalOpen", false);
+  tl.setVar("wfAdvanceMenuOpen", false);
+  tl.setVar("wfResignationLoading", false);
+  tl.setVar("wfHrCaseModalOpen", false);
+  tl.setVar("wfSubmitGrievanceModalOpen", false);
+  tl.setVar("wfGrievanceTypeDropdownOpen", false);
+  tl.setVar("wfGrievanceDatePickerOpen", false);
+  tl.setVar("wfGrievanceType", "Bullying");
+  tl.setVar("wfGrievanceDate", "");
   tl.setVar("fade", false);
 }
 

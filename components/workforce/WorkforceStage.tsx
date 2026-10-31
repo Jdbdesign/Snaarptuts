@@ -4,10 +4,15 @@ import type { ReactNode } from "react";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { DashboardView } from "./DashboardView";
+import { ExitTasksView } from "./ExitTasksView";
+import { HolidaysView } from "./HolidaysView";
+import { HrCasesView } from "./HrCasesView";
 import { MySpaceOverviewView } from "./MySpaceOverviewView";
 import { OnboardingListView } from "./OnboardingListView";
 import { OnboardingRecordView } from "./OnboardingRecordView";
 import { ProfileView } from "./ProfileView";
+import { ResignationView } from "./ResignationView";
+import { SalaryAdvancesView } from "./SalaryAdvancesView";
 import { TaskDetailView } from "./TaskDetailView";
 import { WorkforceShell } from "./WorkforceShell";
 import { URLS, type MySpaceSubId, type WorkforceNavId } from "./workforce-data";
@@ -18,7 +23,12 @@ export type WorkforcePage =
   | "onboarding"
   | "onboarding-record"
   | "task-detail"
-  | "profile";
+  | "profile"
+  | "salary-advances"
+  | "resignation"
+  | "exit-tasks"
+  | "holidays"
+  | "hr-cases";
 
 type Props = {
   tl: Timeline;
@@ -65,6 +75,26 @@ export function WorkforceStage({
     activeNav = "my-space";
     activeSub = "profile";
     topTitle = "My Profile";
+  } else if (page === "salary-advances") {
+    activeNav = "my-space";
+    activeSub = "salary-advances";
+    topTitle = "Salary advances";
+  } else if (page === "resignation") {
+    activeNav = "my-space";
+    activeSub = "resignation";
+    topTitle = "My Space";
+  } else if (page === "exit-tasks") {
+    activeNav = "my-space";
+    activeSub = "exit-tasks";
+    topTitle = "My Space";
+  } else if (page === "holidays") {
+    activeNav = "my-space";
+    activeSub = "holidays";
+    topTitle = "Organization";
+  } else if (page === "hr-cases") {
+    activeNav = "my-space";
+    activeSub = "hr-cases";
+    topTitle = "HR Cases";
   }
 
   const handleNavigateNav = (nav: WorkforceNavId) => {
@@ -89,6 +119,21 @@ export function WorkforceStage({
     } else if (sub === "profile") {
       tl.setVar("wfPage", "profile");
       tl.setUrl(URLS.profile);
+    } else if (sub === "salary-advances") {
+      tl.setVar("wfPage", "salary-advances");
+      tl.setUrl(URLS.salaryAdvances);
+    } else if (sub === "resignation") {
+      tl.setVar("wfPage", "resignation");
+      tl.setUrl(URLS.resignation);
+    } else if (sub === "exit-tasks") {
+      tl.setVar("wfPage", "exit-tasks");
+      tl.setUrl(URLS.exitTasks);
+    } else if (sub === "holidays") {
+      tl.setVar("wfPage", "holidays");
+      tl.setUrl(URLS.holidays);
+    } else if (sub === "hr-cases") {
+      tl.setVar("wfPage", "hr-cases");
+      tl.setUrl(URLS.hrCases);
     }
   };
 
@@ -154,6 +199,56 @@ export function WorkforceStage({
             tl.setVar("wfPage", "my-space");
             tl.setVar("wfSubpage", "overview");
             tl.setUrl(URLS.mySpace);
+          }}
+        />
+      )}
+      {page === "salary-advances" && (
+        <SalaryAdvancesView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "my-space");
+            tl.setVar("wfSubpage", "overview");
+            tl.setUrl(URLS.mySpace);
+          }}
+        />
+      )}
+      {page === "resignation" && (
+        <ResignationView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "salary-advances");
+            tl.setVar("wfSubpage", "salary-advances");
+            tl.setUrl(URLS.salaryAdvances);
+          }}
+        />
+      )}
+      {page === "exit-tasks" && (
+        <ExitTasksView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "resignation");
+            tl.setVar("wfSubpage", "resignation");
+            tl.setUrl(URLS.resignation);
+          }}
+        />
+      )}
+      {page === "holidays" && (
+        <HolidaysView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "exit-tasks");
+            tl.setVar("wfSubpage", "exit-tasks");
+            tl.setUrl(URLS.exitTasks);
+          }}
+        />
+      )}
+      {page === "hr-cases" && (
+        <HrCasesView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "holidays");
+            tl.setVar("wfSubpage", "holidays");
+            tl.setUrl(URLS.holidays);
           }}
         />
       )}
