@@ -8,6 +8,8 @@ import { Step4 } from "@/scenes/workforce/step4/Step4";
 import { runStep4, STEP4_DURATION_MS } from "@/scenes/workforce/step4/script";
 import { Step5 } from "@/scenes/workforce/step5/Step5";
 import { runStep5, STEP5_DURATION_MS } from "@/scenes/workforce/step5/script";
+import { Step6 } from "@/scenes/workforce/step6/Step6";
+import { runStep6, STEP6_DURATION_MS } from "@/scenes/workforce/step6/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -49,6 +51,12 @@ export const workforce: Tutorial = {
       title: "Notifications",
       url: "workforce.snaarp.com/dashboard",
       scene: { Component: Step5, run: runStep5, durationMs: STEP5_DURATION_MS },
+    },
+    {
+      id: "top-bar-tools",
+      title: "Top bar tools",
+      url: "workforce.snaarp.com/dashboard",
+      scene: { Component: Step6, run: runStep6, durationMs: STEP6_DURATION_MS },
     },
   ],
   completion: {
