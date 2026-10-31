@@ -14,6 +14,15 @@ import { ProfileView } from "./ProfileView";
 import { ResignationView } from "./ResignationView";
 import { SalaryAdvancesView } from "./SalaryAdvancesView";
 import { TaskDetailView } from "./TaskDetailView";
+import { AttendanceView } from "./AttendanceView";
+import { LeaveTrackerView } from "./LeaveTrackerView";
+import { TimeTrackerView } from "./TimeTrackerView";
+import { GoalsView } from "./GoalsView";
+import {
+  AppraisalsView,
+  ReviewFormView,
+  ReviewResultView,
+} from "./AppraisalsView";
 import { WorkforceShell } from "./WorkforceShell";
 import { URLS, type MySpaceSubId, type WorkforceNavId } from "./workforce-data";
 
@@ -28,7 +37,14 @@ export type WorkforcePage =
   | "resignation"
   | "exit-tasks"
   | "holidays"
-  | "hr-cases";
+  | "hr-cases"
+  | "attendance"
+  | "leave"
+  | "time-tracker"
+  | "goals"
+  | "performance"
+  | "performance-review"
+  | "performance-result";
 
 type Props = {
   tl: Timeline;
@@ -95,6 +111,25 @@ export function WorkforceStage({
     activeNav = "my-space";
     activeSub = "hr-cases";
     topTitle = "HR Cases";
+  } else if (page === "attendance") {
+    activeNav = "attendance";
+    topTitle = "Attendance";
+  } else if (page === "leave") {
+    activeNav = "leave";
+    topTitle = "Leave";
+  } else if (page === "time-tracker") {
+    activeNav = "time-tracker";
+    topTitle = "Time Tracker";
+  } else if (page === "goals") {
+    activeNav = "goals";
+    topTitle = "Goals";
+  } else if (
+    page === "performance" ||
+    page === "performance-review" ||
+    page === "performance-result"
+  ) {
+    activeNav = "appraisals";
+    topTitle = "My Appraisals";
   }
 
   const handleNavigateNav = (nav: WorkforceNavId) => {
@@ -105,6 +140,21 @@ export function WorkforceStage({
       tl.setVar("wfPage", "my-space");
       tl.setVar("wfSubpage", "overview");
       tl.setUrl(URLS.mySpace);
+    } else if (nav === "attendance") {
+      tl.setVar("wfPage", "attendance");
+      tl.setUrl(URLS.attendance);
+    } else if (nav === "leave") {
+      tl.setVar("wfPage", "leave");
+      tl.setUrl(URLS.leave);
+    } else if (nav === "time-tracker") {
+      tl.setVar("wfPage", "time-tracker");
+      tl.setUrl(URLS.timeTracker);
+    } else if (nav === "goals") {
+      tl.setVar("wfPage", "goals");
+      tl.setUrl(URLS.goals);
+    } else if (nav === "appraisals") {
+      tl.setVar("wfPage", "performance");
+      tl.setUrl(URLS.performance);
     }
   };
 
@@ -249,6 +299,69 @@ export function WorkforceStage({
             tl.setVar("wfPage", "holidays");
             tl.setVar("wfSubpage", "holidays");
             tl.setUrl(URLS.holidays);
+          }}
+        />
+      )}
+      {page === "attendance" && <AttendanceView tl={tl} />}
+      {page === "leave" && (
+        <LeaveTrackerView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "attendance");
+            tl.setUrl(URLS.attendance);
+          }}
+        />
+      )}
+      {page === "time-tracker" && (
+        <TimeTrackerView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "leave");
+            tl.setUrl(URLS.leave);
+          }}
+        />
+      )}
+      {page === "goals" && (
+        <GoalsView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "time-tracker");
+            tl.setUrl(URLS.timeTracker);
+          }}
+        />
+      )}
+      {page === "performance" && (
+        <AppraisalsView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "goals");
+            tl.setUrl(URLS.goals);
+          }}
+          onOpenReview={() => {
+            tl.setVar("wfPage", "performance-review");
+            tl.setUrl(URLS.performanceReview);
+          }}
+          onViewResult={() => {
+            tl.setVar("wfPage", "performance-result");
+            tl.setUrl(URLS.performanceReview);
+          }}
+        />
+      )}
+      {page === "performance-review" && (
+        <ReviewFormView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "performance");
+            tl.setUrl(URLS.performance);
+          }}
+        />
+      )}
+      {page === "performance-result" && (
+        <ReviewResultView
+          _tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "performance");
+            tl.setUrl(URLS.performance);
           }}
         />
       )}

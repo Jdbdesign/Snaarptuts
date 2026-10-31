@@ -268,6 +268,14 @@ export const URLS = {
   exitTasks: "workforce.snaarp.com/my-space/exit-tasks",
   holidays: "workforce.snaarp.com/organization/holidays",
   hrCases: "workforce.snaarp.com/hr-cases",
+  attendance: "workforce.snaarp.com/attendance",
+  leave: "workforce.snaarp.com/leave",
+  timeTracker: "workforce.snaarp.com/time-tracker",
+  goals: "workforce.snaarp.com/goals?tab=goals",
+  goalsKpis: "workforce.snaarp.com/goals?tab=kpis",
+  performance: "workforce.snaarp.com/performance",
+  performanceReview: "workforce.snaarp.com/performance/reviews/sample",
+  performanceAssigned: "workforce.snaarp.com/performance?tab=Assigned+Reviews",
 };
 
 export const SAMPLE_SALARY_ADVANCE = {
@@ -366,5 +374,263 @@ export const SAMPLE_HR_CASES = {
     "Pay dispute",
     "Working conditions",
     "Other",
+  ],
+};
+
+export const SAMPLE_ATTENDANCE = {
+  location: "Head Office, London, UK",
+  checkedInTimer: "00:13:16",
+  sessionStart: "09:47 AM",
+  sessionEnd: "10:01 AM",
+  checkedOutTimer: "00:00:00",
+  checkedOutTotal: "0h 13m",
+  month: "October 2026",
+  legend: [
+    { label: "Present", color: "bg-[#10B981]" },
+    { label: "Absent", color: "bg-[#EF4444]" },
+    { label: "On Duty / Half Day", color: "bg-[#3B82F6]" },
+    { label: "Weekend / Holiday", color: "bg-[#9CA3AF]" },
+  ],
+  summary: [
+    { label: "Days", value: 31 },
+    { label: "Payable Days", value: 13 },
+    { label: "Present", value: 4 },
+    { label: "On Duty", value: 0 },
+    { label: "Paid Leave", value: 0 },
+    { label: "Holidays", value: 0 },
+    { label: "Weekends", value: 9 },
+  ],
+};
+
+export const SAMPLE_LEAVE = {
+  summaryCards: [
+    { label: "ALLOWANCE", value: "7 days", highlight: false },
+    { label: "CARRIED FORWARD", value: "0 days", highlight: false },
+    { label: "BOOKED & TAKEN", value: "2 days", highlight: false },
+    { label: "AVAILABLE", value: "5 days", highlight: true },
+  ],
+  byType: {
+    name: "Sick leave",
+    availableText: "5 available of 7",
+  },
+  requests: [
+    {
+      id: "lr-1",
+      type: "Sick leave",
+      start: "2026-10-20",
+      end: "2026-10-22",
+      days: 2,
+      status: "APPROVED",
+      reason: "sick",
+      submitted: "19/10/2026, 7:52:04 AM",
+    },
+  ],
+  shift: {
+    name: "MORNING SHIFT",
+    hours: "09:00 - 17:00 | 8h 00m",
+    details: "Grace period: 15 minutes | Individually assigned | Europe/London",
+    note: "Fixed daily hours. Overnight attendance belongs to the date the shift starts. Changes apply to future check-ins.",
+  },
+};
+
+export const SAMPLE_TIME_TRACKER = {
+  projects: [
+    {
+      name: "Sprint 1",
+      client: "-",
+      status: "active",
+      budget: "0.7/20h",
+      dateRange: "2026-10-15 -> 2026-10-17",
+    },
+  ],
+  jobs: [
+    {
+      title: "Sprint planning",
+      status: "open",
+      priority: "medium",
+      estHours: "10.0",
+      actualHours: "0.7",
+      dueDate: "2026-10-22",
+      overdue: true,
+    },
+  ],
+  timeLogs: [
+    {
+      date: "2026-10-20",
+      project: "Sprint 1",
+      job: "Sprint planning",
+      hours: "0.55",
+      description: "-",
+      billable: "No",
+      status: "Not Submitted",
+    },
+    {
+      date: "2026-10-20",
+      project: "-",
+      job: "General",
+      hours: "0.00",
+      description: "-",
+      billable: "No",
+      status: "Not Submitted",
+    },
+  ],
+  totals: {
+    matching: "0.55",
+    submitted: "0.00",
+    notSubmitted: "0.55",
+  },
+};
+
+export const SAMPLE_GOALS = {
+  goals: [
+    {
+      id: "g-1",
+      title: "Appraisal for Sam",
+      employee: "Sam Taylor",
+      targetDate: "25/10/2026",
+      progress: "100%",
+      status: "Completed",
+    },
+    {
+      id: "g-2",
+      title: "Appraisal for Alex",
+      employee: "Alex Morgan",
+      targetDate: "25/10/2026",
+      progress: "100%",
+      status: "In Progress",
+    },
+    {
+      id: "g-3",
+      title: "Appraisal",
+      employee: "Jordan Lee",
+      targetDate: "25/10/2026",
+      progress: "100%",
+      status: "In Progress",
+    },
+  ],
+  kpis: [
+    {
+      id: "kpi-1",
+      title: "New goal KPI",
+      employee: "Alex Morgan",
+      period: "22/10/2026 - 30/10/2026",
+      resultTarget: "30 / 30 Tickets",
+      score: "100%",
+      status: "verified",
+    },
+  ],
+  kpiDetails: {
+    title: "New goal KPI",
+    employee: "Alex Morgan",
+    status: "verified",
+    period: "22/10/2026 - 30/10/2026",
+    directionWeight: "Higher is better / 2",
+    baselineTarget: "20 / 30 Tickets",
+    actualScore: "30 Tickets / 100%",
+    note: "Score measures improvement from baseline towards target, capped at 100%. Actual results retain any overachievement. Verified scores are combined using their weights.",
+    evidence: "I did 30",
+    feedback: "verified",
+    weightedScore: "100% weighted score · 1 of 1 verified",
+    history: [
+      {
+        action: "verify",
+        actor: "Sam Taylor",
+        date: "23/10/2026, 9:03:40 AM",
+        actual: "30 Tickets",
+        evidence: "I did 30",
+        feedback: "verified",
+      },
+      {
+        action: "submit",
+        actor: "Alex Morgan",
+        date: "23/10/2026, 9:02:07 AM",
+        actual: "30 Tickets",
+        evidence: "I did 30",
+      },
+      {
+        action: "record",
+        actor: "Alex Morgan",
+        date: "23/10/2026, 9:01:48 AM",
+        actual: "30 Tickets",
+      },
+    ],
+  },
+};
+
+export const SAMPLE_APPRAISALS = {
+  stats: [
+    { label: "In progress", value: 1 },
+    { label: "Awaiting release", value: 0 },
+    { label: "Awaiting acknowledgement", value: 2 },
+    { label: "Acknowledged", value: 1 },
+    { label: "Overdue", value: 1 },
+  ],
+  reviews: [
+    {
+      id: "rev-1",
+      cycle: "Q4 cycle",
+      status: "SELF_REVIEW",
+      selfRating: "-",
+      managerRating: "-",
+      result: "In progress",
+      action: "Open review",
+      stage: "SELF",
+      dueDate: "28 Oct 2026 (overdue)",
+    },
+    {
+      id: "rev-2",
+      cycle: "2027 Appraisal cycle",
+      status: "COMPLETED",
+      selfRating: "4",
+      managerRating: "-",
+      result: "Released: 4.23",
+      action: "View and acknowledge",
+      stage: "COMPLETED",
+    },
+    {
+      id: "rev-3",
+      cycle: "2026 Appraisals",
+      status: "COMPLETED",
+      selfRating: "4",
+      managerRating: "3",
+      result: "Released: 3.48",
+      action: "View result",
+      stage: "COMPLETED",
+    },
+    {
+      id: "rev-4",
+      cycle: "Q2 performance review",
+      status: "COMPLETED",
+      selfRating: "3",
+      managerRating: "4",
+      result: "Released: 3.60",
+      action: "View and acknowledge",
+      stage: "COMPLETED",
+    },
+  ],
+  reviewQuestions: [
+    "To what extent did the employee achieve agreed performance objectives?",
+    "Did the employee complete assigned tasks within agreed deadlines?",
+    "How would you rate the quality and accuracy of the employee's work?",
+    "How effectively did the employee manage workload and priorities?",
+    "Does the employee demonstrate the technical skills required for the role?",
+    "How effectively does the employee work independently?",
+    "How well does the employee communicate with colleagues?",
+    "How effectively does the employee use available tools and resources?",
+    "Does the employee demonstrate the company's core values?",
+    "How effectively does the employee collaborate with colleagues?",
+    "Does the employee demonstrate accountability and professionalism?",
+    "Does the employee proactively identify and solve problems?",
+    "Does the employee suggest improvements to existing processes?",
+    "How effectively does the employee respond to changing priorities?",
+    "Has the employee demonstrated measurable improvement?",
+    "Does the employee actively seek and apply feedback?",
+  ],
+  ratingOptions: [
+    "1 - Unsatisfactory",
+    "2 - Needs Improvement",
+    "3 - Meets Expectations",
+    "4 - Exceeds Expectations",
+    "5 - Outstanding",
   ],
 };

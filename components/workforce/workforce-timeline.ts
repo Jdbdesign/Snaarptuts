@@ -37,6 +37,35 @@ export function beginWorkforce(
   tl.setVar("wfGrievanceDatePickerOpen", false);
   tl.setVar("wfGrievanceType", "Bullying");
   tl.setVar("wfGrievanceDate", "");
+  tl.setVar("wfAttendanceSeconds", 13 * 60 + 16);
+  tl.setVar("wfAttendanceCheckedIn", true);
+  tl.setVar("wfAttendanceLoading", false);
+  tl.setVar("wfAttendanceTab", "calendar");
+  tl.setVar("wfLeaveTab", "summary");
+  tl.setVar("wfLeaveLoading", false);
+  tl.setVar("wfRequestLeaveOpen", false);
+  tl.setVar("wfLeaveDetailsOpen", false);
+  tl.setVar("wfTimeProject", "No project");
+  tl.setVar("wfTimeJob", "General work");
+  tl.setVar("wfTimeRunning", false);
+  tl.setVar("wfTimeSeconds", 0);
+  tl.setVar("wfTimeTab", "projects");
+  tl.setVar("wfTimeProjectsLoading", false);
+  tl.setVar("wfTimeScheduleMode", "week");
+  tl.setVar("wfTimeProjectDropdownOpen", false);
+  tl.setVar("wfTimeJobDropdownOpen", false);
+  tl.setVar("wfGoalsTab", "goals");
+  tl.setVar("wfEditGoalOpen", false);
+  tl.setVar("wfGoalProgress", 54);
+  tl.setVar("wfKpiDetailsOpen", false);
+  tl.setVar("wfAppraisalsTab", "my-reviews");
+  tl.setVar("wfReviewObjectivesOpen", false);
+  tl.setVar("wfReviewAnswers", {});
+  tl.setVar("wfReviewSkills", "");
+  tl.setVar("wfReviewComments", "");
+  tl.setVar("wfReviewSubmitting", false);
+  tl.setVar("wfReviewSubmitted", false);
+  tl.setVar("wfActiveReviewSelect", null);
   tl.setVar("fade", false);
 }
 
