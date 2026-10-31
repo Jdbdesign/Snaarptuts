@@ -1,7 +1,7 @@
 export const CAPTIONS = {
-  addUsers: "Invite new colleagues to Workforce with Add Users.",
+  addUsers: "Add Users is for admins only. It opens the Snaarp Admin page.",
   appsGrid: "Switch between Snaarp Suite products anytime using the apps menu.",
-  avatar: "Access your profile, account preferences, or log out from your avatar menu.",
+  avatar: "Your profile menu gives you Settings and Logout.",
 };
 
 export const URLS = {

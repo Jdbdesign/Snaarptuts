@@ -77,9 +77,9 @@ export const WORKFORCE_NAV_ITEMS: {
 export const SAMPLE_EMPLOYEE = {
   name: "Alex Morgan",
   initial: "A",
-  role: "Team Member",
+  role: "Employee",
   department: "Engineering",
-  email: "alex.morgan@example.com",
+  email: "alex.morgan@snaarp.com",
   id: "EMP-2026-0042",
   dob: "01/09/1990",
   startDate: "14/10/2026",

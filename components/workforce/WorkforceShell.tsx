@@ -39,14 +39,12 @@ export function WorkforceShell({
   // Scene variables for dynamic state
   const sidebarCollapsed = useTimelineVar(tl, "wfSidebarCollapsed", false);
   const mySpaceExpanded = useTimelineVar(tl, "wfMySpaceExpanded", activeNav === "my-space" || !!activeSub);
-  const openPopover = useTimelineVar<"notifications" | "add-users" | "apps" | "avatar" | null>(
+  const openPopover = useTimelineVar<"notifications" | "apps" | "avatar" | null>(
     tl,
     "wfOpenPopover",
     null
   );
   const unreadCount = useTimelineVar(tl, "wfUnreadCount", 1);
-  const inviteEmail = useTimelineVar(tl, "field:invite-email", "");
-  const inviteRole = useTimelineVar(tl, "wfInviteRole", "Team Member");
 
   return (
     <div data-scroller className="relative h-full w-full overflow-hidden bg-[#F8F9FB] text-[#111827] font-['Poppins',sans-serif]">
@@ -246,11 +244,10 @@ export function WorkforceShell({
 
             {/* Right-hand tools */}
             <div className="flex items-center gap-3">
-              {/* Add Users button */}
+              {/* Add Users button (admin-only in real product; does nothing for employees) */}
               <button
                 type="button"
                 data-tl="top-add-users"
-                onClick={() => tl.setVar("wfOpenPopover", openPopover === "add-users" ? null : "add-users")}
                 className="flex flex-col items-center justify-center px-2 py-1 rounded-lg text-[#4B5563] hover:bg-gray-100 transition-colors"
               >
                 <Icon name="userPlus" size={18} className="text-[#6B7280]" />
@@ -352,72 +349,7 @@ export function WorkforceShell({
               </div>
             )}
 
-            {/* 2. Add Users Popover */}
-            {openPopover === "add-users" && (
-              <div
-                data-tl="add-users-popover"
-                className="absolute right-20 top-14 w-[320px] rounded-2xl border border-[#E5E7EB] bg-white shadow-xl z-50 p-5"
-              >
-                <h3 className="font-semibold text-sm text-[#111827]">Add users to Workforce</h3>
-                <p className="text-xs text-[#6B7280] mt-1">Invite colleagues by email</p>
-
-                <div className="mt-4 flex flex-col gap-3">
-                  <div>
-                    <label className="block text-[11px] font-medium text-[#4B5563] mb-1">
-                      Work email
-                    </label>
-                    <input
-                      type="email"
-                      data-tl="add-user-email"
-                      value={inviteEmail}
-                      placeholder="colleague@example.com"
-                      onChange={(e) => tl.setVar("field:invite-email", e.target.value)}
-                      className="w-full h-8 px-3 rounded-lg border border-[#D1D5DB] text-xs focus:outline-none focus:border-[#7014D9]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-medium text-[#4B5563] mb-1">
-                      Role
-                    </label>
-                    <select
-                      data-tl="add-user-role"
-                      value={inviteRole}
-                      onChange={(e) => tl.setVar("wfInviteRole", e.target.value)}
-                      className="w-full h-8 px-2 rounded-lg border border-[#D1D5DB] text-xs focus:outline-none focus:border-[#7014D9] bg-white"
-                    >
-                      <option value="Team Member">Team Member</option>
-                      <option value="Manager">Manager</option>
-                      <option value="Admin">Admin</option>
-                    </select>
-                  </div>
-
-                  <div className="mt-2 flex items-center justify-end gap-2">
-                    <button
-                      type="button"
-                      data-tl="add-user-cancel"
-                      onClick={() => tl.setVar("wfOpenPopover", null)}
-                      className="px-3 py-1.5 rounded-lg border border-[#D1D5DB] text-xs font-medium text-[#4B5563] hover:bg-gray-50"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="button"
-                      data-tl="add-user-submit"
-                      onClick={() => {
-                        tl.setVar("wfOpenPopover", null);
-                        tl.toast("Invite sent to " + (inviteEmail || "colleague@example.com"));
-                      }}
-                      className="px-3 py-1.5 rounded-lg bg-[#7014D9] text-xs font-medium text-white hover:bg-[#5B0FB3]"
-                    >
-                      Send invite
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* 3. Apps Grid Popover */}
+            {/* 2. Apps Grid Popover */}
             {openPopover === "apps" && (
               <div
                 data-tl="apps-grid-popover"
@@ -443,42 +375,38 @@ export function WorkforceShell({
               </div>
             )}
 
-            {/* 4. Avatar Dropdown */}
+            {/* 3. Avatar Dropdown */}
             {openPopover === "avatar" && (
               <div
                 data-tl="avatar-dropdown"
                 className="absolute right-4 top-14 w-[240px] rounded-2xl border border-[#E5E7EB] bg-white shadow-xl z-50 p-3"
               >
-                <div className="flex items-center gap-3 p-2 border-b border-[#F3F4F6]">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#7014D9] text-white font-semibold text-sm">
-                    {SAMPLE_EMPLOYEE.initial}
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold text-[#111827] truncate">{SAMPLE_EMPLOYEE.name}</p>
-                    <p className="text-[11px] text-[#6B7280] truncate">{SAMPLE_EMPLOYEE.role}</p>
-                  </div>
+                <div className="p-2 border-b border-[#F3F4F6]">
+                  <p className="text-xs font-medium text-[#111827] truncate">
+                    {SAMPLE_EMPLOYEE.email}
+                  </p>
+                  <p className="text-[10px] font-semibold tracking-wider text-[#6B7280] uppercase mt-0.5">
+                    EMPLOYEE
+                  </p>
                 </div>
                 <div className="mt-2 flex flex-col gap-0.5">
                   <button
                     type="button"
-                    data-tl="avatar-profile-link"
-                    onClick={() => {
-                      tl.setVar("wfOpenPopover", null);
-                      onNavigateSub?.("profile");
-                    }}
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#4B5563] hover:bg-gray-100 hover:text-[#111827] transition-colors"
+                    data-tl="avatar-settings-link"
+                    onClick={() => tl.setVar("wfOpenPopover", null)}
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#4B5563] hover:bg-gray-100 hover:text-[#111827] transition-colors text-left"
                   >
-                    <Icon name="user" size={16} className="text-[#6B7280]" />
-                    My profile
+                    <Icon name="gear" size={16} className="text-[#6B7280]" />
+                    <span>Settings</span>
                   </button>
                   <button
                     type="button"
-                    data-tl="avatar-logout-link"
+                    data-tl="avatar-logout"
                     onClick={() => tl.setVar("wfOpenPopover", null)}
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#4B5563] hover:bg-gray-100 hover:text-[#111827] transition-colors"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#DC2626] hover:bg-red-50 transition-colors text-left"
                   >
-                    <Icon name="logout" size={16} className="text-[#6B7280]" />
-                    Logout
+                    <Icon name="logout" size={16} className="text-[#DC2626]" />
+                    <span>Logout</span>
                   </button>
                 </div>
               </div>
