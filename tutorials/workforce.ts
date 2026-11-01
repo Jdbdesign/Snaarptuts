@@ -214,6 +214,8 @@ import { Step107 } from "@/scenes/workforce/step107/Step107";
 import { runStep107, STEP107_DURATION_MS } from "@/scenes/workforce/step107/script";
 import { Step108 } from "@/scenes/workforce/step108/Step108";
 import { runStep108, STEP108_DURATION_MS } from "@/scenes/workforce/step108/script";
+import { Step109 } from "@/scenes/workforce/step109/Step109";
+import { runStep109, STEP109_DURATION_MS } from "@/scenes/workforce/step109/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -873,6 +875,12 @@ export const workforce: Tutorial = {
       title: "Holiday calendar",
       url: "workforce.snaarp.com/holidays",
       scene: { Component: Step108, run: runStep108, durationMs: STEP108_DURATION_MS },
+    },
+    {
+      id: "training-dashboard",
+      title: "Training Dashboard",
+      url: "workforce.snaarp.com/training/dashboard",
+      scene: { Component: Step109, run: runStep109, durationMs: STEP109_DURATION_MS },
     },
   ],
   completion: {
