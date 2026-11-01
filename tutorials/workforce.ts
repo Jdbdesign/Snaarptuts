@@ -198,6 +198,8 @@ import { Step99 } from "@/scenes/workforce/step99/Step99";
 import { runStep99, STEP99_DURATION_MS } from "@/scenes/workforce/step99/script";
 import { Step100 } from "@/scenes/workforce/step100/Step100";
 import { runStep100, STEP100_DURATION_MS } from "@/scenes/workforce/step100/script";
+import { Step101 } from "@/scenes/workforce/step101/Step101";
+import { runStep101, STEP101_DURATION_MS } from "@/scenes/workforce/step101/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -809,6 +811,12 @@ export const workforce: Tutorial = {
       title: "Add Record",
       url: "workforce.snaarp.com/hr-cases",
       scene: { Component: Step100, run: runStep100, durationMs: STEP100_DURATION_MS },
+    },
+    {
+      id: "open-announcements",
+      title: "Open Announcements",
+      url: "workforce.snaarp.com/announcements",
+      scene: { Component: Step101, run: runStep101, durationMs: STEP101_DURATION_MS },
     },
   ],
   completion: {
