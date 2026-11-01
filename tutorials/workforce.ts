@@ -184,6 +184,8 @@ import { Step92 } from "@/scenes/workforce/step92/Step92";
 import { runStep92, STEP92_DURATION_MS } from "@/scenes/workforce/step92/script";
 import { Step93 } from "@/scenes/workforce/step93/Step93";
 import { runStep93, STEP93_DURATION_MS } from "@/scenes/workforce/step93/script";
+import { Step94 } from "@/scenes/workforce/step94/Step94";
+import { runStep94, STEP94_DURATION_MS } from "@/scenes/workforce/step94/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -753,6 +755,12 @@ export const workforce: Tutorial = {
       title: "Onboarding templates",
       url: "workforce.snaarp.com/onboarding/templates/standard",
       scene: { Component: Step93, run: runStep93, durationMs: STEP93_DURATION_MS },
+    },
+    {
+      id: "initiate-an-exit",
+      title: "Initiate an exit",
+      url: "workforce.snaarp.com/offboarding/initiate",
+      scene: { Component: Step94, run: runStep94, durationMs: STEP94_DURATION_MS },
     },
   ],
   completion: {
