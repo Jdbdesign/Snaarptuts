@@ -222,6 +222,8 @@ import { Step111 } from "@/scenes/workforce/step111/Step111";
 import { runStep111, STEP111_DURATION_MS } from "@/scenes/workforce/step111/script";
 import { Step112 } from "@/scenes/workforce/step112/Step112";
 import { runStep112, STEP112_DURATION_MS } from "@/scenes/workforce/step112/script";
+import { Step113 } from "@/scenes/workforce/step113/Step113";
+import { runStep113, STEP113_DURATION_MS } from "@/scenes/workforce/step113/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -905,6 +907,12 @@ export const workforce: Tutorial = {
       title: "Lessons and assessment",
       url: "workforce.snaarp.com/training/courses",
       scene: { Component: Step112, run: runStep112, durationMs: STEP112_DURATION_MS },
+    },
+    {
+      id: "course-categories",
+      title: "Course Categories",
+      url: "workforce.snaarp.com/training/categories",
+      scene: { Component: Step113, run: runStep113, durationMs: STEP113_DURATION_MS },
     },
   ],
   completion: {
