@@ -200,6 +200,8 @@ import { Step100 } from "@/scenes/workforce/step100/Step100";
 import { runStep100, STEP100_DURATION_MS } from "@/scenes/workforce/step100/script";
 import { Step101 } from "@/scenes/workforce/step101/Step101";
 import { runStep101, STEP101_DURATION_MS } from "@/scenes/workforce/step101/script";
+import { Step102 } from "@/scenes/workforce/step102/Step102";
+import { runStep102, STEP102_DURATION_MS } from "@/scenes/workforce/step102/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -817,6 +819,12 @@ export const workforce: Tutorial = {
       title: "Open Announcements",
       url: "workforce.snaarp.com/announcements",
       scene: { Component: Step101, run: runStep101, durationMs: STEP101_DURATION_MS },
+    },
+    {
+      id: "create-an-announcement",
+      title: "Create an announcement",
+      url: "workforce.snaarp.com/announcements",
+      scene: { Component: Step102, run: runStep102, durationMs: STEP102_DURATION_MS },
     },
   ],
   completion: {
