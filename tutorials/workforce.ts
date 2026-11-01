@@ -242,6 +242,8 @@ import { Step121 } from "@/scenes/workforce/step121/Step121";
 import { runStep121, STEP121_DURATION_MS } from "@/scenes/workforce/step121/script";
 import { Step122 } from "@/scenes/workforce/step122/Step122";
 import { runStep122, STEP122_DURATION_MS } from "@/scenes/workforce/step122/script";
+import { Step123 } from "@/scenes/workforce/step123/Step123";
+import { runStep123, STEP123_DURATION_MS } from "@/scenes/workforce/step123/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -985,6 +987,12 @@ export const workforce: Tutorial = {
       title: "Onboarding Report",
       url: "workforce.snaarp.com/reports/onboarding",
       scene: { Component: Step122, run: runStep122, durationMs: STEP122_DURATION_MS },
+    },
+    {
+      id: "open-the-admin-panel",
+      title: "Open the Admin Panel",
+      url: "admin.snaarp.com/dashboard",
+      scene: { Component: Step123, run: runStep123, durationMs: STEP123_DURATION_MS },
     },
   ],
   completion: {
