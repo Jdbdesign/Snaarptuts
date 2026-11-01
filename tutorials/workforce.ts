@@ -220,6 +220,8 @@ import { Step110 } from "@/scenes/workforce/step110/Step110";
 import { runStep110, STEP110_DURATION_MS } from "@/scenes/workforce/step110/script";
 import { Step111 } from "@/scenes/workforce/step111/Step111";
 import { runStep111, STEP111_DURATION_MS } from "@/scenes/workforce/step111/script";
+import { Step112 } from "@/scenes/workforce/step112/Step112";
+import { runStep112, STEP112_DURATION_MS } from "@/scenes/workforce/step112/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -897,6 +899,12 @@ export const workforce: Tutorial = {
       title: "Create Course",
       url: "workforce.snaarp.com/training/courses",
       scene: { Component: Step111, run: runStep111, durationMs: STEP111_DURATION_MS },
+    },
+    {
+      id: "lessons-and-assessment",
+      title: "Lessons and assessment",
+      url: "workforce.snaarp.com/training/courses",
+      scene: { Component: Step112, run: runStep112, durationMs: STEP112_DURATION_MS },
     },
   ],
   completion: {
