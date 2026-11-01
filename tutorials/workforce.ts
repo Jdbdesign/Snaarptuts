@@ -172,6 +172,8 @@ import { Step86 } from "@/scenes/workforce/step86/Step86";
 import { runStep86, STEP86_DURATION_MS } from "@/scenes/workforce/step86/script";
 import { Step87 } from "@/scenes/workforce/step87/Step87";
 import { runStep87, STEP87_DURATION_MS } from "@/scenes/workforce/step87/script";
+import { Step88 } from "@/scenes/workforce/step88/Step88";
+import { runStep88, STEP88_DURATION_MS } from "@/scenes/workforce/step88/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -705,6 +707,12 @@ export const workforce: Tutorial = {
       title: "Compliance",
       url: "workforce.snaarp.com/compliance",
       scene: { Component: Step87, run: runStep87, durationMs: STEP87_DURATION_MS },
+    },
+    {
+      id: "create-a-folder",
+      title: "Create a folder",
+      url: "workforce.snaarp.com/compliance/folders/new",
+      scene: { Component: Step88, run: runStep88, durationMs: STEP88_DURATION_MS },
     },
   ],
   completion: {
