@@ -154,6 +154,8 @@ import { Step77 } from "@/scenes/workforce/step77/Step77";
 import { runStep77, STEP77_DURATION_MS } from "@/scenes/workforce/step77/script";
 import { Step78 } from "@/scenes/workforce/step78/Step78";
 import { runStep78, STEP78_DURATION_MS } from "@/scenes/workforce/step78/script";
+import { Step79 } from "@/scenes/workforce/step79/Step79";
+import { runStep79, STEP79_DURATION_MS } from "@/scenes/workforce/step79/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -633,6 +635,12 @@ export const workforce: Tutorial = {
       title: "Job postings",
       url: "workforce.snaarp.com/recruitment",
       scene: { Component: Step78, run: runStep78, durationMs: STEP78_DURATION_MS },
+    },
+    {
+      id: "create-a-job",
+      title: "Create a job",
+      url: "workforce.snaarp.com/recruitment",
+      scene: { Component: Step79, run: runStep79, durationMs: STEP79_DURATION_MS },
     },
   ],
   completion: {
