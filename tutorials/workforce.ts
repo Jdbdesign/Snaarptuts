@@ -194,6 +194,8 @@ import { Step97 } from "@/scenes/workforce/step97/Step97";
 import { runStep97, STEP97_DURATION_MS } from "@/scenes/workforce/step97/script";
 import { Step98 } from "@/scenes/workforce/step98/Step98";
 import { runStep98, STEP98_DURATION_MS } from "@/scenes/workforce/step98/script";
+import { Step99 } from "@/scenes/workforce/step99/Step99";
+import { runStep99, STEP99_DURATION_MS } from "@/scenes/workforce/step99/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -793,6 +795,12 @@ export const workforce: Tutorial = {
       title: "View a case",
       url: "workforce.snaarp.com/hr-cases",
       scene: { Component: Step98, run: runStep98, durationMs: STEP98_DURATION_MS },
+    },
+    {
+      id: "disciplinary-record",
+      title: "Disciplinary record",
+      url: "workforce.snaarp.com/hr-cases",
+      scene: { Component: Step99, run: runStep99, durationMs: STEP99_DURATION_MS },
     },
   ],
   completion: {
