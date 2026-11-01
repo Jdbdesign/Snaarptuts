@@ -244,6 +244,8 @@ import { Step122 } from "@/scenes/workforce/step122/Step122";
 import { runStep122, STEP122_DURATION_MS } from "@/scenes/workforce/step122/script";
 import { Step123 } from "@/scenes/workforce/step123/Step123";
 import { runStep123, STEP123_DURATION_MS } from "@/scenes/workforce/step123/script";
+import { Step124 } from "@/scenes/workforce/step124/Step124";
+import { runStep124, STEP124_DURATION_MS } from "@/scenes/workforce/step124/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -994,9 +996,15 @@ export const workforce: Tutorial = {
       url: "admin.snaarp.com/dashboard",
       scene: { Component: Step123, run: runStep123, durationMs: STEP123_DURATION_MS },
     },
+    {
+      id: "back-to-workforce",
+      title: "Back to Workforce",
+      url: "workforce.snaarp.com/reports",
+      scene: { Component: Step124, run: runStep124, durationMs: STEP124_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "You now know how to navigate the Workforce Dashboard, My Space, Attendance, Leave Tracker, Time Tracker, Goals, My Appraisals, Policies, Learning Hub, Notifications, Appraisal Management, Payroll, Recruitment, Email templates, Compliance, and Lifecycle.",
+    text: "You now know how to navigate the complete Snaarp Workforce suite across employee tools and administrative operations, including HR Cases, Announcements, Shifts, Holidays, Training, Reports, and Admin Panel management.",
   },
 };
