@@ -162,6 +162,8 @@ import { Step81 } from "@/scenes/workforce/step81/Step81";
 import { runStep81, STEP81_DURATION_MS } from "@/scenes/workforce/step81/script";
 import { Step82 } from "@/scenes/workforce/step82/Step82";
 import { runStep82, STEP82_DURATION_MS } from "@/scenes/workforce/step82/script";
+import { Step83 } from "@/scenes/workforce/step83/Step83";
+import { runStep83, STEP83_DURATION_MS } from "@/scenes/workforce/step83/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -665,6 +667,12 @@ export const workforce: Tutorial = {
       title: "Request documents",
       url: "workforce.snaarp.com/recruitment",
       scene: { Component: Step82, run: runStep82, durationMs: STEP82_DURATION_MS },
+    },
+    {
+      id: "applicant-details",
+      title: "Applicant details",
+      url: "workforce.snaarp.com/recruitment",
+      scene: { Component: Step83, run: runStep83, durationMs: STEP83_DURATION_MS },
     },
   ],
   completion: {
