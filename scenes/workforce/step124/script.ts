@@ -23,7 +23,7 @@ export async function runStep124(tl: Timeline) {
 
   // 2. Scroll sidebar up to show MANAGE
   await tl.at(3600);
-  tl.scrollTo("[data-scroller=workforce-sidebar]", 0, { durationMs: 400 });
+  tl.scrollTo(0, 400);
   await tl.wait(400);
 
   // 3. Hover sidebar MANAGE item

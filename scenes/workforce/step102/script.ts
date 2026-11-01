@@ -27,20 +27,16 @@ export async function runStep102(tl: Timeline) {
   await tl.at(3200);
   tl.showCaption(CAPTIONS.fillTitle);
   await pressOn(tl, "[data-tl=input-announcement-title]", { ms: 500 });
-  await tl.typeText("[data-tl=input-announcement-title]", "New day", {
-    varName: "wfAnnouncementTitleText",
-    cps: 12,
-  });
+  tl.setVar("wfAnnouncementTitleText", "New day");
+  await tl.typeText("[data-tl=input-announcement-title]", "New day", { msPerChar: 40 });
   await tl.wait(400);
 
   // 3. Type Content
   await tl.at(6200);
   tl.showCaption(CAPTIONS.fillMessage);
   await pressOn(tl, "[data-tl=textarea-announcement-content]", { ms: 500 });
-  await tl.typeText("[data-tl=textarea-announcement-content]", "This is a brand new day", {
-    varName: "wfAnnouncementContentText",
-    cps: 14,
-  });
+  tl.setVar("wfAnnouncementContentText", "This is a brand new day");
+  await tl.typeText("[data-tl=textarea-announcement-content]", "This is a brand new day", { msPerChar: 35 });
   await tl.wait(400);
 
   // 4. Toggle Display as Banner
@@ -54,10 +50,8 @@ export async function runStep102(tl: Timeline) {
   await tl.at(11800);
   tl.showCaption(CAPTIONS.fillCta);
   await pressOn(tl, "[data-tl=input-announcement-cta]", { ms: 500 });
-  await tl.typeText("[data-tl=input-announcement-cta]", "NEW DAY", {
-    varName: "wfAnnouncementCtaText",
-    cps: 10,
-  });
+  tl.setVar("wfAnnouncementCtaText", "NEW DAY");
+  await tl.typeText("[data-tl=input-announcement-cta]", "NEW DAY", { msPerChar: 40 });
   await tl.wait(400);
 
   // Finish

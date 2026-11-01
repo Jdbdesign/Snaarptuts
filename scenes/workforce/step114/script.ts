@@ -26,10 +26,8 @@ export async function runStep114(tl: Timeline) {
   await tl.at(3200);
   tl.showCaption(CAPTIONS.typeCategoryName);
   await pressOn(tl, "[data-tl=input-category-name]", { ms: 500 });
-  await tl.typeText("[data-tl=input-category-name]", "Engineering", {
-    varName: "wfCategoryNameText",
-    cps: 12,
-  });
+  tl.setVar("wfCategoryNameText", "Engineering");
+  await tl.typeText("[data-tl=input-category-name]", "Engineering", { msPerChar: 40 });
   await tl.wait(400);
 
   // 3. Click Save Category

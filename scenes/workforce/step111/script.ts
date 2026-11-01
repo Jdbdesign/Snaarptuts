@@ -27,23 +27,19 @@ export async function runStep111(tl: Timeline) {
   await tl.at(3200);
   tl.showCaption(CAPTIONS.typeTitle);
   await pressOn(tl, "[data-tl=input-course-title]", { ms: 500 });
-  await tl.typeText("[data-tl=input-course-title]", "Engineering Fundamentals", {
-    varName: "wfCourseTitleText",
-    cps: 12,
-  });
+  tl.setVar("wfCourseTitleText", "Engineering Fundamentals");
+  await tl.typeText("[data-tl=input-course-title]", "Engineering Fundamentals", { msPerChar: 40 });
   await tl.wait(400);
 
   // 3. Type Description
   await tl.at(6800);
   tl.showCaption(CAPTIONS.typeDesc);
   await pressOn(tl, "[data-tl=textarea-course-desc]", { ms: 500 });
+  tl.setVar("wfCourseDescText", "Core engineering practices and workflow guidelines.");
   await tl.typeText(
     "[data-tl=textarea-course-desc]",
     "Core engineering practices and workflow guidelines.",
-    {
-      varName: "wfCourseDescText",
-      cps: 14,
-    }
+    { msPerChar: 35 }
   );
   await tl.wait(400);
 

@@ -33,7 +33,7 @@ export async function runStep117(tl: Timeline) {
   // 3. Ring Assign Course button
   await tl.at(7200);
   tl.showCaption(CAPTIONS.ringAssign);
-  await ring(tl, "[data-tl=btn-submit-assign-course]", { ms: 1200 });
+  await ring(tl, "[data-tl=btn-submit-assign-course]", 1200);
   await tl.wait(600);
 
   // Finish
