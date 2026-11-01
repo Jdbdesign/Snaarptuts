@@ -238,6 +238,8 @@ import { Step119 } from "@/scenes/workforce/step119/Step119";
 import { runStep119, STEP119_DURATION_MS } from "@/scenes/workforce/step119/script";
 import { Step120 } from "@/scenes/workforce/step120/Step120";
 import { runStep120, STEP120_DURATION_MS } from "@/scenes/workforce/step120/script";
+import { Step121 } from "@/scenes/workforce/step121/Step121";
+import { runStep121, STEP121_DURATION_MS } from "@/scenes/workforce/step121/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -969,6 +971,12 @@ export const workforce: Tutorial = {
       title: "Leave Report",
       url: "workforce.snaarp.com/reports/leave",
       scene: { Component: Step120, run: runStep120, durationMs: STEP120_DURATION_MS },
+    },
+    {
+      id: "headcount-report",
+      title: "Headcount Report",
+      url: "workforce.snaarp.com/reports/headcount",
+      scene: { Component: Step121, run: runStep121, durationMs: STEP121_DURATION_MS },
     },
   ],
   completion: {
