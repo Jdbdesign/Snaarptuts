@@ -201,6 +201,18 @@ export function AdminReviewDetailView({ onBack }: Props) {
           </div>
           <p className="text-xs text-[#9CA3AF] italic pt-1">No additional comments</p>
         </div>
+
+        {/* Bottom Back Button */}
+        <div className="flex items-center justify-end pt-2">
+          <button
+            type="button"
+            data-tl="btn-bottom-back-to-reviews"
+            onClick={onBack}
+            className="px-4 py-2 rounded-xl border border-[#D1D5DB] text-xs font-semibold text-[#4B5563] hover:bg-gray-50 transition-colors shadow-2xs"
+          >
+            Back to reviews
+          </button>
+        </div>
       </div>
     </div>
   );
