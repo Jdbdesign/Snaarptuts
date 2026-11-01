@@ -1835,11 +1835,39 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 93 | Onboarding templates | Switches to Templates sub-tab. Clicks Standard Employee Onboarding template, reviews checklist tasks list, scrolls tasks panel, and inspects task configuration. | 15 s |
 | 94 | Initiate an exit | Clicks Offboarding toggle pill. Clicks Initiate Exit button, selects Personal Reasons, voluntary departure type, IT Equipment Return checklist, rings questionnaire, and clicks Back. | 16 s |
 | 95 | Resignations | In Offboarding Dashboard, rings Casey Brown progress row, clicks Resignations sub-tab, opens actions menu on Alex Morgan, clicks View to open Resignation Details modal, rings dates and reason, and clicks Close. | 16 s |
-| 96 | Exit templates | Clicks Templates sub-tab, reviews custom and default departure checklists, clicks Preview on Standard Exit Checklist, hovers items 1 & 2, hovers Use Template, and clicks Close. Completion card follows. | 15 s |
+| 96 | Exit templates | Clicks Templates sub-tab, reviews custom and default departure checklists, clicks Preview on Standard Exit Checklist, hovers items 1 & 2, hovers Use Template, and clicks Close. | 15 s |
+| 97 | Open HR Cases | Clicks HR Cases under MANAGE in sidebar. Reviews Grievances and Disciplinary tabs, 2 grievance rows, and summary stat cards. | 15 s |
+| 98 | View a case | Clicks View case on Alex Morgan grievance. Opens Case Details modal with investigation timeline and notes, closes with X. | 16 s |
+| 99 | Disciplinary record | Clicks Disciplinary tab. Reviews disciplinary records table with Jordan Lee written warning for attendance. | 14 s |
+| 100 | Add Record | Clicks "+ Add Record" button. Opens Record Form modal, selects employee, enters violation type, explains process, clicks Cancel. | 16 s |
+| 101 | Open Announcements | Clicks Announcements under MANAGE in sidebar. Reviews published announcements table with 2 active announcements. | 14 s |
+| 102 | Create an announcement | Clicks "+ Create Announcement". Types title "Annual Company Retreat 2026", types announcement message, toggles top banner alert switch. | 18 s |
+| 103 | Publish and see it live | Clicks Publish announcement. Shows success toast, top of screen displays live purple banner with CTA link. | 16 s |
+| 104 | Bell notification | Clicks bell icon in top bar. Displays new announcement in notifications dropdown, explains real-time sync with employee views. | 15 s |
+| 105 | Open Shifts | Clicks Shifts under MANAGE in sidebar. Reviews configured shifts table (Morning, Regular, Night), working hours, and employee counts. | 15 s |
+| 106 | Add a shift | Clicks "+ Add Shift" button. Opens shift modal, sets shift name "Evening Coverage", sets hours 08:30 - 17:00, chooses operating days, clicks Cancel. | 16 s |
+| 107 | Open Holidays | Clicks Holidays under MANAGE in sidebar. Reviews public holidays list (8 UK bank holidays) and working week settings. | 15 s |
+| 108 | Holiday calendar | Switches to Calendar view. Displays October 2026 calendar with Founders' Day holiday chip and today marker. | 14 s |
+| 109 | Training Dashboard | Clicks Training under MANAGE in sidebar. Subnav opens Dashboard, reviews 4 training stat cards and recent activity feed. | 15 s |
+| 110 | Courses list | Switches to Courses in training subnav. Reviews course catalog table with Engineering Practices 101, draft and published courses. | 15 s |
+| 111 | Create Course | Clicks "+ Create Course" button. Slide-out drawer opens, enters course title "Advanced Security Standards", category, description, and clicks Cancel. | 18 s |
+| 112 | Lessons and assessment | From Courses table clicks Actions "...", clicks Manage Lessons. Reviews module lessons, pass mark (80%), and quiz setup, closes modal. | 16 s |
+| 113 | Course Categories | Switches to Categories in training subnav. Reviews category cards grid (Engineering, Compliance, Leadership) with course counts. | 14 s |
+| 114 | Create Category | Clicks "+ Create Category" button. Enters category title "Health & Safety", selects icon, enters description, clicks Cancel. | 16 s |
+| 115 | Assignments | Switches to Assignments in training subnav. Reviews enrolled employee courses table with status badges and progress percentages. | 15 s |
+| 116 | View Progress | Clicks Actions "..." on Alex Morgan row, clicks View Progress. Opens progress modal showing module completion checklist and score, closes. | 16 s |
+| 117 | Assign Course | Clicks "+ Assign Course" button. Slide-out drawer opens, selects course, selects Jordan Lee, sets due date, clicks Cancel. | 18 s |
+| 118 | Reports hub | Clicks Reports under INSIGHTS in sidebar. Reviews 4 report category cards: Attendance, Leave, Headcount, Onboarding. | 15 s |
+| 119 | Attendance Report | Clicks Attendance card. Brief loading spinner, displays attendance logs table with employee status, timestamps, and Export button. | 16 s |
+| 120 | Leave Report | Switches to Leave report tab. Reviews employee leave balances, taken vs remaining days, leave types breakdown, and status filter. | 15 s |
+| 121 | Headcount Report | Switches to Headcount report tab. Reviews department headcount metrics, gender balance, and employee tenure distribution. | 15 s |
+| 122 | Onboarding Report | Switches to Onboarding report tab. Reviews onboarding completion velocity, pending tasks, and recent new hire progress. | 15 s |
+| 123 | Open the Admin Panel | Clicks "Open Admin Panel" in top bar. Transitions smoothly to the unified Snaarp Admin Panel dashboard layout with suite metrics. | 16 s |
+| 124 | Back to Workforce | Inspects Admin Panel navigation, clicks "Back to Snaarp Workforce", transitions smoothly back to Workforce Dashboard. Completion card follows. | 16 s |
 
 **Files.**
 - Config: `tutorials/workforce.ts`
 - Reusable Shell & Stage: `components/workforce/WorkforceShell.tsx`, `components/workforce/WorkforceStage.tsx`
-- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`, `PoliciesView.tsx`, `LearningHubView.tsx`, `NotificationsView.tsx`, `DocumentViewerModal.tsx`, `AppraisalManagementView.tsx`, `CycleCreationFormView.tsx`, `AdminReviewDetailView.tsx`, `PayrollView.tsx`, `RecruitmentView.tsx`, `CareersPageView.tsx`, `EmailTemplatesView.tsx`, `ComplianceView.tsx`, `LifecycleView.tsx`
+- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`, `PoliciesView.tsx`, `LearningHubView.tsx`, `NotificationsView.tsx`, `DocumentViewerModal.tsx`, `AppraisalManagementView.tsx`, `CycleCreationFormView.tsx`, `AdminReviewDetailView.tsx`, `PayrollView.tsx`, `RecruitmentView.tsx`, `CareersPageView.tsx`, `EmailTemplatesView.tsx`, `ComplianceView.tsx`, `LifecycleView.tsx`, `AdminHrCasesView.tsx`, `AdminAnnouncementsView.tsx`, `AdminShiftsView.tsx`, `AdminHolidaysView.tsx`, `AdminTrainingView.tsx`, `AdminReportsView.tsx`, `AdminPanelEmbedView.tsx`
 - Central Data & Helpers: `components/workforce/workforce-data.ts`, `components/workforce/workforce-timeline.ts`
-- Step Scenes & Scripts: `scenes/workforce/step<1..96>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/workforce/step<1..124>/Step<N>.tsx`, `script.ts`, `data.ts`

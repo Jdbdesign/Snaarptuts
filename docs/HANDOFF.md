@@ -168,7 +168,7 @@ Because users can no longer scroll the canvas, the timeline scrolls for them: `T
 
 ## Workforce (seventh tutorial, Dashboard, My Space, Salary advances, Resignation, Exit tasks, Holidays, HR Cases, Policies, Learning Hub, Notifications, Appraisal Management, Payroll, Recruitment, Email templates, Compliance, Lifecycle)
 
-Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **96 steps, all built**, followed by the data-driven completion card.
+Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **124 steps, all built and COMPLETE**, followed by the data-driven completion card.
 - Recordings:
   - `ref/workforce/Workforce_clip1.mp4` (1234x720, 97s, 30fps; copy of `Downloads/1030.mp4`; steps 1–17).
   - `ref/workforce/workforce-clip2.mp4` (1234x720, 65s, 30fps; copy of `Downloads/1030(1).mp4`; steps 18–24).
@@ -177,6 +177,7 @@ Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **96 steps, all b
   - `ref/workforce/workforce-clip5.mp4` (1284x720, 44s, 30fps; copy of `Downloads/1030(5).mp4`; steps 49–54).
   - `ref/workforce/workforce-clip6.mp4` (1284x620, 7:07, 30fps; copy of `Downloads/1101.mp4`; steps 55–76 Admin side).
   - `ref/workforce/workforce-clip7.mp4` (`1101(1).mp4`), 1284x620, 4:28, 30fps; steps 77–96 Admin side).
+  - `ref/workforce/workforce-clip8.mp4` (`1101(2).mp4`), 1284x620, 4:23, 30fps; steps 97–124 Admin side).
 
 How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and shell `components/workforce/WorkforceShell.tsx` (the thin Snaarp suite rail, collapsible 220px Workforce sidebar, and top bar with Notifications popover, admin-only Add Users button, Apps suite popover, and Avatar menu). Views:
 - `DashboardView.tsx`: company overview, stat cards, tasks and requests, announcements.
@@ -206,9 +207,16 @@ How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and sh
 - `EmailTemplatesView.tsx`: Email templates manager with 8 templates, template message editor with dynamic placeholder chips, and live preview card.
 - `ComplianceView.tsx`: Compliance folders repository, Create Folder form with department select and Alex Morgan tag, Awaiting Review tab with policy review card, in-app Document Viewer modal, and approval/rejection actions.
 - `LifecycleView.tsx`: Lifecycle suite covering Onboarding (dashboard, 3 status cards, audit table, Alex Morgan record view with 3 tabs, Start Onboarding form with Jordan Lee, template and owner assignments, template task manager) and Offboarding (dashboard with Casey Brown progress bar, Initiate Exit wizard with reasons and checklist picker, Resignations audit table with Alex Morgan actions menu, Resignation Details modal with dates and reasons, and departure Templates repository with Standard Exit Checklist preview modal).
+- `AdminHrCasesView.tsx`: HR Cases management covering Grievances & Disciplinary tabs, case details modal with investigation timeline, disciplinary action table, and add record modal.
+- `AdminAnnouncementsView.tsx`: Announcements dashboard with published announcements table, create announcement modal with title, message, and top alert banner toggle.
+- `AdminShiftsView.tsx`: Shifts management with configured shifts table (Morning, Regular, Night) and add shift modal with custom hours and operating days.
+- `AdminHolidaysView.tsx`: Holidays management with public holidays list, standard working week settings, and interactive October 2026 holiday calendar.
+- `AdminTrainingView.tsx`: Comprehensive Training management suite covering Dashboard stats, Course catalog with drawer and lessons modal, Categories grid and modal, and Assignments table with progress inspection modal and course assignment drawer.
+- `AdminReportsView.tsx`: Reports hub with 4 core category cards (Attendance, Leave, Headcount, Onboarding), interactive tables, loading transitions, and filter bars.
+- `AdminPanelEmbedView.tsx`: Seamless embedded Admin Panel dashboard layout displaying full Snaarp suite usage, users, domains, and storage analytics, complete with "Back to Snaarp Workforce" return navigation.
 
 Every script strictly follows the house patterns in `docs/SCENE-PATTERNS.md`: `beginWorkforce` places the cursor on frame 1, `pressOn` for active clicks, `hoverOn` for hovers, `ring` for inspections, and `finishWorkforce` for the standard white fade finish.
-Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 384 runs (96 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
+Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 496 runs (124 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
 
 ## Workforce: mouse pointer visibility fix
 In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cursor: [number, number] = [0.5, 0.42]` and calls `tl.placeCursor(cursor[0], cursor[1])` as its first action, ensuring the pointer is visible from frame 1 before the first caption. Steps continuing on the same screen use `tl.placeCursorOn(...)` (or matching fraction for step 12) to place the cursor seamlessly where the previous step ended. Spacebar and canvas-click pause freeze the pointer in place. Verified visible across all 17 steps with automated test and visual inspection at 1440 and 1024 widths. Added house pattern rule to `docs/SCENE-PATTERNS.md`.

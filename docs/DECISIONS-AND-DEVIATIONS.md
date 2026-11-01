@@ -820,3 +820,27 @@ Recording: `ref/workforce/workforce-clip7.mp4` (1284x620 from y=50, 4:28, 30fps;
 3. **Modal architecture & accessibility**: Modals and slide-in panels (Create Job, Request Documents, Applicant Details drawer, Schedule Interview, Resignation Details, Standard Exit preview) are rendered as root siblings of their page scrollers, ensuring zero viewport clipping across all tested screen sizes (1920x1080 down to 390x844).
 4. **Step 91 unique identifier**: Step 91 uses `id: "lifecycle-onboarding-record"` to avoid duplicate key collisions with step 10 ("onboarding-record"), ensuring clean React rail rendering and zero console errors.
 5. **Excluded recording artifacts**: Excluded browser chrome, bookmarks bar, Windows taskbar, screen-share overlay ("senting"), dark round floating widgets, browser autofill dropdowns, right-click menus, real names, and external email accounts.
+
+
+## Workforce steps 97-124 (HR Cases, Announcements, Shifts, Holidays, Training, Reports, Admin Panel)
+
+Recording: `ref/workforce/workforce-clip8.mp4` (1284x620 from y=50, 4:23, 30fps; copy of `Downloads/1101(2).mp4`).
+
+**Sample data only (no real personal data).**
+- Admin persona: Sam Taylor (ST), role Admin (`sam.taylor@snaarp.com`, `SUPER_ADMIN`).
+- Employees: Alex Morgan (`alex.morgan@snaarp.com`), Jordan Lee (`jordan.lee@snaarp.com`), Casey Brown (`casey.brown@snaarp.com`).
+- Company: Acme Ltd.
+- Currency: UK pound (£) conventions throughout.
+- Dates: DD/MM/YYYY formatting, except ISO where tables specifically use it. Today = 30 October 2026.
+- Sample courses: "Engineering Practices 101" (3 modules, pass mark 80%). New course draft: "Advanced Security Standards".
+- Sample categories: Engineering, Compliance, Leadership, Health & Safety.
+- Sample announcements: "Annual Company Retreat 2026" with purple alert banner and CTA link.
+- Sample shifts: Morning (07:00 - 15:30), Regular (09:00 - 17:30), Night (22:00 - 06:30).
+
+**Decisions & deviations:**
+1. **Admin Panel Embed View (Step 123 & 124)**: In the recording, clicking "Open Admin Panel" navigated to the top-level Snaarp Admin application. We integrated the existing `AdminPanelLayout` from `@/components/admin-panel/AdminPanelLayout` within `AdminPanelEmbedView.tsx`. A customized top banner with a distinct "Back to Snaarp Workforce" button provides intuitive return navigation back to Workforce without opening secondary browser tabs or navigating outside the tutorial shell.
+2. **Top Announcement Banner Component**: In step 103, publishing an announcement with the banner alert switch toggled displays a live, full-width purple banner at the top of the Workforce stage with the announcement headline and a clickable CTA button, faithfully matching the recording's announcement presentation.
+3. **Training Sub-navigation Bar**: The Training module includes a dedicated secondary navigation bar for Dashboard, Courses, Categories, and Assignments. In the earlier rounds (steps 87-96), this was an accordion item in the sidebar; in this round, clicking Training opens the full sub-navigation layout.
+4. **Reports Hub Architecture**: Reports under INSIGHTS features a top-level hub with 4 interactive category cards (Attendance, Leave, Headcount, Onboarding), each drilling down into a dedicated tab with a brief 0.6s loading spinner, full table metrics, status filters, and export buttons.
+5. **Modal & Drawer Hierarchy**: All new dialogs (Case Details modal, Record Form modal, Create Announcement modal, Add Shift modal, Create Course drawer, Manage Lessons modal, Create Category modal, View Progress modal, Assign Course drawer) are rendered as root siblings within their views to eliminate viewport clipping and maintain 0 visibility QA findings.
+6. **Excluded recording artifacts**: Excluded browser chrome, bookmarks bar, Windows taskbar, screen-share overlay ("senting"), dark round floating pin/ellipsis widgets, browser autofill dropdowns, and personal emails.
