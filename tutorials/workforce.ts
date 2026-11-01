@@ -196,6 +196,8 @@ import { Step98 } from "@/scenes/workforce/step98/Step98";
 import { runStep98, STEP98_DURATION_MS } from "@/scenes/workforce/step98/script";
 import { Step99 } from "@/scenes/workforce/step99/Step99";
 import { runStep99, STEP99_DURATION_MS } from "@/scenes/workforce/step99/script";
+import { Step100 } from "@/scenes/workforce/step100/Step100";
+import { runStep100, STEP100_DURATION_MS } from "@/scenes/workforce/step100/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -801,6 +803,12 @@ export const workforce: Tutorial = {
       title: "Disciplinary record",
       url: "workforce.snaarp.com/hr-cases",
       scene: { Component: Step99, run: runStep99, durationMs: STEP99_DURATION_MS },
+    },
+    {
+      id: "add-record",
+      title: "Add Record",
+      url: "workforce.snaarp.com/hr-cases",
+      scene: { Component: Step100, run: runStep100, durationMs: STEP100_DURATION_MS },
     },
   ],
   completion: {
