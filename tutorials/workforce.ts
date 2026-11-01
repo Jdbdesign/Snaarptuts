@@ -106,6 +106,50 @@ import { Step53 } from "@/scenes/workforce/step53/Step53";
 import { runStep53, STEP53_DURATION_MS } from "@/scenes/workforce/step53/script";
 import { Step54 } from "@/scenes/workforce/step54/Step54";
 import { runStep54, STEP54_DURATION_MS } from "@/scenes/workforce/step54/script";
+import { Step55 } from "@/scenes/workforce/step55/Step55";
+import { runStep55, STEP55_DURATION_MS } from "@/scenes/workforce/step55/script";
+import { Step56 } from "@/scenes/workforce/step56/Step56";
+import { runStep56, STEP56_DURATION_MS } from "@/scenes/workforce/step56/script";
+import { Step57 } from "@/scenes/workforce/step57/Step57";
+import { runStep57, STEP57_DURATION_MS } from "@/scenes/workforce/step57/script";
+import { Step58 } from "@/scenes/workforce/step58/Step58";
+import { runStep58, STEP58_DURATION_MS } from "@/scenes/workforce/step58/script";
+import { Step59 } from "@/scenes/workforce/step59/Step59";
+import { runStep59, STEP59_DURATION_MS } from "@/scenes/workforce/step59/script";
+import { Step60 } from "@/scenes/workforce/step60/Step60";
+import { runStep60, STEP60_DURATION_MS } from "@/scenes/workforce/step60/script";
+import { Step61 } from "@/scenes/workforce/step61/Step61";
+import { runStep61, STEP61_DURATION_MS } from "@/scenes/workforce/step61/script";
+import { Step62 } from "@/scenes/workforce/step62/Step62";
+import { runStep62, STEP62_DURATION_MS } from "@/scenes/workforce/step62/script";
+import { Step63 } from "@/scenes/workforce/step63/Step63";
+import { runStep63, STEP63_DURATION_MS } from "@/scenes/workforce/step63/script";
+import { Step64 } from "@/scenes/workforce/step64/Step64";
+import { runStep64, STEP64_DURATION_MS } from "@/scenes/workforce/step64/script";
+import { Step65 } from "@/scenes/workforce/step65/Step65";
+import { runStep65, STEP65_DURATION_MS } from "@/scenes/workforce/step65/script";
+import { Step66 } from "@/scenes/workforce/step66/Step66";
+import { runStep66, STEP66_DURATION_MS } from "@/scenes/workforce/step66/script";
+import { Step67 } from "@/scenes/workforce/step67/Step67";
+import { runStep67, STEP67_DURATION_MS } from "@/scenes/workforce/step67/script";
+import { Step68 } from "@/scenes/workforce/step68/Step68";
+import { runStep68, STEP68_DURATION_MS } from "@/scenes/workforce/step68/script";
+import { Step69 } from "@/scenes/workforce/step69/Step69";
+import { runStep69, STEP69_DURATION_MS } from "@/scenes/workforce/step69/script";
+import { Step70 } from "@/scenes/workforce/step70/Step70";
+import { runStep70, STEP70_DURATION_MS } from "@/scenes/workforce/step70/script";
+import { Step71 } from "@/scenes/workforce/step71/Step71";
+import { runStep71, STEP71_DURATION_MS } from "@/scenes/workforce/step71/script";
+import { Step72 } from "@/scenes/workforce/step72/Step72";
+import { runStep72, STEP72_DURATION_MS } from "@/scenes/workforce/step72/script";
+import { Step73 } from "@/scenes/workforce/step73/Step73";
+import { runStep73, STEP73_DURATION_MS } from "@/scenes/workforce/step73/script";
+import { Step74 } from "@/scenes/workforce/step74/Step74";
+import { runStep74, STEP74_DURATION_MS } from "@/scenes/workforce/step74/script";
+import { Step75 } from "@/scenes/workforce/step75/Step75";
+import { runStep75, STEP75_DURATION_MS } from "@/scenes/workforce/step75/script";
+import { Step76 } from "@/scenes/workforce/step76/Step76";
+import { runStep76, STEP76_DURATION_MS } from "@/scenes/workforce/step76/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -442,9 +486,141 @@ export const workforce: Tutorial = {
       url: "workforce.snaarp.com/notifications",
       scene: { Component: Step54, run: runStep54, durationMs: STEP54_DURATION_MS },
     },
+    {
+      id: "appraisal-management",
+      title: "Appraisal Management",
+      url: "workforce.snaarp.com/performance/management",
+      scene: { Component: Step55, run: runStep55, durationMs: STEP55_DURATION_MS },
+    },
+    {
+      id: "create-a-cycle",
+      title: "Create a cycle",
+      url: "workforce.snaarp.com/performance/management/cycles/new",
+      scene: { Component: Step56, run: runStep56, durationMs: STEP56_DURATION_MS },
+    },
+    {
+      id: "cycle-workflow-settings",
+      title: "Cycle workflow settings",
+      url: "workforce.snaarp.com/performance/management/cycles/new",
+      scene: { Component: Step57, run: runStep57, durationMs: STEP57_DURATION_MS },
+    },
+    {
+      id: "deadlines-and-questions",
+      title: "Deadlines and questions",
+      url: "workforce.snaarp.com/performance/management/cycles/new",
+      scene: { Component: Step58, run: runStep58, durationMs: STEP58_DURATION_MS },
+    },
+    {
+      id: "appraisal-overview",
+      title: "Appraisal overview",
+      url: "workforce.snaarp.com/performance/management",
+      scene: { Component: Step59, run: runStep59, durationMs: STEP59_DURATION_MS },
+    },
+    {
+      id: "appraisal-assigned-reviews",
+      title: "Assigned reviews",
+      url: "workforce.snaarp.com/performance/management",
+      scene: { Component: Step60, run: runStep60, durationMs: STEP60_DURATION_MS },
+    },
+    {
+      id: "review-details",
+      title: "Review details",
+      url: "workforce.snaarp.com/performance/reviews/sample",
+      scene: { Component: Step61, run: runStep61, durationMs: STEP61_DURATION_MS },
+    },
+    {
+      id: "templates",
+      title: "Templates",
+      url: "workforce.snaarp.com/performance/management",
+      scene: { Component: Step62, run: runStep62, durationMs: STEP62_DURATION_MS },
+    },
+    {
+      id: "insights",
+      title: "Insights",
+      url: "workforce.snaarp.com/performance/management",
+      scene: { Component: Step63, run: runStep63, durationMs: STEP63_DURATION_MS },
+    },
+    {
+      id: "employment-actions",
+      title: "Employment actions",
+      url: "workforce.snaarp.com/performance/management",
+      scene: { Component: Step64, run: runStep64, durationMs: STEP64_DURATION_MS },
+    },
+    {
+      id: "salary-components",
+      title: "Salary components",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step65, run: runStep65, durationMs: STEP65_DURATION_MS },
+    },
+    {
+      id: "employee-salaries",
+      title: "Employee salaries",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step66, run: runStep66, durationMs: STEP66_DURATION_MS },
+    },
+    {
+      id: "assign-a-salary",
+      title: "Assign a salary",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step67, run: runStep67, durationMs: STEP67_DURATION_MS },
+    },
+    {
+      id: "pay-runs",
+      title: "Pay runs",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step68, run: runStep68, durationMs: STEP68_DURATION_MS },
+    },
+    {
+      id: "payslips",
+      title: "Payslips",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step69, run: runStep69, durationMs: STEP69_DURATION_MS },
+    },
+    {
+      id: "payroll-salary-advances",
+      title: "Salary advances",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step70, run: runStep70, durationMs: STEP70_DURATION_MS },
+    },
+    {
+      id: "advance-policy",
+      title: "Advance policy",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step71, run: runStep71, durationMs: STEP71_DURATION_MS },
+    },
+    {
+      id: "import-and-export",
+      title: "Import and export",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step72, run: runStep72, durationMs: STEP72_DURATION_MS },
+    },
+    {
+      id: "import-salaries",
+      title: "Import salaries",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step73, run: runStep73, durationMs: STEP73_DURATION_MS },
+    },
+    {
+      id: "tax-calculator",
+      title: "Tax calculator",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step74, run: runStep74, durationMs: STEP74_DURATION_MS },
+    },
+    {
+      id: "tax-and-pension-settings",
+      title: "Tax and pension settings",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step75, run: runStep75, durationMs: STEP75_DURATION_MS },
+    },
+    {
+      id: "pension-calculator",
+      title: "Pension calculator",
+      url: "workforce.snaarp.com/payroll",
+      scene: { Component: Step76, run: runStep76, durationMs: STEP76_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "You now know how to navigate the Workforce Dashboard, My Space, Attendance, Leave Tracker, Time Tracker, Goals, My Appraisals, Policies, Learning Hub, and Notifications.",
+    text: "You now know how to navigate the Workforce Dashboard, My Space, Attendance, Leave Tracker, Time Tracker, Goals, My Appraisals, Policies, Learning Hub, Notifications, Appraisal Management, and Payroll.",
   },
 };

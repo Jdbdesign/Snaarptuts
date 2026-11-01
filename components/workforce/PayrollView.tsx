@@ -766,7 +766,7 @@ export function PayrollView({ tl }: Props) {
           </div>
 
           {/* Table */}
-          <div data-tl="advance-admin-table" className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs overflow-hidden">
+          <div data-tl="advance-admin-table" className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs overflow-visible pb-12">
             <table className="w-full text-left text-xs">
               <thead className="bg-[#F9FAFB] border-b border-[#E5E7EB] text-[#4B5563] font-semibold">
                 <tr>
@@ -1779,8 +1779,8 @@ export function PayrollView({ tl }: Props) {
 
       {/* MODAL 5: Payroll Transfer Preview (Step 73) */}
       {payrollTransferModalOpen && (
-        <div data-tl="modal-payroll-transfer" className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-2xs p-4">
-          <div className="w-full max-w-2xl rounded-2xl bg-white shadow-xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-2xs p-4">
+          <div data-tl="modal-payroll-transfer" className="w-full max-w-2xl rounded-2xl bg-white shadow-xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-center justify-between px-6 py-4 border-b border-[#F3F4F6]">
               <div>
                 <h3 className="font-bold text-sm text-[#111827]">Payroll transfer</h3>

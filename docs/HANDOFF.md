@@ -168,13 +168,14 @@ Because users can no longer scroll the canvas, the timeline scrolls for them: `T
 
 ## Workforce (seventh tutorial, Dashboard, My Space, Salary advances, Resignation, Exit tasks, Holidays, HR Cases, Policies, Learning Hub, Notifications)
 
-Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **54 steps, all built**, followed by the data-driven completion card.
+Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **76 steps, all built**, followed by the data-driven completion card.
 - Recordings:
   - `ref/workforce/Workforce_clip1.mp4` (1234x720, 97s, 30fps; copy of `Downloads/1030.mp4`; steps 1–17).
   - `ref/workforce/workforce-clip2.mp4` (1234x720, 65s, 30fps; copy of `Downloads/1030(1).mp4`; steps 18–24).
   - `ref/workforce/workforce-clip3.mp4` (1234x720, 104s, 30fps; copy of `Downloads/1030(2).mp4`; steps 25–44).
   - `ref/workforce/workforce-clip4.mp4` (1234x720, 42s, 30fps; copy of `Downloads/1030(3).mp4`; steps 45–48).
   - `ref/workforce/workforce-clip5.mp4` (1284x720, 44s, 30fps; copy of `Downloads/1030(5).mp4`; steps 49–54).
+  - `ref/workforce/workforce-clip6.mp4` (1284x620, 7:07, 30fps; copy of `Downloads/1101.mp4`; steps 55–76 Admin side).
 
 How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and shell `components/workforce/WorkforceShell.tsx` (the thin Snaarp suite rail, collapsible 220px Workforce sidebar, and top bar with Notifications popover, admin-only Add Users button, Apps suite popover, and Avatar menu). Views:
 - `DashboardView.tsx`: company overview, stat cards, tasks and requests, announcements.
@@ -195,9 +196,13 @@ How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and sh
 - `LearningHubView.tsx`: course hub and learning record tabs, categories to explore, engineering course page with 3 lessons, animated video player slideshow with time counter and seek bar, module completion checks, and course completion flow.
 - `NotificationsView.tsx`: dedicated full-page notifications list with 12 items, back pill, mark all read, and clear all.
 - `DocumentViewerModal.tsx`: self-contained in-app viewer modal for policy documents and certificates (dark top bar, page counter, 100% zoom, thumbnail strip, close button).
+- `AppraisalManagementView.tsx`: Review cycles overview, stats, filter bar, cycle table, assigned reviews tab, templates grid, insights breakdown table, and employment actions.
+- `CycleCreationFormView.tsx`: Cycle creation wizard form with type select, participant options, reviewer overrides accordion, repeat cadence, calendar date picker, and questions template.
+- `AdminReviewDetailView.tsx`: Completed review page with overall rating, self-review score, manager review score, agreed objectives, and back navigation.
+- `PayrollView.tsx`: Full payroll suite with 9 tabs/modals (salary components, employee salaries, assign salary modal, pay runs, payslips, salary advances, advance policy, import/export, salary import modal, transfer preview modal, tax calculator, pension calculator, and tax & pension settings).
 
 Every script strictly follows the house patterns in `docs/SCENE-PATTERNS.md`: `beginWorkforce` places the cursor on frame 1, `pressOn` for active clicks, `hoverOn` for hovers, `ring` for inspections, and `finishWorkforce` for the standard white fade finish.
-Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 216 runs (54 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
+Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 304 runs (76 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
 
 ## Workforce: mouse pointer visibility fix
 In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cursor: [number, number] = [0.5, 0.42]` and calls `tl.placeCursor(cursor[0], cursor[1])` as its first action, ensuring the pointer is visible from frame 1 before the first caption. Steps continuing on the same screen use `tl.placeCursorOn(...)` (or matching fraction for step 12) to place the cursor seamlessly where the previous step ended. Spacebar and canvas-click pause freeze the pointer in place. Verified visible across all 17 steps with automated test and visual inspection at 1440 and 1024 widths. Added house pattern rule to `docs/SCENE-PATTERNS.md`.

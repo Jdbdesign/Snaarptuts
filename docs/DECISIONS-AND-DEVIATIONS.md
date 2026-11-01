@@ -783,3 +783,22 @@ Recordings:
 3. **Certificate download notice**: Step 52 demonstrates clicking "Download Certificate", which displays a top-right notification toast ("Certificate downloaded - Engineering Practices 101") before opening the in-app viewer modal.
 4. **Notifications detail view**: In the recording, clicking a notification item expanded or opened details. In our notifications view, all 12 notifications are clearly presented in the scrollable list with sample titles, timestamps, and read/unread markers, with "Mark all as read" and "Clear all" functional actions.
 5. **Excluded recording artifacts**: Omitted the Windows taskbar, screen-share overlay ("senting"), the second browser tab with the browser PDF viewer, the file path `C:/Users/...`, the browser download bubble (`weekly_planner.pdf`), and the floating round pin and ellipsis overlay buttons from the screen recordings.
+
+
+## Workforce steps 55-76 (Appraisal Management and Payroll)
+
+Recording: `ref/workforce/workforce-clip6.mp4` (1284x620, 7:07, 30fps; copy of `Downloads/1101.mp4`).
+
+**Sample data only (no real personal data).**
+- Admin identity: Sam Taylor (ST), initials "ST", role Admin, email sam.taylor@snaarp.com.
+- Employees: Alex Morgan (`alex.morgan@snaarp.com`, EMP-2026-0042, Software Engineer, £48,000.00 annual / £4,000.00 monthly), Jordan Lee (`jordan.lee@snaarp.com`, EMP-2026-0043, Product Designer, £38,000.00 annual / £3,166.67 monthly).
+- Payroll amounts: UK pound (£) conventions throughout. Pay run net total £5,219.00 (£2,889.50 + £2,329.50), total payroll cost £5,219.00 once paid. Salary advances: Alex Morgan £700.00 (Approved - not paid, 2 instalments).
+- Tax and Pension settings: UK HMRC brackets (Personal Allowance £12,570 0%, Basic £12,571–£50,270 20%, Higher 40%, Additional 45%). Auto-enrolment pension: 5% employee, 3% employer (Alex Morgan employee £320.00, employer £400.00, total £720.00 monthly).
+- Cycles: "Q4 Engineering Performance Review", Annual Appraisal, all employees in organization, Standard Appraisal Form template.
+
+**Decisions & deviations:**
+1. **Admin mode toggle & persona**: The top bar includes the admin toggle pill (`data-tl="top-admin-toggle"`), and the avatar reflects Sam Taylor (ST) with admin privileges, expanding the MANAGE and INSIGHTS sections in the sidebar. Steps 1-54 remain in pure employee mode.
+2. **UK Currency and tax conventions**: Replaced USD / NGN from the recording with UK Pounds (£), DD/MM/YYYY dates, and HMRC tax brackets / UK pension auto-enrolment rules.
+3. **In-app file upload simulation**: In step 73, the OS file chooser and external spreadsheets are replaced with an in-app file selection dropdown (`payroll-template.csv`), instant validation, and the Payroll transfer preview modal with confirmation checkbox and success toast.
+4. **Appraisal Review Detail page**: In step 61, clicking View review navigates to `/performance/reviews/sample` with completed status, 4.2 overall rating banner, self and manager review cards, and Back navigation.
+5. **Excluded recording artifacts**: Excluded browser chrome, bookmarks bar, Windows taskbar, screen-share overlay ("senting"), file paths `C:/Users/...`, Google Sheets tab, and download bubbles.

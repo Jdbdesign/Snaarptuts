@@ -1710,6 +1710,7 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 52 | Your certificate | Clip 5: 0:26 - 0:34 |
 | 53 | Learning Record | Clip 5: 0:34 - 0:39 |
 | 54 | Notifications | Clip 5: 0:39 - 0:44 |
+| 55 - 76 | Appraisal Management and Payroll | Clip 6: 0:00 - 7:07 |
 
 ---
 
@@ -1770,11 +1771,33 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 51 | Complete a course | Starts lesson completed. Reviews 3 completed modules with checkmarks, 100% course progress, clicks Complete Course button. | 12 s |
 | 52 | Your certificate | Starts course completed. Clicks Download Certificate, certificate downloaded toast notice, in-app certificate viewer modal opens, closes with X. | 11 s |
 | 53 | Learning Record | Starts Learning Hub course. Clicks Back pill, clicks Learning Record tab, reviews completed courses table, completion dates, and certificates. | 12 s |
-| 54 | Notifications | Starts Learning Record. Clicks notifications bell in top bar. Top bar becomes Notifications. Reviews full-page notifications list with 12 items, clicks Mark all as read, clicks Clear all. Completion card follows. | 14 s |
+| 54 | Notifications | Starts Learning Record. Clicks notifications bell in top bar. Top bar becomes Notifications. Reviews full-page notifications list with 12 items, clicks Mark all as read, clicks Clear all. | 14 s |
+| 55 | Appraisal Management | Starts Appraisal Management > Overview tab. Explains Review Cycles, rings 4 stat cards (Total Cycles 1, Active 1, Completed 0, Draft 0), rings cycles table row, hovers "+ Create Cycle" button. | 16 s |
+| 56 | Create a cycle | Navigates to `/performance/management/cycles/new`. Enters cycle name "Q4 Engineering Performance Review", selects Annual Appraisal type, chooses "All employees in organization", and inspects reviewer overrides. | 18 s |
+| 57 | Cycle workflow settings | Configures cycle frequency cadence, toggles repeating cycle, expands Reviewer Overrides accordion, explains manager and secondary reviewer configuration. | 16 s |
+| 58 | Deadlines and questions | Scrolls to Stage deadlines, opens Self Review Due calendar popup and selects day 30, selects Fallback Reviewer, picks Questions Template ("Standard Appraisal Form"), and clicks Cancel to return to Appraisal Management. | 18 s |
+| 59 | Appraisal overview | Starts Overview tab. Interacts with status filter dropdown, switches between active and draft filters, demonstrates empty state card with filter reset. | 14 s |
+| 60 | Assigned reviews | Switches to Assigned reviews tab. Reviews assigned reviews table with sample assigned review row for Alex Morgan, inspects Actions "..." button. | 14 s |
+| 61 | Review details | Opens sample completed review (`/performance/reviews/sample`). Reviews completed status banner, overall rating (4.2 / 5.0), self-review score, manager score, and navigates Back. | 16 s |
+| 62 | Templates | Switches to Templates tab. Reviews appraisal question templates grid with 3 cards: Standard Appraisal Form, Annual Leadership Review, and 360 Degree Peer Feedback. | 14 s |
+| 63 | Insights | Switches to Insights tab. Reviews comprehensive 16-question ratings breakdown table and follow-up development recommendations. | 16 s |
+| 64 | Employment actions | Switches to Employment Actions tab. Reviews promotion and PIP recommendations table with 2 employee records, status badges, and action timestamps. | 14 s |
+| 65 | Salary components | Clicks Payroll in sidebar. Starts Salary components tab, Currency header, 4 summary stat cards, and 7-component salary breakdown table (Basic, Housing, Transport, etc.). | 18 s |
+| 66 | Employee salaries | Switches to Employee salaries tab. Reviews employee compensation table with Alex Morgan (£48,000.00) and Jordan Lee (£38,000.00), inspects Actions "..." button. | 16 s |
+| 67 | Assign a salary | Clicks Assign salary button. Modal opens, selects employee, enters basic salary, customizes allowance components, clicks Save changes, shows success toast. | 18 s |
+| 68 | Pay runs | Switches to Pay runs tab. Clicks Create Pay Run button, selects Jordan Lee in employee picker, closes picker, submits run, explains PROCESSING status, completes run to PAID, Payroll Cost stat updates to £5,219.00. | 18 s |
+| 69 | Payslips | Switches to Payslips tab. Reviews payslips table with Alex Morgan and Jordan Lee, Status PAID, Net salary £2,889.50 and £2,329.50. | 14 s |
+| 70 | Salary advances | Switches to Salary advances tab. Reviews 4 admin stat cards (Pending, Approved - not paid, Repaid, Cancelled), Alex Morgan row with £700.00, opens Actions "..." dropdown with View details and Cancel request. | 16 s |
+| 71 | Advance policy | Switches to Advance policy sub-tab. Configures advance rules form: Max percentage (50%), Repayment months (3), Minimum service period (6 months). | 14 s |
+| 72 | Import and export | Switches to Import & Export tab. Reviews 2 action cards: Export Payroll Data and Import Salaries. | 12 s |
+| 73 | Import salaries | Clicks Import salaries card. Modal opens, selects CSV template in file picker simulation, clicks Upload & validate, reviews Payroll transfer preview modal, clicks confirmation checkbox, confirms import, shows success toast. | 20 s |
+| 74 | Tax calculator | Switches to Tax calculator tab. Enters gross monthly salary £4,000.00, reviews calculation results card: Taxable £2,952.50, Monthly Tax £590.50, Effective rate 14.8%. | 16 s |
+| 75 | Tax and pension settings | Switches to Tax & Pension Settings tab. Reviews UK tax brackets table (Personal Allowance £12,570 0%, Basic £12,571–£50,270 20%, Higher 40%, Additional 45%) and auto-enrolment pension rates. | 16 s |
+| 76 | Pension calculator | Switches to Pension calculator tab. Enters pensionable earnings £4,000.00, reviews calculation breakdown card: Employee £320.00, Employer £400.00, Total Pension £720.00. Completion card follows. | 16 s |
 
 **Files.**
 - Config: `tutorials/workforce.ts`
 - Reusable Shell & Stage: `components/workforce/WorkforceShell.tsx`, `components/workforce/WorkforceStage.tsx`
-- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`, `PoliciesView.tsx`, `LearningHubView.tsx`, `NotificationsView.tsx`, `DocumentViewerModal.tsx`
+- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`, `PoliciesView.tsx`, `LearningHubView.tsx`, `NotificationsView.tsx`, `DocumentViewerModal.tsx`, `AppraisalManagementView.tsx`, `CycleCreationFormView.tsx`, `AdminReviewDetailView.tsx`, `PayrollView.tsx`
 - Central Data & Helpers: `components/workforce/workforce-data.ts`, `components/workforce/workforce-timeline.ts`
-- Step Scenes & Scripts: `scenes/workforce/step<1..54>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/workforce/step<1..76>/Step<N>.tsx`, `script.ts`, `data.ts`

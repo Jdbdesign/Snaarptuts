@@ -38,9 +38,11 @@ export async function runStep68(tl: Timeline) {
   await pressOn(tl, "[data-tl=cb-payrun-jordan]", { ms: 450 });
   tl.setVar("wfPayRunSelectedEmployees", ["alex-morgan", "jordan-lee"]);
   await tl.wait(300);
+  await pressOn(tl, "[data-tl=btn-payrun-employees-picker]", { ms: 400 });
+  await tl.wait(300);
 
   // 4. Click Create Pay Run
-  await tl.at(8500);
+  await tl.at(8800);
   await pressOn(tl, "[data-tl=btn-submit-create-payrun]", { ms: 500 });
   tl.setVar("wfCreatePayRunOpen", false);
   tl.setVar("wfPayRunStatus", "PROCESSING");

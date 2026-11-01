@@ -134,11 +134,15 @@ export async function closePopovers(tl: Timeline) {
 /**
  * Standard white fade finish for Workforce steps.
  */
-export async function finishWorkforce(tl: Timeline, atMs: number, endMs: number) {
-  await tl.at(atMs);
+export async function finishWorkforce(tl: Timeline, atMs?: number, endMs?: number) {
+  if (atMs !== undefined) {
+    await tl.at(atMs);
+  }
   tl.clearHighlight();
   tl.hideCaption();
   tl.setVar("fade", true);
-  await tl.at(endMs);
+  if (endMs !== undefined) {
+    await tl.at(endMs);
+  }
 }
 
