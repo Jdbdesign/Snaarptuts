@@ -206,6 +206,8 @@ import { Step103 } from "@/scenes/workforce/step103/Step103";
 import { runStep103, STEP103_DURATION_MS } from "@/scenes/workforce/step103/script";
 import { Step104 } from "@/scenes/workforce/step104/Step104";
 import { runStep104, STEP104_DURATION_MS } from "@/scenes/workforce/step104/script";
+import { Step105 } from "@/scenes/workforce/step105/Step105";
+import { runStep105, STEP105_DURATION_MS } from "@/scenes/workforce/step105/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -841,6 +843,12 @@ export const workforce: Tutorial = {
       title: "Bell notification",
       url: "workforce.snaarp.com/announcements",
       scene: { Component: Step104, run: runStep104, durationMs: STEP104_DURATION_MS },
+    },
+    {
+      id: "open-shifts",
+      title: "Open Shifts",
+      url: "workforce.snaarp.com/shifts",
+      scene: { Component: Step105, run: runStep105, durationMs: STEP105_DURATION_MS },
     },
   ],
   completion: {
