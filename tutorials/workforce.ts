@@ -212,6 +212,8 @@ import { Step106 } from "@/scenes/workforce/step106/Step106";
 import { runStep106, STEP106_DURATION_MS } from "@/scenes/workforce/step106/script";
 import { Step107 } from "@/scenes/workforce/step107/Step107";
 import { runStep107, STEP107_DURATION_MS } from "@/scenes/workforce/step107/script";
+import { Step108 } from "@/scenes/workforce/step108/Step108";
+import { runStep108, STEP108_DURATION_MS } from "@/scenes/workforce/step108/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -865,6 +867,12 @@ export const workforce: Tutorial = {
       title: "Open Holidays",
       url: "workforce.snaarp.com/holidays",
       scene: { Component: Step107, run: runStep107, durationMs: STEP107_DURATION_MS },
+    },
+    {
+      id: "holiday-calendar",
+      title: "Holiday calendar",
+      url: "workforce.snaarp.com/holidays",
+      scene: { Component: Step108, run: runStep108, durationMs: STEP108_DURATION_MS },
     },
   ],
   completion: {
