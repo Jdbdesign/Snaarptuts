@@ -210,6 +210,8 @@ import { Step105 } from "@/scenes/workforce/step105/Step105";
 import { runStep105, STEP105_DURATION_MS } from "@/scenes/workforce/step105/script";
 import { Step106 } from "@/scenes/workforce/step106/Step106";
 import { runStep106, STEP106_DURATION_MS } from "@/scenes/workforce/step106/script";
+import { Step107 } from "@/scenes/workforce/step107/Step107";
+import { runStep107, STEP107_DURATION_MS } from "@/scenes/workforce/step107/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -857,6 +859,12 @@ export const workforce: Tutorial = {
       title: "Add a shift",
       url: "workforce.snaarp.com/shifts",
       scene: { Component: Step106, run: runStep106, durationMs: STEP106_DURATION_MS },
+    },
+    {
+      id: "open-holidays",
+      title: "Open Holidays",
+      url: "workforce.snaarp.com/holidays",
+      scene: { Component: Step107, run: runStep107, durationMs: STEP107_DURATION_MS },
     },
   ],
   completion: {
