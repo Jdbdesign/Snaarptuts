@@ -158,6 +158,8 @@ import { Step79 } from "@/scenes/workforce/step79/Step79";
 import { runStep79, STEP79_DURATION_MS } from "@/scenes/workforce/step79/script";
 import { Step80 } from "@/scenes/workforce/step80/Step80";
 import { runStep80, STEP80_DURATION_MS } from "@/scenes/workforce/step80/script";
+import { Step81 } from "@/scenes/workforce/step81/Step81";
+import { runStep81, STEP81_DURATION_MS } from "@/scenes/workforce/step81/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -649,6 +651,12 @@ export const workforce: Tutorial = {
       title: "Careers page",
       url: "workforce.snaarp.com/careers/acme",
       scene: { Component: Step80, run: runStep80, durationMs: STEP80_DURATION_MS },
+    },
+    {
+      id: "applicants",
+      title: "Applicants",
+      url: "workforce.snaarp.com/recruitment",
+      scene: { Component: Step81, run: runStep81, durationMs: STEP81_DURATION_MS },
     },
   ],
   completion: {
