@@ -5,7 +5,10 @@ import { Icon, ProductLogo } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
+  ADMIN_INSIGHTS_NAV_ITEMS,
+  ADMIN_MANAGE_NAV_ITEMS,
   NOTIFICATIONS_LIST,
+  SAMPLE_ADMIN,
   SAMPLE_EMPLOYEE,
   SUITE_RAIL_ITEMS,
   WORKFORCE_NAV_ITEMS,
@@ -45,6 +48,7 @@ export function WorkforceShell({
     null
   );
   const unreadCount = useTimelineVar(tl, "wfUnreadCount", 1);
+  const adminMode = useTimelineVar(tl, "wfAdminMode", false);
 
   return (
     <div data-scroller className="relative h-full w-full overflow-hidden bg-[#F8F9FB] text-[#111827] font-['Poppins',sans-serif]">
@@ -125,6 +129,25 @@ export function WorkforceShell({
 
                   return (
                     <div key={item.id} className="flex flex-col">
+                      {adminMode && item.id === "policies" && (
+                        <button
+                          type="button"
+                          data-tl="nav-expenses"
+                          onClick={() => onNavigateNav?.("expenses")}
+                          className={`group flex items-center rounded-lg text-xs font-medium transition-colors ${
+                            sidebarCollapsed
+                              ? "h-9 w-9 justify-center mx-auto"
+                              : "h-9 px-3 gap-3"
+                          } ${
+                            activeNav === "expenses"
+                              ? "bg-[#F3E8FF] text-[#7014D9] font-semibold"
+                              : "text-[#4B5563] hover:bg-gray-100 hover:text-[#111827]"
+                          }`}
+                        >
+                          <Icon name="card" size={18} className="shrink-0 text-[#6B7280]" />
+                          {!sidebarCollapsed && <span>Expenses</span>}
+                        </button>
+                      )}
                       <button
                         type="button"
                         data-tl={`nav-${item.id}`}
@@ -193,6 +216,103 @@ export function WorkforceShell({
                   );
                 })}
               </nav>
+
+              {/* MANAGE section (Admin mode) */}
+              {adminMode && (
+                <div className="mt-4 pt-3 border-t border-[#F3F4F6]">
+                  {!sidebarCollapsed && (
+                    <div className="px-3 pb-2 text-[10px] font-semibold tracking-wider text-[#9CA3AF]">
+                      MANAGE
+                    </div>
+                  )}
+                  <nav className="flex flex-col gap-0.5">
+                    {ADMIN_MANAGE_NAV_ITEMS.map((item) => {
+                      const isActive = activeNav === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          data-tl={`nav-${item.id}`}
+                          onClick={() => {
+                            if (item.clickable) {
+                              onNavigateNav?.(item.id);
+                            }
+                          }}
+                          className={`group flex items-center rounded-lg text-xs font-medium transition-colors ${
+                            sidebarCollapsed
+                              ? "h-9 w-9 justify-center mx-auto"
+                              : "h-9 px-3 gap-3 justify-between"
+                          } ${
+                            isActive
+                              ? "bg-[#F3E8FF] text-[#7014D9] font-semibold"
+                              : "text-[#4B5563] hover:bg-gray-100 hover:text-[#111827]"
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <Icon
+                              name={item.icon}
+                              size={18}
+                              className={`shrink-0 ${
+                                isActive
+                                  ? "text-[#7014D9]"
+                                  : "text-[#6B7280] group-hover:text-[#111827]"
+                              }`}
+                            />
+                            {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
+                          </div>
+                          {item.expandable && !sidebarCollapsed && (
+                            <Icon name="chevronDown" size={14} className="text-[#6B7280]" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </nav>
+                </div>
+              )}
+
+              {/* INSIGHTS section (Admin mode) */}
+              {adminMode && (
+                <div className="mt-4 pt-3 border-t border-[#F3F4F6]">
+                  {!sidebarCollapsed && (
+                    <div className="px-3 pb-2 text-[10px] font-semibold tracking-wider text-[#9CA3AF]">
+                      INSIGHTS
+                    </div>
+                  )}
+                  <nav className="flex flex-col gap-0.5">
+                    {ADMIN_INSIGHTS_NAV_ITEMS.map((item) => {
+                      const isActive = activeNav === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          data-tl={`nav-${item.id}`}
+                          onClick={() => onNavigateNav?.(item.id)}
+                          className={`group flex items-center rounded-lg text-xs font-medium transition-colors ${
+                            sidebarCollapsed
+                              ? "h-9 w-9 justify-center mx-auto"
+                              : "h-9 px-3 gap-3"
+                          } ${
+                            isActive
+                              ? "bg-[#F3E8FF] text-[#7014D9] font-semibold"
+                              : "text-[#4B5563] hover:bg-gray-100 hover:text-[#111827]"
+                          }`}
+                        >
+                          <Icon
+                            name={item.icon}
+                            size={18}
+                            className={`shrink-0 ${
+                              isActive
+                                ? "text-[#7014D9]"
+                                : "text-[#6B7280] group-hover:text-[#111827]"
+                            }`}
+                          />
+                          {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
+                        </button>
+                      );
+                    })}
+                  </nav>
+                </div>
+              )}
             </div>
 
             {/* Bottom items: Report a Bug & Admin Panel */}
@@ -244,6 +364,29 @@ export function WorkforceShell({
 
             {/* Right-hand tools */}
             <div className="flex items-center gap-3">
+              {/* Admin / Employee toggle (Admin mode) */}
+              {adminMode && (
+                <div
+                  data-tl="top-admin-toggle"
+                  className="flex items-center rounded-full bg-[#F3F4F6] p-0.5 border border-[#E5E7EB] mr-1"
+                >
+                  <button
+                    type="button"
+                    data-tl="admin-toggle-admin"
+                    className="px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-white text-[#7014D9] ring-1 ring-[#7014D9] shadow-xs cursor-default"
+                  >
+                    Admin
+                  </button>
+                  <button
+                    type="button"
+                    data-tl="admin-toggle-employee"
+                    className="px-2.5 py-0.5 text-[11px] font-medium rounded-full text-[#6B7280] hover:text-[#111827] cursor-pointer"
+                  >
+                    Employee
+                  </button>
+                </div>
+              )}
+
               {/* Add Users button (admin-only in real product; does nothing for employees) */}
               <button
                 type="button"
@@ -290,7 +433,7 @@ export function WorkforceShell({
                 className="flex items-center gap-1.5 pl-1 pr-1.5 py-1 rounded-full hover:bg-gray-100 transition-colors"
               >
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#7014D9] text-white font-semibold text-xs shadow-sm">
-                  {SAMPLE_EMPLOYEE.initial}
+                  {adminMode ? SAMPLE_ADMIN.initial : SAMPLE_EMPLOYEE.initial}
                 </div>
                 <Icon name="chevronDown" size={14} className="text-[#6B7280]" />
               </button>
@@ -383,10 +526,10 @@ export function WorkforceShell({
               >
                 <div className="p-2 border-b border-[#F3F4F6]">
                   <p className="text-xs font-medium text-[#111827] truncate">
-                    {SAMPLE_EMPLOYEE.email}
+                    {adminMode ? SAMPLE_ADMIN.email : SAMPLE_EMPLOYEE.email}
                   </p>
                   <p className="text-[10px] font-semibold tracking-wider text-[#6B7280] uppercase mt-0.5">
-                    EMPLOYEE
+                    {adminMode ? "SUPER_ADMIN" : "EMPLOYEE"}
                   </p>
                 </div>
                 <div className="mt-2 flex flex-col gap-0.5">

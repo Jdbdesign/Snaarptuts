@@ -25,9 +25,22 @@ export type WorkforceNavId =
   | "time-tracker"
   | "goals"
   | "appraisals"
+  | "expenses"
   | "policies"
   | "learning-hub"
   | "notifications"
+  | "appraisal-management"
+  | "payroll"
+  | "recruitment"
+  | "email-templates"
+  | "compliance"
+  | "lifecycle"
+  | "hr-cases-manage"
+  | "announcements"
+  | "shifts"
+  | "holidays-manage"
+  | "training"
+  | "reports"
   | "report-bug"
   | "admin-panel";
 
@@ -284,6 +297,23 @@ export const URLS = {
   learningCourse: "workforce.snaarp.com/learning/course/engineering",
   learningRecord: "workforce.snaarp.com/learning?tab=record",
   notifications: "workforce.snaarp.com/notifications",
+  appraisalManagement: "workforce.snaarp.com/performance/management",
+  createCycle: "workforce.snaarp.com/performance/management/cycles/new",
+  appraisalOverview: "workforce.snaarp.com/performance/management?tab=Overview",
+  assignedReviews: "workforce.snaarp.com/performance/management?tab=Assigned+Reviews",
+  completedReviewAdmin: "workforce.snaarp.com/performance/reviews/sample",
+  appraisalTemplates: "workforce.snaarp.com/performance/management?tab=Templates",
+  appraisalInsights: "workforce.snaarp.com/performance/management?tab=Insights",
+  employmentActions: "workforce.snaarp.com/performance/management?tab=Employment+Actions",
+  payroll: "workforce.snaarp.com/payroll?tab=salary-components",
+  payrollEmployeeSalaries: "workforce.snaarp.com/payroll?tab=employee-salaries",
+  payrollPayRuns: "workforce.snaarp.com/payroll?tab=pay-runs",
+  payrollPayslips: "workforce.snaarp.com/payroll?tab=payslips",
+  payrollSalaryAdvances: "workforce.snaarp.com/payroll?tab=salary-advances",
+  payrollImportExport: "workforce.snaarp.com/payroll?tab=import-export",
+  payrollTaxCalculator: "workforce.snaarp.com/payroll?tab=tax-calculator",
+  payrollPensionCalculator: "workforce.snaarp.com/payroll?tab=pension-calculator",
+  payrollTaxPensionSettings: "workforce.snaarp.com/payroll?tab=tax-pension-settings",
 };
 
 export const SAMPLE_SALARY_ADVANCE = {
@@ -755,4 +785,170 @@ export const FULL_NOTIFICATIONS_LIST = [
     detail: "2027 Appraisal cycle: self assessment due 2026-10-27",
     time: "26/10/2026, 3:10:00 PM",
   },
+];
+
+// Admin Persona & Datasets (Steps 55+)
+
+export const SAMPLE_ADMIN = {
+  name: "Sam Taylor",
+  initial: "ST",
+  role: "SUPER_ADMIN",
+  email: "sam.taylor@snaarp.com",
+};
+
+export const ADMIN_MANAGE_NAV_ITEMS: {
+  id: WorkforceNavId;
+  label: string;
+  icon: IconName;
+  clickable?: boolean;
+  expandable?: boolean;
+}[] = [
+  { id: "appraisal-management", label: "Appraisal Management", icon: "wfAppraisal", clickable: true },
+  { id: "payroll", label: "Payroll", icon: "shCoin", clickable: true },
+  { id: "recruitment", label: "Recruitment", icon: "users" },
+  { id: "email-templates", label: "Email templates", icon: "mail" },
+  { id: "compliance", label: "Compliance", icon: "shield" },
+  { id: "lifecycle", label: "Lifecycle", icon: "layers" },
+  { id: "hr-cases-manage", label: "HR Cases", icon: "building" },
+  { id: "announcements", label: "Announcements", icon: "bell" },
+  { id: "shifts", label: "Shifts", icon: "clock" },
+  { id: "holidays-manage", label: "Holidays", icon: "shCalendar" },
+  { id: "training", label: "Training", icon: "wfGraduation", expandable: true },
+];
+
+export const ADMIN_INSIGHTS_NAV_ITEMS: {
+  id: WorkforceNavId;
+  label: string;
+  icon: IconName;
+  clickable?: boolean;
+}[] = [
+  { id: "reports", label: "Reports", icon: "shChart" },
+];
+
+export const APPRAISAL_CYCLES = [
+  {
+    id: "cycle-1",
+    name: "Q4 cycle",
+    type: "ANNUAL",
+    status: "ACTIVE",
+    startDate: "27 Oct 2026",
+    endDate: "28 Oct 2026",
+  },
+  {
+    id: "cycle-2",
+    name: "2027 Appraisal cycle",
+    type: "ANNUAL",
+    status: "ACTIVE",
+    startDate: "26 Oct 2026",
+    endDate: "27 Oct 2026",
+  },
+  {
+    id: "cycle-3",
+    name: "2026 Appraisals",
+    type: "ANNUAL",
+    status: "PAUSED",
+    startDate: "25 Oct 2026",
+    endDate: "27 Oct 2026",
+  },
+  {
+    id: "cycle-4",
+    name: "Q2 performance review",
+    type: "QUARTERLY",
+    status: "PAUSED",
+    startDate: "15 Oct 2026",
+    endDate: "15 Oct 2026",
+  },
+];
+
+export const ASSIGNED_REVIEWS_ADMIN_LIST = [
+  {
+    id: "ar-1",
+    employee: "Alex Morgan",
+    cycle: "Q4 cycle",
+    role: "MANAGER",
+    action: "Open task",
+  },
+  {
+    id: "ar-2",
+    employee: "Jordan Lee",
+    cycle: "2026 Appraisals",
+    role: "SELF",
+    action: "View review",
+  },
+  {
+    id: "ar-3",
+    employee: "Alex Morgan",
+    cycle: "2026 Appraisals",
+    role: "COMPLETED",
+    action: "View review",
+  },
+  {
+    id: "ar-4",
+    employee: "Alex Morgan",
+    cycle: "Q2 performance review",
+    role: "COMPLETED",
+    action: "View review",
+  },
+];
+
+export const APPRAISAL_TEMPLATES_LIST = [
+  { id: "tmpl-1", name: "Probation Performance Review", status: "DRAFT", revision: "Revision 3" },
+  { id: "tmpl-2", name: "360 Performance Review", status: "PUBLISHED", revision: "Revision 1" },
+  { id: "tmpl-3", name: "Quarterly Performance Review", status: "PUBLISHED", revision: "Revision 1" },
+  { id: "tmpl-4", name: "Annual Employee Performance Review", status: "PUBLISHED", revision: "Revision 1" },
+  { id: "tmpl-5", name: "Leadership Performance Review", status: "PUBLISHED", revision: "Revision 1" },
+  { id: "tmpl-6", name: "Sales Performance Review", status: "PUBLISHED", revision: "Revision 1" },
+];
+
+export const APPRAISAL_INSIGHTS_QUESTIONS = [
+  { question: "How effectively does the employee work independently?", category: "Job Competencies", responses: 2, average: "4.50", variance: "0.00" },
+  { question: "How well does the employee communicate with colleagues?", category: "Behaviour and Company Values", responses: 2, average: "3.50", variance: "0.00" },
+  { question: "Does the employee demonstrate the company's core values?", category: "Behaviour and Company Values", responses: 2, average: "3.50", variance: "0.00" },
+  { question: "How effectively does the employee collaborate with colleagues?", category: "Behaviour and Company Values", responses: 2, average: "3.50", variance: "0.00" },
+  { question: "Does the employee demonstrate accountability and professionalism?", category: "Behaviour and Company Values", responses: 2, average: "4.50", variance: "0.00" },
+  { question: "Does the employee proactively identify and solve problems?", category: "Initiative and Problem-Solving", responses: 2, average: "4.50", variance: "0.00" },
+  { question: "Does the employee suggest improvements to existing processes?", category: "Initiative and Problem-Solving", responses: 2, average: "3.50", variance: "0.00" },
+  { question: "How effectively does the employee respond to changing priorities?", category: "Initiative and Problem-Solving", responses: 2, average: "4.50", variance: "0.00" },
+  { question: "Has the employee demonstrated measurable improvement?", category: "Learning and Development", responses: 2, average: "4.00", variance: "0.00" },
+  { question: "Does the employee actively seek and apply feedback?", category: "Learning and Development", responses: 2, average: "3.50", variance: "0.00" },
+];
+
+export const SALARY_COMPONENTS_DATA = [
+  { id: "sc-1", name: "Basic salary", type: "Earning", calculation: "Flat", taxable: true, recurring: true },
+  { id: "sc-2", name: "Housing", type: "Earning", calculation: "Flat", taxable: false, recurring: true },
+];
+
+export const EMPLOYEE_SALARIES_DATA = [
+  {
+    id: "es-1",
+    name: "Alex Morgan",
+    monthlySalary: "£4,000.00",
+    annualSalary: "£48,000.00",
+    currency: "GBP",
+    payFrequency: "Monthly",
+    effectiveFrom: "24/10/2026",
+    status: "Active",
+  },
+  {
+    id: "es-2",
+    name: "Jordan Lee",
+    monthlySalary: "£2,000.00",
+    annualSalary: "£24,000.00",
+    currency: "GBP",
+    payFrequency: "Monthly",
+    effectiveFrom: "24/10/2026",
+    status: "Active",
+  },
+];
+
+export const RECENT_TRANSFERS_DATA = [
+  { id: "rt-1", created: "30/10/2026, 8:10:47 AM", type: "Salary import - CSV", status: "Completed", progress: "2 / 2" },
+  { id: "rt-2", created: "27/10/2026, 8:21:10 AM", type: "Salary import - CSV", status: "Cancelled", progress: "2 / 2" },
+  { id: "rt-3", created: "27/10/2026, 8:20:54 AM", type: "Salary import - CSV", status: "Cancelled", progress: "1 / 1" },
+];
+
+export const TAX_BRACKETS_DATA = [
+  { id: "tb-1", upperLimit: "12570", rate: "0" },
+  { id: "tb-2", upperLimit: "50270", rate: "20" },
+  { id: "tb-3", upperLimit: "125140", rate: "40" },
 ];

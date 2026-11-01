@@ -26,6 +26,10 @@ import {
 import { PoliciesView } from "./PoliciesView";
 import { LearningHubView } from "./LearningHubView";
 import { NotificationsView } from "./NotificationsView";
+import { AppraisalManagementView } from "./AppraisalManagementView";
+import { CycleCreationFormView } from "./CycleCreationFormView";
+import { AdminReviewDetailView } from "./AdminReviewDetailView";
+import { PayrollView } from "./PayrollView";
 import { WorkforceShell } from "./WorkforceShell";
 import { URLS, type MySpaceSubId, type WorkforceNavId } from "./workforce-data";
 
@@ -53,7 +57,11 @@ export type WorkforcePage =
   | "policy-details"
   | "learning"
   | "learning-course"
-  | "notifications";
+  | "notifications"
+  | "appraisal-management"
+  | "cycle-new"
+  | "admin-review-detail"
+  | "payroll";
 
 type Props = {
   tl: Timeline;
@@ -152,6 +160,15 @@ export function WorkforceStage({
   } else if (page === "notifications") {
     activeNav = "notifications";
     topTitle = "Notifications";
+  } else if (page === "appraisal-management" || page === "cycle-new") {
+    activeNav = "appraisal-management";
+    topTitle = "Appraisal Management";
+  } else if (page === "admin-review-detail") {
+    activeNav = "appraisals";
+    topTitle = "My Appraisals";
+  } else if (page === "payroll") {
+    activeNav = "payroll";
+    topTitle = "Payroll";
   }
 
   const handleNavigateNav = (nav: WorkforceNavId) => {
@@ -187,6 +204,12 @@ export function WorkforceStage({
       tl.setVar("wfPage", "notifications");
       tl.setVar("wfUnreadCount", 0);
       tl.setUrl(URLS.notifications);
+    } else if (nav === "appraisal-management") {
+      tl.setVar("wfPage", "appraisal-management");
+      tl.setUrl(URLS.appraisalManagement);
+    } else if (nav === "payroll") {
+      tl.setVar("wfPage", "payroll");
+      tl.setUrl(URLS.payroll);
     }
   };
 
@@ -404,6 +427,38 @@ export function WorkforceStage({
         <LearningHubView tl={tl} />
       )}
       {page === "notifications" && <NotificationsView tl={tl} />}
+      {page === "appraisal-management" && (
+        <AppraisalManagementView
+          tl={tl}
+          onCreateCycle={() => {
+            tl.setVar("wfPage", "cycle-new");
+            tl.setUrl(URLS.cycleNew);
+          }}
+          onViewReview={() => {
+            tl.setVar("wfPage", "admin-review-detail");
+            tl.setUrl(URLS.reviewSample);
+          }}
+        />
+      )}
+      {page === "cycle-new" && (
+        <CycleCreationFormView
+          tl={tl}
+          onCancel={() => {
+            tl.setVar("wfPage", "appraisal-management");
+            tl.setUrl(URLS.appraisalManagement);
+          }}
+        />
+      )}
+      {page === "admin-review-detail" && (
+        <AdminReviewDetailView
+          tl={tl}
+          onBack={() => {
+            tl.setVar("wfPage", "appraisal-management");
+            tl.setUrl(URLS.appraisalManagement);
+          }}
+        />
+      )}
+      {page === "payroll" && <PayrollView tl={tl} />}
       <div
         className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${
           fade ? "opacity-100" : "opacity-0"
