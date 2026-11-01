@@ -478,7 +478,7 @@ export function CycleCreationFormView({ tl, onCancel }: Props) {
                   </button>
                 </div>
 
-                <div className="flex flex-col gap-2.5 pt-3 border-t border-[#F3F4F6]">
+                <div data-tl="card-reminders" className="flex flex-col gap-2.5 pt-3 border-t border-[#F3F4F6]">
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-[#374151]">Days after release to submit an appeal</span>
                     <input
