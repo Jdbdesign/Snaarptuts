@@ -178,6 +178,8 @@ import { Step89 } from "@/scenes/workforce/step89/Step89";
 import { runStep89, STEP89_DURATION_MS } from "@/scenes/workforce/step89/script";
 import { Step90 } from "@/scenes/workforce/step90/Step90";
 import { runStep90, STEP90_DURATION_MS } from "@/scenes/workforce/step90/script";
+import { Step91 } from "@/scenes/workforce/step91/Step91";
+import { runStep91, STEP91_DURATION_MS } from "@/scenes/workforce/step91/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -729,6 +731,12 @@ export const workforce: Tutorial = {
       title: "Onboarding",
       url: "workforce.snaarp.com/onboarding",
       scene: { Component: Step90, run: runStep90, durationMs: STEP90_DURATION_MS },
+    },
+    {
+      id: "onboarding-record",
+      title: "Onboarding record",
+      url: "workforce.snaarp.com/onboarding/records/sample",
+      scene: { Component: Step91, run: runStep91, durationMs: STEP91_DURATION_MS },
     },
   ],
   completion: {
