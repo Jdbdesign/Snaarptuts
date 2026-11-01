@@ -188,6 +188,8 @@ import { Step94 } from "@/scenes/workforce/step94/Step94";
 import { runStep94, STEP94_DURATION_MS } from "@/scenes/workforce/step94/script";
 import { Step95 } from "@/scenes/workforce/step95/Step95";
 import { runStep95, STEP95_DURATION_MS } from "@/scenes/workforce/step95/script";
+import { Step96 } from "@/scenes/workforce/step96/Step96";
+import { runStep96, STEP96_DURATION_MS } from "@/scenes/workforce/step96/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -770,9 +772,15 @@ export const workforce: Tutorial = {
       url: "workforce.snaarp.com/offboarding",
       scene: { Component: Step95, run: runStep95, durationMs: STEP95_DURATION_MS },
     },
+    {
+      id: "exit-templates",
+      title: "Exit templates",
+      url: "workforce.snaarp.com/offboarding",
+      scene: { Component: Step96, run: runStep96, durationMs: STEP96_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "You now know how to navigate the Workforce Dashboard, My Space, Attendance, Leave Tracker, Time Tracker, Goals, My Appraisals, Policies, Learning Hub, Notifications, Appraisal Management, and Payroll.",
+    text: "You now know how to navigate the Workforce Dashboard, My Space, Attendance, Leave Tracker, Time Tracker, Goals, My Appraisals, Policies, Learning Hub, Notifications, Appraisal Management, Payroll, Recruitment, Email templates, Compliance, and Lifecycle.",
   },
 };
