@@ -802,3 +802,21 @@ Recording: `ref/workforce/workforce-clip6.mp4` (1284x620, 7:07, 30fps; copy of `
 3. **In-app file upload simulation**: In step 73, the OS file chooser and external spreadsheets are replaced with an in-app file selection dropdown (`payroll-template.csv`), instant validation, and the Payroll transfer preview modal with confirmation checkbox and success toast.
 4. **Appraisal Review Detail page**: In step 61, clicking View review navigates to `/performance/reviews/sample` with completed status, 4.2 overall rating banner, self and manager review cards, and Back navigation.
 5. **Excluded recording artifacts**: Excluded browser chrome, bookmarks bar, Windows taskbar, screen-share overlay ("senting"), file paths `C:/Users/...`, Google Sheets tab, and download bubbles.
+
+## Workforce steps 77-96 (Recruitment, Email templates, Compliance, Lifecycle)
+
+Recording: `ref/workforce/workforce-clip7.mp4` (1284x620 from y=50, 4:28, 30fps; copy of `Downloads/1101(1).mp4`).
+
+**Sample data only (no real personal data).**
+- Admin identity: Sam Taylor (ST), initials "ST", role Admin (`sam.taylor@snaarp.com`, `SUPER_ADMIN`).
+- Employees & Candidates: Alex Morgan (`alex.morgan@snaarp.com`), Jordan Lee (`jordan.lee@snaarp.com`), Casey Brown (`casey.brown@snaarp.com`).
+- Recruitment: Software Engineer (Platform), Senior Frontend Developer, Product Designer. Salary range: £65,000 - £85,000 / Year.
+- Compliance: Acme Engineering Folder, Engineering policy v1.0.
+- Lifecycle: Standard Employee Onboarding, Standard Exit Checklist, IT Equipment Return checklist, Voluntary Resignation (Alex Morgan).
+
+**Decisions & deviations:**
+1. **Admin mode toggle & sidebar navigation**: Admin mode remains active. The clickable sidebar items for this round are Recruitment, Email templates, Compliance, and Lifecycle. Training accordion auto-expands with 4 disabled sub-items (Dashboard, Courses, Categories, Assignments) on Compliance and Lifecycle pages to match the recording.
+2. **Careers page standalone view**: In step 80, the public careers page renders in a dedicated standalone layout with a "Back to the app" pill that smoothly transitions back to the internal Job Postings view without browser chrome or external tabs.
+3. **Modal architecture & accessibility**: Modals and slide-in panels (Create Job, Request Documents, Applicant Details drawer, Schedule Interview, Resignation Details, Standard Exit preview) are rendered as root siblings of their page scrollers, ensuring zero viewport clipping across all tested screen sizes (1920x1080 down to 390x844).
+4. **Step 91 unique identifier**: Step 91 uses `id: "lifecycle-onboarding-record"` to avoid duplicate key collisions with step 10 ("onboarding-record"), ensuring clean React rail rendering and zero console errors.
+5. **Excluded recording artifacts**: Excluded browser chrome, bookmarks bar, Windows taskbar, screen-share overlay ("senting"), dark round floating widgets, browser autofill dropdowns, right-click menus, real names, and external email accounts.

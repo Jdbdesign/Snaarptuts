@@ -98,10 +98,11 @@ export function RecruitmentView({ tl }: Props) {
   );
 
   return (
-    <div
-      data-scroller="recruitment-page"
-      className="relative flex-1 overflow-y-auto bg-[#F8F9FB] p-6 text-[#111827] font-['Poppins',sans-serif]"
-    >
+    <>
+      <div
+        data-scroller="recruitment-page"
+        className="flex-1 overflow-y-auto bg-[#F8F9FB] p-6 text-[#111827] font-['Poppins',sans-serif]"
+      >
       {/* Top Section */}
       <div className="flex flex-col gap-4">
         {/* Header row with Title and Careers Link pill */}
@@ -457,8 +458,8 @@ export function RecruitmentView({ tl }: Props) {
           </div>
 
           {/* Applicants Table */}
-          <div className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs overflow-hidden">
-            <div className="overflow-x-auto">
+          <div className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs min-h-[380px]">
+            <div>
               <table className="w-full text-left text-xs">
                 <thead>
                   <tr className="border-b border-[#E5E7EB] bg-[#F9FAFB] text-[#6B7280] font-semibold">
@@ -904,6 +905,7 @@ export function RecruitmentView({ tl }: Props) {
           </div>
         </div>
       )}
+      </div>
 
       {/* MODAL 1: Create Job Modal (Step 79) */}
       {createJobModalOpen && (
@@ -1447,7 +1449,7 @@ export function RecruitmentView({ tl }: Props) {
                 type="button"
                 data-tl="btn-close-applicant-details"
                 onClick={() => tl.setVar("wfApplicantDetailsPanelOpen", false)}
-                className="text-[#6B7280] hover:text-[#111827]"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-[#6B7280] hover:bg-gray-100 hover:text-[#111827] transition-colors"
               >
                 <Icon name="x" size={18} />
               </button>
@@ -1873,6 +1875,6 @@ export function RecruitmentView({ tl }: Props) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

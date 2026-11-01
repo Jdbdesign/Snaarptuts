@@ -45,7 +45,7 @@ export async function runStep86(tl: Timeline) {
   // 4. Scroll message and ring placeholders
   await tl.at(8800);
   tl.showCaption(CAPTIONS.scrollPlaceholders);
-  await tl.scrollPanelTo("[data-scroller=template-message]", 120, { ms: 600 });
+  await tl.scrollPanelTo("[data-scroller=template-message]", 120, 600);
   await tl.wait(200);
   await hoverOn(tl, "[data-tl=text-template-placeholders]", { ms: 450 });
   await ring(tl, "[data-tl=text-template-placeholders]", 1800);

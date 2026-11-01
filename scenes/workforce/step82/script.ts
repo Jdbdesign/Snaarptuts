@@ -55,7 +55,7 @@ export async function runStep82(tl: Timeline) {
   await tl.typeText(
     "[data-tl=textarea-request-instructions]",
     "Please upload your latest CV.",
-    { ms: 70 }
+    { msPerChar: 70 }
   );
   tl.setVar("wfRequestDocsInstructions", "Please upload your latest CV.");
   await tl.wait(400);

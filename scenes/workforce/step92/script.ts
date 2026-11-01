@@ -68,7 +68,7 @@ export async function runStep92(tl: Timeline) {
   await tl.typeText(
     "[data-tl=textarea-start-welcome]",
     "Welcome aboard! Your first day starts at 9am.",
-    { ms: 60 }
+    { msPerChar: 60 }
   );
   tl.setVar("wfStartOnboardingMessage", "Welcome aboard! Your first day starts at 9am.");
   await tl.wait(400);

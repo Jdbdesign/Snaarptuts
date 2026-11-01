@@ -42,7 +42,7 @@ export async function runStep93(tl: Timeline) {
   await ring(tl, "[data-tl=card-task-2]", 1200);
 
   await tl.at(9400);
-  await tl.scrollPanelTo("[data-scroller=template-tasks]", 250, { ms: 800 });
+  await tl.scrollPanelTo("[data-scroller=template-tasks]", 250, 800);
   await tl.wait(200);
   await hoverOn(tl, "[data-tl=card-task-3]", { ms: 500 });
   await ring(tl, "[data-tl=card-task-3]", 1200);

@@ -32,7 +32,7 @@ export async function runStep80(tl: Timeline) {
 
   // 3. Scroll and click into Email
   await tl.at(5500);
-  await tl.scrollPanelTo("[data-scroller=careers-public-page]", 260, { ms: 800 });
+  await tl.scrollPanelTo("[data-scroller=careers-public-page]", 260, 800);
   await tl.wait(300);
 
   await tl.at(7000);

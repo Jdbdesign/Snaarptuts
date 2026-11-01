@@ -578,7 +578,7 @@ export function WorkforceShell({
           {/* Page Content Area with data-scroller */}
           <main
             data-tl="wf-main"
-            className="relative min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-6 bg-[#F8F9FB]"
+            className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden p-6 bg-[#F8F9FB]"
           >
             {children}
           </main>

@@ -40,7 +40,7 @@ export async function runStep88(tl: Timeline) {
   await tl.at(6200);
   tl.showCaption(CAPTIONS.typeFolderName);
   await pressOn(tl, "[data-tl=input-folder-name]", { ms: 500 });
-  await tl.typeText("[data-tl=input-folder-name]", "Engineering policies", { ms: 60 });
+  await tl.typeText("[data-tl=input-folder-name]", "Engineering policies", { msPerChar: 60 });
   tl.setVar("wfComplianceFolderName", "Engineering policies");
   await tl.wait(400);
 

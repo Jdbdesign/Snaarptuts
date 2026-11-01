@@ -38,7 +38,7 @@ export async function runStep83(tl: Timeline) {
 
   // 3. Scroll panel to Documents and ring
   await tl.at(8000);
-  await tl.scrollPanelTo("[data-scroller=panel-applicant-details]", 300, { ms: 800 });
+  await tl.scrollPanelTo("[data-scroller=panel-applicant-details]", 300, 800);
   await tl.wait(300);
 
   await tl.at(9500);

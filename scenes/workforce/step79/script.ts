@@ -61,7 +61,7 @@ export async function runStep79(tl: Timeline) {
   // 5. Scroll modal to footer and click Cancel
   await tl.at(12200);
   tl.showCaption(CAPTIONS.scrollFooter);
-  await tl.scrollPanelTo("[data-scroller=modal-create-job]", 350, { ms: 800 });
+  await tl.scrollPanelTo("[data-scroller=modal-create-job]", 350, 800);
   await tl.wait(300);
 
   await tl.at(14000);

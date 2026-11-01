@@ -15,7 +15,7 @@ export function CareersPageView({ tl }: Props) {
   return (
     <div
       data-scroller="careers-public-page"
-      className="relative flex-1 overflow-y-auto bg-[#F9FAFB] text-[#111827] font-['Poppins',sans-serif] min-h-full"
+      className="flex-1 overflow-y-auto bg-[#F9FAFB] text-[#111827] font-['Poppins',sans-serif] min-h-full"
     >
       {/* Top Banner / Navigation with "Back to the app" chip */}
       <div className="sticky top-0 z-20 border-b border-[#E5E7EB] bg-white px-6 py-3 shadow-2xs flex items-center justify-between">

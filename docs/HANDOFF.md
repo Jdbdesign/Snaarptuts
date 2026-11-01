@@ -166,9 +166,9 @@ Manual test of saved progress (no unit-test runner in the project): 1) finish a 
 Because users can no longer scroll the canvas, the timeline scrolls for them: `Timeline.ensureVisible` (`lib/timeline.ts`, geometry in `lib/visibility.ts`) runs before every cursor move, click, highlight, hover, follow-path and targeted caption. Details and the rule for scenes: `CLAUDE.md` ("Auto-scroll and visibility QA") and `docs/STEPS.md`. `npm run qa:visibility` plays all 154 steps at four viewport sizes (about 25 minutes at `--speed 2`) and writes `docs/QA-VISIBILITY.md`; last run: no open findings. Test-only hooks on `window` (`__snaarpProbe`, `__snaarpSpeed`) are read by the timeline and ignored when absent. Playwright (`playwright`, `tsx`) is now a dev dependency; browsers are the ones Playwright installs. Not pushed yet: the work sits on local `main` commits waiting for the owner's approval.
 
 
-## Workforce (seventh tutorial, Dashboard, My Space, Salary advances, Resignation, Exit tasks, Holidays, HR Cases, Policies, Learning Hub, Notifications)
+## Workforce (seventh tutorial, Dashboard, My Space, Salary advances, Resignation, Exit tasks, Holidays, HR Cases, Policies, Learning Hub, Notifications, Appraisal Management, Payroll, Recruitment, Email templates, Compliance, Lifecycle)
 
-Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **76 steps, all built**, followed by the data-driven completion card.
+Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **96 steps, all built**, followed by the data-driven completion card.
 - Recordings:
   - `ref/workforce/Workforce_clip1.mp4` (1234x720, 97s, 30fps; copy of `Downloads/1030.mp4`; steps 1–17).
   - `ref/workforce/workforce-clip2.mp4` (1234x720, 65s, 30fps; copy of `Downloads/1030(1).mp4`; steps 18–24).
@@ -176,6 +176,7 @@ Route `/tutorials/workforce`, config `tutorials/workforce.ts`: **76 steps, all b
   - `ref/workforce/workforce-clip4.mp4` (1234x720, 42s, 30fps; copy of `Downloads/1030(3).mp4`; steps 45–48).
   - `ref/workforce/workforce-clip5.mp4` (1284x720, 44s, 30fps; copy of `Downloads/1030(5).mp4`; steps 49–54).
   - `ref/workforce/workforce-clip6.mp4` (1284x620, 7:07, 30fps; copy of `Downloads/1101.mp4`; steps 55–76 Admin side).
+  - `ref/workforce/workforce-clip7.mp4` (`1101(1).mp4`), 1284x620, 4:28, 30fps; steps 77–96 Admin side).
 
 How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and shell `components/workforce/WorkforceShell.tsx` (the thin Snaarp suite rail, collapsible 220px Workforce sidebar, and top bar with Notifications popover, admin-only Add Users button, Apps suite popover, and Avatar menu). Views:
 - `DashboardView.tsx`: company overview, stat cards, tasks and requests, announcements.
@@ -200,9 +201,14 @@ How it is built: Reusable stage `components/workforce/WorkforceStage.tsx` and sh
 - `CycleCreationFormView.tsx`: Cycle creation wizard form with type select, participant options, reviewer overrides accordion, repeat cadence, calendar date picker, and questions template.
 - `AdminReviewDetailView.tsx`: Completed review page with overall rating, self-review score, manager review score, agreed objectives, and back navigation.
 - `PayrollView.tsx`: Full payroll suite with 9 tabs/modals (salary components, employee salaries, assign salary modal, pay runs, payslips, salary advances, advance policy, import/export, salary import modal, transfer preview modal, tax calculator, pension calculator, and tax & pension settings).
+- `RecruitmentView.tsx`: Recruitment dashboard, careers link pill with copy toast, stat cards, job postings table, Create Job modal with Department/Experience selects, salary block, and cancel flow, Applicants table with status dropdown, Request Documents modal, Applicant Details drawer, Archives table, Interviews table, and Schedule Interview modal.
+- `CareersPageView.tsx`: Public candidate careers portal with Software Engineer posting, job details, apply form, and "Back to the app" return chip.
+- `EmailTemplatesView.tsx`: Email templates manager with 8 templates, template message editor with dynamic placeholder chips, and live preview card.
+- `ComplianceView.tsx`: Compliance folders repository, Create Folder form with department select and Alex Morgan tag, Awaiting Review tab with policy review card, in-app Document Viewer modal, and approval/rejection actions.
+- `LifecycleView.tsx`: Lifecycle suite covering Onboarding (dashboard, 3 status cards, audit table, Alex Morgan record view with 3 tabs, Start Onboarding form with Jordan Lee, template and owner assignments, template task manager) and Offboarding (dashboard with Casey Brown progress bar, Initiate Exit wizard with reasons and checklist picker, Resignations audit table with Alex Morgan actions menu, Resignation Details modal with dates and reasons, and departure Templates repository with Standard Exit Checklist preview modal).
 
 Every script strictly follows the house patterns in `docs/SCENE-PATTERNS.md`: `beginWorkforce` places the cursor on frame 1, `pressOn` for active clicks, `hoverOn` for hovers, `ring` for inspections, and `finishWorkforce` for the standard white fade finish.
-Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 304 runs (76 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
+Tested with `npm run qa:visibility -- --tutorial workforce`: 0 open findings across all 384 runs (96 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Space and canvas-click pause/resume verified across all viewports.
 
 ## Workforce: mouse pointer visibility fix
 In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cursor: [number, number] = [0.5, 0.42]` and calls `tl.placeCursor(cursor[0], cursor[1])` as its first action, ensuring the pointer is visible from frame 1 before the first caption. Steps continuing on the same screen use `tl.placeCursorOn(...)` (or matching fraction for step 12) to place the cursor seamlessly where the previous step ended. Spacebar and canvas-click pause freeze the pointer in place. Verified visible across all 17 steps with automated test and visual inspection at 1440 and 1024 widths. Added house pattern rule to `docs/SCENE-PATTERNS.md`.

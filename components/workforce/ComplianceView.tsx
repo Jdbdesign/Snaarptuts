@@ -5,7 +5,7 @@ import { Icon } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { DocumentViewerModal } from "./DocumentViewerModal";
-import { COMPLIANCE_FOLDERS, URLS } from "./workforce-data";
+import { URLS } from "./workforce-data";
 
 type Props = {
   tl: Timeline;
@@ -30,7 +30,7 @@ export function ComplianceView({ tl }: Props) {
   return (
     <div
       data-scroller="compliance-page"
-      className="relative flex-1 overflow-y-auto bg-[#F8F9FB] p-6 text-[#111827] font-['Poppins',sans-serif]"
+      className="flex-1 overflow-y-auto bg-[#F8F9FB] p-6 text-[#111827] font-['Poppins',sans-serif]"
     >
       {/* 1. Main Folders List View */}
       {currentView === "list" && (

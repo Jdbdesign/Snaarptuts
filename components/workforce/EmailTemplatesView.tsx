@@ -22,7 +22,7 @@ export function EmailTemplatesView({ tl }: Props) {
   return (
     <div
       data-scroller="email-templates-page"
-      className="relative flex-1 overflow-y-auto bg-[#F8F9FB] p-6 text-[#111827] font-['Poppins',sans-serif]"
+      className="flex-1 overflow-y-auto bg-[#F8F9FB] p-6 text-[#111827] font-['Poppins',sans-serif]"
     >
       <div className="flex flex-col gap-6 max-w-6xl mx-auto">
         {/* Header */}

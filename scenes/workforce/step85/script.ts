@@ -67,6 +67,7 @@ export async function runStep85(tl: Timeline) {
   // 5. Select interview type
   await tl.at(13000);
   tl.showCaption(CAPTIONS.selectType);
+  await tl.scrollPanelTo("[data-scroller=modal-schedule-interview]", 200, 400);
   await pressOn(tl, "[data-tl=select-interview-type]", { ms: 450 });
   tl.setVar("wfInterviewTypeSelectOpen", true);
   await tl.wait(300);

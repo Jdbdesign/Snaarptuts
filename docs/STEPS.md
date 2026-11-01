@@ -1644,7 +1644,7 @@ Recording `ref/sheets/Snaarp_Sheets_toolbar.mp4` (copy of `Downloads/1029(1).mp4
 
 # Steps of the Workforce tutorial
 
-Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 15 minutes across 54 steps.
+Config: `tutorials/workforce.ts`. Total running time from page load to the completion card: about 25 minutes across 96 steps.
 
 ## Source recording map
 
@@ -1653,6 +1653,8 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 - `Workforce_clip3.mp4` (`1030(2).mp4`), 1234x720, 1:44, 30fps (Steps 25–44).
 - `workforce-clip4.mp4` (`1030(3).mp4`), 1234x720, 0:42, 30fps (Steps 45–48).
 - `workforce-clip5.mp4` (`1030(5).mp4`), 1284x720, 0:44, 30fps (Steps 49–54).
+- `workforce-clip6.mp4` (`1101.mp4`), 1284x620, 7:07, 30fps (Steps 55–76).
+- `workforce-clip7.mp4` (`1101(1).mp4`), 1284x620, 4:28, 30fps (Steps 77–96).
 
 | Step | Title | Recording |
 |---|---|---|
@@ -1711,6 +1713,26 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 53 | Learning Record | Clip 5: 0:34 - 0:39 |
 | 54 | Notifications | Clip 5: 0:39 - 0:44 |
 | 55 - 76 | Appraisal Management and Payroll | Clip 6: 0:00 - 7:07 |
+| 77 | Recruitment | Clip 7: 0:00 - 0:15 |
+| 78 | Job postings | Clip 7: 0:15 - 0:35 |
+| 79 | Create a job | Clip 7: 0:35 - 1:02 |
+| 80 | Careers page | Clip 7: 1:02 - 1:18 |
+| 81 | Applicants | Clip 7: 1:18 - 1:36 |
+| 82 | Request documents | Clip 7: 1:36 - 1:52 |
+| 83 | Applicant details | Clip 7: 1:52 - 2:05 |
+| 84 | Archives | Clip 7: 2:05 - 2:18 |
+| 85 | Interviews | Clip 7: 2:18 - 2:40 |
+| 86 | Email templates | Clip 7: 2:40 - 2:56 |
+| 87 | Compliance | Clip 7: 2:56 - 3:05 |
+| 88 | Create a folder | Clip 7: 3:05 - 3:18 |
+| 89 | Review a policy | Clip 7: 3:18 - 3:32 |
+| 90 | Onboarding | Clip 7: 3:32 - 3:45 |
+| 91 | Onboarding record | Clip 7: 3:45 - 3:55 |
+| 92 | Start onboarding | Clip 7: 3:55 - 4:05 |
+| 93 | Onboarding templates | Clip 7: 4:05 - 4:12 |
+| 94 | Initiate an exit | Clip 7: 4:12 - 4:20 |
+| 95 | Resignations | Clip 7: 4:20 - 4:25 |
+| 96 | Exit templates | Clip 7: 4:25 - 4:28 |
 
 ---
 
@@ -1793,11 +1815,31 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 | 73 | Import salaries | Clicks Import salaries card. Modal opens, selects CSV template in file picker simulation, clicks Upload & validate, reviews Payroll transfer preview modal, clicks confirmation checkbox, confirms import, shows success toast. | 20 s |
 | 74 | Tax calculator | Switches to Tax calculator tab. Enters gross monthly salary £4,000.00, reviews calculation results card: Taxable £2,952.50, Monthly Tax £590.50, Effective rate 14.8%. | 16 s |
 | 75 | Tax and pension settings | Switches to Tax & Pension Settings tab. Reviews UK tax brackets table (Personal Allowance £12,570 0%, Basic £12,571–£50,270 20%, Higher 40%, Additional 45%) and auto-enrolment pension rates. | 16 s |
-| 76 | Pension calculator | Switches to Pension calculator tab. Enters pensionable earnings £4,000.00, reviews calculation breakdown card: Employee £320.00, Employer £400.00, Total Pension £720.00. Completion card follows. | 16 s |
+| 76 | Pension calculator | Switches to Pension calculator tab. Enters pensionable earnings £4,000.00, reviews calculation breakdown card: Employee £320.00, Employer £400.00, Total Pension £720.00. | 16 s |
+| 77 | Recruitment | Clicks Recruitment in sidebar. Reviews Careers page public link pill, copies link with toast, rings 4 recruitment stat cards (Active jobs 0, Total applicants 2, Interviews 0, Offers 0). | 15 s |
+| 78 | Job postings | Switches to Job Postings tab. Interacts with status dropdown, rings Job Postings table (Senior Frontend Developer, Product Designer), hovers View, Edit, and Share actions. | 16 s |
+| 79 | Create a job | Clicks "+ Create Job" button. Opens modal, selects Engineering department, selects Mid-level experience, rings salary block, scrolls modal to footer, and clicks Cancel to dismiss. | 16 s |
+| 80 | Careers page | Clicks public careers link to open public careers view. Selects Software Engineer posting, reviews job details, scrolls to application form, focuses email field, and clicks "Back to the app". | 16 s |
+| 81 | Applicants | Switches to Applicants tab. Inspects 2 applicant rows, opens stage dropdown on Alex Morgan, hovers actions "...", and clicks "+ Add Applicant". | 16 s |
+| 82 | Request documents | From Actions "...", clicks Request Documents. Opens modal, selects Document type "Identity document", selects Jordan Lee as requester, types instructions, rings footer, and clicks Cancel. | 17 s |
+| 83 | Applicant details | From Actions "...", clicks View details. Slide-in panel opens, reviews candidate info, stage emails, scrolls panel to documents, rings documents, and closes with X. | 16 s |
+| 84 | Archives | Switches to Archives tab. Reviews 2 archived job postings (DevOps Engineer, QA Lead), explains archived reason, and inspects Actions "..." button. | 13 s |
+| 85 | Interviews | Switches to Interviews tab. Clicks Schedule Interview, selects Alex Morgan, picks interviewers, selects Video Call type, focuses Duration, and clicks Cancel. | 18 s |
+| 86 | Email templates | Clicks Email templates in sidebar. Reviews 8 standard recruiting templates, switches to "Request additional documents", scrolls message body, rings placeholders, and inspects preview card. | 16 s |
+| 87 | Compliance | Clicks Compliance in sidebar. Training accordion auto-expands. Reviews Folders and Awaiting Review tabs, rings Engineering folder card with "1" badge. | 14 s |
+| 88 | Create a folder | Clicks "+ Create Folder" button. Selects Engineering department, types "Engineering policies", selects Alex Morgan as uploader, and clicks Cancel. | 16 s |
+| 89 | Review a policy | Switches to Awaiting Review tab. Reviews policy review card, clicks "Review document" to open in-app Document Viewer, rings policy pages, closes viewer, and hovers Approve and Reject. | 17 s |
+| 90 | Onboarding | Clicks Lifecycle in sidebar. Explains Onboarding toggle, rings 3 status cards (Active 0, Awaiting Review 0, Overdue 0), filters by status, and reviews onboarding audit table. | 15 s |
+| 91 | Onboarding record | Clicks View record on Alex Morgan row. Inspects 100% completion card, reviews 3 tabs (Checklist, Documents, Activity), and clicks Back to dashboard. | 16 s |
+| 92 | Start onboarding | Clicks "+ Start Onboarding" button. Selects Jordan Lee, picks Standard template, sets start date, chooses HR owner and manager, types welcome note, and rings Submit. | 17 s |
+| 93 | Onboarding templates | Switches to Templates sub-tab. Clicks Standard Employee Onboarding template, reviews checklist tasks list, scrolls tasks panel, and inspects task configuration. | 15 s |
+| 94 | Initiate an exit | Clicks Offboarding toggle pill. Clicks Initiate Exit button, selects Personal Reasons, voluntary departure type, IT Equipment Return checklist, rings questionnaire, and clicks Back. | 16 s |
+| 95 | Resignations | In Offboarding Dashboard, rings Casey Brown progress row, clicks Resignations sub-tab, opens actions menu on Alex Morgan, clicks View to open Resignation Details modal, rings dates and reason, and clicks Close. | 16 s |
+| 96 | Exit templates | Clicks Templates sub-tab, reviews custom and default departure checklists, clicks Preview on Standard Exit Checklist, hovers items 1 & 2, hovers Use Template, and clicks Close. Completion card follows. | 15 s |
 
 **Files.**
 - Config: `tutorials/workforce.ts`
 - Reusable Shell & Stage: `components/workforce/WorkforceShell.tsx`, `components/workforce/WorkforceStage.tsx`
-- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`, `PoliciesView.tsx`, `LearningHubView.tsx`, `NotificationsView.tsx`, `DocumentViewerModal.tsx`, `AppraisalManagementView.tsx`, `CycleCreationFormView.tsx`, `AdminReviewDetailView.tsx`, `PayrollView.tsx`
+- Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`, `PoliciesView.tsx`, `LearningHubView.tsx`, `NotificationsView.tsx`, `DocumentViewerModal.tsx`, `AppraisalManagementView.tsx`, `CycleCreationFormView.tsx`, `AdminReviewDetailView.tsx`, `PayrollView.tsx`, `RecruitmentView.tsx`, `CareersPageView.tsx`, `EmailTemplatesView.tsx`, `ComplianceView.tsx`, `LifecycleView.tsx`
 - Central Data & Helpers: `components/workforce/workforce-data.ts`, `components/workforce/workforce-timeline.ts`
-- Step Scenes & Scripts: `scenes/workforce/step<1..76>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/workforce/step<1..96>/Step<N>.tsx`, `script.ts`, `data.ts`

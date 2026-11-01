@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Icon } from "@/components/icons";
+import { Icon, type IconName } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
@@ -100,10 +100,11 @@ export function LifecycleView({ tl }: Props) {
   );
 
   return (
-    <div
-      data-scroller="lifecycle-page"
-      className="relative flex-1 overflow-y-auto bg-[#F8F9FB] p-6 text-[#111827] font-['Poppins',sans-serif]"
-    >
+    <>
+      <div
+        data-scroller="lifecycle-page"
+        className="flex-1 overflow-y-auto bg-[#F8F9FB] p-6 text-[#111827] font-['Poppins',sans-serif]"
+      >
       <div className="flex flex-col gap-6 max-w-6xl mx-auto">
         {/* Top Header & Main Toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -1052,7 +1053,7 @@ export function LifecycleView({ tl }: Props) {
                               : "bg-white border border-[#D1D5DB] text-[#4B5563] hover:bg-gray-50"
                           }`}
                         >
-                          <Icon name={tab.icon as any} size={13} />
+                          <Icon name={tab.icon as IconName} size={13} />
                           <span>{tab.label}</span>
                         </button>
                       );
@@ -1089,7 +1090,7 @@ export function LifecycleView({ tl }: Props) {
                       </select>
                     </div>
 
-                    <div className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs overflow-hidden">
+                    <div className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs min-h-[180px]">
                       <table className="w-full text-left text-xs">
                         <thead>
                           <tr className="border-b border-[#E5E7EB] bg-[#F9FAFB] text-[#6B7280] font-semibold">
@@ -1175,7 +1176,7 @@ export function LifecycleView({ tl }: Props) {
                       </select>
                     </div>
 
-                    <div className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs overflow-hidden">
+                    <div className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs min-h-[180px]">
                       <table className="w-full text-left text-xs">
                         <thead>
                           <tr className="border-b border-[#E5E7EB] bg-[#F9FAFB] text-[#6B7280] font-semibold">
@@ -1599,6 +1600,7 @@ export function LifecycleView({ tl }: Props) {
           </div>
         )}
       </div>
+      </div>
 
       {/* ============================================================== */}
       {/* MODAL: Resignation Details (Step 95) */}
@@ -1786,6 +1788,6 @@ export function LifecycleView({ tl }: Props) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

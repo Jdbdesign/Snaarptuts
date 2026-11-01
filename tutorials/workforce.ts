@@ -743,7 +743,7 @@ export const workforce: Tutorial = {
       scene: { Component: Step90, run: runStep90, durationMs: STEP90_DURATION_MS },
     },
     {
-      id: "onboarding-record",
+      id: "lifecycle-onboarding-record",
       title: "Onboarding record",
       url: "workforce.snaarp.com/onboarding/records/sample",
       scene: { Component: Step91, run: runStep91, durationMs: STEP91_DURATION_MS },
