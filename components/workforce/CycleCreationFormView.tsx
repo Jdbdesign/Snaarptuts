@@ -99,6 +99,16 @@ export function CycleCreationFormView({ tl, onCancel }: Props) {
                     ANNUAL
                   </div>
                   <div
+                    data-tl="cycle-type-probation"
+                    onClick={() => {
+                      tl.setVar("wfCycleType", "PROBATION");
+                      tl.setVar("wfCycleTypeSelectOpen", false);
+                    }}
+                    className="px-3 py-2 hover:bg-purple-50 hover:text-[#7014D9] cursor-pointer"
+                  >
+                    PROBATION
+                  </div>
+                  <div
                     data-tl="cycle-type-quarterly"
                     onClick={() => {
                       tl.setVar("wfCycleType", "QUARTERLY");
