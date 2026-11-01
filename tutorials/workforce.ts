@@ -204,6 +204,8 @@ import { Step102 } from "@/scenes/workforce/step102/Step102";
 import { runStep102, STEP102_DURATION_MS } from "@/scenes/workforce/step102/script";
 import { Step103 } from "@/scenes/workforce/step103/Step103";
 import { runStep103, STEP103_DURATION_MS } from "@/scenes/workforce/step103/script";
+import { Step104 } from "@/scenes/workforce/step104/Step104";
+import { runStep104, STEP104_DURATION_MS } from "@/scenes/workforce/step104/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -833,6 +835,12 @@ export const workforce: Tutorial = {
       title: "Publish and see it live",
       url: "workforce.snaarp.com/announcements",
       scene: { Component: Step103, run: runStep103, durationMs: STEP103_DURATION_MS },
+    },
+    {
+      id: "bell-notification",
+      title: "Bell notification",
+      url: "workforce.snaarp.com/announcements",
+      scene: { Component: Step104, run: runStep104, durationMs: STEP104_DURATION_MS },
     },
   ],
   completion: {
