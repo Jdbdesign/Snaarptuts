@@ -329,6 +329,20 @@ export const URLS = {
   onboardingTemplateStandard: "workforce.snaarp.com/onboarding/templates/standard",
   offboarding: "workforce.snaarp.com/offboarding",
   offboardingInitiate: "workforce.snaarp.com/offboarding/initiate",
+  hrCasesAdmin: "workforce.snaarp.com/hr-cases",
+  announcements: "workforce.snaarp.com/announcements",
+  shifts: "workforce.snaarp.com/shifts",
+  holidaysAdmin: "workforce.snaarp.com/holidays",
+  trainingDashboard: "workforce.snaarp.com/training/dashboard",
+  trainingCourses: "workforce.snaarp.com/training/courses",
+  trainingCategories: "workforce.snaarp.com/training/categories",
+  trainingAssignments: "workforce.snaarp.com/training/assignments",
+  reports: "workforce.snaarp.com/reports",
+  reportsAttendance: "workforce.snaarp.com/reports/attendance",
+  reportsLeave: "workforce.snaarp.com/reports/leave",
+  reportsHeadcount: "workforce.snaarp.com/reports/headcount",
+  reportsOnboarding: "workforce.snaarp.com/reports/onboarding",
+  adminPanel: "admin.snaarp.com/dashboard",
 };
 
 export const SAMPLE_SALARY_ADVANCE = {
@@ -824,11 +838,11 @@ export const ADMIN_MANAGE_NAV_ITEMS: {
   { id: "email-templates", label: "Email templates", icon: "mail", clickable: true },
   { id: "compliance", label: "Compliance", icon: "shield", clickable: true },
   { id: "lifecycle", label: "Lifecycle", icon: "layers", clickable: true },
-  { id: "hr-cases-manage", label: "HR Cases", icon: "building" },
-  { id: "announcements", label: "Announcements", icon: "bell" },
-  { id: "shifts", label: "Shifts", icon: "clock" },
-  { id: "holidays-manage", label: "Holidays", icon: "shCalendar" },
-  { id: "training", label: "Training", icon: "wfGraduation", expandable: true },
+  { id: "hr-cases-manage", label: "HR Cases", icon: "building", clickable: true },
+  { id: "announcements", label: "Announcements", icon: "bell", clickable: true },
+  { id: "shifts", label: "Shifts", icon: "clock", clickable: true },
+  { id: "holidays-manage", label: "Holidays", icon: "shCalendar", clickable: true },
+  { id: "training", label: "Training", icon: "wfGraduation", expandable: true, clickable: true },
 ];
 
 export const ADMIN_INSIGHTS_NAV_ITEMS: {
@@ -837,7 +851,7 @@ export const ADMIN_INSIGHTS_NAV_ITEMS: {
   icon: IconName;
   clickable?: boolean;
 }[] = [
-  { id: "reports", label: "Reports", icon: "shChart" },
+  { id: "reports", label: "Reports", icon: "shChart", clickable: true },
 ];
 
 export const APPRAISAL_CYCLES = [
@@ -1278,3 +1292,254 @@ export const EXIT_DEFAULT_TEMPLATES = [
     ],
   },
 ];
+
+// Admin HR Cases Datasets (Steps 97-100)
+export const ADMIN_HR_CASES_DATA = {
+  grievances: [
+    {
+      id: "CAS-001",
+      subject: "Bullying",
+      submittedBy: "Alex Morgan",
+      date: "15 Oct 2026",
+      status: "Closed",
+      created: "16 Oct 2026",
+      details: "Repeated verbal harassment and aggressive comments during engineering sprint planning and daily standups.",
+      resolution: "HR formal investigation completed. Mediation meeting held on 22 Oct 2026. Action plan agreed with team lead.",
+      outcomeNotes: "Case closed following mutual conflict resolution agreement.",
+    },
+  ],
+  disciplinary: [
+    {
+      id: "DISC-001",
+      employee: "Alex Morgan",
+      type: "Verbal warning",
+      date: "20 Oct 2026",
+      reason: "bullying",
+      status: "Open",
+    },
+  ],
+  disciplinaryTypes: [
+    "Verbal warning",
+    "Written warning",
+    "Final written warning",
+    "Suspension",
+    "Dismissal",
+  ],
+};
+
+// Admin Announcements Datasets (Steps 101-104)
+export const ADMIN_ANNOUNCEMENTS_INITIAL = [
+  {
+    id: "ann-01",
+    title: "Quarterly Town Hall",
+    content: "Join us for our Q4 company-wide town hall meeting this Thursday at 3 PM BST.",
+    publishedAt: "25/10/2026",
+    expiresAt: "05/11/2026",
+    isBanner: false,
+    ctaText: "Join Stream",
+    target: "All Employees",
+  },
+];
+
+export const ADMIN_ANNOUNCEMENT_NEW = {
+  id: "ann-02",
+  title: "New day",
+  content: "This is a brand new day",
+  publishedAt: "30/10/2026",
+  expiresAt: "15/11/2026",
+  isBanner: true,
+  ctaText: "NEW DAY",
+  target: "All Employees",
+};
+
+// Admin Shifts Datasets (Steps 105-106)
+export const ADMIN_SHIFTS_DATA = [
+  {
+    id: "shift-01",
+    name: "Morning Shift",
+    start: "09:00",
+    end: "17:00",
+    breakMins: 60,
+    days: "Mon, Tue, Wed, Thu, Fri",
+    employeesCount: 2,
+    color: "#7014D9",
+  },
+  {
+    id: "shift-02",
+    name: "Evening Shift",
+    start: "17:00",
+    end: "01:00",
+    breakMins: 45,
+    days: "Mon, Tue, Wed, Thu, Fri",
+    employeesCount: 1,
+    color: "#3B82F6",
+  },
+];
+
+// Admin Holidays Datasets (Steps 107-108)
+export const ADMIN_HOLIDAYS_DATA = {
+  publicHolidays: [
+    { id: "hol-01", name: "Founders' Day", code: "GB", date: "30/10/2026", isPublic: true },
+    { id: "hol-02", name: "Christmas Day", code: "GB", date: "25/12/2026", isPublic: true },
+    { id: "hol-03", name: "Boxing Day", code: "GB", date: "26/12/2026", isPublic: true },
+    { id: "hol-04", name: "New Year's Day", code: "GB", date: "01/01/2027", isPublic: true },
+  ],
+  workingWeek: [
+    { day: "Monday", working: true, hours: "09:00 - 17:00" },
+    { day: "Tuesday", working: true, hours: "09:00 - 17:00" },
+    { day: "Wednesday", working: true, hours: "09:00 - 17:00" },
+    { day: "Thursday", working: true, hours: "09:00 - 17:00" },
+    { day: "Friday", working: true, hours: "09:00 - 17:00" },
+    { day: "Saturday", working: false, hours: "Off" },
+    { day: "Sunday", working: false, hours: "Off" },
+  ],
+};
+
+// Admin Training Datasets (Steps 109-117)
+export const ADMIN_TRAINING_DATA = {
+  stats: {
+    totalCourses: 3,
+    activeLearners: 3,
+    completionRate: "85%",
+    overdueAssignments: 1,
+  },
+  courses: [
+    {
+      id: "course-eng",
+      title: "Engineering Fundamentals",
+      description: "Core engineering practices, code review standards, and CI/CD workflow guidelines.",
+      category: "Engineering",
+      duration: "45 mins",
+      lessonsCount: 4,
+      status: "Published",
+    },
+    {
+      id: "course-safety",
+      title: "Workplace Safety",
+      description: "Essential occupational health, ergonomic workstation setup, and emergency protocols.",
+      category: "General Compliance",
+      duration: "30 mins",
+      lessonsCount: 2,
+      status: "Published",
+    },
+    {
+      id: "course-security",
+      title: "Security & Data Protection",
+      description: "GDPR guidelines, safe data handling, password policies, and phishing defense.",
+      category: "General Compliance",
+      duration: "60 mins",
+      lessonsCount: 5,
+      status: "Published",
+    },
+  ],
+  categories: [
+    {
+      id: "cat-eng",
+      name: "Engineering",
+      description: "Technical skills, programming standards, and engineering architecture",
+      coursesCount: 1,
+    },
+    {
+      id: "cat-comp",
+      name: "General Compliance",
+      description: "Statutory, safety, and regulatory compliance requirements for all personnel",
+      coursesCount: 2,
+    },
+    {
+      id: "cat-lead",
+      name: "Leadership",
+      description: "Team leadership, management principles, and conflict resolution",
+      coursesCount: 0,
+    },
+  ],
+  assignments: [
+    {
+      id: "asg-01",
+      employee: "Alex Morgan",
+      department: "Engineering",
+      course: "Engineering Fundamentals",
+      status: "In Progress",
+      dueDate: "15/11/2026",
+      score: "--",
+      progress: 50,
+    },
+    {
+      id: "asg-02",
+      employee: "Jordan Lee",
+      department: "Engineering",
+      course: "Engineering Fundamentals",
+      status: "Completed",
+      dueDate: "28/10/2026",
+      score: "90%",
+      progress: 100,
+    },
+    {
+      id: "asg-03",
+      employee: "Casey Brown",
+      department: "Unassigned",
+      course: "Workplace Safety",
+      status: "Overdue",
+      dueDate: "25/10/2026",
+      score: "--",
+      progress: 20,
+    },
+  ],
+  sampleProgress: {
+    employee: "Jordan Lee",
+    course: "Engineering Fundamentals",
+    status: "Completed",
+    completionDate: "28 Oct 2026",
+    score: "90%",
+    modules: [
+      { title: "Introduction to Acme Stack", completed: true },
+      { title: "Git & Code Review Practices", completed: true },
+      { title: "CI/CD & Deployment Guidelines", completed: true },
+      { title: "Knowledge Check Quiz", completed: true },
+    ],
+  },
+};
+
+// Admin Reports Datasets (Steps 118-122)
+export const ADMIN_REPORTS_DATA = {
+  hubCards: [
+    {
+      id: "attendance",
+      title: "Attendance Report",
+      desc: "Track daily clock-ins, clock-outs, absences, and total working hours across teams.",
+    },
+    {
+      id: "leave",
+      title: "Leave Report",
+      desc: "Review employee leave requests, balances, and time off trends across departments.",
+    },
+    {
+      id: "headcount",
+      title: "Headcount Report",
+      desc: "Analyze organizational growth, department distribution, and employment status.",
+    },
+    {
+      id: "onboarding",
+      title: "Onboarding Report",
+      desc: "Monitor onboarding checklist progress, start dates, and pending induction tasks.",
+    },
+  ],
+  attendance: [
+    { code: "EMP-0001", name: "Alex Morgan", department: "Engineering", totalDays: 22, present: 21, absent: 1, late: 0, totalHours: "168h" },
+    { code: "EMP-0002", name: "Jordan Lee", department: "Engineering", totalDays: 22, present: 20, absent: 2, late: 1, totalHours: "160h" },
+    { code: "EMP-0003", name: "Casey Brown", department: "Unassigned", totalDays: 22, present: 22, absent: 0, late: 0, totalHours: "176h" },
+  ],
+  leave: [
+    { code: "EMP-0001", name: "Alex Morgan", department: "Engineering", leaveType: "Annual Leave", balance: 25, used: 5, remaining: 20 },
+    { code: "EMP-0002", name: "Jordan Lee", department: "Engineering", leaveType: "Sick Leave", balance: 10, used: 2, remaining: 8 },
+    { code: "EMP-0003", name: "Casey Brown", department: "Unassigned", leaveType: "Annual Leave", balance: 25, used: 0, remaining: 25 },
+  ],
+  headcount: [
+    { department: "Engineering", status: "ACTIVE", count: 2 },
+    { department: "Unassigned", status: "ACTIVE", count: 1 },
+  ],
+  onboarding: [
+    { code: "EMP-0001", name: "Alex Morgan", department: "Engineering", status: "COMPLETED", joinedDate: "01/06/2026" },
+    { code: "EMP-0002", name: "Jordan Lee", department: "Engineering", status: "COMPLETED", joinedDate: "15/07/2026" },
+    { code: "EMP-0003", name: "Casey Brown", department: "Unassigned", status: "IN_PROGRESS", joinedDate: "01/10/2026" },
+  ],
+};

@@ -190,6 +190,8 @@ import { Step95 } from "@/scenes/workforce/step95/Step95";
 import { runStep95, STEP95_DURATION_MS } from "@/scenes/workforce/step95/script";
 import { Step96 } from "@/scenes/workforce/step96/Step96";
 import { runStep96, STEP96_DURATION_MS } from "@/scenes/workforce/step96/script";
+import { Step97 } from "@/scenes/workforce/step97/Step97";
+import { runStep97, STEP97_DURATION_MS } from "@/scenes/workforce/step97/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -777,6 +779,12 @@ export const workforce: Tutorial = {
       title: "Exit templates",
       url: "workforce.snaarp.com/offboarding",
       scene: { Component: Step96, run: runStep96, durationMs: STEP96_DURATION_MS },
+    },
+    {
+      id: "open-hr-cases",
+      title: "Open HR Cases",
+      url: "workforce.snaarp.com/hr-cases",
+      scene: { Component: Step97, run: runStep97, durationMs: STEP97_DURATION_MS },
     },
   ],
   completion: {

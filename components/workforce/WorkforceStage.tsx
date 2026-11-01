@@ -35,6 +35,13 @@ import { CareersPageView } from "./CareersPageView";
 import { EmailTemplatesView } from "./EmailTemplatesView";
 import { ComplianceView } from "./ComplianceView";
 import { LifecycleView } from "./LifecycleView";
+import { AdminHrCasesView } from "./AdminHrCasesView";
+import { AdminAnnouncementsView } from "./AdminAnnouncementsView";
+import { AdminShiftsView } from "./AdminShiftsView";
+import { AdminHolidaysView } from "./AdminHolidaysView";
+import { AdminTrainingView, type AdminTrainingSubpage } from "./AdminTrainingView";
+import { AdminReportsView } from "./AdminReportsView";
+import { AdminPanelEmbedView } from "./AdminPanelEmbedView";
 import { WorkforceShell } from "./WorkforceShell";
 import { URLS, type MySpaceSubId, type WorkforceNavId } from "./workforce-data";
 
@@ -72,7 +79,21 @@ export type WorkforcePage =
   | "email-templates"
   | "compliance"
   | "lifecycle-onboarding"
-  | "lifecycle-offboarding";
+  | "lifecycle-offboarding"
+  | "admin-hr-cases"
+  | "announcements"
+  | "shifts"
+  | "admin-holidays"
+  | "training-dashboard"
+  | "training-courses"
+  | "training-categories"
+  | "training-assignments"
+  | "reports"
+  | "reports-attendance"
+  | "reports-leave"
+  | "reports-headcount"
+  | "reports-onboarding"
+  | "admin-panel-dashboard";
 
 type Props = {
   tl: Timeline;
@@ -195,6 +216,27 @@ export function WorkforceStage({
   } else if (page === "lifecycle-offboarding") {
     activeNav = "lifecycle";
     topTitle = "Offboarding";
+  } else if (page === "admin-hr-cases") {
+    activeNav = "hr-cases-manage";
+    topTitle = "HR Cases";
+  } else if (page === "announcements") {
+    activeNav = "announcements";
+    topTitle = "Announcements";
+  } else if (page === "shifts") {
+    activeNav = "shifts";
+    topTitle = "Shifts";
+  } else if (page === "admin-holidays") {
+    activeNav = "holidays-manage";
+    topTitle = "Holidays";
+  } else if (page.startsWith("training-")) {
+    activeNav = "training";
+    topTitle = "Training";
+  } else if (page.startsWith("reports")) {
+    activeNav = "reports";
+    topTitle = "Reports";
+  } else if (page === "admin-panel-dashboard") {
+    activeNav = "admin-panel";
+    topTitle = "Admin Dashboard";
   }
 
   const handleNavigateNav = (nav: WorkforceNavId) => {
@@ -249,11 +291,43 @@ export function WorkforceStage({
       tl.setVar("wfPage", "lifecycle-onboarding");
       tl.setVar("wfLifecycleTab", "onboarding");
       tl.setUrl(URLS.onboardingAdmin);
+    } else if (nav === "hr-cases-manage") {
+      tl.setVar("wfPage", "admin-hr-cases");
+      tl.setUrl(URLS.hrCasesAdmin);
+    } else if (nav === "announcements") {
+      tl.setVar("wfPage", "announcements");
+      tl.setUrl(URLS.announcements);
+    } else if (nav === "shifts") {
+      tl.setVar("wfPage", "shifts");
+      tl.setUrl(URLS.shifts);
+    } else if (nav === "holidays-manage") {
+      tl.setVar("wfPage", "admin-holidays");
+      tl.setUrl(URLS.holidaysAdmin);
+    } else if (nav === "training") {
+      tl.setVar("wfPage", "training-dashboard");
+      tl.setVar("wfTrainingSub", "dashboard");
+      tl.setUrl(URLS.trainingDashboard);
+    } else if (nav === "reports") {
+      tl.setVar("wfPage", "reports");
+      tl.setVar("wfReportsSub", "hub");
+      tl.setUrl(URLS.reports);
+    } else if (nav === "admin-panel") {
+      tl.setVar("wfPage", "admin-panel-dashboard");
+      tl.setUrl(URLS.adminPanel);
     }
   };
 
-  const handleNavigateSub = (sub: MySpaceSubId) => {
-    tl.setVar("wfSubpage", sub);
+  const handleNavigateSub = (sub: MySpaceSubId | string) => {
+    if (sub === "dashboard" || sub === "courses" || sub === "categories" || sub === "assignments") {
+      tl.setVar("wfPage", `training-${sub}` as WorkforcePage);
+      tl.setVar("wfTrainingSub", sub);
+      if (sub === "dashboard") tl.setUrl(URLS.trainingDashboard);
+      if (sub === "courses") tl.setUrl(URLS.trainingCourses);
+      if (sub === "categories") tl.setUrl(URLS.trainingCategories);
+      if (sub === "assignments") tl.setUrl(URLS.trainingAssignments);
+      return;
+    }
+    tl.setVar("wfSubpage", sub as MySpaceSubId);
     if (sub === "overview") {
       tl.setVar("wfPage", "my-space");
       tl.setUrl(URLS.mySpace);
@@ -288,6 +362,28 @@ export function WorkforceStage({
         className="relative h-full w-full overflow-hidden bg-[#F9FAFB] text-[#111827] font-['Poppins',sans-serif]"
       >
         <CareersPageView tl={tl} />
+        <div
+          className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${
+            fade ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </div>
+    );
+  }
+
+  if (page === "admin-panel-dashboard") {
+    return (
+      <div
+        data-scroller
+        className="relative h-full w-full overflow-hidden bg-[#F9FAFB] text-[#111827] font-['Poppins',sans-serif]"
+      >
+        <AdminPanelEmbedView
+          tl={tl}
+          onBackToWorkforce={() => {
+            tl.setVar("wfPage", "reports");
+            tl.setUrl(URLS.reports);
+          }}
+        />
         <div
           className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${
             fade ? "opacity-100" : "opacity-0"
@@ -519,6 +615,29 @@ export function WorkforceStage({
       {page === "compliance" && <ComplianceView tl={tl} />}
       {(page === "lifecycle-onboarding" ||
         page === "lifecycle-offboarding") && <LifecycleView tl={tl} />}
+      {page === "admin-hr-cases" && <AdminHrCasesView tl={tl} />}
+      {page === "announcements" && <AdminAnnouncementsView tl={tl} />}
+      {page === "shifts" && <AdminShiftsView tl={tl} />}
+      {page === "admin-holidays" && <AdminHolidaysView tl={tl} />}
+      {page.startsWith("training-") && (
+        <AdminTrainingView
+          tl={tl}
+          subpage={page.replace("training-", "") as AdminTrainingSubpage}
+        />
+      )}
+      {page === "reports" && <AdminReportsView tl={tl} subpage="hub" />}
+      {page === "reports-attendance" && (
+        <AdminReportsView tl={tl} subpage="attendance" />
+      )}
+      {page === "reports-leave" && (
+        <AdminReportsView tl={tl} subpage="leave" />
+      )}
+      {page === "reports-headcount" && (
+        <AdminReportsView tl={tl} subpage="headcount" />
+      )}
+      {page === "reports-onboarding" && (
+        <AdminReportsView tl={tl} subpage="onboarding" />
+      )}
       <div
         className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${
           fade ? "opacity-100" : "opacity-0"

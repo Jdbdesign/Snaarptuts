@@ -49,6 +49,10 @@ export function WorkforceShell({
   );
   const unreadCount = useTimelineVar(tl, "wfUnreadCount", 1);
   const adminMode = useTimelineVar(tl, "wfAdminMode", false);
+  const showBanner = useTimelineVar(tl, "wfAnnouncementBanner", false);
+  const trainingExpandedVar = useTimelineVar(tl, "wfTrainingExpanded", false);
+  const activeTrainingSub = useTimelineVar(tl, "wfTrainingSub", "dashboard");
+  const showNewAnnouncementNotif = useTimelineVar(tl, "wfNewAnnouncementNotif", false);
 
   return (
     <div data-scroller className="relative h-full w-full overflow-hidden bg-[#F8F9FB] text-[#111827] font-['Poppins',sans-serif]">
@@ -228,13 +232,22 @@ export function WorkforceShell({
                   <nav className="flex flex-col gap-0.5">
                     {ADMIN_MANAGE_NAV_ITEMS.map((item) => {
                       const isActive = activeNav === item.id;
-                      const isTrainingExpanded = item.id === "training" && (activeNav === "compliance" || activeNav === "lifecycle");
+                      const isTraining = item.id === "training";
+                      const isTrainingExpanded =
+                        isTraining &&
+                        (trainingExpandedVar ||
+                          activeNav === "training" ||
+                          activeNav === "compliance" ||
+                          activeNav === "lifecycle");
                       return (
                         <div key={item.id} className="flex flex-col">
                           <button
                             type="button"
                             data-tl={`nav-${item.id}`}
                             onClick={() => {
+                              if (item.id === "training") {
+                                tl.setVar("wfTrainingExpanded", !isTrainingExpanded);
+                              }
                               if (item.clickable) {
                                 onNavigateNav?.(item.id);
                               }
@@ -271,15 +284,25 @@ export function WorkforceShell({
                           </button>
                           {isTrainingExpanded && !sidebarCollapsed && (
                             <div data-tl="training-sublist" className="mt-1 ml-4 pl-3 border-l border-[#E5E7EB] flex flex-col gap-0.5">
-                              {["Dashboard", "Courses", "Categories", "Assignments"].map((subLabel) => (
-                                <div
-                                  key={subLabel}
-                                  data-tl={`subnav-training-${subLabel.toLowerCase()}`}
-                                  className="flex h-8 items-center px-3 rounded-lg text-xs text-[#6B7280] select-none"
-                                >
-                                  {subLabel}
-                                </div>
-                              ))}
+                              {["Dashboard", "Courses", "Categories", "Assignments"].map((subLabel) => {
+                                const subId = subLabel.toLowerCase();
+                                const isSubActive = activeNav === "training" && activeTrainingSub === subId;
+                                return (
+                                  <button
+                                    key={subLabel}
+                                    type="button"
+                                    data-tl={`subnav-training-${subId}`}
+                                    onClick={() => onNavigateSub?.(subId as MySpaceSubId)}
+                                    className={`flex h-8 items-center px-3 rounded-lg text-xs transition-colors text-left ${
+                                      isSubActive
+                                        ? "bg-[#F3E8FF] text-[#7014D9] font-semibold"
+                                        : "text-[#6B7280] hover:bg-gray-100 hover:text-[#111827]"
+                                    }`}
+                                  >
+                                    {subLabel}
+                                  </button>
+                                );
+                              })}
                             </div>
                           )}
                         </div>
@@ -364,6 +387,39 @@ export function WorkforceShell({
 
         {/* 3. Main area: Top Bar + Page content */}
         <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+          {/* Announcement banner if active */}
+          {showBanner && (
+            <div
+              data-tl="wf-announcement-banner"
+              className="flex h-11 shrink-0 items-center justify-between border-b border-[#4A4E94] bg-[#5D61A5] px-6 text-white text-xs select-none z-30 transition-all duration-300 shadow-sm"
+            >
+              <div className="flex items-center gap-3">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-white">
+                  <Icon name="bell" size={13} />
+                </span>
+                <span className="font-medium text-white">
+                  <strong className="font-semibold text-white">New day</strong> - This is a brand new day
+                </span>
+                <button
+                  type="button"
+                  data-tl="btn-announcement-cta"
+                  className="ml-2 px-2.5 py-0.5 rounded-full bg-white/20 hover:bg-white/30 text-[10px] font-bold tracking-wider text-white transition-colors cursor-pointer"
+                >
+                  NEW DAY
+                </button>
+              </div>
+              <button
+                type="button"
+                data-tl="btn-dismiss-announcement-banner"
+                onClick={() => tl.setVar("wfAnnouncementBanner", false)}
+                className="p-1 rounded-md hover:bg-white/10 text-white/80 hover:text-white transition-colors cursor-pointer"
+                title="Dismiss announcement"
+              >
+                <Icon name="x" size={16} />
+              </button>
+            </div>
+          )}
+
           {/* Top Bar */}
           <header
             data-tl="wf-topbar"
@@ -424,12 +480,12 @@ export function WorkforceShell({
                 className="relative flex h-9 w-9 items-center justify-center rounded-lg text-[#4B5563] hover:bg-gray-100 transition-colors"
               >
                 <Icon name="bell" size={20} className="text-[#4B5563]" />
-                {unreadCount > 0 && (
+                {(unreadCount > 0 || showNewAnnouncementNotif) && (
                   <span
                     data-tl="top-bell-badge"
                     className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#EF4444] text-[10px] font-bold text-white ring-2 ring-white"
                   >
-                    {unreadCount}
+                    {showNewAnnouncementNotif ? unreadCount + 1 : unreadCount}
                   </span>
                 )}
               </button>
@@ -485,6 +541,21 @@ export function WorkforceShell({
                   data-tl="notif-list"
                   className="max-h-[280px] overflow-y-auto divide-y divide-[#F3F4F6] p-1"
                 >
+                  {showNewAnnouncementNotif && (
+                    <div
+                      data-tl="notif-item-new-announcement"
+                      className="p-3 hover:bg-gray-50 transition-colors rounded-lg cursor-pointer bg-[#F5F3FF]"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#7014D9] text-white">
+                          <Icon name="bell" size={11} />
+                        </span>
+                        <p className="text-xs font-semibold text-[#111827]">New announcement: New day</p>
+                      </div>
+                      <p className="text-xs text-[#4B5563] mt-1 pl-7 line-clamp-1">This is a brand new day</p>
+                      <span className="text-[10px] text-[#9CA3AF] mt-1 pl-7 block">Just now</span>
+                    </div>
+                  )}
                   {NOTIFICATIONS_LIST.map((n) => (
                     <div
                       key={n.id}
