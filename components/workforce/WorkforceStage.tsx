@@ -30,6 +30,11 @@ import { AppraisalManagementView } from "./AppraisalManagementView";
 import { CycleCreationFormView } from "./CycleCreationFormView";
 import { AdminReviewDetailView } from "./AdminReviewDetailView";
 import { PayrollView } from "./PayrollView";
+import { RecruitmentView } from "./RecruitmentView";
+import { CareersPageView } from "./CareersPageView";
+import { EmailTemplatesView } from "./EmailTemplatesView";
+import { ComplianceView } from "./ComplianceView";
+import { LifecycleView } from "./LifecycleView";
 import { WorkforceShell } from "./WorkforceShell";
 import { URLS, type MySpaceSubId, type WorkforceNavId } from "./workforce-data";
 
@@ -61,7 +66,13 @@ export type WorkforcePage =
   | "appraisal-management"
   | "cycle-new"
   | "admin-review-detail"
-  | "payroll";
+  | "payroll"
+  | "recruitment"
+  | "careers-page"
+  | "email-templates"
+  | "compliance"
+  | "lifecycle-onboarding"
+  | "lifecycle-offboarding";
 
 type Props = {
   tl: Timeline;
@@ -169,6 +180,21 @@ export function WorkforceStage({
   } else if (page === "payroll") {
     activeNav = "payroll";
     topTitle = "Payroll";
+  } else if (page === "recruitment") {
+    activeNav = "recruitment";
+    topTitle = "Recruitment";
+  } else if (page === "email-templates") {
+    activeNav = "email-templates";
+    topTitle = "Email templates";
+  } else if (page === "compliance") {
+    activeNav = "compliance";
+    topTitle = "Workforce";
+  } else if (page === "lifecycle-onboarding") {
+    activeNav = "lifecycle";
+    topTitle = "Workforce";
+  } else if (page === "lifecycle-offboarding") {
+    activeNav = "lifecycle";
+    topTitle = "Offboarding";
   }
 
   const handleNavigateNav = (nav: WorkforceNavId) => {
@@ -210,6 +236,19 @@ export function WorkforceStage({
     } else if (nav === "payroll") {
       tl.setVar("wfPage", "payroll");
       tl.setUrl(URLS.payroll);
+    } else if (nav === "recruitment") {
+      tl.setVar("wfPage", "recruitment");
+      tl.setUrl(URLS.recruitment);
+    } else if (nav === "email-templates") {
+      tl.setVar("wfPage", "email-templates");
+      tl.setUrl(URLS.emailTemplates);
+    } else if (nav === "compliance") {
+      tl.setVar("wfPage", "compliance");
+      tl.setUrl(URLS.compliance);
+    } else if (nav === "lifecycle") {
+      tl.setVar("wfPage", "lifecycle-onboarding");
+      tl.setVar("wfLifecycleTab", "onboarding");
+      tl.setUrl(URLS.onboardingAdmin);
     }
   };
 
@@ -241,6 +280,22 @@ export function WorkforceStage({
       tl.setUrl(URLS.hrCases);
     }
   };
+
+  if (page === "careers-page") {
+    return (
+      <div
+        data-scroller
+        className="relative h-full w-full overflow-hidden bg-[#F9FAFB] text-[#111827] font-['Poppins',sans-serif]"
+      >
+        <CareersPageView tl={tl} />
+        <div
+          className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${
+            fade ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      </div>
+    );
+  }
 
   return (
     <WorkforceShell
@@ -459,6 +514,11 @@ export function WorkforceStage({
         />
       )}
       {page === "payroll" && <PayrollView tl={tl} />}
+      {page === "recruitment" && <RecruitmentView tl={tl} />}
+      {page === "email-templates" && <EmailTemplatesView tl={tl} />}
+      {page === "compliance" && <ComplianceView tl={tl} />}
+      {(page === "lifecycle-onboarding" ||
+        page === "lifecycle-offboarding") && <LifecycleView tl={tl} />}
       <div
         className={`pointer-events-none absolute inset-0 z-[60] bg-white transition-opacity duration-300 motion-reduce:transition-none ${
           fade ? "opacity-100" : "opacity-0"

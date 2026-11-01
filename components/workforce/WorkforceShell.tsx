@@ -228,42 +228,61 @@ export function WorkforceShell({
                   <nav className="flex flex-col gap-0.5">
                     {ADMIN_MANAGE_NAV_ITEMS.map((item) => {
                       const isActive = activeNav === item.id;
+                      const isTrainingExpanded = item.id === "training" && (activeNav === "compliance" || activeNav === "lifecycle");
                       return (
-                        <button
-                          key={item.id}
-                          type="button"
-                          data-tl={`nav-${item.id}`}
-                          onClick={() => {
-                            if (item.clickable) {
-                              onNavigateNav?.(item.id);
-                            }
-                          }}
-                          className={`group flex items-center rounded-lg text-xs font-medium transition-colors ${
-                            sidebarCollapsed
-                              ? "h-9 w-9 justify-center mx-auto"
-                              : "h-9 px-3 gap-3 justify-between"
-                          } ${
-                            isActive
-                              ? "bg-[#F3E8FF] text-[#7014D9] font-semibold"
-                              : "text-[#4B5563] hover:bg-gray-100 hover:text-[#111827]"
-                          }`}
-                        >
-                          <div className="flex items-center gap-3 min-w-0">
-                            <Icon
-                              name={item.icon}
-                              size={18}
-                              className={`shrink-0 ${
-                                isActive
-                                  ? "text-[#7014D9]"
-                                  : "text-[#6B7280] group-hover:text-[#111827]"
-                              }`}
-                            />
-                            {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
-                          </div>
-                          {item.expandable && !sidebarCollapsed && (
-                            <Icon name="chevronDown" size={14} className="text-[#6B7280]" />
+                        <div key={item.id} className="flex flex-col">
+                          <button
+                            type="button"
+                            data-tl={`nav-${item.id}`}
+                            onClick={() => {
+                              if (item.clickable) {
+                                onNavigateNav?.(item.id);
+                              }
+                            }}
+                            className={`group flex items-center rounded-lg text-xs font-medium transition-colors ${
+                              sidebarCollapsed
+                                ? "h-9 w-9 justify-center mx-auto"
+                                : "h-9 px-3 gap-3 justify-between"
+                            } ${
+                              isActive
+                                ? "bg-[#F3E8FF] text-[#7014D9] font-semibold"
+                                : "text-[#4B5563] hover:bg-gray-100 hover:text-[#111827]"
+                            }`}
+                          >
+                            <div className="flex items-center gap-3 min-w-0">
+                              <Icon
+                                name={item.icon}
+                                size={18}
+                                className={`shrink-0 ${
+                                  isActive
+                                    ? "text-[#7014D9]"
+                                    : "text-[#6B7280] group-hover:text-[#111827]"
+                                }`}
+                              />
+                              {!sidebarCollapsed && <span className="truncate">{item.label}</span>}
+                            </div>
+                            {item.expandable && !sidebarCollapsed && (
+                              <Icon
+                                name="chevronDown"
+                                size={14}
+                                className={`text-[#6B7280] transition-transform ${isTrainingExpanded ? "rotate-180" : ""}`}
+                              />
+                            )}
+                          </button>
+                          {isTrainingExpanded && !sidebarCollapsed && (
+                            <div data-tl="training-sublist" className="mt-1 ml-4 pl-3 border-l border-[#E5E7EB] flex flex-col gap-0.5">
+                              {["Dashboard", "Courses", "Categories", "Assignments"].map((subLabel) => (
+                                <div
+                                  key={subLabel}
+                                  data-tl={`subnav-training-${subLabel.toLowerCase()}`}
+                                  className="flex h-8 items-center px-3 rounded-lg text-xs text-[#6B7280] select-none"
+                                >
+                                  {subLabel}
+                                </div>
+                              ))}
+                            </div>
                           )}
-                        </button>
+                        </div>
                       );
                     })}
                   </nav>

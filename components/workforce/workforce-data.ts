@@ -316,6 +316,19 @@ export const URLS = {
   payrollTaxCalculator: "workforce.snaarp.com/payroll?tab=tax-calculator",
   payrollPensionCalculator: "workforce.snaarp.com/payroll?tab=pension-calculator",
   payrollTaxPensionSettings: "workforce.snaarp.com/payroll?tab=tax-pension-settings",
+  recruitment: "workforce.snaarp.com/recruitment",
+  careersPublic: "workforce.snaarp.com/careers/acme",
+  emailTemplates: "workforce.snaarp.com/email-templates",
+  compliance: "workforce.snaarp.com/compliance",
+  complianceFolderNew: "workforce.snaarp.com/compliance/folders/new",
+  complianceEngineering: "workforce.snaarp.com/compliance/folders/engineering",
+  compliancePolicyReview: "workforce.snaarp.com/compliance/policies/engineering-policy",
+  onboardingAdmin: "workforce.snaarp.com/onboarding",
+  onboardingStart: "workforce.snaarp.com/onboarding/start",
+  onboardingRecordAdmin: "workforce.snaarp.com/onboarding/records/sample",
+  onboardingTemplateStandard: "workforce.snaarp.com/onboarding/templates/standard",
+  offboarding: "workforce.snaarp.com/offboarding",
+  offboardingInitiate: "workforce.snaarp.com/offboarding/initiate",
 };
 
 export const SAMPLE_SALARY_ADVANCE = {
@@ -807,10 +820,10 @@ export const ADMIN_MANAGE_NAV_ITEMS: {
 }[] = [
   { id: "appraisal-management", label: "Appraisal Management", icon: "wfAppraisal", clickable: true },
   { id: "payroll", label: "Payroll", icon: "shCoin", clickable: true },
-  { id: "recruitment", label: "Recruitment", icon: "users" },
-  { id: "email-templates", label: "Email templates", icon: "mail" },
-  { id: "compliance", label: "Compliance", icon: "shield" },
-  { id: "lifecycle", label: "Lifecycle", icon: "layers" },
+  { id: "recruitment", label: "Recruitment", icon: "users", clickable: true },
+  { id: "email-templates", label: "Email templates", icon: "mail", clickable: true },
+  { id: "compliance", label: "Compliance", icon: "shield", clickable: true },
+  { id: "lifecycle", label: "Lifecycle", icon: "layers", clickable: true },
   { id: "hr-cases-manage", label: "HR Cases", icon: "building" },
   { id: "announcements", label: "Announcements", icon: "bell" },
   { id: "shifts", label: "Shifts", icon: "clock" },
@@ -953,4 +966,315 @@ export const TAX_BRACKETS_DATA = [
   { id: "tb-1", upperLimit: "12570", rate: "0" },
   { id: "tb-2", upperLimit: "50270", rate: "20" },
   { id: "tb-3", upperLimit: "125140", rate: "40" },
+];
+
+// Recruitment Datasets (Steps 77-85)
+export const RECRUITMENT_STATS = [
+  { id: "open-jobs", count: 1, label: "Open Jobs", icon: "docFile" as IconName },
+  { id: "total-applicants", count: 2, label: "Total Applicants", icon: "users" as IconName },
+  { id: "interviews-week", count: 0, label: "Interviews This Week", icon: "video" as IconName },
+  { id: "hires-month", count: 1, label: "Hires This Month", icon: "check" as IconName },
+];
+
+export const JOB_POSTINGS = [
+  {
+    id: "job-1",
+    title: "Software Engineer (Platform)",
+    department: "Engineering",
+    type: "FULL TIME",
+    status: "OPEN",
+    applicants: "-",
+    actions: ["edit", "pause", "delete"],
+  },
+  {
+    id: "job-2",
+    title: "SENIOR ENGINEER",
+    department: "Engineering",
+    type: "FULL TIME",
+    status: "CLOSED",
+    applicants: "-",
+    actions: ["edit", "delete"],
+  },
+];
+
+export const CAREERS_JOB = {
+  title: "Software Engineer (Platform)",
+  department: "Engineering",
+  location: "United Kingdom",
+  type: "FULL TIME",
+  level: "Mid Level",
+  salary: "£50,000 - £60,000",
+  description:
+    "Builds and maintains the internal developer platform that everyone else ships on. The job is part infrastructure, part software engineering and part product management. You treat the platform as a product and developers as your customers.",
+};
+
+export const APPLICANTS_LIST = [
+  {
+    id: "app-alex",
+    name: "Alex Morgan",
+    email: "alex.morgan@snaarp.com",
+    job: "Software Engineer (Platform)",
+    stage: "Hired",
+    rating: 0,
+    source: "DIRECT",
+    isNew: true,
+  },
+];
+
+export const ARCHIVED_JOBS = [
+  {
+    id: "arch-1",
+    title: "SENIOR ENGINEER",
+    ref: "a1b2c3d4",
+    postedDate: "19/10/2026",
+    applicantsCount: 1,
+    applicants: [
+      {
+        id: "arch-app-1",
+        name: "Alex Morgan",
+        email: "alex.morgan@snaarp.com",
+        job: "SENIOR ENGINEER",
+        stage: "Rejected",
+        source: "DIRECT",
+      },
+    ],
+  },
+];
+
+// Email Templates Dataset (Step 86)
+export const EMAIL_TEMPLATES = [
+  {
+    id: "additional-docs",
+    name: "Additional documents",
+    purpose: "Request documents",
+    subject: "{{organisation_name}} is requesting more Documents from you",
+    message: `Hello {{applicant_name}},
+
+{{organisation_name}} needs more documents to continue your application for the {{job_title}} position.
+
+Please follow these instructions when preparing your documents:
+{{instructions}}
+
+Upload your documents securely using the link below:
+{{upload_link}}
+
+This link expires on {{deadline}}. Please complete your upload before then.
+
+If you have any questions or are unable to provide a requested document, please contact our recruitment team.
+
+Kind regards,
+Recruitment Team
+{{organisation_name}}`,
+    placeholders: "{{applicant_name}}, {{job_title}}, {{organisation_name}}, {{upload_link}}, {{document_list}}, {{instructions}}, {{deadline}}",
+    autoSend: true,
+    previewSubject: "Your organisation has received your Application",
+    previewBody: `Hello Jane Doe,
+
+Thank you for applying for the Product Manager position at Your organisation. We have received your application. Our recruitment team will review your qualifications and experience against the role's requirements and contact you with an update on the next steps.
+
+Thank you for your interest in joining our team.
+
+Kind regards,
+Recruitment Team,
+Your organisation`,
+  },
+  {
+    id: "app-received",
+    name: "Application received",
+    purpose: "Application acknowledgment",
+    subject: "Your application for {{job_title}} at {{organisation_name}}",
+    message: `Hello {{applicant_name}},
+
+Thank you for applying for the {{job_title}} position at {{organisation_name}}. We have received your application and materials.
+
+Our hiring team will review your background and be in touch soon.
+
+Kind regards,
+Recruitment Team
+{{organisation_name}}`,
+    placeholders: "{{applicant_name}}, {{job_title}}, {{organisation_name}}",
+    autoSend: true,
+    previewSubject: "Your application for Software Engineer at Acme Ltd",
+    previewBody: "Hello Jane Doe,\n\nThank you for applying for the position...",
+  },
+  { id: "app-rejection", name: "Application rejection", purpose: "Rejection", subject: "Update on your application", message: "", placeholders: "", autoSend: false },
+  { id: "app-screening", name: "Application screening", purpose: "Screening", subject: "Screening invitation", message: "", placeholders: "", autoSend: false },
+  { id: "app-successful", name: "Application successful", purpose: "Success", subject: "Congratulations", message: "", placeholders: "", autoSend: false },
+  { id: "assessment-stage", name: "Assessment stage", purpose: "Assessment", subject: "Technical assessment", message: "", placeholders: "", autoSend: false },
+  { id: "interview-stage", name: "Interview stage", purpose: "Interview", subject: "Interview invitation", message: "", placeholders: "", autoSend: false },
+  { id: "offer-stage", name: "Offer stage", purpose: "Offer", subject: "Offer of employment", message: "", placeholders: "", autoSend: false },
+];
+
+// Compliance Folders Dataset (Steps 87-89)
+export const COMPLIANCE_FOLDERS = [
+  {
+    id: "engineering",
+    name: "Engineering policies",
+    department: "Engineering",
+    count: 1,
+    description: "policies for engineering department",
+    awaitingReview: 0,
+  },
+  {
+    id: "marketing",
+    name: "Marketing policies",
+    department: "Marketing",
+    count: 0,
+    description: "policies for marketing department",
+    awaitingReview: 1,
+    awaitingItem: {
+      title: "Marketing policies",
+      uploader: "Jordan Lee",
+      version: "1.0",
+    },
+  },
+];
+
+// Lifecycle Datasets (Steps 90-96)
+export const ONBOARDING_ADMIN_RECORDS = [
+  {
+    id: "alex-morgan",
+    employee: "Alex Morgan",
+    startDate: "2026-10-30",
+    progress: "5/5 tasks",
+    status: "Completed",
+  },
+];
+
+export const ONBOARDING_TEMPLATE_STANDARD = {
+  name: "Standard onboarding",
+  tasksCount: 5,
+  version: 2,
+  archived: false,
+  tasks: [
+    {
+      id: "t1",
+      title: "Complete your employee profile",
+      type: "Profile",
+      owner: "Employee",
+      days: 0,
+      instructions: "Fill in personal, contact, and emergency details.",
+      required: true,
+      requiresReview: false,
+    },
+    {
+      id: "t2",
+      title: "Upload identity document",
+      type: "Documents",
+      owner: "Employee",
+      days: 0,
+      instructions: "Upload a valid government-issued passport or national ID.",
+      required: true,
+      requiresReview: true,
+    },
+    {
+      id: "t3",
+      title: "Prepare equipment",
+      type: "Equipment",
+      owner: "HR",
+      days: -1,
+      instructions: "Configure laptop and developer peripherals.",
+      required: true,
+      requiresReview: false,
+    },
+    {
+      id: "t4",
+      title: "Set up work accounts",
+      type: "Access",
+      owner: "HR",
+      days: -1,
+      instructions: "Grant Snaarp 360, GitHub, and Slack organization access.",
+      required: true,
+      requiresReview: false,
+    },
+    {
+      id: "t5",
+      title: "First-day orientation",
+      type: "Orientation",
+      owner: "HR",
+      days: 0,
+      instructions: "Conduct welcoming walk-through and introduction to team.",
+      required: true,
+      requiresReview: false,
+    },
+  ],
+};
+
+export const OFFBOARDING_DASHBOARD_RECORDS = [
+  {
+    id: "casey-brown",
+    employee: "Casey Brown",
+    department: "-",
+    lastWorkingDay: "26/11/2026",
+    progress: 50,
+    status: "On Track",
+  },
+];
+
+export const OFFBOARDING_RESIGNATIONS = [
+  {
+    id: "casey-brown",
+    employee: "Casey Brown",
+    department: "-",
+    proposedLwd: "26/11/2026",
+    submitted: "29/10/2026",
+    status: "Approved",
+  },
+  {
+    id: "alex-morgan",
+    employee: "Alex Morgan",
+    department: "-",
+    proposedLwd: "27/11/2026",
+    approvedLwd: "27/11/2026",
+    submitted: "19/10/2026",
+    status: "Approved",
+    reason: "Moving to a new role elsewhere",
+  },
+];
+
+export const EXIT_DEFAULT_TEMPLATES = [
+  {
+    id: "standard-exit",
+    title: "Standard Exit Checklist",
+    color: "blue",
+    description: "A comprehensive exit checklist covering all standard offboarding procedures.",
+    itemsCount: 8,
+    items: [
+      "Company vehicle handed in",
+      "All equipment handed in",
+      "All library books submitted",
+      "Security clearance",
+      "Exit interview conducted",
+      "Resignation letter submitted",
+      "Notice period followed",
+      "Manager/Supervisor clearance",
+    ],
+  },
+  {
+    id: "it-equipment",
+    title: "IT Equipment Return",
+    color: "purple",
+    description: "Checklist for returning all IT-related assets and deactivating access.",
+    itemsCount: 5,
+    items: [
+      "Laptop returned",
+      "Charger and accessories returned",
+      "Security badge returned",
+      "VPN access revoked",
+      "Company email deactivated",
+    ],
+  },
+  {
+    id: "finance-clearance",
+    title: "Finance Clearance",
+    color: "green",
+    description: "Financial clearance items to ensure all monetary obligations are settled.",
+    itemsCount: 4,
+    items: [
+      "Outstanding expenses submitted",
+      "Corporate card cancelled",
+      "Salary advance balance settled",
+      "Final payroll sign-off",
+    ],
+  },
 ];

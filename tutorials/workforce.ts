@@ -150,6 +150,8 @@ import { Step75 } from "@/scenes/workforce/step75/Step75";
 import { runStep75, STEP75_DURATION_MS } from "@/scenes/workforce/step75/script";
 import { Step76 } from "@/scenes/workforce/step76/Step76";
 import { runStep76, STEP76_DURATION_MS } from "@/scenes/workforce/step76/script";
+import { Step77 } from "@/scenes/workforce/step77/Step77";
+import { runStep77, STEP77_DURATION_MS } from "@/scenes/workforce/step77/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -617,6 +619,12 @@ export const workforce: Tutorial = {
       title: "Pension calculator",
       url: "workforce.snaarp.com/payroll",
       scene: { Component: Step76, run: runStep76, durationMs: STEP76_DURATION_MS },
+    },
+    {
+      id: "recruitment",
+      title: "Recruitment",
+      url: "workforce.snaarp.com/recruitment",
+      scene: { Component: Step77, run: runStep77, durationMs: STEP77_DURATION_MS },
     },
   ],
   completion: {
