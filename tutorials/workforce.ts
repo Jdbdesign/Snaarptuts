@@ -174,6 +174,8 @@ import { Step87 } from "@/scenes/workforce/step87/Step87";
 import { runStep87, STEP87_DURATION_MS } from "@/scenes/workforce/step87/script";
 import { Step88 } from "@/scenes/workforce/step88/Step88";
 import { runStep88, STEP88_DURATION_MS } from "@/scenes/workforce/step88/script";
+import { Step89 } from "@/scenes/workforce/step89/Step89";
+import { runStep89, STEP89_DURATION_MS } from "@/scenes/workforce/step89/script";
 import type { Tutorial } from "./types";
 
 export const workforce: Tutorial = {
@@ -713,6 +715,12 @@ export const workforce: Tutorial = {
       title: "Create a folder",
       url: "workforce.snaarp.com/compliance/folders/new",
       scene: { Component: Step88, run: runStep88, durationMs: STEP88_DURATION_MS },
+    },
+    {
+      id: "review-a-policy",
+      title: "Review a policy",
+      url: "workforce.snaarp.com/compliance/policies/engineering-policy",
+      scene: { Component: Step89, run: runStep89, durationMs: STEP89_DURATION_MS },
     },
   ],
   completion: {
