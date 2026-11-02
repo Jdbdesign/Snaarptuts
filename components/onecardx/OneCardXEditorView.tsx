@@ -83,9 +83,9 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
       {/* 2. Main Two-Column Layout (Left Form, Right Preview) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Form Pane (7 Cols) */}
-        <div className="lg:col-span-7 rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs overflow-hidden">
+        <div className="lg:col-span-7 rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs">
           {/* Form Tabs Header */}
-          <div className="flex border-b border-[#F3F4F6] px-3 pt-2 bg-gray-50/50">
+          <div className="flex border-b border-[#F3F4F6] px-3 pt-2 bg-gray-50/50 rounded-t-2xl">
             <button
               type="button"
               data-tl="tab-card"
@@ -218,7 +218,7 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
 
             {/* B. DISPLAY TAB */}
             {activeTab === "display" && (
-              <div data-tl="tab-content-display" className="space-y-6">
+              <div data-tl="tab-content-display" className="space-y-4">
                 {/* 1. Design Grid */}
                 <div>
                   <h3 className="text-sm font-semibold text-[#111827]">Design</h3>
@@ -227,7 +227,7 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                   </p>
                   <div
                     data-tl="design-grid"
-                    className="grid grid-cols-3 gap-2.5 pt-3"
+                    className="grid grid-cols-3 gap-2.5 pt-2.5"
                   >
                     {CARD_DESIGNS.map((d) => {
                       const isSelected = design === d.id;
@@ -236,13 +236,13 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                           key={d.id}
                           data-tl={`design-${d.id}`}
                           onClick={() => tl.setVar("ocxDesign", d.id)}
-                          className={`rounded-xl border p-3 cursor-pointer text-center transition-all ${
+                          className={`rounded-xl border p-2.5 cursor-pointer text-center transition-all ${
                             isSelected
                               ? "border-[#7014D9] bg-purple-50/30 ring-1 ring-[#7014D9]"
                               : "border-[#E5E7EB] hover:border-gray-300"
                           }`}
                         >
-                          <div className="h-10 w-full rounded-lg bg-gray-100 flex items-center justify-center mb-1.5 overflow-hidden">
+                          <div className="h-9 w-full rounded-lg bg-gray-100 flex items-center justify-center mb-1 overflow-hidden">
                             <div
                               className="h-full w-full"
                               style={{
@@ -267,7 +267,7 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                 </div>
 
                 {/* 2. Profile Photo */}
-                <div className="border-t border-gray-100 pt-5">
+                <div className="border-t border-gray-100 pt-3.5">
                   <h3 className="text-sm font-semibold text-[#111827]">
                     Profile Photo
                   </h3>
@@ -275,13 +275,13 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                     Add an avatar or portrait image for this card.
                   </p>
 
-                  <div className="mt-3 flex items-center gap-4">
+                  <div className="mt-2.5 flex items-center gap-4">
                     {photoAdded ? (
                       <div
                         data-tl="user-images-row"
                         className="flex items-center gap-3"
                       >
-                        <div className="h-14 w-14 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-base shadow-sm ring-2 ring-purple-100">
+                        <div className="h-12 w-12 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-sm shadow-sm ring-2 ring-purple-100">
                           AM
                         </div>
                         <div>
@@ -313,39 +313,48 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                 </div>
 
                 {/* 3. Colors & Font */}
-                <div className="border-t border-gray-100 pt-5 space-y-4">
+                <div className="border-t border-gray-100 pt-3.5 space-y-3">
                   <div>
                     <h3 className="text-sm font-semibold text-[#111827]">
                       Accent Color
                     </h3>
                     <div
                       data-tl="accent-colors-row"
-                      className="flex items-center gap-2.5 mt-2.5"
+                      className="flex items-center gap-1.5 mt-2"
                     >
-                      {ACCENT_COLORS.map((c) => (
-                        <button
-                          key={c.id}
-                          type="button"
-                          data-tl={`swatch-${c.id}`}
-                          onClick={() => tl.setVar("ocxAccentColor", c.hex)}
-                          className={`h-7 w-7 rounded-full transition-transform hover:scale-110 ${
-                            accentColor === c.hex ? "ring-2 ring-offset-2 ring-[#7014D9]" : ""
-                          }`}
-                          style={{ backgroundColor: c.hex }}
-                          title={c.name}
-                        />
-                      ))}
+                      {ACCENT_COLORS.map((c) => {
+                        const isSelected = accentColor === c.hex;
+                        return (
+                          <button
+                            key={c.id}
+                            type="button"
+                            data-tl={`swatch-${c.id}`}
+                            onClick={() => tl.setVar("ocxAccentColor", c.hex)}
+                            className={`flex h-7 w-7 items-center justify-center rounded-lg transition-all cursor-pointer ${
+                              isSelected
+                                ? "bg-purple-100/60 ring-2 ring-[#7014D9]"
+                                : "hover:bg-gray-100"
+                            }`}
+                            title={c.name}
+                          >
+                            <span
+                              className="h-5 w-5 rounded-full shadow-2xs"
+                              style={{ backgroundColor: c.hex }}
+                            />
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
                   <div>
                     <h3 className="text-sm font-semibold text-[#111827]">Font</h3>
-                    <div className="mt-2 max-w-xs">
+                    <div className="mt-1.5 max-w-xs">
                       <select
                         data-tl="select-font"
                         value={font}
                         onChange={(e) => tl.setVar("ocxFont", e.target.value)}
-                        className="w-full rounded-xl border border-gray-300 px-3 py-2 text-xs text-[#111827] focus:border-[#7014D9] focus:ring-2 focus:ring-[#7014D9]/20"
+                        className="w-full rounded-xl border border-gray-300 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:ring-2 focus:ring-[#7014D9]/20"
                       >
                         <option value="Poppins (Default)">Poppins (Default)</option>
                         <option value="Open Sans">Open Sans</option>
@@ -905,11 +914,8 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                 type="button"
                 data-tl="btn-add-media"
                 onClick={() => {
-                  tl.setVar("ocxPhotoUploading", true);
-                  setTimeout(() => {
-                    tl.setVar("ocxPhotoUploading", false);
-                    tl.setVar("ocxPhotoModalOpen", false);
-                  }, 400);
+                  tl.setVar("ocxPhotoUploading", false);
+                  tl.setVar("ocxPhotoModalOpen", false);
                 }}
                 disabled={!photoAdded || photoUploading}
                 className="rounded-xl bg-[#7014D9] px-4 py-2 text-xs font-semibold text-white hover:bg-[#5E10B8] disabled:opacity-50"

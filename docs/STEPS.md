@@ -1871,3 +1871,37 @@ Config: `tutorials/workforce.ts`. Total running time from page load to the compl
 - Views: `DashboardView.tsx`, `MySpaceOverviewView.tsx`, `OnboardingListView.tsx`, `OnboardingRecordView.tsx`, `TaskDetailView.tsx`, `ProfileView.tsx`, `SalaryAdvancesView.tsx`, `ResignationView.tsx`, `ExitTasksView.tsx`, `HolidaysView.tsx`, `HrCasesView.tsx`, `AttendanceView.tsx`, `LeaveTrackerView.tsx`, `TimeTrackerView.tsx`, `GoalsView.tsx`, `AppraisalsView.tsx`, `PoliciesView.tsx`, `LearningHubView.tsx`, `NotificationsView.tsx`, `DocumentViewerModal.tsx`, `AppraisalManagementView.tsx`, `CycleCreationFormView.tsx`, `AdminReviewDetailView.tsx`, `PayrollView.tsx`, `RecruitmentView.tsx`, `CareersPageView.tsx`, `EmailTemplatesView.tsx`, `ComplianceView.tsx`, `LifecycleView.tsx`, `AdminHrCasesView.tsx`, `AdminAnnouncementsView.tsx`, `AdminShiftsView.tsx`, `AdminHolidaysView.tsx`, `AdminTrainingView.tsx`, `AdminReportsView.tsx`, `AdminPanelEmbedView.tsx`
 - Central Data & Helpers: `components/workforce/workforce-data.ts`, `components/workforce/workforce-timeline.ts`
 - Step Scenes & Scripts: `scenes/workforce/step<1..124>/Step<N>.tsx`, `script.ts`, `data.ts`
+
+
+---
+
+## OneCardX Part 1: Admin Side (steps 1-17)
+
+Source recording: `ref/onecardx/onecardx-clip1.mp4` (1392x720, 4:52, 30fps; copy of `Downloads/1102.mp4`).
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 1 | Your OneCardX home | Starts on OneCardX Home (`onecardx.snaarp.com/home`). Welcomes admin Sam Taylor (Acme Ltd), reviews Quick Actions cards ("Create an Organization Card", "Manage Team Members", "View Analytics"), promo banner, and Getting started checklist. | 9 s |
+| 2 | Switch Snaarp apps | Starts on Home. Clicks 9-dots Apps menu in top bar, opens popover with 8 Snaarp apps showing active OneCard badge, inspects apps, clicks grid icon to close. | 7.5 s |
+| 3 | Open Create an Organization Card | Starts on Home. Hovers Quick Action card "Create an Organization Card", clicks card to navigate to Organization Cards list (`onecardx.snaarp.com/admin/organization-cards`). | 5.5 s |
+| 4 | Read the card list | Starts on Organization Cards list. Explains search bar, stat cards (3 Total Cards, 2 Published, 1 Draft), and table rows (Sales Team, Business Card, ID Card). | 7.5 s |
+| 5 | Start a new organization card | Starts on Organization Cards list. Clicks "+ Create Card" button, opens "Create New Organization Card" modal with Organization Select and Card Title inputs. | 6.5 s |
+| 6 | Name the card | Starts on Create Card modal. Types title "Engineering Team", verifies Acme Ltd company selection, clicks "Continue" to launch full card editor. | 8.5 s |
+| 7 | Choose the card type | Starts in Editor on Card tab. Inspects ID Card vs Business Card templates, clicks ID Card choice, previews base layout on live card preview mockup. | 7.5 s |
+| 8 | Pick a design | Starts in Editor. Clicks Display tab, reviews visual designs (Classic, Modern, Minimal), selects Classic layout, live card preview updates. | 7.5 s |
+| 9 | Add a profile photo | Starts in Editor > Display tab. Clicks Add Photo or Video, opens in-app sample portrait chooser, picks Alex Morgan portrait, clicks Add Media, preview updates with photo. | 13.5 s |
+| 10 | Set colours and font | Starts in Editor > Display tab. Reviews Accent Color swatches, selects Ocean Blue (#2563EB), inspects Poppins default font dropdown, preview updates with blue banner. | 11.5 s |
+| 11 | Add your logo | Starts in Editor > Display tab. Clicks Add Logo button, opens in-app logo selector, selects Acme Ltd emblem logo, preview updates with top-right logo badge. | 10.5 s |
+| 12 | Add a badge | Starts in Editor > Display tab. Clicks Add Badge button, opens badge picker modal, selects Verified badge with checkmark, preview displays verification mark. | 9.5 s |
+| 13 | Fill in the information | Starts in Editor. Clicks Information tab, toggles own name checkbox, types First Name "Alex" and Last Name "Morgan", preview updates live. | 11 s |
+| 14 | Add contact fields | Starts in Editor. Clicks Fields tab, clicks Website chip (adds acme-studio.com), Instagram chip (adds @alexmorgan), and Email chip (adds alex.morgan@acme.com), preview shows links. | 14 s |
+| 15 | Save the card | Starts in Editor with populated fields. Clicks Save button in top-right header, button shows "Saving..." with spinner, transitions to Card Detail view (`onecardx.snaarp.com/admin/organization-cards/engineering-team`). | 6.5 s |
+| 16 | Your card is ready to share | Starts on Card Detail view. Reviews analytics strip, reviews QR code card, clicks Copy Link (button flips to "Copied!" with checkmark), scrolls down to Brand Toolkit (signatures and backgrounds). | 8.5 s |
+| 17 | Preview the public card | Starts on Card Detail view. Clicks QR code preview card, opens full-stage public card preview overlay (`identity.snaarp.com/c/engineering-team-38805cae`), inspects Alex Morgan card on dark stage, clicks "Back to the app" return chip. Completion card follows. | 10.5 s |
+
+**Files.**
+- Config: `tutorials/onecardx.ts` (registered in `tutorials/index.ts`)
+- Shell & Stage: `components/onecardx/OneCardXShell.tsx`, `components/onecardx/OneCardXStage.tsx`
+- Views: `OneCardXHomeView.tsx`, `OneCardXOrgCardsView.tsx`, `OneCardXEditorView.tsx`, `OneCardXCardDetailView.tsx` (with exported `OneCardXPublicPreviewOverlay`)
+- Timeline & Data: `components/onecardx/onecardx-timeline.ts` (`beginOneCardX`, `finishOneCardX`), `components/onecardx/onecardx-data.ts`
+- Step Scenes & Scripts: `scenes/onecardx/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`

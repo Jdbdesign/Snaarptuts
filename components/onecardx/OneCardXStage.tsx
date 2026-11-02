@@ -7,7 +7,10 @@ import { OneCardXShell } from "./OneCardXShell";
 import { OneCardXHomeView } from "./OneCardXHomeView";
 import { OneCardXOrgCardsView } from "./OneCardXOrgCardsView";
 import { OneCardXEditorView } from "./OneCardXEditorView";
-import { OneCardXCardDetailView } from "./OneCardXCardDetailView";
+import {
+  OneCardXCardDetailView,
+  OneCardXPublicPreviewOverlay,
+} from "./OneCardXCardDetailView";
 import type { OneCardXPage } from "./onecardx-timeline";
 
 type Props = {
@@ -18,6 +21,7 @@ type Props = {
 export function OneCardXStage({ tl, startPage = "home" }: Props) {
   const page = useTimelineVar<OneCardXPage>(tl, "ocxPage", startPage);
   const fade = useTimelineVar(tl, "fade", false);
+  const publicPreviewOpen = useTimelineVar(tl, "ocxPublicPreviewOpen", false);
 
   const activeNav: OneCardXNavId =
     page === "home"
@@ -44,6 +48,16 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
         tl={tl}
         activeNav={activeNav}
         onNavigateNav={handleNavigateNav}
+        overlay={
+          publicPreviewOpen ? (
+            <OneCardXPublicPreviewOverlay
+              onClose={() => {
+                tl.setUrl(URLS.cardDetail);
+                tl.setVar("ocxPublicPreviewOpen", false);
+              }}
+            />
+          ) : null
+        }
       >
         {page === "home" && (
           <OneCardXHomeView

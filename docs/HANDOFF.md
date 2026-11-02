@@ -223,3 +223,21 @@ In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cur
 
 ## Workforce: Add Users admin-only and real avatar menu
 In Workforce the viewer is an employee. The top bar "Add Users" button is admin-only (for admins it opens the Snaarp Admin page, already built in the Admin tutorial); for employees it does nothing on click (no popover, no navigation). Step 6 uses a hover-and-ring explain beat with caption "Add Users is for admins only. It opens the Snaarp Admin page." The avatar dropdown shows the user's email (alex.morgan@snaarp.com) in medium weight and small uppercase grey role EMPLOYEE, followed by a divider and two rows: Settings (with gear icon) and Logout (in red text). The old Add Users popover and "My profile" row were removed.
+
+
+## OneCardX (eighth tutorial, Part 1 complete: 17 steps)
+
+Route `/tutorials/onecardx`, config `tutorials/onecardx.ts`: **17 steps, all built** (Part 1: The admin creates and shares the organization card that employees will later use; employee-side steps come in a later round).
+Recording: `ref/onecardx/onecardx-clip1.mp4` (1392x720, 4:52, 30fps; copy of `Downloads/1102.mp4`).
+
+How it is built: Reusable stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (the thin Snaarp suite rail with OneCard active, 205px OneCardX sidebar, and top bar with Apps 9-dots popover and admin avatar menu).
+Views:
+- `OneCardXHomeView.tsx`: welcome header, 3 Quick Action cards, promo banner, Getting started checklist.
+- `OneCardXOrgCardsView.tsx`: organization cards table, stat cards, Create New Card modal with organization and title inputs.
+- `OneCardXEditorView.tsx`: full two-column card editor with 4 tabs (Card, Display, Information, Fields) and live interactive card mockup. Features in-app photo selector, color swatches, font selector, logo modal, badge modal, first/last name fields, and dynamic contact chips (Website, Instagram, Email).
+- `OneCardXCardDetailView.tsx`: card summary header, analytics strip, QR code preview card, share link with copy action, and Brand Toolkit (signatures and backgrounds).
+- `OneCardXPublicPreviewOverlay`: full-stage dark public presentation showcasing the completed digital card with "Back to the app" return chip.
+
+Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` ensure `beginOneCardX` calls `tl.placeCursor` so the pointer is visible from frame 1.
+Every script follows house scene patterns (`pressOn`, `hoverOn`, `ring`, `finishOneCardX`).
+Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings across all 68 runs (17 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Production build clean.

@@ -163,7 +163,7 @@ export function OneCardXShell({
           {/* Top Bar */}
           <header
             data-tl="ocx-topbar"
-            className="flex h-14 shrink-0 items-center justify-between border-b border-[#E5E7EB] bg-white px-5 select-none z-10"
+            className="flex h-14 shrink-0 items-center justify-between border-b border-[#E5E7EB] bg-white px-5 select-none relative z-45"
           >
             <div className="flex items-center gap-3">
               <span className="text-xs font-semibold uppercase tracking-wider text-[#6B7280]">

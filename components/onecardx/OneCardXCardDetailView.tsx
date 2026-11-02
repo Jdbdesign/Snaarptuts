@@ -19,7 +19,6 @@ export function OneCardXCardDetailView({
   onCopyLink,
 }: Props) {
   const isCopied = useTimelineVar(tl, "ocxLinkCopied", false);
-  const publicPreviewOpen = useTimelineVar(tl, "ocxPublicPreviewOpen", false);
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
@@ -275,99 +274,104 @@ export function OneCardXCardDetailView({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      {/* 4. Public Card Preview Overlay (Step 17) */}
-      {publicPreviewOpen && (
-        <div
-          data-tl="public-preview-stage"
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0F172A] p-4 animate-in fade-in duration-200"
+export function OneCardXPublicPreviewOverlay({
+  onClose,
+}: {
+  onClose?: () => void;
+}) {
+  return (
+    <div
+      data-tl="public-preview-stage"
+      className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#0F172A] p-4 animate-in fade-in duration-200"
+    >
+      {/* Top Return Chip */}
+      <div className="absolute top-6 left-6 z-20">
+        <button
+          type="button"
+          data-tl="btn-back-to-app"
+          onClick={onClose}
+          className="relative z-10 flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md hover:bg-white/20 transition-colors shadow-lg cursor-pointer"
         >
-          {/* Top Return Chip */}
-          <div className="absolute top-6 left-6 z-10">
-            <button
-              type="button"
-              data-tl="btn-back-to-app"
-              onClick={onClosePublicPreview}
-              className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md hover:bg-white/20 transition-colors shadow-lg cursor-pointer"
-            >
-              <Icon name="chevronLeft" size={14} />
-              <span>Back to the app</span>
-            </button>
+          <Icon name="chevronLeft" size={14} />
+          <span>Back to the app</span>
+        </button>
+      </div>
+
+      {/* Centered Digital Business Card Presentation */}
+      <div
+        data-tl="public-card-card"
+        className="w-full max-w-[360px] rounded-3xl bg-white shadow-2xl overflow-hidden border border-white/20 animate-in zoom-in-95 duration-200"
+      >
+        {/* Header Accent Wave */}
+        <div className="h-32 w-full bg-[#2563EB] relative p-4 flex items-start justify-between">
+          <span className="text-[11px] font-semibold text-white/80 uppercase tracking-wider">
+            Acme Ltd
+          </span>
+          <div className="h-8 w-8 rounded-lg bg-white/90 text-[#7014D9] flex items-center justify-center font-bold text-xs shadow-xs">
+            A
+          </div>
+        </div>
+
+        {/* Avatar & Card Details */}
+        <div className="relative px-6 pb-6">
+          <div className="absolute -top-12 left-6">
+            <div className="h-24 w-24 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-3xl border-4 border-white shadow-lg">
+              AM
+            </div>
           </div>
 
-          {/* Centered Digital Business Card Presentation */}
-          <div
-            data-tl="public-card-card"
-            className="w-full max-w-[360px] rounded-3xl bg-white shadow-2xl overflow-hidden border border-white/20 animate-in zoom-in-95 duration-200"
-          >
-            {/* Header Accent Wave */}
-            <div className="h-32 w-full bg-[#2563EB] relative p-4 flex items-start justify-between">
-              <span className="text-[11px] font-semibold text-white/80 uppercase tracking-wider">
-                Acme Ltd
+          <div className="pt-14">
+            <div className="flex items-center gap-2">
+              <h3 className="font-bold text-lg text-[#111827]">
+                Alex Morgan
+              </h3>
+              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-white">
+                <Icon name="check" size={10} />
               </span>
-              <div className="h-8 w-8 rounded-lg bg-white/90 text-[#7014D9] flex items-center justify-center font-bold text-xs shadow-xs">
-                A
+            </div>
+            <p className="text-xs text-[#4B5563] font-medium mt-0.5">
+              Software Engineer · Acme Ltd
+            </p>
+
+            {/* Primary Action Button */}
+            <button
+              type="button"
+              data-tl="public-btn-save-contact"
+              className="mt-5 w-full rounded-xl bg-[#2563EB] py-3 text-xs font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors text-center"
+            >
+              Save Contact
+            </button>
+
+            {/* Contact Links */}
+            <div className="mt-4 space-y-2">
+              <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-2.5 text-xs text-gray-700">
+                <Icon name="globe" size={15} className="text-[#2563EB]" />
+                <span className="font-medium truncate">acme-studio.com</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-2.5 text-xs text-gray-700">
+                <Icon name="edCamera" size={15} className="text-[#2563EB]" />
+                <span className="font-medium truncate">@alexmorgan</span>
+              </div>
+              <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-2.5 text-xs text-gray-700">
+                <Icon name="mail" size={15} className="text-[#2563EB]" />
+                <span className="font-medium truncate">alex.morgan@acme.com</span>
               </div>
             </div>
 
-            {/* Avatar & Card Details */}
-            <div className="relative px-6 pb-6">
-              <div className="absolute -top-12 left-6">
-                <div className="h-24 w-24 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-3xl border-4 border-white shadow-lg">
-                  AM
-                </div>
-              </div>
-
-              <div className="pt-14">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-bold text-lg text-[#111827]">
-                    Alex Morgan
-                  </h3>
-                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-white">
-                    <Icon name="check" size={10} />
-                  </span>
-                </div>
-                <p className="text-xs text-[#4B5563] font-medium mt-0.5">
-                  Software Engineer · Acme Ltd
-                </p>
-
-                {/* Primary Action Button */}
-                <button
-                  type="button"
-                  data-tl="public-btn-save-contact"
-                  className="mt-5 w-full rounded-xl bg-[#2563EB] py-3 text-xs font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors text-center"
-                >
-                  Save Contact
-                </button>
-
-                {/* Contact Links */}
-                <div className="mt-4 space-y-2">
-                  <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-2.5 text-xs text-gray-700">
-                    <Icon name="globe" size={15} className="text-[#2563EB]" />
-                    <span className="font-medium truncate">acme-studio.com</span>
-                  </div>
-                  <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-2.5 text-xs text-gray-700">
-                    <Icon name="edCamera" size={15} className="text-[#2563EB]" />
-                    <span className="font-medium truncate">@alexmorgan</span>
-                  </div>
-                  <div className="flex items-center gap-3 rounded-xl bg-gray-50 p-2.5 text-xs text-gray-700">
-                    <Icon name="mail" size={15} className="text-[#2563EB]" />
-                    <span className="font-medium truncate">alex.morgan@acme.com</span>
-                  </div>
-                </div>
-
-                {/* Card Footer Stamp */}
-                <div className="mt-6 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-400">
-                  <span>Powered by Snaarp OneCardX</span>
-                  <div className="h-6 w-6 rounded bg-gray-100 flex items-center justify-center text-gray-700 font-bold text-[8px]">
-                    QR
-                  </div>
-                </div>
+            {/* Card Footer Stamp */}
+            <div className="mt-6 pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-400">
+              <span>Powered by Snaarp OneCardX</span>
+              <div className="h-6 w-6 rounded bg-gray-100 flex items-center justify-center text-gray-700 font-bold text-[8px]">
+                QR
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

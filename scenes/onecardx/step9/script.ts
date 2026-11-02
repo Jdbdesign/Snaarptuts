@@ -37,7 +37,9 @@ export async function runStep9(tl: Timeline) {
   await tl.at(7600);
   tl.showCaption(CAPTIONS.clickAddMedia);
   await pressOn(tl, "[data-tl=btn-add-media]", { ms: 600 });
-  await tl.wait(600);
+  tl.setVar("ocxPhotoUploading", false);
+  tl.setVar("ocxPhotoModalOpen", false);
+  await tl.wait(300);
 
   // 5. Inspect card preview
   await tl.at(10400);
