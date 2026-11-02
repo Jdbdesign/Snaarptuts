@@ -14,6 +14,8 @@ import { Step7 } from "@/scenes/onecardx/step7/Step7";
 import { runStep7, STEP7_DURATION_MS } from "@/scenes/onecardx/step7/script";
 import { Step8 } from "@/scenes/onecardx/step8/Step8";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/onecardx/step8/script";
+import { Step9 } from "@/scenes/onecardx/step9/Step9";
+import { runStep9, STEP9_DURATION_MS } from "@/scenes/onecardx/step9/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -73,6 +75,12 @@ export const onecardx: Tutorial = {
       title: "Pick a design",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step8, run: runStep8, durationMs: STEP8_DURATION_MS },
+    },
+    {
+      id: "add-a-profile-photo",
+      title: "Add a profile photo",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step9, run: runStep9, durationMs: STEP9_DURATION_MS },
     },
   ],
   completion: {
