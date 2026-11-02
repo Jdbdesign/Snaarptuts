@@ -6,6 +6,8 @@ import { Step3 } from "@/scenes/onecardx/step3/Step3";
 import { runStep3, STEP3_DURATION_MS } from "@/scenes/onecardx/step3/script";
 import { Step4 } from "@/scenes/onecardx/step4/Step4";
 import { runStep4, STEP4_DURATION_MS } from "@/scenes/onecardx/step4/script";
+import { Step5 } from "@/scenes/onecardx/step5/Step5";
+import { runStep5, STEP5_DURATION_MS } from "@/scenes/onecardx/step5/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -41,6 +43,12 @@ export const onecardx: Tutorial = {
       title: "Read the card list",
       url: "onecardx.snaarp.com/admin/organization-cards",
       scene: { Component: Step4, run: runStep4, durationMs: STEP4_DURATION_MS },
+    },
+    {
+      id: "start-a-new-organization-card",
+      title: "Start a new organization card",
+      url: "onecardx.snaarp.com/admin/organization-cards",
+      scene: { Component: Step5, run: runStep5, durationMs: STEP5_DURATION_MS },
     },
   ],
   completion: {
