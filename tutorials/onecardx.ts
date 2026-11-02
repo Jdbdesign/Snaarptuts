@@ -20,6 +20,8 @@ import { Step10 } from "@/scenes/onecardx/step10/Step10";
 import { runStep10, STEP10_DURATION_MS } from "@/scenes/onecardx/step10/script";
 import { Step11 } from "@/scenes/onecardx/step11/Step11";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/onecardx/step11/script";
+import { Step12 } from "@/scenes/onecardx/step12/Step12";
+import { runStep12, STEP12_DURATION_MS } from "@/scenes/onecardx/step12/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -97,6 +99,12 @@ export const onecardx: Tutorial = {
       title: "Add your logo",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step11, run: runStep11, durationMs: STEP11_DURATION_MS },
+    },
+    {
+      id: "add-a-badge",
+      title: "Add a badge",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step12, run: runStep12, durationMs: STEP12_DURATION_MS },
     },
   ],
   completion: {
