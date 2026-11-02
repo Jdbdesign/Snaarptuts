@@ -27,10 +27,19 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
     page === "home"
       ? "home"
       : page === "orgCards"
-      ? "id-cards"
-      : page === "editor"
       ? "create-card"
+      : page === "editor"
+      ? "business-card"
       : "id-cards";
+
+  const pageTitle: string =
+    page === "home"
+      ? "Home"
+      : page === "orgCards"
+      ? "Organization Card"
+      : page === "editor"
+      ? "Business Card"
+      : "ID Cards";
 
   const handleNavigateNav = (navId: OneCardXNavId) => {
     if (navId === "home") {
@@ -47,6 +56,7 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
       <OneCardXShell
         tl={tl}
         activeNav={activeNav}
+        pageTitle={pageTitle}
         onNavigateNav={handleNavigateNav}
         overlay={
           publicPreviewOpen ? (
