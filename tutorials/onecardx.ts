@@ -2,6 +2,8 @@ import { Step1 } from "@/scenes/onecardx/step1/Step1";
 import { runStep1, STEP1_DURATION_MS } from "@/scenes/onecardx/step1/script";
 import { Step2 } from "@/scenes/onecardx/step2/Step2";
 import { runStep2, STEP2_DURATION_MS } from "@/scenes/onecardx/step2/script";
+import { Step3 } from "@/scenes/onecardx/step3/Step3";
+import { runStep3, STEP3_DURATION_MS } from "@/scenes/onecardx/step3/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -25,6 +27,12 @@ export const onecardx: Tutorial = {
       title: "Switch Snaarp apps",
       url: "onecardx.snaarp.com/home",
       scene: { Component: Step2, run: runStep2, durationMs: STEP2_DURATION_MS },
+    },
+    {
+      id: "open-create-an-organization-card",
+      title: "Open Create an Organization Card",
+      url: "onecardx.snaarp.com/admin/organization-cards",
+      scene: { Component: Step3, run: runStep3, durationMs: STEP3_DURATION_MS },
     },
   ],
   completion: {
