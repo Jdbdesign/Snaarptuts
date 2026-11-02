@@ -24,6 +24,8 @@ import { Step12 } from "@/scenes/onecardx/step12/Step12";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/onecardx/step12/script";
 import { Step13 } from "@/scenes/onecardx/step13/Step13";
 import { runStep13, STEP13_DURATION_MS } from "@/scenes/onecardx/step13/script";
+import { Step14 } from "@/scenes/onecardx/step14/Step14";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/onecardx/step14/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -113,6 +115,12 @@ export const onecardx: Tutorial = {
       title: "Fill in the information",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step13, run: runStep13, durationMs: STEP13_DURATION_MS },
+    },
+    {
+      id: "add-contact-fields",
+      title: "Add contact fields",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step14, run: runStep14, durationMs: STEP14_DURATION_MS },
     },
   ],
   completion: {
