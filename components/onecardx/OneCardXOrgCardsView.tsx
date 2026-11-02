@@ -1,9 +1,9 @@
 "use client";
 
-import { Icon } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { SAMPLE_ORG_CARDS, type OrgCardItem } from "./onecardx-data";
+import { OcxCardIcon } from "./OneCardXIcons";
 
 type Props = {
   tl: Timeline;
@@ -35,7 +35,7 @@ export function OneCardXOrgCardsView({
           </h1>
           <p
             data-tl="org-cards-subtitle"
-            className="text-xs text-[#6B7280] mt-1 max-w-2xl leading-relaxed"
+            className="text-xs text-[#6B7280] mt-1 max-w-xl leading-relaxed"
           >
             Build a business/ID card for Tech team and publish it to everyone.
             Members see it in their own business/ID card view and can make edits.
@@ -46,124 +46,161 @@ export function OneCardXOrgCardsView({
           type="button"
           data-tl="btn-new-org-card"
           onClick={onOpenNewCardModal}
-          className="flex items-center gap-2 rounded-xl bg-[#7014D9] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#5E10B8] transition-colors shadow-sm shrink-0 cursor-pointer"
+          className="flex items-center gap-1.5 rounded-full bg-[#7014D9] px-5 py-2.5 text-xs font-semibold text-white hover:bg-[#5E10B8] transition-colors shadow-2xs shrink-0 cursor-pointer"
         >
-          <Icon name="plus" size={15} />
+          <span className="text-sm leading-none font-normal">+</span>
           <span>New organization card</span>
         </button>
       </div>
 
       {/* 2. Stats Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         <div
           data-tl="stat-total-cards"
-          className="rounded-xl border border-[#E5E7EB] bg-white p-4 shadow-2xs"
+          className="rounded-2xl border border-gray-200/80 bg-white p-4 shadow-2xs flex items-center gap-3.5"
         >
-          <p className="text-xs text-[#6B7280] font-medium">Total Cards</p>
-          <p className="text-xl font-bold text-[#111827] mt-1">3 Cards</p>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F5EEFF] text-[#7014D9]">
+            <OcxCardIcon width={18} height={18} />
+          </div>
+          <div>
+            <div className="text-xl font-bold text-[#111827] leading-none">3</div>
+            <div className="text-xs text-[#6B7280] font-normal mt-1">Cards</div>
+          </div>
         </div>
+
         <div
           data-tl="stat-published-cards"
-          className="rounded-xl border border-[#E5E7EB] bg-white p-4 shadow-2xs"
+          className="rounded-2xl border border-gray-200/80 bg-white p-4 shadow-2xs flex items-center gap-3.5"
         >
-          <p className="text-xs text-[#6B7280] font-medium">Published</p>
-          <p className="text-xl font-bold text-[#059669] mt-1">2 Published</p>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#ECFDF5] text-[#10B981]">
+            <svg
+              width={18}
+              height={18}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="m9 12 2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div>
+            <div className="text-xl font-bold text-[#111827] leading-none">2</div>
+            <div className="text-xs text-[#6B7280] font-normal mt-1">Published</div>
+          </div>
         </div>
       </div>
 
-      {/* 3. Organization Cards Table */}
+      {/* 3. Organization Cards Container */}
       <div
         data-tl="org-cards-table-container"
-        className="rounded-2xl border border-[#E5E7EB] bg-white shadow-2xs overflow-hidden"
+        className="rounded-2xl border border-gray-200/80 bg-white p-6 shadow-2xs"
       >
-        <div className="border-b border-[#F3F4F6] px-5 py-3.5 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-[#111827]">Organization cards</h2>
-          <span className="text-xs text-[#6B7280]">3 total</span>
-        </div>
+        <h2 className="text-base font-bold text-[#111827] mb-4">
+          Organization cards
+        </h2>
 
-        <div className="divide-y divide-[#F3F4F6]">
+        <div className="space-y-3">
           {SAMPLE_ORG_CARDS.map((card: OrgCardItem) => {
             const isHovered = hoveredRow === card.id;
+            const isDraft = card.status === "Draft";
+
             return (
               <div
                 key={card.id}
                 data-tl={`org-card-row-${card.id}`}
                 onMouseEnter={() => tl.setVar("ocxHoveredRow", card.id)}
                 onMouseLeave={() => tl.setVar("ocxHoveredRow", null)}
-                className={`flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 transition-colors ${
-                  isHovered ? "bg-purple-50/30" : "hover:bg-gray-50/50"
+                className={`rounded-xl border border-gray-200 p-4 transition-all bg-white ${
+                  isHovered ? "border-purple-300 shadow-2xs" : "hover:border-gray-300"
                 }`}
               >
-                {/* Left Card Info */}
-                <div className="flex items-start gap-3.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-100 text-[#7014D9] font-bold text-sm">
-                    {card.name[0]}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-sm text-[#111827]">
-                        {card.name}
-                      </span>
-                      <span
-                        data-tl={`status-pill-${card.id}`}
-                        className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-                          card.status === "Published"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-amber-100 text-amber-700"
-                        }`}
-                      >
-                        {card.status}
-                      </span>
+                {/* Top Info Row */}
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-400">
+                      <OcxCardIcon width={16} height={16} />
                     </div>
-                    <p className="text-xs text-[#4B5563] mt-0.5">{card.statusText}</p>
-                    <p className="text-[11px] text-[#9CA3AF] mt-0.5">{card.meta}</p>
+                    <div>
+                      <h3 className="font-semibold text-sm text-[#111827]">
+                        {card.name}
+                      </h3>
+                      <p className="text-xs text-[#6B7280] mt-0.5">
+                        {card.statusText}
+                      </p>
+                      <div className="flex items-center gap-1.5 mt-1 text-[11px] text-[#9CA3AF]">
+                        <span className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-200 text-[9px] font-semibold text-gray-600">
+                          ST
+                        </span>
+                        <span>{card.meta}</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Right Action Buttons */}
-                <div
-                  data-tl={`row-actions-${card.id}`}
-                  className="mt-3 sm:mt-0 flex items-center gap-1.5 self-end sm:self-center"
-                >
-                  <button
-                    type="button"
-                    data-tl={`btn-edit-design-${card.id}`}
-                    className="rounded-lg border border-[#E5E7EB] bg-white px-2.5 py-1 text-xs font-medium text-[#374151] hover:bg-gray-50"
-                  >
-                    Edit design
-                  </button>
-                  <button
-                    type="button"
-                    data-tl={`btn-preview-${card.id}`}
-                    className="rounded-lg border border-[#E5E7EB] bg-white px-2.5 py-1 text-xs font-medium text-[#374151] hover:bg-gray-50"
-                  >
-                    Preview
-                  </button>
-                  <button
-                    type="button"
-                    data-tl={`btn-limit-audience-${card.id}`}
-                    className="rounded-lg border border-[#E5E7EB] bg-white px-2.5 py-1 text-xs font-medium text-[#374151] hover:bg-gray-50"
-                  >
-                    Limit audience
-                  </button>
-                  <button
-                    type="button"
-                    data-tl={`btn-publish-toggle-${card.id}`}
-                    className={`rounded-lg px-2.5 py-1 text-xs font-medium ${
-                      card.status === "Draft"
-                        ? "bg-[#7014D9] text-white hover:bg-[#5E10B8]"
-                        : "border border-[#E5E7EB] bg-white text-[#374151] hover:bg-gray-50"
+                  {/* Status Text (Top-Right) */}
+                  <span
+                    data-tl={`status-pill-${card.id}`}
+                    className={`text-xs font-semibold ${
+                      isDraft ? "text-[#6B7280]" : "text-[#16A34A]"
                     }`}
                   >
-                    {card.status === "Draft" ? "Publish to everyone" : "Unpublish"}
-                  </button>
+                    {card.status}
+                  </span>
+                </div>
+
+                {/* Bottom Actions Row */}
+                <div className="mt-3 pt-3 border-t border-gray-100/70 flex items-center justify-between">
+                  <div
+                    data-tl={`row-actions-${card.id}`}
+                    className="flex items-center gap-3"
+                  >
+                    <button
+                      type="button"
+                      data-tl={`btn-edit-design-${card.id}`}
+                      className="text-xs font-medium text-[#7014D9] hover:underline cursor-pointer"
+                    >
+                      Edit design
+                    </button>
+                    <button
+                      type="button"
+                      data-tl={`btn-preview-${card.id}`}
+                      className="text-xs font-medium text-[#7014D9] hover:underline cursor-pointer"
+                    >
+                      Preview
+                    </button>
+                    <button
+                      type="button"
+                      data-tl={`btn-limit-audience-${card.id}`}
+                      className="text-xs font-medium text-[#7014D9] hover:underline cursor-pointer"
+                    >
+                      Limit audience
+                    </button>
+                    {isDraft ? (
+                      <button
+                        type="button"
+                        data-tl={`btn-publish-toggle-${card.id}`}
+                        className="rounded-full bg-[#F5EEFF] text-[#7014D9] px-3.5 py-1 text-xs font-semibold hover:bg-[#EBDDFF] transition-colors cursor-pointer"
+                      >
+                        Publish to everyone
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        data-tl={`btn-publish-toggle-${card.id}`}
+                        className="text-xs font-medium text-[#7014D9] hover:underline cursor-pointer"
+                      >
+                        Unpublish
+                      </button>
+                    )}
+                  </div>
+
                   <button
                     type="button"
                     data-tl={`btn-delete-${card.id}`}
-                    className="p-1 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50"
-                    title="Delete"
+                    className="text-xs font-medium text-[#6B7280] hover:text-red-600 transition-colors cursor-pointer"
                   >
-                    <Icon name="trash" size={14} />
+                    Delete
                   </button>
                 </div>
               </div>
@@ -182,46 +219,53 @@ export function OneCardXOrgCardsView({
             data-tl="new-card-modal"
             className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl animate-in zoom-in-95 duration-150 border border-gray-100"
           >
-            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
-              <h3 className="text-base font-semibold text-[#111827]">
+            <div className="flex items-center justify-between pb-3">
+              <h3 className="text-base font-bold text-[#111827]">
                 New organization card
               </h3>
               <button
                 type="button"
                 data-tl="btn-close-modal-x"
                 onClick={onCloseNewCardModal}
-                className="rounded-lg p-1 text-gray-400 hover:text-gray-600"
+                className="rounded-lg p-1 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
               >
-                <Icon name="x" size={16} />
+                <svg
+                  width={16}
+                  height={16}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
+                </svg>
               </button>
             </div>
 
-            <div className="py-4 space-y-3">
-              <div>
-                <label className="block text-xs font-semibold text-[#374151] mb-1">
-                  Card label (optional)
-                </label>
-                <input
-                  type="text"
-                  data-tl="input-card-label"
-                  placeholder="Tech team"
-                  value={cardLabel}
-                  onChange={(e) => tl.setVar("field:card-label", e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 px-3.5 py-2 text-sm text-[#111827] focus:border-[#7014D9] focus:ring-2 focus:ring-[#7014D9]/20 focus:outline-hidden"
-                />
-              </div>
-              <p className="text-xs text-[#6B7280] leading-relaxed">
+            <div className="py-2 space-y-1.5">
+              <label className="block text-xs font-normal text-[#6B7280]">
+                Card label (optional)
+              </label>
+              <input
+                type="text"
+                data-tl="input-card-label"
+                placeholder="Tech team"
+                value={cardLabel}
+                onChange={(e) => tl.setVar("field:card-label", e.target.value)}
+                className="w-full rounded-xl border border-gray-300 px-3.5 py-2 text-sm text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
+              />
+              <p className="text-[11px] text-[#6B7280] leading-relaxed pt-1">
                 Shown to members alongside the card. The card starts as a draft,
                 so nobody sees it until you publish it.
               </p>
             </div>
 
-            <div className="mt-2 flex items-center justify-end gap-2 border-t border-gray-100 pt-4">
+            <div className="mt-4 flex items-center justify-end gap-2.5 pt-2">
               <button
                 type="button"
                 data-tl="btn-cancel-modal"
                 onClick={onCloseNewCardModal}
-                className="rounded-xl border border-gray-300 px-4 py-2 text-xs font-semibold text-[#374151] hover:bg-gray-50"
+                className="rounded-full border border-gray-300 px-5 py-2 text-xs font-semibold text-[#374151] hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -229,7 +273,7 @@ export function OneCardXOrgCardsView({
                 type="button"
                 data-tl="btn-create-card-editor"
                 onClick={onCreateCardAndOpenEditor}
-                className="rounded-xl bg-[#7014D9] px-4 py-2 text-xs font-semibold text-white hover:bg-[#5E10B8] transition-colors shadow-xs"
+                className="rounded-full bg-[#7014D9] px-5 py-2 text-xs font-semibold text-white hover:bg-[#5E10B8] transition-colors shadow-2xs cursor-pointer"
               >
                 Create card and open editor
               </button>
