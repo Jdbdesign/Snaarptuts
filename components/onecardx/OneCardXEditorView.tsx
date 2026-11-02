@@ -6,7 +6,6 @@ import {
   ACCENT_COLORS,
   CARD_DESIGNS,
   SAMPLE_PORTRAITS,
-  SAMPLE_LOGOS,
 } from "./onecardx-data";
 
 function OcxPortraitFace({ className = "" }: { className?: string }) {
@@ -263,7 +262,7 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
           </div>
 
           {/* Tab Content Body */}
-          <div className="p-6 space-y-6 max-h-[640px] overflow-y-auto">
+          <div className="p-6 space-y-5">
             {/* ----------------- TAB 1: CARD ----------------- */}
             {activeTab === "card" && (
               <div className="space-y-4">
@@ -421,7 +420,7 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                     Sets accents, buttons, icons, waves, and decorative details.
                   </p>
 
-                  <div data-tl="accent-colors-row" className="flex items-center gap-2 flex-wrap">
+                  <div data-tl="accent-colors-row" className="flex items-center gap-2.5 flex-wrap p-1">
                     {ACCENT_COLORS.map((c) => {
                       const isSelected = accentColor === c.hex;
                       const isBlue = c.id === "blue";
@@ -431,8 +430,8 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                           type="button"
                           data-tl={isBlue ? "swatch-blue" : `swatch-${c.id}`}
                           onClick={() => tl.setVar("ocxAccentColor", c.hex)}
-                          className={`h-6 w-6 rounded-full transition-transform cursor-pointer relative flex items-center justify-center ${
-                            isSelected ? "ring-2 ring-offset-2 ring-gray-400 scale-110" : "hover:scale-105"
+                          className={`h-6 w-6 m-0.5 rounded-full transition-transform cursor-pointer relative flex items-center justify-center ${
+                            isSelected ? "ring-2 ring-offset-2 ring-gray-400" : "hover:scale-105"
                           }`}
                           style={{ backgroundColor: c.hex }}
                           title={c.name}
@@ -1022,6 +1021,7 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                 data-tl="btn-badge-verified"
                 onClick={() => {
                   tl.setVar("ocxBadgeAdded", true);
+                  tl.setVar("ocxBadgeModalOpen", false);
                 }}
                 className="rounded-full bg-[#7014D9] px-4 py-2 text-xs font-semibold text-white hover:bg-[#5E10B8] cursor-pointer shadow-2xs"
               >

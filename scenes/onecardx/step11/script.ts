@@ -20,14 +20,19 @@ export async function runStep11(tl: Timeline) {
 
   // 1. Click Add Logo
   await tl.at(600);
-  tl.showCaption(CAPTIONS.clickAddLogo);
-  await pressOn(tl, "[data-tl=btn-add-logo]", { ms: 600 });
+  tl.showCaption(CAPTIONS.clickAddLogo, { target: "[data-tl=btn-add-logo]" });
+  await tl.wait(100);
+  await tl.moveCursorTo("[data-tl=btn-add-logo]", { ms: 600 });
+  await tl.click("[data-tl=btn-add-logo]");
+  tl.setVar("ocxLogoModalOpen", true);
   await tl.wait(150);
 
   // 2. Pick sample Acme logo
   await tl.at(3400);
   tl.showCaption(CAPTIONS.pickLogo);
   await pressOn(tl, "[data-tl=btn-choose-logo-logo-acme]", { ms: 600 });
+  tl.setVar("ocxLogoAdded", true);
+  tl.setVar("ocxLogoModalOpen", false);
   await tl.wait(300);
 
   // 3. Inspect live preview with logo

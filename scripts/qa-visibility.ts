@@ -57,6 +57,7 @@ const ACCEPTED: { step: string; target: string; viewport?: string; why: string }
   { step: "Attendance calendar", target: "attendance-today-circle", why: "the round today date circle: its square corner points fall outside the circle" },
   { step: "Job schedule", target: "schedule-today-circle", why: "the round today date circle: its square corner points fall outside the circle" },
   { step: "Deadlines and questions", target: "cal-day-30", why: "the round date circle in the calendar popup: its square corner points fall outside the circle" },
+  { step: "Set colours and font", target: "swatch-blue", why: "the round color swatch: its square corner points fall outside the circle" },
   { step: "Open a course", target: "player-play-btn", why: "the round play button: its square corner points fall outside the circle" },
   { step: "Watch a lesson", target: "player-play-btn", why: "the round play button: its square corner points fall outside the circle" },
   { step: "Comments icon", target: "cell-d3", viewport: "390x844", why: "on a phone the Comments panel opens over the sheet; the cell is shown just before it opens" },

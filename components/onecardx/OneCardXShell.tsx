@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Icon, ProductLogo, type LogoName } from "@/components/icons";
+import { Icon, ProductLogo } from "@/components/icons";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
@@ -420,7 +420,7 @@ export function OneCardXShell({
         </header>
 
         {/* Scrollable Main Workspace */}
-        <main className="relative flex-1 overflow-y-auto bg-[#F8F9FA] p-6 no-scrollbar">
+        <main className="relative flex-1 overflow-y-auto bg-[#F8F9FA] p-6 pb-28 no-scrollbar">
           {children}
         </main>
       </div>

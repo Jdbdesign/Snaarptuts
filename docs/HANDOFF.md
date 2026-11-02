@@ -230,12 +230,12 @@ In Workforce the viewer is an employee. The top bar "Add Users" button is admin-
 Route `/tutorials/onecardx`, config `tutorials/onecardx.ts`: **17 steps, all built** (Part 1: The admin creates and shares the organization card that employees will later use; employee-side steps come in a later round).
 Recording: `ref/onecardx/onecardx-clip1.mp4` (1392x720, 4:52, 30fps; copy of `Downloads/1102.mp4`).
 
-How it is built: Reusable stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (the thin Snaarp suite rail with OneCard active, 205px OneCardX sidebar, and top bar with Apps 9-dots popover and admin avatar menu).
+How it is built: Reusable stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (the thin Snaarp suite rail with OneCard active, OneCardX sidebar with lavender active pill and vertical indicator, and top bar with Apps 9-dots popover and admin avatar menu). Every screen is an exact pixel-faithful reproduction of the real product recording (`ref/1102.mp4` / `ref/onecardx-frames/`):
 Views:
-- `OneCardXHomeView.tsx`: welcome header, 3 Quick Action cards, promo banner, Getting started checklist.
+- `OneCardXHomeView.tsx`: welcome header, 3 Quick Action cards ("Create an Organization Card", "Manage Team Members", "View Analytics"), promo banner, and Getting started checklist.
 - `OneCardXOrgCardsView.tsx`: organization cards table, stat cards, Create New Card modal with organization and title inputs.
-- `OneCardXEditorView.tsx`: full two-column card editor with 4 tabs (Card, Display, Information, Fields) and live interactive card mockup. Features in-app photo selector, color swatches, font selector, logo modal, badge modal, first/last name fields, and dynamic contact chips (Website, Instagram, Email).
-- `OneCardXCardDetailView.tsx`: card summary header, analytics strip, QR code preview card, share link with copy action, and Brand Toolkit (signatures and backgrounds).
+- `OneCardXEditorView.tsx`: pixel-faithful two-column card editor with live interactive card mockup on the LEFT (5 cols) and 4 configuration tabs (Card, Display, Information, Fields) on the RIGHT (7 cols), with Cancel and Save buttons at bottom right. Features in-app photo selector, color swatches, font selector, logo modal, badge modal, first/last name fields, and dynamic contact chips (Website, Instagram, Email).
+- `OneCardXCardDetailView.tsx`: card summary header, analytics strip, left digital card mockup with QR code, share link with copy action, and Brand Toolkit (signatures and backgrounds).
 - `OneCardXPublicPreviewOverlay`: full-stage dark public presentation showcasing the completed digital card with "Back to the app" return chip.
 
 Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` ensure `beginOneCardX` calls `tl.placeCursor` so the pointer is visible from frame 1.

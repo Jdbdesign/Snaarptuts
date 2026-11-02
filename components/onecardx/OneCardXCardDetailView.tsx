@@ -2,7 +2,6 @@
 
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { URLS } from "./onecardx-data";
 
 function OcxPortraitFace({ className = "" }: { className?: string }) {
   return (

@@ -6,3 +6,11 @@ Each cursor move, click, highlight, hover and caption target is checked: inside 
 
 **Clean: no open findings.**
 
+
+## Accepted (by design)
+
+These show up in the checks but are intended.
+
+| Step | Target | Why |
+|---|---|---|
+| Set colours and font | `swatch-blue` | the round color swatch: its square corner points fall outside the circle |

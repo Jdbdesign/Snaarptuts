@@ -4,11 +4,11 @@ import type { Timeline } from "@/lib/timeline";
 import { OcxCardIcon, OcxEmailSigIcon } from "./OneCardXIcons";
 
 type Props = {
-  tl: Timeline;
+  tl?: Timeline;
   onSelectCreateOrgCard?: () => void;
 };
 
-export function OneCardXHomeView({ tl, onSelectCreateOrgCard }: Props) {
+export function OneCardXHomeView({ onSelectCreateOrgCard }: Props) {
   return (
     <div className="mx-auto max-w-5xl space-y-5 font-['Poppins',sans-serif]">
       {/* 1. Welcome Card */}

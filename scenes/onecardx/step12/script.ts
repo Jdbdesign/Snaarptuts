@@ -21,14 +21,19 @@ export async function runStep12(tl: Timeline) {
 
   // 1. Click Add Badge
   await tl.at(600);
-  tl.showCaption(CAPTIONS.clickAddBadge);
-  await pressOn(tl, "[data-tl=btn-add-badge]", { ms: 600 });
+  tl.showCaption(CAPTIONS.clickAddBadge, { target: "[data-tl=btn-add-badge]" });
+  await tl.wait(100);
+  await tl.moveCursorTo("[data-tl=btn-add-badge]", { ms: 600 });
+  await tl.click("[data-tl=btn-add-badge]");
+  tl.setVar("ocxBadgeModalOpen", true);
   await tl.wait(150);
 
   // 2. Select Verified badge
   await tl.at(3400);
   tl.showCaption(CAPTIONS.pickBadge);
   await pressOn(tl, "[data-tl=btn-badge-verified]", { ms: 600 });
+  tl.setVar("ocxBadgeAdded", true);
+  tl.setVar("ocxBadgeModalOpen", false);
   await tl.wait(300);
 
   // 3. Inspect badge in preview
