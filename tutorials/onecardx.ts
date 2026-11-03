@@ -76,6 +76,8 @@ import { Step38 } from "@/scenes/onecardx/step38/Step38";
 import { runStep38, STEP38_DURATION_MS } from "@/scenes/onecardx/step38/script";
 import { Step39 } from "@/scenes/onecardx/step39/Step39";
 import { runStep39, STEP39_DURATION_MS } from "@/scenes/onecardx/step39/script";
+import { Step40 } from "@/scenes/onecardx/step40/Step40";
+import { runStep40, STEP40_DURATION_MS } from "@/scenes/onecardx/step40/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -321,6 +323,12 @@ export const onecardx: Tutorial = {
       title: "Virtual backgrounds",
       url: "onecardx.snaarp.com/backgrounds",
       scene: { Component: Step39, run: runStep39, durationMs: STEP39_DURATION_MS },
+    },
+    {
+      id: "choose-background-and-layout",
+      title: "Choose a background and layout",
+      url: "onecardx.snaarp.com/backgrounds",
+      scene: { Component: Step40, run: runStep40, durationMs: STEP40_DURATION_MS },
     },
   ],
   completion: {
