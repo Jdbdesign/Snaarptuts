@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import type { Timeline } from "@/lib/timeline";
@@ -348,23 +349,27 @@ export function DrivePhotosView({ tl }: Props) {
           ) : (
             <div data-tl="photos-gallery-grid" className="space-y-3">
               <span className="text-[12px] font-semibold text-[#6B7280]">Oct 26</span>
-              <div className="grid grid-cols-5 gap-3">
+              <div
+                className={`grid ${
+                  layout === "square" ? "grid-cols-5" : "grid-cols-6"
+                } ${density === "compact" ? "gap-2" : "gap-3"}`}
+              >
                 {SAMPLE_PHOTOS.map((photo) => (
                   <div
                     key={photo.id}
                     data-tl={`photo-card-${photo.id}`}
-                    className={`relative overflow-hidden rounded-2xl bg-gray-100 shadow-2xs hover:shadow-md transition-shadow cursor-pointer ${photo.aspect}`}
-                    style={{ backgroundColor: photo.color }}
+                    className={`relative overflow-hidden rounded-2xl bg-gray-100 shadow-2xs hover:shadow-md transition-all cursor-pointer ${
+                      layout === "square"
+                        ? "col-span-1 aspect-square"
+                        : photo.gallerySpan ?? "col-span-1 aspect-square"
+                    }`}
                   >
-                    <div
-                      className="absolute inset-0 opacity-80 mix-blend-multiply"
-                      style={{ background: `linear-gradient(135deg, ${photo.color} 0%, ${photo.accent} 100%)` }}
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center p-3 text-center">
-                      <span className="text-[11px] font-medium text-white/90 drop-shadow-xs">
-                        {photo.title}
-                      </span>
-                    </div>
                   </div>
                 ))}
               </div>
@@ -378,22 +383,18 @@ export function DrivePhotosView({ tl }: Props) {
         <div data-tl="photos-moments-view" className="space-y-4">
           <h1 className="text-[20px] font-bold text-[#111827]">Your Moments</h1>
           <div className="grid grid-cols-5 gap-3">
-            {SAMPLE_PHOTOS.map((photo) => (
+            {SAMPLE_PHOTOS.slice(0, 10).map((photo) => (
               <div
                 key={photo.id}
                 data-tl={`moment-card-${photo.id}`}
-                className="relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-2xs hover:shadow-md transition-shadow cursor-pointer"
-                style={{ backgroundColor: photo.color }}
+                className="relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-2xs hover:shadow-md transition-all cursor-pointer"
               >
-                <div
-                  className="absolute inset-0 opacity-80 mix-blend-multiply"
-                  style={{ background: `linear-gradient(135deg, ${photo.color} 0%, ${photo.accent} 100%)` }}
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
                 />
-                <div className="absolute inset-0 flex items-center justify-center p-3 text-center">
-                  <span className="text-[11px] font-medium text-white/90 drop-shadow-xs">
-                    {photo.title}
-                  </span>
-                </div>
               </div>
             ))}
           </div>

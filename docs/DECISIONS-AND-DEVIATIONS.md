@@ -969,6 +969,7 @@ Recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`, stills in
 2. **Excluded recording artifacts**: Excluded native browser chrome, Windows taskbar, screen-share overlay banner, green URL status tooltips, black memory-usage popup, and native operating system cursor.
 3. **Icons**: Standard Lucide icons (`lucide-react`) used throughout the product UI; authentic brand SVGs used for suite switcher logos and Snaarp Drive product logo.
 4. **Completion card**: Positioned after Step 21 with title "Tour complete" and message "You now know your way around Snaarp Drive. Next: the features."
+5. **Drive photos**: Unsplash photos stored locally instead of the real user photos (see `docs/CREDITS.md` for full attributions).
 
 
 
