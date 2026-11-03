@@ -267,9 +267,9 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
             {activeTab === "card" && (
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-sm font-bold text-[#111827]">Design</h3>
+                  <h3 className="text-sm font-bold text-[#111827]">Card Type</h3>
                   <p className="text-xs text-[#6B7280] mt-0.5">
-                    Select whether this card acts as an ID card or a classic business card.
+                    Choose the type of card. ID and Business cards display different fields.
                   </p>
                 </div>
 
@@ -277,48 +277,61 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                   <div
                     data-tl="card-type-id-card"
                     onClick={() => tl.setVar("ocxCardType", "id-card")}
-                    className={`rounded-xl border p-4 cursor-pointer transition-all ${
+                    className={`rounded-2xl border p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all relative ${
                       cardType === "id-card"
-                        ? "border-[#7014D9] bg-purple-50/20 ring-2 ring-[#7014D9]/20"
-                        : "border-gray-200 hover:border-gray-300"
+                        ? "border-[#7014D9] bg-[#FAF5FF] shadow-2xs"
+                        : "border-gray-200 bg-white hover:border-gray-300"
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold text-xs text-[#111827]">
-                        ID Card
-                      </span>
-                      {cardType === "id-card" && (
-                        <div className="h-4 w-4 rounded-full bg-[#7014D9] text-white flex items-center justify-center text-[10px]">
-                          ✓
-                        </div>
-                      )}
+                    {cardType === "id-card" && (
+                      <div className="absolute top-3 right-3 h-5 w-5 rounded-full bg-[#7014D9] text-white flex items-center justify-center text-xs shadow-2xs">
+                        <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      </div>
+                    )}
+                    <div className="h-9 w-9 rounded-full bg-[#F3E8FF] text-[#7014D9] flex items-center justify-center mb-2">
+                      <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
                     </div>
-                    <p className="text-[11px] text-[#6B7280]">
-                      Emphasizes photo, name, and identity verification.
+                    <span className="font-semibold text-xs text-[#111827] mb-1">
+                      ID Card
+                    </span>
+                    <p className={`text-[11px] ${cardType === "id-card" ? "text-[#7014D9]" : "text-[#6B7280]"}`}>
+                      Name, photo, email, phone, social links
                     </p>
                   </div>
 
                   <div
                     data-tl="card-type-business"
                     onClick={() => tl.setVar("ocxCardType", "business")}
-                    className={`rounded-xl border p-4 cursor-pointer transition-all ${
+                    className={`rounded-2xl border p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all relative ${
                       cardType === "business"
-                        ? "border-[#7014D9] bg-purple-50/20 ring-2 ring-[#7014D9]/20"
-                        : "border-gray-200 hover:border-gray-300"
+                        ? "border-[#7014D9] bg-[#FAF5FF] shadow-2xs"
+                        : "border-gray-200 bg-white hover:border-gray-300"
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold text-xs text-[#111827]">
-                        Business Card
-                      </span>
-                      {cardType === "business" && (
-                        <div className="h-4 w-4 rounded-full bg-[#7014D9] text-white flex items-center justify-center text-[10px]">
-                          ✓
-                        </div>
-                      )}
+                    {cardType === "business" && (
+                      <div className="absolute top-3 right-3 h-5 w-5 rounded-full bg-[#7014D9] text-white flex items-center justify-center text-xs shadow-2xs">
+                        <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      </div>
+                    )}
+                    <div className="h-9 w-9 rounded-full bg-[#1F2937] text-white flex items-center justify-center mb-2">
+                      <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                        <rect x="4" y="2" width="16" height="20" rx="2" />
+                        <path d="M9 22v-4h6v4" />
+                        <path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01" />
+                      </svg>
                     </div>
+                    <span className="font-semibold text-xs text-[#111827] mb-1">
+                      Business
+                    </span>
                     <p className="text-[11px] text-[#6B7280]">
-                      Emphasizes contact details, social links, and company role.
+                      Profile, about me, address, social links
                     </p>
                   </div>
                 </div>

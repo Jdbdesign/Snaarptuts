@@ -141,11 +141,8 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
             tl={tl}
             onSaveCard={() => {
               tl.setVar("ocxSavingCard", true);
-              setTimeout(() => {
-                tl.setVar("ocxSavingCard", false);
-                tl.setUrl(URLS.cardDetail);
-                tl.setVar("ocxPage", "cardDetail");
-              }, 800);
+              tl.setUrl(URLS.cardDetail);
+              tl.setVar("ocxPage", "cardDetail");
             }}
           />
         )}
