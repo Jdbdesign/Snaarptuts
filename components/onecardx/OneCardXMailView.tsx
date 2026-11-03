@@ -3,6 +3,61 @@
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
+  AlignLeft,
+  ArrowLeft,
+  Ban,
+  Baseline,
+  Bell,
+  Bold,
+  Bookmark,
+  Calendar,
+  CalendarClock,
+  Check,
+  ChevronDown,
+  ChevronUp,
+  CircleHelp,
+  Clock,
+  CloudOff,
+  Database,
+  Eye,
+  FileText,
+  Filter,
+  HardDrive,
+  Image as ImageIcon,
+  Inbox,
+  Info,
+  Italic,
+  Link as LinkIcon,
+  Mail,
+  Maximize2,
+  Menu,
+  Minus,
+  MoreVertical,
+  Paperclip,
+  PenLine,
+  Plus,
+  Redo2,
+  RefreshCw,
+  Reply,
+  Search,
+  Send,
+  Settings,
+  Shield,
+  SlidersHorizontal,
+  Smile,
+  SquarePen,
+  Star,
+  Strikethrough,
+  Tag,
+  Trash2,
+  TriangleAlert,
+  Underline,
+  Undo2,
+  Upload,
+  User,
+  X,
+} from "lucide-react";
+import {
   SAMPLE_MAIL_UNREAD,
   SAMPLE_MAIL_READ,
 } from "./onecardx-data";
@@ -54,7 +109,7 @@ export function OneCardXMailView({
 }: Props) {
   const mailSubpage = useTimelineVar<"inbox" | "settings">(tl, "ocxMailSubpage", defaultSubpage);
   const quickSettingsOpen = useTimelineVar(tl, "ocxMailQuickSettingsOpen", false);
-  const settingsActiveTab = useTimelineVar(tl, "ocxMailSettingsTab", "signature");
+  const settingsActiveTab = useTimelineVar<string>(tl, "ocxMailSettingsTab", "signature");
   const signaturePasted = useTimelineVar(tl, "ocxMailSigPasted", false);
   const signatureSaved = useTimelineVar(tl, "ocxMailSigSaved", false);
   const composeOpen = useTimelineVar(tl, "ocxMailComposeOpen", false);
@@ -73,11 +128,9 @@ export function OneCardXMailView({
           <div className="flex items-center gap-2.5">
             <button
               type="button"
-              className="text-gray-500 hover:text-gray-700 p-1 rounded-lg"
+              className="text-gray-500 hover:text-gray-700 p-1 rounded-lg cursor-pointer"
             >
-              <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
-              </svg>
+              <Menu size={18} strokeWidth={2} />
             </button>
             <div className="flex items-center gap-1.5">
               <span className="text-xl font-bold tracking-tight text-[#111827]">Snaarp</span>
@@ -94,18 +147,11 @@ export function OneCardXMailView({
               placeholder={mailSubpage === "settings" ? "Search in mail" : "Search in inbox"}
               className="w-full rounded-full border border-gray-200 bg-gray-50/80 pl-9 pr-8 py-1.5 text-xs text-gray-700 placeholder-gray-400 focus:outline-hidden"
             />
-            <svg
-              width={14}
-              height={14}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
+            <Search
+              size={14}
               strokeWidth={2}
-              className="absolute left-3 top-2 text-gray-400"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.3-4.3" strokeLinecap="round" />
-            </svg>
+              className="absolute left-3 top-2.5 text-gray-400"
+            />
           </div>
         </div>
 
@@ -113,21 +159,15 @@ export function OneCardXMailView({
         <div className="flex items-center gap-3">
           <button
             type="button"
-            className="p-1.5 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-1.5 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
           >
-            <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-              <rect width={18} height={18} x={3} y={4} rx={2} />
-              <path d="M16 2v4M8 2v4M3 10h18" />
-            </svg>
+            <Calendar size={16} strokeWidth={2} />
           </button>
           <button
             type="button"
-            className="p-1.5 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-1.5 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
           >
-            <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-              <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-              <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-            </svg>
+            <Bell size={16} strokeWidth={2} />
           </button>
 
           {/* Settings Gear Button */}
@@ -145,10 +185,7 @@ export function OneCardXMailView({
             }`}
             title="Settings"
           >
-            <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
+            <Settings size={18} strokeWidth={2} />
           </button>
 
           {/* User Avatar with Green status dot */}
@@ -178,9 +215,7 @@ export function OneCardXMailView({
             }}
             className="flex items-center gap-2.5 rounded-2xl bg-[#E0F2FE] hover:bg-[#BAE6FD] px-5 py-2.5 text-xs font-semibold text-[#0284C7] shadow-2xs transition-colors cursor-pointer"
           >
-            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-              <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
-            </svg>
+            <SquarePen size={14} strokeWidth={2.5} />
             <span>Compose</span>
           </button>
 
@@ -200,10 +235,7 @@ export function OneCardXMailView({
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                  <rect width={20} height={16} x={2} y={4} rx={2} />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                </svg>
+                <Inbox size={14} strokeWidth={2} />
                 <span>Inbox</span>
               </div>
               <span className="text-[11px] font-semibold">19</span>
@@ -211,28 +243,28 @@ export function OneCardXMailView({
 
             <div className="flex items-center justify-between rounded-xl px-3 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">★</span>
+                <Star size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Starred</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between rounded-xl px-3 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">🕒</span>
+                <Clock size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Snoozed</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between rounded-xl px-3 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">➤</span>
+                <Send size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Sent</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between rounded-xl px-3 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">📄</span>
+                <FileText size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Drafts</span>
               </div>
               <span className="text-[11px] font-normal text-gray-500">42</span>
@@ -240,35 +272,35 @@ export function OneCardXMailView({
 
             <div className="flex items-center justify-between rounded-xl px-3 py-2 text-gray-500 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span>∧</span>
+                <ChevronUp size={14} strokeWidth={2} className="text-gray-500" />
                 <span>Less</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between rounded-xl px-3 py-1.5 text-gray-600 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">🏷️</span>
+                <Bookmark size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Important</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between rounded-xl px-3 py-1.5 text-gray-600 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">📅</span>
+                <CalendarClock size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Scheduled</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between rounded-xl px-3 py-1.5 text-gray-600 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">✉️</span>
+                <Mail size={14} strokeWidth={2} className="text-gray-400" />
                 <span>All Mail</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between rounded-xl px-3 py-1.5 text-gray-600 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">⚠️</span>
+                <TriangleAlert size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Spam</span>
               </div>
               <span className="text-[11px] text-gray-500">1</span>
@@ -276,30 +308,36 @@ export function OneCardXMailView({
 
             <div className="flex items-center justify-between rounded-xl px-3 py-1.5 text-gray-600 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">🗑️</span>
+                <Trash2 size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Trash</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between rounded-xl px-3 py-1.5 text-gray-600 hover:bg-gray-100 cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <span className="text-gray-400">🚫</span>
+                <Ban size={14} strokeWidth={2} className="text-gray-400" />
                 <span>Blocked</span>
               </div>
             </div>
 
-            <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-gray-600 px-3 py-1 hover:bg-gray-50 rounded-lg cursor-pointer">
-              <span>Manage labels</span>
+            <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-gray-600 px-3 py-1.5 hover:bg-gray-50 rounded-lg cursor-pointer">
+              <div className="flex items-center gap-2.5">
+                <Tag size={13} strokeWidth={2} className="text-gray-400" />
+                <span>Manage labels</span>
+              </div>
             </div>
-            <div className="flex items-center justify-between text-gray-600 px-3 py-1 hover:bg-gray-50 rounded-lg cursor-pointer">
-              <span>+ Create new label</span>
+            <div className="flex items-center justify-between text-gray-600 px-3 py-1.5 hover:bg-gray-50 rounded-lg cursor-pointer">
+              <div className="flex items-center gap-2.5">
+                <Plus size={13} strokeWidth={2} className="text-gray-400" />
+                <span>Create new label</span>
+              </div>
             </div>
           </nav>
 
           {/* Storage Widget */}
           <div className="rounded-xl bg-gray-50/90 p-3 border border-gray-100 text-[11px] space-y-1.5">
             <div className="flex items-center gap-1.5 text-gray-700 font-medium">
-              <span className="text-sky-500">☁</span>
+              <HardDrive size={13} strokeWidth={2} className="text-sky-500" />
               <span>Snaarp Drive</span>
             </div>
             <div className="flex justify-between text-gray-500 text-[10px]">
@@ -321,12 +359,16 @@ export function OneCardXMailView({
             <div className="flex items-center justify-between border-b border-gray-100 pb-2.5">
               <div className="flex items-center gap-3 text-gray-500 text-xs">
                 <input type="checkbox" className="rounded-sm border-gray-300" />
-                <button type="button" className="hover:text-gray-700">↻</button>
-                <button type="button" className="hover:text-gray-700">⋮</button>
+                <button type="button" className="hover:text-gray-700 flex items-center justify-center p-0.5 cursor-pointer">
+                  <RefreshCw size={13} strokeWidth={2} />
+                </button>
+                <button type="button" className="hover:text-gray-700 flex items-center justify-center p-0.5 cursor-pointer">
+                  <MoreVertical size={14} strokeWidth={2} />
+                </button>
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-500">
                 <button type="button" className="px-2 py-0.5 rounded bg-gray-100 text-gray-800 font-medium">Default</button>
-                <button type="button" className="px-2 py-0.5 rounded hover:bg-gray-50">Compact</button>
+                <button type="button" className="px-2 py-0.5 rounded hover:bg-gray-50 cursor-pointer">Compact</button>
               </div>
             </div>
 
@@ -334,7 +376,7 @@ export function OneCardXMailView({
             <div className="space-y-1">
               <div className="flex items-center justify-between text-xs font-semibold text-gray-600 px-2 py-1">
                 <div className="flex items-center gap-1.5">
-                  <span>∨</span>
+                  <ChevronDown size={14} strokeWidth={2} className="text-gray-500" />
                   <span>Unread</span>
                 </div>
                 <span className="text-[11px] font-normal text-gray-400">1-19 of 19</span>
@@ -347,8 +389,8 @@ export function OneCardXMailView({
                     className="flex items-center gap-3 px-3 py-2 text-xs hover:bg-gray-50/80 cursor-pointer transition-colors bg-white font-medium"
                   >
                     <input type="checkbox" className="rounded-sm border-gray-300 shrink-0" />
-                    <span className="text-gray-300 hover:text-amber-400 shrink-0">★</span>
-                    <span className="text-gray-300 hover:text-amber-500 shrink-0">🏷️</span>
+                    <Star size={13} strokeWidth={2} className="text-gray-300 hover:text-amber-400 shrink-0" />
+                    <Bookmark size={13} strokeWidth={2} className="text-gray-300 hover:text-amber-500 shrink-0" />
                     <div className="w-40 shrink-0 truncate text-gray-900 font-semibold">
                       {mail.sender}
                       {mail.senderCount && <span className="ml-1 text-gray-400 font-normal">({mail.senderCount})</span>}
@@ -369,7 +411,7 @@ export function OneCardXMailView({
             <div className="space-y-1 pt-4">
               <div className="flex items-center justify-between text-xs font-semibold text-gray-600 px-2 py-1">
                 <div className="flex items-center gap-1.5">
-                  <span>∨</span>
+                  <ChevronDown size={14} strokeWidth={2} className="text-gray-500" />
                   <span>Everything else</span>
                 </div>
                 <span className="text-[11px] font-normal text-gray-400">1-25 of 81 &lt; &gt;</span>
@@ -382,8 +424,8 @@ export function OneCardXMailView({
                     className="flex items-center gap-3 px-3 py-2 text-xs hover:bg-gray-50 cursor-pointer transition-colors bg-gray-50/30 text-gray-600"
                   >
                     <input type="checkbox" className="rounded-sm border-gray-300 shrink-0" />
-                    <span className="text-gray-300 shrink-0">☆</span>
-                    <span className="text-gray-300 shrink-0">🏷️</span>
+                    <Star size={13} strokeWidth={1.8} className="text-gray-300 shrink-0" />
+                    <Bookmark size={13} strokeWidth={1.8} className="text-gray-300 shrink-0" />
                     <div className="w-40 shrink-0 truncate font-normal">
                       {mail.sender}
                     </div>
@@ -416,7 +458,7 @@ export function OneCardXMailView({
                 }}
                 className="flex items-center gap-2 text-gray-700 hover:text-black font-medium pb-2 border-b border-gray-100 cursor-pointer w-full text-left"
               >
-                <span>←</span>
+                <ArrowLeft size={14} strokeWidth={2} />
                 <span>Back to Mail</span>
               </button>
 
@@ -425,11 +467,26 @@ export function OneCardXMailView({
                   ACCOUNT
                 </div>
                 <div className="space-y-0.5 text-gray-600">
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Profile</div>
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Preferences</div>
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Filters &amp; Forwarding</div>
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Security</div>
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Auto-Reply</div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <User size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Profile</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <SlidersHorizontal size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Preferences</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <Filter size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Filters &amp; Forwarding</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <Shield size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Security</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <Reply size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Auto-Reply</span>
+                  </div>
                 </div>
               </div>
 
@@ -438,7 +495,10 @@ export function OneCardXMailView({
                   PRIVACY
                 </div>
                 <div className="space-y-0.5 text-gray-600">
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Privacy &amp; Images</div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <Eye size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Privacy &amp; Images</span>
+                  </div>
                 </div>
               </div>
 
@@ -447,7 +507,10 @@ export function OneCardXMailView({
                   APPEARANCE
                 </div>
                 <div className="space-y-0.5">
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer text-gray-600">Labels &amp; Folders</div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer text-gray-600">
+                    <Tag size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Labels &amp; Folders</span>
+                  </div>
                   <button
                     type="button"
                     data-tl="btn-settings-signature"
@@ -461,6 +524,7 @@ export function OneCardXMailView({
                         : "text-gray-600 hover:bg-gray-50"
                     }`}
                   >
+                    <PenLine size={13} strokeWidth={2} className={settingsActiveTab === "signature" ? "text-[#7014D9]" : "text-gray-400"} />
                     <span>Signature</span>
                   </button>
                 </div>
@@ -471,8 +535,14 @@ export function OneCardXMailView({
                   DATA
                 </div>
                 <div className="space-y-0.5 text-gray-600">
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Data Migration</div>
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Offline &amp; Storage</div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <Database size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Data Migration</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <CloudOff size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Offline &amp; Storage</span>
+                  </div>
                 </div>
               </div>
 
@@ -481,8 +551,14 @@ export function OneCardXMailView({
                   ABOUT
                 </div>
                 <div className="space-y-0.5 text-gray-600">
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">About Snaarp</div>
-                  <div className="px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">Help &amp; Support</div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <Info size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>About Snaarp</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-50 cursor-pointer">
+                    <CircleHelp size={13} strokeWidth={2} className="text-gray-400" />
+                    <span>Help &amp; Support</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -540,7 +616,7 @@ export function OneCardXMailView({
               <div className="space-y-1.5">
                 <span className="text-xs font-bold text-gray-900">Upload Image File</span>
                 <div className="rounded-2xl border-2 border-dashed border-gray-200 p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-purple-300 transition-colors">
-                  <span className="text-2xl text-gray-400 mb-1">☁</span>
+                  <Upload size={24} strokeWidth={1.8} className="text-gray-400 mb-1" />
                   <p className="text-xs font-medium text-gray-700">Click to upload or drag and drop</p>
                   <p className="text-[11px] text-gray-400 mt-0.5">PNG, JPG, GIF or WebP (Max 50MB)</p>
                 </div>
@@ -552,17 +628,37 @@ export function OneCardXMailView({
                 <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-2xs">
                   {/* Editor Toolbar */}
                   <div className="flex items-center gap-1.5 border-b border-gray-200 bg-gray-50/60 px-3 py-2 text-xs text-gray-600">
-                    <button type="button" className="p-1 hover:bg-gray-200 rounded font-bold">B</button>
-                    <button type="button" className="p-1 hover:bg-gray-200 rounded italic">I</button>
-                    <button type="button" className="p-1 hover:bg-gray-200 rounded underline">U</button>
-                    <button type="button" className="p-1 hover:bg-gray-200 rounded line-through">S</button>
+                    <button type="button" className="p-1 hover:bg-gray-200 rounded text-gray-700 cursor-pointer" title="Bold">
+                      <Bold size={13} strokeWidth={2.5} />
+                    </button>
+                    <button type="button" className="p-1 hover:bg-gray-200 rounded text-gray-700 cursor-pointer" title="Italic">
+                      <Italic size={13} strokeWidth={2.5} />
+                    </button>
+                    <button type="button" className="p-1 hover:bg-gray-200 rounded text-gray-700 cursor-pointer" title="Underline">
+                      <Underline size={13} strokeWidth={2.5} />
+                    </button>
+                    <button type="button" className="p-1 hover:bg-gray-200 rounded text-gray-700 cursor-pointer" title="Strikethrough">
+                      <Strikethrough size={13} strokeWidth={2.5} />
+                    </button>
                     <div className="h-4 w-px bg-gray-200 mx-1" />
-                    <button type="button" className="p-1 hover:bg-gray-200 rounded">≡</button>
-                    <button type="button" className="p-1 hover:bg-gray-200 rounded">🔗</button>
-                    <button type="button" className="p-1 hover:bg-gray-200 rounded">🖼️</button>
+                    <button type="button" className="p-1 hover:bg-gray-200 rounded text-gray-700 cursor-pointer" title="Align Left">
+                      <AlignLeft size={13} strokeWidth={2} />
+                    </button>
+                    <button type="button" className="p-1 hover:bg-gray-200 rounded text-gray-700 cursor-pointer" title="Insert Link">
+                      <LinkIcon size={13} strokeWidth={2} />
+                    </button>
+                    <button type="button" className="p-1 hover:bg-gray-200 rounded text-gray-700 cursor-pointer" title="Insert Image">
+                      <ImageIcon size={13} strokeWidth={2} />
+                    </button>
                     <div className="h-4 w-px bg-gray-200 mx-1" />
-                    <span className="text-[11px] text-gray-500">Size ▾</span>
-                    <span className="text-[11px] text-gray-500 ml-2">A ▾</span>
+                    <span className="flex items-center text-[11px] text-gray-500 cursor-pointer">
+                      <span>Size</span>
+                      <ChevronDown size={11} strokeWidth={2} className="ml-0.5 text-gray-400" />
+                    </span>
+                    <span className="flex items-center text-[11px] text-gray-500 ml-2 cursor-pointer">
+                      <Baseline size={13} strokeWidth={2} className="mr-0.5 text-gray-700" />
+                      <ChevronDown size={11} strokeWidth={2} className="ml-0.5 text-gray-400" />
+                    </span>
                   </div>
 
                   {/* Editor Text Area */}
@@ -665,9 +761,9 @@ export function OneCardXMailView({
             <button
               type="button"
               onClick={() => tl.setVar("ocxMailQuickSettingsOpen", false)}
-              className="text-gray-400 hover:text-gray-600 cursor-pointer"
+              className="text-gray-400 hover:text-gray-600 cursor-pointer p-0.5"
             >
-              ✕
+              <X size={14} strokeWidth={2} />
             </button>
           </div>
 
@@ -739,8 +835,8 @@ export function OneCardXMailView({
           data-tl="toast-signature-saved"
           className="fixed bottom-5 left-20 z-50 flex items-center gap-2 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2.5 shadow-lg text-emerald-800 text-xs font-semibold animate-in slide-in-from-bottom-2 duration-150"
         >
-          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600 text-white text-[10px]">
-            ✓
+          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600 text-white">
+            <Check size={11} strokeWidth={3} />
           </span>
           <span>Signature updated successfully</span>
         </div>
@@ -756,8 +852,12 @@ export function OneCardXMailView({
           <div className="flex items-center justify-between bg-gray-100 px-4 py-2.5 border-b border-gray-200">
             <span className="text-xs font-semibold text-gray-800">New Message</span>
             <div className="flex items-center gap-2 text-gray-400">
-              <button type="button" className="hover:text-gray-700">_</button>
-              <button type="button" className="hover:text-gray-700">⤢</button>
+              <button type="button" className="hover:text-gray-700 p-0.5 cursor-pointer">
+                <Minus size={13} strokeWidth={2} />
+              </button>
+              <button type="button" className="hover:text-gray-700 p-0.5 cursor-pointer">
+                <Maximize2 size={12} strokeWidth={2} />
+              </button>
               <button
                 type="button"
                 data-tl="btn-close-compose"
@@ -765,9 +865,9 @@ export function OneCardXMailView({
                   tl.setVar("ocxMailComposeOpen", false);
                   onCloseCompose?.();
                 }}
-                className="hover:text-gray-700 font-bold cursor-pointer"
+                className="hover:text-gray-700 p-0.5 cursor-pointer"
               >
-                ✕
+                <X size={14} strokeWidth={2} />
               </button>
             </div>
           </div>
@@ -844,18 +944,18 @@ export function OneCardXMailView({
               className="rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-5 py-1.5 text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
             >
               <span>Send</span>
-              <span className="text-[10px]">▾</span>
+              <ChevronDown size={11} strokeWidth={2.5} />
             </button>
 
-            <div className="flex items-center gap-2 text-gray-400 text-xs">
-              <span className="hover:text-gray-600 cursor-pointer">↶</span>
-              <span className="hover:text-gray-600 cursor-pointer">↷</span>
-              <span className="hover:text-gray-600 cursor-pointer font-bold">B</span>
-              <span className="hover:text-gray-600 cursor-pointer italic">I</span>
-              <span className="hover:text-gray-600 cursor-pointer">🔗</span>
-              <span className="hover:text-gray-600 cursor-pointer">📎</span>
-              <span className="hover:text-gray-600 cursor-pointer">😊</span>
-              <span className="hover:text-gray-600 cursor-pointer">🗑️</span>
+            <div className="flex items-center gap-2.5 text-gray-400 text-xs">
+              <Undo2 size={14} strokeWidth={2} className="hover:text-gray-600 cursor-pointer" />
+              <Redo2 size={14} strokeWidth={2} className="hover:text-gray-600 cursor-pointer" />
+              <Bold size={13} strokeWidth={2.5} className="hover:text-gray-600 cursor-pointer" />
+              <Italic size={13} strokeWidth={2.5} className="hover:text-gray-600 cursor-pointer" />
+              <LinkIcon size={14} strokeWidth={2} className="hover:text-gray-600 cursor-pointer" />
+              <Paperclip size={14} strokeWidth={2} className="hover:text-gray-600 cursor-pointer" />
+              <Smile size={14} strokeWidth={2} className="hover:text-gray-600 cursor-pointer" />
+              <Trash2 size={14} strokeWidth={2} className="hover:text-gray-600 cursor-pointer" />
             </div>
           </div>
         </div>

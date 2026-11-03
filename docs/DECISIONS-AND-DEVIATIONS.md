@@ -914,5 +914,7 @@ Recording: `ref/1103.mp4` (copy of `Downloads/1103.mp4`, stills in `ref/onecardx
    - Compose "New Message" window: To, Subject, email draft body with Alex Morgan's signature card automatically docked at the bottom.
 2. **Excluded recording artifacts**: Excluded browser chrome and tabs, bookmarks bar, the Windows taskbar, screen-share overlay ("senting"), dark floating pin/ellipsis circles, browser right-click context menu, browser autofill dropdowns, accidental blue text selections on instructions, and the real cursor.
 3. **Completion card location**: Positioned after Step 52 with copy: "You've created your organization card and email signature. Next: how employees use them."
+4. **Mail icons replaced with Lucide for consistency**: All Snaarp Mail icons across the top bar, sidebar, list toolbar, email items, Quick settings popover, Settings left menu, Signature Editor toolbar, and New Message window were upgraded from ad-hoc inline SVGs/glyphs to standard Lucide icons (`lucide-react`) matching the project-wide design system.
+
 
 
