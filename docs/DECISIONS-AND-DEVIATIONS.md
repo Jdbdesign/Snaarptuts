@@ -892,5 +892,27 @@ Recording: `ref/1102(1).mp4` (copy of `Downloads/1102(1).mp4`, stills in `ref/on
 2. **In-app background upload (Step 41)**: In the recording, clicking "Upload" opens the native Windows File Explorer dialog. As with steps 9 and 11, we simulate an immediate in-app upload transition, presenting the custom uploaded image as the first selectable backdrop thumbnail and immediately applying it to the 16:9 canvas with Bottom Right layout.
 3. **Broken image replacement in presets**: Around t280s in the video, one preset background thumbnail next to "Abstract 3" shows a broken browser image placeholder. Replaced with an authentic, clean abstract gradient thumbnail to ensure visual polish.
 4. **Excluded recording artifacts**: Excluded browser chrome and tabs, bookmarks bar, the Windows taskbar, screen-share overlay ("senting"), dark round floating pin/ellipsis circles, browser autofill dropdowns, accidental blue text selections, and the real cursor.
-5. **Completion card location**: Positioned after Step 41 (the final step of the admin tutorial; removed from Step 17).
+5. **Completion card location**: Positioned after Step 52 (the final step of the OneCardX tutorial; moved from Step 41).
+
+## OneCardX Part 3: Email Signatures and Mail Integration (steps 42-52)
+
+Recording: `ref/1103.mp4` (copy of `Downloads/1103.mp4`, stills in `ref/onecardx-frames-3/` `v3_t001s.jpg` to `v3_t093s.jpg`).
+
+**Sample data only (no real personal data).**
+- Admin identity: Sam Taylor (ST), `sam.taylor@snaarp.com`, Acme Ltd (grey circle avatar and neutral sample portrait on Snaarp Mail header).
+- Signature card person: Alex Morgan (replacing "yinka Jacobs"), Product Designer at Acme Ltd, with a neutral sample portrait and QR code.
+- Link text in signature: `identity.snaarp.com/c/i-d-card-38805cae?p=AcmeLtd`.
+- Snaarp Mail inbox rows: Replaced real names and subjects (ChatGPT, Victor, hr, Higgsfield, PDF Guru, Vercel) with made-up senders and subjects (Acme Billing, Jordan Lee, Casey Brown, Product Updates, Team Digest, Security Team, Acme HR, etc.), maintaining identical layout, Unread group (19), Everything else group, and counts (Inbox 19, Drafts 42, "1-25 of 81", Storage 12%).
+
+**Decisions & deviations:**
+1. **Faithful real UI reconstruction**: Built directly from video recording `1103.mp4` and extracted stills `ref/onecardx-frames-3/` (`v3_t001s.jpg` to `v3_t093s.jpg`). Faithful reproductions of:
+   - OneCardX Email Signatures studio (`identity.snaarp.com/email-signatures`): live preview (Business card vs ID card), card change dropdown, 18-tile style grid (5+5+5+3), platform selector (Apple, Gmail, Other, Outlook) and OS selector (Web, Mac, Mobile, Windows), dynamic 7-step setup instructions, and "Copy" button with "Copied!" check state.
+   - Snaarp Mail full interface (`m.snaarp.com/#inbox`): suite rail with Mail selected, top search bar, settings gear, user avatar with online dot, left navigation sidebar with Compose button, standard folders (Inbox 19, Starred, Snoozed, Sent, Drafts 42, More), Snaarp Drive entry, storage percentage bar (12%), and message list split into "Unread (19)" and "Everything else".
+   - Snaarp Mail Quick Settings popover: "See all settings", INBOX TYPE (Default, Unread first, Starred first), EMAIL PREVIEW snippet toggle, CONVERSATIONS grouping toggle, UNDO SEND toggle and Cancel window, EXTERNAL IMAGES settings.
+   - Snaarp Mail Settings page (`m.snaarp.com/#settings`): left navigation sidebar (Back to Mail, ACCOUNT, PRIVACY, APPEARANCE, DATA, ABOUT) and Signature Editor (title, Clear / Save Signature buttons, sync toggle, image drop area, formatting toolbar, rich-text editor, and live preview card).
+   - Bottom-left confirmation toast: "Signature updated successfully" with green checkmark upon saving.
+   - Compose "New Message" window: To, Subject, email draft body with Alex Morgan's signature card automatically docked at the bottom.
+2. **Excluded recording artifacts**: Excluded browser chrome and tabs, bookmarks bar, the Windows taskbar, screen-share overlay ("senting"), dark floating pin/ellipsis circles, browser right-click context menu, browser autofill dropdowns, accidental blue text selections on instructions, and the real cursor.
+3. **Completion card location**: Positioned after Step 52 with copy: "You've created your organization card and email signature. Next: how employees use them."
+
 

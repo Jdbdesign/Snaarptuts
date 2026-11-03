@@ -225,14 +225,15 @@ In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cur
 In Workforce the viewer is an employee. The top bar "Add Users" button is admin-only (for admins it opens the Snaarp Admin page, already built in the Admin tutorial); for employees it does nothing on click (no popover, no navigation). Step 6 uses a hover-and-ring explain beat with caption "Add Users is for admins only. It opens the Snaarp Admin page." The avatar dropdown shows the user's email (alex.morgan@snaarp.com) in medium weight and small uppercase grey role EMPLOYEE, followed by a divider and two rows: Settings (with gear icon) and Logout (in red text). The old Add Users popover and "My profile" row were removed.
 
 
-## OneCardX (eighth tutorial, Admin side complete: 41 steps)
+## OneCardX (eighth tutorial, Admin side complete: 52 steps)
 
-Route `/tutorials/onecardx`, config `tutorials/onecardx.ts`: **41 steps, all built and complete** (The admin creates, manages audience for, customizes, publishes, reviews ID cards and users, switches to business card styles, previews member view, and customizes virtual backgrounds; employee-side steps come in a later round).
+Route `/tutorials/onecardx`, config `tutorials/onecardx.ts`: **52 steps, all built and complete** (The admin creates, manages audience for, customizes, publishes, reviews ID cards and users, switches to business card styles, previews member view, customizes virtual backgrounds, configures HTML email signatures, and integrates with Snaarp Mail; employee-side steps come in a later round).
 Recordings:
 - Part 1 (steps 1-17): `ref/1102.mp4` / `ref/onecardx-frames/` (1392x720, 4:52, 30fps; copy of `Downloads/1102.mp4`).
 - Part 2 (steps 18-41): `ref/1102(1).mp4` / `ref/onecardx-frames-2/` (copy of `Downloads/1102(1).mp4`, stills `v2_t000s.jpg` to `v2_t356s.jpg`).
+- Part 3 (steps 42-52): `ref/1103.mp4` / `ref/onecardx-frames-3/` (copy of `Downloads/1103.mp4`, stills `v3_t001s.jpg` to `v3_t093s.jpg`).
 
-How it is built: Reusable stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (the thin Snaarp suite rail with OneCard active, OneCardX sidebar with lavender active pill and vertical indicator, and top bar with Apps 9-dots popover and admin avatar menu). Every screen is an exact pixel-faithful reproduction of the real product recordings:
+How it is built: Reusable stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (the thin Snaarp suite rail with OneCard or Mail active, OneCardX sidebar with lavender active pill and vertical indicator, and top bar with Apps 9-dots popover and admin avatar menu). Every screen is an exact pixel-faithful reproduction of the real product recordings:
 Views:
 - `OneCardXHomeView.tsx`: welcome header, 3 Quick Action cards ("Create an Organization Card", "Manage Team Members", "View Analytics"), promo banner, and Getting started checklist.
 - `OneCardXOrgCardsView.tsx`: organization cards table, stat cards, Create New Card modal with organization and title inputs, and Audience Management modal (Everyone vs Specific people checklist).
@@ -242,8 +243,10 @@ Views:
 - `OneCardXIDCardsView.tsx`: personal ID cards gallery with Default and Org badges.
 - `OneCardXUsersView.tsx`: user management directory with status chips (Active, Suspended, Total) and ID Card Image upload modal.
 - `OneCardXBackgroundsView.tsx`: virtual backgrounds studio with 16:9 live preview canvas, 5 positioning layouts (Top Left, Top Right, Bottom Left, Bottom Right, Center Left), detail switches (Name, Job Title, Company, QR Code), preset theme selector, and custom background upload.
+- `OneCardXSignaturesView.tsx`: email signatures studio with live signature preview (Business card vs ID card), card change dropdown, 18-tile style grid, platform selector (Apple, Gmail, Other, Outlook) and OS selector (Web, Mac, Mobile, Windows), 7-step setup instructions, and Copy action.
+- `OneCardXMailView.tsx`: Snaarp Mail interface with suite rail, top search bar, settings gear, avatar, folder navigation (Compose, Inbox 19, Drafts 42, Storage 12%), Quick settings popover, full Settings page with Signature Editor and live preview, bottom-left confirmation toast, and docked New Message compose window with auto-attached card signature.
 - `OneCardXPublicPreviewOverlay`: full-stage dark public presentation showcasing the completed digital card with "Back to the app" return chip.
 
 Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` ensure `beginOneCardX` calls `tl.placeCursor` so the pointer is visible from frame 1.
 Every script follows house scene patterns (`pressOn`, `hoverOn`, `ring`, `finishOneCardX`).
-Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings across all 164 runs (41 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Production build clean.
+Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings across all 208 runs (52 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Production build clean.

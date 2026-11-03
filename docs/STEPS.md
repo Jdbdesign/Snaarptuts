@@ -1928,11 +1928,29 @@ Source recording: `ref/1102(1).mp4` (copy of `Downloads/1102(1).mp4`, stills in 
 | 38 | Preview what members see | Navigates to member view (`onecardx.snaarp.com/cards/engineering-team`). Explains lavender member notice banner, landscape card, and "Edit my details" button. | 7.5 s |
 | 39 | Virtual backgrounds | Clicks Backgrounds in sidebar (`onecardx.snaarp.com/backgrounds`). Reviews 16:9 virtual background preview with QR code, badge, Download button, and layout controls. | 7.5 s |
 | 40 | Choose a background and layout | Clicks Beach Waves background, picks Bottom Right layout, toggles Company detail checkbox. Preview repositions badge and QR code. | 8.5 s |
-| 41 | Upload your own background | Clicks Upload button. Custom uploaded image appears as first thumbnail and backdrop preview with Bottom Right layout. Download button highlighted. Completion card follows. | 7.5 s |
+| 41 | Upload your own background | Clicks Upload button. Custom uploaded image appears as first thumbnail and backdrop preview with Bottom Right layout. Download button highlighted. | 7.5 s |
+
+## OneCardX Part 3: Email Signatures and Mail Integration (steps 42-52)
+
+Source recording: `ref/1103.mp4` (copy of `Downloads/1103.mp4`, stills in `ref/onecardx-frames-3/`).
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 42 | Open Email Signatures | Starts on Backgrounds. Clicks Email Signatures in OneCardX sidebar (`identity.snaarp.com/email-signatures`). Left pane shows live signature preview (Alex Morgan, Product Designer · Acme Ltd, purple SAVE CONTACT button); right pane shows Card selector, Style grid, Platform, and Apply instructions. | 6.5 s |
+| 43 | Choose which card to use | Clicks "Change". Dropdown opens with "Business Card" and "I D Card". Selects I D Card; preview updates to purple sidebar layout with digital ID link text. Clicks Change and switches back to Business Card. | 8.5 s |
+| 44 | Pick a signature style | Clicks different signature style tiles (Tile 1, Tile 3), preview updates with each click. Selects Tile 2 (photo on left, name in center, QR code on right, full-width purple SAVE CONTACT button). | 8.0 s |
+| 45 | Choose your mail app | In Platform section, clicks Other, Outlook, then Gmail. Explores OS options (Mac, Windows, Web). Shows dynamic update of the Apply tag and instructions matching Gmail · Web. | 8.5 s |
+| 46 | Follow the apply steps | Reviews 7 numbered setup instructions in the right pane. Clicks "Copy" button; button switches to green checkmark "Copied!" state. | 7.5 s |
+| 47 | Open Snaarp Mail | Clicks Mail in the suite rail (`m.snaarp.com/#inbox`). Snaarp Mail inbox opens with top search bar, settings gear, user avatar, sidebar folders (Compose, Inbox 19, Drafts 42, Storage 12%), and Unread message list. | 7.0 s |
+| 48 | Open settings | In Snaarp Mail top bar, clicks settings gear icon. Quick settings popover opens with display preferences. Clicks "See all settings". | 7.5 s |
+| 49 | Go to Signature | On Settings page (`m.snaarp.com/#settings`), clicks "Signature" under Appearance menu. Signature Editor opens with Clear / Save Signature buttons, sync toggle, image drop area, rich-text editor, and preview box. | 7.5 s |
+| 50 | Paste your signature | Clicks into the Signature Editor area. Copied signature is pasted in with photo, name, title, QR code, and purple SAVE CONTACT button. Preview box immediately reflects the live signature. | 7.5 s |
+| 51 | Save the signature | Clicks "Save Signature". Confirmation toast "Signature updated successfully" appears bottom-left. | 7.0 s |
+| 52 | See it in a new email | Clicks "Back to Mail" in settings sidebar. Back in inbox, clicks "Compose". Docked "New Message" compose modal opens with To, Subject, and the Alex Morgan digital card signature attached at the bottom. Completion card follows. | 8.5 s |
 
 **Files.**
 - Config: `tutorials/onecardx.ts` (registered in `tutorials/index.ts`)
 - Shell & Stage: `components/onecardx/OneCardXShell.tsx`, `components/onecardx/OneCardXStage.tsx`
-- Views: `OneCardXHomeView.tsx`, `OneCardXOrgCardsView.tsx`, `OneCardXEditorView.tsx`, `OneCardXCardDetailView.tsx` (with exported `OneCardXPublicPreviewOverlay`), `OneCardXMemberView.tsx`, `OneCardXIDCardsView.tsx`, `OneCardXUsersView.tsx`, `OneCardXBackgroundsView.tsx`
+- Views: `OneCardXHomeView.tsx`, `OneCardXOrgCardsView.tsx`, `OneCardXEditorView.tsx`, `OneCardXCardDetailView.tsx` (with exported `OneCardXPublicPreviewOverlay`), `OneCardXMemberView.tsx`, `OneCardXIDCardsView.tsx`, `OneCardXUsersView.tsx`, `OneCardXBackgroundsView.tsx`, `OneCardXSignaturesView.tsx`, `OneCardXMailView.tsx`
 - Timeline & Data: `components/onecardx/onecardx-timeline.ts` (`beginOneCardX`, `finishOneCardX`), `components/onecardx/onecardx-data.ts`
-- Step Scenes & Scripts: `scenes/onecardx/step<1..41>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/onecardx/step<1..52>/Step<N>.tsx`, `script.ts`, `data.ts`
