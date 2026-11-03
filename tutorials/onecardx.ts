@@ -72,6 +72,8 @@ import { Step36 } from "@/scenes/onecardx/step36/Step36";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/onecardx/step36/script";
 import { Step37 } from "@/scenes/onecardx/step37/Step37";
 import { runStep37, STEP37_DURATION_MS } from "@/scenes/onecardx/step37/script";
+import { Step38 } from "@/scenes/onecardx/step38/Step38";
+import { runStep38, STEP38_DURATION_MS } from "@/scenes/onecardx/step38/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -305,6 +307,12 @@ export const onecardx: Tutorial = {
       title: "Save and review",
       url: "onecardx.snaarp.com/admin/organization-cards/engineering-team",
       scene: { Component: Step37, run: runStep37, durationMs: STEP37_DURATION_MS },
+    },
+    {
+      id: "preview-what-members-see",
+      title: "Preview what members see",
+      url: "onecardx.snaarp.com/cards/engineering-team",
+      scene: { Component: Step38, run: runStep38, durationMs: STEP38_DURATION_MS },
     },
   ],
   completion: {
