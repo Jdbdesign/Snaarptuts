@@ -70,6 +70,8 @@ import { Step35 } from "@/scenes/onecardx/step35/Step35";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/onecardx/step35/script";
 import { Step36 } from "@/scenes/onecardx/step36/Step36";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/onecardx/step36/script";
+import { Step37 } from "@/scenes/onecardx/step37/Step37";
+import { runStep37, STEP37_DURATION_MS } from "@/scenes/onecardx/step37/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -297,6 +299,12 @@ export const onecardx: Tutorial = {
       title: "Colours for the business card",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step36, run: runStep36, durationMs: STEP36_DURATION_MS },
+    },
+    {
+      id: "save-and-review-business-card",
+      title: "Save and review",
+      url: "onecardx.snaarp.com/admin/organization-cards/engineering-team",
+      scene: { Component: Step37, run: runStep37, durationMs: STEP37_DURATION_MS },
     },
   ],
   completion: {

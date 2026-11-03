@@ -24,6 +24,7 @@ type Props = {
 
 export function OneCardXStage({ tl, startPage = "home" }: Props) {
   const page = useTimelineVar<OneCardXPage>(tl, "ocxPage", startPage);
+  const cardType = useTimelineVar<"id-card" | "business">(tl, "ocxCardType", "id-card");
   const fade = useTimelineVar(tl, "fade", false);
   const publicPreviewOpen = useTimelineVar(tl, "ocxPublicPreviewOpen", false);
 
@@ -35,7 +36,7 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
       : page === "editor"
       ? "business-card"
       : page === "cardDetail"
-      ? "id-cards"
+      ? (cardType === "business" ? "business-card" : "id-cards")
       : page === "memberView"
       ? "business-card"
       : page === "idCards"
@@ -52,9 +53,9 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
       : page === "orgCards"
       ? "Organization Card"
       : page === "editor"
-      ? "Business Card"
+      ? (cardType === "business" ? "Business Card" : "Edit Card")
       : page === "cardDetail"
-      ? "ID Cards"
+      ? (cardType === "business" ? "Business Card" : "ID Cards")
       : page === "memberView"
       ? "Business Card"
       : page === "idCards"

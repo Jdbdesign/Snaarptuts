@@ -36,6 +36,10 @@ export function OneCardXCardDetailView({
   onCopyLink,
 }: Props) {
   const isCopied = useTimelineVar(tl, "ocxLinkCopied", false);
+  const cardType = useTimelineVar<"id-card" | "business">(tl, "ocxCardType", "id-card");
+  const businessStyle = useTimelineVar<string>(tl, "ocxBusinessStyle", "profile");
+  const totalViews = useTimelineVar(tl, "ocxTotalViews", cardType === "business" ? 2 : 0);
+  const totalShares = useTimelineVar(tl, "ocxTotalShares", cardType === "business" ? 1 : 0);
   const prefix = useTimelineVar(tl, "field:prefix", "");
   const firstName = useTimelineVar(tl, "field:first-name", "Alex");
   const lastName = useTimelineVar(tl, "field:last-name", "Morgan");
@@ -123,7 +127,7 @@ export function OneCardXCardDetailView({
             </div>
             <div>
               <p className="text-[11px] text-gray-500 font-medium">Total views</p>
-              <p className="text-lg font-bold text-[#111827] leading-tight">0</p>
+              <p className="text-lg font-bold text-[#111827] leading-tight">{totalViews}</p>
               <p className="text-[10px] text-gray-400">Times this card was opened</p>
             </div>
           </div>
@@ -141,7 +145,7 @@ export function OneCardXCardDetailView({
             </div>
             <div>
               <p className="text-[11px] text-gray-500 font-medium">Total shares</p>
-              <p className="text-lg font-bold text-[#111827] leading-tight">0</p>
+              <p className="text-lg font-bold text-[#111827] leading-tight">{totalShares}</p>
               <p className="text-[10px] text-gray-400">Times the card link was shared</p>
             </div>
           </div>
@@ -177,97 +181,148 @@ export function OneCardXCardDetailView({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column (5 Cols): Live Card Mockup */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center p-4">
-          <div
-            data-tl="card-live-preview"
-            className="w-[280px] h-[480px] rounded-[28px] bg-white shadow-xl border border-gray-100/80 overflow-hidden relative flex flex-col"
-          >
-            {/* Upper Photo Area */}
-            <div className="relative w-full h-[270px] bg-[#F8F9FA] overflow-hidden flex items-center justify-center">
-              <div className="w-full h-full">
-                <OcxPortraitFace />
-              </div>
-
-              {/* Logo Badge (Top-Right) */}
+          {cardType === "business" && businessStyle === "split" ? (
+            /* Landscape Split Business Card */
+            <div
+              data-tl="card-live-preview"
+              className="w-[430px] h-[250px] rounded-[24px] bg-white shadow-xl border border-gray-100/80 overflow-hidden relative flex flex-row"
+            >
               <div
-                data-tl="card-preview-logo"
-                className="absolute top-3.5 right-3.5 h-8 w-8 rounded-full bg-[#7014D9] text-white flex items-center justify-center shadow-md border-2 border-white"
+                className="w-[165px] h-full flex flex-col items-center justify-center p-3 text-white shrink-0"
+                style={{ backgroundColor: accentColor }}
               >
-                <span className="text-[11px] font-bold">D</span>
+                <div className="w-18 h-18 rounded-xl overflow-hidden shadow-sm border border-white/20 mb-2.5 shrink-0">
+                  <OcxPortraitFace />
+                </div>
+                <div className="bg-white p-1.5 rounded-lg w-18 h-18 flex flex-col items-center justify-center shadow-xs">
+                  <div className="w-12 h-12 bg-white flex items-center justify-center relative">
+                    <svg viewBox="0 0 24 24" className="w-full h-full text-black" fill="currentColor">
+                      <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm8-2h2v2h-2v-2zm4 0h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2zm2-2h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2z" />
+                    </svg>
+                    <div className="absolute inset-0 m-auto w-3 h-3 rounded bg-[#7014D9] flex items-center justify-center">
+                      <div className="w-1 h-1 bg-white rounded-xs" />
+                    </div>
+                  </div>
+                </div>
+                <span className="text-[7.5px] font-medium text-white/90 mt-1">Scan to connect</span>
               </div>
 
-              {/* Wave Banner */}
-              <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-                <svg
-                  viewBox="0 0 500 80"
-                  preserveAspectRatio="none"
-                  className="w-full h-10"
-                  style={{ fill: accentColor }}
-                >
-                  <path d="M0,0 C150,60 350,60 500,0 L500,80 L0,80 Z" opacity="0.4" />
-                  <path d="M0,20 C180,80 320,80 500,20 L500,80 L0,80 Z" />
-                </svg>
+              <div className="flex-1 p-4.5 flex flex-col justify-between bg-white relative">
+                <div>
+                  <div className="h-6 w-6 rounded-md bg-[#7014D9] text-white flex items-center justify-center shadow-2xs mb-2">
+                    <span className="text-[10px] font-bold">D</span>
+                  </div>
+                  <h3 className="font-bold text-sm text-[#111827] leading-tight">
+                    Team Member
+                  </h3>
+                  <p className="text-[11px] text-[#6B7280] mt-0.5">
+                    Product Designer at Acme Ltd
+                  </p>
+                  <div className="w-8 h-[2px] rounded-full my-2" style={{ backgroundColor: accentColor }} />
+                </div>
+
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2 text-[10px] text-[#111827]">
+                    <div className="h-4 w-4 rounded-full flex items-center justify-center shrink-0 text-white" style={{ backgroundColor: accentColor }}>
+                      <svg width={9} height={9} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                      </svg>
+                    </div>
+                    <span className="truncate">{websiteUrl}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] text-[#111827]">
+                    <div className="h-4 w-4 rounded-full flex items-center justify-center shrink-0 text-white" style={{ backgroundColor: accentColor }}>
+                      <svg width={9} height={9} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                      </svg>
+                    </div>
+                    <span className="truncate">{instagramUrl}</span>
+                  </div>
+                </div>
               </div>
             </div>
-
-            {/* Lower Details Area */}
-            <div className="flex-1 p-5 flex flex-col justify-start bg-white relative">
-              <div
-                data-tl="card-preview-badge"
-                className="h-6 w-6 rounded-md bg-[#7014D9] text-white flex items-center justify-center shadow-2xs mb-2"
-              >
-                <svg
-                  width={14}
-                  height={14}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
+          ) : (
+            <div
+              data-tl="card-live-preview"
+              className="w-[280px] h-[480px] rounded-[28px] bg-white shadow-xl border border-gray-100/80 overflow-hidden relative flex flex-col"
+            >
+              <div className="relative w-full h-[270px] bg-[#F8F9FA] overflow-hidden flex items-center justify-center">
+                <div className="w-full h-full">
+                  <OcxPortraitFace />
+                </div>
+                <div
+                  data-tl="card-preview-logo"
+                  className="absolute top-3.5 right-3.5 h-8 w-8 rounded-full bg-[#7014D9] text-white flex items-center justify-center shadow-md border-2 border-white"
                 >
-                  <path d="m21 16-9 5-9-5V8l9-5 9 5v8z" />
-                  <path d="m12 13 9-5M12 13l-9-5M12 13v8" />
-                </svg>
+                  <span className="text-[11px] font-bold">D</span>
+                </div>
+                <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+                  <svg
+                    viewBox="0 0 500 80"
+                    preserveAspectRatio="none"
+                    className="w-full h-10"
+                    style={{ fill: accentColor }}
+                  >
+                    <path d="M0,0 C150,60 350,60 500,0 L500,80 L0,80 Z" opacity="0.4" />
+                    <path d="M0,20 C180,80 320,80 500,20 L500,80 L0,80 Z" />
+                  </svg>
+                </div>
               </div>
 
-              <h3 className="font-bold text-base text-[#111827] leading-tight">
-                {fullName}
-              </h3>
-              {pronouns && (
-                <p className="text-[10px] text-[#6B7280] leading-none mt-0.5">
-                  ({pronouns})
+              <div className="flex-1 p-5 flex flex-col justify-start bg-white relative">
+                <div
+                  data-tl="card-preview-badge"
+                  className="h-6 w-6 rounded-md bg-[#7014D9] text-white flex items-center justify-center shadow-2xs mb-2"
+                >
+                  <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                    <path d="m21 16-9 5-9-5V8l9-5 9 5v8z" />
+                    <path d="m12 13 9-5M12 13l-9-5M12 13v8" />
+                  </svg>
+                </div>
+
+                <h3 className="font-bold text-base text-[#111827] leading-tight">
+                  {fullName}
+                </h3>
+                {pronouns && (
+                  <p className="text-[10px] text-[#6B7280] leading-none mt-0.5">
+                    ({pronouns})
+                  </p>
+                )}
+                <p className="text-[11px] text-[#6B7280] mt-0.5">
+                  {jobTitle && companyName ? `${jobTitle} at ${companyName}` : jobTitle || companyName || "Product Designer at Acme Ltd"}
                 </p>
-              )}
-              <p className="text-[11px] text-[#6B7280] mt-0.5">
-                {jobTitle && companyName ? `${jobTitle} at ${companyName}` : jobTitle || companyName || "Product Designer at Acme Ltd"}
-              </p>
 
-              <div className="mt-3 space-y-2">
-                <div
-                  data-tl="card-preview-field-website"
-                  className="flex items-center gap-2 text-xs text-[#111827] font-medium"
-                >
-                  <div className="h-5 w-5 rounded-full bg-[#E6F4EA] text-[#059669] flex items-center justify-center shrink-0">
-                    <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                    </svg>
+                <div className="mt-3 space-y-2">
+                  <div
+                    data-tl="card-preview-field-website"
+                    className="flex items-center gap-2 text-xs text-[#111827] font-medium"
+                  >
+                    <div className="h-5 w-5 rounded-full bg-[#E6F4EA] text-[#059669] flex items-center justify-center shrink-0">
+                      <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                      </svg>
+                    </div>
+                    <span className="truncate">{websiteUrl}</span>
                   </div>
-                  <span className="truncate">{websiteUrl}</span>
-                </div>
-                <div
-                  data-tl="card-preview-field-instagram"
-                  className="flex items-center gap-2 text-xs text-[#111827] font-medium"
-                >
-                  <div className="h-5 w-5 rounded-full bg-[#E6F4EA] text-[#059669] flex items-center justify-center shrink-0">
-                    <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                    </svg>
+                  <div
+                    data-tl="card-preview-field-instagram"
+                    className="flex items-center gap-2 text-xs text-[#111827] font-medium"
+                  >
+                    <div className="h-5 w-5 rounded-full bg-[#E6F4EA] text-[#059669] flex items-center justify-center shrink-0">
+                      <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                      </svg>
+                    </div>
+                    <span className="truncate">{instagramUrl}</span>
                   </div>
-                  <span className="truncate">{instagramUrl}</span>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Right Column (7 Cols): Share Tabs, QR Code, Brand Toolkit */}
