@@ -25,7 +25,7 @@ type Props = {
   tl?: Timeline;
 };
 
-export function OneCardXIDCardsView({ tl: _tl }: Props) {
+export function OneCardXIDCardsView({}: Props) {
   return (
     <div className="mx-auto max-w-4xl space-y-8 pt-4">
       {/* 1. Centered Header */}

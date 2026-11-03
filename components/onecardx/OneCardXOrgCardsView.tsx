@@ -7,6 +7,7 @@ import { OcxCardIcon } from "./OneCardXIcons";
 
 type Props = {
   tl: Timeline;
+  part1Cards?: boolean;
   onOpenNewCardModal?: () => void;
   onCloseNewCardModal?: () => void;
   onCreateCardAndOpenEditor?: () => void;
@@ -16,6 +17,7 @@ type Props = {
 
 export function OneCardXOrgCardsView({
   tl,
+  part1Cards,
   onOpenNewCardModal,
   onCloseNewCardModal,
   onCreateCardAndOpenEditor,
@@ -29,10 +31,41 @@ export function OneCardXOrgCardsView({
   const audienceMode = useTimelineVar<"everyone" | "specific">(tl, "ocxAudienceMode", "everyone");
   const selectedAudience = useTimelineVar<string[]>(tl, "ocxSelectedAudience", []);
   const engTeamPublished = useTimelineVar(tl, "ocxEngTeamPublished", false);
+  const isPart1Cards = useTimelineVar(tl, "ocxPart1Cards", part1Cards ?? false);
   const publishedCount = useTimelineVar(tl, "ocxPublishedCount", engTeamPublished ? 3 : 2);
   const toastMessage = useTimelineVar<string | null>(tl, "ocxToast", null);
 
-  const cardsList: OrgCardItem[] = [
+  const part1CardsList: OrgCardItem[] = [
+    {
+      id: "sales-team",
+      name: "Sales Team",
+      status: "Draft",
+      statusText: "Draft — visible to organization admins only",
+      meta: "Created by Sam Taylor · 6h ago",
+      views: 0,
+      shares: 0,
+    },
+    {
+      id: "business-card",
+      name: "Business Card",
+      status: "Published",
+      statusText: "Visible to 45 people",
+      meta: "Created by Alex Morgan · Sep 24, 2026",
+      views: 42,
+      shares: 18,
+    },
+    {
+      id: "id-card",
+      name: "ID Card",
+      status: "Published",
+      statusText: "Visible to 45 people",
+      meta: "Created by Alex Morgan · Sep 24, 2026",
+      views: 89,
+      shares: 34,
+    },
+  ];
+
+  const part2CardsList: OrgCardItem[] = [
     {
       id: "engineering-team",
       name: "Engineering Team",
@@ -72,6 +105,8 @@ export function OneCardXOrgCardsView({
       shares: 34,
     },
   ];
+
+  const cardsList = isPart1Cards ? part1CardsList : part2CardsList;
 
   return (
     <div className="relative mx-auto max-w-5xl space-y-6">
@@ -127,7 +162,9 @@ export function OneCardXOrgCardsView({
             <OcxCardIcon width={18} height={18} />
           </div>
           <div>
-            <div className="text-xl font-bold text-[#111827] leading-none">4</div>
+            <div className="text-xl font-bold text-[#111827] leading-none">
+              {isPart1Cards ? 3 : 4}
+            </div>
             <div className="text-xs text-[#6B7280] font-normal mt-1">Cards</div>
           </div>
         </div>
@@ -151,7 +188,7 @@ export function OneCardXOrgCardsView({
           </div>
           <div>
             <div data-tl="stat-published-count" className="text-xl font-bold text-[#111827] leading-none">
-              {publishedCount}
+              {isPart1Cards ? 2 : publishedCount}
             </div>
             <div className="text-xs text-[#6B7280] font-normal mt-1">Published</div>
           </div>
@@ -252,7 +289,7 @@ export function OneCardXOrgCardsView({
                     {isDraft ? (
                       <button
                         type="button"
-                        data-tl={`btn-publish-${card.id}`}
+                        data-tl={isPart1Cards ? `btn-publish-toggle-${card.id}` : `btn-publish-${card.id}`}
                         onClick={() => {
                           tl.setVar("ocxEngTeamPublished", true);
                           tl.setVar("ocxPublishedCount", 3);
@@ -268,7 +305,7 @@ export function OneCardXOrgCardsView({
                     ) : (
                       <button
                         type="button"
-                        data-tl={`btn-unpublish-${card.id}`}
+                        data-tl={isPart1Cards ? `btn-publish-toggle-${card.id}` : `btn-unpublish-${card.id}`}
                         onClick={() => {
                           tl.setVar("ocxEngTeamPublished", false);
                           tl.setVar("ocxPublishedCount", 2);

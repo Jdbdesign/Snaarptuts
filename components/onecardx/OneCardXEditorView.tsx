@@ -154,7 +154,8 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
   const fieldInstagram = useTimelineVar(tl, "ocxFieldInstagram", false);
   const websiteUrl = useTimelineVar(tl, "field:website-url", "www.acme.example");
   const instagramUrl = useTimelineVar(tl, "field:instagram-url", "www.instagram.com");
-  const fieldEmail = useTimelineVar(tl, "ocxFieldEmail", false);
+  const _fieldEmail = useTimelineVar(tl, "ocxFieldEmail", false);
+  void _fieldEmail;
   const isSaving = useTimelineVar(tl, "ocxSavingCard", false);
 
   const formattedName = [prefix, firstName, lastName].filter(Boolean).join(" ");

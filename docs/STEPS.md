@@ -1897,11 +1897,42 @@ Source recording: `ref/onecardx/onecardx-clip1.mp4` (1392x720, 4:52, 30fps; copy
 | 14 | Add contact fields | Starts in Editor. Clicks Fields tab, clicks Website chip (adds acme-studio.com), Instagram chip (adds @alexmorgan), and Email chip (adds alex.morgan@acme.com), preview shows links. | 14 s |
 | 15 | Save the card | Starts in Editor with populated fields. Clicks Save button in top-right header, button shows "Saving..." with spinner, transitions to Card Detail view (`onecardx.snaarp.com/admin/organization-cards/engineering-team`). | 6.5 s |
 | 16 | Your card is ready to share | Starts on Card Detail view. Reviews analytics strip, reviews QR code card, clicks Copy Link (button flips to "Copied!" with checkmark), scrolls down to Brand Toolkit (signatures and backgrounds). | 8.5 s |
-| 17 | Preview the public card | Starts on Card Detail view. Clicks QR code preview card, opens full-stage public card preview overlay (`identity.snaarp.com/c/engineering-team-38805cae`), inspects Alex Morgan card on dark stage, clicks "Back to the app" return chip. Completion card follows. | 10.5 s |
+| 17 | Preview the public card | Starts on Card Detail view. Clicks QR code preview card, opens full-stage public card preview overlay (`identity.snaarp.com/c/engineering-team-38805cae`), inspects Alex Morgan card on dark stage, clicks "Back to the app" return chip. | 10.5 s |
+
+## OneCardX Part 2: Admin Side Continued (steps 18-41)
+
+Source recording: `ref/1102(1).mp4` (copy of `Downloads/1102(1).mp4`, stills in `ref/onecardx-frames-2/`).
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 18 | Back to your card list | Starts on Organization Card page with 4 Cards / 2 Published. Explains list (Engineering Team, sam org, Business Card, ID Card) with draft / published statuses and scrolling within card container. | 8.5 s |
+| 19 | Limit who sees a card | Clicks "Limit audience" on Engineering Team. Modal "Card audience / Who should see this card?" appears with two toggle choices "Everyone in the organization" and "Specific people". | 7.5 s |
+| 20 | Pick specific people | Chooses "Specific people". Shows scrollable checklist with name + email (Alex Morgan, Jordan Lee, Casey Brown...). Toggles checkboxes, then clicks Cancel. | 9.0 s |
+| 21 | Preview the member view | Clicks Preview. Navigates to member view (`Cards > Engineering Team`) with lavender explanation banner, stats (0 views / 0 shares / 0 saved), card preview, QR code, and "Edit my details" button. | 9.0 s |
+| 22 | Edit the design | Clicks "Edit design" on Engineering Team card. Opens Card Editor on Card tab. | 6.5 s |
+| 23 | Choose a style | Clicks Display tab. Explores Design grid, reviews template styles, live preview reflects changes. | 7.5 s |
+| 24 | Colours, logo and badge | In Display tab, explores Accent Color swatches (selects teal #0D9488), Background Color, Font Color, Logo and Badges. | 9.5 s |
+| 25 | Fill in your details | Clicks Information tab. Types Prefix "Mr", First Name "Alex", Last Name "Morgan", Title "Product Designer", Company "Acme Ltd". Live preview updates live. | 11.5 s |
+| 26 | Use each person's own name | In Information tab, ticks "Use each person's own name" checkbox. Name inputs grey out with helper message. | 8.5 s |
+| 27 | Add contact fields | Clicks Fields tab. Adds Website and Instagram chips, fills URLs (www.acme.example, www.instagram.com), preview shows contact links. | 9.5 s |
+| 28 | Save the card | Clicks Save button. Button shows "Saving...", card is saved, transitions to Card Detail view with QR code. | 7.5 s |
+| 29 | Publish to everyone | Returns to Organization Cards list. Clicks "Publish to everyone" on Engineering Team card. Toast "Card published to everyone in your organization" appears, published count increments to 3. | 7.5 s |
+| 30 | See it in ID Cards | Clicks ID Cards in sidebar (`onecardx.snaarp.com/id-cards`). Reviews personal ID cards grid with Default / Org badges. | 7.5 s |
+| 31 | Manage users' card images | Clicks Users in sidebar (`onecardx.snaarp.com/admin/users`). Explains stats (17 Active, 28 Suspended, 45 Total), directory search, filter, and table rows with "ID Card Image" action links. | 8.0 s |
+| 32 | Set a user's card image | Clicks "ID Card Image" for Alex Morgan. Modal appears with Upload Image button, image URL input, and Save URL button. Closes modal. | 7.5 s |
+| 33 | Back to Create Card, start a new card | Clicks Create Card in sidebar. Clicks "+ New organization card", reviews modal and label input, clicks Cancel to close. | 7.2 s |
+| 34 | Switch to a business card | Clicks Edit design on Engineering Team. In Card tab, clicks "Business" card type. Live preview updates to portrait business card layout. | 7.2 s |
+| 35 | Pick a business card style | Clicks Display tab. Reviews Business Card Style grid of 9 styles (Profile, Portrait, Midnight, QR Rail, Orbit, Hex, Split, Minimal, Wave). Selects Split; live preview transforms into landscape Split card. | 7.5 s |
+| 36 | Colours for the business card | In Display tab, selects dark navy swatch (#1F2937) for accent color. Card preview left section updates to dark navy. | 7.2 s |
+| 37 | Save and review | Clicks Save button. Business Card detail page appears with landscape Split card, stats (2 views, 1 share), and QR code. Clicks Copy Link (button shows "Copied!"). | 7.5 s |
+| 38 | Preview what members see | Navigates to member view (`onecardx.snaarp.com/cards/engineering-team`). Explains lavender member notice banner, landscape card, and "Edit my details" button. | 7.5 s |
+| 39 | Virtual backgrounds | Clicks Backgrounds in sidebar (`onecardx.snaarp.com/backgrounds`). Reviews 16:9 virtual background preview with QR code, badge, Download button, and layout controls. | 7.5 s |
+| 40 | Choose a background and layout | Clicks Beach Waves background, picks Bottom Right layout, toggles Company detail checkbox. Preview repositions badge and QR code. | 8.5 s |
+| 41 | Upload your own background | Clicks Upload button. Custom uploaded image appears as first thumbnail and backdrop preview with Bottom Right layout. Download button highlighted. Completion card follows. | 7.5 s |
 
 **Files.**
 - Config: `tutorials/onecardx.ts` (registered in `tutorials/index.ts`)
 - Shell & Stage: `components/onecardx/OneCardXShell.tsx`, `components/onecardx/OneCardXStage.tsx`
-- Views: `OneCardXHomeView.tsx`, `OneCardXOrgCardsView.tsx`, `OneCardXEditorView.tsx`, `OneCardXCardDetailView.tsx` (with exported `OneCardXPublicPreviewOverlay`)
+- Views: `OneCardXHomeView.tsx`, `OneCardXOrgCardsView.tsx`, `OneCardXEditorView.tsx`, `OneCardXCardDetailView.tsx` (with exported `OneCardXPublicPreviewOverlay`), `OneCardXMemberView.tsx`, `OneCardXIDCardsView.tsx`, `OneCardXUsersView.tsx`, `OneCardXBackgroundsView.tsx`
 - Timeline & Data: `components/onecardx/onecardx-timeline.ts` (`beginOneCardX`, `finishOneCardX`), `components/onecardx/onecardx-data.ts`
-- Step Scenes & Scripts: `scenes/onecardx/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/onecardx/step<1..41>/Step<N>.tsx`, `script.ts`, `data.ts`

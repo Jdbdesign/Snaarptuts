@@ -10,6 +10,7 @@ import { CAPTIONS, URLS } from "./data";
 export const STEP4_DURATION_MS = 11000;
 
 export async function runStep4(tl: Timeline) {
+  tl.setVar("ocxPart1Cards", true);
   beginOneCardX(tl, URLS.orgCards, "orgCards", [0.45, 0.40]);
 
   // 1. Hover Draft Card: Sales Team

@@ -11,6 +11,7 @@ import { CAPTIONS, URLS } from "./data";
 export const STEP5_DURATION_MS = 10500;
 
 export async function runStep5(tl: Timeline) {
+  tl.setVar("ocxPart1Cards", true);
   beginOneCardX(tl, URLS.orgCards, "orgCards", [0.75, 0.15]);
 
   // 1. Click '+ New organization card'

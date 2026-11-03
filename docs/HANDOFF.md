@@ -225,19 +225,25 @@ In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cur
 In Workforce the viewer is an employee. The top bar "Add Users" button is admin-only (for admins it opens the Snaarp Admin page, already built in the Admin tutorial); for employees it does nothing on click (no popover, no navigation). Step 6 uses a hover-and-ring explain beat with caption "Add Users is for admins only. It opens the Snaarp Admin page." The avatar dropdown shows the user's email (alex.morgan@snaarp.com) in medium weight and small uppercase grey role EMPLOYEE, followed by a divider and two rows: Settings (with gear icon) and Logout (in red text). The old Add Users popover and "My profile" row were removed.
 
 
-## OneCardX (eighth tutorial, Part 1 complete: 17 steps)
+## OneCardX (eighth tutorial, Admin side complete: 41 steps)
 
-Route `/tutorials/onecardx`, config `tutorials/onecardx.ts`: **17 steps, all built** (Part 1: The admin creates and shares the organization card that employees will later use; employee-side steps come in a later round).
-Recording: `ref/onecardx/onecardx-clip1.mp4` (1392x720, 4:52, 30fps; copy of `Downloads/1102.mp4`).
+Route `/tutorials/onecardx`, config `tutorials/onecardx.ts`: **41 steps, all built and complete** (The admin creates, manages audience for, customizes, publishes, reviews ID cards and users, switches to business card styles, previews member view, and customizes virtual backgrounds; employee-side steps come in a later round).
+Recordings:
+- Part 1 (steps 1-17): `ref/1102.mp4` / `ref/onecardx-frames/` (1392x720, 4:52, 30fps; copy of `Downloads/1102.mp4`).
+- Part 2 (steps 18-41): `ref/1102(1).mp4` / `ref/onecardx-frames-2/` (copy of `Downloads/1102(1).mp4`, stills `v2_t000s.jpg` to `v2_t356s.jpg`).
 
-How it is built: Reusable stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (the thin Snaarp suite rail with OneCard active, OneCardX sidebar with lavender active pill and vertical indicator, and top bar with Apps 9-dots popover and admin avatar menu). Every screen is an exact pixel-faithful reproduction of the real product recording (`ref/1102.mp4` / `ref/onecardx-frames/`):
+How it is built: Reusable stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (the thin Snaarp suite rail with OneCard active, OneCardX sidebar with lavender active pill and vertical indicator, and top bar with Apps 9-dots popover and admin avatar menu). Every screen is an exact pixel-faithful reproduction of the real product recordings:
 Views:
 - `OneCardXHomeView.tsx`: welcome header, 3 Quick Action cards ("Create an Organization Card", "Manage Team Members", "View Analytics"), promo banner, and Getting started checklist.
-- `OneCardXOrgCardsView.tsx`: organization cards table, stat cards, Create New Card modal with organization and title inputs.
-- `OneCardXEditorView.tsx`: pixel-faithful two-column card editor with live interactive card mockup on the LEFT (5 cols) and 4 configuration tabs (Card, Display, Information, Fields) on the RIGHT (7 cols), with Cancel and Save buttons at bottom right. Features in-app photo selector, color swatches, font selector, logo modal, badge modal, first/last name fields, and dynamic contact chips (Website, Instagram, Email).
-- `OneCardXCardDetailView.tsx`: card summary header, analytics strip, left digital card mockup with QR code, share link with copy action, and Brand Toolkit (signatures and backgrounds).
+- `OneCardXOrgCardsView.tsx`: organization cards table, stat cards, Create New Card modal with organization and title inputs, and Audience Management modal (Everyone vs Specific people checklist).
+- `OneCardXEditorView.tsx`: pixel-faithful two-column card editor with live interactive card mockup on the LEFT (5 cols; supports both portrait ID and landscape Split business card) and 4 configuration tabs (Card, Display, Information, Fields) on the RIGHT (7 cols), with Cancel and Save buttons at bottom right. Features in-app photo selector, 9-style Business Card Style grid, color swatches, font selector, logo modal, badge modal, first/last name fields, dynamic contact chips (Website, Instagram, Email), and "Use each person's own name" toggle.
+- `OneCardXCardDetailView.tsx`: card summary header, analytics strip (views & shares), left digital card mockup with QR code (portrait or landscape split), share link with copy action, and Brand Toolkit (signatures and backgrounds).
+- `OneCardXMemberView.tsx`: member view (`/cards/:id`) with lavender explanation banner, stats strip, QR code, interactive card, and "Edit my details" button.
+- `OneCardXIDCardsView.tsx`: personal ID cards gallery with Default and Org badges.
+- `OneCardXUsersView.tsx`: user management directory with status chips (Active, Suspended, Total) and ID Card Image upload modal.
+- `OneCardXBackgroundsView.tsx`: virtual backgrounds studio with 16:9 live preview canvas, 5 positioning layouts (Top Left, Top Right, Bottom Left, Bottom Right, Center Left), detail switches (Name, Job Title, Company, QR Code), preset theme selector, and custom background upload.
 - `OneCardXPublicPreviewOverlay`: full-stage dark public presentation showcasing the completed digital card with "Back to the app" return chip.
 
 Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` ensure `beginOneCardX` calls `tl.placeCursor` so the pointer is visible from frame 1.
 Every script follows house scene patterns (`pressOn`, `hoverOn`, `ring`, `finishOneCardX`).
-Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings across all 68 runs (17 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Production build clean.
+Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings across all 164 runs (41 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Production build clean.

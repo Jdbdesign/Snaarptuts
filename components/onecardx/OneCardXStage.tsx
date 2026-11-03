@@ -20,9 +20,10 @@ import type { OneCardXPage } from "./onecardx-timeline";
 type Props = {
   tl: Timeline;
   startPage?: OneCardXPage;
+  part1Cards?: boolean;
 };
 
-export function OneCardXStage({ tl, startPage = "home" }: Props) {
+export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
   const page = useTimelineVar<OneCardXPage>(tl, "ocxPage", startPage);
   const cardType = useTimelineVar<"id-card" | "business">(tl, "ocxCardType", "id-card");
   const fade = useTimelineVar(tl, "fade", false);
@@ -119,6 +120,7 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
         {page === "orgCards" && (
           <OneCardXOrgCardsView
             tl={tl}
+            part1Cards={part1Cards}
             onOpenNewCardModal={() => tl.setVar("ocxNewCardModalOpen", true)}
             onCloseNewCardModal={() => tl.setVar("ocxNewCardModalOpen", false)}
             onCreateCardAndOpenEditor={() => {

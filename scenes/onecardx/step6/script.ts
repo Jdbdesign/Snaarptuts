@@ -10,6 +10,7 @@ import { CAPTIONS, URLS } from "./data";
 export const STEP6_DURATION_MS = 10000;
 
 export async function runStep6(tl: Timeline) {
+  tl.setVar("ocxPart1Cards", true);
   beginOneCardX(tl, URLS.orgCards, "orgCards", [0.5, 0.45]);
   tl.setVar("ocxNewCardModalOpen", true);
 

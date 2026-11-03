@@ -866,3 +866,31 @@ Recording: `ref/onecardx/onecardx-clip1.mp4` (1392x720, 4:52, 30fps; copy of `Do
 4. **Excluded recording artifacts**: Excluded the browser chrome, tabs, bookmarks bar, the Windows taskbar, the screen-share recorder overlay, the Chrome autofill popup on text inputs, green status bar tooltips, Google new-tab pages, and the real cursor.
 5. **Header z-index & backdrop layering**: The OneCardX header is positioned with `relative z-45` above the `popover-backdrop` (`z-40`), allowing apps menu and avatar triggers to remain directly interactive when popovers are open, eliminating hit-test coverage warnings in automated QA.
 6. **Modal & overlay placement**: Modals (Add Photo, Add Logo, Add Badge, New Card) and the public preview stage are rendered as root siblings within the shell rather than inside scrollable body containers, ensuring 0 viewport clipping findings across all 4 responsive viewports.
+
+
+## OneCardX Part 2: Admin Side Continued (steps 18-41)
+
+Recording: `ref/1102(1).mp4` (copy of `Downloads/1102(1).mp4`, stills in `ref/onecardx-frames-2/` `v2_t000s.jpg` to `v2_t356s.jpg`).
+
+**Sample data only (no real personal data).**
+- Admin identity: Sam Taylor (ST), role Admin (`sam.taylor@snaarp.com`, Acme Ltd).
+- Card holder / user: Alex Morgan (`alex.morgan@snaarp.com`, Product Designer, Acme Ltd).
+- Audience members & user directory: Jordan Lee, Casey Brown, Morgan Taylor, etc.
+- Companies & Domains: Acme Ltd, websites `www.acme.example` and `www.instagram.com`.
+- Cards in table: "Engineering Team", "sam org", "Business Card", "ID Card".
+- Dates: DD/MM/YYYY format throughout modals, tables, and card views.
+- Statistics: 17 Active, 28 Suspended, 45 Total users in Users directory; 2 views, 1 share on Business Card.
+
+**Decisions & deviations:**
+1. **Faithful real UI reconstruction**: Built directly from video recording `1102(1).mp4` and extracted stills `ref/onecardx-frames-2/` (`v2_t000s.jpg` to `v2_t356s.jpg`). Faithful reproductions of:
+   - Organization Cards management with audience controls ("Everyone in the organization" vs "Specific people" checklist).
+   - Member view (`/cards/:id`) with lavender explanation banner, stats bar (views, shares, saves), QR code, and "Edit my details" action.
+   - 9-style Business Card Style grid (Profile, Portrait, Midnight, QR Rail, Orbit, Hex, Split, Minimal, Wave) and dynamic landscape/portrait card preview.
+   - Live ID Cards gallery with Default and Org badges.
+   - Admin Users management directory with status chips and "ID Card Image" upload modal.
+   - Virtual Backgrounds studio (`/backgrounds`) with 16:9 live preview canvas, position layouts (Top Left, Top Right, Bottom Left, Bottom Right, Center Left), detail switches (Name, Job Title, Company, QR Code), preset theme selector, and custom background upload.
+2. **In-app background upload (Step 41)**: In the recording, clicking "Upload" opens the native Windows File Explorer dialog. As with steps 9 and 11, we simulate an immediate in-app upload transition, presenting the custom uploaded image as the first selectable backdrop thumbnail and immediately applying it to the 16:9 canvas with Bottom Right layout.
+3. **Broken image replacement in presets**: Around t280s in the video, one preset background thumbnail next to "Abstract 3" shows a broken browser image placeholder. Replaced with an authentic, clean abstract gradient thumbnail to ensure visual polish.
+4. **Excluded recording artifacts**: Excluded browser chrome and tabs, bookmarks bar, the Windows taskbar, screen-share overlay ("senting"), dark round floating pin/ellipsis circles, browser autofill dropdowns, accidental blue text selections, and the real cursor.
+5. **Completion card location**: Positioned after Step 41 (the final step of the admin tutorial; removed from Step 17).
+

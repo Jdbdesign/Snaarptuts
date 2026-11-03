@@ -11,6 +11,7 @@ import { CAPTIONS, URLS } from "./data";
 export const STEP3_DURATION_MS = 10500;
 
 export async function runStep3(tl: Timeline) {
+  tl.setVar("ocxPart1Cards", true);
   beginOneCardX(tl, URLS.home, "home", [0.25, 0.28]);
 
   // 1. Click Quick Action: Create an Organization Card
