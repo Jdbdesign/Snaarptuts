@@ -17,6 +17,9 @@ import { OneCardXUsersView } from "./OneCardXUsersView";
 import { OneCardXBackgroundsView } from "./OneCardXBackgroundsView";
 import { OneCardXSignaturesView } from "./OneCardXSignaturesView";
 import { OneCardXMailView } from "./OneCardXMailView";
+import { OneCardXContactsView } from "./OneCardXContactsView";
+import { OneCardXAnalyticsView } from "./OneCardXAnalyticsView";
+import { OneCardXBugModal } from "./OneCardXBugModal";
 import type { OneCardXPage } from "./onecardx-timeline";
 
 type Props = {
@@ -52,6 +55,10 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
       ? "backgrounds"
       : page === "emailSignatures"
       ? "email-signatures"
+      : page === "contacts"
+      ? "contacts"
+      : page === "analytics"
+      ? "analytics"
       : "create-card";
 
   const pageTitle: string =
@@ -73,6 +80,10 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
       ? "Backgrounds"
       : page === "emailSignatures"
       ? "Email Signatures"
+      : page === "contacts"
+      ? "Contacts"
+      : page === "analytics"
+      ? "Analytics"
       : "Organization Card";
 
   const handleNavigateNav = (navId: OneCardXNavId) => {
@@ -97,6 +108,12 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
     } else if (navId === "email-signatures") {
       tl.setUrl(URLS.emailSignatures);
       tl.setVar("ocxPage", "emailSignatures");
+    } else if (navId === "contacts") {
+      tl.setUrl(URLS.contacts);
+      tl.setVar("ocxPage", "contacts");
+    } else if (navId === "analytics") {
+      tl.setUrl(URLS.analytics);
+      tl.setVar("ocxPage", "analytics");
     }
   };
 
@@ -121,14 +138,17 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
         onNavigateNav={handleNavigateNav}
         onSelectSuiteApp={handleSelectSuiteApp}
         overlay={
-          publicPreviewOpen ? (
-            <OneCardXPublicPreviewOverlay
-              onClose={() => {
-                tl.setUrl(URLS.cardDetail);
-                tl.setVar("ocxPublicPreviewOpen", false);
-              }}
-            />
-          ) : null
+          <>
+            {publicPreviewOpen && (
+              <OneCardXPublicPreviewOverlay
+                onClose={() => {
+                  tl.setUrl(URLS.cardDetail);
+                  tl.setVar("ocxPublicPreviewOpen", false);
+                }}
+              />
+            )}
+            <OneCardXBugModal tl={tl} />
+          </>
         }
       >
         {page === "home" && (
@@ -214,6 +234,10 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
         {page === "emailSignatures" && <OneCardXSignaturesView tl={tl} />}
 
         {page === "mail" && <OneCardXMailView tl={tl} />}
+
+        {page === "contacts" && <OneCardXContactsView tl={tl} />}
+
+        {page === "analytics" && <OneCardXAnalyticsView tl={tl} />}
       </OneCardXShell>
 
       {/* Standard White Fade Transition Overlay */}

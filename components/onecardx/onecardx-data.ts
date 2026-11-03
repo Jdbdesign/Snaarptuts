@@ -16,6 +16,34 @@ export const URLS = {
   emailSignatures: "identity.snaarp.com/email-signatures",
   mailInbox: "m.snaarp.com/#inbox",
   mailSettings: "m.snaarp.com/#settings",
+  contacts: "identity.snaarp.com/contacts",
+  contactDetail: "identity.snaarp.com/contacts/f98616ee-af2c-40ca-b9d9-a7c3d2722e26",
+  analytics: "identity.snaarp.com/analytics",
+};
+
+/**
+ * Sample contact data for OneCardX Part 4 (Contacts module)
+ */
+export const SAMPLE_CONTACT = {
+  firstName: "Alex",
+  lastName: "Morgan",
+  name: "Alex Morgan",
+  phone: "+44 7700 900123",
+  phoneCountry: "GB +44",
+  phoneType: "mobile",
+  emailPersonal: "alex.morgan@acme.example",
+  emailWork: "alex@acme.example",
+  prefix: "Mr",
+  middleName: "James",
+  accreditations: "MBA",
+  pronouns: "he/him",
+  company: "Acme Ltd",
+  title: "Product Designer",
+  department: "Engineering",
+  website: "www.acme.example",
+  spotify: "www.spotify.com/music",
+  addedDate: "03/11/2026",
+  source: "manual",
 };
 
 /**

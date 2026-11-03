@@ -14,7 +14,9 @@ export type OneCardXPage =
   | "users"
   | "backgrounds"
   | "emailSignatures"
-  | "mail";
+  | "mail"
+  | "contacts"
+  | "analytics";
 
 /**
  * Resets OneCardX scene variables to a clean starting state for any step.
@@ -67,6 +69,44 @@ export function beginOneCardX(
   tl.setVar("ocxMailSigPasted", false);
   tl.setVar("ocxMailSigSaved", false);
   tl.setVar("ocxMailComposeOpen", false);
+  tl.setVar("ocxContactsSubpage", "list");
+  tl.setVar("ocxContactDrawerOpen", false);
+  tl.setVar("ocxContactPhoto", false);
+  tl.setVar("ocxContactLogo", false);
+  tl.setVar("ocxContactPhotoPickerOpen", false);
+  tl.setVar("ocxContactLogoPickerOpen", false);
+  tl.setVar("ocxContactFirstName", "");
+  tl.setVar("ocxContactLastName", "");
+  tl.setVar("ocxContactPhone", "");
+  tl.setVar("ocxContactPhoneType", "mobile");
+  tl.setVar("ocxContactEmail1", "");
+  tl.setVar("ocxContactEmail1Type", "work");
+  tl.setVar("ocxContactEmail2", "");
+  tl.setVar("ocxContactEmail2Type", "work");
+  tl.setVar("ocxContactEmail2Added", false);
+  tl.setVar("ocxContactMoreOptions", false);
+  tl.setVar("ocxContactPrefix", "");
+  tl.setVar("ocxContactMiddleName", "");
+  tl.setVar("ocxContactAccreditations", "");
+  tl.setVar("ocxContactPronouns", "");
+  tl.setVar("ocxContactPronounsOpen", false);
+  tl.setVar("ocxContactCompany", "");
+  tl.setVar("ocxContactTitle", "");
+  tl.setVar("ocxContactDepartment", "");
+  tl.setVar("ocxContactFieldCategory", null);
+  tl.setVar("ocxContactFieldWebsite", "");
+  tl.setVar("ocxContactFieldSpotify", "");
+  tl.setVar("ocxContactSaved", false);
+  tl.setVar("ocxContactDrawerScrollY", 0);
+  tl.setVar("ocxContactTagInput", "");
+  tl.setVar("ocxContactTags", []);
+  tl.setVar("ocxContactNoteText", "");
+  tl.setVar("ocxAnalyticsScrollY", 0);
+  tl.setVar("ocxAnalyticsHeatmapTooltip", null);
+  tl.setVar("ocxAnalyticsHoveredRow", null);
+  tl.setVar("ocxBugModalOpen", false);
+  tl.setVar("ocxBugCategoryOpen", false);
+  tl.setVar("ocxBugCategory", "Bug");
   tl.setVar("fade", false);
 }
 

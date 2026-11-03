@@ -270,9 +270,16 @@ export function OneCardXShell({
                 type="button"
                 data-tl="nav-contacts"
                 onClick={() => onNavigateNav?.("contacts")}
-                className="flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] text-[#4B5563] hover:bg-gray-100 transition-colors text-left"
+                className={`relative flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] transition-colors text-left cursor-pointer ${
+                  activeNav === "contacts"
+                    ? "bg-[#F3E8FF] text-[#7014D9] font-medium"
+                    : "text-[#4B5563] hover:bg-gray-100 font-normal"
+                }`}
               >
-                <span className="text-[#6B7280]">
+                {activeNav === "contacts" && (
+                  <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r bg-[#7014D9]" />
+                )}
+                <span className={activeNav === "contacts" ? "text-[#7014D9]" : "text-[#6B7280]"}>
                   <OcxContactsIcon width={16} height={16} />
                 </span>
                 <span>Contacts</span>
@@ -290,9 +297,16 @@ export function OneCardXShell({
                 type="button"
                 data-tl="nav-analytics"
                 onClick={() => onNavigateNav?.("analytics")}
-                className="flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] text-[#4B5563] hover:bg-gray-100 transition-colors text-left"
+                className={`relative flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] transition-colors text-left cursor-pointer ${
+                  activeNav === "analytics"
+                    ? "bg-[#F3E8FF] text-[#7014D9] font-medium"
+                    : "text-[#4B5563] hover:bg-gray-100 font-normal"
+                }`}
               >
-                <span className="text-[#6B7280]">
+                {activeNav === "analytics" && (
+                  <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r bg-[#7014D9]" />
+                )}
+                <span className={activeNav === "analytics" ? "text-[#7014D9]" : "text-[#6B7280]"}>
                   <OcxAnalyticsIcon width={16} height={16} />
                 </span>
                 <span>Analytics</span>
@@ -345,7 +359,8 @@ export function OneCardXShell({
           <button
             type="button"
             data-tl="nav-report-bug"
-            className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-[12.5px] font-medium text-[#DC2626] hover:bg-red-50/60 transition-colors text-left"
+            onClick={() => tl.setVar("ocxBugModalOpen", true)}
+            className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-[12.5px] font-medium text-[#DC2626] hover:bg-red-50/60 transition-colors text-left cursor-pointer"
           >
             <OcxBugIcon width={16} height={16} />
             <span>Report a Bug</span>

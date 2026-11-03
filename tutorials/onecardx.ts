@@ -102,6 +102,34 @@ import { Step51 } from "@/scenes/onecardx/step51/Step51";
 import { runStep51, STEP51_DURATION_MS } from "@/scenes/onecardx/step51/script";
 import { Step52 } from "@/scenes/onecardx/step52/Step52";
 import { runStep52, STEP52_DURATION_MS } from "@/scenes/onecardx/step52/script";
+import { Step53 } from "@/scenes/onecardx/step53/Step53";
+import { runStep53, STEP53_DURATION_MS } from "@/scenes/onecardx/step53/script";
+import { Step54 } from "@/scenes/onecardx/step54/Step54";
+import { runStep54, STEP54_DURATION_MS } from "@/scenes/onecardx/step54/script";
+import { Step55 } from "@/scenes/onecardx/step55/Step55";
+import { runStep55, STEP55_DURATION_MS } from "@/scenes/onecardx/step55/script";
+import { Step56 } from "@/scenes/onecardx/step56/Step56";
+import { runStep56, STEP56_DURATION_MS } from "@/scenes/onecardx/step56/script";
+import { Step57 } from "@/scenes/onecardx/step57/Step57";
+import { runStep57, STEP57_DURATION_MS } from "@/scenes/onecardx/step57/script";
+import { Step58 } from "@/scenes/onecardx/step58/Step58";
+import { runStep58, STEP58_DURATION_MS } from "@/scenes/onecardx/step58/script";
+import { Step59 } from "@/scenes/onecardx/step59/Step59";
+import { runStep59, STEP59_DURATION_MS } from "@/scenes/onecardx/step59/script";
+import { Step60 } from "@/scenes/onecardx/step60/Step60";
+import { runStep60, STEP60_DURATION_MS } from "@/scenes/onecardx/step60/script";
+import { Step61 } from "@/scenes/onecardx/step61/Step61";
+import { runStep61, STEP61_DURATION_MS } from "@/scenes/onecardx/step61/script";
+import { Step62 } from "@/scenes/onecardx/step62/Step62";
+import { runStep62, STEP62_DURATION_MS } from "@/scenes/onecardx/step62/script";
+import { Step63 } from "@/scenes/onecardx/step63/Step63";
+import { runStep63, STEP63_DURATION_MS } from "@/scenes/onecardx/step63/script";
+import { Step64 } from "@/scenes/onecardx/step64/Step64";
+import { runStep64, STEP64_DURATION_MS } from "@/scenes/onecardx/step64/script";
+import { Step65 } from "@/scenes/onecardx/step65/Step65";
+import { runStep65, STEP65_DURATION_MS } from "@/scenes/onecardx/step65/script";
+import { Step66 } from "@/scenes/onecardx/step66/Step66";
+import { runStep66, STEP66_DURATION_MS } from "@/scenes/onecardx/step66/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -429,9 +457,93 @@ export const onecardx: Tutorial = {
       url: "m.snaarp.com/#inbox",
       scene: { Component: Step52, run: runStep52, durationMs: STEP52_DURATION_MS },
     },
+    {
+      id: "open-contacts",
+      title: "Open Contacts",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step53, run: runStep53, durationMs: STEP53_DURATION_MS },
+    },
+    {
+      id: "start-a-new-contact",
+      title: "Start a new contact",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step54, run: runStep54, durationMs: STEP54_DURATION_MS },
+    },
+    {
+      id: "add-a-photo-and-logo",
+      title: "Add a photo and logo",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step55, run: runStep55, durationMs: STEP55_DURATION_MS },
+    },
+    {
+      id: "type-the-contacts-name",
+      title: "Type the contact's name",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step56, run: runStep56, durationMs: STEP56_DURATION_MS },
+    },
+    {
+      id: "add-phone-and-emails",
+      title: "Add phone and emails",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step57, run: runStep57, durationMs: STEP57_DURATION_MS },
+    },
+    {
+      id: "more-options",
+      title: "More options",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step58, run: runStep58, durationMs: STEP58_DURATION_MS },
+    },
+    {
+      id: "add-work-info",
+      title: "Add work info",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step59, run: runStep59, durationMs: STEP59_DURATION_MS },
+    },
+    {
+      id: "add-custom-fields",
+      title: "Add custom fields",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step60, run: runStep60, durationMs: STEP60_DURATION_MS },
+    },
+    {
+      id: "save-the-contact",
+      title: "Save the contact",
+      url: "identity.snaarp.com/contacts",
+      scene: { Component: Step61, run: runStep61, durationMs: STEP61_DURATION_MS },
+    },
+    {
+      id: "open-the-contact",
+      title: "Open the contact",
+      url: "identity.snaarp.com/contacts/f98616ee-af2c-40ca-b9d9-a7c3d2722e26",
+      scene: { Component: Step62, run: runStep62, durationMs: STEP62_DURATION_MS },
+    },
+    {
+      id: "add-a-tag-and-a-note",
+      title: "Add a tag and a note",
+      url: "identity.snaarp.com/contacts/f98616ee-af2c-40ca-b9d9-a7c3d2722e26",
+      scene: { Component: Step63, run: runStep63, durationMs: STEP63_DURATION_MS },
+    },
+    {
+      id: "open-analytics",
+      title: "Open Analytics",
+      url: "identity.snaarp.com/analytics",
+      scene: { Component: Step64, run: runStep64, durationMs: STEP64_DURATION_MS },
+    },
+    {
+      id: "read-the-analytics",
+      title: "Read the analytics",
+      url: "identity.snaarp.com/analytics",
+      scene: { Component: Step65, run: runStep65, durationMs: STEP65_DURATION_MS },
+    },
+    {
+      id: "report-a-bug",
+      title: "Report a bug",
+      url: "identity.snaarp.com/analytics",
+      scene: { Component: Step66, run: runStep66, durationMs: STEP66_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "You've created your organization card and email signature. Next: how employees use them.",
+    text: "You now know how to use OneCardX end to end.",
   },
 };
