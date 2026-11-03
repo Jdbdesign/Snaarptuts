@@ -48,6 +48,8 @@ import { Step24 } from "@/scenes/onecardx/step24/Step24";
 import { runStep24, STEP24_DURATION_MS } from "@/scenes/onecardx/step24/script";
 import { Step25 } from "@/scenes/onecardx/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/onecardx/step25/script";
+import { Step26 } from "@/scenes/onecardx/step26/Step26";
+import { runStep26, STEP26_DURATION_MS } from "@/scenes/onecardx/step26/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -209,6 +211,12 @@ export const onecardx: Tutorial = {
       title: "Fill in your details",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step25, run: runStep25, durationMs: STEP25_DURATION_MS },
+    },
+    {
+      id: "use-each-persons-own-name",
+      title: "Use each person's own name",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step26, run: runStep26, durationMs: STEP26_DURATION_MS },
     },
   ],
   completion: {
