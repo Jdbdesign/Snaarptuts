@@ -54,6 +54,8 @@ import { Step27 } from "@/scenes/onecardx/step27/Step27";
 import { runStep27, STEP27_DURATION_MS } from "@/scenes/onecardx/step27/script";
 import { Step28 } from "@/scenes/onecardx/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/onecardx/step28/script";
+import { Step29 } from "@/scenes/onecardx/step29/Step29";
+import { runStep29, STEP29_DURATION_MS } from "@/scenes/onecardx/step29/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -233,6 +235,12 @@ export const onecardx: Tutorial = {
       title: "Save the card",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step28, run: runStep28, durationMs: STEP28_DURATION_MS },
+    },
+    {
+      id: "publish-to-everyone",
+      title: "Publish to everyone",
+      url: "onecardx.snaarp.com/admin/organization-cards",
+      scene: { Component: Step29, run: runStep29, durationMs: STEP29_DURATION_MS },
     },
   ],
   completion: {

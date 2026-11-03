@@ -252,7 +252,7 @@ export function OneCardXOrgCardsView({
                     {isDraft ? (
                       <button
                         type="button"
-                        data-tl={`btn-publish-toggle-${card.id}`}
+                        data-tl={`btn-publish-${card.id}`}
                         onClick={() => {
                           tl.setVar("ocxEngTeamPublished", true);
                           tl.setVar("ocxPublishedCount", 3);
@@ -268,7 +268,7 @@ export function OneCardXOrgCardsView({
                     ) : (
                       <button
                         type="button"
-                        data-tl={`btn-publish-toggle-${card.id}`}
+                        data-tl={`btn-unpublish-${card.id}`}
                         onClick={() => {
                           tl.setVar("ocxEngTeamPublished", false);
                           tl.setVar("ocxPublishedCount", 2);
