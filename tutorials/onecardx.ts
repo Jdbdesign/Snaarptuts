@@ -66,6 +66,8 @@ import { Step33 } from "@/scenes/onecardx/step33/Step33";
 import { runStep33, STEP33_DURATION_MS } from "@/scenes/onecardx/step33/script";
 import { Step34 } from "@/scenes/onecardx/step34/Step34";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/onecardx/step34/script";
+import { Step35 } from "@/scenes/onecardx/step35/Step35";
+import { runStep35, STEP35_DURATION_MS } from "@/scenes/onecardx/step35/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -281,6 +283,12 @@ export const onecardx: Tutorial = {
       title: "Switch to a business card",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step34, run: runStep34, durationMs: STEP34_DURATION_MS },
+    },
+    {
+      id: "pick-a-business-card-style",
+      title: "Pick a business card style",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step35, run: runStep35, durationMs: STEP35_DURATION_MS },
     },
   ],
   completion: {
