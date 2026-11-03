@@ -38,6 +38,8 @@ import { Step19 } from "@/scenes/onecardx/step19/Step19";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/onecardx/step19/script";
 import { Step20 } from "@/scenes/onecardx/step20/Step20";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/onecardx/step20/script";
+import { Step21 } from "@/scenes/onecardx/step21/Step21";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/onecardx/step21/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -169,6 +171,12 @@ export const onecardx: Tutorial = {
       title: "Pick specific people",
       url: "onecardx.snaarp.com/admin/organization-cards",
       scene: { Component: Step20, run: runStep20, durationMs: STEP20_DURATION_MS },
+    },
+    {
+      id: "preview-the-member-view",
+      title: "Preview the member view",
+      url: "onecardx.snaarp.com/admin/organization-cards",
+      scene: { Component: Step21, run: runStep21, durationMs: STEP21_DURATION_MS },
     },
   ],
   completion: {
