@@ -78,6 +78,8 @@ import { Step39 } from "@/scenes/onecardx/step39/Step39";
 import { runStep39, STEP39_DURATION_MS } from "@/scenes/onecardx/step39/script";
 import { Step40 } from "@/scenes/onecardx/step40/Step40";
 import { runStep40, STEP40_DURATION_MS } from "@/scenes/onecardx/step40/script";
+import { Step41 } from "@/scenes/onecardx/step41/Step41";
+import { runStep41, STEP41_DURATION_MS } from "@/scenes/onecardx/step41/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -329,6 +331,12 @@ export const onecardx: Tutorial = {
       title: "Choose a background and layout",
       url: "onecardx.snaarp.com/backgrounds",
       scene: { Component: Step40, run: runStep40, durationMs: STEP40_DURATION_MS },
+    },
+    {
+      id: "upload-your-own-background",
+      title: "Upload your own background",
+      url: "onecardx.snaarp.com/backgrounds",
+      scene: { Component: Step41, run: runStep41, durationMs: STEP41_DURATION_MS },
     },
   ],
   completion: {
