@@ -56,6 +56,8 @@ import { Step28 } from "@/scenes/onecardx/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/onecardx/step28/script";
 import { Step29 } from "@/scenes/onecardx/step29/Step29";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/onecardx/step29/script";
+import { Step30 } from "@/scenes/onecardx/step30/Step30";
+import { runStep30, STEP30_DURATION_MS } from "@/scenes/onecardx/step30/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -241,6 +243,12 @@ export const onecardx: Tutorial = {
       title: "Publish to everyone",
       url: "onecardx.snaarp.com/admin/organization-cards",
       scene: { Component: Step29, run: runStep29, durationMs: STEP29_DURATION_MS },
+    },
+    {
+      id: "see-it-in-id-cards",
+      title: "See it in ID Cards",
+      url: "onecardx.snaarp.com/admin/organization-cards",
+      scene: { Component: Step30, run: runStep30, durationMs: STEP30_DURATION_MS },
     },
   ],
   completion: {
