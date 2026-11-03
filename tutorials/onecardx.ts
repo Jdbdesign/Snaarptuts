@@ -80,6 +80,28 @@ import { Step40 } from "@/scenes/onecardx/step40/Step40";
 import { runStep40, STEP40_DURATION_MS } from "@/scenes/onecardx/step40/script";
 import { Step41 } from "@/scenes/onecardx/step41/Step41";
 import { runStep41, STEP41_DURATION_MS } from "@/scenes/onecardx/step41/script";
+import { Step42 } from "@/scenes/onecardx/step42/Step42";
+import { runStep42, STEP42_DURATION_MS } from "@/scenes/onecardx/step42/script";
+import { Step43 } from "@/scenes/onecardx/step43/Step43";
+import { runStep43, STEP43_DURATION_MS } from "@/scenes/onecardx/step43/script";
+import { Step44 } from "@/scenes/onecardx/step44/Step44";
+import { runStep44, STEP44_DURATION_MS } from "@/scenes/onecardx/step44/script";
+import { Step45 } from "@/scenes/onecardx/step45/Step45";
+import { runStep45, STEP45_DURATION_MS } from "@/scenes/onecardx/step45/script";
+import { Step46 } from "@/scenes/onecardx/step46/Step46";
+import { runStep46, STEP46_DURATION_MS } from "@/scenes/onecardx/step46/script";
+import { Step47 } from "@/scenes/onecardx/step47/Step47";
+import { runStep47, STEP47_DURATION_MS } from "@/scenes/onecardx/step47/script";
+import { Step48 } from "@/scenes/onecardx/step48/Step48";
+import { runStep48, STEP48_DURATION_MS } from "@/scenes/onecardx/step48/script";
+import { Step49 } from "@/scenes/onecardx/step49/Step49";
+import { runStep49, STEP49_DURATION_MS } from "@/scenes/onecardx/step49/script";
+import { Step50 } from "@/scenes/onecardx/step50/Step50";
+import { runStep50, STEP50_DURATION_MS } from "@/scenes/onecardx/step50/script";
+import { Step51 } from "@/scenes/onecardx/step51/Step51";
+import { runStep51, STEP51_DURATION_MS } from "@/scenes/onecardx/step51/script";
+import { Step52 } from "@/scenes/onecardx/step52/Step52";
+import { runStep52, STEP52_DURATION_MS } from "@/scenes/onecardx/step52/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -90,7 +112,10 @@ export const onecardx: Tutorial = {
     logo: "onecard",
     aliases: ["card", "id", "digital card", "business card", "onecardx"],
   },
-  groups: [{ title: "Admin Card Creation", from: "your-onecardx-home" }],
+  groups: [
+    { title: "Admin Card Creation", from: "your-onecardx-home" },
+    { title: "Email Signatures & Mail", from: "open-email-signatures" },
+  ],
   steps: [
     {
       id: "your-onecardx-home",
@@ -338,9 +363,75 @@ export const onecardx: Tutorial = {
       url: "onecardx.snaarp.com/backgrounds",
       scene: { Component: Step41, run: runStep41, durationMs: STEP41_DURATION_MS },
     },
+    {
+      id: "open-email-signatures",
+      title: "Open Email Signatures",
+      url: "identity.snaarp.com/email-signatures",
+      scene: { Component: Step42, run: runStep42, durationMs: STEP42_DURATION_MS },
+    },
+    {
+      id: "choose-which-card-to-use",
+      title: "Choose which card to use",
+      url: "identity.snaarp.com/email-signatures",
+      scene: { Component: Step43, run: runStep43, durationMs: STEP43_DURATION_MS },
+    },
+    {
+      id: "pick-a-signature-style",
+      title: "Pick a signature style",
+      url: "identity.snaarp.com/email-signatures",
+      scene: { Component: Step44, run: runStep44, durationMs: STEP44_DURATION_MS },
+    },
+    {
+      id: "choose-your-mail-app",
+      title: "Choose your mail app",
+      url: "identity.snaarp.com/email-signatures",
+      scene: { Component: Step45, run: runStep45, durationMs: STEP45_DURATION_MS },
+    },
+    {
+      id: "follow-the-apply-steps",
+      title: "Follow the apply steps",
+      url: "identity.snaarp.com/email-signatures",
+      scene: { Component: Step46, run: runStep46, durationMs: STEP46_DURATION_MS },
+    },
+    {
+      id: "open-snaarp-mail",
+      title: "Open Snaarp Mail",
+      url: "m.snaarp.com/#inbox",
+      scene: { Component: Step47, run: runStep47, durationMs: STEP47_DURATION_MS },
+    },
+    {
+      id: "open-settings",
+      title: "Open settings",
+      url: "m.snaarp.com/#inbox",
+      scene: { Component: Step48, run: runStep48, durationMs: STEP48_DURATION_MS },
+    },
+    {
+      id: "go-to-signature",
+      title: "Go to Signature",
+      url: "m.snaarp.com/#settings",
+      scene: { Component: Step49, run: runStep49, durationMs: STEP49_DURATION_MS },
+    },
+    {
+      id: "paste-your-signature",
+      title: "Paste your signature",
+      url: "m.snaarp.com/#settings",
+      scene: { Component: Step50, run: runStep50, durationMs: STEP50_DURATION_MS },
+    },
+    {
+      id: "save-the-signature",
+      title: "Save the signature",
+      url: "m.snaarp.com/#settings",
+      scene: { Component: Step51, run: runStep51, durationMs: STEP51_DURATION_MS },
+    },
+    {
+      id: "see-it-in-a-new-email",
+      title: "See it in a new email",
+      url: "m.snaarp.com/#inbox",
+      scene: { Component: Step52, run: runStep52, durationMs: STEP52_DURATION_MS },
+    },
   ],
   completion: {
     title: "You're all set",
-    text: "You've created your organization card. Next: how employees use it.",
+    text: "You've created your organization card and email signature. Next: how employees use them.",
   },
 };
