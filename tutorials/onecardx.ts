@@ -36,6 +36,8 @@ import { Step18 } from "@/scenes/onecardx/step18/Step18";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/onecardx/step18/script";
 import { Step19 } from "@/scenes/onecardx/step19/Step19";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/onecardx/step19/script";
+import { Step20 } from "@/scenes/onecardx/step20/Step20";
+import { runStep20, STEP20_DURATION_MS } from "@/scenes/onecardx/step20/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -161,6 +163,12 @@ export const onecardx: Tutorial = {
       title: "Limit who sees a card",
       url: "onecardx.snaarp.com/admin/organization-cards",
       scene: { Component: Step19, run: runStep19, durationMs: STEP19_DURATION_MS },
+    },
+    {
+      id: "pick-specific-people",
+      title: "Pick specific people",
+      url: "onecardx.snaarp.com/admin/organization-cards",
+      scene: { Component: Step20, run: runStep20, durationMs: STEP20_DURATION_MS },
     },
   ],
   completion: {
