@@ -225,13 +225,14 @@ In `components/workforce/workforce-timeline.ts`, `beginWorkforce` now takes `cur
 In Workforce the viewer is an employee. The top bar "Add Users" button is admin-only (for admins it opens the Snaarp Admin page, already built in the Admin tutorial); for employees it does nothing on click (no popover, no navigation). Step 6 uses a hover-and-ring explain beat with caption "Add Users is for admins only. It opens the Snaarp Admin page." The avatar dropdown shows the user's email (alex.morgan@snaarp.com) in medium weight and small uppercase grey role EMPLOYEE, followed by a divider and two rows: Settings (with gear icon) and Logout (in red text). The old Add Users popover and "My profile" row were removed.
 
 
-## OneCardX (eighth tutorial, Admin side complete: 52 steps)
+## OneCardX (eighth tutorial, Admin side complete: 66 steps)
 
-Route `/tutorials/onecardx`, config `tutorials/onecardx.ts`: **52 steps, all built and complete** (The admin creates, manages audience for, customizes, publishes, reviews ID cards and users, switches to business card styles, previews member view, customizes virtual backgrounds, configures HTML email signatures, and integrates with Snaarp Mail; employee-side steps come in a later round).
+Route `/tutorials/onecardx`, config `tutorials/onecardx.ts`: **66 steps, all built and complete** (The admin creates, manages audience for, customizes, publishes, reviews ID cards and users, switches to business card styles, previews member view, customizes virtual backgrounds, configures HTML email signatures, integrates with Snaarp Mail, manages contacts with custom fields, inspects detailed analytics, and reports bugs; completion card follows step 66).
 Recordings:
 - Part 1 (steps 1-17): `ref/1102.mp4` / `ref/onecardx-frames/` (1392x720, 4:52, 30fps; copy of `Downloads/1102.mp4`).
 - Part 2 (steps 18-41): `ref/1102(1).mp4` / `ref/onecardx-frames-2/` (copy of `Downloads/1102(1).mp4`, stills `v2_t000s.jpg` to `v2_t356s.jpg`).
 - Part 3 (steps 42-52): `ref/1103.mp4` / `ref/onecardx-frames-3/` (copy of `Downloads/1103.mp4`, stills `v3_t001s.jpg` to `v3_t093s.jpg`).
+- Part 4 (steps 53-66): `ref/1103(1).mp4` / `ref/onecardx-frames-4/` (copy of `Downloads/1103 (1).mp4`, stills `t0010s.jpg` to `t1080s.jpg`).
 
 How it is built: Reusable stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (the thin Snaarp suite rail with OneCard or Mail active, OneCardX sidebar with lavender active pill and vertical indicator, and top bar with Apps 9-dots popover and admin avatar menu). Every screen is an exact pixel-faithful reproduction of the real product recordings:
 Views:
@@ -246,7 +247,10 @@ Views:
 - `OneCardXSignaturesView.tsx`: email signatures studio with live signature preview (Business card vs ID card), card change dropdown, 18-tile style grid, platform selector (Apple, Gmail, Other, Outlook) and OS selector (Web, Mac, Mobile, Windows), 7-step setup instructions, and Copy action.
 - `OneCardXMailView.tsx`: Snaarp Mail interface with suite rail, top search bar, settings gear, avatar, folder navigation (Compose, Inbox 19, Drafts 42, Storage 12%), Quick settings popover, full Settings page with Signature Editor and live preview, bottom-left confirmation toast, and docked New Message compose window with auto-attached card signature. All icons unified with Lucide icons (`lucide-react`) for project consistency.
 - `OneCardXPublicPreviewOverlay`: full-stage dark public presentation showcasing the completed digital card with "Back to the app" return chip.
+- `OneCardXContactsView.tsx`: full contacts lifecycle view with 0-contacts empty state, interactive Add contact slide-over drawer (portrait & logo pickers, contact info, phone, emails, more options accordion, work info, and 10 field categories with popular & music links), contacts table, and contact detail view (`/contacts/:id`) with tags and notes cards.
+- `OneCardXAnalyticsView.tsx`: complete analytics suite with 3 summary stat cards (Total Views, Total Shares, Total Leads), Views Over Time SVG chart, Device Breakdown donut chart, Shares by Channel, 7x24 hourly engagement activity heatmap with tooltip, and Per-Card breakdown table with pagination.
+- `OneCardXBugModal.tsx`: Report a Bug modal with category dropdown (Bug, UI/Display, Performance, Data/Sync, Billing, Other), feedback textarea, Cancel, and Submit action.
 
 Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` ensure `beginOneCardX` calls `tl.placeCursor` so the pointer is visible from frame 1.
 Every script follows house scene patterns (`pressOn`, `hoverOn`, `ring`, `finishOneCardX`).
-Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings across all 208 runs (52 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Production build clean.
+Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings across all 264 runs (66 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Production build clean.

@@ -1946,11 +1946,32 @@ Source recording: `ref/1103.mp4` (copy of `Downloads/1103.mp4`, stills in `ref/o
 | 49 | Go to Signature | On Settings page (`m.snaarp.com/#settings`), clicks "Signature" under Appearance menu. Signature Editor opens with Clear / Save Signature buttons, sync toggle, image drop area, rich-text editor, and preview box. | 7.5 s |
 | 50 | Paste your signature | Clicks into the Signature Editor area. Copied signature is pasted in with photo, name, title, QR code, and purple SAVE CONTACT button. Preview box immediately reflects the live signature. | 7.5 s |
 | 51 | Save the signature | Clicks "Save Signature". Confirmation toast "Signature updated successfully" appears bottom-left. | 7.0 s |
-| 52 | See it in a new email | Clicks "Back to Mail" in settings sidebar. Back in inbox, clicks "Compose". Docked "New Message" compose modal opens with To, Subject, and the Alex Morgan digital card signature attached at the bottom. Completion card follows. | 8.5 s |
+| 52 | See it in a new email | Clicks "Back to Mail" in settings sidebar. Back in inbox, clicks "Compose". Docked "New Message" compose modal opens with To, Subject, and the Alex Morgan digital card signature attached at the bottom. | 8.5 s |
+
+## OneCardX Part 4: Contacts, Analytics, and Bug Reporting (steps 53-66)
+
+Source recording: `ref/1103(1).mp4` (copy of `Downloads/1103 (1).mp4`, stills in `ref/onecardx-frames-4/`).
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 53 | Open Contacts | Clicks Contacts under NETWORK in the sidebar (`identity.snaarp.com/contacts`). Contacts page opens with top search bar "Search 0 contacts", "+ Add" button, people empty-state illustration, "Add another contact!", and purple "Add Contact" button. | 4.5 s |
+| 54 | Start a new contact | Clicks "Add Contact". The right-hand "Add contact" creation drawer slides in with Photo and Logo upload circles, Contact Info, Work Info, and Fields sections. | 5.0 s |
+| 55 | Add a photo and logo | Clicks Photo circle, selects Alex Morgan sample portrait from in-app chooser; photo populates the circle. Clicks Logo circle, selects Acme Ltd sample logo; logo populates the circle. | 6.5 s |
+| 56 | Type the contact's name | Types First name "Alex" and Last name "Morgan". Save Contact button in drawer footer becomes active. | 6.0 s |
+| 57 | Add phone and emails | Types Phone number "+44 7700 900123" with GB +44 country code. Types personal email "alex.morgan@acme.example", sets type to personal, clicks "+ add email", and types second work email "alex@acme.example". | 8.0 s |
+| 58 | More options | Clicks "+ More options (prefix, suffix, pronouns...)". Drawer expands options. Types Prefix "Mr", Middle name "James", Accreditations "MBA". Opens Pronouns dropdown and selects "he/him". Link toggles to "- Less options". | 7.5 s |
+| 59 | Add work info | Scrolls drawer down to WORK INFO. Types Company "Acme Ltd", Title "Product Designer", Department "Engineering". Highlights Associated Card dropdown. | 7.5 s |
+| 60 | Add custom fields | In FIELDS section, clicks "Most Popular" category chip, selects "+ Website" and types "www.acme.example". Clicks "Music" category chip, selects "+ Spotify" and types "www.spotify.com/music". | 8.0 s |
+| 61 | Save the contact | Clicks "Save Contact" button in drawer footer. Drawer closes and Contacts list updates to show 1 contact row ("Search 1 contacts", checkbox, Alex Morgan, Product Designer, Acme Ltd). | 5.5 s |
+| 62 | Open the contact | Clicks Alex Morgan contact row. Contact details view opens (`identity.snaarp.com/contacts/...`) with "← Back to Contacts", star icon, Edit/Delete actions, 3-column metadata grid, Tags card, Notes card, and Activity Timeline. | 5.5 s |
+| 63 | Add a tag and a note | Types "Creative" into New tag input, clicks "+" to add tag chip. Clicks into Notes textarea ("Add a note..."). Clicks "← Back to Contacts" to return to the Contacts table. | 6.5 s |
+| 64 | Open Analytics | Clicks Analytics under INSIGHTS in the sidebar (`identity.snaarp.com/analytics`). Overview cards fade in: Total Views (144 ↑73%), Total Shares (0), Total Leads (0), Views Over Time chart, Device Breakdown donut (75 events), Shares by Channel, Engagement heatmap, and Per-Card Breakdown table. | 5.5 s |
+| 65 | Read the analytics | Scrolls down page. Hovers over heatmap cell Sun 18:00 (displays tooltip "Sun 18:00 - 12 views"). Hovers over Per-Card Breakdown rows (ID Card, Business Card). | 6.5 s |
+| 66 | Report a bug | Clicks "Report a Bug" at bottom of sidebar. Modal opens with Category dropdown and description textarea. Opens Category dropdown, selects "Other", then clicks "Cancel" to close modal. Completion card follows. | 6.5 s |
 
 **Files.**
 - Config: `tutorials/onecardx.ts` (registered in `tutorials/index.ts`)
 - Shell & Stage: `components/onecardx/OneCardXShell.tsx`, `components/onecardx/OneCardXStage.tsx`
-- Views: `OneCardXHomeView.tsx`, `OneCardXOrgCardsView.tsx`, `OneCardXEditorView.tsx`, `OneCardXCardDetailView.tsx` (with exported `OneCardXPublicPreviewOverlay`), `OneCardXMemberView.tsx`, `OneCardXIDCardsView.tsx`, `OneCardXUsersView.tsx`, `OneCardXBackgroundsView.tsx`, `OneCardXSignaturesView.tsx`, `OneCardXMailView.tsx`
+- Views: `OneCardXHomeView.tsx`, `OneCardXOrgCardsView.tsx`, `OneCardXEditorView.tsx`, `OneCardXCardDetailView.tsx` (with exported `OneCardXPublicPreviewOverlay`), `OneCardXMemberView.tsx`, `OneCardXIDCardsView.tsx`, `OneCardXUsersView.tsx`, `OneCardXBackgroundsView.tsx`, `OneCardXSignaturesView.tsx`, `OneCardXMailView.tsx`, `OneCardXContactsView.tsx`, `OneCardXAnalyticsView.tsx`, `OneCardXBugModal.tsx`
 - Timeline & Data: `components/onecardx/onecardx-timeline.ts` (`beginOneCardX`, `finishOneCardX`), `components/onecardx/onecardx-data.ts`
-- Step Scenes & Scripts: `scenes/onecardx/step<1..52>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/onecardx/step<1..66>/Step<N>.tsx`, `script.ts`, `data.ts`

@@ -913,8 +913,36 @@ Recording: `ref/1103.mp4` (copy of `Downloads/1103.mp4`, stills in `ref/onecardx
    - Bottom-left confirmation toast: "Signature updated successfully" with green checkmark upon saving.
    - Compose "New Message" window: To, Subject, email draft body with Alex Morgan's signature card automatically docked at the bottom.
 2. **Excluded recording artifacts**: Excluded browser chrome and tabs, bookmarks bar, the Windows taskbar, screen-share overlay ("senting"), dark floating pin/ellipsis circles, browser right-click context menu, browser autofill dropdowns, accidental blue text selections on instructions, and the real cursor.
-3. **Completion card location**: Positioned after Step 52 with copy: "You've created your organization card and email signature. Next: how employees use them."
+3. **Completion card location**: Moved from Step 52 to Step 66 (the final step of the full OneCardX tutorial) with copy: "You now know how to use OneCardX end to end."
 4. **Mail icons replaced with Lucide for consistency**: All Snaarp Mail icons across the top bar, sidebar, list toolbar, email items, Quick settings popover, Settings left menu, Signature Editor toolbar, and New Message window were upgraded from ad-hoc inline SVGs/glyphs to standard Lucide icons (`lucide-react`) matching the project-wide design system.
+
+## OneCardX Part 4: Contacts, Analytics, and Bug Reporting (steps 53-66)
+
+Recording: `ref/1103(1).mp4` (copy of `Downloads/1103 (1).mp4`, stills in `ref/onecardx-frames-4/` `t0010s.jpg` to `t1080s.jpg`).
+
+**Sample data only (no real personal data):**
+- Admin identity: Sam Taylor, `sam.taylor@snaarp.com`, Acme Ltd.
+- Contact added: Alex Morgan (replacing "Olayinka Jacobs").
+- Emails: `alex.morgan@acme.example` (personal), `alex@acme.example` (work).
+- Phone: `+44 7700 900123` (replacing `+444455342233443`).
+- Titles & Info: Prefix "Mr", Middle name "James", Accreditations "MBA", Pronouns "he/him", Company "Acme Ltd", Title "Product Designer", Department "Engineering" (spelled correctly, replacing "Enginnering").
+- Custom Fields: Website `www.acme.example`, Spotify `www.spotify.com/music`.
+- Added date: `03/11/2026` (DD/MM/YYYY).
+- Analytics metrics: Retained exact video metrics: Total Views 144 (↑73%), Total Shares 0, Total Leads 0, Views Over Time line chart points (10-07 to 10-24), Device Breakdown donut 75 events (Mobile 63 84%, Desktop 11 15%, Tablet 1 1%), Shares by Channel empty state ("No shares yet in this period"), Engagement by Hour & Day 7x24 heatmap grid with hover tooltips, and Per-Card Breakdown table (Business 0, ID Card 16, Business Card 45, conversion 0.0%).
+- Bug Reporter: Category options (Bug, UI/Display, Performance, Data/Sync, Billing, Other).
+
+**Decisions & deviations:**
+1. **Faithful real UI reconstruction**: Built directly from video recording `1103(1).mp4` and extracted stills `ref/onecardx-frames-4/`:
+   - Contacts list empty state (`identity.snaarp.com/contacts`): search bar "Search 0 contacts", "+ Add" button, people illustration, "Add another contact!", subtitle, and "Add Contact" button.
+   - Contact Creation right-sliding drawer: Photo & Logo circles, Contact Info (First/Last name, Phone with country code selector, type, ext, Email with type selector and + add email), expandable More options (Prefix, Suffix, Middle name, Accreditations, Preferred name, Maiden name, Pronouns dropdown), Work Info (Company, Title, Department, Associated Card), Fields category chips (Most Popular, Social, Communication, Conferencing, Payment, Video, Music, Design, Gaming, Other) with subcategory selectors, added field pills, Cancel and Save Contact buttons.
+   - In-app photo and logo pickers: Replaced OS Windows file-chooser dialogs with clean in-app sample pickers (Alex Morgan portrait and Acme Ltd logo) per standard project pattern.
+   - Contacts table: 1 contact row ("Search 1 contacts", checkbox, NAME, JOB TITLE, COMPANY, TAGS).
+   - Contact details view (`identity.snaarp.com/contacts/...`): "← Back to Contacts", contact header with star and Edit/Delete buttons, 3-column metadata grid, Tags card with inline tag addition and chips, Notes card with textarea and Add Note button, and Activity Timeline card.
+   - Analytics dashboard (`identity.snaarp.com/analytics`): Last 30 days selector, 3 stat cards, Views Over Time SVG area chart, Device Breakdown SVG donut chart with legend, Shares by Channel empty state, Engagement by Hour & Day interactive heatmap, and Per-Card Breakdown table with pagination.
+   - Bug Reporter modal: global modal accessible from sidebar bottom link with Category dropdown, What happened? textarea, Cancel and Submit buttons.
+2. **Excluded recording artifacts**: Excluded browser chrome, Windows taskbar, screen-share overlay ("senting"), dark floating pin/ellipsis circles, browser right-click menus, browser autofill dropdowns, and the real cursor.
+3. **Completion card location**: Moved from Step 52 to Step 66 (the final step of the OneCardX tutorial) with copy: "You now know how to use OneCardX end to end."
+4. **Icons**: Standard Lucide icons used throughout all new screens and modals.
 
 
 
