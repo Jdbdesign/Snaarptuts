@@ -944,5 +944,31 @@ Recording: `ref/1103(1).mp4` (copy of `Downloads/1103 (1).mp4`, stills in `ref/o
 3. **Completion card location**: Moved from Step 52 to Step 66 (the final step of the OneCardX tutorial) with copy: "You now know how to use OneCardX end to end."
 4. **Icons**: Standard Lucide icons used throughout all new screens and modals.
 
+## Snaarp Drive Part 1: Navigation Tour (steps 1-21)
+
+Recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`, stills in `ref/drive-frames-1/` `t0001s.jpg` to `t0085s.jpg`).
+
+**Sample data only (no real personal data):**
+- User identity: Sam Taylor, `sam.taylor@snaarp.com`, avatar "S".
+- Storage statistics: "1.7 GB of 20.0 GB used (9%)" (as shown in video).
+- Folders in My Files: "Brand assets" (0 items), "Brand assets (copy)" (0 items), "Favicons" (0 items), "Icons" (2 items).
+- Files in My Files: "Q3 Roadmap.docx" (1.2 MB), "Financial Summary 2026.xlsx" (2.4 MB), "Brand Styleguide.pdf" (5.8 MB).
+- Meetings recording: "Untitled Meeting", meeting code `ysp-xqsx-wmh`.
+- Recycle Bin item: "Budget draft.xlsx", location "My Files", deleted Aug 5, 2026, size 5.9 KB.
+- Photo collections: Clean sample photo filenames (`team-photo-01.jpg`, `product-shot-02.jpg`, `beach-sunset-03.jpg`, etc.) and album titles ("Summer 2026", "Design System Assets", "Brand Photography").
+
+**Decisions & deviations:**
+1. **Faithful real UI reconstruction**: Built directly from video recording `1103 (1)(1).mp4` and extracted stills `ref/drive-frames-1/`:
+   - Suite rail: thin left bar with Snaarp Drive active mark, product icons, and user avatar.
+   - Drive sidebar: collapsible 230px inner sidebar with "+ New" button, navigation links (Home, Photos, My Files, Meetings, Shared, Favorites, Recycle Bin, Workspaces), and storage progress bar at the bottom.
+   - Top bar: Photos / Files toggle pill, global search bar ("Search in Drive"), user avatar, and Snaarp Apps 9-dots menu.
+   - Home view (`/dashboard`): Get started cards (Docs, Sheets, Slides, Forms), filter chips (All, Documents, Spreadsheets, Presentations, Photos & Images, PDFs), recent files table with name, owner, last modified, file size, and action icons.
+   - Photos view (`/photos`): sub-tabs (Photos, Moments, Albums, Favorites), date-grouped photo grid, month picker popover, layout popover (Square, Detailed, Compact), and floating search/action bar at bottom.
+   - Files view (`/files`): breadcrumb bar, action toolbar (sort menu, list/tiles toggle, details panel toggle), folder cards, file rows, and right-sliding details panel.
+   - Views for Meetings (`/meetings`), Shared (`/shared`), Favorites (`/favorites`), Recycle Bin (`/trash`), and Workspaces (`/workspaces`).
+2. **Excluded recording artifacts**: Excluded native browser chrome, Windows taskbar, screen-share overlay banner, green URL status tooltips, black memory-usage popup, and native operating system cursor.
+3. **Icons**: Standard Lucide icons (`lucide-react`) used throughout the product UI; authentic brand SVGs used for suite switcher logos and Snaarp Drive product logo.
+4. **Completion card**: Positioned after Step 21 with title "Tour complete" and message "You now know your way around Snaarp Drive. Next: the features."
+
 
 

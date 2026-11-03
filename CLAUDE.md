@@ -650,8 +650,37 @@ Files: Reusable Workforce stage components/workforce/WorkforceStage.tsx and app 
 
 Files: OneCardX stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (thin suite rail, 205px OneCardX sidebar, top bar with apps grid and admin avatar). Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` (`beginOneCardX` with mandatory `tl.placeCursor`, `finishOneCardX`). Central sample data in `components/onecardx/onecardx-data.ts` (Sam Taylor admin, Alex Morgan employee/contact, Acme Ltd, neutral sample portraits and logos). Views: `OneCardXHomeView`, `OneCardXOrgCardsView`, `OneCardXEditorView`, `OneCardXCardDetailView` + `OneCardXPublicPreviewOverlay`, `OneCardXMemberView`, `OneCardXIDCardsView`, `OneCardXUsersView`, `OneCardXBackgroundsView`, `OneCardXSignaturesView`, `OneCardXMailView`, `OneCardXContactsView`, `OneCardXAnalyticsView`, `OneCardXBugModal`. Per-step scenes in `scenes/onecardx/step<N>/`. All 66 steps clean with 0 open findings across 4 viewports in qa:visibility.
 
+### Snaarp Drive ("Snaarp Drive, Part 1: the navigation tour", route `/tutorials/drive`)
+Config: `tutorials/drive.ts` (21 steps, all built: Part 1 navigation tour; completion card follows step 21). Recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`; 1440x747, 1:26). Stills: `ref/drive-frames-1/` (`t0001s.jpg` to `t0085s.jpg`).
+
+| Step | Status |
+|---|---|
+| 1. Your Drive home | Done |
+| 2. Switch to Photos | Done |
+| 3. Moments | Done |
+| 4. Albums | Done |
+| 5. Favorites in Photos | Done |
+| 6. Change the photo layout | Done |
+| 7. Jump to a month | Done |
+| 8. Back to Files | Done |
+| 9. Filter your recent files | Done |
+| 10. Create or upload | Done |
+| 11. My Files | Done |
+| 12. Sort your files | Done |
+| 13. Change the view | Done |
+| 14. Open the details panel | Done |
+| 15. Meetings | Done |
+| 16. Photos from the sidebar | Done |
+| 17. Shared files | Done |
+| 18. Favorites | Done |
+| 19. Recycle Bin | Done |
+| 20. Workspaces | Done |
+| 21. Back to Home | Done |
+
+Files: Reusable stage `components/drive/DriveStage.tsx` and app shell `components/drive/DriveShell.tsx` (thin suite rail with Drive active, collapsible 230px inner sidebar with storage bar 1.7 GB / 20.0 GB 9%, top bar with Photos/Files pill, search, user avatar, and apps 9-dot grid). Views: `DriveHomeView.tsx` (Get started cards, filter chips, recent table), `DrivePhotosView.tsx` (sub-tabs, gallery grid, moments, albums, favorites, layout popover, month popover, floating search bar), `DriveFilesView.tsx` (toolbar, list/compact table, 5-col tiles view, sort menu, view toggle, details drawer), `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveCreateMenu.tsx`. Shared timeline helpers in `components/drive/drive-timeline.ts` (`beginDrive` with mandatory `tl.placeCursor`, `finishDrive`). Central sample data in `components/drive/drive-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`). All 21 steps clean with 0 open findings across 4 viewports in qa:visibility.
+
 ### Product switcher
-(Snaarp Admin is the fourth product: `tutorials/snaarp-admin.ts`, 12 steps, all built. Snaarp Slides is the fifth: `tutorials/snaarp-slides.ts`, 56 steps (the whole product), all built. Snaarp Sheets is the sixth: `tutorials/snaarp-sheets.ts`, 116 steps (the whole product: every menu, the toolbar and the header tools), all built. Workforce is the seventh product: `tutorials/workforce.ts`, 124 steps, all built and COMPLETE. OneCardX is the eighth product: `tutorials/onecardx.ts`, 66 steps, all built and COMPLETE.) The rail starts with the search box (see "Rail search"). The rail's product card is a dropdown of every product in `tutorials/index.ts` (Snaarp 360 first). Each product has its own steps (modules) listed below it; a product with no built scenes shows a "coming soon" stage (`components/player/ComingSoon.tsx`). Snaarp Mail (`tutorials/snaarp-mail.ts`) is listed with its 17 modules, all built. Real product logos live in `public/logos/` and are shown with `ProductLogo` from `components/icons.tsx`.
+(Snaarp Admin is the fourth product: `tutorials/snaarp-admin.ts`, 12 steps, all built. Snaarp Slides is the fifth: `tutorials/snaarp-slides.ts`, 56 steps (the whole product), all built. Snaarp Sheets is the sixth: `tutorials/snaarp-sheets.ts`, 116 steps (the whole product: every menu, the toolbar and the header tools), all built. Workforce is the seventh product: `tutorials/workforce.ts`, 124 steps, all built and COMPLETE. OneCardX is the eighth product: `tutorials/onecardx.ts`, 66 steps, all built and COMPLETE. Snaarp Drive is the ninth product: `tutorials/drive.ts`, 21 steps, all built and COMPLETE for Part 1.) The rail starts with the search box (see "Rail search"). The rail's product card is a dropdown of every product in `tutorials/index.ts` (Snaarp 360 first). Each product has its own steps (modules) listed below it; a product with no built scenes shows a "coming soon" stage (`components/player/ComingSoon.tsx`). Snaarp Mail (`tutorials/snaarp-mail.ts`) is listed with its 17 modules, all built. Real product logos live in `public/logos/` and are shown with `ProductLogo` from `components/icons.tsx`.
 
 ### Rail search ("Search products, modules")
 The box at the top of the rail searches products AND modules (steps) as you type (60 ms debounce, first letter instant). Files: `components/player/RailSearch.tsx` (the combobox + results panel; the normal rail content is passed in as children and stays mounted, `inert`, under the panel), copy and limits in `components/player/rail-search-data.ts`, the pure index and ranking in `lib/search-index.ts`, the cross-product jump slot in `lib/pending-jump.ts`, shared `components/player/ProductMark.tsx`. **The index is built from `tutorials/*.ts`** (`buildSearchIndex(tutorials)`), so a new product or step is searchable with no extra list: one product entry per tutorial (name + `product.aliases`) and one module entry per BUILT step (title, group, product name). Optional config fields: `product.aliases` (find the product only: "doc", "email"...) and `groups: [{ title, from: <step id> }]` (Snaarp Doc has Getting started, File, Edit, View, Insert, Format, Tools, eSignature, Toolbar, Header buttons; a group name is matched and shown in the result's small line, it is not a result of its own). Ranking: word-start match first, then the field (title, group, product name); results are max 6 products and 10 modules with "Show N more". Picking a module in the open product calls the player's `select`; in another product it stores the step in `lib/pending-jump.ts` and `router.push`es, and the new `TutorialPlayer` starts on that step (so the rail shows it active; the rail list scrolls the active step into view). Keys: ArrowUp/Down, Enter, Escape (clears and blurs), "/" (handled in `TutorialPlayer`: expands the rail and focuses the box). While the rail is collapsed, `BrowserFrame` shows a search icon next to the expand button (`onSearch`). Typing never touches the tutorial; only picking a result does.

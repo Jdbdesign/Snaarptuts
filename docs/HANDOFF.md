@@ -254,3 +254,25 @@ Views:
 Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` ensure `beginOneCardX` calls `tl.placeCursor` so the pointer is visible from frame 1.
 Every script follows house scene patterns (`pressOn`, `hoverOn`, `ring`, `finishOneCardX`).
 Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings across all 264 runs (66 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). Production build clean.
+
+## Snaarp Drive (ninth tutorial, Part 1 complete: 21 steps)
+
+Route `/tutorials/drive`, config `tutorials/drive.ts`: **21 steps, all built and complete for Part 1 (The Navigation Tour)**. Explores Drive Home, Photos switcher, Moments, Albums, Favorites in Photos, photo layout options, month jumping, switching back to Files, filter chips, Create/Upload menu, My Files view, sorting files, switching between list and tiles view, opening the file details drawer, Meetings recordings directory, Photos via sidebar, Shared files, Favorites, Recycle Bin, Workspaces, and returning to Home. Completion card follows step 21: "You now know your way around Snaarp Drive. Next: the features."
+Recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`; 1440x747, 1:26). Extracted stills: `ref/drive-frames-1/` (`t0001s.jpg` to `t0085s.jpg`).
+
+How it is built:
+- Reusable stage `components/drive/DriveStage.tsx` and app shell `components/drive/DriveShell.tsx` (thin suite rail with Drive active, collapsible 230px inner sidebar with storage bar 1.7 GB / 20.0 GB 9%, top bar with Photos/Files toggle pill, search bar, user avatar, and apps 9-dot grid).
+- Views:
+  - `DriveHomeView.tsx`: Get started cards (Docs, Sheets, Slides, Forms), filter chips, and recent files table.
+  - `DrivePhotosView.tsx`: date-grouped photos grid, sub-tabs (Photos, Moments, Albums, Favorites), layout popover, month selector popover, and floating search bar.
+  - `DriveFilesView.tsx`: files and folders list, 5-col thumbnail tiles view, sort menu, and right-hand details drawer.
+  - `DriveMeetingsView.tsx`: meeting recordings directory with "Untitled Meeting" row.
+  - `DriveSharedView.tsx`: shared files directory.
+  - `DriveFavoritesView.tsx`: starred and favorited items directory.
+  - `DriveTrashView.tsx`: Recycle Bin with restore and permanent deletion actions.
+  - `DriveWorkspacesView.tsx`: team workspace directory.
+  - `DriveCreateMenu.tsx`: + New popover menu.
+- Shared timeline helpers in `components/drive/drive-timeline.ts` (`beginDrive` with mandatory `tl.placeCursor`, `finishDrive`, `pressOn`, `hoverOn`, `ring`).
+- Central sample data in `components/drive/drive-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`).
+- Per-step scenes in `scenes/drive/step<1..21>/`.
+- Tested with `npm run qa:visibility -- --tutorial drive`: 0 open findings across all 84 runs (21 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). TypeScript, lint, and production build clean.

@@ -1975,3 +1975,38 @@ Source recording: `ref/1103(1).mp4` (copy of `Downloads/1103 (1).mp4`, stills in
 - Views: `OneCardXHomeView.tsx`, `OneCardXOrgCardsView.tsx`, `OneCardXEditorView.tsx`, `OneCardXCardDetailView.tsx` (with exported `OneCardXPublicPreviewOverlay`), `OneCardXMemberView.tsx`, `OneCardXIDCardsView.tsx`, `OneCardXUsersView.tsx`, `OneCardXBackgroundsView.tsx`, `OneCardXSignaturesView.tsx`, `OneCardXMailView.tsx`, `OneCardXContactsView.tsx`, `OneCardXAnalyticsView.tsx`, `OneCardXBugModal.tsx`
 - Timeline & Data: `components/onecardx/onecardx-timeline.ts` (`beginOneCardX`, `finishOneCardX`), `components/onecardx/onecardx-data.ts`
 - Step Scenes & Scripts: `scenes/onecardx/step<1..66>/Step<N>.tsx`, `script.ts`, `data.ts`
+
+## Snaarp Drive Part 1: The Navigation Tour (steps 1-21)
+
+Source recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`, stills in `ref/drive-frames-1/` `t0001s.jpg` to `t0085s.jpg`).
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 1 | Your Drive home | Opens on Snaarp Drive home (`drive.snaarp.com/dashboard`). Explains Get started cards, recent files filter chips, and recent files table. | 6.0 s |
+| 2 | Switch to Photos | Clicks the Photos pill in the top bar switch. View navigates to Photos gallery (`drive.snaarp.com/photos`) showing date-grouped photos grid. | 6.5 s |
+| 3 | Moments | Clicks the Moments sub-tab (`drive.snaarp.com/photos/moments`). Reviews curated moments collection (Weekend getaway, Team retreat, Product launch). | 6.0 s |
+| 4 | Albums | Clicks the Albums sub-tab (`drive.snaarp.com/photos/albums`). Reviews albums cards (Summer 2026, Design System Assets, Brand Photography). | 6.0 s |
+| 5 | Favorites in Photos | Clicks Favorites sub-tab (`drive.snaarp.com/photos/favorites`). Reviews favorited photos collection with star indicators. | 6.0 s |
+| 6 | Change the photo layout | Clicks back to Photos tab, then opens the layout popover top right. Explores Square, Detailed, and Compact options, then selects Compact. | 7.5 s |
+| 7 | Jump to a month | Clicks month picker dropdown ("June 2026"). Popover opens showing interactive calendar month selector. Reviews picker and closes it. | 6.5 s |
+| 8 | Back to Files | Clicks the Files pill in the top bar switcher. Returns smoothly to Drive home (`drive.snaarp.com/dashboard`). | 5.5 s |
+| 9 | Filter your recent files | Clicks the "Documents" filter chip, then "Sheets". Recent files table filters smoothly to match the selected type, then resets back to All. | 7.5 s |
+| 10 | Create or upload | Clicks "+ New" button in the inner sidebar. Popover menu opens displaying Folder, File upload, Folder upload, and Snaarp suite doc options. Clicks New to close menu. | 6.5 s |
+| 11 | My Files | Clicks "My Files" in the sidebar (`drive.snaarp.com/files`). Reviews 4 folders (Brand assets, Brand assets (copy), Favicons, Icons) and 3 files in list view. | 6.0 s |
+| 12 | Sort your files | Clicks "Last modified" sort button in toolbar. Sort menu dropdown opens with Name, Last modified, and Size options. Clicks to close. | 6.5 s |
+| 13 | Change the view | Clicks view switcher icon in toolbar. File list switches from list view to 5-column thumbnail tiles view (`tiles-view-grid`). | 6.5 s |
+| 14 | Open the details panel | Clicks information "i" icon in toolbar. Right-side details drawer slides open showing selected file preview, type, size, modified date, and access permissions. | 7.0 s |
+| 15 | Meetings | Clicks "Meetings" in sidebar (`drive.snaarp.com/meetings`). Reviews meeting recordings directory with "Untitled Meeting" (`ysp-xqsx-wmh`) recording item. | 6.0 s |
+| 16 | Photos from the sidebar | Clicks "Photos" in the left navigation sidebar. Smoothly switches directly to Photos gallery view. | 6.0 s |
+| 17 | Shared files | Clicks "Shared" in sidebar (`drive.snaarp.com/shared`). Reviews shared files and folders shared by teammates with permissions badges. | 6.0 s |
+| 18 | Favorites | Clicks "Favorites" in sidebar (`drive.snaarp.com/favorites`). Reviews starred/favorited files and quick access shortcuts. | 6.0 s |
+| 19 | Recycle Bin | Clicks "Recycle Bin" in sidebar (`drive.snaarp.com/trash`). Reviews deleted items with Restore and Delete permanently actions, and "Budget draft.xlsx" item. | 6.5 s |
+| 20 | Workspaces | Clicks "Workspaces" in sidebar (`drive.snaarp.com/workspaces`). Reviews shared organizational team spaces (Design Team, Marketing Assets, Q3 Planning). | 6.5 s |
+| 21 | Back to Home | Clicks "Home" in sidebar (`drive.snaarp.com/dashboard`). Returns to Drive home. Completion card follows. | 6.0 s |
+
+**Files.**
+- Config: `tutorials/drive.ts` (registered in `tutorials/index.ts`)
+- Shell & Stage: `components/drive/DriveShell.tsx`, `components/drive/DriveStage.tsx`
+- Views: `DriveHomeView.tsx`, `DrivePhotosView.tsx`, `DriveFilesView.tsx`, `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveCreateMenu.tsx`
+- Timeline & Data: `components/drive/drive-timeline.ts` (`beginDrive`, `finishDrive`), `components/drive/drive-data.ts`
+- Step Scenes & Scripts: `scenes/drive/step<1..21>/Step<N>.tsx`, `script.ts`, `data.ts`
