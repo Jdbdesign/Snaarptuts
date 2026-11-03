@@ -42,6 +42,8 @@ import { Step21 } from "@/scenes/onecardx/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/onecardx/step21/script";
 import { Step22 } from "@/scenes/onecardx/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/onecardx/step22/script";
+import { Step23 } from "@/scenes/onecardx/step23/Step23";
+import { runStep23, STEP23_DURATION_MS } from "@/scenes/onecardx/step23/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -185,6 +187,12 @@ export const onecardx: Tutorial = {
       title: "Edit the design",
       url: "onecardx.snaarp.com/admin/organization-cards",
       scene: { Component: Step22, run: runStep22, durationMs: STEP22_DURATION_MS },
+    },
+    {
+      id: "choose-a-style",
+      title: "Choose a style",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step23, run: runStep23, durationMs: STEP23_DURATION_MS },
     },
   ],
   completion: {
