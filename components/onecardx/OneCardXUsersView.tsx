@@ -198,7 +198,7 @@ export function OneCardXUsersView({ tl }: Props) {
                   <td className="py-3 px-4 text-right">
                     <button
                       type="button"
-                      data-tl={`btn-idcard-image-${user.id}`}
+                      data-tl={user.id === "u-1" ? "btn-idcard-image-alex-morgan" : `btn-idcard-image-${user.id}`}
                       onClick={() => tl.setVar("ocxUserImageModalOpen", true)}
                       className="text-xs font-semibold text-[#7014D9] hover:underline cursor-pointer"
                     >
