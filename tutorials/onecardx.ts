@@ -58,6 +58,8 @@ import { Step29 } from "@/scenes/onecardx/step29/Step29";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/onecardx/step29/script";
 import { Step30 } from "@/scenes/onecardx/step30/Step30";
 import { runStep30, STEP30_DURATION_MS } from "@/scenes/onecardx/step30/script";
+import { Step31 } from "@/scenes/onecardx/step31/Step31";
+import { runStep31, STEP31_DURATION_MS } from "@/scenes/onecardx/step31/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -249,6 +251,12 @@ export const onecardx: Tutorial = {
       title: "See it in ID Cards",
       url: "onecardx.snaarp.com/admin/organization-cards",
       scene: { Component: Step30, run: runStep30, durationMs: STEP30_DURATION_MS },
+    },
+    {
+      id: "manage-users-card-images",
+      title: "Manage users' card images",
+      url: "onecardx.snaarp.com/admin/users",
+      scene: { Component: Step31, run: runStep31, durationMs: STEP31_DURATION_MS },
     },
   ],
   completion: {
