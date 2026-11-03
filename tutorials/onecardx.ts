@@ -62,6 +62,8 @@ import { Step31 } from "@/scenes/onecardx/step31/Step31";
 import { runStep31, STEP31_DURATION_MS } from "@/scenes/onecardx/step31/script";
 import { Step32 } from "@/scenes/onecardx/step32/Step32";
 import { runStep32, STEP32_DURATION_MS } from "@/scenes/onecardx/step32/script";
+import { Step33 } from "@/scenes/onecardx/step33/Step33";
+import { runStep33, STEP33_DURATION_MS } from "@/scenes/onecardx/step33/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -265,6 +267,12 @@ export const onecardx: Tutorial = {
       title: "Set a user's card image",
       url: "onecardx.snaarp.com/admin/users",
       scene: { Component: Step32, run: runStep32, durationMs: STEP32_DURATION_MS },
+    },
+    {
+      id: "back-to-create-card-start-new-card",
+      title: "Back to Create Card, start a new card",
+      url: "onecardx.snaarp.com/admin/organization-cards",
+      scene: { Component: Step33, run: runStep33, durationMs: STEP33_DURATION_MS },
     },
   ],
   completion: {
