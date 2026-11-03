@@ -443,18 +443,67 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                           type="button"
                           data-tl={isBlue ? "swatch-blue" : `swatch-${c.id}`}
                           onClick={() => tl.setVar("ocxAccentColor", c.hex)}
-                          className={`h-6 w-6 m-0.5 rounded-full transition-transform cursor-pointer relative flex items-center justify-center ${
-                            isSelected ? "ring-2 ring-offset-2 ring-gray-400" : "hover:scale-105"
-                          }`}
-                          style={{ backgroundColor: c.hex }}
+                          className="p-0.5 rounded-sm transition-transform cursor-pointer relative flex items-center justify-center hover:scale-105"
                           title={c.name}
                         >
-                          {isSelected && (
-                            <span className="text-white text-[10px] font-bold">✓</span>
-                          )}
+                          <span
+                            className={`h-6 w-6 rounded-full flex items-center justify-center ${
+                              isSelected ? "ring-2 ring-offset-2 ring-gray-400" : ""
+                            }`}
+                            style={{ backgroundColor: c.hex }}
+                          >
+                            {isSelected && (
+                              <span className="text-white text-[10px] font-bold">✓</span>
+                            )}
+                          </span>
                         </button>
                       );
                     })}
+                  </div>
+                </div>
+
+                {/* 3b. Background Color */}
+                <div className="pt-2 border-t border-gray-100">
+                  <h3 className="text-sm font-bold text-[#111827]">Background Color</h3>
+                  <p className="text-xs text-[#6B7280] mb-2.5">
+                    Use the style default, or replace previously fixed card surfaces with your own color.
+                  </p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-3 py-1 rounded-full border border-gray-300 text-[11px] font-medium text-gray-700 bg-white shadow-2xs">
+                      Auto
+                    </span>
+                    <button type="button" className="h-6 w-6 rounded-full border border-purple-500 bg-white" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#374151]" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#111827]" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#1E3A8A]" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#0D9488]" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#DC2626]" />
+                    <span className="text-xs text-gray-500 flex items-center gap-1 ml-1 cursor-pointer">
+                      <span className="h-3.5 w-3.5 border border-gray-400 rounded-2xs inline-block" /> Custom
+                    </span>
+                  </div>
+                </div>
+
+                {/* 3c. Font Color */}
+                <div className="pt-2 border-t border-gray-100">
+                  <h3 className="text-sm font-bold text-[#111827]">Font Color</h3>
+                  <p className="text-xs text-[#6B7280] mb-2.5">
+                    Use automatic contrast, or select the text color used throughout the card.
+                  </p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-3 py-1 rounded-full border border-gray-300 text-[11px] font-medium text-gray-700 bg-white shadow-2xs">
+                      Auto
+                    </span>
+                    <button type="button" className="h-6 w-6 rounded-full border border-gray-300 bg-white" />
+                    <button type="button" className="h-6 w-6 rounded-full border border-gray-200 bg-gray-100" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#111827] ring-2 ring-purple-600 ring-offset-1" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#1E293B]" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#7014D9]" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#2563EB]" />
+                    <button type="button" className="h-6 w-6 rounded-full bg-[#DC2626]" />
+                    <span className="text-xs text-gray-500 flex items-center gap-1 ml-1 cursor-pointer">
+                      <span className="h-3.5 w-3.5 bg-[#111827] rounded-2xs inline-block" /> Custom
+                    </span>
                   </div>
                 </div>
 
@@ -480,19 +529,20 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                 <div className="pt-2 border-t border-gray-100">
                   <h3 className="text-sm font-bold text-[#111827]">Logo</h3>
                   <div className="mt-2 flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-[#7014D9] text-white flex items-center justify-center font-bold text-xs shadow-2xs">
+                      D
+                    </div>
                     <button
                       type="button"
                       data-tl="btn-add-logo"
                       onClick={() => tl.setVar("ocxLogoModalOpen", true)}
                       className="rounded-full border border-gray-300 px-4 py-1.5 text-xs font-semibold text-[#374151] hover:bg-gray-50 transition-colors cursor-pointer"
                     >
-                      {logoAdded ? "Change Logo" : "Add Logo"}
+                      Add Logo
                     </button>
-                    {logoAdded && (
-                      <span className="text-xs text-[#059669] font-medium">
-                        ✓ Logo added
-                      </span>
-                    )}
+                    <span className="text-xs text-gray-500 hover:text-gray-800 cursor-pointer">
+                      Remove
+                    </span>
                   </div>
                 </div>
 
@@ -505,19 +555,23 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-md bg-[#7014D9] text-white flex items-center justify-center shadow-2xs">
+                      <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                        <path d="m21 16-9 5-9-5V8l9-5 9 5v8z" />
+                        <path d="m12 13 9-5M12 13l-9-5M12 13v8" />
+                      </svg>
+                    </div>
                     <button
                       type="button"
                       data-tl="btn-add-badge"
                       onClick={() => tl.setVar("ocxBadgeModalOpen", true)}
                       className="rounded-full border border-gray-300 px-4 py-1.5 text-xs font-semibold text-[#374151] hover:bg-gray-50 transition-colors cursor-pointer"
                     >
-                      {badgeAdded ? "Change Badge" : "Add Badge"}
+                      Add Badge
                     </button>
-                    {badgeAdded && (
-                      <span className="text-xs text-[#059669] font-medium">
-                        ✓ Badge added
-                      </span>
-                    )}
+                    <span className="text-xs text-gray-500 hover:text-gray-800 cursor-pointer">
+                      Remove
+                    </span>
                   </div>
                 </div>
               </div>

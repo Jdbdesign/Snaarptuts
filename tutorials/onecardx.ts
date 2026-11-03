@@ -44,6 +44,8 @@ import { Step22 } from "@/scenes/onecardx/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/onecardx/step22/script";
 import { Step23 } from "@/scenes/onecardx/step23/Step23";
 import { runStep23, STEP23_DURATION_MS } from "@/scenes/onecardx/step23/script";
+import { Step24 } from "@/scenes/onecardx/step24/Step24";
+import { runStep24, STEP24_DURATION_MS } from "@/scenes/onecardx/step24/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -193,6 +195,12 @@ export const onecardx: Tutorial = {
       title: "Choose a style",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step23, run: runStep23, durationMs: STEP23_DURATION_MS },
+    },
+    {
+      id: "colours-logo-and-badge",
+      title: "Colours, logo and badge",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step24, run: runStep24, durationMs: STEP24_DURATION_MS },
     },
   ],
   completion: {
