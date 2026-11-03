@@ -11,6 +11,10 @@ import {
   OneCardXCardDetailView,
   OneCardXPublicPreviewOverlay,
 } from "./OneCardXCardDetailView";
+import { OneCardXMemberView } from "./OneCardXMemberView";
+import { OneCardXIDCardsView } from "./OneCardXIDCardsView";
+import { OneCardXUsersView } from "./OneCardXUsersView";
+import { OneCardXBackgroundsView } from "./OneCardXBackgroundsView";
 import type { OneCardXPage } from "./onecardx-timeline";
 
 type Props = {
@@ -30,7 +34,17 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
       ? "create-card"
       : page === "editor"
       ? "business-card"
-      : "id-cards";
+      : page === "cardDetail"
+      ? "id-cards"
+      : page === "memberView"
+      ? "business-card"
+      : page === "idCards"
+      ? "id-cards"
+      : page === "users"
+      ? "users"
+      : page === "backgrounds"
+      ? "backgrounds"
+      : "create-card";
 
   const pageTitle: string =
     page === "home"
@@ -39,15 +53,37 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
       ? "Organization Card"
       : page === "editor"
       ? "Business Card"
-      : "ID Cards";
+      : page === "cardDetail"
+      ? "ID Cards"
+      : page === "memberView"
+      ? "Business Card"
+      : page === "idCards"
+      ? "ID Cards"
+      : page === "users"
+      ? "Users"
+      : page === "backgrounds"
+      ? "Backgrounds"
+      : "Organization Card";
 
   const handleNavigateNav = (navId: OneCardXNavId) => {
     if (navId === "home") {
       tl.setUrl(URLS.home);
       tl.setVar("ocxPage", "home");
-    } else if (navId === "id-cards" || navId === "create-card") {
+    } else if (navId === "id-cards") {
+      tl.setUrl(URLS.idCards);
+      tl.setVar("ocxPage", "idCards");
+    } else if (navId === "create-card") {
       tl.setUrl(URLS.orgCards);
       tl.setVar("ocxPage", "orgCards");
+    } else if (navId === "users") {
+      tl.setUrl(URLS.users);
+      tl.setVar("ocxPage", "users");
+    } else if (navId === "backgrounds") {
+      tl.setUrl(URLS.backgrounds);
+      tl.setVar("ocxPage", "backgrounds");
+    } else if (navId === "business-card") {
+      tl.setUrl(URLS.memberView);
+      tl.setVar("ocxPage", "memberView");
     }
   };
 
@@ -89,6 +125,14 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
               tl.setUrl(URLS.editor);
               tl.setVar("ocxPage", "editor");
             }}
+            onEditDesign={() => {
+              tl.setUrl(URLS.editor);
+              tl.setVar("ocxPage", "editor");
+            }}
+            onPreview={() => {
+              tl.setUrl(URLS.memberView);
+              tl.setVar("ocxPage", "memberView");
+            }}
           />
         )}
 
@@ -122,6 +166,26 @@ export function OneCardXStage({ tl, startPage = "home" }: Props) {
             }}
           />
         )}
+
+        {page === "memberView" && (
+          <OneCardXMemberView
+            tl={tl}
+            onEditDetails={() => {
+              tl.setUrl(URLS.editor);
+              tl.setVar("ocxPage", "editor");
+            }}
+            onBackToList={() => {
+              tl.setUrl(URLS.orgCards);
+              tl.setVar("ocxPage", "orgCards");
+            }}
+          />
+        )}
+
+        {page === "idCards" && <OneCardXIDCardsView tl={tl} />}
+
+        {page === "users" && <OneCardXUsersView tl={tl} />}
+
+        {page === "backgrounds" && <OneCardXBackgroundsView tl={tl} />}
       </OneCardXShell>
 
       {/* Standard White Fade Transition Overlay */}

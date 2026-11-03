@@ -4,7 +4,15 @@ import { URLS } from "./onecardx-data";
 // Re-export generic house helpers from sheets-timeline
 export { pressOn, hoverOn, ring, endFade } from "@/components/sheets/sheets-timeline";
 
-export type OneCardXPage = "home" | "orgCards" | "editor" | "cardDetail";
+export type OneCardXPage =
+  | "home"
+  | "orgCards"
+  | "editor"
+  | "cardDetail"
+  | "memberView"
+  | "idCards"
+  | "users"
+  | "backgrounds";
 
 /**
  * Resets OneCardX scene variables to a clean starting state for any step.

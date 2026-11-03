@@ -32,6 +32,8 @@ import { Step16 } from "@/scenes/onecardx/step16/Step16";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/onecardx/step16/script";
 import { Step17 } from "@/scenes/onecardx/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/onecardx/step17/script";
+import { Step18 } from "@/scenes/onecardx/step18/Step18";
+import { runStep18, STEP18_DURATION_MS } from "@/scenes/onecardx/step18/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -145,6 +147,12 @@ export const onecardx: Tutorial = {
       title: "Preview the public card",
       url: "onecardx.snaarp.com/admin/organization-cards/engineering-team",
       scene: { Component: Step17, run: runStep17, durationMs: STEP17_DURATION_MS },
+    },
+    {
+      id: "back-to-your-card-list",
+      title: "Back to your card list",
+      url: "onecardx.snaarp.com/admin/organization-cards",
+      scene: { Component: Step18, run: runStep18, durationMs: STEP18_DURATION_MS },
     },
   ],
   completion: {

@@ -9,6 +9,10 @@ export const URLS = {
   editor: "onecardx.snaarp.com/admin/organization-cards/editor",
   cardDetail: "onecardx.snaarp.com/admin/organization-cards/engineering-team",
   publicPreview: "identity.snaarp.com/c/engineering-team-38805cae",
+  memberView: "onecardx.snaarp.com/cards/engineering-team",
+  idCards: "onecardx.snaarp.com/id-cards",
+  users: "onecardx.snaarp.com/admin/users",
+  backgrounds: "onecardx.snaarp.com/backgrounds",
 };
 
 /**
@@ -177,32 +181,85 @@ export const SAMPLE_LOGOS = [
 /**
  * Additional Fields Categories and Chips
  */
-export const FIELD_CATEGORIES = [
+export const BUSINESS_CARD_STYLES = [
+  { id: "profile", name: "Profile" },
+  { id: "portrait", name: "Portrait" },
+  { id: "midnight", name: "Midnight" },
+  { id: "qr-rail", name: "QR Rail" },
+  { id: "orbit", name: "Orbit" },
+  { id: "hex", name: "Hex" },
+  { id: "split", name: "Split" },
+  { id: "minimal", name: "Minimal" },
+  { id: "wave", name: "Wave" },
+];
+
+export const BACKGROUND_COLOR_SWATCHES = [
+  { id: "white", hex: "#FFFFFF" },
+  { id: "dark-purple", hex: "#3B0764" },
+  { id: "navy", hex: "#0F172A" },
+  { id: "blue", hex: "#2563EB" },
+  { id: "teal", hex: "#0D9488" },
+  { id: "red", hex: "#DC2626" },
+];
+
+export const FONT_COLOR_SWATCHES = [
+  { id: "navy", hex: "#0F172A" },
+  { id: "black", hex: "#000000" },
+  { id: "purple", hex: "#7014D9" },
+  { id: "indigo", hex: "#4F46E5" },
+  { id: "teal", hex: "#0D9488" },
+  { id: "red", hex: "#DC2626" },
+];
+
+export const AUDIENCE_PEOPLE = [
+  { id: "alex-morgan", name: "Alex Morgan", email: "alex.morgan@snaarp.com" },
+  { id: "jordan-lee", name: "Jordan Lee", email: "jordan.lee@snaarp.com" },
+  { id: "casey-brown", name: "Casey Brown", email: "casey.brown@snaarp.com" },
+  { id: "taylor-reed", name: "Taylor Reed", email: "taylor.reed@snaarp.com" },
+  { id: "morgan-blake", name: "Morgan Blake", email: "morgan.blake@snaarp.com" },
+  { id: "riley-cole", name: "Riley Cole", email: "riley.cole@snaarp.com" },
+];
+
+export const DIRECTORY_USERS = [
+  { id: "u-1", name: "Alex Morgan", email: "alex.morgan@snaarp.com", dept: "Engineering", status: "Active" },
+  { id: "u-2", name: "Jordan Lee", email: "jordan.lee@snaarp.com", dept: "Engineering", status: "Active" },
+  { id: "u-3", name: "Casey Brown", email: "casey.brown@snaarp.com", dept: "Engineering", status: "Active" },
+  { id: "u-4", name: "Sam Taylor", email: "sam.taylor@snaarp.com", dept: "Engineering", status: "Active" },
+  { id: "u-5", name: "Taylor Reed", email: "taylor.reed@snaarp.com", dept: "HR", status: "Active" },
+  { id: "u-6", name: "Morgan Blake", email: "morgan.blake@snaarp.com", dept: "Engineering", status: "Active" },
+  { id: "u-7", name: "Riley Cole", email: "riley.cole@snaarp.com", dept: "Engineering", status: "Active" },
+  { id: "u-8", name: "Drew Hart", email: "drew.hart@snaarp.com", dept: "Engineering", status: "Active" },
+];
+
+export const VIRTUAL_BACKGROUNDS_CATEGORIES = [
   {
-    id: "popular",
-    title: "Most Popular",
-    fields: [
-      { id: "website", label: "Website", icon: "globe", placeholder: "https://yourwebsite.com" },
-      { id: "email", label: "Email", icon: "mail", placeholder: "alex.morgan@acme.com" },
-      { id: "phone", label: "Phone", icon: "phone", placeholder: "+44 20 7946 0192" },
-      { id: "linkedin", label: "LinkedIn", icon: "share", placeholder: "https://linkedin.com/in/username" },
-      { id: "instagram", label: "Instagram", icon: "instagram", placeholder: "@username" },
+    id: "featured",
+    name: "Featured",
+    items: [
+      { id: "sunset-lake", name: "Sunset Lake", gradient: "from-amber-600 via-orange-500 to-rose-900" },
+      { id: "beach-waves", name: "Beach Waves", gradient: "from-cyan-500 via-sky-400 to-blue-700" },
+      { id: "golden-meadow", name: "Golden Meadow", gradient: "from-yellow-500 via-amber-600 to-orange-800" },
+      { id: "deep-ocean", name: "Deep Ocean", gradient: "from-blue-700 via-indigo-800 to-slate-950" },
     ],
   },
   {
-    id: "communication",
-    title: "Communication",
-    fields: [
-      { id: "whatsapp", label: "WhatsApp", icon: "chat", placeholder: "+44 7700 900123" },
-      { id: "telegram", label: "Telegram", icon: "send", placeholder: "@username" },
+    id: "abstract",
+    name: "Abstract",
+    items: [
+      { id: "purple-flow", name: "Purple Flow", gradient: "from-purple-800 via-purple-600 to-indigo-900" },
+      { id: "pastel-mesh", name: "Pastel Mesh", gradient: "from-pink-300 via-yellow-200 to-cyan-300" },
+      { id: "curved-lines", name: "Curved Lines", gradient: "from-slate-200 via-gray-300 to-slate-400" },
+      { id: "abstract-3", name: "Abstract 3", gradient: "from-violet-600 via-purple-500 to-fuchsia-600" },
     ],
   },
   {
-    id: "conferencing",
-    title: "Conferencing & Video",
-    fields: [
-      { id: "meets", label: "Snaarp Meets", icon: "video", placeholder: "https://meets.snaarp.com/room" },
-      { id: "youtube", label: "YouTube", icon: "play", placeholder: "https://youtube.com/@channel" },
+    id: "city",
+    name: "City",
+    items: [
+      { id: "skyline-night", name: "Skyline Night", gradient: "from-slate-900 via-indigo-950 to-blue-900" },
+      { id: "aerial-view", name: "Aerial View", gradient: "from-blue-900 via-slate-800 to-zinc-900" },
+      { id: "city-sunset", name: "City Sunset", gradient: "from-orange-700 via-rose-700 to-purple-900" },
+      { id: "modern-bridge", name: "Modern Bridge", gradient: "from-sky-700 via-slate-700 to-gray-800" },
     ],
   },
 ];
