@@ -13,6 +13,9 @@ export const URLS = {
   idCards: "onecardx.snaarp.com/id-cards",
   users: "onecardx.snaarp.com/admin/users",
   backgrounds: "onecardx.snaarp.com/backgrounds",
+  emailSignatures: "identity.snaarp.com/email-signatures",
+  mailInbox: "m.snaarp.com/#inbox",
+  mailSettings: "m.snaarp.com/#settings",
 };
 
 /**
@@ -262,4 +265,42 @@ export const VIRTUAL_BACKGROUNDS_CATEGORIES = [
       { id: "modern-bridge", name: "Modern Bridge", gradient: "from-sky-700 via-slate-700 to-gray-800" },
     ],
   },
+];
+
+export type MailItem = {
+  id: string;
+  sender: string;
+  senderCount?: number;
+  subject: string;
+  snippet: string;
+  date: string;
+  isUnread?: boolean;
+};
+
+export const SAMPLE_MAIL_UNREAD: MailItem[] = [
+  { id: "m-1", sender: "Acme AI Assistant", subject: "Use AI to make life easier", snippet: "Generate, refine, and export in minutes. Just tap or type to start. See everything Acme AI can do for your team.", date: "Yesterday", isUnread: true },
+  { id: "m-2", sender: "Acme AI Assistant", senderCount: 2, subject: "4 new portrait styles to try", snippet: "Y2K digicam or 70s portrait? See your photos in a fresh new way. Pick an idea below and explore.", date: "Oct 31", isUnread: true },
+  { id: "m-3", sender: "Jordan Lee", subject: "Easy self-care you can start today", snippet: "Take a quick break and review the team sprint deck before tomorrow's all-hands.", date: "Oct 30", isUnread: true },
+  { id: "m-4", sender: "Casey Brown", subject: "Design system updates for Q4", snippet: "Preview the new components and tokens in Figma. Feedback requested by end of day Friday.", date: "Oct 29", isUnread: true },
+  { id: "m-5", sender: "Product Updates", subject: "When an edit feels off", snippet: "Turn feedback on a photo into a clear prompt. We are rolling out improvements across Snaarp OneCard.", date: "Oct 26", isUnread: true },
+  { id: "m-6", sender: "Security Team", subject: "Updates to our Privacy Policy", snippet: "Updates to Open Security Policy - We are updating our policy to include enhanced encryption.", date: "Oct 22", isUnread: true },
+  { id: "m-7", sender: "Alex Morgan", subject: "Re: Digital card review", snippet: "Hello Sam, the new business card templates look great. Thank you for sending the preview.", date: "Oct 19", isUnread: true },
+  { id: "m-8", sender: "Acme HR", subject: "Re: Outstanding Onboarding Tasks", snippet: "Payment details and equipment confirmation have been verified for all Q4 joiners.", date: "Oct 15", isUnread: true },
+  { id: "m-9", sender: "Design Systems Hub", subject: "New in component tokens and exports", snippet: "What we shipped in October: updated typography scales, elevation shadows, and export presets.", date: "Oct 13", isUnread: true },
+  { id: "m-10", sender: "Acme HR", subject: "Re: Brand logo asset pack", snippet: "Thank you for the update. All approved vectors have been synced to the team drive.", date: "Oct 12", isUnread: true },
+  { id: "m-11", sender: "Security Alert", subject: "New device signed in to your account", snippet: "A new device just signed in to your Snaarp account. If this was not you, review active sessions.", date: "Oct 8", isUnread: true },
+  { id: "m-12", sender: "Team Digest", senderCount: 2, subject: "Translate anything, your way", snippet: "Use text, voice, and images. New multilingual support now active across products.", date: "Oct 7", isUnread: true },
+  { id: "m-13", sender: "Acme HR", subject: "Upcoming Public Holiday Notice", snippet: "Please be informed that the office will be closed on Friday for the national holiday.", date: "Sep 30", isUnread: true },
+  { id: "m-14", sender: "Acme Billing", subject: "Invoice #INV-2026-1049 ready for download", snippet: "Your invoice for September 2026 is ready. Click below to download your statement.", date: "Sep 30", isUnread: true },
+  { id: "m-15", sender: "Acme Billing", subject: "Payment Receipt for Acme Studio", snippet: "Payment received with thanks. Transaction reference #SNAARP-9921.", date: "Sep 28", isUnread: true },
+  { id: "m-16", sender: "Morgan Taylor", subject: "Re: Digital ID card rollouts", snippet: "Thank you for sending the video. 45 team members now have their badges active.", date: "Sep 28", isUnread: true },
+  { id: "m-17", sender: "Morgan Taylor", senderCount: 5, subject: "Re: Virtual backgrounds templates", snippet: "The high-resolution 16:9 backgrounds are ready for the executive team.", date: "Sep 28", isUnread: true },
+  { id: "m-18", sender: "Jordan Lee", subject: "Sprint notes & design handoff", snippet: "Handoff notes for OneCardX email signatures and integration workflow.", date: "Aug 28", isUnread: true },
+  { id: "m-19", sender: "Acme Cloud", subject: "Production deployment successful", snippet: "Deployment completed to snaarp.com production edge servers.", date: "Aug 27", isUnread: true },
+];
+
+export const SAMPLE_MAIL_READ: MailItem[] = [
+  { id: "m-20", sender: "Akin Bayo", subject: "Recording sync notes", snippet: "Recording audio and visual review notes from Monday session.", date: "Oct 15", isUnread: false },
+  { id: "m-21", sender: "Casey Brown", subject: "Equipment request confirmation", snippet: "Your requested studio monitor has been approved and dispatched.", date: "Oct 11", isUnread: false },
+  { id: "m-22", sender: "Alex Morgan", subject: "Contract agreement finalized", snippet: "All documents signed via Snaarp Sign. Copies stored in Snaarp Drive.", date: "Oct 10", isUnread: false },
 ];

@@ -27,7 +27,9 @@ import {
 type Props = {
   tl: Timeline;
   activeNav?: OneCardXNavId;
+  activeSuiteApp?: string;
   onNavigateNav?: (navId: OneCardXNavId) => void;
+  onSelectSuiteApp?: (appId: string) => void;
   pageTitle?: string;
   children: ReactNode;
   overlay?: ReactNode;
@@ -36,7 +38,9 @@ type Props = {
 export function OneCardXShell({
   tl,
   activeNav = "home",
+  activeSuiteApp = "onecard",
   onNavigateNav,
+  onSelectSuiteApp,
   pageTitle,
   children,
   overlay,
@@ -83,13 +87,14 @@ export function OneCardXShell({
         {/* Suite App Icons */}
         <div className="flex flex-1 flex-col items-center gap-1 overflow-y-auto no-scrollbar w-full px-1">
           {SUITE_RAIL_ITEMS.map((app) => {
-            const isOneCard = app.id === "onecard";
+            const isActive = activeSuiteApp ? app.id === activeSuiteApp : app.id === "onecard";
             return (
               <div
                 key={app.id}
                 data-tl={`suite-app-${app.id}`}
+                onClick={() => onSelectSuiteApp?.(app.id)}
                 className={`flex flex-col items-center justify-center cursor-pointer transition-all ${
-                  isOneCard
+                  isActive
                     ? "w-11 py-1.5 rounded-xl bg-[#F3E8FF] text-[#7014D9]"
                     : "w-11 py-1 rounded-lg text-[#4B5563] hover:bg-gray-50"
                 }`}
@@ -97,7 +102,7 @@ export function OneCardXShell({
                 <ProductLogo name={app.logo} size={22} className="rounded-md" />
                 <span
                   className={`mt-0.5 text-[8.5px] leading-tight text-center tracking-tight truncate max-w-[48px] ${
-                    isOneCard ? "font-semibold text-[#7014D9]" : "font-normal text-[#4B5563]"
+                    isActive ? "font-semibold text-[#7014D9]" : "font-normal text-[#4B5563]"
                   }`}
                 >
                   {app.label}
@@ -118,10 +123,11 @@ export function OneCardXShell({
       </aside>
 
       {/* 2. OneCardX Sidebar */}
-      <aside
-        data-tl="ocx-sidebar"
-        className="flex h-full w-[215px] shrink-0 flex-col border-r border-[#EBECEF] bg-white select-none z-10"
-      >
+      {activeSuiteApp !== "mail" && (
+        <aside
+          data-tl="ocx-sidebar"
+          className="flex h-full w-[215px] shrink-0 flex-col border-r border-[#EBECEF] bg-white select-none z-10"
+        >
         {/* Logo & Header */}
         <div className="flex h-14 shrink-0 items-center justify-between border-b border-[#F3F4F6] px-4">
           <div className="flex items-center gap-2.5">
@@ -217,9 +223,16 @@ export function OneCardXShell({
                 type="button"
                 data-tl="nav-email-signatures"
                 onClick={() => onNavigateNav?.("email-signatures")}
-                className="flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] text-[#4B5563] hover:bg-gray-100 transition-colors text-left"
+                className={`relative flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] transition-colors text-left cursor-pointer ${
+                  activeNav === "email-signatures"
+                    ? "bg-[#F3E8FF] text-[#7014D9] font-medium"
+                    : "text-[#4B5563] hover:bg-gray-100 font-normal"
+                }`}
               >
-                <span className="text-[#6B7280]">
+                {activeNav === "email-signatures" && (
+                  <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r bg-[#7014D9]" />
+                )}
+                <span className={activeNav === "email-signatures" ? "text-[#7014D9]" : "text-[#6B7280]"}>
                   <OcxEmailSigIcon width={16} height={16} />
                 </span>
                 <span>Email Signatures</span>
@@ -230,9 +243,16 @@ export function OneCardXShell({
                 type="button"
                 data-tl="nav-backgrounds"
                 onClick={() => onNavigateNav?.("backgrounds")}
-                className="flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] text-[#4B5563] hover:bg-gray-100 transition-colors text-left"
+                className={`relative flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] transition-colors text-left cursor-pointer ${
+                  activeNav === "backgrounds"
+                    ? "bg-[#F3E8FF] text-[#7014D9] font-medium"
+                    : "text-[#4B5563] hover:bg-gray-100 font-normal"
+                }`}
               >
-                <span className="text-[#6B7280]">
+                {activeNav === "backgrounds" && (
+                  <div className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r bg-[#7014D9]" />
+                )}
+                <span className={activeNav === "backgrounds" ? "text-[#7014D9]" : "text-[#6B7280]"}>
                   <OcxBgIcon width={16} height={16} />
                 </span>
                 <span>Backgrounds</span>
@@ -342,14 +362,16 @@ export function OneCardXShell({
           </button>
         </div>
       </aside>
+      )}
 
       {/* 3. Main Stage Container with Top Bar */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Top Bar */}
-        <header
-          data-tl="ocx-topbar"
-          className="flex h-14 shrink-0 items-center justify-between border-b border-[#EBECEF] bg-white px-6 select-none z-20"
-        >
+        {activeSuiteApp !== "mail" && (
+          <header
+            data-tl="ocx-topbar"
+            className="flex h-14 shrink-0 items-center justify-between border-b border-[#EBECEF] bg-white px-6 select-none z-20"
+          >
           {/* Page Title */}
           <div>
             <h1
@@ -418,9 +440,16 @@ export function OneCardXShell({
             </button>
           </div>
         </header>
+        )}
 
         {/* Scrollable Main Workspace */}
-        <main className="relative flex-1 overflow-y-auto bg-[#F8F9FA] p-6 pb-28 no-scrollbar">
+        <main
+          className={`relative flex-1 overflow-y-auto no-scrollbar ${
+            activeSuiteApp === "mail"
+              ? "p-0 bg-white"
+              : "bg-[#F8F9FA] p-6 pb-28"
+          }`}
+        >
           {children}
         </main>
       </div>

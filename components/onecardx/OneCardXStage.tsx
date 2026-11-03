@@ -15,6 +15,8 @@ import { OneCardXMemberView } from "./OneCardXMemberView";
 import { OneCardXIDCardsView } from "./OneCardXIDCardsView";
 import { OneCardXUsersView } from "./OneCardXUsersView";
 import { OneCardXBackgroundsView } from "./OneCardXBackgroundsView";
+import { OneCardXSignaturesView } from "./OneCardXSignaturesView";
+import { OneCardXMailView } from "./OneCardXMailView";
 import type { OneCardXPage } from "./onecardx-timeline";
 
 type Props = {
@@ -28,6 +30,8 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
   const cardType = useTimelineVar<"id-card" | "business">(tl, "ocxCardType", "id-card");
   const fade = useTimelineVar(tl, "fade", false);
   const publicPreviewOpen = useTimelineVar(tl, "ocxPublicPreviewOpen", false);
+
+  const activeSuiteApp = page === "mail" ? "mail" : "onecard";
 
   const activeNav: OneCardXNavId =
     page === "home"
@@ -46,6 +50,8 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
       ? "users"
       : page === "backgrounds"
       ? "backgrounds"
+      : page === "emailSignatures"
+      ? "email-signatures"
       : "create-card";
 
   const pageTitle: string =
@@ -65,6 +71,8 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
       ? "Users"
       : page === "backgrounds"
       ? "Backgrounds"
+      : page === "emailSignatures"
+      ? "Email Signatures"
       : "Organization Card";
 
   const handleNavigateNav = (navId: OneCardXNavId) => {
@@ -86,6 +94,20 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
     } else if (navId === "business-card") {
       tl.setUrl(URLS.memberView);
       tl.setVar("ocxPage", "memberView");
+    } else if (navId === "email-signatures") {
+      tl.setUrl(URLS.emailSignatures);
+      tl.setVar("ocxPage", "emailSignatures");
+    }
+  };
+
+  const handleSelectSuiteApp = (appId: string) => {
+    if (appId === "mail") {
+      tl.setUrl(URLS.mailInbox);
+      tl.setVar("ocxPage", "mail");
+      tl.setVar("ocxMailSubpage", "inbox");
+    } else if (appId === "onecard") {
+      tl.setUrl(URLS.home);
+      tl.setVar("ocxPage", "home");
     }
   };
 
@@ -94,8 +116,10 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
       <OneCardXShell
         tl={tl}
         activeNav={activeNav}
+        activeSuiteApp={activeSuiteApp}
         pageTitle={pageTitle}
         onNavigateNav={handleNavigateNav}
+        onSelectSuiteApp={handleSelectSuiteApp}
         overlay={
           publicPreviewOpen ? (
             <OneCardXPublicPreviewOverlay
@@ -186,6 +210,10 @@ export function OneCardXStage({ tl, startPage = "home", part1Cards }: Props) {
         {page === "users" && <OneCardXUsersView tl={tl} />}
 
         {page === "backgrounds" && <OneCardXBackgroundsView tl={tl} />}
+
+        {page === "emailSignatures" && <OneCardXSignaturesView tl={tl} />}
+
+        {page === "mail" && <OneCardXMailView tl={tl} />}
       </OneCardXShell>
 
       {/* Standard White Fade Transition Overlay */}

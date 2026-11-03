@@ -12,7 +12,9 @@ export type OneCardXPage =
   | "memberView"
   | "idCards"
   | "users"
-  | "backgrounds";
+  | "backgrounds"
+  | "emailSignatures"
+  | "mail";
 
 /**
  * Resets OneCardX scene variables to a clean starting state for any step.
@@ -53,6 +55,18 @@ export function beginOneCardX(
   tl.setVar("ocxLinkCopied", false);
   tl.setVar("ocxPublicPreviewOpen", false);
   tl.setVar("ocxHoveredRow", null);
+  tl.setVar("ocxSigCard", "business");
+  tl.setVar("ocxSigCardDropdownOpen", false);
+  tl.setVar("ocxSigStyle", 3);
+  tl.setVar("ocxSigApp", "Gmail");
+  tl.setVar("ocxSigOs", "Web");
+  tl.setVar("ocxSigCopied", false);
+  tl.setVar("ocxMailSubpage", "inbox");
+  tl.setVar("ocxMailQuickSettingsOpen", false);
+  tl.setVar("ocxMailSettingsTab", "signature");
+  tl.setVar("ocxMailSigPasted", false);
+  tl.setVar("ocxMailSigSaved", false);
+  tl.setVar("ocxMailComposeOpen", false);
   tl.setVar("fade", false);
 }
 
