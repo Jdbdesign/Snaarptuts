@@ -50,6 +50,8 @@ import { Step25 } from "@/scenes/onecardx/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/onecardx/step25/script";
 import { Step26 } from "@/scenes/onecardx/step26/Step26";
 import { runStep26, STEP26_DURATION_MS } from "@/scenes/onecardx/step26/script";
+import { Step27 } from "@/scenes/onecardx/step27/Step27";
+import { runStep27, STEP27_DURATION_MS } from "@/scenes/onecardx/step27/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -217,6 +219,12 @@ export const onecardx: Tutorial = {
       title: "Use each person's own name",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step26, run: runStep26, durationMs: STEP26_DURATION_MS },
+    },
+    {
+      id: "add-contact-fields-org",
+      title: "Add contact fields",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step27, run: runStep27, durationMs: STEP27_DURATION_MS },
     },
   ],
   completion: {

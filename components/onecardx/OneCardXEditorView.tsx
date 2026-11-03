@@ -62,6 +62,8 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
   const companyName = useTimelineVar(tl, "field:company", "");
   const fieldWebsite = useTimelineVar(tl, "ocxFieldWebsite", false);
   const fieldInstagram = useTimelineVar(tl, "ocxFieldInstagram", false);
+  const websiteUrl = useTimelineVar(tl, "field:website-url", "www.acme.example");
+  const instagramUrl = useTimelineVar(tl, "field:instagram-url", "www.instagram.com");
   const fieldEmail = useTimelineVar(tl, "ocxFieldEmail", false);
   const isSaving = useTimelineVar(tl, "ocxSavingCard", false);
 
@@ -178,37 +180,33 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
               )}
 
               {/* Added Links / Fields */}
-              <div className="mt-3 space-y-1.5">
+              <div className="mt-3 space-y-2">
                 {fieldWebsite && (
                   <div
                     data-tl="card-preview-field-website"
-                    className="flex items-center gap-1.5 text-xs text-[#2563EB] font-medium"
+                    className="flex items-center gap-2 text-xs text-[#111827] font-medium"
                   >
-                    <svg
-                      width={13}
-                      height={13}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="2" y1="12" x2="22" y2="12" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                    <span>Website</span>
+                    <div className="h-5 w-5 rounded-full bg-[#E6F4EA] text-[#059669] flex items-center justify-center shrink-0">
+                      <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                      </svg>
+                    </div>
+                    <span className="truncate">{websiteUrl}</span>
                   </div>
                 )}
                 {fieldInstagram && (
-                  <div className="flex items-center gap-1.5 text-xs text-[#E1306C] font-medium">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#E1306C]" />
-                    <span>Instagram</span>
-                  </div>
-                )}
-                {fieldEmail && (
-                  <div className="flex items-center gap-1.5 text-xs text-[#6B7280] font-medium">
-                    <span className="h-1.5 w-1.5 rounded-full bg-gray-400" />
-                    <span>Email</span>
+                  <div
+                    data-tl="card-preview-field-instagram"
+                    className="flex items-center gap-2 text-xs text-[#111827] font-medium"
+                  >
+                    <div className="h-5 w-5 rounded-full bg-[#E6F4EA] text-[#059669] flex items-center justify-center shrink-0">
+                      <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                      </svg>
+                    </div>
+                    <span className="truncate">{instagramUrl}</span>
                   </div>
                 )}
               </div>
@@ -747,12 +745,13 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                   </p>
 
                   {fieldWebsite && (
-                    <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-2 mb-2.5">
                       <div className="relative flex-1">
                         <input
                           type="text"
                           data-tl="input-field-website"
-                          defaultValue="https://acme-studio.com"
+                          value={websiteUrl}
+                          onChange={(e) => tl.setVar("field:website-url", e.target.value)}
                           className="w-full rounded-full border border-gray-300 px-4 py-2 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
                         />
                         <span className="absolute right-4 top-2 text-[11px] text-gray-400">
@@ -762,7 +761,31 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                       <button
                         type="button"
                         onClick={() => tl.setVar("ocxFieldWebsite", false)}
-                        className="p-1 text-gray-400 hover:text-gray-600"
+                        className="p-1 text-gray-400 hover:text-gray-600 cursor-pointer"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  )}
+
+                  {fieldInstagram && (
+                    <div className="flex items-center gap-2 mb-2.5">
+                      <div className="relative flex-1">
+                        <input
+                          type="text"
+                          data-tl="input-field-instagram"
+                          value={instagramUrl}
+                          onChange={(e) => tl.setVar("field:instagram-url", e.target.value)}
+                          className="w-full rounded-full border border-gray-300 px-4 py-2 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
+                        />
+                        <span className="absolute right-4 top-2 text-[11px] text-gray-400">
+                          Link
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => tl.setVar("ocxFieldInstagram", false)}
+                        className="p-1 text-gray-400 hover:text-gray-600 cursor-pointer"
                       >
                         ✕
                       </button>
