@@ -52,6 +52,8 @@ import { Step26 } from "@/scenes/onecardx/step26/Step26";
 import { runStep26, STEP26_DURATION_MS } from "@/scenes/onecardx/step26/script";
 import { Step27 } from "@/scenes/onecardx/step27/Step27";
 import { runStep27, STEP27_DURATION_MS } from "@/scenes/onecardx/step27/script";
+import { Step28 } from "@/scenes/onecardx/step28/Step28";
+import { runStep28, STEP28_DURATION_MS } from "@/scenes/onecardx/step28/script";
 import type { Tutorial } from "./types";
 
 export const onecardx: Tutorial = {
@@ -225,6 +227,12 @@ export const onecardx: Tutorial = {
       title: "Add contact fields",
       url: "onecardx.snaarp.com/admin/organization-cards/editor",
       scene: { Component: Step27, run: runStep27, durationMs: STEP27_DURATION_MS },
+    },
+    {
+      id: "save-the-card-org",
+      title: "Save the card",
+      url: "onecardx.snaarp.com/admin/organization-cards/editor",
+      scene: { Component: Step28, run: runStep28, durationMs: STEP28_DURATION_MS },
     },
   ],
   completion: {

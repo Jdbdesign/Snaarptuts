@@ -36,9 +36,18 @@ export function OneCardXCardDetailView({
   onCopyLink,
 }: Props) {
   const isCopied = useTimelineVar(tl, "ocxLinkCopied", false);
+  const prefix = useTimelineVar(tl, "field:prefix", "");
   const firstName = useTimelineVar(tl, "field:first-name", "Alex");
   const lastName = useTimelineVar(tl, "field:last-name", "Morgan");
-  const fullName = firstName || lastName ? `${firstName} ${lastName}`.trim() : "Your Name";
+  const pronouns = useTimelineVar(tl, "field:pronouns", "");
+  const jobTitle = useTimelineVar(tl, "field:title", "Product Designer");
+  const companyName = useTimelineVar(tl, "field:company", "Acme Ltd");
+  const accentColor = useTimelineVar(tl, "ocxAccentColor", "#0D9488");
+  const websiteUrl = useTimelineVar(tl, "field:website-url", "www.acme.example");
+  const instagramUrl = useTimelineVar(tl, "field:instagram-url", "www.instagram.com");
+
+  const formattedName = [prefix, firstName, lastName].filter(Boolean).join(" ");
+  const fullName = formattedName || "Your Name";
 
   return (
     <div className="mx-auto max-w-6xl space-y-5">
@@ -191,7 +200,8 @@ export function OneCardXCardDetailView({
                 <svg
                   viewBox="0 0 500 80"
                   preserveAspectRatio="none"
-                  className="w-full h-10 fill-[#2563EB]"
+                  className="w-full h-10"
+                  style={{ fill: accentColor }}
                 >
                   <path d="M0,0 C150,60 350,60 500,0 L500,80 L0,80 Z" opacity="0.4" />
                   <path d="M0,20 C180,80 320,80 500,20 L500,80 L0,80 Z" />
@@ -221,24 +231,40 @@ export function OneCardXCardDetailView({
               <h3 className="font-bold text-base text-[#111827] leading-tight">
                 {fullName}
               </h3>
+              {pronouns && (
+                <p className="text-[10px] text-[#6B7280] leading-none mt-0.5">
+                  ({pronouns})
+                </p>
+              )}
               <p className="text-[11px] text-[#6B7280] mt-0.5">
-                Software Engineer · Acme Ltd
+                {jobTitle && companyName ? `${jobTitle} at ${companyName}` : jobTitle || companyName || "Product Designer at Acme Ltd"}
               </p>
 
-              <div className="mt-3 flex items-center gap-1.5 text-xs text-[#2563EB] font-medium">
-                <svg
-                  width={13}
-                  height={13}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
+              <div className="mt-3 space-y-2">
+                <div
+                  data-tl="card-preview-field-website"
+                  className="flex items-center gap-2 text-xs text-[#111827] font-medium"
                 >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="2" y1="12" x2="22" y2="12" />
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                </svg>
-                <span>Website</span>
+                  <div className="h-5 w-5 rounded-full bg-[#E6F4EA] text-[#059669] flex items-center justify-center shrink-0">
+                    <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                    </svg>
+                  </div>
+                  <span className="truncate">{websiteUrl}</span>
+                </div>
+                <div
+                  data-tl="card-preview-field-instagram"
+                  className="flex items-center gap-2 text-xs text-[#111827] font-medium"
+                >
+                  <div className="h-5 w-5 rounded-full bg-[#E6F4EA] text-[#059669] flex items-center justify-center shrink-0">
+                    <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                    </svg>
+                  </div>
+                  <span className="truncate">{instagramUrl}</span>
+                </div>
               </div>
             </div>
           </div>
