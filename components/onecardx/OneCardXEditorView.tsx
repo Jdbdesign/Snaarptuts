@@ -55,14 +55,18 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
   const badgeModalOpen = useTimelineVar(tl, "ocxBadgeModalOpen", false);
   const useOwnNameChecked = useTimelineVar(tl, "ocxUseOwnNameChecked", false);
   const firstName = useTimelineVar(tl, "field:first-name", "");
+  const prefix = useTimelineVar(tl, "field:prefix", "");
   const lastName = useTimelineVar(tl, "field:last-name", "");
+  const pronouns = useTimelineVar(tl, "field:pronouns", "");
+  const jobTitle = useTimelineVar(tl, "field:title", "");
+  const companyName = useTimelineVar(tl, "field:company", "");
   const fieldWebsite = useTimelineVar(tl, "ocxFieldWebsite", false);
   const fieldInstagram = useTimelineVar(tl, "ocxFieldInstagram", false);
   const fieldEmail = useTimelineVar(tl, "ocxFieldEmail", false);
   const isSaving = useTimelineVar(tl, "ocxSavingCard", false);
 
-  const fullName =
-    firstName || lastName ? `${firstName} ${lastName}`.trim() : "Your Name";
+  const formattedName = [prefix, firstName, lastName].filter(Boolean).join(" ");
+  const fullName = formattedName || "Your Name";
 
   return (
     <div className="mx-auto max-w-6xl space-y-4">
@@ -158,13 +162,18 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
               </h3>
 
               {/* Helper or Role Subtext */}
-              {fullName === "Your Name" ? (
+              {pronouns && (
+                <p className="text-[10px] text-[#6B7280] leading-none mt-0.5">
+                  ({pronouns})
+                </p>
+              )}
+              {fullName === "Your Name" && !jobTitle ? (
                 <p className="text-[11px] text-[#9CA3AF] mt-1.5 leading-snug">
                   Fill in details to see your card come to life
                 </p>
               ) : (
-                <p className="text-[11px] text-[#6B7280] mt-0.5">
-                  Software Engineer · Acme Ltd
+                <p className="text-[11px] text-[#6B7280] mt-1">
+                  {jobTitle && companyName ? `${jobTitle} at ${companyName}` : jobTitle || companyName || "Product Designer at Acme Ltd"}
                 </p>
               )}
 
@@ -616,12 +625,15 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                     </button>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className={`grid grid-cols-2 gap-4 ${useOwnNameChecked ? "opacity-50 pointer-events-none" : ""}`}>
                     <div>
                       <label className="block text-[11px] text-gray-500 mb-1">Prefix</label>
                       <input
                         type="text"
+                        data-tl="input-prefix"
+                        value={prefix}
                         placeholder="Dr., Mr., Ms."
+                        onChange={(e) => tl.setVar("field:prefix", e.target.value)}
                         className="w-full rounded-xl border border-gray-200 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
                       />
                     </div>
@@ -655,6 +667,41 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                         className="w-full rounded-xl border border-gray-200 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
                       />
                     </div>
+                    <div>
+                      <label className="block text-[11px] text-gray-500 mb-1">Suffix</label>
+                      <input
+                        type="text"
+                        placeholder="Jr., Sr., III"
+                        className="w-full rounded-xl border border-gray-200 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] text-gray-500 mb-1">Preferred Name</label>
+                      <input
+                        type="text"
+                        placeholder="Nickname"
+                        className="w-full rounded-xl border border-gray-200 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] text-gray-500 mb-1">Pronouns</label>
+                      <input
+                        type="text"
+                        data-tl="input-pronouns"
+                        value={pronouns}
+                        placeholder="he/him, she/her"
+                        onChange={(e) => tl.setVar("field:pronouns", e.target.value)}
+                        className="w-full rounded-xl border border-gray-200 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[11px] text-gray-500 mb-1">Maiden Name</label>
+                      <input
+                        type="text"
+                        placeholder="Maiden name"
+                        className="w-full rounded-xl border border-gray-200 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -666,7 +713,10 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                       <label className="block text-[11px] text-gray-500 mb-1">Title</label>
                       <input
                         type="text"
+                        data-tl="input-title"
+                        value={jobTitle}
                         placeholder="Job title"
+                        onChange={(e) => tl.setVar("field:title", e.target.value)}
                         className="w-full rounded-xl border border-gray-200 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
                       />
                     </div>
@@ -674,7 +724,10 @@ export function OneCardXEditorView({ tl, onSaveCard }: Props) {
                       <label className="block text-[11px] text-gray-500 mb-1">Company</label>
                       <input
                         type="text"
+                        data-tl="input-company"
+                        value={companyName}
                         placeholder="Company"
+                        onChange={(e) => tl.setVar("field:company", e.target.value)}
                         className="w-full rounded-xl border border-gray-200 px-3 py-1.5 text-xs text-[#111827] focus:border-[#7014D9] focus:outline-hidden"
                       />
                     </div>
