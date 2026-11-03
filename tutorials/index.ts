@@ -6,9 +6,10 @@ import { snaarpSheets } from "./snaarp-sheets";
 import { snaarpSlides } from "./snaarp-slides";
 import { workforce } from "./workforce";
 import { onecardx } from "./onecardx";
+import { drive } from "./drive";
 import type { Tutorial } from "./types";
 
 /** Add a product by importing its config here. The array order is the order shown in the rail dropdown. The player shell never changes. */
-export const tutorials: Tutorial[] = [snaarp360, snaarpAdmin, snaarpMail, snaarpDoc, snaarpSlides, snaarpSheets, workforce, onecardx];
+export const tutorials: Tutorial[] = [snaarp360, snaarpAdmin, snaarpMail, snaarpDoc, snaarpSlides, snaarpSheets, workforce, onecardx, drive];
 
 export const getTutorial = (id: string) => tutorials.find((t) => t.product.id === id);
