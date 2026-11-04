@@ -2,7 +2,7 @@
 
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { Trash2, X } from "lucide-react";
+import { Trash2, X, Loader2 } from "lucide-react";
 
 type Props = {
   tl: Timeline;
@@ -11,6 +11,7 @@ type Props = {
 export function DriveDeleteModal({ tl }: Props) {
   const isOpen = useTimelineVar(tl, "driveDeleteModalOpen", false);
   const itemName = useTimelineVar<string>(tl, "driveDeleteItemName", "Workspaces");
+  const isDeleting = useTimelineVar(tl, "driveIsDeletingFolder", false);
 
   if (!isOpen) return null;
 
@@ -65,10 +66,12 @@ export function DriveDeleteModal({ tl }: Props) {
           <button
             type="button"
             data-tl="btn-delete-confirm"
-            onClick={() => tl.setVar("driveDeleteModalOpen", false)}
-            className="rounded-xl bg-red-600 px-4 py-2 text-[12px] font-semibold text-white shadow-2xs hover:bg-red-700 transition-colors cursor-pointer"
+            disabled={isDeleting}
+            onClick={() => tl.setVar("driveIsDeletingFolder", true)}
+            className="flex items-center gap-1.5 rounded-xl bg-red-600 px-4 py-2 text-[12px] font-semibold text-white shadow-2xs hover:bg-red-700 transition-colors cursor-pointer disabled:opacity-75"
           >
-            Delete
+            {isDeleting && <Loader2 size={13} className="animate-spin" />}
+            <span>{isDeleting ? "Deleting..." : "Delete"}</span>
           </button>
         </div>
       </div>

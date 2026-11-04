@@ -50,6 +50,7 @@ import { DriveCopyLinkToast } from "./DriveCopyLinkToast";
 import { DriveMoveToast } from "./DriveMoveToast";
 import { DriveImportToast } from "./DriveImportToast";
 import { DriveLinkSettingsToast } from "./DriveLinkSettingsToast";
+import { DriveDeleteToast } from "./DriveDeleteToast";
 
 type Props = {
   tl: Timeline;
@@ -503,6 +504,7 @@ export function DriveShell({ tl, children, overlay }: Props) {
       <DriveMoveToast tl={tl} />
       <DriveImportToast tl={tl} />
       <DriveLinkSettingsToast tl={tl} />
+      <DriveDeleteToast tl={tl} />
       {overlay}
     </div>
   );

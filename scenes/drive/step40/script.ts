@@ -8,7 +8,7 @@ import {
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP40_DURATION_MS = 8500;
+export const STEP40_DURATION_MS = 10000;
 
 export async function runStep40(tl: Timeline) {
   beginDrive(tl, DRIVE_URLS.files, "files", [0.35, 0.35]);
@@ -37,12 +37,23 @@ export async function runStep40(tl: Timeline) {
   tl.setVar("driveItemMenuOpen", false);
   tl.setVar("driveDeleteModalOpen", true);
 
-  await tl.at(5000);
-  tl.showCaption(CAPTIONS.clickCancel);
-  await hoverOn(tl, "[data-tl=btn-delete-cancel]", { ms: 600 });
+  await tl.at(4800);
+  tl.showCaption(CAPTIONS.confirmDelete);
+  await hoverOn(tl, "[data-tl=btn-delete-confirm]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-delete-cancel]");
+  await pressOn(tl, "[data-tl=btn-delete-confirm]");
+  tl.setVar("driveIsDeletingFolder", true);
+
+  await tl.at(6500);
+  tl.setVar("driveIsDeletingFolder", false);
   tl.setVar("driveDeleteModalOpen", false);
+  tl.setVar("driveFolderWorkspacesDeleted", true);
+  tl.setVar("driveDeleteToastOpen", true);
+
+  await tl.at(7800);
+  tl.showCaption(CAPTIONS.folderDeleted);
+  await hoverOn(tl, "[data-tl=toast-delete-success]", { ms: 600 });
+  await tl.wait(1200);
 
   await finishDrive(tl, STEP40_DURATION_MS);
 }

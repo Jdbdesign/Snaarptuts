@@ -60,6 +60,7 @@ export function DriveFilesView({ tl }: Props) {
   const isPinned = useTimelineVar(tl, "driveItemIsPinned", false);
   const isFavorite = useTimelineVar(tl, "driveItemIsFavorite", false);
   const isMoved = useTimelineVar(tl, "driveFileSampleTxtMoved", false);
+  const isWorkspacesDeleted = useTimelineVar(tl, "driveFolderWorkspacesDeleted", false);
 
   const isInsideWorkspaces = breadcrumbs[0] === "Workspaces";
   const currentFolderDepth = breadcrumbs.length;
@@ -583,67 +584,69 @@ export function DriveFilesView({ tl }: Props) {
 
                 <div data-tl="tiles-view-grid" className="grid grid-cols-6 gap-3.5">
                   {/* Folder: Workspaces */}
-                  <div
-                    data-tl="tile-folder-workspaces"
-                    onClick={() => {
-                      tl.setVar("driveCurrentBreadcrumb", ["Workspaces"]);
-                      tl.setUrl("drive.snaarp.com/files?folder=workspaces");
-                    }}
-                    className={`relative rounded-2xl border bg-white p-3.5 shadow-2xs hover:shadow-xs transition-all cursor-pointer ${
-                      workspacesColor === "#A855F7"
-                        ? "border-purple-200"
-                        : "border-[#EBECEF]"
-                    }`}
-                  >
-                    {/* Checkbox top-left */}
-                    <input
-                      type="checkbox"
-                      data-tl="checkbox-folder-workspaces"
-                      className="absolute left-2.5 top-2.5 rounded text-[#7014D9] focus:ring-0 cursor-pointer"
-                      onClick={(e) => e.stopPropagation()}
-                      readOnly
-                    />
-
-                    {/* Three-dot menu button top-right */}
-                    <button
-                      type="button"
-                      data-tl="btn-tile-menu-workspaces"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        tl.setVar("driveItemMenuType", "folder");
-                        tl.setVar("driveItemMenuName", "Workspaces");
-                        tl.setVar("driveItemMenuCoords", { top: 140, left: 450 });
-                        tl.setVar("driveItemMenuOpen", true);
+                  {!isWorkspacesDeleted && (
+                    <div
+                      data-tl="tile-folder-workspaces"
+                      onClick={() => {
+                        tl.setVar("driveCurrentBreadcrumb", ["Workspaces"]);
+                        tl.setUrl("drive.snaarp.com/files?folder=workspaces");
                       }}
-                      className="absolute right-2.5 top-2.5 z-10 text-gray-400 hover:text-gray-600 cursor-pointer"
+                      className={`relative rounded-2xl border bg-white p-3.5 shadow-2xs hover:shadow-xs transition-all cursor-pointer ${
+                        workspacesColor === "#A855F7"
+                          ? "border-purple-200"
+                          : "border-[#EBECEF]"
+                      }`}
                     >
-                      <MoreVertical size={14} />
-                    </button>
+                      {/* Checkbox top-left */}
+                      <input
+                        type="checkbox"
+                        data-tl="checkbox-folder-workspaces"
+                        className="absolute left-2.5 top-2.5 rounded text-[#7014D9] focus:ring-0 cursor-pointer"
+                        onClick={(e) => e.stopPropagation()}
+                        readOnly
+                      />
 
-                    <div className="flex items-start justify-between mt-3">
-                      <div
-                        className="flex h-12 w-12 items-center justify-center rounded-xl"
-                        style={{
-                          backgroundColor:
-                            workspacesColor === "#A855F7" ? "#F3E8FF" : "#FEF3C7",
-                          color: workspacesColor,
+                      {/* Three-dot menu button top-right */}
+                      <button
+                        type="button"
+                        data-tl="btn-tile-menu-workspaces"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          tl.setVar("driveItemMenuType", "folder");
+                          tl.setVar("driveItemMenuName", "Workspaces");
+                          tl.setVar("driveItemMenuCoords", { top: 140, left: 450 });
+                          tl.setVar("driveItemMenuOpen", true);
                         }}
+                        className="absolute right-2.5 top-2.5 z-10 text-gray-400 hover:text-gray-600 cursor-pointer"
                       >
-                        <Folder
-                          size={26}
-                          fill={workspacesColor === "#A855F7" ? "#A855F7" : "#FDE68A"}
-                        />
+                        <MoreVertical size={14} />
+                      </button>
+
+                      <div className="flex items-start justify-between mt-3">
+                        <div
+                          className="flex h-12 w-12 items-center justify-center rounded-xl"
+                          style={{
+                            backgroundColor:
+                              workspacesColor === "#A855F7" ? "#F3E8FF" : "#FEF3C7",
+                            color: workspacesColor,
+                          }}
+                        >
+                          <Folder
+                            size={26}
+                            fill={workspacesColor === "#A855F7" ? "#A855F7" : "#FDE68A"}
+                          />
+                        </div>
+                        <div className="flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                          <span>1</span>
+                          <Users size={10} className="text-gray-500" />
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
-                        <span>1</span>
-                        <Users size={10} className="text-gray-500" />
-                      </div>
+                      <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
+                        Workspaces
+                      </h4>
+                      <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
                     </div>
-                    <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
-                      Workspaces
-                    </h4>
-                    <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
-                  </div>
+                  )}
 
                   {/* Folder: Brand Logos */}
                   {hasBrandLogos && (

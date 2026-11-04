@@ -1,5 +1,6 @@
 export const CAPTIONS = {
   clickMenu: "Click the three dots on the folder.",
   clickDelete: "Click Delete to see the removal warning.",
-  clickCancel: "Click Cancel to keep the folder safely intact.",
+  confirmDelete: "Click Delete to move the folder and its contents to the trash.",
+  folderDeleted: "The folder is moved to the Recycle Bin.",
 };
