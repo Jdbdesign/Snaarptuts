@@ -56,6 +56,7 @@ export function DriveFilesView({ tl }: Props) {
   // Part 3 state variables
   const breadcrumbs = useTimelineVar<string[]>(tl, "driveCurrentBreadcrumb", []);
   const workspacesColor = useTimelineVar<string>(tl, "driveWorkspacesFolderColor", "#F59E0B");
+  const workspacesTitle = useTimelineVar<string>(tl, "driveFolderWorkspacesTitle", "Workspaces");
   const sampleTxtTitle = useTimelineVar<string>(tl, "driveFileSampleTxtTitle", "Sample.txt");
   const isPinned = useTimelineVar(tl, "driveItemIsPinned", false);
   const isFavorite = useTimelineVar(tl, "driveItemIsFavorite", false);
@@ -642,7 +643,7 @@ export function DriveFilesView({ tl }: Props) {
                         </div>
                       </div>
                       <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
-                        Workspaces
+                        {workspacesTitle}
                       </h4>
                       <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
                     </div>

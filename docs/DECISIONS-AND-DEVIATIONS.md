@@ -1007,6 +1007,7 @@ Built from video recording `1104(1).mp4` and extracted stills `ref/drive-frames-
 - Step 32 (Import from other drives): Video hovered providers and clicked "Maybe later"; completed by selecting Google Drive, connecting sample account Sam Taylor, showing "Connecting...", connected toast, and 3 imported files appearing in My Files.
 - Step 39 (Set the link permissions): Video reviewed audience and permissions and closed without saving; completed by selecting "Anyone", clicking "Apply", returning to the Share modal with updated audience text ("Anyone with the link can view."), and showing "Link settings updated" toast.
 - Step 40 (Delete a folder): Video hovered the removal warning and clicked Cancel; completed by confirming deletion ("Deleting..."), removing Workspaces from My Files, and showing "1 folder moved to Recycle Bin" toast.
+- Step 41 (Rename a folder): Video opened the rename dialog and clicked Cancel; completed by typing "Active Workspaces", clicking Rename ("Renaming..."), updating the folder card title, and showing "Folder renamed" toast.
 
 
 

@@ -8,7 +8,7 @@ import {
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP41_DURATION_MS = 9000;
+export const STEP41_DURATION_MS = 11000;
 
 export async function runStep41(tl: Timeline) {
   beginDrive(tl, DRIVE_URLS.files, "files", [0.35, 0.35]);
@@ -39,17 +39,31 @@ export async function runStep41(tl: Timeline) {
   tl.setVar("driveRenameValue", "Workspaces");
   tl.setVar("driveRenameModalOpen", true);
 
-  await tl.at(5000);
-  tl.showCaption(CAPTIONS.fieldReview);
-  await hoverOn(tl, "[data-tl=input-rename]", { ms: 600 });
+  await tl.at(4800);
+  tl.showCaption(CAPTIONS.typeNewName);
+  await hoverOn(tl, "[data-tl=input-rename]", { ms: 500 });
   await tl.wait(150);
   await pressOn(tl, "[data-tl=input-rename]");
+  await tl.wait(400);
+  tl.setVar("driveRenameValue", "Active Workspaces");
 
-  await tl.at(6800);
-  await hoverOn(tl, "[data-tl=btn-rename-cancel]", { ms: 500 });
+  await tl.at(7000);
+  tl.showCaption(CAPTIONS.applyRename);
+  await hoverOn(tl, "[data-tl=btn-rename-submit]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-rename-cancel]");
+  await pressOn(tl, "[data-tl=btn-rename-submit]");
+  tl.setVar("driveIsRenaming", true);
+
+  await tl.at(8500);
+  tl.setVar("driveIsRenaming", false);
   tl.setVar("driveRenameModalOpen", false);
+  tl.setVar("driveFolderWorkspacesTitle", "Active Workspaces");
+  tl.setVar("driveRenameToastOpen", true);
+
+  await tl.at(9500);
+  tl.showCaption(CAPTIONS.renameDone);
+  await hoverOn(tl, "[data-tl=tile-folder-workspaces]", { ms: 600 });
+  await tl.wait(1000);
 
   await finishDrive(tl, STEP41_DURATION_MS);
 }
