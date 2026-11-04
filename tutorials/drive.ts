@@ -62,6 +62,38 @@ import { Step31 } from "@/scenes/drive/step31/Step31";
 import { runStep31, STEP31_DURATION_MS } from "@/scenes/drive/step31/script";
 import { Step32 } from "@/scenes/drive/step32/Step32";
 import { runStep32, STEP32_DURATION_MS } from "@/scenes/drive/step32/script";
+import { Step33 } from "@/scenes/drive/step33/Step33";
+import { runStep33, STEP33_DURATION_MS } from "@/scenes/drive/step33/script";
+import { Step34 } from "@/scenes/drive/step34/Step34";
+import { runStep34, STEP34_DURATION_MS } from "@/scenes/drive/step34/script";
+import { Step35 } from "@/scenes/drive/step35/Step35";
+import { runStep35, STEP35_DURATION_MS } from "@/scenes/drive/step35/script";
+import { Step36 } from "@/scenes/drive/step36/Step36";
+import { runStep36, STEP36_DURATION_MS } from "@/scenes/drive/step36/script";
+import { Step37 } from "@/scenes/drive/step37/Step37";
+import { runStep37, STEP37_DURATION_MS } from "@/scenes/drive/step37/script";
+import { Step38 } from "@/scenes/drive/step38/Step38";
+import { runStep38, STEP38_DURATION_MS } from "@/scenes/drive/step38/script";
+import { Step39 } from "@/scenes/drive/step39/Step39";
+import { runStep39, STEP39_DURATION_MS } from "@/scenes/drive/step39/script";
+import { Step40 } from "@/scenes/drive/step40/Step40";
+import { runStep40, STEP40_DURATION_MS } from "@/scenes/drive/step40/script";
+import { Step41 } from "@/scenes/drive/step41/Step41";
+import { runStep41, STEP41_DURATION_MS } from "@/scenes/drive/step41/script";
+import { Step42 } from "@/scenes/drive/step42/Step42";
+import { runStep42, STEP42_DURATION_MS } from "@/scenes/drive/step42/script";
+import { Step43 } from "@/scenes/drive/step43/Step43";
+import { runStep43, STEP43_DURATION_MS } from "@/scenes/drive/step43/script";
+import { Step44 } from "@/scenes/drive/step44/Step44";
+import { runStep44, STEP44_DURATION_MS } from "@/scenes/drive/step44/script";
+import { Step45 } from "@/scenes/drive/step45/Step45";
+import { runStep45, STEP45_DURATION_MS } from "@/scenes/drive/step45/script";
+import { Step46 } from "@/scenes/drive/step46/Step46";
+import { runStep46, STEP46_DURATION_MS } from "@/scenes/drive/step46/script";
+import { Step47 } from "@/scenes/drive/step47/Step47";
+import { runStep47, STEP47_DURATION_MS } from "@/scenes/drive/step47/script";
+import { Step48 } from "@/scenes/drive/step48/Step48";
+import { runStep48, STEP48_DURATION_MS } from "@/scenes/drive/step48/script";
 
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import type { Tutorial } from "./types";
@@ -395,16 +427,177 @@ export const drive: Tutorial = {
         durationMs: STEP32_DURATION_MS,
       },
     },
+    {
+      id: "open-item-menu",
+      title: "Open the item menu",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step33,
+        run: runStep33,
+        durationMs: STEP33_DURATION_MS,
+      },
+    },
+    {
+      id: "open-folder",
+      title: "Open a folder",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step34,
+        run: runStep34,
+        durationMs: STEP34_DURATION_MS,
+      },
+    },
+    {
+      id: "share-folder",
+      title: "Share a folder",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step35,
+        run: runStep35,
+        durationMs: STEP35_DURATION_MS,
+      },
+    },
+    {
+      id: "invite-someone",
+      title: "Invite someone",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step36,
+        run: runStep36,
+        durationMs: STEP36_DURATION_MS,
+      },
+    },
+    {
+      id: "copy-link",
+      title: "Copy a link",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step37,
+        run: runStep37,
+        durationMs: STEP37_DURATION_MS,
+      },
+    },
+    {
+      id: "manage-access",
+      title: "Manage who has access",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step38,
+        run: runStep38,
+        durationMs: STEP38_DURATION_MS,
+      },
+    },
+    {
+      id: "link-permissions",
+      title: "Set the link permissions",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step39,
+        run: runStep39,
+        durationMs: STEP39_DURATION_MS,
+      },
+    },
+    {
+      id: "delete-folder",
+      title: "Delete a folder",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step40,
+        run: runStep40,
+        durationMs: STEP40_DURATION_MS,
+      },
+    },
+    {
+      id: "rename-folder",
+      title: "Rename a folder",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step41,
+        run: runStep41,
+        durationMs: STEP41_DURATION_MS,
+      },
+    },
+    {
+      id: "file-menu",
+      title: "The file menu",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step42,
+        run: runStep42,
+        durationMs: STEP42_DURATION_MS,
+      },
+    },
+    {
+      id: "rename-file",
+      title: "Rename a file",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step43,
+        run: runStep43,
+        durationMs: STEP43_DURATION_MS,
+      },
+    },
+    {
+      id: "move-file",
+      title: "Move a file",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step44,
+        run: runStep44,
+        durationMs: STEP44_DURATION_MS,
+      },
+    },
+    {
+      id: "copy-file",
+      title: "Copy a file",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step45,
+        run: runStep45,
+        durationMs: STEP45_DURATION_MS,
+      },
+    },
+    {
+      id: "favorites-pin-top",
+      title: "Favorites and pin to top",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step46,
+        run: runStep46,
+        durationMs: STEP46_DURATION_MS,
+      },
+    },
+    {
+      id: "change-folder-color",
+      title: "Change a folder colour",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step47,
+        run: runStep47,
+        durationMs: STEP47_DURATION_MS,
+      },
+    },
+    {
+      id: "view-item-details",
+      title: "View item details",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step48,
+        run: runStep48,
+        durationMs: STEP48_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Photos & Media", from: "switch-to-photos" },
     { title: "Files & Storage", from: "back-to-files" },
     { title: "Navigation & Spaces", from: "meetings" },
     { title: "Create & Upload", from: "start-new-folder" },
+    { title: "Item Menu & Organise", from: "open-item-menu" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now create and upload files in Snaarp Drive.",
+    text: "You can now share, move, copy, pin and organise everything in Snaarp Drive.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

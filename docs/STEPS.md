@@ -2022,9 +2022,32 @@ Source recording: `ref/drive-clip2.mp4` (copy of `Downloads/1104.mp4`, stills in
 | 31 | Create a text document | Clicks "+ Create or upload" > "Text document". Modal opens with .txt badge. Names file "Sample" and clicks "Create". Blank text editor opens, enters text, clicks "Save" and closes editor. "Sample.txt" tile with red TXT icon appears in top row. | 11.0 s |
 | 32 | Import from other drives | Clicks "+ Create or upload" > "Import from other drives". Modal "Import cloud photos and files" opens with Google Drive, Dropbox, OneDrive, Google Photos options. Passes cursor over providers, clicks "Maybe later" to close. Completion card follows. | 11.5 s |
 
+## Snaarp Drive Part 3: Item Menu & Organise (steps 33-48)
+
+Source recording: `ref/drive-clip3.mp4` (copy of `Downloads/1104(1).mp4`, stills in `ref/drive-frames-3/` `thumb-0001.jpg` to `thumb-0159.jpg`).
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 33 | Open the item menu | In My Files tiles view, hovers "Workspaces" folder tile, revealing checkbox and three-dot button. Clicks three dots to open context menu with Open, Share, Copy link, Manage access, Delete, Rename, Move to, Copy to, Folder color, Add to favorites, Pin to top, Details. | 9.0 s |
+| 34 | Open a folder | In Workspaces item menu, clicks "Open". Folder opens with breadcrumb "My Files > Workspaces" containing "Social media Resources". Clicks it -> breadcrumb becomes "My Files > Workspaces > Social media Resources" containing "Videos" and "Images". Opens "Videos" to see 6 MP4 video tiles, returns via breadcrumb, then clicks "My Files" to return to root. | 14.0 s |
+| 35 | Share a folder | Clicks three dots on "Workspaces" > "Share". Modal 'Share "Workspaces"' opens showing email input with eye icon, message trigger, and People with access list (Sam Taylor Owner, media@acme.example Viewer, casey.brown@acme.example Viewer). | 9.5 s |
+| 36 | Invite someone | Inside Share dialog, types "design@acme.example" into email field, turning into a chip. Clicks "Send", opening confirmation modal "Shared with" displaying "D" avatar, Viewer link box, Copy link action, and "Done" button. Clicks "Done" to dismiss. | 12.0 s |
+| 37 | Copy a link | Clicks three dots on "Workspaces" > "Copy link". Context menu closes and bottom-right toast appears with green checkmark: "Share link copied." | 8.0 s |
+| 38 | Manage who has access | Clicks three dots on "Workspaces" > "Manage access". Share dialog opens directly showing scrollable People with access list and collaborator removal options. | 8.0 s |
+| 39 | Set the link permissions | From Share dialog, clicks gear icon on top right. Transitions to "Link settings" with 3 radio cards (Anyone, Only people with existing access, People you choose), permission dropdown (Can view / Can edit), and expiration date field. Hovers options and clicks X to close. | 11.0 s |
+| 40 | Delete a folder | Clicks three dots on "Workspaces" > "Delete". Warning modal "Delete" opens with red trash tile and warning text. Clicks "Cancel" to dismiss safely without deleting. | 8.5 s |
+| 41 | Rename a folder | Clicks three dots on "Workspaces" > "Rename". Modal "Rename Folder" opens with prefilled "Workspaces" input. Clicks input, then clicks "Cancel" to close. | 9.0 s |
+| 42 | The file menu | Hovers "Sample.txt" tile and clicks three dots. File context menu opens, showcasing presence of "Download" action and absence of "Folder color". | 8.5 s |
+| 43 | Rename a file | From file menu, clicks "Rename". Modal "Rename File" opens prefilled with "Sample.txt". Changes name to "Sample notes.txt" and clicks "Rename". Button briefly shows "Renaming...", closes, and tile updates to "Sample notes.txt". | 11.0 s |
+| 44 | Move a file | Clicks three dots on "Sample notes.txt" > "Move to". Destination tree modal opens with expandable folders. Selects "Brand Logos", clicks "Move Here". Toast "Moving 'Sample notes.txt' to 'Brand Logos'..." appears with "Undo". Clicks "Undo", restoring file to root My Files. | 13.0 s |
+| 45 | Copy a file | Clicks three dots on "Sample notes.txt" > "Copy to". Tree modal opens. Expands Workspaces > Social media Resources > selects Images folder. Clicks "Cancel" to close without error. | 11.0 s |
+| 46 | Favorites and pin to top | Clicks three dots on "Sample notes.txt" > "Add to favorites", turning star gold. Clicks three dots > "Pin to top". Tiles grid reorganizes with PINNED and ALL ITEMS sections. Clicks "Favorites" in sidebar, viewing table with starred item, then returns to My Files. | 14.0 s |
+| 47 | Change a folder colour | Clicks three dots on "Workspaces" > "Folder color". Modal "Folder Color" opens with 4x2 palette swatches. Selects purple swatch, clicks "Apply". Folder turns purple. | 10.5 s |
+| 48 | View item details | Clicks three dots on "Workspaces" > "Details". Right-side drawer opens showing folder metadata (1 items, 0 B, purple color, timestamps, Sam Taylor owner, / path). Grid narrows to fit. Completion card follows. | 9.0 s |
+
 **Files.**
 - Config: `tutorials/drive.ts` (registered in `tutorials/index.ts`)
 - Shell & Stage: `components/drive/DriveShell.tsx`, `components/drive/DriveStage.tsx`
-- Views & Modals: `DriveHomeView.tsx`, `DrivePhotosView.tsx`, `DriveFilesView.tsx`, `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveCreateMenu.tsx`, `DriveFolderModal.tsx`, `DriveUploadToast.tsx`, `DriveFilePickerModal.tsx`, `DriveMarkdownModal.tsx`, `DriveMarkdownEditor.tsx`, `DriveTextModal.tsx`, `DriveTextEditor.tsx`, `DriveImportModal.tsx`
+- Views & Modals: `DriveHomeView.tsx`, `DrivePhotosView.tsx`, `DriveFilesView.tsx`, `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveCreateMenu.tsx`, `DriveFolderModal.tsx`, `DriveUploadToast.tsx`, `DriveFilePickerModal.tsx`, `DriveMarkdownModal.tsx`, `DriveMarkdownEditor.tsx`, `DriveTextModal.tsx`, `DriveTextEditor.tsx`, `DriveImportModal.tsx`, `DriveItemMenu.tsx`, `DriveShareModal.tsx`, `DriveShareConfirmModal.tsx`, `DriveLinkSettingsModal.tsx`, `DriveDeleteModal.tsx`, `DriveRenameModal.tsx`, `DriveMoveCopyModal.tsx`, `DriveFolderColorModal.tsx`, `DriveCopyLinkToast.tsx`, `DriveMoveToast.tsx`
 - Timeline & Data: `components/drive/drive-timeline.ts` (`beginDrive`, `finishDrive`), `components/drive/drive-data.ts`
-- Step Scenes & Scripts: `scenes/drive/step<1..32>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/drive/step<1..48>/Step<N>.tsx`, `script.ts`, `data.ts`

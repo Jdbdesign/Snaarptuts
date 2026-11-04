@@ -971,29 +971,37 @@ Recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`, stills in
 4. **Completion card**: Positioned after Step 32 with title "Tour complete" and message "You can now create and upload files in Snaarp Drive."
 5. **Drive photos**: Unsplash photos stored locally instead of the real user photos (see `docs/CREDITS.md` for full attributions).
 
-## Snaarp Drive Part 2: Create & Upload Features (steps 22-32)
+## Snaarp Drive Part 3: Item Menu & Organise (steps 33-48)
 
-Built from video recording `1104.mp4` and extracted stills `ref/drive-frames-2/` (`t0001s.jpg` to `t0097s.jpg`).
+Built from video recording `1104(1).mp4` and extracted stills `ref/drive-frames-3/` (`thumb-0001.jpg` to `thumb-0159.jpg`).
 
 **Sample data only (no real personal data):**
-- Folder 1: "Project Files" (replaces "Snaarp Icons"), color = RED (`#EF4444`).
-- Uploaded File: "Quarterly report.png" (replaces "Binance Hack_ $6.3 Billion Exposed.png").
-- Uploaded Folder: "Brand Logos" (replaces "SnaarpMe Logos") with 6 SVG files: `Microsoft_365.svg`, `Microsoft Teams.svg`, `Microsoft Outlook.svg`, `Google Workspace Drive.svg`, `Google Meet.svg`, `Google Calendar.svg`.
-- Document 1: "Meeting notes.md" (Markdown). Template text exact as in video:
-  `# Title goes here\n_A short description of what this document is about._\n## Overview\n## Key Points\n- Point one\n- Point two\n- Point three\n_Last updated: 2026-11-03_`.
-  Sample edited outline: Project Kickoff & Roadmap.
-- Document 2: "Sample.txt" (Plain text).
-- Date reference: `03 November 2026`.
+- User: Sam Taylor, `sam.taylor@snaarp.com` (avatar "S").
+- Storage: "2.8 GB of 20.0 GB used (14%)".
+- Folder hierarchy:
+  - Root: "Workspaces" (1 item + shared users icon), "Brand Logos" (6 items), "Project Files" (0 items, red), "Snaarp product logos", "Snaarp Icons".
+  - Inside "Workspaces": "Social media Resources" (2 items).
+  - Inside "Social media Resources": "Videos" (6 items) and "Images" (9 items).
+  - Inside "Videos": 6 .mp4 video files (`promo-01.mp4` to `promo-06.mp4` with red MP4 icon).
+  - Inside "Images": 9 .png image files (`Social 1.png` to `Social 9.png`).
+- Collaborators in Share dialog: Owner Sam Taylor (`sam.taylor@snaarp.com`), `media@acme.example` (Viewer), `casey.brown@acme.example` (Viewer).
+- Invited Collaborator: `design@acme.example` (avatar "D").
+- Share link: `https://drive.snaarp.com/s/invite-8f3a2c1e`.
+- Renamed file: "Sample.txt" becomes "Sample notes.txt" (corrected typo from video's "Samplse.txt").
+- Folder color: Changed from amber to purple (`#A855F7`).
 
 **Decisions & deviations:**
-1. **OS File & Folder Pickers**: Windows Explorer file dialogs and browser confirmation popups are excluded as external OS chrome and replaced with an in-app sample picker sheet.
-2. **Browser Autofill & Overlays**: Chrome autofill dropdown under the folder name input and screen recording overlays are excluded.
-3. **Modals and Editors**:
-   - "Create a folder" modal with Name input, 11 color swatches, Create and Cancel buttons.
-   - Dark upload toast with collapsed ("1 upload finished", "Done") and expanded ("6 uploads finished", tabs, progress bars) states.
-   - Full-screen Markdown editor with dark header, toolbar, line numbering, template text, and save flow.
-   - Full-screen Plain text editor with line numbering and save flow.
-   - "Import cloud photos and files" modal with Google Drive, Dropbox, OneDrive, and Google Photos buttons.
+1. **Red error message skipped in Copy dialog (Step 45)**:
+   - In the recording, clicking "Images" in the copy destination tree produces a red error banner: `Failed to copy item. Please try again.` caused by backend network/state in the recorder's session.
+   - Per explicit brief instruction, this error banner was skipped so the tutorial demonstrates the clean product workflow (expanding folders, selecting destination, and closing with Cancel).
+2. **Browser chrome & autofill popup excluded**:
+   - Chrome's "Manage addresses / design@..." email autofill dropdown that popped up under the email input was excluded as external browser UI.
+   - Windows taskbar and recording tool overlays excluded.
+3. **Typo correction**:
+   - The recording inadvertently typed "Samplse.txt" during the file rename step; corrected to clean title "Sample notes.txt".
+4. **Completion card position**:
+   - Moved from Step 32 to Step 48 with the message: "You can now share, move, copy, pin and organise everything in Snaarp Drive."
+
 
 
 
