@@ -94,6 +94,44 @@ import { Step47 } from "@/scenes/drive/step47/Step47";
 import { runStep47, STEP47_DURATION_MS } from "@/scenes/drive/step47/script";
 import { Step48 } from "@/scenes/drive/step48/Step48";
 import { runStep48, STEP48_DURATION_MS } from "@/scenes/drive/step48/script";
+import { Step49 } from "@/scenes/drive/step49/Step49";
+import { runStep49, STEP49_DURATION_MS } from "@/scenes/drive/step49/script";
+import { Step50 } from "@/scenes/drive/step50/Step50";
+import { runStep50, STEP50_DURATION_MS } from "@/scenes/drive/step50/script";
+import { Step51 } from "@/scenes/drive/step51/Step51";
+import { runStep51, STEP51_DURATION_MS } from "@/scenes/drive/step51/script";
+import { Step52 } from "@/scenes/drive/step52/Step52";
+import { runStep52, STEP52_DURATION_MS } from "@/scenes/drive/step52/script";
+import { Step53 } from "@/scenes/drive/step53/Step53";
+import { runStep53, STEP53_DURATION_MS } from "@/scenes/drive/step53/script";
+import { Step54 } from "@/scenes/drive/step54/Step54";
+import { runStep54, STEP54_DURATION_MS } from "@/scenes/drive/step54/script";
+import { Step55 } from "@/scenes/drive/step55/Step55";
+import { runStep55, STEP55_DURATION_MS } from "@/scenes/drive/step55/script";
+import { Step56 } from "@/scenes/drive/step56/Step56";
+import { runStep56, STEP56_DURATION_MS } from "@/scenes/drive/step56/script";
+import { Step57 } from "@/scenes/drive/step57/Step57";
+import { runStep57, STEP57_DURATION_MS } from "@/scenes/drive/step57/script";
+import { Step58 } from "@/scenes/drive/step58/Step58";
+import { runStep58, STEP58_DURATION_MS } from "@/scenes/drive/step58/script";
+import { Step59 } from "@/scenes/drive/step59/Step59";
+import { runStep59, STEP59_DURATION_MS } from "@/scenes/drive/step59/script";
+import { Step60 } from "@/scenes/drive/step60/Step60";
+import { runStep60, STEP60_DURATION_MS } from "@/scenes/drive/step60/script";
+import { Step61 } from "@/scenes/drive/step61/Step61";
+import { runStep61, STEP61_DURATION_MS } from "@/scenes/drive/step61/script";
+import { Step62 } from "@/scenes/drive/step62/Step62";
+import { runStep62, STEP62_DURATION_MS } from "@/scenes/drive/step62/script";
+import { Step63 } from "@/scenes/drive/step63/Step63";
+import { runStep63, STEP63_DURATION_MS } from "@/scenes/drive/step63/script";
+import { Step64 } from "@/scenes/drive/step64/Step64";
+import { runStep64, STEP64_DURATION_MS } from "@/scenes/drive/step64/script";
+import { Step65 } from "@/scenes/drive/step65/Step65";
+import { runStep65, STEP65_DURATION_MS } from "@/scenes/drive/step65/script";
+import { Step66 } from "@/scenes/drive/step66/Step66";
+import { runStep66, STEP66_DURATION_MS } from "@/scenes/drive/step66/script";
+import { Step67 } from "@/scenes/drive/step67/Step67";
+import { runStep67, STEP67_DURATION_MS } from "@/scenes/drive/step67/script";
 
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import type { Tutorial } from "./types";
@@ -587,6 +625,196 @@ export const drive: Tutorial = {
         durationMs: STEP48_DURATION_MS,
       },
     },
+    {
+      id: "select-bulk-actions",
+      title: "Select several items and the bulk action bar",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step49,
+        run: runStep49,
+        durationMs: STEP49_DURATION_MS,
+      },
+    },
+    {
+      id: "move-3-items",
+      title: "Move 3 items to a folder",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step50,
+        run: runStep50,
+        durationMs: STEP50_DURATION_MS,
+      },
+    },
+    {
+      id: "delete-2-items",
+      title: "Delete 2 items",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step51,
+        run: runStep51,
+        durationMs: STEP51_DURATION_MS,
+      },
+    },
+    {
+      id: "recycle-bin-actions",
+      title: "Recycle Bin",
+      url: DRIVE_URLS.trash,
+      scene: {
+        Component: Step52,
+        run: runStep52,
+        durationMs: STEP52_DURATION_MS,
+      },
+    },
+    {
+      id: "restore-item",
+      title: "Restore an item",
+      url: DRIVE_URLS.trash,
+      scene: {
+        Component: Step53,
+        run: runStep53,
+        durationMs: STEP53_DURATION_MS,
+      },
+    },
+    {
+      id: "empty-trash",
+      title: "Empty Trash",
+      url: DRIVE_URLS.trash,
+      scene: {
+        Component: Step54,
+        run: runStep54,
+        durationMs: STEP54_DURATION_MS,
+      },
+    },
+    {
+      id: "meetings-recordings",
+      title: "Meetings recordings",
+      url: DRIVE_URLS.meetings,
+      scene: {
+        Component: Step55,
+        run: runStep55,
+        durationMs: STEP55_DURATION_MS,
+      },
+    },
+    {
+      id: "shared-with-you",
+      title: "Shared: With you",
+      url: DRIVE_URLS.shared,
+      scene: {
+        Component: Step56,
+        run: runStep56,
+        durationMs: STEP56_DURATION_MS,
+      },
+    },
+    {
+      id: "shared-by-you",
+      title: "Shared: By you and row menu",
+      url: DRIVE_URLS.shared,
+      scene: {
+        Component: Step57,
+        run: runStep57,
+        durationMs: STEP57_DURATION_MS,
+      },
+    },
+    {
+      id: "shared-bulk-actions",
+      title: "Shared: bulk actions",
+      url: DRIVE_URLS.shared,
+      scene: {
+        Component: Step58,
+        run: runStep58,
+        durationMs: STEP58_DURATION_MS,
+      },
+    },
+    {
+      id: "favorites-view",
+      title: "Favorites",
+      url: DRIVE_URLS.favorites,
+      scene: {
+        Component: Step59,
+        run: runStep59,
+        durationMs: STEP59_DURATION_MS,
+      },
+    },
+    {
+      id: "workspaces-list",
+      title: "Workspaces list",
+      url: DRIVE_URLS.workspaces,
+      scene: {
+        Component: Step60,
+        run: runStep60,
+        durationMs: STEP60_DURATION_MS,
+      },
+    },
+    {
+      id: "create-workspace",
+      title: "Create a workspace",
+      url: DRIVE_URLS.workspaces,
+      scene: {
+        Component: Step61,
+        run: runStep61,
+        durationMs: STEP61_DURATION_MS,
+      },
+    },
+    {
+      id: "workspace-detail",
+      title: "Workspace detail page",
+      url: "drive.snaarp.com/workspaces/2172",
+      scene: {
+        Component: Step62,
+        run: runStep62,
+        durationMs: STEP62_DURATION_MS,
+      },
+    },
+    {
+      id: "invite-org-members",
+      title: "Invite organisation members",
+      url: "drive.snaarp.com/workspaces/2172",
+      scene: {
+        Component: Step63,
+        run: runStep63,
+        durationMs: STEP63_DURATION_MS,
+      },
+    },
+    {
+      id: "workspace-member-roles",
+      title: "Change a member's role and remove a member",
+      url: "drive.snaarp.com/workspaces/2172",
+      scene: {
+        Component: Step64,
+        run: runStep64,
+        durationMs: STEP64_DURATION_MS,
+      },
+    },
+    {
+      id: "workspace-browse-folder",
+      title: "Browse Workspace Files and create a folder",
+      url: "drive.snaarp.com/files?folder=2172",
+      scene: {
+        Component: Step65,
+        run: runStep65,
+        durationMs: STEP65_DURATION_MS,
+      },
+    },
+    {
+      id: "workspace-upload-file",
+      title: "Upload a file into the folder",
+      url: "drive.snaarp.com/files?folder=2173",
+      scene: {
+        Component: Step66,
+        run: runStep66,
+        durationMs: STEP66_DURATION_MS,
+      },
+    },
+    {
+      id: "delete-workspace",
+      title: "Delete a workspace",
+      url: "drive.snaarp.com/workspaces/2172",
+      scene: {
+        Component: Step67,
+        run: runStep67,
+        durationMs: STEP67_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Photos & Media", from: "switch-to-photos" },
@@ -594,10 +822,11 @@ export const drive: Tutorial = {
     { title: "Navigation & Spaces", from: "meetings" },
     { title: "Create & Upload", from: "start-new-folder" },
     { title: "Item Menu & Organise", from: "open-item-menu" },
+    { title: "Bulk & Workspaces", from: "select-bulk-actions" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now share, move, copy, pin and organise everything in Snaarp Drive.",
+    text: "You can now collaborate, share, organize files, manage workspaces, and use all features in Snaarp Drive.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

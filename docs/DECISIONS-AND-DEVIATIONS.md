@@ -1010,6 +1010,39 @@ Built from video recording `1104(1).mp4` and extracted stills `ref/drive-frames-
 - Step 41 (Rename a folder): Video opened the rename dialog and clicked Cancel; completed by typing "Active Workspaces", clicking Rename ("Renaming..."), updating the folder card title, and showing "Folder renamed" toast.
 - Step 45 (Copy a file): Video produced a red backend error upon clicking Images and cancelled; completed by cleanly picking the destination, clicking "Copy Here" ("Copying..."), and showing "Item copied successfully" toast.
 
+## Snaarp Drive Part 4: Bulk Actions, Workspaces & Advanced Flow Completion (steps 49-67)
+
+Built from video recording `1104 (2).mp4` (5m46s) and extracted stills `ref/drive-frames-4/` (`thumb-0001.jpg` to `thumb-0180.jpg`).
+
+**Sample data only (no real personal data):**
+- User: Sam Taylor, `sam.taylor@snaarp.com` (avatar "S").
+- Storage: "17.00 GB of 20.0 GB used (85%)" on Workspaces page.
+- Workspace: "Marketing Space" (`/workspaces/2172`), description "All marketing assets, campaign files and brand collateral".
+- Organization members invited: Alex Morgan (`alex.morgan@snaarp.com`, avatar "A"), Jordan Lee (`jordan.lee@snaarp.com`, avatar "J").
+- Existing workspace member: Casey Brown (`casey.brown@snaarp.com`, avatar "C").
+- Workspace folder & file: "All Videos" (0 items, yellow swatch `#EAB308`), uploaded file "Launch Video.mp4" (24.8 MB).
+
+**Decisions & deviations & completed beyond the video:**
+1. **Rule applied: COMPLETE EVERY FLOW**:
+   - In the recording, actions frequently cancelled, hovered without clicking, or produced error states. All 19 steps carry every action through to its finished success state with realistic UI updates and authentic success toasts:
+     - Step 50: Bulk Move 3 items into "Project Notes" folder -> clicked "Move Here", items moved, green "3 items moved" toast.
+     - Step 51: Bulk Delete 2 items -> clicked "Delete", items removed from My Files, green "2 items moved to Recycle Bin" toast.
+     - Step 53: Restore an item in Recycle Bin -> clicked "Restore", "Restoring...", item restored, green "Item restored to My Files" toast.
+     - Step 54: Empty Trash -> clicked "Empty Trash", "Emptying...", Recycle Bin displays empty state, green "Recycle bin emptied" toast.
+     - Step 57: Shared by you -> clicked row menu, selected "Stop sharing", confirmed, item unshared, green "Sharing stopped" toast.
+     - Step 58: Shared bulk actions -> selected items, clicked bulk "Remove", green "2 items removed from shared list" toast.
+     - Step 61: Create workspace -> typed "Marketing Space" and description, clicked "Create Workspace", "Creating...", workspace card mounts, green "Workspace created successfully" toast.
+     - Step 63: Invite organisation members -> picked Alex Morgan & Jordan Lee as Viewers, clicked "Send Invites", "Inviting...", members added to workspace table, green "2 members invited to workspace" toast.
+     - Step 64: Change member role & remove member -> changed Alex Morgan to "Editor" ("Role updated" toast), removed Jordan Lee ("Member removed" toast).
+     - Step 65: Browse Workspace Files -> opened folder modal, entered "All Videos" with yellow swatch, created folder in workspace, green "Folder created" toast.
+     - Step 66: Upload file into folder -> opened "All Videos", uploaded "Launch Video.mp4" (24.8 MB), upload toast complete, tile mounted in workspace folder.
+     - Step 67: Delete workspace -> checked confirmation checkbox, clicked "Delete Workspace", "Deleting...", navigated back to `/workspaces`, workspace removed, green "Workspace deleted" toast.
+2. **Floating Bulk Action Bar position**:
+   - Positioned at `bottom-20` (80px from bottom) rather than resting directly on the bottom edge, preventing collision with the player's bottom caption bubble (`bottom: 24px`, height ~48px) at all standard viewports.
+3. **Completion card**:
+   - Moved to follow Step 67: "Tour complete / You can now organise, manage trash, share, collaborate, and manage workspaces in Snaarp Drive."
+
+
 
 
 
