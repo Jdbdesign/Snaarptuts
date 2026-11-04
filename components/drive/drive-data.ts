@@ -250,6 +250,131 @@ export const SAMPLE_TXT_CONTENT = `Snaarp Drive - Team Notes
 - Permissions updated for Acme Studio
 - Project files organized in My Files`;
 
+// Part 3: Item menus, nested folders, sharing, moving, copying, pinning
+export const WORKSPACES_FOLDER: FileItem = {
+  id: "folder-workspaces",
+  name: "Workspaces",
+  subtitle: "Folder",
+  isFolder: true,
+  folderItems: 1,
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "1 item",
+  sharing: "Shared",
+  color: "#F59E0B",
+};
+
+export const SOCIAL_MEDIA_FOLDER: FileItem = {
+  id: "folder-social-media",
+  name: "Social media Resources",
+  subtitle: "Folder",
+  isFolder: true,
+  folderItems: 2,
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "2 items",
+  sharing: "Shared",
+  color: "#F59E0B",
+};
+
+export const VIDEOS_FOLDER: FileItem = {
+  id: "folder-videos",
+  name: "Videos",
+  subtitle: "Folder",
+  isFolder: true,
+  folderItems: 6,
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "6 items",
+  sharing: "Shared",
+  color: "#F59E0B",
+};
+
+export const IMAGES_FOLDER: FileItem = {
+  id: "folder-images",
+  name: "Images",
+  subtitle: "Folder",
+  isFolder: true,
+  folderItems: 9,
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "9 items",
+  sharing: "Shared",
+  color: "#F59E0B",
+};
+
+export const VIDEOS_FILES: FileItem[] = [
+  { id: "vid-1", name: "promo-01.mp4", subtitle: "own", modified: "Today", size: "18.4 MB", format: "video", sharing: "Shared" },
+  { id: "vid-2", name: "promo-02.mp4", subtitle: "own", modified: "Today", size: "24.1 MB", format: "video", sharing: "Shared" },
+  { id: "vid-3", name: "promo-03.mp4", subtitle: "own", modified: "Today", size: "12.8 MB", format: "video", sharing: "Shared" },
+  { id: "vid-4", name: "promo-04.mp4", subtitle: "own", modified: "Today", size: "31.0 MB", format: "video", sharing: "Shared" },
+  { id: "vid-5", name: "promo-05.mp4", subtitle: "own", modified: "Today", size: "15.6 MB", format: "video", sharing: "Shared" },
+  { id: "vid-6", name: "promo-06.mp4", subtitle: "own", modified: "Today", size: "22.2 MB", format: "video", sharing: "Shared" },
+];
+
+export const IMAGES_FILES: FileItem[] = [
+  { id: "img-1", name: "Social 1.png", subtitle: "own", modified: "Today", size: "1.2 MB", format: "image", sharing: "Shared", thumbnailColor: "#FDE68A" },
+  { id: "img-2", name: "Social 2.png", subtitle: "own", modified: "Today", size: "1.5 MB", format: "image", sharing: "Shared", thumbnailColor: "#BAE6FD" },
+  { id: "img-3", name: "Social 3.png", subtitle: "own", modified: "Today", size: "980 KB", format: "image", sharing: "Shared", thumbnailColor: "#FBCFE8" },
+  { id: "img-4", name: "Social 4.png", subtitle: "own", modified: "Today", size: "2.1 MB", format: "image", sharing: "Shared", thumbnailColor: "#C7D2FE" },
+  { id: "img-5", name: "Social 5.png", subtitle: "own", modified: "Today", size: "1.4 MB", format: "image", sharing: "Shared", thumbnailColor: "#A7F3D0" },
+  { id: "img-6", name: "Social 6.png", subtitle: "own", modified: "Today", size: "1.8 MB", format: "image", sharing: "Shared", thumbnailColor: "#FED7AA" },
+  { id: "img-7", name: "Social 7.png", subtitle: "own", modified: "Today", size: "1.1 MB", format: "image", sharing: "Shared", thumbnailColor: "#E9D5FF" },
+  { id: "img-8", name: "Social 8.png", subtitle: "own", modified: "Today", size: "2.3 MB", format: "image", sharing: "Shared", thumbnailColor: "#FECDD3" },
+  { id: "img-9", name: "Social 9.png", subtitle: "own", modified: "Today", size: "1.7 MB", format: "image", sharing: "Shared", thumbnailColor: "#DDD6FE" },
+];
+
+export interface SharedPerson {
+  id: string;
+  name: string;
+  email: string;
+  role: "Owner" | "Can view" | "Can edit";
+  avatar: string;
+  avatarBg?: string;
+}
+
+export const SHARE_PEOPLE_INITIAL: SharedPerson[] = [
+  {
+    id: "p-owner",
+    name: "Sam Taylor",
+    email: "sam.taylor@snaarp.com",
+    role: "Owner",
+    avatar: "S",
+    avatarBg: "bg-purple-100 text-purple-700",
+  },
+  {
+    id: "p-media",
+    name: "Media Team",
+    email: "media@acme.example",
+    role: "Can view",
+    avatar: "M",
+    avatarBg: "bg-blue-100 text-blue-700",
+  },
+  {
+    id: "p-casey",
+    name: "Casey Brown",
+    email: "casey.brown@acme.example",
+    role: "Can view",
+    avatar: "C",
+    avatarBg: "bg-emerald-100 text-emerald-700",
+  },
+];
+
+export const PALETTE_COLORS_4X2 = [
+  { id: "red", hex: "#EF4444", label: "Red" },
+  { id: "orange", hex: "#F97316", label: "Orange" },
+  { id: "yellow", hex: "#EAB308", label: "Yellow" },
+  { id: "green", hex: "#22C55E", label: "Green" },
+  { id: "blue", hex: "#3B82F6", label: "Blue" },
+  { id: "purple", hex: "#A855F7", label: "Purple" },
+  { id: "pink", hex: "#EC4899", label: "Pink" },
+  { id: "slate", hex: "#64748B", label: "Slate" },
+];
+
 
 export interface DrivePhoto {
   id: string;

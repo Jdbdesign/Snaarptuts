@@ -91,6 +91,34 @@ export function beginDrive(
   tl.setVar("driveTrashItemRestored", false);
   tl.setVar("driveFavoritesLoading", false);
 
+  // Part 3: Item menus, sharing, moving, copying, colors
+  tl.setVar("driveItemMenuOpen", false);
+  tl.setVar("driveItemMenuType", "folder");
+  tl.setVar("driveItemMenuName", "Workspaces");
+  tl.setVar("driveShareModalOpen", false);
+  tl.setVar("driveShareConfirmOpen", false);
+  tl.setVar("driveShareHasChip", false);
+  tl.setVar("driveShareEmailVal", "");
+  tl.setVar("driveLinkSettingsOpen", false);
+  tl.setVar("driveDeleteModalOpen", false);
+  tl.setVar("driveRenameModalOpen", false);
+  tl.setVar("driveMoveModalOpen", false);
+  tl.setVar("driveCopyModalOpen", false);
+  tl.setVar("driveFolderColorModalOpen", false);
+  tl.setVar("driveCopyLinkToastOpen", false);
+  tl.setVar("driveMoveToastOpen", false);
+  tl.setVar("driveCurrentBreadcrumb", []);
+  tl.setVar("driveWorkspacesFolderColor", "#F59E0B");
+  tl.setVar("driveFileSampleTxtTitle", "Sample.txt");
+  tl.setVar("driveItemIsPinned", false);
+  tl.setVar("driveItemIsFavorite", false);
+  tl.setVar("driveFileSampleTxtMoved", false);
+  tl.setVar("driveTreeExpandWorkspaces", false);
+  tl.setVar("driveTreeExpandSocial", false);
+  tl.setVar("driveIsMoving", false);
+  tl.setVar("driveIsRenaming", false);
+  tl.setVar("driveIsApplyingColor", false);
+
   // Fade
   tl.setVar("fade", false);
 }

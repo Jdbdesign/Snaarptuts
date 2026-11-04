@@ -38,6 +38,16 @@ import { DriveMarkdownEditor } from "./DriveMarkdownEditor";
 import { DriveTextModal } from "./DriveTextModal";
 import { DriveTextEditor } from "./DriveTextEditor";
 import { DriveImportModal } from "./DriveImportModal";
+import { DriveItemMenu } from "./DriveItemMenu";
+import { DriveShareModal } from "./DriveShareModal";
+import { DriveShareConfirmModal } from "./DriveShareConfirmModal";
+import { DriveLinkSettingsModal } from "./DriveLinkSettingsModal";
+import { DriveDeleteModal } from "./DriveDeleteModal";
+import { DriveRenameModal } from "./DriveRenameModal";
+import { DriveMoveCopyModal } from "./DriveMoveCopyModal";
+import { DriveFolderColorModal } from "./DriveFolderColorModal";
+import { DriveCopyLinkToast } from "./DriveCopyLinkToast";
+import { DriveMoveToast } from "./DriveMoveToast";
 
 type Props = {
   tl: Timeline;
@@ -479,6 +489,16 @@ export function DriveShell({ tl, children, overlay }: Props) {
       <DriveTextModal tl={tl} />
       <DriveTextEditor tl={tl} />
       <DriveImportModal tl={tl} />
+      <DriveItemMenu tl={tl} />
+      <DriveShareModal tl={tl} />
+      <DriveShareConfirmModal tl={tl} />
+      <DriveLinkSettingsModal tl={tl} />
+      <DriveDeleteModal tl={tl} />
+      <DriveRenameModal tl={tl} />
+      <DriveMoveCopyModal tl={tl} />
+      <DriveFolderColorModal tl={tl} />
+      <DriveCopyLinkToast tl={tl} />
+      <DriveMoveToast tl={tl} />
       {overlay}
     </div>
   );
