@@ -8,7 +8,7 @@ import {
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP45_DURATION_MS = 11000;
+export const STEP45_DURATION_MS = 12500;
 
 export async function runStep45(tl: Timeline) {
   beginDrive(tl, DRIVE_URLS.files, "files", [0.45, 0.45]);
@@ -38,31 +38,41 @@ export async function runStep45(tl: Timeline) {
   tl.setVar("driveItemMenuOpen", false);
   tl.setVar("driveCopyModalOpen", true);
 
-  await tl.at(5000);
+  await tl.at(4800);
   tl.showCaption(CAPTIONS.expandTarget);
   await hoverOn(tl, "[data-tl=tree-folder-workspaces]", { ms: 500 });
   await tl.wait(150);
   await pressOn(tl, "[data-tl=tree-folder-workspaces]");
   tl.setVar("driveTreeExpandWorkspaces", true);
 
-  await tl.at(6800);
+  await tl.at(6500);
   await hoverOn(tl, "[data-tl=tree-folder-social]", { ms: 500 });
   await tl.wait(150);
   await pressOn(tl, "[data-tl=tree-folder-social]");
   tl.setVar("driveTreeExpandSocial", true);
 
-  await tl.at(8200);
+  await tl.at(7800);
   await hoverOn(tl, "[data-tl=tree-folder-images]", { ms: 500 });
   await tl.wait(150);
   await pressOn(tl, "[data-tl=tree-folder-images]");
   tl.setVar("driveSelectedDestFolder", "Images");
 
-  await tl.at(9500);
-  tl.showCaption(CAPTIONS.cancelCopy);
-  await hoverOn(tl, "[data-tl=btn-copy-cancel]", { ms: 500 });
+  await tl.at(9200);
+  tl.showCaption(CAPTIONS.confirmCopy);
+  await hoverOn(tl, "[data-tl=btn-copy-submit]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-copy-cancel]");
+  await pressOn(tl, "[data-tl=btn-copy-submit]");
+  tl.setVar("driveIsCopying", true);
+
+  await tl.at(10500);
+  tl.setVar("driveIsCopying", false);
   tl.setVar("driveCopyModalOpen", false);
+  tl.setVar("driveCopyToastOpen", true);
+
+  await tl.at(11200);
+  tl.showCaption(CAPTIONS.copyComplete);
+  await hoverOn(tl, "[data-tl=toast-copy-success]", { ms: 500 });
+  await tl.wait(1000);
 
   await finishDrive(tl, STEP45_DURATION_MS);
 }

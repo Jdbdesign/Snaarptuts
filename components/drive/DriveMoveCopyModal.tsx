@@ -21,6 +21,7 @@ export function DriveMoveCopyModal({ tl }: Props) {
   const isExpandedWorkspaces = useTimelineVar(tl, "driveTreeExpandWorkspaces", false);
   const isExpandedSocial = useTimelineVar(tl, "driveTreeExpandSocial", false);
   const isMoving = useTimelineVar(tl, "driveIsMoving", false);
+  const isCopying = useTimelineVar(tl, "driveIsCopying", false);
 
   if (!isMoveOpen && !isCopyOpen) return null;
 
@@ -239,7 +240,7 @@ export function DriveMoveCopyModal({ tl }: Props) {
           <button
             type="button"
             data-tl={isMove ? "btn-move-submit" : "btn-copy-submit"}
-            disabled={isMoving}
+            disabled={isMove ? isMoving : isCopying}
             onClick={() => {
               if (isMove) {
                 tl.setVar("driveIsMoving", true);
@@ -247,13 +248,23 @@ export function DriveMoveCopyModal({ tl }: Props) {
                 tl.setVar("driveFileSampleTxtMoved", true);
                 tl.setVar("driveMoveModalOpen", false);
               } else {
+                tl.setVar("driveIsCopying", true);
+                tl.setVar("driveCopyToastOpen", true);
                 tl.setVar("driveCopyModalOpen", false);
               }
             }}
             className="flex items-center gap-1.5 rounded-xl bg-[#7014D9] px-4 py-2 text-[12px] font-semibold text-white shadow-2xs hover:bg-[#5E10B8] transition-colors cursor-pointer disabled:opacity-75"
           >
-            {isMoving && <Loader2 size={13} className="animate-spin" />}
-            <span>{isMove ? (isMoving ? "Moving..." : "Move Here") : "Copy Here"}</span>
+            {(isMove ? isMoving : isCopying) && <Loader2 size={13} className="animate-spin" />}
+            <span>
+              {isMove
+                ? isMoving
+                  ? "Moving..."
+                  : "Move Here"
+                : isCopying
+                ? "Copying..."
+                : "Copy Here"}
+            </span>
           </button>
         </div>
       </div>

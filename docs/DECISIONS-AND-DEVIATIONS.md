@@ -1008,6 +1008,7 @@ Built from video recording `1104(1).mp4` and extracted stills `ref/drive-frames-
 - Step 39 (Set the link permissions): Video reviewed audience and permissions and closed without saving; completed by selecting "Anyone", clicking "Apply", returning to the Share modal with updated audience text ("Anyone with the link can view."), and showing "Link settings updated" toast.
 - Step 40 (Delete a folder): Video hovered the removal warning and clicked Cancel; completed by confirming deletion ("Deleting..."), removing Workspaces from My Files, and showing "1 folder moved to Recycle Bin" toast.
 - Step 41 (Rename a folder): Video opened the rename dialog and clicked Cancel; completed by typing "Active Workspaces", clicking Rename ("Renaming..."), updating the folder card title, and showing "Folder renamed" toast.
+- Step 45 (Copy a file): Video produced a red backend error upon clicking Images and cancelled; completed by cleanly picking the destination, clicking "Copy Here" ("Copying..."), and showing "Item copied successfully" toast.
 
 
 
