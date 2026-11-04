@@ -8,7 +8,7 @@ import {
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP32_DURATION_MS = 11500;
+export const STEP32_DURATION_MS = 12500;
 
 export async function runStep32(tl: Timeline) {
   beginDrive(tl, DRIVE_URLS.files, "files", [0.45, 0.45]);
@@ -26,7 +26,7 @@ export async function runStep32(tl: Timeline) {
   await pressOn(tl, "[data-tl=btn-files-create]");
   tl.setVar("driveCreateMenuOpen", true);
 
-  await tl.at(2500);
+  await tl.at(2300);
   tl.showCaption(CAPTIONS.clickImport);
   await hoverOn(tl, "[data-tl=menu-item-import]", { ms: 500 });
   await tl.wait(150);
@@ -34,23 +34,30 @@ export async function runStep32(tl: Timeline) {
   tl.setVar("driveCreateMenuOpen", false);
   tl.setVar("driveImportModalOpen", true);
 
-  await tl.at(4800);
+  await tl.at(4200);
   tl.showCaption(CAPTIONS.browseProviders);
   await hoverOn(tl, "[data-tl=btn-import-gdrive]", { ms: 500 });
-  await tl.wait(350);
-  await hoverOn(tl, "[data-tl=btn-import-dropbox]", { ms: 400 });
-  await tl.wait(350);
-  await hoverOn(tl, "[data-tl=btn-import-onedrive]", { ms: 400 });
-  await tl.wait(350);
-  await hoverOn(tl, "[data-tl=btn-import-gphotos]", { ms: 400 });
-  await tl.wait(350);
-
-  await tl.at(8800);
-  tl.showCaption(CAPTIONS.clickLater);
-  await hoverOn(tl, "[data-tl=btn-import-later]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-import-later]");
+  await pressOn(tl, "[data-tl=btn-import-gdrive]");
+  tl.setVar("driveImportStep", "connectGoogle");
+
+  await tl.at(6200);
+  tl.showCaption(CAPTIONS.connectAccount);
+  await hoverOn(tl, "[data-tl=btn-import-connect-submit]", { ms: 600 });
+  await tl.wait(150);
+  await pressOn(tl, "[data-tl=btn-import-connect-submit]");
+  tl.setVar("driveImportConnecting", true);
+
+  await tl.at(7800);
+  tl.setVar("driveImportConnecting", false);
   tl.setVar("driveImportModalOpen", false);
+  tl.setVar("driveImportSuccessToast", true);
+  tl.setVar("driveGoogleDriveFilesImported", true);
+
+  await tl.at(9200);
+  tl.showCaption(CAPTIONS.importComplete);
+  await hoverOn(tl, "[data-tl=tile-file-imported-budget]", { ms: 600 });
+  await tl.wait(1400);
 
   await finishDrive(tl, STEP32_DURATION_MS);
 }

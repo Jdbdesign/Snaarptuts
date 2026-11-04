@@ -1002,6 +1002,11 @@ Built from video recording `1104(1).mp4` and extracted stills `ref/drive-frames-
 4. **Completion card position**:
    - Moved from Step 32 to Step 48 with the message: "You can now share, move, copy, pin and organise everything in Snaarp Drive."
 
+## Completed beyond the video
+
+- Step 32 (Import from other drives): Video hovered providers and clicked "Maybe later"; completed by selecting Google Drive, connecting sample account Sam Taylor, showing "Connecting...", connected toast, and 3 imported files appearing in My Files.
+
+
 
 
 

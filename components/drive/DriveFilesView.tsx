@@ -19,6 +19,7 @@ import {
   Users,
   Video,
   Star,
+  FileSpreadsheet,
 } from "lucide-react";
 import {
   FOLDER_ITEMS,
@@ -50,6 +51,7 @@ export function DriveFilesView({ tl }: Props) {
   const hasQuarterlyReport = useTimelineVar(tl, "driveFileQuarterlyReportAdded", false);
   const hasMeetingNotes = useTimelineVar(tl, "driveFileMeetingNotesAdded", false);
   const hasSampleTxt = useTimelineVar(tl, "driveFileSampleTxtAdded", false);
+  const hasGoogleDriveFiles = useTimelineVar(tl, "driveGoogleDriveFilesImported", false);
 
   // Part 3 state variables
   const breadcrumbs = useTimelineVar<string[]>(tl, "driveCurrentBreadcrumb", []);
@@ -812,6 +814,80 @@ export function DriveFilesView({ tl }: Props) {
                       </h4>
                       <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
                     </div>
+                  )}
+
+                  {/* Google Drive imported files */}
+                  {hasGoogleDriveFiles && (
+                    <>
+                      <div
+                        data-tl="tile-file-imported-budget"
+                        className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                      >
+                        <button
+                          type="button"
+                          data-tl="btn-tile-menu"
+                          className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                        >
+                          <MoreVertical size={14} />
+                        </button>
+                        <div className="flex h-20 w-full items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 relative">
+                          <FileSpreadsheet size={28} />
+                          <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-emerald-600 border border-emerald-200">
+                            XLSX
+                          </span>
+                        </div>
+                        <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                          Budget.xlsx
+                        </h4>
+                        <p className="text-[10px] text-[#9CA3AF] mt-0.5">Google Drive</p>
+                      </div>
+
+                      <div
+                        data-tl="tile-file-imported-roadmap"
+                        className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                      >
+                        <button
+                          type="button"
+                          data-tl="btn-tile-menu"
+                          className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                        >
+                          <MoreVertical size={14} />
+                        </button>
+                        <div className="flex h-20 w-full items-center justify-center rounded-xl bg-orange-50 text-orange-600 relative">
+                          <FileText size={28} />
+                          <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-orange-600 border border-orange-200">
+                            PPTX
+                          </span>
+                        </div>
+                        <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                          Roadmap.pptx
+                        </h4>
+                        <p className="text-[10px] text-[#9CA3AF] mt-0.5">Google Drive</p>
+                      </div>
+
+                      <div
+                        data-tl="tile-file-imported-q3report"
+                        className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                      >
+                        <button
+                          type="button"
+                          data-tl="btn-tile-menu"
+                          className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                        >
+                          <MoreVertical size={14} />
+                        </button>
+                        <div className="flex h-20 w-full items-center justify-center rounded-xl bg-rose-50 text-rose-600 relative">
+                          <FileText size={28} />
+                          <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-rose-600 border border-rose-200">
+                            PDF
+                          </span>
+                        </div>
+                        <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                          Q3 report.pdf
+                        </h4>
+                        <p className="text-[10px] text-[#9CA3AF] mt-0.5">Google Drive</p>
+                      </div>
+                    </>
                   )}
 
                   {/* Regular image files */}

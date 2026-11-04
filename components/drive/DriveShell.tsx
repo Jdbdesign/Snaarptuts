@@ -48,6 +48,7 @@ import { DriveMoveCopyModal } from "./DriveMoveCopyModal";
 import { DriveFolderColorModal } from "./DriveFolderColorModal";
 import { DriveCopyLinkToast } from "./DriveCopyLinkToast";
 import { DriveMoveToast } from "./DriveMoveToast";
+import { DriveImportToast } from "./DriveImportToast";
 
 type Props = {
   tl: Timeline;
@@ -499,6 +500,7 @@ export function DriveShell({ tl, children, overlay }: Props) {
       <DriveFolderColorModal tl={tl} />
       <DriveCopyLinkToast tl={tl} />
       <DriveMoveToast tl={tl} />
+      <DriveImportToast tl={tl} />
       {overlay}
     </div>
   );
