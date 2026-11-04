@@ -21,6 +21,7 @@ export function DriveHomeView({ tl }: Props) {
   const filter = useTimelineVar<string>(tl, "driveRecentFilter", "all");
   const isInputFocused = useTimelineVar(tl, "driveFilterInputFocused", false);
   const hasWorkspaceRow = useTimelineVar(tl, "driveHomeHasWorkspace", false);
+  const hasProjectFilesRow = useTimelineVar(tl, "driveHomeHasProjectFiles", false);
 
   const filterChips = [
     { id: "all", label: "All" },
@@ -232,6 +233,34 @@ export function DriveHomeView({ tl }: Props) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#F3F4F6]">
+                {/* Created Project Files Row in Step 24 */}
+                {hasProjectFilesRow && (
+                  <tr
+                    data-tl="row-recent-project-files"
+                    className="hover:bg-purple-50/40 bg-purple-50/20 transition-colors"
+                  >
+                    <td className="py-3 px-5">
+                      <div className="flex items-center gap-2.5">
+                        <Folder size={17} className="text-[#F59E0B] fill-[#FEF3C7]" />
+                        <div>
+                          <span className="font-semibold text-[#111827] block leading-tight">
+                            Project Files
+                          </span>
+                          <span className="text-[10.5px] text-[#9CA3AF]">
+                            Folder
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-5 text-[#4B5563]">
+                      Just now
+                    </td>
+                    <td className="py-3 px-5 text-[#4B5563]">
+                      {SAMPLE_USER.name}
+                    </td>
+                  </tr>
+                )}
+
                 {/* Optional Workspaces Row in Step 21 */}
                 {hasWorkspaceRow && (
                   <tr
