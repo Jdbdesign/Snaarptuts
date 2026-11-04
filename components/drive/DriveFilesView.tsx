@@ -15,8 +15,14 @@ import {
   FileText,
   Loader2,
   Grid,
+  FileCode,
 } from "lucide-react";
-import { FOLDER_ITEMS, RECENT_FILES } from "./drive-data";
+import {
+  FOLDER_ITEMS,
+  RECENT_FILES,
+  BRAND_LOGOS_FILES,
+  DRIVE_URLS,
+} from "./drive-data";
 
 type Props = {
   tl: Timeline;
@@ -31,6 +37,14 @@ export function DriveFilesView({ tl }: Props) {
   const detailsOpen = useTimelineVar(tl, "driveDetailsOpen", false);
   const detailsLoading = useTimelineVar(tl, "driveDetailsLoading", false);
 
+  // Part 2 state variables
+  const hasProjectFiles = useTimelineVar(tl, "driveFolderProjectFilesAdded", false);
+  const hasBrandLogos = useTimelineVar(tl, "driveFolderBrandLogosAdded", false);
+  const insideBrandLogos = useTimelineVar(tl, "driveInsideBrandLogosFolder", false);
+  const hasQuarterlyReport = useTimelineVar(tl, "driveFileQuarterlyReportAdded", false);
+  const hasMeetingNotes = useTimelineVar(tl, "driveFileMeetingNotesAdded", false);
+  const hasSampleTxt = useTimelineVar(tl, "driveFileSampleTxtAdded", false);
+
   return (
     <div
       data-tl="files-view"
@@ -40,7 +54,25 @@ export function DriveFilesView({ tl }: Props) {
       <div className="flex-1 space-y-4">
         {/* Top Header & Toolbar */}
         <div className="flex items-center justify-between">
-          <h1 className="text-[18px] font-bold text-[#111827]">My Files</h1>
+          {insideBrandLogos ? (
+            <div className="flex items-center gap-2 text-[18px] font-bold text-[#111827]">
+              <button
+                type="button"
+                data-tl="breadcrumb-my-files"
+                onClick={() => {
+                  tl.setVar("driveInsideBrandLogosFolder", false);
+                  tl.setUrl(DRIVE_URLS.files);
+                }}
+                className="hover:text-[#7014D9] transition-colors cursor-pointer"
+              >
+                My Files
+              </button>
+              <span className="text-gray-400 font-normal">&gt;</span>
+              <span>Brand Logos</span>
+            </div>
+          ) : (
+            <h1 className="text-[18px] font-bold text-[#111827]">My Files</h1>
+          )}
 
           <div className="flex items-center gap-2.5">
             {/* + Create or upload */}
@@ -228,12 +260,87 @@ export function DriveFilesView({ tl }: Props) {
 
         {/* View Mode: Tiles */}
         {viewMode === "tiles" ? (
-          <div data-tl="tiles-view-grid" className="grid grid-cols-5 gap-3.5">
-            {/* Folders */}
-            {FOLDER_ITEMS.slice(0, 2).map((folder) => (
+          insideBrandLogos ? (
+            /* Inside Brand Logos Folder: 6 SVG files */
+            <div data-tl="tiles-view-grid" className="grid grid-cols-6 gap-3.5">
+              {BRAND_LOGOS_FILES.map((file) => (
+                <div
+                  key={file.id}
+                  data-tl={`tile-file-${file.id}`}
+                  className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                >
+                  <button
+                    type="button"
+                    data-tl="btn-tile-menu"
+                    className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                  >
+                    <MoreVertical size={14} />
+                  </button>
+                  <div className="flex h-20 w-full items-center justify-center rounded-xl bg-purple-50 text-[#7C3AED] relative">
+                    <FileCode size={28} />
+                    <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-[#7C3AED] border border-purple-200">
+                      SVG
+                    </span>
+                  </div>
+                  <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                    {file.name}
+                  </h4>
+                  <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* Root My Files Tiles: Folders row, then Files row */
+            <div data-tl="tiles-view-grid" className="grid grid-cols-6 gap-3.5">
+              {/* Folder: Brand Logos (added in Step 27) */}
+              {hasBrandLogos && (
+                <div
+                  data-tl="tile-folder-brand-logos"
+                  onClick={() => {
+                    tl.setVar("driveInsideBrandLogosFolder", true);
+                    tl.setUrl("drive.snaarp.com/files?folder=brand-logos");
+                  }}
+                  className="relative rounded-2xl border border-[#EBECEF] bg-white p-3.5 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-[#F59E0B]">
+                      <Folder size={26} fill="#FDE68A" />
+                    </div>
+                    <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                      6
+                    </span>
+                  </div>
+                  <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
+                    Brand Logos
+                  </h4>
+                  <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
+                </div>
+              )}
+
+              {/* Folder: Project Files (added in Step 24, RED) */}
+              {hasProjectFiles && (
+                <div
+                  data-tl="tile-folder-project-files"
+                  className="relative rounded-2xl border border-[#EBECEF] bg-white p-3.5 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-[#EF4444]">
+                      <Folder size={26} fill="#EF4444" />
+                    </div>
+                    <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                      0
+                    </span>
+                  </div>
+                  <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
+                    Project Files
+                  </h4>
+                  <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
+                </div>
+              )}
+
+              {/* Workspaces */}
               <div
-                key={folder.id}
-                data-tl={`tile-folder-${folder.id}`}
+                data-tl="tile-folder-workspaces"
                 className="relative rounded-2xl border border-[#EBECEF] bg-white p-3.5 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
               >
                 <div className="flex items-start justify-between">
@@ -241,43 +348,156 @@ export function DriveFilesView({ tl }: Props) {
                     <Folder size={26} fill="#FDE68A" />
                   </div>
                   <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
-                    {folder.folderItems}
+                    0
                   </span>
                 </div>
                 <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
-                  {folder.name}
+                  Workspaces
+                </h4>
+                <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
+              </div>
+
+              {/* Snaarp product logos */}
+              <div
+                data-tl="tile-folder-products"
+                className="relative rounded-2xl border border-[#EBECEF] bg-white p-3.5 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-[#F59E0B]">
+                    <Folder size={26} fill="#FDE68A" />
+                  </div>
+                  <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                    0
+                  </span>
+                </div>
+                <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
+                  Snaarp product logos
                 </h4>
                 <p className="text-[11px] text-[#9CA3AF] mt-0.5">Aug 6</p>
               </div>
-            ))}
 
-            {/* Files */}
-            {RECENT_FILES.slice(0, 13).map((file) => (
+              {/* Snaarp Icons */}
               <div
-                key={file.id}
-                data-tl={`tile-file-${file.id}`}
-                className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                data-tl="tile-folder-icons"
+                className="relative rounded-2xl border border-[#EBECEF] bg-white p-3.5 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
               >
-                <button
-                  type="button"
-                  data-tl="btn-tile-menu"
-                  className="absolute right-2 top-2 text-gray-400 hover:text-gray-600"
-                >
-                  <MoreVertical size={14} />
-                </button>
-                <div
-                  className="flex h-20 w-full items-center justify-center rounded-xl"
-                  style={{ backgroundColor: file.thumbnailColor ?? "#F3F4F6" }}
-                >
-                  <ImageIcon size={28} className="text-gray-600/70" />
+                <div className="flex items-start justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-[#F59E0B]">
+                    <Folder size={26} fill="#FDE68A" />
+                  </div>
+                  <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                    2
+                  </span>
                 </div>
-                <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
-                  {file.name}
+                <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
+                  Snaarp Icons
                 </h4>
-                <p className="text-[10px] text-[#9CA3AF] mt-0.5">-1 days ago</p>
+                <p className="text-[11px] text-[#9CA3AF] mt-0.5">Aug 6</p>
               </div>
-            ))}
-          </div>
+
+              {/* Sample.txt tile (Step 31) */}
+              {hasSampleTxt && (
+                <div
+                  data-tl="tile-file-sample-txt"
+                  className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                >
+                  <button
+                    type="button"
+                    data-tl="btn-tile-menu"
+                    className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                  >
+                    <MoreVertical size={14} />
+                  </button>
+                  <div className="flex h-20 w-full items-center justify-center rounded-xl bg-rose-50 text-[#E11D48] relative">
+                    <FileText size={28} />
+                    <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-[#E11D48] border border-rose-200">
+                      TXT
+                    </span>
+                  </div>
+                  <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                    Sample.txt
+                  </h4>
+                  <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+                </div>
+              )}
+
+              {/* Meeting notes.md tile (Step 30) */}
+              {hasMeetingNotes && (
+                <div
+                  data-tl="tile-file-meeting-notes"
+                  className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                >
+                  <button
+                    type="button"
+                    data-tl="btn-tile-menu"
+                    className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                  >
+                    <MoreVertical size={14} />
+                  </button>
+                  <div className="flex h-20 w-full items-center justify-center rounded-xl bg-pink-50 text-[#DB2777] relative">
+                    <FileCode size={28} />
+                    <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-[#DB2777] border border-pink-200">
+                      MD
+                    </span>
+                  </div>
+                  <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                    Meeting notes.md
+                  </h4>
+                  <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+                </div>
+              )}
+
+              {/* Quarterly report.png tile (Step 26) */}
+              {hasQuarterlyReport && (
+                <div
+                  data-tl="tile-file-quarterly-report"
+                  className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                >
+                  <button
+                    type="button"
+                    data-tl="btn-tile-menu"
+                    className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                  >
+                    <MoreVertical size={14} />
+                  </button>
+                  <div className="flex h-20 w-full items-center justify-center rounded-xl bg-blue-100">
+                    <ImageIcon size={28} className="text-[#2563EB]" />
+                  </div>
+                  <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                    Quarterly report.png
+                  </h4>
+                  <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+                </div>
+              )}
+
+              {/* Regular image files */}
+              {RECENT_FILES.slice(0, 10).map((file) => (
+                <div
+                  key={file.id}
+                  data-tl={`tile-file-${file.id}`}
+                  className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                >
+                  <button
+                    type="button"
+                    data-tl="btn-tile-menu"
+                    className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                  >
+                    <MoreVertical size={14} />
+                  </button>
+                  <div
+                    className="flex h-20 w-full items-center justify-center rounded-xl"
+                    style={{ backgroundColor: file.thumbnailColor ?? "#F3F4F6" }}
+                  >
+                    <ImageIcon size={28} className="text-gray-600/70" />
+                  </div>
+                  <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                    {file.name}
+                  </h4>
+                  <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+                </div>
+              ))}
+            </div>
+          )
         ) : (
           /* View Mode: List or Compact List */
           <div className="rounded-2xl border border-[#EBECEF] bg-white overflow-hidden shadow-2xs">
