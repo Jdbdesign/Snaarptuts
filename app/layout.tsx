@@ -28,8 +28,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${poppins.variable} ${jetbrains.variable} ${openSans.variable} h-full antialiased`}>
-      <body className="h-full">{children}</body>
+    <html
+      lang="en"
+      className={`${poppins.variable} ${jetbrains.variable} ${openSans.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="h-full" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }
