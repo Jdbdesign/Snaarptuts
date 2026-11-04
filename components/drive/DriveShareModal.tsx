@@ -22,6 +22,11 @@ export function DriveShareModal({ tl }: Props) {
   const itemName = useTimelineVar<string>(tl, "driveShareItemName", "Workspaces");
   const emailVal = useTimelineVar<string>(tl, "driveShareEmailVal", "");
   const hasChip = useTimelineVar(tl, "driveShareHasChip", false);
+  const footerText = useTimelineVar<string>(
+    tl,
+    "driveShareLinkFooterText",
+    "Only people with access can view."
+  );
 
   if (!isOpen) return null;
 
@@ -150,7 +155,7 @@ export function DriveShareModal({ tl }: Props) {
         <div className="mt-6 flex items-center justify-between pt-3 border-t border-gray-100">
           <div className="flex items-center gap-1.5 text-[11px] text-gray-500">
             <Lock size={13} className="text-gray-400" />
-            <span>Only people with access can view.</span>
+            <span>{footerText}</span>
           </div>
 
           <div className="flex items-center gap-2">
