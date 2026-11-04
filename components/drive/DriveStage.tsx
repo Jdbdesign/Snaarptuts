@@ -11,6 +11,7 @@ import { DriveSharedView } from "./DriveSharedView";
 import { DriveFavoritesView } from "./DriveFavoritesView";
 import { DriveTrashView } from "./DriveTrashView";
 import { DriveWorkspacesView } from "./DriveWorkspacesView";
+import { DriveWorkspaceDetailView } from "./DriveWorkspaceDetailView";
 import type { DrivePage } from "./drive-data";
 
 type Props = {
@@ -19,6 +20,7 @@ type Props = {
 
 export function DriveStage({ tl }: Props) {
   const page = useTimelineVar<DrivePage>(tl, "drivePage", "home");
+  const activeWorkspaceId = useTimelineVar<string>(tl, "driveActiveWorkspaceId", "");
   const fade = useTimelineVar(tl, "fade", false);
 
   return (
@@ -40,7 +42,13 @@ export function DriveStage({ tl }: Props) {
       {page === "shared" && <DriveSharedView tl={tl} />}
       {page === "favorites" && <DriveFavoritesView tl={tl} />}
       {page === "trash" && <DriveTrashView tl={tl} />}
-      {page === "workspaces" && <DriveWorkspacesView tl={tl} />}
+      {page === "workspaces" && (
+        activeWorkspaceId === "2172" ? (
+          <DriveWorkspaceDetailView tl={tl} />
+        ) : (
+          <DriveWorkspacesView tl={tl} />
+        )
+      )}
     </DriveShell>
   );
 }

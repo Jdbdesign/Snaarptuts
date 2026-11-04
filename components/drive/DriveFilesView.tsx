@@ -63,6 +63,14 @@ export function DriveFilesView({ tl }: Props) {
   const isMoved = useTimelineVar(tl, "driveFileSampleTxtMoved", false);
   const isWorkspacesDeleted = useTimelineVar(tl, "driveFolderWorkspacesDeleted", false);
 
+  // Part 4 state variables
+  const insideProjectNotes = useTimelineVar(tl, "driveInsideProjectNotesFolder", false);
+  const bulkSelectedIds = useTimelineVar<string[]>(tl, "driveBulkSelectedIds", []);
+  const bulkItemsMoved = useTimelineVar(tl, "driveBulkItemsMoved", false);
+  const bulkItemsDeleted = useTimelineVar(tl, "driveBulkItemsDeleted", false);
+  const hasWorkspaceFolder = useTimelineVar(tl, "driveWorkspaceFolderAdded", false);
+  const hasWorkspaceFile = useTimelineVar(tl, "driveWorkspaceFileUploaded", false);
+
   const isInsideWorkspaces = breadcrumbs[0] === "Workspaces";
   const currentFolderDepth = breadcrumbs.length;
 
@@ -90,6 +98,22 @@ export function DriveFilesView({ tl }: Props) {
               </button>
               <span className="text-gray-400 font-normal">&gt;</span>
               <span>Brand Logos</span>
+            </div>
+          ) : insideProjectNotes ? (
+            <div className="flex items-center gap-2 text-[18px] font-bold text-[#111827]">
+              <button
+                type="button"
+                data-tl="breadcrumb-my-files"
+                onClick={() => {
+                  tl.setVar("driveInsideProjectNotesFolder", false);
+                  tl.setUrl(DRIVE_URLS.files);
+                }}
+                className="hover:text-[#7014D9] transition-colors cursor-pointer"
+              >
+                My Files
+              </button>
+              <span className="text-gray-400 font-normal">&gt;</span>
+              <span>Project Notes</span>
             </div>
           ) : isInsideWorkspaces ? (
             <div className="flex items-center gap-2 text-[17px] font-semibold text-[#111827]">
@@ -124,16 +148,20 @@ export function DriveFilesView({ tl }: Props) {
                   <span className="text-gray-400 font-normal">&gt;</span>
                   <button
                     type="button"
-                    data-tl="breadcrumb-social"
+                    data-tl="breadcrumb-workspace-sub"
                     onClick={() => {
-                      tl.setVar("driveCurrentBreadcrumb", ["Workspaces", "Social media Resources"]);
-                      tl.setUrl("drive.snaarp.com/files?folder=social-media");
+                      tl.setVar("driveCurrentBreadcrumb", [breadcrumbs[0], breadcrumbs[1]]);
+                      tl.setUrl(
+                        `drive.snaarp.com/files?folder=${
+                          breadcrumbs[1] === "Marketing Space" ? "2172" : "social-media"
+                        }`
+                      );
                     }}
                     className={`hover:text-[#7014D9] transition-colors cursor-pointer ${
                       currentFolderDepth === 2 ? "font-bold text-[#111827]" : ""
                     }`}
                   >
-                    Social media Resources
+                    {breadcrumbs[1]}
                   </button>
                 </>
               )}
@@ -366,6 +394,34 @@ export function DriveFilesView({ tl }: Props) {
                 </div>
               ))}
             </div>
+          ) : insideProjectNotes ? (
+            /* Project Notes Folder: 3 moved files */
+            <div data-tl="tiles-view-grid" className="grid grid-cols-6 gap-3.5">
+              <div data-tl="tile-file-payslip-pdf" className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs">
+                <div className="flex h-20 w-full items-center justify-center rounded-xl bg-rose-50 text-rose-600 relative">
+                  <FileText size={28} />
+                  <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-rose-600 border border-rose-200">PDF</span>
+                </div>
+                <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">payslip.pdf</h4>
+                <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+              </div>
+              <div data-tl="tile-file-meeting-notes-docx" className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs">
+                <div className="flex h-20 w-full items-center justify-center rounded-xl bg-blue-50 text-blue-600 relative">
+                  <FileText size={28} />
+                  <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-blue-600 border border-blue-200">DOCX</span>
+                </div>
+                <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">Meeting notes.docx</h4>
+                <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+              </div>
+              <div data-tl="tile-file-project-brief-docx" className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs">
+                <div className="flex h-20 w-full items-center justify-center rounded-xl bg-blue-50 text-blue-600 relative">
+                  <FileText size={28} />
+                  <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-blue-600 border border-blue-200">DOCX</span>
+                </div>
+                <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">Project brief.docx</h4>
+                <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+              </div>
+            </div>
           ) : isInsideWorkspaces ? (
             /* Nested Workspaces hierarchy */
             currentFolderDepth === 1 ? (
@@ -401,6 +457,78 @@ export function DriveFilesView({ tl }: Props) {
                   <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
                 </div>
               </div>
+            ) : currentFolderDepth === 2 && breadcrumbs[1] === "Marketing Space" ? (
+              /* Marketing Space Root */
+              !hasWorkspaceFolder ? (
+                <div data-tl="folder-empty-state" className="flex-1 flex flex-col items-center justify-center min-h-[360px] text-center">
+                  <h3 className="text-sm font-semibold text-gray-900 mb-1">This folder is empty</h3>
+                  <p className="text-xs text-gray-400">Drag files here, or use Create or upload above</p>
+                </div>
+              ) : (
+                <div data-tl="tiles-view-grid" className="grid grid-cols-6 gap-3.5">
+                  <div
+                    data-tl="tile-folder-all-videos"
+                    onClick={() => {
+                      tl.setVar("driveCurrentBreadcrumb", ["Workspaces", "Marketing Space", "All videos"]);
+                      tl.setUrl("drive.snaarp.com/files?folder=2173");
+                    }}
+                    className="relative rounded-2xl border border-[#EBECEF] bg-white p-3.5 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                  >
+                    <button
+                      type="button"
+                      data-tl="btn-tile-menu-all-videos"
+                      className="absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-600 cursor-pointer"
+                    >
+                      <MoreVertical size={14} />
+                    </button>
+                    <div className="flex items-start justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-[#F59E0B]">
+                        <Folder size={26} fill="#FDE68A" />
+                      </div>
+                      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                        {hasWorkspaceFile ? 1 : 0}
+                      </span>
+                    </div>
+                    <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
+                      All videos
+                    </h4>
+                    <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
+                  </div>
+                </div>
+              )
+            ) : currentFolderDepth === 3 && breadcrumbs[1] === "Marketing Space" && breadcrumbs[2] === "All videos" ? (
+              /* Inside All videos */
+              !hasWorkspaceFile ? (
+                <div data-tl="folder-empty-state" className="flex-1 flex flex-col items-center justify-center min-h-[360px] text-center">
+                  <h3 className="text-sm font-semibold text-gray-900 mb-1">This folder is empty</h3>
+                  <p className="text-xs text-gray-400">Drag files here, or use Create or upload above</p>
+                </div>
+              ) : (
+                <div data-tl="tiles-view-grid" className="grid grid-cols-6 gap-3.5">
+                  <div
+                    data-tl="tile-file-launch-video"
+                    className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                  >
+                    <button
+                      type="button"
+                      data-tl="btn-tile-menu"
+                      className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                    >
+                      <MoreVertical size={14} />
+                    </button>
+                    <div className="flex h-20 w-full items-center justify-center rounded-xl bg-rose-50 text-[#E11D48] relative">
+                      <Video size={28} />
+                      <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-[#E11D48] border border-rose-200">
+                        MP4
+                      </span>
+                    </div>
+                    <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                      Launch video.mp4
+                    </h4>
+                    <p className="text-[10px] text-[#9CA3AF] mt-0.5">Today</p>
+                  </div>
+                </div>
+              )
             ) : currentFolderDepth === 2 ? (
               /* Social media Resources -> Videos & Images */
               <div data-tl="tiles-view-grid" className="grid grid-cols-6 gap-3.5">
@@ -732,6 +860,140 @@ export function DriveFilesView({ tl }: Props) {
                     </h4>
                     <p className="text-[11px] text-[#9CA3AF] mt-0.5">Aug 6</p>
                   </div>
+
+                  {/* Folder: Project Notes */}
+                  <div
+                    data-tl="tile-folder-project-notes"
+                    onClick={() => {
+                      tl.setVar("driveInsideProjectNotesFolder", true);
+                      tl.setUrl("drive.snaarp.com/files?folder=project-notes");
+                    }}
+                    className="relative rounded-2xl border border-[#EBECEF] bg-white p-3.5 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-[#F59E0B]">
+                        <Folder size={26} fill="#FDE68A" />
+                      </div>
+                      <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                        {bulkItemsMoved ? 3 : 0}
+                      </span>
+                    </div>
+                    <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
+                      Project Notes
+                    </h4>
+                    <p className="text-[11px] text-[#9CA3AF] mt-0.5">Jun 29</p>
+                  </div>
+
+                  {/* Part 4 Bulk Items (payslip.pdf, Meeting notes.docx, Project brief.docx) */}
+                  {!bulkItemsMoved && (
+                    <>
+                      {/* payslip.pdf */}
+                      <div
+                        data-tl="tile-bulk-payslip"
+                        className={`relative rounded-2xl border bg-white p-3 shadow-2xs hover:shadow-xs transition-all cursor-pointer ${
+                          bulkSelectedIds.includes("payslip")
+                            ? "border-[#7014D9] ring-2 ring-[#7014D9]"
+                            : "border-[#EBECEF]"
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          data-tl="checkbox-bulk-payslip"
+                          checked={bulkSelectedIds.includes("payslip")}
+                          onChange={() => {}}
+                          className="absolute left-2.5 top-2.5 z-20 rounded text-[#7014D9] focus:ring-0 cursor-pointer"
+                        />
+                        <button
+                          type="button"
+                          className="absolute right-2 top-2 z-20 text-gray-400 hover:text-gray-600"
+                        >
+                          <MoreVertical size={14} />
+                        </button>
+                        <div className="flex h-20 w-full items-center justify-center rounded-xl bg-rose-50 text-rose-600 relative">
+                          <FileText size={28} />
+                          <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-rose-600 border border-rose-200">
+                            PDF
+                          </span>
+                        </div>
+                        <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                          payslip.pdf
+                        </h4>
+                        <p className="text-[10px] text-[#9CA3AF] mt-0.5">Sep 27</p>
+                      </div>
+
+                      {/* Meeting notes.docx */}
+                      {!bulkItemsDeleted && (
+                        <div
+                          data-tl="tile-bulk-meeting-notes"
+                          className={`relative rounded-2xl border bg-white p-3 shadow-2xs hover:shadow-xs transition-all cursor-pointer ${
+                            bulkSelectedIds.includes("meeting-notes")
+                              ? "border-[#7014D9] ring-2 ring-[#7014D9]"
+                              : "border-[#EBECEF]"
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            data-tl="checkbox-bulk-meeting-notes"
+                            checked={bulkSelectedIds.includes("meeting-notes")}
+                            onChange={() => {}}
+                            className="absolute left-2.5 top-2.5 z-20 rounded text-[#7014D9] focus:ring-0 cursor-pointer"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-2 top-2 z-20 text-gray-400 hover:text-gray-600"
+                          >
+                            <MoreVertical size={14} />
+                          </button>
+                          <div className="flex h-20 w-full items-center justify-center rounded-xl bg-blue-50 text-blue-600 relative">
+                            <FileText size={28} />
+                            <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-blue-600 border border-blue-200">
+                              DOCX
+                            </span>
+                          </div>
+                          <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                            Meeting notes.docx
+                          </h4>
+                          <p className="text-[10px] text-[#9CA3AF] mt-0.5">Sep 21</p>
+                        </div>
+                      )}
+
+                      {/* Project brief.docx */}
+                      {!bulkItemsDeleted && (
+                        <div
+                          data-tl="tile-bulk-project-brief"
+                          className={`relative rounded-2xl border bg-white p-3 shadow-2xs hover:shadow-xs transition-all cursor-pointer ${
+                            bulkSelectedIds.includes("project-brief")
+                              ? "border-[#7014D9] ring-2 ring-[#7014D9]"
+                              : "border-[#EBECEF]"
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            data-tl="checkbox-bulk-project-brief"
+                            checked={bulkSelectedIds.includes("project-brief")}
+                            onChange={() => {}}
+                            className="absolute left-2.5 top-2.5 z-20 rounded text-[#7014D9] focus:ring-0 cursor-pointer"
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-2 top-2 z-20 text-gray-400 hover:text-gray-600"
+                          >
+                            <MoreVertical size={14} />
+                          </button>
+                          <div className="flex h-20 w-full items-center justify-center rounded-xl bg-blue-50 text-blue-600 relative">
+                            <FileText size={28} />
+                            <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-blue-600 border border-blue-200">
+                              DOCX
+                            </span>
+                          </div>
+                          <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                            Project brief.docx
+                          </h4>
+                          <p className="text-[10px] text-[#9CA3AF] mt-0.5">Sep 18</p>
+                        </div>
+                      )}
+                    </>
+                  )}
 
                   {/* Sample.txt tile (when NOT pinned and NOT moved) */}
                   {hasSampleTxt && !isPinned && !isMoved && (

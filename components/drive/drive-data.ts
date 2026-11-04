@@ -559,3 +559,116 @@ export const SAMPLE_PHOTOS: DrivePhoto[] = [
     unsplashUrl: "https://unsplash.com/photos/top-view-photography-of-spiral-staircase-W-KRXdgh_u0",
   },
 ];
+
+// Part 4 Entities: Bulk actions, Trash, Meetings, Shared, Favorites, Workspaces
+export interface BulkFileItem {
+  id: string;
+  name: string;
+  type: "pdf" | "docx" | "xlsx" | "html" | "folder";
+  date: string;
+  size: string;
+}
+
+export const BULK_SAMPLE_FILES: BulkFileItem[] = [
+  { id: "bulk-1", name: "Payslip sample.pdf", type: "pdf", date: "Sep 27", size: "204.8 KB" },
+  { id: "bulk-2", name: "Meeting notes.docx", type: "docx", date: "Sep 21", size: "1.2 KB" },
+  { id: "bulk-3", name: "Project brief.docx", type: "docx", date: "Sep 18", size: "1.2 KB" },
+];
+
+export interface TrashItem {
+  id: string;
+  name: string;
+  type: "docx" | "pdf" | "xlsx";
+  originalLocation: string;
+  deletedDate: string;
+  size: string;
+}
+
+export const INITIAL_TRASH_ITEMS: TrashItem[] = [
+  {
+    id: "trash-1",
+    name: "Meeting notes.docx",
+    type: "docx",
+    originalLocation: "My Files",
+    deletedDate: "Nov 4, 2026",
+    size: "1.2 KB",
+  },
+  {
+    id: "trash-2",
+    name: "Project brief.docx",
+    type: "docx",
+    originalLocation: "My Files",
+    deletedDate: "Nov 4, 2026",
+    size: "1.2 KB",
+  },
+  {
+    id: "trash-3",
+    name: "Budget draft.xlsx",
+    type: "xlsx",
+    originalLocation: "My Files",
+    deletedDate: "Oct 28, 2026",
+    size: "5.9 KB",
+  },
+];
+
+export interface MeetingItem {
+  id: string;
+  name: string;
+  code: string;
+  date: string;
+  duration: string;
+  size: string;
+  format: string;
+  status: "Completed" | "Failed";
+}
+
+export const MEETINGS_RECORDINGS: MeetingItem[] = [
+  { id: "m-1", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Nov 4, 2026 · 10:06 AM", duration: "—", size: "21.2 MB", format: "MP4", status: "Completed" },
+  { id: "m-2", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Nov 4, 2026 · 9:53 AM", duration: "—", size: "13.6 MB", format: "MP4", status: "Completed" },
+  { id: "m-3", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Nov 3, 2026 · 4:14 PM", duration: "—", size: "11.8 MB", format: "MP4", status: "Completed" },
+  { id: "m-4", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Nov 3, 2026 · 4:07 PM", duration: "—", size: "15.5 MB", format: "MP4", status: "Completed" },
+  { id: "m-5", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Nov 3, 2026 · 9:09 AM", duration: "—", size: "2.4 MB", format: "MP4", status: "Completed" },
+  { id: "m-6", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 30, 2026 · 9:26 AM", duration: "—", size: "4.7 MB", format: "MP4", status: "Completed" },
+  { id: "m-7", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 29, 2026 · 10:20 AM", duration: "—", size: "8.8 MB", format: "MP4", status: "Completed" },
+  { id: "m-8", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 23, 2026 · 9:02 AM", duration: "—", size: "23.7 MB", format: "MP4", status: "Completed" },
+  { id: "m-9", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 20, 2026 · 9:24 AM", duration: "—", size: "28.7 MB", format: "MP4", status: "Completed" },
+  { id: "m-10", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 15, 2026 · 2:46 PM", duration: "—", size: "18.1 MB", format: "MP4", status: "Completed" },
+  { id: "m-11", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 15, 2026 · 10:04 AM", duration: "—", size: "22.0 MB", format: "MP4", status: "Completed" },
+  { id: "m-12", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 15, 2026 · 9:57 AM", duration: "—", size: "—", format: "MP4", status: "Failed" },
+  { id: "m-13", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 15, 2026 · 9:32 AM", duration: "—", size: "—", format: "MP4", status: "Failed" },
+  { id: "m-14", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 13, 2026 · 1:59 PM", duration: "—", size: "13.3 MB", format: "MP4", status: "Completed" },
+];
+
+export interface SharedItem {
+  id: string;
+  name: string;
+  permission: "Can edit" | "Can view";
+  dateShared: string;
+  sharedWith: string;
+  isFolder?: boolean;
+}
+
+export const SHARED_BY_YOU_ITEMS: SharedItem[] = [
+  { id: "s-1", name: "Q3 report.xlsx", permission: "Can edit", dateShared: "04/11/2026", sharedWith: "casey.brown@acme.example" },
+  { id: "s-2", name: "Brand Guidelines", permission: "Can view", dateShared: "22m ago", sharedWith: "jordan.lee@acme.example", isFolder: true },
+  { id: "s-3", name: "Marketing Space", permission: "Can view", dateShared: "5h ago", sharedWith: "alex.morgan@acme.example", isFolder: true },
+];
+
+export interface OrgMember {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  role: "owner" | "admin" | "member" | "viewer";
+}
+
+export const ORG_MEMBERS: OrgMember[] = [
+  { id: "mem-1", name: "Sam Taylor", email: "sam.taylor@snaarp.com", avatar: "S", role: "owner" },
+  { id: "mem-2", name: "Alex Morgan", email: "alex.morgan@acme.example", avatar: "A", role: "viewer" },
+  { id: "mem-3", name: "Jordan Lee", email: "jordan.lee@acme.example", avatar: "J", role: "viewer" },
+  { id: "mem-4", name: "Casey Brown", email: "casey.brown@acme.example", avatar: "C", role: "viewer" },
+  { id: "mem-5", name: "Taylor Reed", email: "taylor.reed@acme.example", avatar: "T", role: "viewer" },
+  { id: "mem-6", name: "Morgan Blake", email: "morgan.blake@acme.example", avatar: "M", role: "viewer" },
+  { id: "mem-7", name: "Riley Cole", email: "riley.cole@acme.example", avatar: "R", role: "viewer" },
+  { id: "mem-8", name: "Drew Hart", email: "drew.hart@acme.example", avatar: "D", role: "viewer" },
+];

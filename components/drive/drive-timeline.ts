@@ -119,6 +119,49 @@ export function beginDrive(
   tl.setVar("driveIsRenaming", false);
   tl.setVar("driveIsApplyingColor", false);
 
+  // Part 4: Bulk actions, Trash, Meetings, Shared, Favorites, Workspaces
+  tl.setVar("driveBulkSelectedIds", []);
+  tl.setVar("driveBulkBarOpen", false);
+  tl.setVar("driveBulkMoveModalOpen", false);
+  tl.setVar("driveBulkDeleteModalOpen", false);
+  tl.setVar("driveIsBulkMoving", false);
+  tl.setVar("driveIsBulkDeleting", false);
+  tl.setVar("driveBulkItemsMoved", false);
+  tl.setVar("driveBulkItemsDeleted", false);
+  tl.setVar("driveEmptyTrashModalOpen", false);
+  tl.setVar("driveIsEmptyingTrash", false);
+  tl.setVar("driveTrashEmptied", false);
+  tl.setVar("driveTrashRestoredToastOpen", false);
+  tl.setVar("driveTrashEmptiedToastOpen", false);
+  tl.setVar("driveMeetingsDownloadedToastOpen", false);
+  tl.setVar("driveSharedSelectedIds", []);
+  tl.setVar("driveSharedRowMenuOpen", false);
+  tl.setVar("driveSharedShareModalOpen", false);
+  tl.setVar("driveSharedShortcutToastOpen", false);
+  tl.setVar("driveSharedHideToastOpen", false);
+  tl.setVar("driveSharedHiddenIds", []);
+  tl.setVar("driveFavoritesUnstarredId", "");
+  tl.setVar("driveFavoritesToastOpen", false);
+  tl.setVar("driveCreateWorkspaceModalOpen", false);
+  tl.setVar("driveWorkspaceNameVal", "");
+  tl.setVar("driveWorkspaceDescVal", "");
+  tl.setVar("driveIsCreatingWorkspace", false);
+  tl.setVar("driveWorkspaceCreatedToastOpen", false);
+  tl.setVar("driveActiveWorkspaceId", "");
+  tl.setVar("driveInviteMemberModalOpen", false);
+  tl.setVar("driveInviteSearchVal", "");
+  tl.setVar("driveInviteSelectedIds", []);
+  tl.setVar("driveInviteRoleVal", "member");
+  tl.setVar("driveIsInvitingMembers", false);
+  tl.setVar("driveInviteSuccessToastOpen", false);
+  tl.setVar("driveMemberMenuOpenId", "");
+  tl.setVar("driveDeleteWorkspaceModalOpen", false);
+  tl.setVar("driveDeleteWorkspaceConfirmChecked", false);
+  tl.setVar("driveIsDeletingWorkspace", false);
+  tl.setVar("driveWorkspaceDeletedToastOpen", false);
+  tl.setVar("driveWorkspaceFolderAdded", false);
+  tl.setVar("driveWorkspaceFileUploaded", false);
+
   // Fade
   tl.setVar("fade", false);
 }

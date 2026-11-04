@@ -53,6 +53,14 @@ import { DriveLinkSettingsToast } from "./DriveLinkSettingsToast";
 import { DriveDeleteToast } from "./DriveDeleteToast";
 import { DriveRenameToast } from "./DriveRenameToast";
 import { DriveCopyToast } from "./DriveCopyToast";
+import { DriveBulkActionBar } from "./DriveBulkActionBar";
+import { DriveBulkMoveModal } from "./DriveBulkMoveModal";
+import { DriveBulkDeleteModal } from "./DriveBulkDeleteModal";
+import { DriveEmptyTrashModal } from "./DriveEmptyTrashModal";
+import { DriveCreateWorkspaceModal } from "./DriveCreateWorkspaceModal";
+import { DriveInviteMemberModal } from "./DriveInviteMemberModal";
+import { DriveDeleteWorkspaceModal } from "./DriveDeleteWorkspaceModal";
+import { DrivePart4Toasts } from "./DrivePart4Toasts";
 
 type Props = {
   tl: Timeline;
@@ -509,6 +517,14 @@ export function DriveShell({ tl, children, overlay }: Props) {
       <DriveDeleteToast tl={tl} />
       <DriveRenameToast tl={tl} />
       <DriveCopyToast tl={tl} />
+      <DriveBulkActionBar tl={tl} />
+      <DriveBulkMoveModal tl={tl} />
+      <DriveBulkDeleteModal tl={tl} />
+      <DriveEmptyTrashModal tl={tl} />
+      <DriveCreateWorkspaceModal tl={tl} />
+      <DriveInviteMemberModal tl={tl} />
+      <DriveDeleteWorkspaceModal tl={tl} />
+      <DrivePart4Toasts tl={tl} />
       {overlay}
     </div>
   );
