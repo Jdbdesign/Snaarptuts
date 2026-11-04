@@ -76,6 +76,7 @@ export interface FileItem {
   duration?: string;
   status?: string;
   thumbnailColor?: string;
+  color?: string;
 }
 
 export const RECENT_FILES: FileItem[] = [
@@ -118,6 +119,137 @@ export const TRASH_ITEM: FileItem = {
   modified: "Aug 5, 2026",
   size: "5.9 KB",
 };
+
+// Part 2: Folder, file, and document entities
+export const FOLDER_COLOR_SWATCHES = [
+  { id: "red", hex: "#EF4444", label: "Red" },
+  { id: "orange", hex: "#F97316", label: "Orange" },
+  { id: "yellow", hex: "#FACC15", label: "Yellow" },
+  { id: "green", hex: "#22C55E", label: "Green" },
+  { id: "blue", hex: "#3B82F6", label: "Blue" },
+  { id: "violet", hex: "#6366F1", label: "Violet" },
+  { id: "pink", hex: "#EC4899", label: "Pink" },
+  { id: "slate", hex: "#94A3B8", label: "Slate" },
+  { id: "lavender", hex: "#A855F7", label: "Lavender" },
+  { id: "magenta", hex: "#D946EF", label: "Magenta" },
+  { id: "amber", hex: "#F59E0B", label: "Amber" },
+];
+
+export const FOLDER_PROJECT_FILES: FileItem = {
+  id: "folder-project-files",
+  name: "Project Files",
+  subtitle: "Folder",
+  isFolder: true,
+  folderItems: 0,
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "0 items",
+  sharing: "Private",
+  color: "#EF4444",
+};
+
+export const FOLDER_BRAND_LOGOS: FileItem = {
+  id: "folder-brand-logos",
+  name: "Brand Logos",
+  subtitle: "Folder",
+  isFolder: true,
+  folderItems: 6,
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "6 items",
+  sharing: "Private",
+  color: "#F59E0B",
+};
+
+export const BRAND_LOGOS_FILES: FileItem[] = [
+  { id: "logo-office", name: "Microsoft_365.svg", subtitle: "own", modified: "Today", size: "12 KB", sharing: "Private" },
+  { id: "logo-teams", name: "Microsoft Teams.svg", subtitle: "own", modified: "Today", size: "14 KB", sharing: "Private" },
+  { id: "logo-outlook", name: "Microsoft Outlook.svg", subtitle: "own", modified: "Today", size: "11 KB", sharing: "Private" },
+  { id: "logo-drive", name: "Google Workspace Drive.svg", subtitle: "own", modified: "Today", size: "15 KB", sharing: "Private" },
+  { id: "logo-meet", name: "Google Meet.svg", subtitle: "own", modified: "Today", size: "13 KB", sharing: "Private" },
+  { id: "logo-calendar", name: "Google Calendar.svg", subtitle: "own", modified: "Today", size: "10 KB", sharing: "Private" },
+];
+
+export const FILE_QUARTERLY_REPORT: FileItem = {
+  id: "file-quarterly-report",
+  name: "Quarterly report.png",
+  subtitle: "own",
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "2.4 MB",
+  sharing: "Private",
+  thumbnailColor: "#BAE6FD",
+};
+
+export const FILE_MEETING_NOTES_MD: FileItem = {
+  id: "file-meeting-notes-md",
+  name: "Meeting notes.md",
+  subtitle: "own",
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "1.2 KB",
+  sharing: "Private",
+  format: "markdown",
+};
+
+export const FILE_SAMPLE_TXT: FileItem = {
+  id: "file-sample-txt",
+  name: "Sample.txt",
+  subtitle: "own",
+  opened: "Just now",
+  modified: "Today",
+  owner: "Sam Taylor",
+  size: "840 B",
+  sharing: "Private",
+  format: "text",
+};
+
+export const INITIAL_MARKDOWN_TEMPLATE = `# Title goes here
+
+_A short description of what this document is about._
+
+---
+
+## Overview
+
+Briefly explain the purpose of this document. What problem does it address? Who is it for?
+
+## Key Points
+
+- Point one
+- Point two
+- Point three
+
+_Last updated: 2026-11-03_`;
+
+export const SAMPLE_MARKDOWN_CONTENT = `# Project Kickoff & Roadmap
+
+_Quarterly deliverables and technical milestone overview._
+
+---
+
+## Objectives
+- Launch Snaarp Drive public beta
+- Finalise enterprise storage quotas
+- Implement cross-drive cloud import
+
+## Key Points
+- Point one: Verified permissions
+- Point two: Integrated cloud sync
+- Point three: Document markdown editing
+
+_Last updated: 2026-11-03_`;
+
+export const SAMPLE_TXT_CONTENT = `Snaarp Drive - Team Notes
+
+- Storage sync verified
+- Permissions updated for Acme Studio
+- Project files organized in My Files`;
+
 
 export interface DrivePhoto {
   id: string;

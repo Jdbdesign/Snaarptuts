@@ -27,13 +27,17 @@ export function DriveCreateMenu({ tl }: Props) {
   return (
     <div
       data-tl="create-upload-menu"
-      className="absolute left-6 top-[160px] z-50 w-56 rounded-2xl border border-gray-200 bg-white py-2 shadow-xl text-[13px] font-['Poppins',sans-serif] text-[#111827] select-none animate-in fade-in zoom-in-95 duration-100"
+      className="absolute left-[72px] top-[166px] z-50 w-56 rounded-2xl border border-gray-200 bg-white py-2 shadow-xl text-[13px] font-['Poppins',sans-serif] text-[#111827] select-none"
       onClick={(e) => e.stopPropagation()}
     >
       {/* 1. Folder */}
       <button
         type="button"
         data-tl="menu-item-folder"
+        onClick={() => {
+          tl.setVar("driveFolderModalOpen", true);
+          tl.setVar("driveCreateMenuOpen", false);
+        }}
         className="flex w-full items-center gap-3 px-4 py-2 hover:bg-gray-50 text-left transition-colors cursor-pointer"
       >
         <Folder size={17} className="text-[#F59E0B]" />
@@ -44,6 +48,10 @@ export function DriveCreateMenu({ tl }: Props) {
       <button
         type="button"
         data-tl="menu-item-file-upload"
+        onClick={() => {
+          tl.setVar("driveFilePickerOpen", true);
+          tl.setVar("driveCreateMenuOpen", false);
+        }}
         className="flex w-full items-center gap-3 px-4 py-2 hover:bg-gray-50 text-left transition-colors cursor-pointer"
       >
         <Upload size={17} className="text-[#6B7280]" />
@@ -54,6 +62,10 @@ export function DriveCreateMenu({ tl }: Props) {
       <button
         type="button"
         data-tl="menu-item-folder-upload"
+        onClick={() => {
+          tl.setVar("driveFolderPickerOpen", true);
+          tl.setVar("driveCreateMenuOpen", false);
+        }}
         className="flex w-full items-center gap-3 px-4 py-2 hover:bg-gray-50 text-left transition-colors cursor-pointer"
       >
         <FolderUp size={17} className="text-[#6B7280]" />
@@ -99,6 +111,10 @@ export function DriveCreateMenu({ tl }: Props) {
       <button
         type="button"
         data-tl="menu-item-markdown"
+        onClick={() => {
+          tl.setVar("driveMarkdownModalOpen", true);
+          tl.setVar("driveCreateMenuOpen", false);
+        }}
         className="flex w-full items-center gap-3 px-4 py-2 hover:bg-gray-50 text-left transition-colors cursor-pointer"
       >
         <FileCode size={17} className="text-[#3B82F6]" />
@@ -109,6 +125,10 @@ export function DriveCreateMenu({ tl }: Props) {
       <button
         type="button"
         data-tl="menu-item-text"
+        onClick={() => {
+          tl.setVar("driveTextModalOpen", true);
+          tl.setVar("driveCreateMenuOpen", false);
+        }}
         className="flex w-full items-center gap-3 px-4 py-2 hover:bg-gray-50 text-left transition-colors cursor-pointer"
       >
         <File size={17} className="text-[#6B7280]" />
@@ -121,6 +141,10 @@ export function DriveCreateMenu({ tl }: Props) {
       <button
         type="button"
         data-tl="menu-item-import"
+        onClick={() => {
+          tl.setVar("driveImportModalOpen", true);
+          tl.setVar("driveCreateMenuOpen", false);
+        }}
         className="flex w-full items-center gap-3 px-4 py-2 hover:bg-gray-50 text-left transition-colors cursor-pointer"
       >
         <Cloud size={17} className="text-[#6B7280]" />

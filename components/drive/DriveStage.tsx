@@ -25,11 +25,12 @@ export function DriveStage({ tl }: Props) {
     <DriveShell
       tl={tl}
       overlay={
-        <div
-          data-tl="end-fade"
-          style={{ opacity: fade ? 1 : 0 }}
-          className="pointer-events-none absolute inset-0 z-50 bg-white transition-opacity duration-300"
-        />
+        fade ? (
+          <div
+            data-tl="end-fade"
+            className="pointer-events-none absolute inset-0 z-50 bg-white"
+          />
+        ) : null
       }
     >
       {page === "home" && <DriveHomeView tl={tl} />}

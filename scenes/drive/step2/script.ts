@@ -29,7 +29,7 @@ export async function runStep2(tl: Timeline) {
 
   await tl.at(4200);
   tl.showCaption(CAPTIONS.view);
-  await ring(tl, "[data-tl=photos-gallery-grid]", 2600);
+  await ring(tl, "[data-tl=photos-gallery-grid]", 2000);
 
   await finishDrive(tl, STEP2_DURATION_MS);
 

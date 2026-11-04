@@ -48,6 +48,37 @@ export function beginDrive(
   // Create / upload menu
   tl.setVar("driveCreateMenuOpen", false);
 
+  // Part 2: Folder creation, uploads, editors, import
+  tl.setVar("driveFolderName", "");
+  tl.setVar("driveFolderColor", "");
+  tl.setVar("driveFolderModalOpen", false);
+  tl.setVar("driveHomeHasProjectFiles", false);
+  tl.setVar("driveFolderProjectFilesAdded", false);
+  tl.setVar("driveFolderBrandLogosAdded", false);
+  tl.setVar("driveInsideBrandLogosFolder", false);
+  tl.setVar("driveUploadToastOpen", false);
+  tl.setVar("driveUploadToastExpanded", false);
+  tl.setVar("driveUploadToastCompleted", false);
+  tl.setVar("driveUploadToastCount", 1);
+  tl.setVar("driveFileQuarterlyReportAdded", false);
+  tl.setVar("driveFileMeetingNotesAdded", false);
+  tl.setVar("driveFileSampleTxtAdded", false);
+  tl.setVar("driveFilePickerOpen", false);
+  tl.setVar("driveFolderPickerOpen", false);
+  tl.setVar("driveMarkdownModalOpen", false);
+  tl.setVar("driveMarkdownEditorOpen", false);
+  tl.setVar("driveMarkdownSaved", false);
+  tl.setVar("driveMarkdownSaving", false);
+  tl.setVar("driveMarkdownDirty", false);
+  tl.setVar("driveMarkdownContent", "");
+  tl.setVar("driveTextModalOpen", false);
+  tl.setVar("driveTextEditorOpen", false);
+  tl.setVar("driveTextSaved", false);
+  tl.setVar("driveTextSaving", false);
+  tl.setVar("driveTextDirty", false);
+  tl.setVar("driveTextContent", "");
+  tl.setVar("driveImportModalOpen", false);
+
   // Meetings view
   tl.setVar("driveMeetingsRefreshing", false);
 
@@ -69,6 +100,7 @@ export function beginDrive(
  * and awaiting the remaining step duration.
  */
 export async function finishDrive(tl: Timeline, totalDurationMs: number) {
+  tl.clearHighlight();
   tl.hideCaption();
   tl.setVar("fade", true);
   await tl.at(totalDurationMs);

@@ -30,6 +30,14 @@ import {
   Sliders,
 } from "lucide-react";
 import { DriveCreateMenu } from "./DriveCreateMenu";
+import { DriveFolderModal } from "./DriveFolderModal";
+import { DriveUploadToast } from "./DriveUploadToast";
+import { DriveFilePickerModal } from "./DriveFilePickerModal";
+import { DriveMarkdownModal } from "./DriveMarkdownModal";
+import { DriveMarkdownEditor } from "./DriveMarkdownEditor";
+import { DriveTextModal } from "./DriveTextModal";
+import { DriveTextEditor } from "./DriveTextEditor";
+import { DriveImportModal } from "./DriveImportModal";
 
 type Props = {
   tl: Timeline;
@@ -463,6 +471,14 @@ export function DriveShell({ tl, children, overlay }: Props) {
 
       {/* Global Dropdowns & Modals (Inside Scroller) */}
       <DriveCreateMenu tl={tl} />
+      <DriveFolderModal tl={tl} />
+      <DriveUploadToast tl={tl} />
+      <DriveFilePickerModal tl={tl} />
+      <DriveMarkdownModal tl={tl} />
+      <DriveMarkdownEditor tl={tl} />
+      <DriveTextModal tl={tl} />
+      <DriveTextEditor tl={tl} />
+      <DriveImportModal tl={tl} />
       {overlay}
     </div>
   );
