@@ -5,7 +5,7 @@ import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
   Settings,
   X,
-  Eye,
+  Plus,
   Lock,
   Link as LinkIcon,
   Send,
@@ -93,7 +93,7 @@ export function DriveShareModal({ tl }: Props) {
                 className="w-full text-[13px] text-[#111827] placeholder:text-gray-400 focus:outline-none"
               />
             )}
-            <Eye size={16} className="ml-auto text-gray-400 shrink-0" />
+            <Plus size={16} className="ml-auto text-gray-400 shrink-0" />
           </div>
 
           {/* Add a message trigger */}
