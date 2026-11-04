@@ -968,8 +968,33 @@ Recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`, stills in
    - Views for Meetings (`/meetings`), Shared (`/shared`), Favorites (`/favorites`), Recycle Bin (`/trash`), and Workspaces (`/workspaces`).
 2. **Excluded recording artifacts**: Excluded native browser chrome, Windows taskbar, screen-share overlay banner, green URL status tooltips, black memory-usage popup, and native operating system cursor.
 3. **Icons**: Standard Lucide icons (`lucide-react`) used throughout the product UI; authentic brand SVGs used for suite switcher logos and Snaarp Drive product logo.
-4. **Completion card**: Positioned after Step 21 with title "Tour complete" and message "You now know your way around Snaarp Drive. Next: the features."
+4. **Completion card**: Positioned after Step 32 with title "Tour complete" and message "You can now create and upload files in Snaarp Drive."
 5. **Drive photos**: Unsplash photos stored locally instead of the real user photos (see `docs/CREDITS.md` for full attributions).
+
+## Snaarp Drive Part 2: Create & Upload Features (steps 22-32)
+
+Built from video recording `1104.mp4` and extracted stills `ref/drive-frames-2/` (`t0001s.jpg` to `t0097s.jpg`).
+
+**Sample data only (no real personal data):**
+- Folder 1: "Project Files" (replaces "Snaarp Icons"), color = RED (`#EF4444`).
+- Uploaded File: "Quarterly report.png" (replaces "Binance Hack_ $6.3 Billion Exposed.png").
+- Uploaded Folder: "Brand Logos" (replaces "SnaarpMe Logos") with 6 SVG files: `Microsoft_365.svg`, `Microsoft Teams.svg`, `Microsoft Outlook.svg`, `Google Workspace Drive.svg`, `Google Meet.svg`, `Google Calendar.svg`.
+- Document 1: "Meeting notes.md" (Markdown). Template text exact as in video:
+  `# Title goes here\n_A short description of what this document is about._\n## Overview\n## Key Points\n- Point one\n- Point two\n- Point three\n_Last updated: 2026-11-03_`.
+  Sample edited outline: Project Kickoff & Roadmap.
+- Document 2: "Sample.txt" (Plain text).
+- Date reference: `03 November 2026`.
+
+**Decisions & deviations:**
+1. **OS File & Folder Pickers**: Windows Explorer file dialogs and browser confirmation popups are excluded as external OS chrome and replaced with an in-app sample picker sheet.
+2. **Browser Autofill & Overlays**: Chrome autofill dropdown under the folder name input and screen recording overlays are excluded.
+3. **Modals and Editors**:
+   - "Create a folder" modal with Name input, 11 color swatches, Create and Cancel buttons.
+   - Dark upload toast with collapsed ("1 upload finished", "Done") and expanded ("6 uploads finished", tabs, progress bars) states.
+   - Full-screen Markdown editor with dark header, toolbar, line numbering, template text, and save flow.
+   - Full-screen Plain text editor with line numbering and save flow.
+   - "Import cloud photos and files" modal with Google Drive, Dropbox, OneDrive, and Google Photos buttons.
+
 
 
 

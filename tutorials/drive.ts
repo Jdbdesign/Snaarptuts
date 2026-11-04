@@ -40,6 +40,28 @@ import { Step20 } from "@/scenes/drive/step20/Step20";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/drive/step20/script";
 import { Step21 } from "@/scenes/drive/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/drive/step21/script";
+import { Step22 } from "@/scenes/drive/step22/Step22";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/drive/step22/script";
+import { Step23 } from "@/scenes/drive/step23/Step23";
+import { runStep23, STEP23_DURATION_MS } from "@/scenes/drive/step23/script";
+import { Step24 } from "@/scenes/drive/step24/Step24";
+import { runStep24, STEP24_DURATION_MS } from "@/scenes/drive/step24/script";
+import { Step25 } from "@/scenes/drive/step25/Step25";
+import { runStep25, STEP25_DURATION_MS } from "@/scenes/drive/step25/script";
+import { Step26 } from "@/scenes/drive/step26/Step26";
+import { runStep26, STEP26_DURATION_MS } from "@/scenes/drive/step26/script";
+import { Step27 } from "@/scenes/drive/step27/Step27";
+import { runStep27, STEP27_DURATION_MS } from "@/scenes/drive/step27/script";
+import { Step28 } from "@/scenes/drive/step28/Step28";
+import { runStep28, STEP28_DURATION_MS } from "@/scenes/drive/step28/script";
+import { Step29 } from "@/scenes/drive/step29/Step29";
+import { runStep29, STEP29_DURATION_MS } from "@/scenes/drive/step29/script";
+import { Step30 } from "@/scenes/drive/step30/Step30";
+import { runStep30, STEP30_DURATION_MS } from "@/scenes/drive/step30/script";
+import { Step31 } from "@/scenes/drive/step31/Step31";
+import { runStep31, STEP31_DURATION_MS } from "@/scenes/drive/step31/script";
+import { Step32 } from "@/scenes/drive/step32/Step32";
+import { runStep32, STEP32_DURATION_MS } from "@/scenes/drive/step32/script";
 
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import type { Tutorial } from "./types";
@@ -263,15 +285,126 @@ export const drive: Tutorial = {
         durationMs: STEP21_DURATION_MS,
       },
     },
+    {
+      id: "start-new-folder",
+      title: "Start a new folder",
+      url: DRIVE_URLS.dashboard,
+      scene: {
+        Component: Step22,
+        run: runStep22,
+        durationMs: STEP22_DURATION_MS,
+      },
+    },
+    {
+      id: "name-colour-folder",
+      title: "Name and colour the folder",
+      url: DRIVE_URLS.dashboard,
+      scene: {
+        Component: Step23,
+        run: runStep23,
+        durationMs: STEP23_DURATION_MS,
+      },
+    },
+    {
+      id: "see-new-folder",
+      title: "See your new folder",
+      url: DRIVE_URLS.dashboard,
+      scene: {
+        Component: Step24,
+        run: runStep24,
+        durationMs: STEP24_DURATION_MS,
+      },
+    },
+    {
+      id: "upload-file",
+      title: "Upload a file",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step25,
+        run: runStep25,
+        durationMs: STEP25_DURATION_MS,
+      },
+    },
+    {
+      id: "track-upload",
+      title: "Track the upload",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step26,
+        run: runStep26,
+        durationMs: STEP26_DURATION_MS,
+      },
+    },
+    {
+      id: "upload-folder",
+      title: "Upload a folder",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step27,
+        run: runStep27,
+        durationMs: STEP27_DURATION_MS,
+      },
+    },
+    {
+      id: "open-uploaded-folder",
+      title: "Open the uploaded folder",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step28,
+        run: runStep28,
+        durationMs: STEP28_DURATION_MS,
+      },
+    },
+    {
+      id: "create-markdown-document",
+      title: "Create a Markdown document",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step29,
+        run: runStep29,
+        durationMs: STEP29_DURATION_MS,
+      },
+    },
+    {
+      id: "edit-save-document",
+      title: "Edit and save the document",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step30,
+        run: runStep30,
+        durationMs: STEP30_DURATION_MS,
+      },
+    },
+    {
+      id: "create-text-document",
+      title: "Create a text document",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step31,
+        run: runStep31,
+        durationMs: STEP31_DURATION_MS,
+      },
+    },
+    {
+      id: "import-from-other-drives",
+      title: "Import from other drives",
+      url: DRIVE_URLS.files,
+      scene: {
+        Component: Step32,
+        run: runStep32,
+        durationMs: STEP32_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Photos & Media", from: "switch-to-photos" },
     { title: "Files & Storage", from: "back-to-files" },
     { title: "Navigation & Spaces", from: "meetings" },
+    { title: "Create & Upload", from: "start-new-folder" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You now know your way around Snaarp Drive. Next: the features.",
+    text: "You can now create and upload files in Snaarp Drive.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

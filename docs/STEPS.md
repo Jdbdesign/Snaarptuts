@@ -2004,9 +2004,27 @@ Source recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`, st
 | 20 | Workspaces | Clicks "Workspaces" in sidebar (`drive.snaarp.com/workspaces`). Reviews shared organizational team spaces (Design Team, Marketing Assets, Q3 Planning). | 6.5 s |
 | 21 | Back to Home | Clicks "Home" in sidebar (`drive.snaarp.com/dashboard`). Returns to Drive home. Completion card follows. | 6.0 s |
 
+## Snaarp Drive Part 2: Create & Upload Features (steps 22-32)
+
+Source recording: `ref/drive-clip2.mp4` (copy of `Downloads/1104.mp4`, stills in `ref/drive-frames-2/` `t0001s.jpg` to `t0097s.jpg`).
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 22 | Start a new folder | On Home, clicks "+ Create or upload" in the sidebar, opening the create menu. Clicks "Folder", opening the "Create a folder" modal. | 8.5 s |
+| 23 | Name and colour the folder | Inside the folder modal, types "Project Files", browses colour swatches, selects the red swatch (#EF4444), and clicks "Create". | 10.5 s |
+| 24 | See your new folder | Modal closes, "Project Files" folder appears at top of Recent table. Clicks "My Files" in sidebar, switching to Tiles view where the red folder card appears first. | 8.5 s |
+| 25 | Upload a file | In My Files tiles view, clicks "+ Create or upload" > "Files upload". In-app file picker selects "Quarterly report.png", starts upload, dark upload toast appears bottom-left. | 8.5 s |
+| 26 | Track the upload | Dark toast confirms "1 upload finished". "Quarterly report.png" tile appears in the files grid. Clicks "Done" on toast to dismiss. | 8.5 s |
+| 27 | Upload a folder | Clicks "+ Create or upload" > "Folder upload". In-app folder picker selects "Brand Logos", upload toast expands showing progress of 6 SVG items. "Brand Logos" folder tile appears first with badge 6. | 10.0 s |
+| 28 | Open the uploaded folder | Clicks "Brand Logos" folder card. View opens with breadcrumb "My Files > Brand Logos" showing 6 SVG logo tiles. Clicks "My Files" breadcrumb to navigate back. | 9.0 s |
+| 29 | Create a Markdown document | Clicks "+ Create or upload" > "Markdown document". Modal opens with document name field and .md badge. Types "Meeting notes" and clicks "Create". | 8.5 s |
+| 30 | Edit and save the document | Full-screen Markdown editor opens with dark top bar, toolbar, and line numbers. Replaces template text with meeting outline, shows "Unsaved" state, clicks "Save" -> "Saving...", then closes editor with X. "Meeting notes.md" tile with pink MD icon appears in files grid. | 10.5 s |
+| 31 | Create a text document | Clicks "+ Create or upload" > "Text document". Modal opens with .txt badge. Names file "Sample" and clicks "Create". Blank text editor opens, enters text, clicks "Save" and closes editor. "Sample.txt" tile with red TXT icon appears in top row. | 11.0 s |
+| 32 | Import from other drives | Clicks "+ Create or upload" > "Import from other drives". Modal "Import cloud photos and files" opens with Google Drive, Dropbox, OneDrive, Google Photos options. Passes cursor over providers, clicks "Maybe later" to close. Completion card follows. | 11.5 s |
+
 **Files.**
 - Config: `tutorials/drive.ts` (registered in `tutorials/index.ts`)
 - Shell & Stage: `components/drive/DriveShell.tsx`, `components/drive/DriveStage.tsx`
-- Views: `DriveHomeView.tsx`, `DrivePhotosView.tsx`, `DriveFilesView.tsx`, `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveCreateMenu.tsx`
+- Views & Modals: `DriveHomeView.tsx`, `DrivePhotosView.tsx`, `DriveFilesView.tsx`, `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveCreateMenu.tsx`, `DriveFolderModal.tsx`, `DriveUploadToast.tsx`, `DriveFilePickerModal.tsx`, `DriveMarkdownModal.tsx`, `DriveMarkdownEditor.tsx`, `DriveTextModal.tsx`, `DriveTextEditor.tsx`, `DriveImportModal.tsx`
 - Timeline & Data: `components/drive/drive-timeline.ts` (`beginDrive`, `finishDrive`), `components/drive/drive-data.ts`
-- Step Scenes & Scripts: `scenes/drive/step<1..21>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes & Scripts: `scenes/drive/step<1..32>/Step<N>.tsx`, `script.ts`, `data.ts`
