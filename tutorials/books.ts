@@ -87,6 +87,8 @@ import { Step43 } from "@/scenes/books/step43/Step43";
 import { runStep43, STEP43_DURATION_MS } from "@/scenes/books/step43/script";
 import { Step44 } from "@/scenes/books/step44/Step44";
 import { runStep44, STEP44_DURATION_MS } from "@/scenes/books/step44/script";
+import { Step45 } from "@/scenes/books/step45/Step45";
+import { runStep45, STEP45_DURATION_MS } from "@/scenes/books/step45/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -545,6 +547,16 @@ export const books: Tutorial = {
         Component: Step44,
         run: runStep44,
         durationMs: STEP44_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-salesperson-project-subject",
+      title: "Quotes: choose a salesperson, project and subject",
+      url: BOOKS_URLS.newQuote,
+      scene: {
+        Component: Step45,
+        run: runStep45,
+        durationMs: STEP45_DURATION_MS,
       },
     },
   ],
