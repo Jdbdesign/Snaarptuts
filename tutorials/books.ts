@@ -97,6 +97,8 @@ import { Step48 } from "@/scenes/books/step48/Step48";
 import { runStep48, STEP48_DURATION_MS } from "@/scenes/books/step48/script";
 import { Step49 } from "@/scenes/books/step49/Step49";
 import { runStep49, STEP49_DURATION_MS } from "@/scenes/books/step49/script";
+import { Step50 } from "@/scenes/books/step50/Step50";
+import { runStep50, STEP50_DURATION_MS } from "@/scenes/books/step50/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -605,6 +607,16 @@ export const books: Tutorial = {
         Component: Step49,
         run: runStep49,
         durationMs: STEP49_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-notes-attachment-terms",
+      title: "Quotes: add notes, an attachment and terms",
+      url: BOOKS_URLS.newQuote,
+      scene: {
+        Component: Step50,
+        run: runStep50,
+        durationMs: STEP50_DURATION_MS,
       },
     },
   ],
