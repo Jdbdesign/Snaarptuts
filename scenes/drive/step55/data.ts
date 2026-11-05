@@ -1,5 +1,8 @@
 export const CAPTIONS = {
-  openMeetings: "Click Meetings in the sidebar to access your recorded sessions.",
-  refreshRecordings: "Click Refresh to check for newly completed recordings.",
-  downloadRecording: "Click Download on any completed recording to save it locally.",
+  clickMenu: "Click the three-dot menu on Budget.xlsx.",
+  clickShare: "Click Share to add additional collaborators.",
+  typeTaylor: "Type Taylor Reed in the email field.",
+  selectTaylor: "Select Taylor Reed from the suggestions.",
+  clickSend: "Click Send to share with the new collaborator.",
+  updatedRecipients: "The Shared with column updates to include Taylor Reed.",
 };
