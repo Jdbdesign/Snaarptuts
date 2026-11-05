@@ -1,5 +1,10 @@
 import { CancelledError, type Timeline } from "@/lib/timeline";
-import { BOOKS_URLS, type BooksPage } from "./books-data";
+import {
+  BOOKS_URLS,
+  type BooksPage,
+  INITIAL_ACTIVE_CUSTOMERS,
+  INITIAL_INACTIVE_CUSTOMERS,
+} from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
 export async function pressOn(
@@ -166,6 +171,23 @@ export function beginBooks(
   tl.setVar("booksItemFoodFarmCloned", false);
   tl.setVar("booksItemFoodFarmCopyDeleted", false);
   tl.setVar("booksBulkItemsDeleted", false);
+
+  // Sales & Customers state
+  const isCustomerPage =
+    page === "customers" || page === "new-customer" || page === "customer-detail";
+  tl.setVar("booksSalesExpanded", isCustomerPage);
+  tl.setVar("booksCustomers", INITIAL_ACTIVE_CUSTOMERS);
+  tl.setVar("booksInactiveCustomers", INITIAL_INACTIVE_CUSTOMERS);
+  tl.setVar("booksCustomerFilter", "active");
+  tl.setVar("booksCustomerSearch", "");
+  tl.setVar("booksCustomerStatusDropdownOpen", false);
+  tl.setVar("booksCustomerImportDrawerOpen", false);
+  tl.setVar("booksCustomerCsvPickerOpen", false);
+  tl.setVar("booksCustomerCsvSelectedFile", "");
+  tl.setVar("booksCustomerImporting", false);
+  tl.setVar("booksActiveCustomer", INITIAL_ACTIVE_CUSTOMERS[1]); // Brightway Stores
+  tl.setVar("booksNewCustomerType", "business");
+  tl.setVar("booksNewCustomerTab", "other");
 
   // Toast state
   tl.setVar("booksToastOpen", false);

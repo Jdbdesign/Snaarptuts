@@ -43,6 +43,8 @@ import { Step21 } from "@/scenes/books/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/books/step21/script";
 import { Step22 } from "@/scenes/books/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/books/step22/script";
+import { Step23 } from "@/scenes/books/step23/Step23";
+import { runStep23, STEP23_DURATION_MS } from "@/scenes/books/step23/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -283,10 +285,67 @@ export const books: Tutorial = {
         durationMs: STEP22_DURATION_MS,
       },
     },
+    {
+      id: "customers-open-list",
+      title: "Customers: Open the customer list",
+      url: BOOKS_URLS.customers,
+      scene: {
+        Component: Step23,
+        run: runStep23,
+        durationMs: STEP23_DURATION_MS,
+      },
+    },
+    {
+      id: "customers-search-filter",
+      title: "Customers: Search and filter customers",
+      url: BOOKS_URLS.customers,
+    },
+    {
+      id: "customers-add-business",
+      title: "Customers: Add a business customer",
+      url: BOOKS_URLS.newCustomer,
+    },
+    {
+      id: "customers-add-address",
+      title: "Customers: Add billing and shipping addresses",
+      url: BOOKS_URLS.newCustomer,
+    },
+    {
+      id: "customers-add-individual",
+      title: "Customers: Add an individual customer with a contact person",
+      url: BOOKS_URLS.newCustomer,
+    },
+    {
+      id: "customers-import-csv",
+      title: "Customers: Import customers from a CSV file",
+      url: BOOKS_URLS.customers,
+    },
+    {
+      id: "customers-view-edit",
+      title: "Customers: View and edit a customer's details",
+      url: BOOKS_URLS.customerDetails,
+    },
+    {
+      id: "customers-deactivate",
+      title: "Customers: Deactivate a customer",
+      url: BOOKS_URLS.customers,
+    },
+    {
+      id: "customers-reactivate",
+      title: "Customers: Reactivate a customer",
+      url: BOOKS_URLS.customers,
+    },
+    {
+      id: "customers-delete",
+      title: "Customers: Delete a customer",
+      url: BOOKS_URLS.customers,
+    },
+
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
     { title: "Products & Items", from: "products-browse-filter" },
+    { title: "Sales & Customers", from: "customers-open-list" },
   ],
   completion: {
     title: "Tour complete",

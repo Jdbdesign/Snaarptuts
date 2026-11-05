@@ -669,6 +669,9 @@ export const BOOKS_URLS = {
   newProduct: "books.snaarp.com/products/new",
   details: "books.snaarp.com/products/6a3104d6-2f91-4b8a-b33f-bb0b75d6b930",
   edit: "books.snaarp.com/products/6a3104d6-2f91-4b8a-b33f-bb0b75d6b930/edit",
+  customers: "books.snaarp.com/customers",
+  newCustomer: "books.snaarp.com/customers/new",
+  customerDetails: "books.snaarp.com/customers/75dac8f4-2fd9-486a-9518-dc08b4e6db6d",
 };
 
 export type BooksPage =
@@ -678,4 +681,438 @@ export type BooksPage =
   | "details"
   | "edit"
   | "new-item"
-  | "item-detail";
+  | "item-detail"
+  | "customers"
+  | "new-customer"
+  | "customer-detail";
+
+// ── Customer Data Types & Lists ─────────────────────────────────────────────
+
+export interface ContactPerson {
+  id: string;
+  salutation: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  workPhoneCode: string;
+  workPhone: string;
+  mobileCode: string;
+  mobile: string;
+}
+
+export interface CustomerAddress {
+  attention?: string;
+  country?: string;
+  street1?: string;
+  street2?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  phone?: string;
+  fax?: string;
+}
+
+export interface CustomerItem {
+  id: string;
+  type: "business" | "individual";
+  salutation?: string;
+  firstName?: string;
+  lastName?: string;
+  companyName?: string;
+  displayName: string;
+  email: string;
+  phoneCode: string;
+  phone: string;
+  mobileCode?: string;
+  mobile?: string;
+  status: "active" | "inactive";
+  language?: string;
+  taxRate?: string;
+  companyId?: string;
+  currency?: string;
+  accountsReceivable?: string;
+  openingBalance?: number;
+  paymentTerms?: string;
+  portalAccess?: boolean;
+  billingAddress?: CustomerAddress;
+  shippingAddress?: CustomerAddress;
+  notes?: string;
+  contactPersons?: ContactPerson[];
+  createdAt: string;
+}
+
+export const INITIAL_ACTIVE_CUSTOMERS: CustomerItem[] = [
+  {
+    id: "cust-1",
+    type: "business",
+    companyName: "Acme Foods Ltd",
+    displayName: "Acme Foods Ltd",
+    email: "accounts@acmefoods.example",
+    phoneCode: "+44",
+    phone: "7700 900101",
+    status: "active",
+    billingAddress: {
+      attention: "Finance Dept",
+      country: "United Kingdom",
+      street1: "14 Foundry Lane",
+      street2: "",
+      city: "Manchester",
+      state: "Greater Manchester",
+      zipCode: "M1 4AB",
+      phone: "+44 7700 900101",
+    },
+    shippingAddress: {
+      attention: "Receiving Bay 2",
+      country: "United Kingdom",
+      street1: "14 Foundry Lane",
+      street2: "",
+      city: "Manchester",
+      state: "Greater Manchester",
+      zipCode: "M1 4AB",
+      phone: "+44 7700 900101",
+    },
+    taxRate: "VAT Standard (20%)",
+    companyId: "07891234",
+    notes: "Regular supplier orders.",
+    createdAt: "2026-11-01T09:00:00Z",
+  },
+  {
+    id: "cust-2",
+    type: "business",
+    companyName: "Brightway Stores",
+    displayName: "Brightway Stores",
+    email: "billing@brightway.example",
+    phoneCode: "+44",
+    phone: "7700 900102",
+    status: "active",
+    billingAddress: {
+      attention: "Accounts Dept",
+      country: "United Kingdom",
+      street1: "12 Market Street",
+      street2: "",
+      city: "Leeds",
+      state: "Leeds",
+      zipCode: "LS1 4AB",
+      phone: "+44 7700 900102",
+    },
+    shippingAddress: {
+      attention: "Goods Inward",
+      country: "United Kingdom",
+      street1: "Unit 4, Dock Road",
+      street2: "",
+      city: "Leeds",
+      state: "Leeds",
+      zipCode: "LS10 1AB",
+      phone: "+44 7700 900102",
+    },
+    taxRate: "VAT Standard (20%)",
+    companyId: "GB123456789",
+    notes: "Pays by bank transfer. Orders weekly.",
+    createdAt: "2026-11-02T10:00:00Z",
+  },
+  {
+    id: "cust-3",
+    type: "business",
+    companyName: "Northfield Cafe",
+    displayName: "Northfield Cafe",
+    email: "hello@northfieldcafe.example",
+    phoneCode: "+44",
+    phone: "7700 900103",
+    status: "active",
+    billingAddress: {
+      attention: "Sarah Jenkins",
+      country: "United Kingdom",
+      street1: "88 The Green",
+      street2: "",
+      city: "York",
+      state: "North Yorkshire",
+      zipCode: "YO1 7HH",
+      phone: "+44 7700 900103",
+    },
+    shippingAddress: {
+      attention: "Sarah Jenkins",
+      country: "United Kingdom",
+      street1: "88 The Green",
+      street2: "",
+      city: "York",
+      state: "North Yorkshire",
+      zipCode: "YO1 7HH",
+      phone: "+44 7700 900103",
+    },
+    taxRate: "VAT Standard (20%)",
+    companyId: "09112233",
+    notes: "Weekly bakery and organic bean deliveries.",
+    createdAt: "2026-11-02T14:30:00Z",
+  },
+  {
+    id: "cust-4",
+    type: "business",
+    companyName: "Harvest Tables Ltd",
+    displayName: "Harvest Tables Ltd",
+    email: "finance@harvesttables.example",
+    phoneCode: "+44",
+    phone: "114 496 0104",
+    status: "active",
+    billingAddress: {
+      attention: "Accounts Payable",
+      country: "United Kingdom",
+      street1: "Unit 2, Woodside Park",
+      street2: "",
+      city: "Sheffield",
+      state: "Sheffield",
+      zipCode: "S9 1QT",
+      phone: "+44 114 496 0104",
+    },
+    shippingAddress: {
+      attention: "Goods Inward",
+      country: "United Kingdom",
+      street1: "Unit 2, Woodside Park",
+      street2: "",
+      city: "Sheffield",
+      state: "Sheffield",
+      zipCode: "S9 1QT",
+      phone: "+44 114 496 0104",
+    },
+    taxRate: "VAT Standard (20%)",
+    companyId: "06223344",
+    notes: "Wholesale partner.",
+    createdAt: "2026-11-03T11:00:00Z",
+  },
+  {
+    id: "cust-5",
+    type: "business",
+    companyName: "Sterling Interiors",
+    displayName: "Sterling Interiors",
+    email: "office@sterlinginteriors.example",
+    phoneCode: "+44",
+    phone: "7700 900105",
+    status: "active",
+    billingAddress: {
+      attention: "Marcus Sterling",
+      country: "United Kingdom",
+      street1: "76 Commercial Way",
+      street2: "",
+      city: "Newcastle",
+      state: "Tyne and Wear",
+      zipCode: "NE1 3DF",
+      phone: "+44 7700 900105",
+    },
+    shippingAddress: {
+      attention: "Marcus Sterling",
+      country: "United Kingdom",
+      street1: "76 Commercial Way",
+      street2: "",
+      city: "Newcastle",
+      state: "Tyne and Wear",
+      zipCode: "NE1 3DF",
+      phone: "+44 7700 900105",
+    },
+    taxRate: "VAT Standard (20%)",
+    companyId: "05544332",
+    notes: "Interior fitouts, monthly invoices.",
+    createdAt: "2026-11-03T15:20:00Z",
+  },
+  {
+    id: "cust-6",
+    type: "individual",
+    salutation: "Mr.",
+    firstName: "Casey",
+    lastName: "Brown",
+    displayName: "Casey Brown",
+    email: "casey.brown@acme.example",
+    phoneCode: "+44",
+    phone: "7700 900106",
+    status: "active",
+    billingAddress: {
+      attention: "Casey Brown",
+      country: "United Kingdom",
+      street1: "45 High Street",
+      street2: "",
+      city: "Sheffield",
+      state: "Sheffield",
+      zipCode: "S1 2AB",
+      phone: "+44 7700 900106",
+    },
+    shippingAddress: {
+      attention: "Casey Brown",
+      country: "United Kingdom",
+      street1: "45 High Street",
+      street2: "",
+      city: "Sheffield",
+      state: "Sheffield",
+      zipCode: "S1 2AB",
+      phone: "+44 7700 900106",
+    },
+    taxRate: "VAT Standard (20%)",
+    companyId: "GB987654321",
+    notes: "Consulting client. Monthly retainer.",
+    createdAt: "2026-11-04T08:00:00Z",
+  },
+];
+
+export const INITIAL_INACTIVE_CUSTOMERS: CustomerItem[] = [
+  {
+    id: "cust-7",
+    type: "business",
+    companyName: "Old Mill Traders",
+    displayName: "Old Mill Traders",
+    email: "accounts@oldmill.example",
+    phoneCode: "+44",
+    phone: "114 496 0107",
+    status: "inactive",
+    billingAddress: {
+      attention: "Accounts",
+      country: "United Kingdom",
+      street1: "Old Mill Road",
+      street2: "",
+      city: "Rotherham",
+      state: "South Yorkshire",
+      zipCode: "S60 1FB",
+      phone: "+44 114 496 0107",
+    },
+    shippingAddress: {
+      attention: "Accounts",
+      country: "United Kingdom",
+      street1: "Old Mill Road",
+      street2: "",
+      city: "Rotherham",
+      state: "South Yorkshire",
+      zipCode: "S60 1FB",
+      phone: "+44 114 496 0107",
+    },
+    notes: "Account paused in Q3.",
+    createdAt: "2026-10-15T10:00:00Z",
+  },
+  {
+    id: "cust-8",
+    type: "business",
+    companyName: "Riverside Studio",
+    displayName: "Riverside Studio",
+    email: "hello@riversidestudio.example",
+    phoneCode: "+44",
+    phone: "7700 900108",
+    status: "inactive",
+    billingAddress: {
+      attention: "Design Studio",
+      country: "United Kingdom",
+      street1: "Studio 3, River Quay",
+      street2: "",
+      city: "Sheffield",
+      state: "Sheffield",
+      zipCode: "S3 8NL",
+      phone: "+44 7700 900108",
+    },
+    shippingAddress: {
+      attention: "Design Studio",
+      country: "United Kingdom",
+      street1: "Studio 3, River Quay",
+      street2: "",
+      city: "Sheffield",
+      state: "Sheffield",
+      zipCode: "S3 8NL",
+      phone: "+44 7700 900108",
+    },
+    notes: "Seasonal account.",
+    createdAt: "2026-10-18T14:00:00Z",
+  },
+];
+
+export const CSV_IMPORT_CUSTOMERS: CustomerItem[] = [
+  {
+    id: "cust-import-1",
+    type: "business",
+    companyName: "Pinewood Catering",
+    displayName: "Pinewood Catering",
+    email: "catering@pinewood.example",
+    phoneCode: "+44",
+    phone: "7700 900160",
+    status: "active",
+    createdAt: "2026-11-05T12:00:00Z",
+  },
+  {
+    id: "cust-import-2",
+    type: "business",
+    companyName: "Lakeside Florists",
+    displayName: "Lakeside Florists",
+    email: "orders@lakesideflorists.example",
+    phoneCode: "+44",
+    phone: "7700 900161",
+    status: "active",
+    createdAt: "2026-11-05T12:01:00Z",
+  },
+  {
+    id: "cust-import-3",
+    type: "business",
+    companyName: "Summit Cycles",
+    displayName: "Summit Cycles",
+    email: "sales@summitcycles.example",
+    phoneCode: "+44",
+    phone: "7700 900162",
+    status: "active",
+    createdAt: "2026-11-05T12:02:00Z",
+  },
+];
+
+export interface CountryCode {
+  iso: string;
+  name: string;
+  code: string;
+}
+
+export const COUNTRY_CODES: CountryCode[] = [
+  { iso: "GB", name: "United Kingdom", code: "+44" },
+  { iso: "US", name: "United States", code: "+1" },
+  { iso: "AF", name: "Afghanistan", code: "+93" },
+  { iso: "AX", name: "Aland Islands", code: "+358-18" },
+  { iso: "AL", name: "Albania", code: "+355" },
+  { iso: "DZ", name: "Algeria", code: "+213" },
+  { iso: "AS", name: "American Samoa", code: "+1-684" },
+  { iso: "AD", name: "Andorra", code: "+376" },
+  { iso: "AO", name: "Angola", code: "+244" },
+  { iso: "AI", name: "Anguilla", code: "+1-264" },
+  { iso: "AE", name: "United Arab Emirates", code: "+971" },
+  { iso: "CA", name: "Canada", code: "+1" },
+  { iso: "DE", name: "Germany", code: "+49" },
+  { iso: "FR", name: "France", code: "+33" },
+  { iso: "IE", name: "Ireland", code: "+353" },
+  { iso: "RE", name: "Reunion", code: "+262" },
+  { iso: "TN", name: "Tunisia", code: "+216" },
+  { iso: "UM", name: "United States Minor Outlying Islands", code: "+1" },
+];
+
+export const UK_REGIONS = [
+  "Aberdeen",
+  "Aberdeenshire",
+  "Angus",
+  "Antrim",
+  "Antrim and Newtownabbey",
+  "Ards",
+  "Ards and North Down",
+  "Argyll and Bute",
+  "Leeds",
+  "Manchester",
+  "Newcastle",
+  "North Yorkshire",
+  "Nottinghamshire",
+  "Oxfordshire",
+  "Pembrokeshire",
+  "Renfrewshire",
+  "Scottish Borders",
+  "Sheffield",
+  "Shetland Islands",
+  "Shropshire",
+  "South Yorkshire",
+  "Tyne and Wear",
+  "West Yorkshire",
+];
+
+export const PAYMENT_TERMS = [
+  "Due on Receipt",
+  "Net 15",
+  "Net 30",
+  "Net 45",
+  "Net 60",
+];
+
+export const SALUTATIONS = ["Mr.", "Mrs.", "Ms.", "Miss", "Dr."];
+
