@@ -4,65 +4,104 @@ import {
   finishDrive,
   hoverOn,
   pressOn,
+  ring,
 } from "@/components/drive/drive-timeline";
-import { DRIVE_URLS } from "@/components/drive/drive-data";
+import { DRIVE_URLS, DEFAULT_SHARE_PEOPLE } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP47_DURATION_MS = 10500;
+export const STEP47_DURATION_MS = 21000;
 
 export async function runStep47(tl: Timeline) {
-  beginDrive(tl, DRIVE_URLS.files, "files", [0.35, 0.35]);
+  beginDrive(tl, DRIVE_URLS.files, "files", [0.4, 0.4]);
   tl.setVar("driveFilesViewMode", "tiles");
-  tl.setVar("driveFolderBrandLogosAdded", true);
-  tl.setVar("driveFolderProjectFilesAdded", true);
-  tl.setVar("driveFileQuarterlyReportAdded", true);
-  tl.setVar("driveFileMeetingNotesAdded", true);
-  tl.setVar("driveFileSampleTxtAdded", true);
-  tl.setVar("driveFileSampleTxtTitle", "Sample notes.txt");
-  tl.setVar("driveItemIsPinned", true);
-  tl.setVar("driveItemIsFavorite", true);
+  tl.setVar("driveGoogleDriveFilesImported", true);
+  tl.setVar("driveSharePeople", DEFAULT_SHARE_PEOPLE);
 
   await tl.at(500);
-  tl.showCaption(CAPTIONS.clickFolderMenu);
-  await hoverOn(tl, "[data-tl=btn-tile-menu-workspaces]", { ms: 600 });
+  tl.showCaption(CAPTIONS.clickMenu);
+  await hoverOn(tl, "[data-tl=btn-tile-menu-q3report]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-tile-menu-workspaces]");
-  tl.setVar("driveItemMenuType", "folder");
-  tl.setVar("driveItemMenuName", "Workspaces");
-  tl.setVar("driveItemMenuCoords", { top: 280, left: 450 });
+  await pressOn(tl, "[data-tl=btn-tile-menu-q3report]");
+  tl.setVar("driveItemMenuType", "file");
+  tl.setVar("driveItemMenuName", "Q3 report.pdf");
+  tl.setVar("driveShareItemName", "Q3 report.pdf");
+  tl.setVar("driveItemMenuCoords", { top: 290, left: 240 });
   tl.setVar("driveItemMenuOpen", true);
 
-  await tl.at(2500);
-  tl.showCaption(CAPTIONS.clickFolderColor);
-  await hoverOn(tl, "[data-tl=item-menu-folder-color]", { ms: 600 });
+  await tl.at(2800);
+  tl.showCaption(CAPTIONS.clickShare);
+  await hoverOn(tl, "[data-tl=item-menu-share]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=item-menu-folder-color]");
+  await pressOn(tl, "[data-tl=item-menu-share]");
   tl.setVar("driveItemMenuOpen", false);
-  tl.setVar("driveFolderColorModalOpen", true);
+  tl.setVar("driveShareModalOpen", true);
+  tl.setVar("driveSharePeople", DEFAULT_SHARE_PEOPLE);
 
-  await tl.at(4800);
-  tl.showCaption(CAPTIONS.pickPurple);
-  await hoverOn(tl, "[data-tl=color-swatch-purple]", { ms: 600 });
+  await tl.at(5000);
+  tl.showCaption(CAPTIONS.typeEmail);
+  await hoverOn(tl, "[data-tl=share-email-input]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=color-swatch-purple]");
-  tl.setVar("driveFolderSelectedColor", "purple");
-  tl.setVar("driveWorkspacesFolderColor", "#A855F7");
+  await pressOn(tl, "[data-tl=share-email-input]");
+  await tl.wait(200);
+  await tl.typeText("share-email-input", "alex", { msPerChar: 80 });
+  tl.setVar("driveShareEmailVal", "alex");
 
-  await tl.at(7000);
-  tl.showCaption(CAPTIONS.applyColor);
-  await hoverOn(tl, "[data-tl=btn-color-apply]", { ms: 600 });
+  await tl.at(7200);
+  tl.showCaption(CAPTIONS.selectAlex);
+  await hoverOn(tl, "[data-tl=share-suggest-alex]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-color-apply]");
-  tl.setVar("driveIsApplyingColor", true);
+  await pressOn(tl, "[data-tl=share-suggest-alex]");
+  tl.setVar("driveShareHasChip", true);
+  tl.setVar("driveShareEmailVal", "");
+  tl.setVar("field:share-email", "");
+  tl.setVar("driveShareRecipientName", "Alex Morgan");
+  tl.setVar("driveShareRecipientEmail", "alex.morgan@acme.example");
 
-  await tl.at(8200);
-  tl.setVar("driveIsApplyingColor", false);
-  tl.setVar("driveFolderColorModalOpen", false);
+  await tl.at(9200);
+  tl.showCaption(CAPTIONS.addMessage);
+  await hoverOn(tl, "[data-tl=btn-share-add-message]", { ms: 600 });
+  await tl.wait(150);
+  await pressOn(tl, "[data-tl=btn-share-add-message]");
+  tl.setVar("driveShareShowMessage", true);
 
-  await tl.at(9000);
-  tl.showCaption(CAPTIONS.colorApplied);
-  await hoverOn(tl, "[data-tl=tile-folder-workspaces]", { ms: 600 });
-  await tl.wait(1000);
+  await tl.at(10500);
+  tl.showCaption(CAPTIONS.typeMessage);
+  await hoverOn(tl, "[data-tl=share-message-input]", { ms: 500 });
+  await tl.wait(150);
+  await tl.typeText("share-message-input", "Please review before Friday.", { msPerChar: 55 });
+  tl.setVar("driveShareMessage", "Please review before Friday.");
+
+  await tl.at(12600);
+  tl.showCaption(CAPTIONS.clickSend);
+  await hoverOn(tl, "[data-tl=btn-share-send]", { ms: 600 });
+  await tl.wait(150);
+  await pressOn(tl, "[data-tl=btn-share-send]");
+  tl.setVar("driveIsSharing", true);
+  await tl.wait(700);
+  tl.setVar("driveIsSharing", false);
+  tl.setVar("driveShareModalOpen", false);
+  tl.setVar("driveShareSuccessToastOpen", true);
+
+  await tl.at(14800);
+  tl.showCaption(CAPTIONS.openShared);
+  await hoverOn(tl, "[data-tl=nav-shared]", { ms: 600 });
+  await tl.wait(150);
+  await pressOn(tl, "[data-tl=nav-shared]");
+  tl.setVar("drivePage", "shared");
+  tl.setVar("driveActiveNav", "shared");
+  tl.setUrl(DRIVE_URLS.shared);
+
+  await tl.at(17000);
+  tl.showCaption(CAPTIONS.viewByYou);
+  await hoverOn(tl, "[data-tl=tab-shared-by-you]", { ms: 600 });
+  await tl.wait(150);
+  await pressOn(tl, "[data-tl=tab-shared-by-you]");
+  tl.setVar("driveSharedTab", "by-you");
+
+  await tl.at(18500);
+  tl.showCaption(CAPTIONS.sharedListed);
+  await hoverOn(tl, "[data-tl=row-shared-by-you-1]", { ms: 600 });
+  await ring(tl, "[data-tl=row-shared-by-you-1]", 2000);
 
   await finishDrive(tl, STEP47_DURATION_MS);
 }
