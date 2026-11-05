@@ -17,23 +17,25 @@ export async function runStep5(tl: Timeline) {
   await tl.at(400);
   tl.showCaption(CAPTIONS.clickRecent);
   await pressOn(tl, "[data-tl=tab-home-recent-updates]");
+  tl.setVar("booksHomeTab", "recent");
   await tl.wait(600);
 
   tl.showCaption(CAPTIONS.scrollUpdates);
-  await hoverOn(tl, "[data-tl=update-row-1]", { ms: 500 });
-  await ring(tl, "[data-tl=update-row-1]", 1500);
+  await hoverOn(tl, "[data-tl=update-row-0]", { ms: 500 });
+  await ring(tl, "[data-tl=update-row-0]", 1500);
 
-  await tl.scrollTo("[data-tl=update-row-8]", 600);
+  await tl.scrollTo("[data-tl=update-row-7]", 600);
   await tl.wait(600);
 
   tl.showCaption(CAPTIONS.readEntries);
-  await hoverOn(tl, "[data-tl=update-row-8]", { ms: 500 });
-  await ring(tl, "[data-tl=update-row-8]", 1600);
+  await hoverOn(tl, "[data-tl=update-row-7]", { ms: 500 });
+  await ring(tl, "[data-tl=update-row-7]", 1600);
 
   // Return to Dashboard
   tl.showCaption(CAPTIONS.backDashboard);
   await tl.scrollTo("[data-tl=tab-home-dashboard]", 500);
   await pressOn(tl, "[data-tl=tab-home-dashboard]");
+  tl.setVar("booksHomeTab", "dashboard");
   await tl.wait(1000);
 
   await finishBooks(tl, STEP5_DURATION_MS);

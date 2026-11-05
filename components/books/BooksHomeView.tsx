@@ -374,8 +374,8 @@ export function BooksHomeView({ tl }: Props) {
           {RECENT_UPDATES.map((item, idx) => (
             <div
               key={item.id}
-              data-tl={`recent-update-row-${idx + 1}`}
-              className="flex items-start justify-between py-3.5 hover:bg-gray-50/50 px-2 rounded-lg transition-colors"
+              data-tl={`update-row-${idx}`}
+              className="flex items-start justify-between py-3.5 hover:bg-gray-50/50 px-2 rounded-lg transition-colors cursor-pointer"
             >
               <div>
                 <p className="text-sm font-semibold text-gray-900">{item.title}</p>
