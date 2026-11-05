@@ -55,6 +55,8 @@ import { Step27 } from "@/scenes/books/step27/Step27";
 import { runStep27, STEP27_DURATION_MS } from "@/scenes/books/step27/script";
 import { Step28 } from "@/scenes/books/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/books/step28/script";
+import { Step29 } from "@/scenes/books/step29/Step29";
+import { runStep29, STEP29_DURATION_MS } from "@/scenes/books/step29/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -359,6 +361,11 @@ export const books: Tutorial = {
       id: "customers-view-edit",
       title: "Customers: View and edit a customer's details",
       url: BOOKS_URLS.customerDetails,
+      scene: {
+        Component: Step29,
+        run: runStep29,
+        durationMs: STEP29_DURATION_MS,
+      },
     },
     {
       id: "customers-deactivate",
