@@ -47,6 +47,8 @@ import { Step23 } from "@/scenes/books/step23/Step23";
 import { runStep23, STEP23_DURATION_MS } from "@/scenes/books/step23/script";
 import { Step24 } from "@/scenes/books/step24/Step24";
 import { runStep24, STEP24_DURATION_MS } from "@/scenes/books/step24/script";
+import { Step25 } from "@/scenes/books/step25/Step25";
+import { runStep25, STEP25_DURATION_MS } from "@/scenes/books/step25/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -311,6 +313,11 @@ export const books: Tutorial = {
       id: "customers-add-business",
       title: "Customers: Add a business customer",
       url: BOOKS_URLS.newCustomer,
+      scene: {
+        Component: Step25,
+        run: runStep25,
+        durationMs: STEP25_DURATION_MS,
+      },
     },
     {
       id: "customers-add-address",
