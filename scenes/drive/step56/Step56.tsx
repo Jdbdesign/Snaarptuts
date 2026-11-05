@@ -1,12 +1,8 @@
 "use client";
 
-import type { Timeline } from "@/lib/timeline";
 import { DriveStage } from "@/components/drive/DriveStage";
+import type { SceneProps } from "@/tutorials/types";
 
-type Props = {
-  tl: Timeline;
-};
-
-export function Step56({ tl }: Props) {
+export function Step56({ tl }: SceneProps) {
   return <DriveStage tl={tl} />;
 }
