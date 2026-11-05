@@ -9,6 +9,8 @@ import { Step4 } from "@/scenes/books/step4/Step4";
 import { runStep4, STEP4_DURATION_MS } from "@/scenes/books/step4/script";
 import { Step5 } from "@/scenes/books/step5/Step5";
 import { runStep5, STEP5_DURATION_MS } from "@/scenes/books/step5/script";
+import { Step6 } from "@/scenes/books/step6/Step6";
+import { runStep6, STEP6_DURATION_MS } from "@/scenes/books/step6/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -83,6 +85,11 @@ export const books: Tutorial = {
       id: "products-browse-filter",
       title: "Products: Browse and filter your items",
       url: BOOKS_URLS.products,
+      scene: {
+        Component: Step6,
+        run: runStep6,
+        durationMs: STEP6_DURATION_MS,
+      },
     },
     {
       id: "products-sort-list",
