@@ -17,6 +17,8 @@ import { Step8 } from "@/scenes/books/step8/Step8";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/books/step8/script";
 import { Step9 } from "@/scenes/books/step9/Step9";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/books/step9/script";
+import { Step10 } from "@/scenes/books/step10/Step10";
+import { runStep10, STEP10_DURATION_MS } from "@/scenes/books/step10/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -131,6 +133,11 @@ export const books: Tutorial = {
       id: "products-export-list",
       title: "Products: Export your item list",
       url: BOOKS_URLS.products,
+      scene: {
+        Component: Step10,
+        run: runStep10,
+        durationMs: STEP10_DURATION_MS,
+      },
     },
     {
       id: "products-refresh-list",

@@ -83,6 +83,15 @@ export function BooksExportDrawer({ tl, rowCount }: Props) {
             type="button"
             data-tl="btn-run-export"
             disabled={isExporting}
+            onClick={() => {
+              tl.setVar("booksExporting", true);
+              setTimeout(() => {
+                tl.setVar("booksExporting", false);
+                tl.setVar("booksExportDownloaded", true);
+                tl.setVar("booksToastMessage", "Items exported successfully.");
+                tl.setVar("booksToastOpen", true);
+              }, 400);
+            }}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50"
           >
             {isExporting ? (
