@@ -1,7 +1,5 @@
 export const CAPTIONS = {
-  clickFileMenu: "Click the three dots on Sample notes.txt.",
-  clickMove: "Click Move to choose a destination.",
-  pickFolder: "Select Brand Logos and click Move Here.",
-  undoMove: "Click Undo in the toast to restore the file to My Files.",
-  restored: "The move was undone and the file remains in place.",
+  selectFirst: "Select items using the checkbox on each card.",
+  selectMore: "Select multiple items to perform bulk actions.",
+  bulkBar: "Use the bulk action bar to Move, Download, or Delete selected items.",
 };
