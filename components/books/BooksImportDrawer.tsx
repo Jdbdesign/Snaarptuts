@@ -3,6 +3,7 @@
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { Upload, FileSpreadsheet, Loader2, Check } from "lucide-react";
+import { CSV_IMPORT_ITEMS } from "./books-data";
 
 type Props = {
   tl: Timeline;
@@ -66,6 +67,17 @@ export function BooksImportDrawer({ tl }: Props) {
             type="button"
             data-tl="btn-run-import"
             disabled={!selectedFile || isImporting}
+            onClick={() => {
+              tl.setVar("booksImporting", true);
+              setTimeout(() => {
+                tl.setVar("booksImporting", false);
+                tl.setVar("booksImportDrawerOpen", false);
+                const current = tl.getVar<any[]>("booksItems", []);
+                tl.setVar("booksItems", [...CSV_IMPORT_ITEMS, ...current]);
+                tl.setVar("booksToastMessage", "Items imported successfully.");
+                tl.setVar("booksToastOpen", true);
+              }, 400);
+            }}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50"
           >
             {isImporting ? (

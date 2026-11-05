@@ -15,6 +15,8 @@ import { Step7 } from "@/scenes/books/step7/Step7";
 import { runStep7, STEP7_DURATION_MS } from "@/scenes/books/step7/script";
 import { Step8 } from "@/scenes/books/step8/Step8";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/books/step8/script";
+import { Step9 } from "@/scenes/books/step9/Step9";
+import { runStep9, STEP9_DURATION_MS } from "@/scenes/books/step9/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -119,6 +121,11 @@ export const books: Tutorial = {
       id: "products-import-csv",
       title: "Products: Import items from a CSV file",
       url: BOOKS_URLS.products,
+      scene: {
+        Component: Step9,
+        run: runStep9,
+        durationMs: STEP9_DURATION_MS,
+      },
     },
     {
       id: "products-export-list",
