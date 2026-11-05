@@ -1178,6 +1178,20 @@ The tutorial faithfully showcases entry points to future Snaarp Books modules wi
 5. **Full 22-Step Standalone Verification**:
    - Verified all 22 Books steps in Playwright standalone from the step rail with 0 errors.
 
+## Fix: Step 9 CSV Import Flow & Books Timeline Safety Net
+1. **Root Cause**:
+   - In `components/books/BooksCsvPickerModal.tsx`, clicking `[data-tl=sample-file-items-csv]` was previously closing the modal immediately. Because `BooksCsvPickerModal` conditionally returns null when closed, the modal unmounted instantly.
+   - The script's subsequent action attempted to click `[data-tl=btn-choose-csv-file]`, which was no longer in the DOM, timing out after 3000ms and freezing playback.
+2. **Modal and Drawer Action Decoupling**:
+   - In `components/books/BooksCsvPickerModal.tsx`, clicking the sample file row now selects the file without closing the modal prematurely.
+   - The confirmation action uses `data-tl="btn-picker-confirm"` to explicitly confirm selection and close the picker modal.
+   - In `components/books/BooksImportDrawer.tsx`, the dashed file upload target `[data-tl=btn-upload-csv-box]` is cleanly scoped to the empty state (`!selectedFile`). Once attached, the file displays with `data-tl="import-file-row"` and a green checkmark.
+   - The drawer Import button selector is standardized as `data-tl="btn-import"`, simulating an 800ms import process and prepending imported items to the catalog.
+3. **Books-Only Timeline Safety Net**:
+   - In `components/books/books-timeline.ts`, `pressOn`, `hoverOn`, and `ring` now wrap selector lookups in a Books-scoped try/catch.
+   - If an element cannot be found on stage, it logs `[Books Safety Net]: target "<selector>" not found in <sceneId>. Ending step gracefully.`, sets `tl.setVar("__booksStepEnded", true)`, clears captions/highlights, and applies `fade: true` so playback proceeds to the next step cleanly without freezing the player.
+
+
 
 
 

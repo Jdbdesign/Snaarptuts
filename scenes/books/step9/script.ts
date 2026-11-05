@@ -23,30 +23,34 @@ export async function runStep9(tl: Timeline) {
   await pressOn(tl, "[data-tl=menu-opt-import]");
   await tl.wait(600);
 
-  // Click file upload box
+  // Click file upload box (only present in empty state)
   tl.showCaption(CAPTIONS.chooseFileBox);
   await pressOn(tl, "[data-tl=btn-upload-csv-box]");
-  await tl.wait(600);
+  tl.setVar("booksCsvPickerOpen", true);
+  await tl.wait(500);
 
-  // Pick file
+  // Pick file in modal
   tl.showCaption(CAPTIONS.pickFile);
   await pressOn(tl, "[data-tl=sample-file-items-csv]");
+  tl.setVar("booksCsvSelectedFile", "items-import.csv");
   await tl.wait(400);
 
+  // Confirm selection to close modal and attach file
   tl.showCaption(CAPTIONS.confirmPick);
-  await pressOn(tl, "[data-tl=btn-choose-csv-file]");
-  await tl.wait(800);
+  await pressOn(tl, "[data-tl=btn-picker-confirm]");
+  tl.setVar("booksCsvPickerOpen", false);
+  await tl.wait(600);
 
-  // Click Import
+  // Click Import in drawer
   tl.showCaption(CAPTIONS.runImport);
-  await pressOn(tl, "[data-tl=btn-run-import]");
-  await tl.wait(1000);
+  await pressOn(tl, "[data-tl=btn-import]");
+  await tl.wait(1200);
 
-  // Completed
+  // Completed - newly added top rows
   tl.showCaption(CAPTIONS.importComplete);
   await hoverOn(tl, "[data-tl=row-item-1]", { ms: 600 });
   await ring(tl, "[data-tl=row-item-1]", 1800);
-  await tl.wait(1200);
+  await tl.wait(1000);
 
   await finishBooks(tl, STEP9_DURATION_MS);
 }

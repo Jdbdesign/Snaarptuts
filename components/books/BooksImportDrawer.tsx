@@ -33,22 +33,22 @@ export function BooksImportDrawer({ tl }: Props) {
           </h3>
 
           <div className="mt-5">
-            <div
-              data-tl="btn-upload-csv-box"
-              onClick={() => tl.setVar("booksCsvPickerOpen", true)}
-              className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-blue-400 bg-white p-6 text-center cursor-pointer hover:bg-blue-50/40 transition-colors"
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600 mb-3">
-                <Upload size={22} />
-              </span>
-              <p className="text-sm font-medium text-blue-600">Choose a CSV file</p>
-              <p className="mt-1 text-xs text-gray-500">Upload your item&apos;s CSV export</p>
-            </div>
-
-            {selectedFile && (
+            {!selectedFile ? (
               <div
-                data-tl="import-selected-file-badge"
-                className="mt-4 flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 p-3"
+                data-tl="btn-upload-csv-box"
+                onClick={() => tl.setVar("booksCsvPickerOpen", true)}
+                className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-blue-400 bg-white p-6 text-center cursor-pointer hover:bg-blue-50/40 transition-colors"
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600 mb-3">
+                  <Upload size={22} />
+                </span>
+                <p className="text-sm font-medium text-blue-600">Choose a CSV file</p>
+                <p className="mt-1 text-xs text-gray-500">Upload your item&apos;s CSV export</p>
+              </div>
+            ) : (
+              <div
+                data-tl="import-file-row"
+                className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 p-3"
               >
                 <div className="flex items-center gap-2.5 truncate">
                   <FileSpreadsheet size={18} className="text-emerald-600 shrink-0" />
@@ -65,7 +65,7 @@ export function BooksImportDrawer({ tl }: Props) {
         <div className="pt-4 border-t border-gray-100">
           <button
             type="button"
-            data-tl="btn-run-import"
+            data-tl="btn-import"
             disabled={!selectedFile || isImporting}
             onClick={() => {
               tl.setVar("booksImporting", true);
@@ -76,7 +76,7 @@ export function BooksImportDrawer({ tl }: Props) {
                 tl.setVar("booksItems", [...CSV_IMPORT_ITEMS, ...current]);
                 tl.setVar("booksToastMessage", "Items imported successfully.");
                 tl.setVar("booksToastOpen", true);
-              }, 400);
+              }, 800);
             }}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50"
           >

@@ -39,7 +39,6 @@ export function BooksCsvPickerModal({ tl }: Props) {
             data-tl="sample-file-items-csv"
             onClick={() => {
               tl.setVar("booksCsvSelectedFile", "items-import.csv");
-              tl.setVar("booksCsvPickerOpen", false);
             }}
             className="flex items-center justify-between rounded-xl border-2 border-blue-500 bg-blue-50/50 p-3.5 cursor-pointer hover:bg-blue-50 transition-colors"
           >
@@ -69,7 +68,7 @@ export function BooksCsvPickerModal({ tl }: Props) {
           </button>
           <button
             type="button"
-            data-tl="btn-choose-csv-file"
+            data-tl="btn-picker-confirm"
             onClick={() => {
               tl.setVar("booksCsvSelectedFile", "items-import.csv");
               tl.setVar("booksCsvPickerOpen", false);

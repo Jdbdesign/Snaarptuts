@@ -1,4 +1,4 @@
-import type { Timeline } from "@/lib/timeline";
+import { CancelledError, type Timeline } from "@/lib/timeline";
 import { BOOKS_URLS, type BooksPage } from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
@@ -7,11 +7,24 @@ export async function pressOn(
   sel: string,
   opts: { ms?: number; dx?: number; dy?: number; ring?: boolean } = {}
 ) {
-  await tl.moveCursorTo(sel, { ms: opts.ms ?? 650, dx: opts.dx, dy: opts.dy });
-  if (opts.ring !== false) tl.highlight(sel);
-  await tl.wait(150);
-  await tl.click(sel);
-  tl.clearHighlight();
+  if (tl.getVar<boolean>("__booksStepEnded", false)) return;
+  try {
+    await tl.moveCursorTo(sel, { ms: opts.ms ?? 650, dx: opts.dx, dy: opts.dy });
+    if (opts.ring !== false) tl.highlight(sel);
+    await tl.wait(150);
+    await tl.click(sel);
+    tl.clearHighlight();
+  } catch (err: unknown) {
+    if (err instanceof CancelledError) throw err;
+    const sceneId = tl.getVar<string>("__sceneId", "books-step");
+    console.error(
+      `[Books Safety Net]: target "${sel}" not found in ${sceneId}. Ending step gracefully.`
+    );
+    tl.setVar("__booksStepEnded", true);
+    tl.hideCaption();
+    tl.clearHighlight();
+    tl.setVar("fade", true);
+  }
 }
 
 /** Move onto an element and hover it, without clicking. */
@@ -20,15 +33,33 @@ export async function hoverOn(
   sel: string,
   opts: { ms?: number; dx?: number; dy?: number } = {}
 ) {
-  await tl.moveCursorTo(sel, { ms: opts.ms ?? 450, dx: opts.dx, dy: opts.dy });
-  tl.hover(sel);
+  if (tl.getVar<boolean>("__booksStepEnded", false)) return;
+  try {
+    await tl.moveCursorTo(sel, { ms: opts.ms ?? 450, dx: opts.dx, dy: opts.dy });
+    tl.hover(sel);
+  } catch (err: unknown) {
+    if (err instanceof CancelledError) throw err;
+    const sceneId = tl.getVar<string>("__sceneId", "books-step");
+    console.error(
+      `[Books Safety Net]: target "${sel}" not found in ${sceneId}. Ending step gracefully.`
+    );
+    tl.setVar("__booksStepEnded", true);
+    tl.hideCaption();
+    tl.clearHighlight();
+    tl.setVar("fade", true);
+  }
 }
 
 /** Ring an element for a moment (no click). */
 export async function ring(tl: Timeline, sel: string, ms = 1200) {
-  tl.highlight(sel);
-  await tl.wait(ms);
-  tl.clearHighlight();
+  if (tl.getVar<boolean>("__booksStepEnded", false)) return;
+  try {
+    tl.highlight(sel);
+    await tl.wait(ms);
+    tl.clearHighlight();
+  } catch (err: unknown) {
+    if (err instanceof CancelledError) throw err;
+  }
 }
 
 /** The quick white fade every step ends with. */
@@ -55,6 +86,7 @@ export function beginBooks(
   tl.setVar("booksView", page);
   tl.setVar("booksPage", page);
   tl.setVar("fade", false);
+  tl.setVar("__booksStepEnded", false);
 
   // Home state
   tl.setVar("booksHomeTab", "dashboard");
