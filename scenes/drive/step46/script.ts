@@ -8,74 +8,52 @@ import {
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP46_DURATION_MS = 14000;
+export const STEP46_DURATION_MS = 8500;
 
 export async function runStep46(tl: Timeline) {
   beginDrive(tl, DRIVE_URLS.files, "files", [0.45, 0.45]);
   tl.setVar("driveFilesViewMode", "tiles");
   tl.setVar("driveFolderBrandLogosAdded", true);
   tl.setVar("driveFolderProjectFilesAdded", true);
-  tl.setVar("driveFileQuarterlyReportAdded", true);
-  tl.setVar("driveFileMeetingNotesAdded", true);
-  tl.setVar("driveFileSampleTxtAdded", true);
-  tl.setVar("driveFileSampleTxtTitle", "Sample notes.txt");
 
   await tl.at(500);
-  tl.showCaption(CAPTIONS.addFavorites);
-  await hoverOn(tl, "[data-tl=btn-tile-menu-sample-txt]", { ms: 600 });
+  tl.showCaption(CAPTIONS.selectItems);
+  await hoverOn(tl, "[data-tl=checkbox-bulk-meeting-notes]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-tile-menu-sample-txt]");
-  tl.setVar("driveItemMenuType", "file");
-  tl.setVar("driveItemMenuName", "Sample notes.txt");
-  tl.setVar("driveItemMenuCoords", { top: 180, left: 450 });
-  tl.setVar("driveItemMenuOpen", true);
+  await pressOn(tl, "[data-tl=checkbox-bulk-meeting-notes]");
+  tl.setVar("driveBulkSelectedIds", ["meeting-notes"]);
+  tl.setVar("driveBulkSelectedCount", 1);
+  tl.setVar("driveBulkBarOpen", true);
 
-  await tl.at(2000);
-  await hoverOn(tl, "[data-tl=item-menu-add-favorites]", { ms: 500 });
+  await tl.at(2200);
+  await hoverOn(tl, "[data-tl=checkbox-bulk-project-brief]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=item-menu-add-favorites]");
-  tl.setVar("driveItemIsFavorite", true);
-  tl.setVar("driveItemMenuOpen", false);
+  await pressOn(tl, "[data-tl=checkbox-bulk-project-brief]");
+  tl.setVar("driveBulkSelectedIds", ["meeting-notes", "project-brief"]);
+  tl.setVar("driveBulkSelectedCount", 2);
 
-  await tl.at(3500);
-  tl.showCaption(CAPTIONS.pinToTop);
-  await hoverOn(tl, "[data-tl=btn-tile-menu-sample-txt]", { ms: 500 });
+  await tl.at(3800);
+  tl.showCaption(CAPTIONS.clickDelete);
+  await hoverOn(tl, "[data-tl=btn-bulk-delete]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-tile-menu-sample-txt]");
-  tl.setVar("driveItemMenuType", "file");
-  tl.setVar("driveItemMenuName", "Sample notes.txt");
-  tl.setVar("driveItemMenuCoords", { top: 180, left: 450 });
-  tl.setVar("driveItemMenuOpen", true);
+  await pressOn(tl, "[data-tl=btn-bulk-delete]");
+  tl.setVar("driveBulkDeleteModalOpen", true);
 
-  await tl.at(5000);
-  await hoverOn(tl, "[data-tl=item-menu-pin-to-top]", { ms: 500 });
+  await tl.at(5500);
+  tl.showCaption(CAPTIONS.confirmDelete);
+  await hoverOn(tl, "[data-tl=btn-bulk-delete-confirm]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=item-menu-pin-to-top]");
-  tl.setVar("driveItemIsPinned", true);
-  tl.setVar("driveItemMenuOpen", false);
+  await pressOn(tl, "[data-tl=btn-bulk-delete-confirm]");
+  tl.setVar("driveIsBulkDeleting", true);
 
-  await tl.at(7000);
-  tl.showCaption(CAPTIONS.viewFavorites);
-  await hoverOn(tl, "[data-tl=nav-favorites]", { ms: 600 });
-  await tl.wait(150);
-  await pressOn(tl, "[data-tl=nav-favorites]");
-  tl.setVar("drivePage", "favorites");
-  tl.setVar("driveActiveNav", "favorites");
-  tl.setUrl(DRIVE_URLS.favorites);
-
-  await tl.at(9500);
-  tl.showCaption(CAPTIONS.favoriteTableRow);
-  await hoverOn(tl, "[data-tl=row-fav-sample-txt]", { ms: 600 });
-  await tl.wait(1200);
-
-  await tl.at(11500);
-  tl.showCaption(CAPTIONS.returnFiles);
-  await hoverOn(tl, "[data-tl=nav-files]", { ms: 600 });
-  await tl.wait(150);
-  await pressOn(tl, "[data-tl=nav-files]");
-  tl.setVar("drivePage", "files");
-  tl.setVar("driveActiveNav", "files");
-  tl.setUrl(DRIVE_URLS.files);
+  await tl.wait(800);
+  tl.setVar("driveIsBulkDeleting", false);
+  tl.setVar("driveBulkDeleteModalOpen", false);
+  tl.setVar("driveBulkBarOpen", false);
+  tl.setVar("driveBulkSelectedIds", []);
+  tl.setVar("driveBulkItemsDeleted", true);
+  tl.setVar("driveBulkDeleteToastOpen", true);
+  await tl.wait(1500);
 
   await finishDrive(tl, STEP46_DURATION_MS);
 }
