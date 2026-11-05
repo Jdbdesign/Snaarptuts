@@ -99,6 +99,8 @@ import { Step49 } from "@/scenes/books/step49/Step49";
 import { runStep49, STEP49_DURATION_MS } from "@/scenes/books/step49/script";
 import { Step50 } from "@/scenes/books/step50/Step50";
 import { runStep50, STEP50_DURATION_MS } from "@/scenes/books/step50/script";
+import { Step51 } from "@/scenes/books/step51/Step51";
+import { runStep51, STEP51_DURATION_MS } from "@/scenes/books/step51/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -617,6 +619,16 @@ export const books: Tutorial = {
         Component: Step50,
         run: runStep50,
         durationMs: STEP50_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-save-as-draft",
+      title: "Quotes: save a quote as a draft",
+      url: BOOKS_URLS.newQuote,
+      scene: {
+        Component: Step51,
+        run: runStep51,
+        durationMs: STEP51_DURATION_MS,
       },
     },
   ],
