@@ -39,6 +39,8 @@ import { Step19 } from "@/scenes/books/step19/Step19";
 import { runStep19, STEP19_DURATION_MS } from "@/scenes/books/step19/script";
 import { Step20 } from "@/scenes/books/step20/Step20";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/books/step20/script";
+import { Step21 } from "@/scenes/books/step21/Step21";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/books/step21/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -263,6 +265,11 @@ export const books: Tutorial = {
       id: "products-select-several",
       title: "Products: Select several items",
       url: BOOKS_URLS.products,
+      scene: {
+        Component: Step21,
+        run: runStep21,
+        durationMs: STEP21_DURATION_MS,
+      },
     },
     {
       id: "products-delete-several",
