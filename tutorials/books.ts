@@ -11,6 +11,8 @@ import { Step5 } from "@/scenes/books/step5/Step5";
 import { runStep5, STEP5_DURATION_MS } from "@/scenes/books/step5/script";
 import { Step6 } from "@/scenes/books/step6/Step6";
 import { runStep6, STEP6_DURATION_MS } from "@/scenes/books/step6/script";
+import { Step7 } from "@/scenes/books/step7/Step7";
+import { runStep7, STEP7_DURATION_MS } from "@/scenes/books/step7/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -95,6 +97,11 @@ export const books: Tutorial = {
       id: "products-sort-list",
       title: "Products: Sort the item list",
       url: BOOKS_URLS.products,
+      scene: {
+        Component: Step7,
+        run: runStep7,
+        durationMs: STEP7_DURATION_MS,
+      },
     },
     {
       id: "products-show-hide-columns",

@@ -85,6 +85,7 @@ export function BooksProductsView({ tl }: Props) {
   const colDesc = useTimelineVar<boolean>(tl, "booksColDesc", true);
   const colRate = useTimelineVar<boolean>(tl, "booksColRate", true);
   const colUnit = useTimelineVar<boolean>(tl, "booksColUnit", true);
+  const sortBy = useTimelineVar<string>(tl, "booksSortBy", "date-desc");
 
   // Compute displayed items
   let baseList: BookItem[] = [];
@@ -102,11 +103,21 @@ export function BooksProductsView({ tl }: Props) {
     );
   });
 
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    if (sortBy === "name-asc") return a.name.localeCompare(b.name);
+    if (sortBy === "selling-desc") return b.sellingPrice - a.sellingPrice;
+    if (sortBy === "cost-desc") return b.costPrice - a.costPrice;
+    if (sortBy === "date-desc") {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    }
+    return 0;
+  });
+
   const allSelected =
-    filteredItems.length > 0 &&
-    filteredItems.every((it) => selectedIds.includes(it.id));
+    sortedItems.length > 0 &&
+    sortedItems.every((it) => selectedIds.includes(it.id));
   const someSelected =
-    selectedIds.length > 0 && selectedIds.length < filteredItems.length;
+    selectedIds.length > 0 && selectedIds.length < sortedItems.length;
 
   const handleToggleSelectAll = () => {
     if (allSelected) {
@@ -114,7 +125,7 @@ export function BooksProductsView({ tl }: Props) {
     } else {
       tl.setVar(
         "booksSelectedIds",
-        filteredItems.map((it) => it.id)
+        sortedItems.map((it) => it.id)
       );
     }
   };
@@ -491,7 +502,7 @@ export function BooksProductsView({ tl }: Props) {
                   Loading items...
                 </td>
               </tr>
-            ) : filteredItems.length === 0 ? (
+            ) : sortedItems.length === 0 ? (
               <tr>
                 <td
                   colSpan={8}
@@ -501,7 +512,7 @@ export function BooksProductsView({ tl }: Props) {
                 </td>
               </tr>
             ) : (
-              filteredItems.map((item, index) => {
+              sortedItems.map((item, index) => {
                 const isChecked = selectedIds.includes(item.id);
                 return (
                   <tr
