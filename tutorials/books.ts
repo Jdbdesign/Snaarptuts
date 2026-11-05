@@ -23,6 +23,8 @@ import { Step11 } from "@/scenes/books/step11/Step11";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/books/step11/script";
 import { Step12 } from "@/scenes/books/step12/Step12";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/books/step12/script";
+import { Step13 } from "@/scenes/books/step13/Step13";
+import { runStep13, STEP13_DURATION_MS } from "@/scenes/books/step13/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -167,6 +169,11 @@ export const books: Tutorial = {
       id: "products-create-service",
       title: "Products: Create a service item",
       url: BOOKS_URLS.newProduct,
+      scene: {
+        Component: Step13,
+        run: runStep13,
+        durationMs: STEP13_DURATION_MS,
+      },
     },
     {
       id: "products-open-details",
