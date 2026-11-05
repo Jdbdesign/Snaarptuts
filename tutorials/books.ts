@@ -41,6 +41,8 @@ import { Step20 } from "@/scenes/books/step20/Step20";
 import { runStep20, STEP20_DURATION_MS } from "@/scenes/books/step20/script";
 import { Step21 } from "@/scenes/books/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/books/step21/script";
+import { Step22 } from "@/scenes/books/step22/Step22";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/books/step22/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -275,6 +277,11 @@ export const books: Tutorial = {
       id: "products-delete-several",
       title: "Products: Delete several items at once",
       url: BOOKS_URLS.products,
+      scene: {
+        Component: Step22,
+        run: runStep22,
+        durationMs: STEP22_DURATION_MS,
+      },
     },
   ],
   groups: [
