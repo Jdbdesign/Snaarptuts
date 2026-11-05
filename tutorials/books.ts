@@ -1,6 +1,8 @@
 import type { Tutorial } from "./types";
 import { Step1 } from "@/scenes/books/step1/Step1";
 import { runStep1, STEP1_DURATION_MS } from "@/scenes/books/step1/script";
+import { Step2 } from "@/scenes/books/step2/Step2";
+import { runStep2, STEP2_DURATION_MS } from "@/scenes/books/step2/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -35,6 +37,11 @@ export const books: Tutorial = {
       id: "home-receivables-payables",
       title: "Home: Read your receivables and payables",
       url: BOOKS_URLS.dashboard,
+      scene: {
+        Component: Step2,
+        run: runStep2,
+        durationMs: STEP2_DURATION_MS,
+      },
     },
     {
       id: "home-cashflow-period",
