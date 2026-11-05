@@ -31,6 +31,8 @@ import { Step15 } from "@/scenes/books/step15/Step15";
 import { runStep15, STEP15_DURATION_MS } from "@/scenes/books/step15/script";
 import { Step16 } from "@/scenes/books/step16/Step16";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/books/step16/script";
+import { Step17 } from "@/scenes/books/step17/Step17";
+import { runStep17, STEP17_DURATION_MS } from "@/scenes/books/step17/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -215,6 +217,11 @@ export const books: Tutorial = {
       id: "products-clone-item",
       title: "Products: Clone an item",
       url: BOOKS_URLS.details,
+      scene: {
+        Component: Step17,
+        run: runStep17,
+        durationMs: STEP17_DURATION_MS,
+      },
     },
     {
       id: "products-toggle-active",
