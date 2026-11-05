@@ -29,7 +29,7 @@ export async function runStep42(tl: Timeline) {
   await pressOn(tl, "[data-tl=btn-tile-menu-workspaces]");
   tl.setVar("driveItemMenuType", "folder");
   tl.setVar("driveItemMenuName", "Workspaces");
-  tl.setVar("driveItemMenuCoords", { top: 280, left: 450 });
+  tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-workspaces]");
   tl.setVar("driveItemMenuOpen", true);
 
   await tl.at(2500);

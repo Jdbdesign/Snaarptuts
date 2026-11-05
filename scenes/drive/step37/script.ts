@@ -27,7 +27,7 @@ export async function runStep37(tl: Timeline) {
   await pressOn(tl, "[data-tl=btn-tile-menu-sample-txt]");
   tl.setVar("driveItemMenuType", "file");
   tl.setVar("driveItemMenuName", "Sample.txt");
-  tl.setVar("driveItemMenuCoords", { top: 180, left: 450 });
+  tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-sample-txt]");
   tl.setVar("driveItemMenuOpen", true);
 
   await tl.at(3000);

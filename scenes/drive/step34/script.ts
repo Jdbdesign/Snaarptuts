@@ -20,7 +20,7 @@ export async function runStep34(tl: Timeline) {
   tl.setVar("driveFileSampleTxtAdded", true);
   tl.setVar("driveItemMenuType", "folder");
   tl.setVar("driveItemMenuName", "Workspaces");
-  tl.setVar("driveItemMenuCoords", { top: 140, left: 450 });
+  tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-workspaces]");
   tl.setVar("driveItemMenuOpen", true);
 
   await tl.at(500);

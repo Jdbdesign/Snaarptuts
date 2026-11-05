@@ -141,24 +141,24 @@ export function DriveWorkspaceDetailView({ tl }: Props) {
                 >
                   {alexRole}
                 </span>
-                <button
-                  type="button"
-                  data-tl="btn-member-menu-alex"
-                  onClick={() =>
-                    tl.setVar("driveMemberMenuOpenId", menuOpenId === "alex" ? "" : "alex")
-                  }
-                  className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer p-1"
-                >
-                  <MoreVertical size={14} />
-                </button>
-              </div>
+                <div className="relative inline-block text-left">
+                  <button
+                    type="button"
+                    data-tl="btn-member-menu-alex"
+                    onClick={() =>
+                      tl.setVar("driveMemberMenuOpenId", menuOpenId === "alex" ? "" : "alex")
+                    }
+                    className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer p-1"
+                  >
+                    <MoreVertical size={14} />
+                  </button>
 
-              {/* Alex role dropdown */}
-              {menuOpenId === "alex" && (
-                <div
-                  data-tl="popover-member-menu"
-                  className="absolute right-0 top-10 z-30 w-48 rounded-xl border border-gray-200 bg-white py-1.5 shadow-xl text-[12px] animate-in fade-in duration-100"
-                >
+                  {/* Alex role dropdown */}
+                  {menuOpenId === "alex" && (
+                    <div
+                      data-tl="popover-member-menu"
+                      className="absolute right-0 top-full mt-1 z-30 w-48 rounded-xl border border-gray-200 bg-white py-1.5 shadow-xl text-[12px] animate-in fade-in duration-100"
+                    >
                   <div className="px-3 py-1 text-[10.5px] font-semibold text-gray-400 uppercase tracking-wider">
                     Change Role
                   </div>
@@ -210,6 +210,8 @@ export function DriveWorkspaceDetailView({ tl }: Props) {
                   </button>
                 </div>
               )}
+                </div>
+              </div>
             </div>
           )}
 
@@ -231,24 +233,24 @@ export function DriveWorkspaceDetailView({ tl }: Props) {
                 <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-[11px] font-semibold text-gray-600">
                   viewer
                 </span>
-                <button
-                  type="button"
-                  data-tl="btn-member-menu-jordan"
-                  onClick={() =>
-                    tl.setVar("driveMemberMenuOpenId", menuOpenId === "jordan" ? "" : "jordan")
-                  }
-                  className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer p-1"
-                >
-                  <MoreVertical size={14} />
-                </button>
-              </div>
+                <div className="relative inline-block text-left">
+                  <button
+                    type="button"
+                    data-tl="btn-member-menu-jordan"
+                    onClick={() =>
+                      tl.setVar("driveMemberMenuOpenId", menuOpenId === "jordan" ? "" : "jordan")
+                    }
+                    className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer p-1"
+                  >
+                    <MoreVertical size={14} />
+                  </button>
 
-              {/* Jordan role dropdown */}
-              {menuOpenId === "jordan" && (
-                <div
-                  data-tl="popover-member-menu-jordan"
-                  className="absolute right-0 top-10 z-30 w-48 rounded-xl border border-gray-200 bg-white py-1.5 shadow-xl text-[12px] animate-in fade-in duration-100"
-                >
+                  {/* Jordan role dropdown */}
+                  {menuOpenId === "jordan" && (
+                    <div
+                      data-tl="popover-member-menu-jordan"
+                      className="absolute right-0 top-full mt-1 z-30 w-48 rounded-xl border border-gray-200 bg-white py-1.5 shadow-xl text-[12px] animate-in fade-in duration-100"
+                    >
                   <div className="px-3 py-1 text-[10.5px] font-semibold text-gray-400 uppercase tracking-wider">
                     Change Role
                   </div>
@@ -282,6 +284,8 @@ export function DriveWorkspaceDetailView({ tl }: Props) {
                   </button>
                 </div>
               )}
+                </div>
+              </div>
             </div>
           )}
         </div>

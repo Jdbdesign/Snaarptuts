@@ -1,5 +1,6 @@
 "use client";
 
+import { useLayoutEffect, useRef, useState } from "react";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
@@ -27,15 +28,104 @@ export function DriveItemMenu({ tl }: Props) {
   const itemType = useTimelineVar<"folder" | "file">(tl, "driveItemMenuType", "folder");
   const itemName = useTimelineVar<string>(tl, "driveItemMenuName", "Workspaces");
   const isFavorite = useTimelineVar(tl, "driveItemIsFavorite", false);
-  const coords = useTimelineVar<{ top: number; left: number }>(tl, "driveItemMenuCoords", {
-    top: 140,
-    left: 450,
-  });
+  const triggerSel = useTimelineVar<string>(tl, "driveItemMenuTrigger", "");
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = useState<{ top: number; left: number }>({ top: 140, left: 450 });
+
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    const updatePosition = () => {
+      const menuEl = menuRef.current;
+      const shellEl =
+        menuEl?.closest<HTMLElement>("[data-tl=drive-shell]") ??
+        document.querySelector<HTMLElement>("[data-tl=drive-shell]");
+      if (!shellEl) return;
+
+      let target: HTMLElement | null = null;
+      if (triggerSel) {
+        target = shellEl.querySelector<HTMLElement>(triggerSel);
+      }
+
+      if (!target) {
+        if (itemName === "Client Files") {
+          target = shellEl.querySelector<HTMLElement>("[data-tl=btn-tile-menu-client-files]");
+        } else if (itemName === "Workspaces") {
+          target = shellEl.querySelector<HTMLElement>("[data-tl=btn-tile-menu-workspaces]");
+        } else if (itemName === "Brand Logos") {
+          target = shellEl.querySelector<HTMLElement>("[data-tl=btn-tile-menu-brand-logos]");
+        } else if (itemName === "All videos") {
+          target = shellEl.querySelector<HTMLElement>("[data-tl=btn-tile-menu-all-videos]");
+        } else if (itemName === "Social media Resources") {
+          target = shellEl.querySelector<HTMLElement>("[data-tl=btn-tile-menu-social]");
+        } else if (itemName.includes("Sample")) {
+          target = shellEl.querySelector<HTMLElement>(
+            "[data-tl=btn-tile-menu-sample-notes], [data-tl=btn-tile-menu-sample-txt]"
+          );
+        } else if (itemName.includes("Q3 report")) {
+          target = shellEl.querySelector<HTMLElement>("[data-tl=btn-tile-menu-q3report]");
+        } else if (itemName.includes("Launch video")) {
+          target = shellEl.querySelector<HTMLElement>("[data-tl=btn-tile-menu-launch-video]");
+        }
+      }
+
+      if (!target) {
+        target = shellEl.querySelector<HTMLElement>(
+          "[data-hover] [data-tl^=btn-tile-menu], [data-tl^=btn-tile-menu]"
+        );
+      }
+
+      if (!target) return;
+
+      const shellRect = shellEl.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const scale = shellRect.width / 1440;
+
+      const targetRight = (targetRect.right - shellRect.left) / scale;
+      const targetTop = (targetRect.top - shellRect.top) / scale;
+      const targetBottom = (targetRect.bottom - shellRect.top) / scale;
+      const stageWidth = 1440;
+      const stageHeight = shellRect.height / scale;
+
+      const menuWidth = menuEl?.offsetWidth || 208;
+      const menuHeight = menuEl?.offsetHeight || (itemType === "folder" ? 385 : 340);
+
+      // Align right edge of menu to right edge of button
+      let left = targetRight - menuWidth;
+      left = Math.max(8, Math.min(left, stageWidth - menuWidth - 8));
+
+      // Align top edge 4px below button
+      let top = targetBottom + 4;
+      if (top + menuHeight > stageHeight - 16) {
+        // Flip upward if not enough room below
+        top = targetTop - menuHeight - 4;
+      }
+      if (top < 8) {
+        top = Math.max(8, stageHeight - menuHeight - 16);
+      }
+
+      setCoords({ top: Math.round(top), left: Math.round(left) });
+    };
+
+    updatePosition();
+    const raf = requestAnimationFrame(updatePosition);
+
+    const scroller = document.querySelector<HTMLElement>("[data-tl=drive-main-content]");
+    scroller?.addEventListener("scroll", updatePosition, { passive: true });
+    window.addEventListener("resize", updatePosition, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      scroller?.removeEventListener("scroll", updatePosition);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [isOpen, triggerSel, itemName, itemType]);
 
   if (!isOpen) return null;
 
   return (
     <div
+      ref={menuRef}
       data-tl="drive-item-menu"
       style={{ top: `${coords.top}px`, left: `${coords.left}px` }}
       className="absolute z-50 w-52 rounded-2xl border border-gray-200 bg-white py-1.5 shadow-xl text-[12.5px] font-['Poppins',sans-serif] text-[#111827] select-none animate-in fade-in zoom-in-95 duration-100"

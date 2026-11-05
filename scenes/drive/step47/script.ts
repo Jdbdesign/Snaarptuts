@@ -25,7 +25,7 @@ export async function runStep47(tl: Timeline) {
   tl.setVar("driveItemMenuType", "file");
   tl.setVar("driveItemMenuName", "Q3 report.pdf");
   tl.setVar("driveShareItemName", "Q3 report.pdf");
-  tl.setVar("driveItemMenuCoords", { top: 290, left: 240 });
+  tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-q3report]");
   tl.setVar("driveItemMenuOpen", true);
 
   await tl.at(2800);

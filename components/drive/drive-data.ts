@@ -687,7 +687,7 @@ export interface SharedItem {
 
 export const SHARED_WITH_YOU_ITEMS: SharedItem[] = [
   {
-    id: "sw-1",
+    id: "shared-with-1",
     name: "Project brief.docx",
     permission: "Can edit",
     dateShared: "03/11/2026",
@@ -696,7 +696,7 @@ export const SHARED_WITH_YOU_ITEMS: SharedItem[] = [
     fileType: "docx",
   },
   {
-    id: "sw-2",
+    id: "shared-with-2",
     name: "Roadmap.pptx",
     permission: "Can view",
     dateShared: "28/10/2026",
@@ -705,7 +705,7 @@ export const SHARED_WITH_YOU_ITEMS: SharedItem[] = [
     fileType: "pptx",
   },
   {
-    id: "sw-3",
+    id: "shared-with-3",
     name: "Design Assets",
     permission: "Can view",
     dateShared: "21/10/2026",
@@ -715,7 +715,7 @@ export const SHARED_WITH_YOU_ITEMS: SharedItem[] = [
     fileType: "folder",
   },
   {
-    id: "sw-4",
+    id: "shared-with-4",
     name: "Team photo.png",
     permission: "Can view",
     dateShared: "18/10/2026",
@@ -724,7 +724,7 @@ export const SHARED_WITH_YOU_ITEMS: SharedItem[] = [
     fileType: "png",
   },
   {
-    id: "sw-5",
+    id: "shared-with-5",
     name: "Launch video.mp4",
     permission: "Can view",
     dateShared: "12/10/2026",
@@ -733,7 +733,7 @@ export const SHARED_WITH_YOU_ITEMS: SharedItem[] = [
     fileType: "mp4",
   },
   {
-    id: "sw-6",
+    id: "shared-with-6",
     name: "Brand colours.zip",
     permission: "Can view",
     dateShared: "10/10/2026",
@@ -745,7 +745,7 @@ export const SHARED_WITH_YOU_ITEMS: SharedItem[] = [
 
 export const SHARED_BY_YOU_ITEMS: SharedItem[] = [
   {
-    id: "sb-1",
+    id: "shared-by-1",
     name: "Q3 report.pdf",
     permission: "Can edit",
     dateShared: "22m ago",
@@ -754,7 +754,7 @@ export const SHARED_BY_YOU_ITEMS: SharedItem[] = [
     fileType: "pdf",
   },
   {
-    id: "sb-2",
+    id: "shared-by-2",
     name: "Client Files",
     permission: "Can view",
     dateShared: "5h ago",
@@ -764,7 +764,7 @@ export const SHARED_BY_YOU_ITEMS: SharedItem[] = [
     fileType: "folder",
   },
   {
-    id: "sb-3",
+    id: "shared-by-3",
     name: "Budget.xlsx",
     permission: "Can view",
     dateShared: "25/10/2026",

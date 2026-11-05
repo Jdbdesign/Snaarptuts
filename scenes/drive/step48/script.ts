@@ -24,7 +24,7 @@ export async function runStep48(tl: Timeline) {
   tl.setVar("driveItemMenuType", "folder");
   tl.setVar("driveItemMenuName", "Client Files");
   tl.setVar("driveShareItemName", "Client Files");
-  tl.setVar("driveItemMenuCoords", { top: 220, left: 340 });
+  tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-client-files]");
   tl.setVar("driveItemMenuOpen", true);
 
   await tl.at(2500);

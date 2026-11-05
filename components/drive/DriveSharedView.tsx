@@ -264,9 +264,9 @@ export function DriveSharedView({ tl }: Props) {
       )}
 
       {/* 4. Table */}
-      <div className="mt-3.5 border border-gray-200 rounded-xl overflow-hidden bg-white shadow-2xs">
+      <div className="mt-3.5 border border-gray-200 rounded-xl bg-white shadow-2xs overflow-visible">
         <table className="w-full text-left text-xs">
-          <thead className="bg-gray-50 text-gray-500 font-medium border-b border-gray-200">
+          <thead className="bg-gray-50 text-gray-500 font-medium border-b border-gray-200 rounded-t-xl">
             <tr>
               {/* No select-all checkbox: empty header column for alignment */}
               <th className="py-3 px-4 w-10"></th>
@@ -333,26 +333,27 @@ export function DriveSharedView({ tl }: Props) {
                     {activeTab === "with-you" ? item.sharedBy : item.sharedWith}
                   </td>
                   <td className="py-3.5 px-4 text-right relative w-10">
-                    <button
-                      type="button"
-                      data-tl={`btn-shared-row-menu-${idx + 1}`}
-                      onClick={() =>
-                        tl.setVar(
-                          "driveSharedRowMenuOpenId",
-                          rowMenuOpenId === item.id ? "" : item.id
-                        )
-                      }
-                      className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
-                    >
-                      <MoreVertical size={14} />
-                    </button>
-
-                    {/* Dropdown Menu */}
-                    {rowMenuOpenId === item.id && (
-                      <div
-                        data-tl="popover-shared-row-menu"
-                        className="absolute right-4 top-10 z-30 w-48 rounded-xl border border-gray-200 bg-white py-1.5 shadow-xl text-[12px] text-left animate-in fade-in duration-100"
+                    <div className="relative inline-block text-left">
+                      <button
+                        type="button"
+                        data-tl={`btn-shared-row-menu-${idx + 1}`}
+                        onClick={() =>
+                          tl.setVar(
+                            "driveSharedRowMenuOpenId",
+                            rowMenuOpenId === item.id ? "" : item.id
+                          )
+                        }
+                        className="text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
                       >
+                        <MoreVertical size={14} />
+                      </button>
+
+                      {/* Dropdown Menu */}
+                      {rowMenuOpenId === item.id && (
+                        <div
+                          data-tl="popover-shared-row-menu"
+                          className="absolute right-0 top-full mt-1 z-50 w-48 rounded-xl border border-gray-200 bg-white py-1.5 shadow-xl text-[12px] text-left animate-in fade-in duration-100"
+                        >
                         <button
                           type="button"
                           data-tl="btn-shared-menu-open"
@@ -411,6 +412,7 @@ export function DriveSharedView({ tl }: Props) {
                         </button>
                       </div>
                     )}
+                    </div>
                   </td>
                 </tr>
               );

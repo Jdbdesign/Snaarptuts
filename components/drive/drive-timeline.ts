@@ -95,6 +95,7 @@ export function beginDrive(
   tl.setVar("driveItemMenuOpen", false);
   tl.setVar("driveItemMenuType", "folder");
   tl.setVar("driveItemMenuName", "Workspaces");
+  tl.setVar("driveItemMenuTrigger", "");
   tl.setVar("driveShareModalOpen", false);
   tl.setVar("driveShareConfirmOpen", false);
   tl.setVar("driveShareHasChip", false);

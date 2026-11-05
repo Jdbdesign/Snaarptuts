@@ -1097,6 +1097,19 @@ Built from video recording `1104 (2).mp4` (5m46s) and extracted stills `ref/driv
 4. **Progress Storage Key Version**:
    - Bumped `PROGRESS_KEY` in `lib/progress.ts` to `snaarp-tutorials:progress:v3` to ensure users who tested earlier configurations start fresh with the new 68-step structure.
 
+## UI Bug Fixes: Toast Stretching & Dropdown Anchoring
+
+1. **Bug 1: Toast Stretching (Stretches Full Height After Ring)**:
+   - **Symptom**: In step 49 ("Sharing: Copy a link"), the toast "Link copied to clipboard." initially appeared compact at the bottom-right, but after ~2.5s (when highlighted/ringed), it stretched to 100% height of the stage as a tall white panel with a purple border.
+   - **Root Cause**: In `app/globals.css`, `.tl-hl` applied `position: relative; outline: 2px solid #7014d9;` without a companion rule `.tl-hl.fixed { position: fixed; }`. When `ring(tl, "[data-tl=toast-link-copied]")` was called on the toast (which had `fixed bottom-6 right-6`), `.tl-hl` overrode `position: fixed` to `position: relative`. Inside `DriveShell` (a flex container with `relative flex h-full w-full`), default flex item behavior (`align-self: stretch`) caused the toast container to stretch across the full stage height.
+   - **Fix**: Added `.tl-hl.fixed { position: fixed; }` in `globals.css` and added `h-auto shrink-0` across all Drive toast components (`DriveCopyLinkToast`, `DriveCopyToast`, `DriveDeleteToast`, `DriveImportToast`, `DriveLinkSettingsToast`, `DriveMoveToast`, `DrivePart4Toasts`, `DriveRenameToast`).
+
+2. **Bug 2: Dropdown / Popover Anchoring (Three-Dot Menu Opens in Wrong Place)**:
+   - **Symptom**: In step 48 ("Sharing: Share a folder"), clicking the three-dot button on `Client Files` opened the item menu ~330px to the left near the first card (`Workspaces`), instead of directly under the `Client Files` three-dot button.
+   - **Root Cause**: `DriveItemMenu.tsx` was relying on hardcoded static coordinate presets (`driveItemMenuCoords`: `{ top: 220, left: 340 }`, etc.) that did not dynamically anchor to the three-dot button trigger.
+   - **Fix**: Implemented dynamic trigger anchoring with `useLayoutEffect`. In `DriveItemMenu.tsx`, it dynamically queries the trigger button (via `driveItemMenuTrigger` or automatic fallback selectors), calculates the button's bounding box relative to `DriveShell`, converts to 1440 design space using the stage scale factor `(targetRect - shellRect) / scale`, and aligns right edges (`left = targetRight - menuWidth`) with 4px vertical clearance below (`top = targetBottom + 4`), with automatic upward flipping if near the bottom edge and stage boundary clamping `[8, stageWidth - menuWidth - 8]`. Inline row menus (`DriveSharedView`, `DriveWorkspaceDetailView`, sort menu) now use relative container dropdowns with `absolute right-0 top-full mt-1`. All affected Drive scene scripts (`step33` to `step48`) set `driveItemMenuTrigger` directly on opening.
+
+
 
 
 

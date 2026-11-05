@@ -1,5 +1,6 @@
 "use client";
 
+import { useLayoutEffect, useRef, useState } from "react";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
@@ -22,12 +23,53 @@ type Props = {
 export function DriveCreateMenu({ tl }: Props) {
   const isOpen = useTimelineVar(tl, "driveCreateMenuOpen", false);
 
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = useState<{ top: number; left: number }>({ top: 166, left: 72 });
+
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    const updatePosition = () => {
+      const menuEl = menuRef.current;
+      const shellEl =
+        menuEl?.closest<HTMLElement>("[data-tl=drive-shell]") ??
+        document.querySelector<HTMLElement>("[data-tl=drive-shell]");
+      if (!shellEl) return;
+
+      const target = shellEl.querySelector<HTMLElement>("[data-tl=btn-sidebar-create]");
+      if (!target) return;
+
+      const shellRect = shellEl.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const scale = shellRect.width / 1440;
+
+      const targetLeft = (targetRect.left - shellRect.left) / scale;
+      const targetBottom = (targetRect.bottom - shellRect.top) / scale;
+
+      const left = Math.round(targetLeft);
+      const top = Math.round(targetBottom + 4);
+
+      setCoords({ top, left });
+    };
+
+    updatePosition();
+    const raf = requestAnimationFrame(updatePosition);
+
+    window.addEventListener("resize", updatePosition, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
     <div
+      ref={menuRef}
       data-tl="create-upload-menu"
-      className="absolute left-[72px] top-[166px] z-50 w-56 rounded-2xl border border-gray-200 bg-white py-2 shadow-xl text-[13px] font-['Poppins',sans-serif] text-[#111827] select-none"
+      style={{ top: `${coords.top}px`, left: `${coords.left}px` }}
+      className="absolute z-50 w-56 rounded-2xl border border-gray-200 bg-white py-2 shadow-xl text-[13px] font-['Poppins',sans-serif] text-[#111827] select-none"
       onClick={(e) => e.stopPropagation()}
     >
       {/* 1. Folder */}

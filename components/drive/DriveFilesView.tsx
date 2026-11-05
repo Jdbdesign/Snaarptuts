@@ -211,7 +211,7 @@ export function DriveFilesView({ tl }: Props) {
               {sortMenuOpen && (
                 <div
                   data-tl="sort-dropdown-menu"
-                  className="absolute right-0 top-10 z-50 w-52 rounded-2xl border border-gray-200 bg-white py-2 shadow-xl text-[12.5px] animate-in fade-in zoom-in-95 duration-100"
+                  className="absolute right-0 top-full mt-1 z-50 w-52 rounded-2xl border border-gray-200 bg-white py-2 shadow-xl text-[12.5px] animate-in fade-in zoom-in-95 duration-100"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <button
@@ -679,7 +679,7 @@ export function DriveFilesView({ tl }: Props) {
                           e.stopPropagation();
                           tl.setVar("driveItemMenuType", "file");
                           tl.setVar("driveItemMenuName", sampleTxtTitle);
-                          tl.setVar("driveItemMenuCoords", { top: 180, left: 240 });
+                          tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-sample-txt]");
                           tl.setVar("driveItemMenuOpen", true);
                         }}
                         className="absolute right-2 top-2 z-10 text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -746,7 +746,7 @@ export function DriveFilesView({ tl }: Props) {
                           e.stopPropagation();
                           tl.setVar("driveItemMenuType", "folder");
                           tl.setVar("driveItemMenuName", "Workspaces");
-                          tl.setVar("driveItemMenuCoords", { top: 140, left: 450 });
+                          tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-workspaces]");
                           tl.setVar("driveItemMenuOpen", true);
                         }}
                         className="absolute right-2.5 top-2.5 z-10 text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -839,7 +839,7 @@ export function DriveFilesView({ tl }: Props) {
                         tl.setVar("driveItemMenuType", "folder");
                         tl.setVar("driveItemMenuName", "Client Files");
                         tl.setVar("driveShareItemName", "Client Files");
-                        tl.setVar("driveItemMenuCoords", { top: 220, left: 340 });
+                        tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-client-files]");
                         tl.setVar("driveItemMenuOpen", true);
                       }}
                       className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
@@ -1052,7 +1052,7 @@ export function DriveFilesView({ tl }: Props) {
                           e.stopPropagation();
                           tl.setVar("driveItemMenuType", "file");
                           tl.setVar("driveItemMenuName", sampleTxtTitle);
-                          tl.setVar("driveItemMenuCoords", { top: 180, left: 450 });
+                          tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-sample-txt]");
                           tl.setVar("driveItemMenuOpen", true);
                         }}
                         className="absolute right-2 top-2 z-10 text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -1186,7 +1186,7 @@ export function DriveFilesView({ tl }: Props) {
                             e.stopPropagation();
                             tl.setVar("driveItemMenuType", "file");
                             tl.setVar("driveItemMenuName", "Q3 report.pdf");
-                            tl.setVar("driveItemMenuCoords", { top: 290, left: 240 });
+                            tl.setVar("driveItemMenuTrigger", "[data-tl=btn-tile-menu-q3report]");
                             tl.setVar("driveItemMenuOpen", true);
                           }}
                           className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
