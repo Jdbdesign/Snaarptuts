@@ -89,6 +89,8 @@ import { Step44 } from "@/scenes/books/step44/Step44";
 import { runStep44, STEP44_DURATION_MS } from "@/scenes/books/step44/script";
 import { Step45 } from "@/scenes/books/step45/Step45";
 import { runStep45, STEP45_DURATION_MS } from "@/scenes/books/step45/script";
+import { Step46 } from "@/scenes/books/step46/Step46";
+import { runStep46, STEP46_DURATION_MS } from "@/scenes/books/step46/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -557,6 +559,16 @@ export const books: Tutorial = {
         Component: Step45,
         run: runStep45,
         durationMs: STEP45_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-add-items-table",
+      title: "Quotes: add items to the item table",
+      url: BOOKS_URLS.newQuote,
+      scene: {
+        Component: Step46,
+        run: runStep46,
+        durationMs: STEP46_DURATION_MS,
       },
     },
   ],
