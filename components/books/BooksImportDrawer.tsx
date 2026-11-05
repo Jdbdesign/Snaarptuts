@@ -3,7 +3,7 @@
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { Upload, FileSpreadsheet, Loader2, Check } from "lucide-react";
-import { CSV_IMPORT_ITEMS } from "./books-data";
+import { CSV_IMPORT_ITEMS, type BookItem } from "./books-data";
 
 type Props = {
   tl: Timeline;
@@ -72,7 +72,7 @@ export function BooksImportDrawer({ tl }: Props) {
               setTimeout(() => {
                 tl.setVar("booksImporting", false);
                 tl.setVar("booksImportDrawerOpen", false);
-                const current = tl.getVar<any[]>("booksItems", []);
+                const current = tl.getVar<BookItem[]>("booksItems", []);
                 tl.setVar("booksItems", [...CSV_IMPORT_ITEMS, ...current]);
                 tl.setVar("booksToastMessage", "Items imported successfully.");
                 tl.setVar("booksToastOpen", true);

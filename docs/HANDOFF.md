@@ -13,8 +13,9 @@ First product: **Snaarp 360**. More products will follow, each with its own modu
 ## Current state
 
 - Snaarp 360: **all 5 steps built and working**, plus the **completion screen**. Plays about 2:04 hands off from page load to the completion card. Verified at 1920x1080, 1440x900, 1280x720 and 390x844: no console errors, no scrollbars, no document scroll.
-- Product switcher in the rail: a dropdown of products (Snaarp 360 first). **Snaarp Mail** is listed with 17 steps (1-9 setup, 10-17 email admin), all built. **Snaarp Slides** (the whole product: File, Edit, View, Insert, Format, Slide, Arrange and Tools, the toolbar and the header buttons, 56 steps) is the newest product.
-- Real Snaarp product logos are in place on the pricing page, sign-up page, products home, both admin icon rails and the rail. Other icons are still redrawn placeholders.
+- Product switcher in the rail: a dropdown of products (Snaarp 360, Snaarp Mail, Snaarp Doc, Snaarp Admin, Snaarp Slides, Snaarp Sheets, Snaarp Workforce, OneCardX, Snaarp Drive, and Snaarp Books).
+- Real Snaarp product logos are in place across the suite rail and UI headers. Real SVG product logos live in `public/logos/`.
+- **Snaarp Books (latest)**: **22 steps built and complete** (Part 1: Home and Products). Config in `tutorials/books.ts`, route `/tutorials/books`. Features dashboard, receivables/payables, cash flow chart by period, account watchlist with accrual/cash toggle, recent updates audit log, catalog browsing and filtering, sort drawer, column preferences drawer, CSV import, CSV export, list refresh, create goods item with validation error handling, create service item, item detail view with tabs, edit item, clone item, mark inactive/active, lock/unlock item, delete item with in-app confirmation modal, multi-select, and bulk delete with completion card.
 - No backend, accounts, cloud sync or AI features (named exclusions for v1). No automated tests. The folder is **not a git repository** (see known issues).
 
 | Step | Title | Status |
@@ -310,3 +311,54 @@ How it is built:
 - Per-step scenes in `scenes/drive/step<1..68>/`.
 - Progress storage key versioned to `snaarp-tutorials:progress:v3` in `lib/progress.ts`.
 - All 68 steps tested and clean across viewports (1920x1080, 1440x900, 1280x720, 390x844). TypeScript, lint, and production build clean.
+
+## Snaarp Books (tenth tutorial, Part 1 complete: 22 steps)
+
+Route `/tutorials/books`, config `tutorials/books.ts`: **22 steps, all built and complete for Part 1 (Home and Products)**.
+- Steps 1-5 (Navigation & Home):
+  - Step 1: Books: Find your way around (Orientation of suite rail, left navigation menu, top search bar, avatar).
+  - Step 2: Home: Read your receivables and payables (Total receivables £520.80 and payables £115.20 with aging breakdowns and "+ New" lead-ins).
+  - Step 3: Home: Check cash flow by period (Interactive cash flow bar chart, period switcher for 4 periods, interactive monthly tooltip).
+  - Step 4: Home: Watch key accounts (accrual or cash) (Quick action cards, bank accounts balances, watchlist with accrual/cash toggle, "View All Bank Accounts" lead-in).
+  - Step 5: Home: See recent updates (Recent Updates tab with 10 timestamped audit trail records).
+- Steps 6-22 (Products & Catalog Management):
+  - Step 6: Products: Browse and filter your items (Navigation to `/items`, 14 active catalog items, Active/Inactive/All filters, header search filter).
+  - Step 7: Products: Sort the item list (Sliding sort drawer by Name, Selling Price, Date Created with ascending/descending order).
+  - Step 8: Products: Show or hide columns (Column preferences drawer with Rate and Unit toggles, draggable column divider resize, reset to default).
+  - Step 9: Products: Import items from a CSV file (Import drawer, in-app CSV picker with `items-import.csv`, import spinner, success toast, appended records).
+  - Step 10: Products: Export your item list (Export drawer with real row count 14, CSV format generation, download confirmation toast).
+  - Step 11: Products: Refresh the item list (Catalog refresh spinner, live sync, newly arrived "Raw Honey 500g (£8.50)" item, success toast).
+  - Step 12: Products: Create a new item (goods) (New goods item form at `/items/new`, "Food Farm", unit kg, photo picker `fresh-produce.jpg`, validation error handling on required purchase account, vendor "Green Fields Organics", save flow, success toast).
+  - Step 13: Products: Create a service item (Service item form, "Business Setup Consulting", unit hr, consulting sales & expense accounts, save flow, success toast).
+  - Step 14: Products: Open an item's details (Breadcrumb navigation, Food Farm overview, pricing £180 selling / £110 cost, 38.8% margin, 45 kg stock, account mappings).
+  - Step 15: Products: Check an item's transactions and history (Transactions tab with sample invoices and bills, History tab with audit log).
+  - Step 16: Products: Edit an item (Edit form at `/items/item-1/edit`, update price to £220.00, save flow, success toast, history update).
+  - Step 17: Products: Clone an item (Clone action, "Food Farm (Copy)" created, both items present in catalog, success toast).
+  - Step 18: Products: Mark an item inactive and active again (Mark inactive, filter by inactive items, re-activate, return to active catalog, success toast).
+  - Step 19: Products: Lock and unlock an item (Lock item action, amber banner warning, disabled edit button, unlock action, success toast).
+  - Step 20: Products: Delete an item (In-app confirmation modal with "books.snaarp.com says" and "Deleting..." spinner, item deleted from catalog, success toast).
+  - Step 21: Products: Select several items (Checkbox selection on 3 items, floating bulk action bar, select all toggle, deselect all, batch selection).
+  - Step 22: Products: Delete several items at once (Bulk delete 3 selected items with in-app confirmation modal, items removed from catalog, success toast, completion card).
+- Completion card follows step 22: "Tour complete / You have mastered Home and Products in Snaarp Books. Explore Sales, Purchases, and Banking in upcoming modules."
+Recording: `ref/1105 (2).mp4` (4m53s). Extracted stills: `ref/books-frames/frame_001.png` to `frame_098.png`.
+
+How it is built:
+- Reusable stage `components/books/BooksStage.tsx` and app shell `components/books/BooksShell.tsx` (thin suite rail with Books active, collapsible 200px left navigation menu, top bar with Books logo, search bar, user avatar 'S', and apps 9-dot grid).
+- Views & Modals:
+  - `BooksHomeView.tsx`: Dashboard with greeting, Receivables, Payables, Cash Flow chart with period toggle & tooltip, Quick Actions, Bank and Credit Cards, Account Watchlist with Accrual/Cash toggle, and Recent Updates tab with 10 audit logs.
+  - `BooksProductsView.tsx`: Catalog table with status filters (Active/Inactive/All), header search magnifier, sort button, column preferences button, bulk action bar, more actions menu, and pagination.
+  - `BooksNewItemView.tsx`: Form for Goods and Services with name, unit, photo upload box, sales info, purchase info, and purchase account validation.
+  - `BooksItemDetailView.tsx`: Item detail page with breadcrumbs, lock banner, Edit button, More menu (Clone, Inactive/Active, Lock/Unlock, Delete), and Overview / Transactions / History tabs.
+  - `BooksSortDrawer.tsx`: Sliding sort drawer.
+  - `BooksColumnsDrawer.tsx`: Visible columns preferences drawer.
+  - `BooksImportDrawer.tsx`: CSV import drawer.
+  - `BooksExportDrawer.tsx`: Item list export drawer.
+  - `BooksCsvPickerModal.tsx`: In-app CSV picker modal.
+  - `BooksImagePickerModal.tsx`: In-app photo picker modal.
+  - `BooksConfirmDialog.tsx`: In-app styled confirmation modal replacing native browser confirm alerts.
+  - `BooksToast.tsx`: Green check confirmation toast (top-14 right-6).
+- Shared timeline helpers in `components/books/books-timeline.ts` (`beginBooks` with mandatory `tl.placeCursor`, `finishBooks`, `pressOn`, `hoverOn`, `ring`).
+- Central sample data in `components/books/books-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, GBP £, 14 active catalog items, 2 inactive items, cash flow chart data, account watchlist, 10 recent updates).
+- Per-step scenes in `scenes/books/step<1..22>/`.
+- Verified cleanly across all 22 steps. TypeScript, lint, and production build clean.
+

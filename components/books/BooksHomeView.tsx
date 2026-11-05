@@ -11,7 +11,7 @@ import {
   WATCHLIST_CASH,
   RECENT_UPDATES,
 } from "./books-data";
-import { User, ChevronDown, FileText, Receipt, Landmark } from "lucide-react";
+import { User, ChevronDown, FileText, Receipt } from "lucide-react";
 
 type Props = {
   tl: Timeline;
@@ -210,8 +210,8 @@ export function BooksHomeView({ tl }: Props) {
                     <div
                       key={lbl}
                       data-tl={`bar-group-${idx}`}
-                      onMouseEnter={() => setHoveredBar(idx)}
-                      onMouseLeave={() => setHoveredBar(null)}
+                      onMouseEnter={() => setLocalHoveredBar(idx)}
+                      onMouseLeave={() => setLocalHoveredBar(null)}
                       className="group flex flex-col items-center h-full justify-end cursor-pointer"
                     >
                       <div className="flex items-end gap-1.5 h-full">

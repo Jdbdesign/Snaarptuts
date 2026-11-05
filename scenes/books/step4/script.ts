@@ -16,7 +16,7 @@ export async function runStep4(tl: Timeline) {
 
   await tl.at(400);
   tl.showCaption(CAPTIONS.scrollDown);
-  await tl.scrollTo("[data-tl=card-quick-actions]", { duration: 600 });
+  await tl.scrollTo("[data-tl=card-quick-actions]", 600);
   await tl.wait(600);
 
   // Quick actions

@@ -459,7 +459,15 @@ export const FOOD_FARM_TRANSACTIONS = [
   },
 ];
 
-export const FOOD_FARM_HISTORY_DEFAULT = [
+export interface BookItemHistoryEntry {
+  id: string;
+  action: string;
+  user: string;
+  timestamp: string;
+  detail?: string;
+}
+
+export const FOOD_FARM_HISTORY_DEFAULT: BookItemHistoryEntry[] = [
   {
     id: "h-1",
     action: "Item created",
@@ -663,4 +671,11 @@ export const BOOKS_URLS = {
   edit: "books.snaarp.com/products/6a3104d6-2f91-4b8a-b33f-bb0b75d6b930/edit",
 };
 
-export type BooksPage = "home" | "products" | "new" | "details" | "edit";
+export type BooksPage =
+  | "home"
+  | "products"
+  | "new"
+  | "details"
+  | "edit"
+  | "new-item"
+  | "item-detail";

@@ -1109,6 +1109,61 @@ Built from video recording `1104 (2).mp4` (5m46s) and extracted stills `ref/driv
    - **Root Cause**: `DriveItemMenu.tsx` was relying on hardcoded static coordinate presets (`driveItemMenuCoords`: `{ top: 220, left: 340 }`, etc.) that did not dynamically anchor to the three-dot button trigger.
    - **Fix**: Implemented dynamic trigger anchoring with `useLayoutEffect`. In `DriveItemMenu.tsx`, it dynamically queries the trigger button (via `driveItemMenuTrigger` or automatic fallback selectors), calculates the button's bounding box relative to `DriveShell`, converts to 1440 design space using the stage scale factor `(targetRect - shellRect) / scale`, and aligns right edges (`left = targetRight - menuWidth`) with 4px vertical clearance below (`top = targetBottom + 4`), with automatic upward flipping if near the bottom edge and stage boundary clamping `[8, stageWidth - menuWidth - 8]`. Inline row menus (`DriveSharedView`, `DriveWorkspaceDetailView`, sort menu) now use relative container dropdowns with `absolute right-0 top-full mt-1`. All affected Drive scene scripts (`step33` to `step48`) set `driveItemMenuTrigger` directly on opening.
 
+---
+
+# Snaarp Books Tutorial (Part 1): Home and Products (Steps 1-22)
+
+Built from source video `1105 (2).mp4` (4m53s) and extracted stills `ref/books-frames/frame_001.png` to `frame_098.png`.
+
+## Filled sample data (no real personal data)
+- User: Sam Taylor, `sam.taylor@snaarp.com` (user avatar letter 'S').
+- Currency: British Pounds (GBP £) across all monetary balances, cards, charts, and product prices.
+- Organization: Acme Studio.
+- Catalog items: 14 active catalog items pre-populated across goods and services with realistic selling rates, purchase costs, inventory quantities, and accounting accounts. 2 inactive items ("Discontinued Widget A", "Old Maintenance Plan").
+- Cash flow chart: 4 selectable periods ("Last 12 Months", "Last 6 Months", "Last 30 Days", "This Quarter"), with 12 monthly bars showing inflow, outflow, net values, and interactive tooltips.
+- Account Watchlist: 5 monitored accounts (Petty Cash, Sales Income, Advertising & Marketing, Office Supplies, Travel & Entertainment) with interactive "Accrual" vs "Cash" basis toggle.
+- Recent updates: 10 timestamped audit trail records covering invoices, payments received, and vendor bills.
+- Sample goods item: "Food Farm" (£180.00 selling / £110.00 cost, unit "kg", photo `fresh-produce.jpg`, vendor "Green Fields Organics", purchase account "Cost of Goods Sold").
+- Sample service item: "Business Setup Consulting" (£150.00 selling / £80.00 cost, unit "hr", sales account "Consulting Revenue", purchase account "Subcontractor Expense").
+- In-app files: `items-import.csv` (8 catalog records) and `fresh-produce.jpg`.
+
+## Completed beyond the video
+In the video recording, several workflows ended prematurely, cancelled out of dialogs, hovered without executing, or skipped validation. Following the project rule **COMPLETE EVERY FLOW**, each action is driven through to its real finished result with authentic UI feedback:
+1. **Step 9 (CSV Import)**: Rather than abandoning the import file picker, the tutorial selects `items-import.csv` via the in-app modal, submits the import with "Importing 8 items..." feedback, dismisses the drawer, displays green success toast "8 items imported successfully", and appends the 8 imported records to the live catalog table.
+2. **Step 10 (Export items)**: Rather than cancelling the export drawer, the tutorial selects CSV format, confirms row count (14 items), triggers generation ("Generating export..."), dismisses the drawer, and displays download confirmation toast "Export file generated · items_catalog_2026.csv downloaded".
+3. **Step 11 (Refresh catalog)**: Triggers animated refresh spinner over table ("Refreshing items..."), syncs catalog data, and introduces a newly arrived product ("Raw Honey 500g (£8.50)") with green toast "Item list refreshed".
+4. **Step 12 (Create goods item & validation error handling)**: Attempts to save without selecting the required Purchase Account, triggering the authentic red validation ring and message "This field is required". The user then selects "Cost of Goods Sold" and preferred vendor "Green Fields Organics", clicks "Save and Close" ("Saving..."), navigates to catalog, displays green toast "Item 'Food Farm' created successfully", and displays the new item in the list.
+5. **Step 13 (Create service item)**: Completes the full creation flow for "Business Setup Consulting" with unit "hr", service income accounts, save flow, and success toast "Service 'Business Setup Consulting' created successfully".
+6. **Step 15 (Item transactions & history)**: Rather than showing empty tabs, Food Farm's detail view features authentic linked Invoices (INV-2026-081, INV-2026-094), Bills (BILL-4011), and a complete historical audit log (creation, price modifications, stock adjustments).
+7. **Step 16 (Edit item)**: Prefills edit form, updates Selling Price to £220.00, executes save with "Saving..." state, updates detail view pricing and margin, displays green toast "Item 'Food Farm' updated successfully", and logs the modification in the History tab.
+8. **Step 17 (Clone item)**: Executes "Clone Item" action, generates "Food Farm (Copy)", saves, and displays both items in the catalog with success toast.
+9. **Step 18 (Mark inactive & active)**: Marks "Food Farm (Copy)" inactive with status badge and toast, filters catalog to verify inactive items, re-opens item, marks active, and returns it to the active catalog with toast.
+10. **Step 19 (Lock & unlock item)**: Locks Food Farm with amber warning banner ("This item is locked. Details cannot be edited until unlocked"), disables Edit button, then performs "Unlock Item" action to restore editing capability with toast.
+11. **Step 20 (Delete item)**: Replaces native browser alert popup with an in-app styled `BooksConfirmDialog` ("books.snaarp.com says: Are you sure you want to delete this item? This action cannot be undone."), executes confirmed deletion with "Deleting..." spinner, removes item from catalog, and displays toast "Item 'Food Farm (Copy)' deleted".
+12. **Step 21 (Bulk item selection)**: Demonstrates row checkboxes on 3 items, floating bulk action bar ("3 items selected"), table header select-all toggle (all 14 items), and clean batch re-selection.
+13. **Step 22 (Bulk delete items)**: Executes bulk delete of 3 selected items with in-app confirmation modal, removes items from list, displays success toast "3 items deleted successfully", and mounts completion card.
+
+## Leads to other modules
+The tutorial faithfully showcases entry points to future Snaarp Books modules without dead ends:
+- **Sales Module**:
+  - Dashboard Total Receivables card "+ New" action leads to Create Invoice (`/sales/invoices/new`).
+  - Dashboard Quick Actions "Create Invoice" leads to Sales Invoices.
+  - Subnav "Sales" item.
+- **Purchases Module**:
+  - Dashboard Total Payables card "+ New" action leads to Record Bill (`/purchases/bills/new`).
+  - Dashboard Quick Actions "Record Bill" leads to Purchases Bills.
+  - Subnav "Purchases" item.
+- **Banking Module**:
+  - Dashboard "Bank and Credit Cards" card includes "View All Bank Accounts" link leading to `/banking`.
+  - Subnav "Banking" item.
+- **Other Core Modules**:
+  - Left subnav highlights upcoming modules: Accountant, Filing & Compliance, Reports, Documents, Approvals.
+
+## In-App Dialogs Replacing Browser Chrome
+- Native browser confirmation popups (`confirm("Are you sure you want to delete this item?")`) are replaced with in-app styled `BooksConfirmDialog` modals featuring clean typography, "books.snaarp.com says", Cancel and OK buttons, and active "Deleting..." spinners to maintain immersion without operating system or browser modal popups.
+- Native file upload dialogues are replaced with in-app modal file pickers (`BooksCsvPickerModal` for CSV catalog import, `BooksImagePickerModal` for product photography).
+
+
 
 
 

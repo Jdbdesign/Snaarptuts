@@ -57,13 +57,12 @@ export async function runStep6(tl: Timeline) {
   // Type "rice"
   tl.showCaption(CAPTIONS.typeSearch);
   await pressOn(tl, "[data-tl=input-table-search]");
-  await tl.typeText("[data-tl=input-table-search]", "rice", 80);
+  await tl.typeText("[data-tl=input-table-search]", "rice", { msPerChar: 80 });
   tl.setVar("booksSearchFilter", "rice");
   await tl.wait(1600);
 
   // Clear search
   tl.showCaption(CAPTIONS.clearSearch);
-  tl.fill("[data-tl=input-table-search]", "");
   tl.setVar("booksSearchFilter", "");
   await tl.wait(800);
 

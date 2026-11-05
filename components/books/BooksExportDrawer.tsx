@@ -2,7 +2,7 @@
 
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { FileSpreadsheet, FileText, Loader2, Download, Check } from "lucide-react";
+import { FileSpreadsheet, FileText, Loader2, Download } from "lucide-react";
 
 type Props = {
   tl: Timeline;
@@ -16,7 +16,7 @@ export function BooksExportDrawer({ tl, rowCount }: Props) {
   const count = useTimelineVar(
     tl,
     "booksExportRowCount",
-    rowCount ?? tl.getVar<any[]>("booksItems", []).length ?? 30
+    rowCount ?? tl.getVar<unknown[]>("booksItems", []).length ?? 30
   );
 
   if (!isOpen) return null;

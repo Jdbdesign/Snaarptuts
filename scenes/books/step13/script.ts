@@ -26,7 +26,7 @@ export async function runStep13(tl: Timeline) {
   await tl.typeText(
     "[data-tl=input-item-name]",
     "Business Setup Consulting",
-    50
+    { msPerChar: 50 }
   );
   tl.setVar("booksFormName", "Business Setup Consulting");
   await tl.wait(500);
@@ -41,7 +41,7 @@ export async function runStep13(tl: Timeline) {
   // Sales Info: 120, 4001
   tl.showCaption(CAPTIONS.salesInfo);
   await pressOn(tl, "[data-tl=input-selling-price]");
-  await tl.typeText("[data-tl=input-selling-price]", "120", 70);
+  await tl.typeText("[data-tl=input-selling-price]", "120", { msPerChar: 70 });
   tl.setVar("booksFormSellingPrice", "120");
   await tl.wait(400);
 
@@ -53,7 +53,7 @@ export async function runStep13(tl: Timeline) {
   // Purchase Info: 60, 5004
   tl.showCaption(CAPTIONS.purchaseInfo);
   await pressOn(tl, "[data-tl=input-cost-price]");
-  await tl.typeText("[data-tl=input-cost-price]", "60", 70);
+  await tl.typeText("[data-tl=input-cost-price]", "60", { msPerChar: 70 });
   tl.setVar("booksFormCostPrice", "60");
   await tl.wait(400);
 

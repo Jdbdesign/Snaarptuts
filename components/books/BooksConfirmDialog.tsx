@@ -3,6 +3,7 @@
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import { Loader2 } from "lucide-react";
+import type { BookItem } from "./books-data";
 
 type Props = {
   tl: Timeline;
@@ -51,11 +52,11 @@ export function BooksConfirmDialog({ tl }: Props) {
                 tl.setVar("booksConfirmOpen", false);
 
                 if (action === "delete-single") {
-                  const currentItem = tl.getVar<any>("booksCurrentItem", null);
+                  const currentItem = tl.getVar<BookItem | null>("booksCurrentItem", null);
                   if (currentItem) {
-                    const active = tl.getVar<any[]>("booksItems", []);
+                    const active = tl.getVar<BookItem[]>("booksItems", []);
                     tl.setVar("booksItems", active.filter((x) => x.id !== currentItem.id));
-                    const inactive = tl.getVar<any[]>("booksInactiveItems", []);
+                    const inactive = tl.getVar<BookItem[]>("booksInactiveItems", []);
                     tl.setVar("booksInactiveItems", inactive.filter((x) => x.id !== currentItem.id));
                   }
                   tl.setVar("booksView", "products");
@@ -64,7 +65,7 @@ export function BooksConfirmDialog({ tl }: Props) {
                 } else if (action === "delete-bulk") {
                   const selectedIds = tl.getVar<string[]>("booksSelectedIds", []);
                   const count = selectedIds.length;
-                  const active = tl.getVar<any[]>("booksItems", []);
+                  const active = tl.getVar<BookItem[]>("booksItems", []);
                   tl.setVar("booksItems", active.filter((x) => !selectedIds.includes(x.id)));
                   tl.setVar("booksSelectedIds", []);
                   tl.setVar("booksToastMessage", `${count} items deleted.`);

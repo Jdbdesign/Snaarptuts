@@ -9,7 +9,6 @@ import {
   Edit2,
   Home,
   Lock,
-  MoreVertical,
   Power,
   Trash2,
   Unlock,
@@ -298,7 +297,7 @@ export function BooksItemDetailView({ tl }: Props) {
         >
           <Lock className="w-4 h-4 text-amber-600 shrink-0" />
           <span>
-            This item is locked and cannot be edited until it's unlocked.
+            This item is locked and cannot be edited until it&apos;s unlocked.
           </span>
         </div>
       )}

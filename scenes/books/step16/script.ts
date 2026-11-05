@@ -32,8 +32,7 @@ export async function runStep16(tl: Timeline) {
   // Change Selling Price to 220
   tl.showCaption(CAPTIONS.changePrice);
   await pressOn(tl, "[data-tl=input-selling-price]");
-  tl.fill("[data-tl=input-selling-price]", "");
-  await tl.typeText("[data-tl=input-selling-price]", "220", 70);
+  await tl.typeText("[data-tl=input-selling-price]", "220", { msPerChar: 70 });
   tl.setVar("booksFormSellingPrice", "220");
   await tl.wait(600);
 

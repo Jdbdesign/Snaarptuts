@@ -23,7 +23,7 @@ export async function runStep5(tl: Timeline) {
   await hoverOn(tl, "[data-tl=update-row-1]", { ms: 500 });
   await ring(tl, "[data-tl=update-row-1]", 1500);
 
-  await tl.scrollTo("[data-tl=update-row-8]", { duration: 600 });
+  await tl.scrollTo("[data-tl=update-row-8]", 600);
   await tl.wait(600);
 
   tl.showCaption(CAPTIONS.readEntries);
@@ -32,7 +32,7 @@ export async function runStep5(tl: Timeline) {
 
   // Return to Dashboard
   tl.showCaption(CAPTIONS.backDashboard);
-  await tl.scrollTo("[data-tl=tab-home-dashboard]", { duration: 500 });
+  await tl.scrollTo("[data-tl=tab-home-dashboard]", 500);
   await pressOn(tl, "[data-tl=tab-home-dashboard]");
   await tl.wait(1000);
 

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import {
   type BookItem,
+  type BookItemHistoryEntry,
   EXPENSE_ACCOUNTS,
   INCOME_ACCOUNTS,
   TAX_RATES,
@@ -162,7 +163,7 @@ export function BooksNewItemView({ tl }: Props) {
           "booksItems",
           currentItems.map((it) => (it.id === updated.id ? updated : it))
         );
-        const hist = tl.getVar<any[]>("booksItemHistory", []);
+        const hist = tl.getVar<BookItemHistoryEntry[]>("booksItemHistory", []);
         tl.setVar("booksItemHistory", [
           {
             id: `h-${Date.now()}`,

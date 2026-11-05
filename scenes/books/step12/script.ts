@@ -23,7 +23,7 @@ export async function runStep12(tl: Timeline) {
   // Name
   tl.showCaption(CAPTIONS.nameInput);
   await pressOn(tl, "[data-tl=input-item-name]");
-  await tl.typeText("[data-tl=input-item-name]", "Food Farm", 70);
+  await tl.typeText("[data-tl=input-item-name]", "Food Farm", { msPerChar: 70 });
   tl.setVar("booksFormName", "Food Farm");
   await tl.wait(500);
 
@@ -46,7 +46,7 @@ export async function runStep12(tl: Timeline) {
   // Selling Price
   tl.showCaption(CAPTIONS.salesInfo);
   await pressOn(tl, "[data-tl=input-selling-price]");
-  await tl.typeText("[data-tl=input-selling-price]", "200", 70);
+  await tl.typeText("[data-tl=input-selling-price]", "200", { msPerChar: 70 });
   tl.setVar("booksFormSellingPrice", "200");
   await tl.wait(400);
 
@@ -62,7 +62,7 @@ export async function runStep12(tl: Timeline) {
   await tl.typeText(
     "[data-tl=textarea-sales-desc]",
     "Farm food for local industries",
-    40
+    { msPerChar: 40 }
   );
   tl.setVar("booksFormSalesDesc", "Farm food for local industries");
   await tl.wait(500);
@@ -70,7 +70,7 @@ export async function runStep12(tl: Timeline) {
   // Cost Price
   tl.showCaption(CAPTIONS.purchaseInfo);
   await pressOn(tl, "[data-tl=input-cost-price]");
-  await tl.typeText("[data-tl=input-cost-price]", "200", 70);
+  await tl.typeText("[data-tl=input-cost-price]", "200", { msPerChar: 70 });
   tl.setVar("booksFormCostPrice", "200");
   await tl.wait(500);
 
@@ -90,7 +90,7 @@ export async function runStep12(tl: Timeline) {
   // Purchase description & Vendor
   tl.showCaption(CAPTIONS.purchaseDesc);
   await pressOn(tl, "[data-tl=textarea-purchase-desc]");
-  await tl.typeText("[data-tl=textarea-purchase-desc]", "Price of items", 40);
+  await tl.typeText("[data-tl=textarea-purchase-desc]", "Price of items", { msPerChar: 40 });
   tl.setVar("booksFormPurchaseDesc", "Price of items");
   await tl.wait(400);
 

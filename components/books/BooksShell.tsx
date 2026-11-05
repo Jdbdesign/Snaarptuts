@@ -23,7 +23,7 @@ import {
   Grid,
   ChevronRight,
 } from "lucide-react";
-import { BOOKS_URLS, type BooksPage } from "./books-data";
+import { BOOKS_URLS } from "./books-data";
 import { BooksSortDrawer } from "./BooksSortDrawer";
 import { BooksColumnsDrawer } from "./BooksColumnsDrawer";
 import { BooksImportDrawer } from "./BooksImportDrawer";

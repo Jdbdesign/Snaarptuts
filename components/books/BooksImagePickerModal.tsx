@@ -2,7 +2,7 @@
 
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { X, Image as ImageIcon, Check } from "lucide-react";
+import { X, Check } from "lucide-react";
 
 type Props = {
   tl: Timeline;
