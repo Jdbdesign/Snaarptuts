@@ -112,11 +112,9 @@ export function BooksNewItemView({ tl }: Props) {
   );
 
   // Selected image
-  const selectedImage = useTimelineVar<string | null>(
-    tl,
-    "booksSelectedImage",
-    null
-  );
+  const img1 = useTimelineVar<string | null>(tl, "booksSelectedImage", null);
+  const img2 = useTimelineVar<string | null>(tl, "booksFormImage", null);
+  const selectedImage = img1 || img2;
 
   // Validation error state
   const purchaseAccountError = useTimelineVar<boolean>(
@@ -164,27 +162,30 @@ export function BooksNewItemView({ tl }: Props) {
         tl.setVar("booksToastOpen", true);
       } else {
         // New item created
+        const isFoodFarm = (name || "").toLowerCase().includes("food farm");
+        const isConsulting = (name || "").toLowerCase().includes("consulting");
         const newItem: BookItem = {
-          id: `item-${Date.now()}`,
-          name: name || "New Item",
+          id: isFoodFarm ? "food-farm-1" : isConsulting ? "consulting-1" : `item-${Date.now()}`,
+          name: name || (isFoodFarm ? "Food Farm" : isConsulting ? "Business Setup Consulting" : "New Item"),
           type: itemType,
-          usageUnit: unit || "kg",
-          sellingPrice: parseFloat(sellingPrice) || 200,
-          rate: parseFloat(sellingPrice) || 200,
-          salesAccount: salesAccount || "4000 — Sales",
-          description: salesDesc || "Item description",
-          costPrice: parseFloat(costPrice) || 200,
-          purchaseRate: parseFloat(costPrice) || 200,
-          purchaseAccount: purchaseAccount || "5000 — Cost of Goods Sold",
-          purchaseDescription: purchaseDesc || "Item purchase description",
-          tax: salesTax,
-          vendor: vendor || "Green Fields Supplies Ltd",
+          usageUnit: unit || (isConsulting ? "hr" : "kg"),
+          sellingPrice: parseFloat(sellingPrice) || (isConsulting ? 120 : 200),
+          rate: parseFloat(sellingPrice) || (isConsulting ? 120 : 200),
+          salesAccount: salesAccount || (isConsulting ? "4001 — Service Income" : "4000 — Sales"),
+          description: salesDesc || (isConsulting ? "Comprehensive business setup consulting" : "Farm food for local industries"),
+          costPrice: parseFloat(costPrice) || (isConsulting ? 60 : 200),
+          purchaseRate: parseFloat(costPrice) || (isConsulting ? 60 : 200),
+          purchaseAccount: purchaseAccount || (isConsulting ? "5004 — Consultant Expense" : "5000 — Cost of Goods Sold"),
+          purchaseDescription: purchaseDesc || (isConsulting ? "Professional business setup advisory" : "Price of items"),
+          tax: salesTax || "VAT Standard (20%)",
+          vendor: vendor || (isConsulting ? "Harvest Wholesale Ltd" : "Green Fields Supplies Ltd"),
           status: "active",
           createdAt: new Date().toISOString(),
         };
 
         const existing = tl.getVar<BookItem[]>("booksItems", []);
-        tl.setVar("booksItems", [newItem, ...existing]);
+        tl.setVar("booksItems", [newItem, ...existing.filter((x) => x.id !== newItem.id)]);
+        tl.setVar("booksCurrentItem", newItem);
         tl.setVar("booksView", "products");
         tl.setVar("booksToastMessage", "Item created successfully.");
         tl.setVar("booksToastOpen", true);
