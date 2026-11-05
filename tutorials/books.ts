@@ -25,6 +25,8 @@ import { Step12 } from "@/scenes/books/step12/Step12";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/books/step12/script";
 import { Step13 } from "@/scenes/books/step13/Step13";
 import { runStep13, STEP13_DURATION_MS } from "@/scenes/books/step13/script";
+import { Step14 } from "@/scenes/books/step14/Step14";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/books/step14/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -179,6 +181,11 @@ export const books: Tutorial = {
       id: "products-open-details",
       title: "Products: Open an item's details",
       url: BOOKS_URLS.details,
+      scene: {
+        Component: Step14,
+        run: runStep14,
+        durationMs: STEP14_DURATION_MS,
+      },
     },
     {
       id: "products-check-transactions-history",
