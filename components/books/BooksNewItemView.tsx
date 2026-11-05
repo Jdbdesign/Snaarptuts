@@ -157,6 +157,24 @@ export function BooksNewItemView({ tl }: Props) {
           vendor: vendor || editingItem.vendor,
         };
         tl.setVar("booksCurrentItem", updated);
+        const currentItems = tl.getVar<BookItem[]>("booksItems", []);
+        tl.setVar(
+          "booksItems",
+          currentItems.map((it) => (it.id === updated.id ? updated : it))
+        );
+        const hist = tl.getVar<any[]>("booksItemHistory", []);
+        tl.setVar("booksItemHistory", [
+          {
+            id: `h-${Date.now()}`,
+            action: "Item updated",
+            user: "Sam Taylor",
+            timestamp: "Nov 5, 2026, 10:15 AM",
+            detail: `Selling price changed to £${(
+              parseFloat(sellingPrice) || 220
+            ).toFixed(2)}`,
+          },
+          ...hist,
+        ]);
         tl.setVar("booksView", "item-detail");
         tl.setVar("booksToastMessage", "Item updated successfully.");
         tl.setVar("booksToastOpen", true);
