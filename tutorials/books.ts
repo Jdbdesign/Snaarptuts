@@ -49,6 +49,8 @@ import { Step24 } from "@/scenes/books/step24/Step24";
 import { runStep24, STEP24_DURATION_MS } from "@/scenes/books/step24/script";
 import { Step25 } from "@/scenes/books/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/books/step25/script";
+import { Step26 } from "@/scenes/books/step26/Step26";
+import { runStep26, STEP26_DURATION_MS } from "@/scenes/books/step26/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -323,6 +325,11 @@ export const books: Tutorial = {
       id: "customers-add-address",
       title: "Customers: Add billing and shipping addresses",
       url: BOOKS_URLS.newCustomer,
+      scene: {
+        Component: Step26,
+        run: runStep26,
+        durationMs: STEP26_DURATION_MS,
+      },
     },
     {
       id: "customers-add-individual",
