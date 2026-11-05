@@ -63,6 +63,8 @@ import { Step31 } from "@/scenes/books/step31/Step31";
 import { runStep31, STEP31_DURATION_MS } from "@/scenes/books/step31/script";
 import { Step32 } from "@/scenes/books/step32/Step32";
 import { runStep32, STEP32_DURATION_MS } from "@/scenes/books/step32/script";
+import { Step33 } from "@/scenes/books/step33/Step33";
+import { runStep33, STEP33_DURATION_MS } from "@/scenes/books/step33/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -403,11 +405,22 @@ export const books: Tutorial = {
         durationMs: STEP32_DURATION_MS,
       },
     },
+    {
+      id: "quotes-open-list",
+      title: "Quotes: open the Quotes list",
+      url: BOOKS_URLS.quotes,
+      scene: {
+        Component: Step33,
+        run: runStep33,
+        durationMs: STEP33_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
     { title: "Products & Items", from: "products-browse-filter" },
     { title: "Sales & Customers", from: "customers-open-list" },
+    { title: "Quotes", from: "quotes-open-list" },
   ],
   completion: {
     title: "Tour complete",

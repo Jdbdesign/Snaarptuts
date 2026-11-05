@@ -10,6 +10,10 @@ import { BooksItemDetailView } from "./BooksItemDetailView";
 import { BooksCustomersView } from "./BooksCustomersView";
 import { BooksNewCustomerView } from "./BooksNewCustomerView";
 import { BooksCustomerDetailView } from "./BooksCustomerDetailView";
+import { BooksQuotesView } from "./BooksQuotesView";
+import { BooksNewQuoteView } from "./BooksNewQuoteView";
+import { BooksQuoteDetailView } from "./BooksQuoteDetailView";
+import { BooksEditQuoteView } from "./BooksEditQuoteView";
 
 type Props = {
   tl: Timeline;
@@ -38,6 +42,10 @@ export function BooksStage({ tl }: Props) {
       {currentView === "customers" && <BooksCustomersView tl={tl} />}
       {currentView === "new-customer" && <BooksNewCustomerView tl={tl} />}
       {currentView === "customer-detail" && <BooksCustomerDetailView tl={tl} />}
+      {currentView === "quotes" && <BooksQuotesView tl={tl} />}
+      {currentView === "new-quote" && <BooksNewQuoteView tl={tl} />}
+      {currentView === "quote-detail" && <BooksQuoteDetailView tl={tl} />}
+      {currentView === "edit-quote" && <BooksEditQuoteView tl={tl} />}
     </BooksShell>
   );
 }

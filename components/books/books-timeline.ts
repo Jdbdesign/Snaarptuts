@@ -4,6 +4,7 @@ import {
   type BooksPage,
   INITIAL_ACTIVE_CUSTOMERS,
   INITIAL_INACTIVE_CUSTOMERS,
+  INITIAL_QUOTES,
 } from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
@@ -172,10 +173,16 @@ export function beginBooks(
   tl.setVar("booksItemFoodFarmCopyDeleted", false);
   tl.setVar("booksBulkItemsDeleted", false);
 
-  // Sales & Customers state
-  const isCustomerPage =
-    page === "customers" || page === "new-customer" || page === "customer-detail";
-  tl.setVar("booksSalesExpanded", isCustomerPage);
+  // Sales, Customers & Quotes state
+  const isSalesPage =
+    page === "customers" ||
+    page === "new-customer" ||
+    page === "customer-detail" ||
+    page === "quotes" ||
+    page === "new-quote" ||
+    page === "quote-detail" ||
+    page === "edit-quote";
+  tl.setVar("booksSalesExpanded", isSalesPage);
   tl.setVar("booksCustomers", INITIAL_ACTIVE_CUSTOMERS);
   tl.setVar("booksInactiveCustomers", INITIAL_INACTIVE_CUSTOMERS);
   tl.setVar("booksCustomerFilter", "active");
@@ -188,6 +195,48 @@ export function beginBooks(
   tl.setVar("booksActiveCustomer", INITIAL_ACTIVE_CUSTOMERS[1]); // Brightway Stores
   tl.setVar("booksNewCustomerType", "business");
   tl.setVar("booksNewCustomerTab", "other");
+
+  // Quotes state
+  tl.setVar("booksQuotes", INITIAL_QUOTES);
+  tl.setVar("booksQuoteFilter", "all");
+  tl.setVar("booksQuoteSearch", "");
+  tl.setVar("booksQuoteStatusDropdownOpen", false);
+  tl.setVar("booksActiveQuote", INITIAL_QUOTES[0]); // QT-0008
+  tl.setVar("booksQuoteNumberingDialogOpen", false);
+  tl.setVar("booksQuoteAutoGenerate", true);
+  tl.setVar("booksQuotePrefix", "QT-");
+  tl.setVar("booksQuoteNextNumber", "000001");
+  tl.setVar("booksQuoteScanDialogOpen", false);
+  tl.setVar("booksQuoteScanInput", "");
+  tl.setVar("booksQuoteBulkItemsDialogOpen", false);
+  tl.setVar("booksQuoteBulkSearch", "");
+  tl.setVar("booksQuoteBulkSelected", []);
+  tl.setVar("booksQuotePdfPreviewOpen", false);
+  tl.setVar("booksQuoteConfirmDialogOpen", false);
+  tl.setVar("booksQuoteConfirmQuoteId", "");
+  tl.setVar("booksQuoteFilePickerOpen", false);
+  tl.setVar("booksQuoteFiles", []);
+  tl.setVar("booksQuoteDate", "11/04/2026");
+  tl.setVar("booksQuoteExpiryDate", "11/18/2026");
+  tl.setVar("booksQuoteDatePickerOpen", false);
+  tl.setVar("booksQuoteExpiryDatePickerOpen", false);
+  tl.setVar("booksQuoteCustomer", "");
+  tl.setVar("booksQuoteSalesperson", "None");
+  tl.setVar("booksQuoteProject", "None");
+  tl.setVar("booksQuoteSubject", "");
+  tl.setVar("booksQuoteLineItems", []);
+  tl.setVar("booksQuoteDiscount", 0);
+  tl.setVar("booksQuoteShipping", 0);
+  tl.setVar("booksQuoteAdjustment", 0);
+  tl.setVar("booksQuoteCustomerNotes", "Looking forward for your business.");
+  tl.setVar("booksQuoteTerms", "");
+  tl.setVar("booksQuoteSending", false);
+  tl.setVar("booksQuotePreparingPdf", false);
+  tl.setVar("booksQuoteCustomerDropdownOpen", false);
+  tl.setVar("booksQuoteSalespersonDropdownOpen", false);
+  tl.setVar("booksQuoteProjectDropdownOpen", false);
+  tl.setVar("booksQuoteItemDropdownOpen", null);
+  tl.setVar("booksQuoteTaxDropdownOpen", null);
 
   // Toast state
   tl.setVar("booksToastOpen", false);

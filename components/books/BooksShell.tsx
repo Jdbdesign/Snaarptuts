@@ -35,6 +35,12 @@ import { BooksConfirmDialog } from "./BooksConfirmDialog";
 import { BooksCustomerImportDrawer } from "./BooksCustomerImportDrawer";
 import { BooksCustomerCsvPickerModal } from "./BooksCustomerCsvPickerModal";
 import { BooksCustomerConfirmDialog } from "./BooksCustomerConfirmDialog";
+import { BooksQuoteNumberingDialog } from "./BooksQuoteNumberingDialog";
+import { BooksQuoteScanDialog } from "./BooksQuoteScanDialog";
+import { BooksQuoteBulkItemsDialog } from "./BooksQuoteBulkItemsDialog";
+import { BooksQuotePdfPreviewModal } from "./BooksQuotePdfPreviewModal";
+import { BooksQuoteConfirmDialog } from "./BooksQuoteConfirmDialog";
+import { BooksQuoteFilePickerModal } from "./BooksQuoteFilePickerModal";
 import { BooksToast } from "./BooksToast";
 
 type Props = {
@@ -65,10 +71,15 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "customers" ||
     currentView === "new-customer" ||
     currentView === "customer-detail";
+  const isQuotesView =
+    currentView === "quotes" ||
+    currentView === "new-quote" ||
+    currentView === "quote-detail" ||
+    currentView === "edit-quote";
   const salesExpanded = useTimelineVar<boolean>(
     tl,
     "booksSalesExpanded",
-    isCustomerView
+    isCustomerView || isQuotesView
   );
 
   return (
@@ -262,7 +273,7 @@ export function BooksShell({ tl, children, overlay }: Props) {
               data-tl="nav-books-sales"
               onClick={() => tl.setVar("booksSalesExpanded", !salesExpanded)}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
-                salesExpanded || isCustomerView
+                salesExpanded || isCustomerView || isQuotesView
                   ? "bg-[#F4EBFF] text-[#7014D9] font-semibold"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
@@ -298,7 +309,15 @@ export function BooksShell({ tl, children, overlay }: Props) {
                 <button
                   type="button"
                   data-tl="nav-sales-quotes"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "quotes");
+                    tl.setUrl(BOOKS_URLS.quotes);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isQuotesView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Quotes</span>
                 </button>
@@ -507,6 +526,12 @@ export function BooksShell({ tl, children, overlay }: Props) {
       <BooksCustomerImportDrawer tl={tl} />
       <BooksCustomerCsvPickerModal tl={tl} />
       <BooksCustomerConfirmDialog tl={tl} />
+      <BooksQuoteNumberingDialog tl={tl} />
+      <BooksQuoteScanDialog tl={tl} />
+      <BooksQuoteBulkItemsDialog tl={tl} />
+      <BooksQuotePdfPreviewModal tl={tl} />
+      <BooksQuoteConfirmDialog tl={tl} />
+      <BooksQuoteFilePickerModal tl={tl} />
       <BooksToast tl={tl} />
 
       {/* Optional fade overlay */}

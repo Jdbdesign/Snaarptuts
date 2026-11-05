@@ -672,6 +672,10 @@ export const BOOKS_URLS = {
   customers: "books.snaarp.com/customers",
   newCustomer: "books.snaarp.com/customers/new",
   customerDetails: "books.snaarp.com/customers/75dac8f4-2fd9-486a-9518-dc08b4e6db6d",
+  quotes: "books.snaarp.com/quotes",
+  newQuote: "books.snaarp.com/quotes/new",
+  quoteDetails: "books.snaarp.com/quotes/4c5f94a8-451f-4adc-9845-0bef8de60156",
+  editQuote: "books.snaarp.com/quotes/4c5f94a8-451f-4adc-9845-0bef8de60156/edit",
 };
 
 export type BooksPage =
@@ -684,7 +688,11 @@ export type BooksPage =
   | "item-detail"
   | "customers"
   | "new-customer"
-  | "customer-detail";
+  | "customer-detail"
+  | "quotes"
+  | "new-quote"
+  | "quote-detail"
+  | "edit-quote";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -1115,4 +1123,403 @@ export const PAYMENT_TERMS = [
 ];
 
 export const SALUTATIONS = ["Mr.", "Mrs.", "Ms.", "Miss", "Dr."];
+
+// ── Quote Data Types & Lists ────────────────────────────────────────────────
+
+export type QuoteStatus = "Draft" | "Sent" | "Accepted" | "Declined" | "Expired";
+
+export interface QuoteLineItem {
+  id: string;
+  name: string;
+  description?: string;
+  quantity: number;
+  rate: number;
+  tax: string;
+  amount: number;
+}
+
+export interface QuoteItem {
+  id: string;
+  quoteNumber: string;
+  customerName: string;
+  customerId: string;
+  date: string;
+  expiryDate: string;
+  referenceNumber: string;
+  salesperson: string;
+  projectName: string;
+  subject: string;
+  amount: number;
+  status: QuoteStatus;
+  items: QuoteLineItem[];
+  subTotal: number;
+  discountPercent: number;
+  discountAmount: number;
+  shipping: number;
+  adjustment: number;
+  total: number;
+  customerNotes: string;
+  termsAndConditions: string;
+  attachments?: string[];
+  customerAddress: {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+  };
+  customerEmail: string;
+}
+
+export const INITIAL_QUOTES: QuoteItem[] = [
+  {
+    id: "qt-0008",
+    quoteNumber: "QT-0008",
+    customerName: "Brightway Stores",
+    customerId: "cust-2",
+    date: "11/04/2026",
+    expiryDate: "11/18/2026",
+    referenceNumber: "BW-2026-11",
+    salesperson: "Sam Taylor",
+    projectName: "Store Refresh 2026",
+    subject: "Q4 produce and packaging supply quote",
+    amount: 84.0,
+    status: "Draft",
+    items: [
+      {
+        id: "qli-1",
+        name: "Cassava Flour 10kg",
+        quantity: 2,
+        rate: 24.0,
+        tax: "-",
+        amount: 48.0,
+      },
+      {
+        id: "qli-2",
+        name: "Packaging Boxes",
+        quantity: 3,
+        rate: 12.0,
+        tax: "-",
+        amount: 36.0,
+      },
+    ],
+    subTotal: 84.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 84.0,
+    customerNotes: "Looking forward for your business.",
+    termsAndConditions:
+      "Payment due within 14 days of acceptance. Prices are valid until the expiry date. Delivery within 3 working days of order.",
+    customerAddress: {
+      street: "14 Market Street",
+      city: "Leeds",
+      state: "West Yorkshire",
+      zip: "LS1 6BG",
+      country: "United Kingdom",
+    },
+    customerEmail: "orders@brightway.example",
+  },
+  {
+    id: "qt-0007",
+    quoteNumber: "QT-0007",
+    customerName: "Acme Foods Ltd",
+    customerId: "cust-1",
+    date: "11/02/2026",
+    expiryDate: "11/16/2026",
+    referenceNumber: "AF-2026-88",
+    salesperson: "Sam Taylor",
+    projectName: "Wholesale Order",
+    subject: "Bulk Organic Rice supply",
+    amount: 156.0,
+    status: "Draft",
+    items: [
+      {
+        id: "qli-3",
+        name: "Organic Rice 25kg",
+        quantity: 2,
+        rate: 78.0,
+        tax: "-",
+        amount: 156.0,
+      },
+    ],
+    subTotal: 156.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 156.0,
+    customerNotes: "Looking forward for your business.",
+    termsAndConditions:
+      "Payment due within 14 days of acceptance. Prices are valid until the expiry date. Delivery within 3 working days of order.",
+    customerAddress: {
+      street: "42 High Street",
+      city: "Birmingham",
+      state: "West Midlands",
+      zip: "B2 4XJ",
+      country: "United Kingdom",
+    },
+    customerEmail: "contact@acmefoods.co.uk",
+  },
+  {
+    id: "qt-0006",
+    quoteNumber: "QT-0006",
+    customerName: "Casey Brown",
+    customerId: "cust-5",
+    date: "10/28/2026",
+    expiryDate: "11/11/2026",
+    referenceNumber: "CB-2026-04",
+    salesperson: "Sam Taylor",
+    projectName: "Private Catering Supplies",
+    subject: "Palm Oil seasonal batch",
+    amount: 84.0,
+    status: "Sent",
+    items: [
+      {
+        id: "qli-4",
+        name: "Palm Oil 5L",
+        quantity: 4,
+        rate: 21.0,
+        tax: "-",
+        amount: 84.0,
+      },
+    ],
+    subTotal: 84.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 84.0,
+    customerNotes: "Looking forward for your business.",
+    termsAndConditions: "Payment due within 14 days of acceptance.",
+    customerAddress: {
+      street: "8 Victoria Road",
+      city: "Manchester",
+      state: "Greater Manchester",
+      zip: "M14 6XL",
+      country: "United Kingdom",
+    },
+    customerEmail: "casey.brown@outlook.example",
+  },
+  {
+    id: "qt-0005",
+    quoteNumber: "QT-0005",
+    customerName: "Sterling Interiors",
+    customerId: "cust-4",
+    date: "10/24/2026",
+    expiryDate: "11/07/2026",
+    referenceNumber: "SI-2026-19",
+    salesperson: "Sam Taylor",
+    projectName: "Studio Renovation Consulting",
+    subject: "Consulting advisory package",
+    amount: 220.0,
+    status: "Expired",
+    items: [
+      {
+        id: "qli-5",
+        name: "Business Setup Consulting",
+        quantity: 2,
+        rate: 110.0,
+        tax: "-",
+        amount: 220.0,
+      },
+    ],
+    subTotal: 220.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 220.0,
+    customerNotes: "Looking forward for your business.",
+    termsAndConditions: "Prices are valid until the expiry date.",
+    customerAddress: {
+      street: "27 Regent Street",
+      city: "London",
+      state: "Greater London",
+      zip: "SW1Y 4PE",
+      country: "United Kingdom",
+    },
+    customerEmail: "accounts@sterlinginteriors.co.uk",
+  },
+  {
+    id: "qt-0004",
+    quoteNumber: "QT-0004",
+    customerName: "Harvest Tables Ltd",
+    customerId: "cust-3",
+    date: "10/20/2026",
+    expiryDate: "11/03/2026",
+    referenceNumber: "HT-2026-31",
+    salesperson: "Sam Taylor",
+    projectName: "Autumn Produce Supply",
+    subject: "Fresh organic seasonal produce",
+    amount: 450.0,
+    status: "Accepted",
+    items: [
+      {
+        id: "qli-6",
+        name: "Food Farm",
+        quantity: 2,
+        rate: 225.0,
+        tax: "-",
+        amount: 450.0,
+      },
+    ],
+    subTotal: 450.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 450.0,
+    customerNotes: "Looking forward for your business.",
+    termsAndConditions: "Payment due within 14 days of acceptance.",
+    customerAddress: {
+      street: "5 Mill Lane",
+      city: "Sheffield",
+      state: "South Yorkshire",
+      zip: "S1 2GU",
+      country: "United Kingdom",
+    },
+    customerEmail: "supplies@harvesttables.example",
+  },
+  {
+    id: "qt-0003",
+    quoteNumber: "QT-0003",
+    customerName: "Northfield Cafe",
+    customerId: "cust-6",
+    date: "10/15/2026",
+    expiryDate: "10/29/2026",
+    referenceNumber: "NC-2026-09",
+    salesperson: "Sam Taylor",
+    projectName: "Spices Regular Reorder",
+    subject: "Ground Pepper 500g catering quote",
+    amount: 96.0,
+    status: "Declined",
+    items: [
+      {
+        id: "qli-7",
+        name: "Ground Pepper 500g",
+        quantity: 12,
+        rate: 8.0,
+        tax: "-",
+        amount: 96.0,
+      },
+    ],
+    subTotal: 96.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 96.0,
+    customerNotes: "Looking forward for your business.",
+    termsAndConditions: "Prices are valid until the expiry date.",
+    customerAddress: {
+      street: "18 Northfield Avenue",
+      city: "Leeds",
+      state: "West Yorkshire",
+      zip: "LS6 2QJ",
+      country: "United Kingdom",
+    },
+    customerEmail: "orders@northfieldcafe.co.uk",
+  },
+  {
+    id: "qt-0002",
+    quoteNumber: "QT-0002",
+    customerName: "Brightway Stores",
+    customerId: "cust-2",
+    date: "10/12/2026",
+    expiryDate: "10/26/2026",
+    referenceNumber: "BW-2026-08",
+    salesperson: "Sam Taylor",
+    projectName: "Grain Distribution Q4",
+    subject: "Bulk Organic Rice supply quote",
+    amount: 312.0,
+    status: "Sent",
+    items: [
+      {
+        id: "qli-8",
+        name: "Organic Rice 25kg",
+        quantity: 8,
+        rate: 39.0,
+        tax: "-",
+        amount: 312.0,
+      },
+    ],
+    subTotal: 312.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 312.0,
+    customerNotes: "Looking forward for your business.",
+    termsAndConditions: "Payment due within 14 days of acceptance.",
+    customerAddress: {
+      street: "14 Market Street",
+      city: "Leeds",
+      state: "West Yorkshire",
+      zip: "LS1 6BG",
+      country: "United Kingdom",
+    },
+    customerEmail: "orders@brightway.example",
+  },
+  {
+    id: "qt-0001",
+    quoteNumber: "QT-0001",
+    customerName: "Acme Foods Ltd",
+    customerId: "cust-1",
+    date: "10/08/2026",
+    expiryDate: "10/22/2026",
+    referenceNumber: "AF-2026-72",
+    salesperson: "Sam Taylor",
+    projectName: "Bakery Staples",
+    subject: "Cassava Flour bakery quote",
+    amount: 168.0,
+    status: "Accepted",
+    items: [
+      {
+        id: "qli-9",
+        name: "Cassava Flour 10kg",
+        quantity: 7,
+        rate: 24.0,
+        tax: "-",
+        amount: 168.0,
+      },
+    ],
+    subTotal: 168.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 168.0,
+    customerNotes: "Looking forward for your business.",
+    termsAndConditions: "Payment due within 14 days of acceptance.",
+    customerAddress: {
+      street: "42 High Street",
+      city: "Birmingham",
+      state: "West Midlands",
+      zip: "B2 4XJ",
+      country: "United Kingdom",
+    },
+    customerEmail: "contact@acmefoods.co.uk",
+  },
+];
+
+export const QUOTE_TAX_OPTIONS = [
+  "Select a Tax",
+  "VAT Standard (20%)",
+  "VAT Reduced (5%)",
+  "Zero Rated (0%)",
+];
+
+export const QUOTE_SALESPERSONS = ["None", "Sam Taylor"];
+
+export const QUOTE_PROJECTS_BY_CUSTOMER: Record<string, string[]> = {
+  "Northfield Cafe": ["Spring Catering Order", "Spices Regular Reorder"],
+  "Brightway Stores": ["Store Refresh 2026", "Grain Distribution Q4"],
+  "Acme Foods Ltd": ["Wholesale Order", "Bakery Staples"],
+  "Harvest Tables Ltd": ["Autumn Produce Supply"],
+  "Sterling Interiors": ["Studio Renovation Consulting"],
+  "Casey Brown": ["Private Catering Supplies"],
+};
+
 
