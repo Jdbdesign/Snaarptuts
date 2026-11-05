@@ -5,6 +5,8 @@ import { Step2 } from "@/scenes/books/step2/Step2";
 import { runStep2, STEP2_DURATION_MS } from "@/scenes/books/step2/script";
 import { Step3 } from "@/scenes/books/step3/Step3";
 import { runStep3, STEP3_DURATION_MS } from "@/scenes/books/step3/script";
+import { Step4 } from "@/scenes/books/step4/Step4";
+import { runStep4, STEP4_DURATION_MS } from "@/scenes/books/step4/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -59,6 +61,11 @@ export const books: Tutorial = {
       id: "home-watch-key-accounts",
       title: "Home: Watch key accounts (accrual or cash)",
       url: BOOKS_URLS.dashboard,
+      scene: {
+        Component: Step4,
+        run: runStep4,
+        durationMs: STEP4_DURATION_MS,
+      },
     },
     {
       id: "home-recent-updates",
