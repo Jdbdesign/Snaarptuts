@@ -193,10 +193,17 @@ export class Timeline {
     }
 
     if (!el) {
+      const sceneId = this.getVar<string>("__sceneId", "");
+      const sceneTitle = this.getVar<string>("__sceneTitle", "");
+      const stepContext = sceneId
+        ? ` in step ${sceneId}${sceneTitle ? ` ("${sceneTitle}")` : ""}`
+        : "";
       console.error(
-        `[Timeline Error]: element matching "${selector}" was not found within ${timeoutMs}ms.`
+        `[Timeline Error]${stepContext}: element matching "${selector}" was not found within ${timeoutMs}ms.`
       );
-      throw new Error(`Timeline: no element matches "${selector}" after ${timeoutMs}ms`);
+      throw new Error(
+        `Timeline: no element matches "${selector}" after ${timeoutMs}ms${stepContext}`
+      );
     }
 
     return el;

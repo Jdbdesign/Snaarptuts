@@ -11,6 +11,8 @@ const CAPTION_EDGE = 24; // gap between the caption bubble and the frame edge
 
 type Props = {
   scene: Scene;
+  stepId?: string;
+  stepTitle?: string;
   paused: boolean;
   onDone: () => void;
   onAdvance: () => void;
@@ -21,7 +23,15 @@ type Props = {
  * Runs one scene. The scene is laid out at a fixed 1440px design width and scaled
  * to the frame width; design height = frame height / scale, so it always fills the frame.
  */
-export function ScenePlayer({ scene, paused, onDone, onAdvance, onUrlChange }: Props) {
+export function ScenePlayer({
+  scene,
+  stepId,
+  stepTitle,
+  paused,
+  onDone,
+  onAdvance,
+  onUrlChange,
+}: Props) {
   const frameRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -134,16 +144,21 @@ export function ScenePlayer({ scene, paused, onDone, onAdvance, onUrlChange }: P
     if (!tl || !ready) return;
     (async () => {
       try {
+        if (stepId) tl.setVar("__sceneId", stepId);
+        if (stepTitle) tl.setVar("__sceneTitle", stepTitle);
         await tl.ready();
         await scene.run(tl);
         latest.current.onDone();
         await tl.wait(GAP_AFTER_STEP_MS);
         latest.current.onAdvance();
       } catch (e) {
-        if (!(e instanceof CancelledError)) console.error(e);
+        if (!(e instanceof CancelledError)) {
+          console.error(e);
+          latest.current.onDone();
+        }
       }
     })();
-  }, [tl, ready, scene]);
+  }, [tl, ready, scene, stepId, stepTitle]);
 
   // Progress line along the bottom edge.
   useEffect(() => {

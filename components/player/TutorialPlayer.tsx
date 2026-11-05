@@ -152,6 +152,8 @@ export function TutorialPlayer({ productId }: { productId: string }) {
           <ScenePlayer
             key={`${step.id}-${run.runKey}`}
             scene={step.scene}
+            stepId={step.id}
+            stepTitle={step.title}
             paused={paused}
             onDone={handleDone}
             onAdvance={handleAdvance}

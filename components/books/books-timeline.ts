@@ -1,8 +1,43 @@
 import type { Timeline } from "@/lib/timeline";
 import { BOOKS_URLS, type BooksPage } from "./books-data";
 
-// Re-export generic house helpers from sheets-timeline
-export { pressOn, hoverOn, ring, endFade } from "@/components/sheets/sheets-timeline";
+/** Move onto an element, ring it, click it and clear the ring. */
+export async function pressOn(
+  tl: Timeline,
+  sel: string,
+  opts: { ms?: number; dx?: number; dy?: number; ring?: boolean } = {}
+) {
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 650, dx: opts.dx, dy: opts.dy });
+  if (opts.ring !== false) tl.highlight(sel);
+  await tl.wait(150);
+  await tl.click(sel);
+  tl.clearHighlight();
+}
+
+/** Move onto an element and hover it, without clicking. */
+export async function hoverOn(
+  tl: Timeline,
+  sel: string,
+  opts: { ms?: number; dx?: number; dy?: number } = {}
+) {
+  await tl.moveCursorTo(sel, { ms: opts.ms ?? 450, dx: opts.dx, dy: opts.dy });
+  tl.hover(sel);
+}
+
+/** Ring an element for a moment (no click). */
+export async function ring(tl: Timeline, sel: string, ms = 1200) {
+  tl.highlight(sel);
+  await tl.wait(ms);
+  tl.clearHighlight();
+}
+
+/** The quick white fade every step ends with. */
+export async function endFade(tl: Timeline, atMs: number, endMs: number) {
+  await tl.at(atMs);
+  tl.hideCaption();
+  tl.setVar("fade", true);
+  await tl.at(endMs);
+}
 
 /**
  * Resets Snaarp Books scene variables to a clean starting state for any step.

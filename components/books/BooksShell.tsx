@@ -205,7 +205,7 @@ export function BooksShell({ tl, children, overlay }: Props) {
       {/* 2. Left Subnav Menu */}
       <aside
         data-tl="books-left-nav"
-        className="flex h-full w-[200px] shrink-0 flex-col border-r border-[#EBECEF] bg-[#FAFAFA] select-none z-20"
+        className="flex h-full w-[220px] shrink-0 flex-col border-r border-[#EBECEF] bg-[#FAFAFA] select-none z-20"
       >
         {/* Navigation list */}
         <div className="flex-1 px-3 py-4 space-y-1 overflow-y-auto no-scrollbar">
@@ -218,8 +218,8 @@ export function BooksShell({ tl, children, overlay }: Props) {
                 : "text-gray-700 hover:bg-gray-100"
             }`}
           >
-            <Home className="w-4 h-4" />
-            <span>Home</span>
+            <Home className="w-4 h-4 shrink-0" />
+            <span className="whitespace-nowrap">Home</span>
           </button>
 
           <button
@@ -231,87 +231,87 @@ export function BooksShell({ tl, children, overlay }: Props) {
                 : "text-gray-700 hover:bg-gray-100"
             }`}
           >
-            <Box className="w-4 h-4" />
-            <span>Products</span>
+            <Box className="w-4 h-4 shrink-0" />
+            <span className="whitespace-nowrap">Products</span>
           </button>
 
           <button
             data-tl="nav-books-approvals"
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <ShieldCheck className="w-4 h-4 text-gray-500" />
-            <span>Approvals</span>
+            <ShieldCheck className="w-4 h-4 text-gray-500 shrink-0" />
+            <span className="whitespace-nowrap">Approvals</span>
           </button>
 
           <button
             data-tl="nav-books-sales"
             className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <div className="flex items-center gap-3">
-              <ShoppingCart className="w-4 h-4 text-gray-500" />
-              <span>Sales</span>
+            <div className="flex items-center gap-3 min-w-0">
+              <ShoppingCart className="w-4 h-4 text-gray-500 shrink-0" />
+              <span className="whitespace-nowrap">Sales</span>
             </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           </button>
 
           <button
             data-tl="nav-books-purchases"
             className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <div className="flex items-center gap-3">
-              <ShoppingBag className="w-4 h-4 text-gray-500" />
-              <span>Purchases</span>
+            <div className="flex items-center gap-3 min-w-0">
+              <ShoppingBag className="w-4 h-4 text-gray-500 shrink-0" />
+              <span className="whitespace-nowrap">Purchases</span>
             </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           </button>
 
           <button
             data-tl="nav-books-banking"
             className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <div className="flex items-center gap-3">
-              <Landmark className="w-4 h-4 text-gray-500" />
-              <span>Banking</span>
+            <div className="flex items-center gap-3 min-w-0">
+              <Landmark className="w-4 h-4 text-gray-500 shrink-0" />
+              <span className="whitespace-nowrap">Banking</span>
             </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           </button>
 
           <button
             data-tl="nav-books-accountant"
             className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <div className="flex items-center gap-3">
-              <BookOpen className="w-4 h-4 text-gray-500" />
-              <span>Accountant</span>
+            <div className="flex items-center gap-3 min-w-0">
+              <BookOpen className="w-4 h-4 text-gray-500 shrink-0" />
+              <span className="whitespace-nowrap">Accountant</span>
             </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           </button>
 
           <button
             data-tl="nav-books-filing"
             className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <div className="flex items-center gap-3">
-              <FileText className="w-4 h-4 text-gray-500" />
-              <span>Filing & Compliance</span>
+            <div className="flex items-center gap-3 min-w-0">
+              <FileText className="w-4 h-4 text-gray-500 shrink-0" />
+              <span className="whitespace-nowrap">Filing & Compliance</span>
             </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           </button>
 
           <button
             data-tl="nav-books-reports"
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <BarChart3 className="w-4 h-4 text-gray-500" />
-            <span>Reports</span>
+            <BarChart3 className="w-4 h-4 text-gray-500 shrink-0" />
+            <span className="whitespace-nowrap">Reports</span>
           </button>
 
           <button
             data-tl="nav-books-documents"
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            <Files className="w-4 h-4 text-gray-500" />
-            <span>Documents</span>
+            <Files className="w-4 h-4 text-gray-500 shrink-0" />
+            <span className="whitespace-nowrap">Documents</span>
           </button>
         </div>
 

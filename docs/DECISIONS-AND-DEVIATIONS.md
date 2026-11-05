@@ -1163,6 +1163,22 @@ The tutorial faithfully showcases entry points to future Snaarp Books modules wi
 - Native browser confirmation popups (`confirm("Are you sure you want to delete this item?")`) are replaced with in-app styled `BooksConfirmDialog` modals featuring clean typography, "books.snaarp.com says", Cancel and OK buttons, and active "Deleting..." spinners to maintain immersion without operating system or browser modal popups.
 - Native file upload dialogues are replaced with in-app modal file pickers (`BooksCsvPickerModal` for CSV catalog import, `BooksImagePickerModal` for product photography).
 
+## Fix: Step 5 Stuck on Update Rows & Subnav Menu Alignment
+1. **Step 5 Update Rows Target Fix**:
+   - `components/books/BooksHomeView.tsx` previously named update row elements `data-tl="recent-update-row-${idx + 1}"`, whereas `scenes/books/step5/script.ts` looked for `update-row-*`.
+   - Updated rows in `BooksHomeView.tsx` to use stable `data-tl="update-row-${idx}"` (0-indexed).
+   - Updated `scenes/books/step5/script.ts` to hover and ring `[data-tl=update-row-0]`, scroll to `[data-tl=update-row-7]`, hover and ring row 7, and cleanly navigate back to the Dashboard tab.
+2. **Native Books Timeline Helpers**:
+   - Removed re-exports from `sheets-timeline` in `components/books/books-timeline.ts` and implemented native Books helpers (`pressOn`, `hoverOn`, `ring`, `endFade`).
+3. **Safety Net**:
+   - `lib/timeline.ts` `waitForElement` now logs step context: `[Timeline Error] in step <id> ("<title>"): element matching "<selector>" was not found within 3000ms`.
+   - `components/player/ScenePlayer.tsx` calls `latest.current.onDone()` on caught errors so any unhandled step error ends gracefully instead of freezing the player, allowing the viewer to advance with Next.
+4. **Subnav Menu Item "Filing & Compliance" (One Line Matching Video)**:
+   - In `components/books/BooksShell.tsx`, adjusted left subnav width from `w-[200px]` to `w-[220px]` (matching the 212px measured from video recording `1105 (2).mp4` scaled to 1440 design space) and applied `whitespace-nowrap`, keeping "Filing & Compliance" on a single line without wrapping.
+5. **Full 22-Step Standalone Verification**:
+   - Verified all 22 Books steps in Playwright standalone from the step rail with 0 errors.
+
+
 
 
 
