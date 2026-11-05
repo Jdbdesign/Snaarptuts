@@ -91,6 +91,8 @@ import { Step45 } from "@/scenes/books/step45/Step45";
 import { runStep45, STEP45_DURATION_MS } from "@/scenes/books/step45/script";
 import { Step46 } from "@/scenes/books/step46/Step46";
 import { runStep46, STEP46_DURATION_MS } from "@/scenes/books/step46/script";
+import { Step47 } from "@/scenes/books/step47/Step47";
+import { runStep47, STEP47_DURATION_MS } from "@/scenes/books/step47/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -569,6 +571,16 @@ export const books: Tutorial = {
         Component: Step46,
         run: runStep46,
         durationMs: STEP46_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-scan-barcode",
+      title: "Quotes: scan an item by barcode",
+      url: BOOKS_URLS.newQuote,
+      scene: {
+        Component: Step47,
+        run: runStep47,
+        durationMs: STEP47_DURATION_MS,
       },
     },
   ],
