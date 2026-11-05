@@ -153,8 +153,51 @@ export function DriveHomeView({ tl }: Props) {
         {/* Table Content */}
         <div data-tl="recent-table" className="rounded-2xl border border-[#EBECEF] bg-white overflow-hidden shadow-2xs">
           {filter === "pdf" ? (
-            <div className="flex h-48 flex-col items-center justify-center text-center p-6">
-              <p className="text-[13px] text-[#6B7280]">No recent files found</p>
+            <div>
+              <table className="w-full text-left text-[12.5px]">
+                <thead>
+                  <tr className="border-b border-[#F3F4F6] text-[11.5px] font-semibold text-[#6B7280]">
+                    <th className="py-3 px-5 font-medium">Name</th>
+                    <th className="py-3 px-5 font-medium">Opened</th>
+                    <th className="py-3 px-5 font-medium">Owner</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#F3F4F6]">
+                  <tr data-tl="row-pdf-q3report" className="hover:bg-purple-50/30 transition-colors">
+                    <td className="py-3 px-5">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-6 w-6 items-center justify-center rounded bg-rose-50 text-rose-600">
+                          <FileText size={14} />
+                        </div>
+                        <div>
+                          <span className="font-semibold text-[#111827] block leading-tight">Q3 report.pdf</span>
+                          <span className="text-[10.5px] text-[#9CA3AF]">PDF document</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-5 text-[#4B5563]">Just now</td>
+                    <td className="py-3 px-5 text-[#4B5563]">Sam Taylor</td>
+                  </tr>
+                  <tr data-tl="row-pdf-payslip" className="hover:bg-purple-50/30 transition-colors">
+                    <td className="py-3 px-5">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-6 w-6 items-center justify-center rounded bg-rose-50 text-rose-600">
+                          <FileText size={14} />
+                        </div>
+                        <div>
+                          <span className="font-semibold text-[#111827] block leading-tight">payslip.pdf</span>
+                          <span className="text-[10.5px] text-[#9CA3AF]">PDF document</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-5 text-[#4B5563]">Yesterday</td>
+                    <td className="py-3 px-5 text-[#4B5563]">Sam Taylor</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="flex items-center justify-between border-t border-[#F3F4F6] px-5 py-3 text-[11.5px] text-[#6B7280]">
+                <span>Showing 1-2 of 2</span>
+              </div>
             </div>
           ) : filter === "folders" ? (
             <div>
