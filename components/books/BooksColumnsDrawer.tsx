@@ -33,70 +33,75 @@ export function BooksColumnsDrawer({ tl }: Props) {
         </h3>
 
         <div className="mt-4 space-y-3">
-          <label
+          <div
             data-tl="col-opt-purchase-desc"
+            onClick={() => tl.setVar("booksColPurchaseDesc", !colPurchaseDesc)}
             className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer select-none"
           >
             <input
               type="checkbox"
               checked={colPurchaseDesc}
-              onChange={(e) => tl.setVar("booksColPurchaseDesc", e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+              readOnly
+              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer pointer-events-none"
             />
             <span>Purchase Description</span>
-          </label>
+          </div>
 
-          <label
+          <div
             data-tl="col-opt-purchase-rate"
+            onClick={() => tl.setVar("booksColPurchaseRate", !colPurchaseRate)}
             className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer select-none"
           >
             <input
               type="checkbox"
               checked={colPurchaseRate}
-              onChange={(e) => tl.setVar("booksColPurchaseRate", e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+              readOnly
+              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer pointer-events-none"
             />
             <span>Purchase Rate</span>
-          </label>
+          </div>
 
-          <label
+          <div
             data-tl="col-opt-desc"
+            onClick={() => tl.setVar("booksColDesc", !colDesc)}
             className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer select-none"
           >
             <input
               type="checkbox"
               checked={colDesc}
-              onChange={(e) => tl.setVar("booksColDesc", e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+              readOnly
+              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer pointer-events-none"
             />
             <span>Description</span>
-          </label>
+          </div>
 
-          <label
+          <div
             data-tl="col-opt-rate"
+            onClick={() => tl.setVar("booksColRate", !colRate)}
             className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer select-none"
           >
             <input
               type="checkbox"
               checked={colRate}
-              onChange={(e) => tl.setVar("booksColRate", e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+              readOnly
+              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer pointer-events-none"
             />
             <span>Rate</span>
-          </label>
+          </div>
 
-          <label
+          <div
             data-tl="col-opt-unit"
+            onClick={() => tl.setVar("booksColUnit", !colUnit)}
             className="flex items-center gap-2.5 text-sm text-gray-700 cursor-pointer select-none"
           >
             <input
               type="checkbox"
               checked={colUnit}
-              onChange={(e) => tl.setVar("booksColUnit", e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+              readOnly
+              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer pointer-events-none"
             />
             <span>Usage Unit</span>
-          </label>
+          </div>
         </div>
       </div>
     </div>

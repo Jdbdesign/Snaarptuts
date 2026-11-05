@@ -13,6 +13,8 @@ import { Step6 } from "@/scenes/books/step6/Step6";
 import { runStep6, STEP6_DURATION_MS } from "@/scenes/books/step6/script";
 import { Step7 } from "@/scenes/books/step7/Step7";
 import { runStep7, STEP7_DURATION_MS } from "@/scenes/books/step7/script";
+import { Step8 } from "@/scenes/books/step8/Step8";
+import { runStep8, STEP8_DURATION_MS } from "@/scenes/books/step8/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -107,6 +109,11 @@ export const books: Tutorial = {
       id: "products-show-hide-columns",
       title: "Products: Show or hide columns",
       url: BOOKS_URLS.products,
+      scene: {
+        Component: Step8,
+        run: runStep8,
+        durationMs: STEP8_DURATION_MS,
+      },
     },
     {
       id: "products-import-csv",
