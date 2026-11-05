@@ -1,7 +1,7 @@
 export const CAPTIONS = {
-  clickSettings: "Click the gear icon to customize link permissions.",
-  linkAudience: "Choose who the link works for: anyone, existing members, or chosen people.",
-  moreSettings: "Set view or edit permissions and optional expiration dates.",
-  applySettings: "Click Apply to save your updated link permissions.",
-  settingsSaved: "Link permissions are updated and applied to the share link.",
+  clickFileMenu: "Click the three dots on Sample notes.txt.",
+  clickMove: "Click Move to choose a destination.",
+  pickFolder: "Select Brand Logos and click Move Here.",
+  undoMove: "Click Undo in the toast to restore the file to My Files.",
+  restored: "The move was undone and the file remains in place.",
 };
