@@ -35,6 +35,8 @@ import { Step17 } from "@/scenes/books/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/books/step17/script";
 import { Step18 } from "@/scenes/books/step18/Step18";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/books/step18/script";
+import { Step19 } from "@/scenes/books/step19/Step19";
+import { runStep19, STEP19_DURATION_MS } from "@/scenes/books/step19/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -239,6 +241,11 @@ export const books: Tutorial = {
       id: "products-lock-unlock",
       title: "Products: Lock and unlock an item",
       url: BOOKS_URLS.details,
+      scene: {
+        Component: Step19,
+        run: runStep19,
+        durationMs: STEP19_DURATION_MS,
+      },
     },
     {
       id: "products-delete-single",
