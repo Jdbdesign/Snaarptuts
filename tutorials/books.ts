@@ -51,6 +51,8 @@ import { Step25 } from "@/scenes/books/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/books/step25/script";
 import { Step26 } from "@/scenes/books/step26/Step26";
 import { runStep26, STEP26_DURATION_MS } from "@/scenes/books/step26/script";
+import { Step27 } from "@/scenes/books/step27/Step27";
+import { runStep27, STEP27_DURATION_MS } from "@/scenes/books/step27/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -335,6 +337,11 @@ export const books: Tutorial = {
       id: "customers-add-individual",
       title: "Customers: Add an individual customer with a contact person",
       url: BOOKS_URLS.newCustomer,
+      scene: {
+        Component: Step27,
+        run: runStep27,
+        durationMs: STEP27_DURATION_MS,
+      },
     },
     {
       id: "customers-import-csv",
