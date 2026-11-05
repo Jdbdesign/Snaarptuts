@@ -1,4 +1,7 @@
 export const CAPTIONS = {
-  clickRestore: "Click Restore on a file to recover it from the trash.",
-  openMyFiles: "Click My Files to verify the item has returned to its original location.",
+  clickMenu: "Click the three-dot menu on Project brief.docx.",
+  addShortcut: "Click Add shortcut to My files.",
+  viewShortcut: "Click My Files to view the new shortcut in your files.",
+  backToShared: "Return to Shared to manage other shared items.",
+  hideItem: "Open the row menu on Roadmap.pptx and click Hide from Shared.",
 };
