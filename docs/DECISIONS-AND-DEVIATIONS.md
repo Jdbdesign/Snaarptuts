@@ -1010,7 +1010,7 @@ Built from video recording `1104(1).mp4` and extracted stills `ref/drive-frames-
 - Step 41 (Rename a folder): Video opened the rename dialog and clicked Cancel; completed by typing "Active Workspaces", clicking Rename ("Renaming..."), updating the folder card title, and showing "Folder renamed" toast.
 - Step 45 (Copy a file): Video produced a red backend error upon clicking Images and cancelled; completed by cleanly picking the destination, clicking "Copy Here" ("Copying..."), and showing "Item copied successfully" toast.
 
-## Snaarp Drive Part 4: Bulk Actions, Workspaces & Advanced Flow Completion (steps 49-67)
+## Snaarp Drive Part 4: Bulk Actions, Workspaces & Advanced Flow Completion (steps 49-68)
 
 Built from video recording `1104 (2).mp4` (5m46s) and extracted stills `ref/drive-frames-4/` (`thumb-0001.jpg` to `thumb-0180.jpg`).
 
@@ -1024,25 +1024,36 @@ Built from video recording `1104 (2).mp4` (5m46s) and extracted stills `ref/driv
 
 **Decisions & deviations & completed beyond the video:**
 1. **Rule applied: COMPLETE EVERY FLOW**:
-   - In the recording, actions frequently cancelled, hovered without clicking, or produced error states. All 19 steps carry every action through to its finished success state with realistic UI updates and authentic success toasts:
+   - In the recording, actions frequently cancelled, hovered without clicking, or produced error states. All 20 steps carry every action through to its finished success state with realistic UI updates and authentic success toasts:
      - Step 50: Bulk Move 3 items into "Project Notes" folder -> clicked "Move Here", items moved, green "3 items moved" toast.
      - Step 51: Bulk Delete 2 items -> clicked "Delete", items removed from My Files, green "2 items moved to Recycle Bin" toast.
      - Step 53: Restore an item in Recycle Bin -> clicked "Restore", "Restoring...", item restored, green "Item restored to My Files" toast.
      - Step 54: Empty Trash -> clicked "Empty Trash", "Emptying...", Recycle Bin displays empty state, green "Recycle bin emptied" toast.
-     - Step 57: Shared by you -> clicked row menu, selected "Stop sharing", confirmed, item unshared, green "Sharing stopped" toast.
-     - Step 58: Shared bulk actions -> selected items, clicked bulk "Remove", green "2 items removed from shared list" toast.
-     - Step 61: Create workspace -> typed "Marketing Space" and description, clicked "Create Workspace", "Creating...", workspace card mounts, green "Workspace created successfully" toast.
-     - Step 63: Invite organisation members -> picked Alex Morgan & Jordan Lee as Viewers, clicked "Send Invites", "Inviting...", members added to workspace table, green "2 members invited to workspace" toast.
-     - Step 64: Change member role & remove member -> changed Alex Morgan to "Editor" ("Role updated" toast), removed Jordan Lee ("Member removed" toast).
-     - Step 65: Browse Workspace Files -> opened folder modal, entered "All Videos" with yellow swatch, created folder in workspace, green "Folder created" toast.
-     - Step 66: Upload file into folder -> opened "All Videos", uploaded "Launch Video.mp4" (24.8 MB), upload toast complete, tile mounted in workspace folder.
-     - Step 67: Delete workspace -> checked confirmation checkbox, clicked "Delete Workspace", "Deleting...", navigated back to `/workspaces`, workspace removed, green "Workspace deleted" toast.
-2. **Floating Bulk Action Bar position**:
+     - Step 56 (NEW STEP: Share a file with a teammate): In My Files, opens Q3 report.pdf menu, clicks Share, types "Alex", picks Alex Morgan, sets "Can edit", adds message "Please review before Friday.", clicks Send/Share, shows "File shared with alex.morgan@acme.example." toast. Then opens Shared -> "By you" to reveal the newly shared file with row menu.
+     - Step 57: Shared: With you -> Populated with 6 items across all category chips. Filters by typing "Alex", opens row menu on "Project brief.docx", clicks "Add shortcut to My files" with toast, then navigates to My Files to show the new shortcut tile.
+     - Step 58: Shared: By you and row menu -> Clicks "By you" sub-tab, displaying populated table of files and folders shared with teammates. Clicks row menu on "Q3 report.pdf" and clicks Share with toast. Clicks row menu on "Budget.xlsx" and clicks "Hide from Shared" with toast.
+     - Step 59: Shared: bulk actions -> Selects items using row checkboxes in "By you". Shared bulk action bar appears directly above table with Open, Share, Add shortcut to My files, Download, Hide from Shared. Clicks "Add shortcut to My files" with toast, then clicks "Hide from Shared" with toast.
+     - Step 62: Create workspace -> typed "Marketing Space" and description, clicked "Create Workspace", "Creating...", workspace card mounts, green "Workspace created successfully" toast.
+     - Step 64: Invite organisation members -> picked Alex Morgan & Jordan Lee as Viewers, clicked "Send Invites", "Inviting...", members added to workspace table, green "2 members invited to workspace" toast.
+     - Step 65: Change member role & remove member -> changed Alex Morgan to "Editor" ("Role updated" toast), removed Jordan Lee ("Member removed" toast).
+     - Step 66: Browse Workspace Files -> opened folder modal, entered "All Videos" with yellow swatch, created folder in workspace, green "Folder created" toast.
+     - Step 67: Upload file into folder -> opened "All Videos", uploaded "Launch Video.mp4" (24.8 MB), upload toast complete, tile mounted in workspace folder.
+     - Step 68: Delete workspace -> checked confirmation checkbox, clicked "Delete Workspace", "Deleting...", navigated back to `/workspaces`, workspace removed, green "Workspace deleted" toast.
+2. **Shared Table Layout and Styling (Fix C)**:
+   - Matches the real video UI (`1104 (2).mp4` ~2:20-3:30):
+     - Removed the unnecessary outer white card container with border and shadow. The tabs ("With you" / "By you"), category pills (All, Folders, Documents, Images, Videos, Other), and filter input sit directly on the `#F8F9FA` page background.
+     - The table itself has a thin rounded border (`border border-[#E5E7EB] rounded-lg bg-white overflow-hidden`).
+     - Removed select-all checkbox from the table header; only row checkboxes are shown.
+     - Pagination footer matches the video: "Showing 1-N of N" on the left, and on the right "Rows per page 20 v", `[<] 1 / 1 [>]` (square navigation buttons).
+     - Floating bulk action bar placed directly above the table when rows are selected, with proper button icons and labels.
+     - Applied the same clean layout (sitting directly on `#F8F9FA` background without outer card containers) to Favorites (`DriveFavoritesView.tsx`), Recycle Bin (`DriveTrashView.tsx`), and Meetings (`DriveMeetingsView.tsx`).
+     - Populated Step 9 (Filter recent files) in `DriveHomeView.tsx` with 2 PDF files (`Q3 report.pdf`, `payslip.pdf`) instead of an empty state.
+3. **Floating Bulk Action Bar position (My Files)**:
    - Positioned at `bottom-20` (80px from bottom) rather than resting directly on the bottom edge, preventing collision with the player's bottom caption bubble (`bottom: 24px`, height ~48px) at all standard viewports.
-3. **Completion card**:
-   - Moved to follow Step 67: "Tour complete / You can now organise, manage trash, share, collaborate, and manage workspaces in Snaarp Drive."
+4. **Completion card**:
+   - Moved to follow Step 68: "Tour complete / You can now organise, manage trash, share, collaborate, and manage workspaces in Snaarp Drive."
 
-## Fix: Playback from Step 65 Onwards
+## Fix: Playback from Step 65 Onwards (Fix A)
 - **Root causes**:
   1. `DriveFilesView.tsx` previously gated subfolder contents (`insideBrandLogos`, `insideProjectNotes`, `isInsideWorkspaces`) strictly on `viewMode === "tiles"`. When navigating to My Files from the workspace detail page via `Browse Workspace Files`, `driveFilesViewMode` was initially `"list"` (set by `beginDrive`), which caused `DriveFilesView` to fall back to the root table view instead of rendering the workspace subfolder tiles. As a consequence, `[data-tl=tile-folder-all-videos]` never mounted in the DOM.
   2. In `scenes/drive/step65/script.ts`, the create menu item selector was `create-opt-folder` instead of `menu-item-folder` as declared in `DriveCreateMenu.tsx`. Similarly in `scenes/drive/step66/script.ts`, the upload file selector was `create-opt-file-upload` instead of `menu-item-file-upload`.
@@ -1050,10 +1061,10 @@ Built from video recording `1104 (2).mp4` (5m46s) and extracted stills `ref/driv
 - **Resolution**:
   1. `DriveFilesView.tsx` updated so subfolder views always render when a subfolder path is active (`viewMode === "tiles" || insideBrandLogos || insideProjectNotes || isInsideWorkspaces`).
   2. `DriveWorkspaceDetailView.tsx` explicitly sets `driveFilesViewMode: "tiles"` and `driveActiveNav: "files"` when clicking `Browse Workspace Files`.
-  3. `scenes/drive/step65/script.ts` and `step66/script.ts` align selectors with `DriveCreateMenu.tsx` (`menu-item-folder` and `menu-item-file-upload`) and set `driveFilesViewMode: "tiles"`.
+  3. Aligned selectors with `DriveCreateMenu.tsx` (`menu-item-folder` and `menu-item-file-upload`) and set `driveFilesViewMode: "tiles"`.
   4. Added `isCreating` support (`Loader2` spinner and "Creating..." label) to `DriveFolderModal.tsx`, along with workspace folder creation detection and toast trigger in `DrivePart4Toasts.tsx`.
   5. `lib/timeline.ts` safety net added: `waitForElement` retries element lookup over 3 seconds before logging a clear console error with the selector instead of hanging or failing prematurely during asynchronous React renders.
-  6. Verified with automated Playwright testing across all 67 Drive steps both individually and continuously through autoplay.
+  6. Verified with automated Playwright testing across all 68 Drive steps both individually and continuously through autoplay.
 
 
 

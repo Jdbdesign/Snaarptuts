@@ -8,42 +8,51 @@ import {
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP59_DURATION_MS = 9500;
+export const STEP59_DURATION_MS = 11000;
 
 export async function runStep59(tl: Timeline) {
-  beginDrive(tl, DRIVE_URLS.dashboard, "home", [0.15, 0.48]);
+  beginDrive(tl, DRIVE_URLS.shared, "shared", [0.25, 0.4]);
+  tl.setVar("drivePage", "shared");
+  tl.setVar("driveActiveNav", "shared");
+  tl.setVar("driveSharedTab", "by-you");
+  tl.setVar("driveSharedFilter", "All");
+  tl.setVar("driveSharedSelectedIds", []);
+  tl.setVar("driveSharedHiddenIds", []);
 
+  // 1. Select row 2 (Client Files)
   await tl.at(500);
-  tl.showCaption(CAPTIONS.openFavorites);
-  await hoverOn(tl, "[data-tl=nav-favorites]", { ms: 600 });
+  tl.showCaption(CAPTIONS.selectSharedRows);
+  await hoverOn(tl, "[data-tl=checkbox-shared-row-2]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=nav-favorites]");
-  tl.setVar("drivePage", "favorites");
-  tl.setVar("driveActiveNav", "favorites");
-  tl.setUrl(DRIVE_URLS.favorites);
+  await pressOn(tl, "[data-tl=checkbox-shared-row-2]");
+  tl.setVar("driveSharedSelectedIds", ["sb-2"]);
 
+  // 2. Select row 3 (Budget.xlsx)
   await tl.at(2500);
-  tl.showCaption(CAPTIONS.previewItem);
-  await hoverOn(tl, "[data-tl=link-fav-item-2]", { ms: 600 });
+  await hoverOn(tl, "[data-tl=checkbox-shared-row-3]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=link-fav-item-2]");
-  tl.setVar("driveFavoritesPreviewItem", "Meeting notes.docx");
+  await pressOn(tl, "[data-tl=checkbox-shared-row-3]");
+  tl.setVar("driveSharedSelectedIds", ["sb-2", "sb-3"]);
 
-  await tl.at(4800);
-  tl.showCaption(CAPTIONS.closePreview);
-  await hoverOn(tl, "[data-tl=btn-fav-preview-close]", { ms: 500 });
+  // 3. Click Add shortcut to My files on bulk action bar
+  await tl.at(4600);
+  tl.showCaption(CAPTIONS.addShortcut);
+  await hoverOn(tl, "[data-tl=btn-shared-bulk-shortcut]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-fav-preview-close]");
-  tl.setVar("driveFavoritesPreviewItem", "");
+  await pressOn(tl, "[data-tl=btn-shared-bulk-shortcut]");
+  tl.setVar("driveSharedShortcutToastOpen", true);
 
-  await tl.at(6800);
-  tl.showCaption(CAPTIONS.unstarItem);
-  await hoverOn(tl, "[data-tl=btn-unstar-item-2]", { ms: 500 });
+  // 4. Click Hide from Shared on bulk action bar
+  await tl.at(7200);
+  tl.showCaption(CAPTIONS.hideFromShared);
+  await hoverOn(tl, "[data-tl=btn-shared-bulk-hide]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-unstar-item-2]");
-  tl.setVar("driveFavoritesUnstarredId", "fav-2");
-  tl.setVar("driveFavoritesToastOpen", true);
+  await pressOn(tl, "[data-tl=btn-shared-bulk-hide]");
+  tl.setVar("driveSharedHideCount", 2);
+  tl.setVar("driveSharedHiddenIds", ["sb-2", "sb-3"]);
+  tl.setVar("driveSharedSelectedIds", []);
+  tl.setVar("driveSharedHideToastOpen", true);
+
   await tl.wait(1500);
-
   await finishDrive(tl, STEP59_DURATION_MS);
 }

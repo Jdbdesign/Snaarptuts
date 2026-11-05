@@ -257,24 +257,24 @@ Tested with `npm run qa:visibility -- --tutorial onecardx`: 0 open findings acro
 
 ## Snaarp Drive (ninth tutorial, COMPLETE: 67 steps)
 
-Route `/tutorials/drive`, config `tutorials/drive.ts`: **67 steps, all built and complete for Parts 1, 2, 3 & 4 (The Navigation Tour, Create & Upload Features, Item Menu & Organise, and Bulk Actions, Workspaces & Flow Completion)**.
-- Part 1 (steps 1-21): Explores Drive Home, Photos switcher, Moments, Albums, Favorites in Photos, photo layout options, month jumping, switching back to Files, filter chips, Create/Upload menu, My Files view, sorting files, switching between list and tiles view, opening the file details drawer, Meetings recordings directory, Photos via sidebar, Shared files, Favorites, Recycle Bin, Workspaces, and returning to Home.
+Route `/tutorials/drive`, config `tutorials/drive.ts`: **68 steps, all built and complete for Parts 1, 2, 3 & 4 (The Navigation Tour, Create & Upload Features, Item Menu & Organise, and Bulk Actions, Workspaces & Flow Completion)**.
+- Part 1 (steps 1-21): Explores Drive Home, Photos switcher, Moments, Albums, Favorites in Photos, photo layout options, month jumping, switching back to Files, filter chips (populated PDF filter results), Create/Upload menu, My Files view, sorting files, switching between list and tiles view, opening the file details drawer, Meetings recordings directory, Photos via sidebar, Shared files, Favorites, Recycle Bin, Workspaces, and returning to Home.
 - Part 2 (steps 22-32): Folder creation modal with colour swatches (creating and categorising "Project Files" with red swatch #EF4444), viewing the new red folder in My Files tiles view, file upload ("Quarterly report.png") with bottom-left upload toast, folder upload ("Brand Logos") with expanded toast tracking 6 SVG assets, opening and inspecting the uploaded folder contents and breadcrumb navigation, creating a Markdown document ("Meeting notes.md"), full-screen Markdown editor with toolbar, line numbers, template text, saving, creating a plain text document ("Sample.txt") with text editor, and cloud drives import modal ("Import cloud photos and files" with Google Drive, Dropbox, OneDrive, Google Photos).
 - Part 3 (steps 33-48): Three-dot item context menus (for folders and files), folder drill-down hierarchy (`Workspaces > Social media Resources > Videos & Images`), Share modal with email chip invite flow and confirmation modal (`Shared with` + copy link), bottom-right copied toast, Manage access list, Link settings (Anyone, Existing, Chosen people, permissions, and expiration), Delete folder confirmation modal, Rename folder modal, File context menu with Download action, Rename file flow ("Sample notes.txt"), Move to folder tree dialog with destination picking and Undo toast, Copy to folder tree hierarchy navigation, Favorites star indicator, Pin to top section organization (`PINNED` vs `ALL ITEMS`), 4x2 folder color swatches palette (applying purple color to Workspaces folder), and right-sliding item Details panel with folder metadata.
-- Part 4 (steps 49-67): Bulk actions and floating bar (selection checkboxes, bulk move 3 items, bulk delete 2 items), Recycle bin actions (restore item, permanent empty trash confirmation), Meetings recordings directory, Shared files exploration ("With you", "By you" with Stop sharing action, bulk remove from shared), Favorites directory, Workspaces (list view with storage gauge 17.0/20.0 GB 85%, Create workspace modal with description, workspace detail page `/workspaces/2172`, invite organisation members Alex Morgan & Jordan Lee, member role changes Editor/Viewer, member removal, browse workspace files with breadcrumbs, create folder "All Videos", upload file "Launch Video.mp4", and delete workspace with member access warning confirmation).
-- Completion card follows step 67: "Tour complete / You can now organise, manage trash, share, collaborate, and manage workspaces in Snaarp Drive."
+- Part 4 (steps 49-68): Bulk actions and floating bar (selection checkboxes, bulk move 3 items, bulk delete 2 items), Recycle bin actions (restore item, permanent empty trash confirmation), Meetings recordings directory, Share file with a teammate (step 56: autocomplete Alex Morgan, role dropdown, optional message, success toast), Shared files exploration (step 57: populated "With you" table, filter search, add shortcut to My Files; step 58: "By you" with row menu Share and Hide actions; step 59: bulk bar with shortcut and hide actions), Favorites directory, Workspaces (list view with storage gauge 17.0/20.0 GB 85%, Create workspace modal with description, workspace detail page `/workspaces/2172`, invite organisation members Alex Morgan & Jordan Lee, member role changes Editor/Viewer, member removal, browse workspace files with breadcrumbs, create folder "All Videos", upload file "Launch Video.mp4", and delete workspace with member access warning confirmation).
+- Completion card follows step 68: "Tour complete / You can now organise, manage trash, share, collaborate, and manage workspaces in Snaarp Drive."
 Recordings: `ref/drive-clip1.mp4` (1440x747, 1:26), `ref/drive-clip2.mp4` (1398x720, 3:13), `ref/drive-clip3.mp4` (1408x720, 5:18), and `ref/drive-clip4.mp4` (1408x720, 5:46). Extracted stills: `ref/drive-frames-1/`, `ref/drive-frames-2/`, `ref/drive-frames-3/`, and `ref/drive-frames-4/`.
 
 How it is built:
 - Reusable stage `components/drive/DriveStage.tsx` and app shell `components/drive/DriveShell.tsx` (thin suite rail with Drive active, collapsible 230px inner sidebar with storage bar 2.8 GB / 20.0 GB 14% or 17.0 GB / 20.0 GB 85% on workspaces, top bar with Photos/Files toggle pill, search bar, user avatar, and apps 9-dot grid).
 - Views & Modals:
-  - `DriveHomeView.tsx`: Get started cards (Docs, Sheets, Slides, Forms), filter chips, and recent files table with dynamically added "Project Files" row.
+  - `DriveHomeView.tsx`: Get started cards (Docs, Sheets, Slides, Forms), filter chips, and recent files table with dynamically added "Project Files" row and populated PDF filter items.
   - `DrivePhotosView.tsx`: date-grouped photos grid (Unsplash photos), sub-tabs (Photos, Moments, Albums, Favorites), layout popover, month selector popover, and floating search bar.
   - `DriveFilesView.tsx`: files and folders list, 6-col thumbnail tiles view (dynamic folder cards with custom color styling, uploaded files, and document tiles), nested breadcrumb navigation for multi-level folder drill-down, Pinned vs All Items sections, sort menu, and right-hand details drawer.
-  - `DriveMeetingsView.tsx`: meeting recordings directory with "Untitled Meeting" row.
-  - `DriveSharedView.tsx`: shared files directory with "With you" and "By you" sub-tabs and row menu.
-  - `DriveFavoritesView.tsx`: starred and favorited items directory (renders favorited file table row with star badge when starred).
-  - `DriveTrashView.tsx`: Recycle Bin with restore and permanent deletion actions.
+  - `DriveMeetingsView.tsx`: meeting recordings directory with "Untitled Meeting" row (sits directly on #F8F9FA background).
+  - `DriveSharedView.tsx`: shared files directory with "With you" and "By you" sub-tabs and row menu (sits directly on #F8F9FA background, matching video layout without outer white card container, pagination footer, and row actions).
+  - `DriveFavoritesView.tsx`: starred and favorited items directory (sits directly on #F8F9FA background).
+  - `DriveTrashView.tsx`: Recycle Bin with restore and permanent deletion actions (sits directly on #F8F9FA background).
   - `DriveWorkspacesView.tsx`: team workspace directory with storage gauge and workspace cards.
   - `DriveWorkspaceDetailView.tsx`: workspace detail view at `/workspaces/2172` with browse files card, storage card, and team member management.
   - `DriveBulkActionBar.tsx`: floating action bar (Move, Download, Delete, Close) positioned cleanly at `bottom-20`.
@@ -295,7 +295,7 @@ How it is built:
   - `DriveTextEditor.tsx`: full-screen plain text editor with line numbers and save flow.
   - `DriveImportModal.tsx`: Import cloud photos and files modal with 4 providers and Maybe later action.
   - `DriveItemMenu.tsx`: context popover menu for folder and file items.
-  - `DriveShareModal.tsx`: Share dialog with email chip input, message option, and people access list.
+  - `DriveShareModal.tsx`: Share dialog with email autocomplete, role selector, message option, and people access list.
   - `DriveShareConfirmModal.tsx`: "Shared with" confirmation dialog with avatar, viewer link box, and Done action.
   - `DriveLinkSettingsModal.tsx`: Link settings dialog with 3 radio options, permissions, and expiration date.
   - `DriveDeleteModal.tsx`: Delete confirmation modal with red trash tile and warnings.
@@ -305,6 +305,7 @@ How it is built:
   - `DriveCopyLinkToast.tsx`: bottom-right green checkmark confirmation toast.
   - `DriveMoveToast.tsx`: bottom-right moving progress toast with Undo action.
 - Shared timeline helpers in `components/drive/drive-timeline.ts` (`beginDrive` with mandatory `tl.placeCursor`, `finishDrive`, `pressOn`, `hoverOn`, `ring`).
-- Central sample data in `components/drive/drive-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, Alex Morgan, Jordan Lee, Casey Brown).
-- Per-step scenes in `scenes/drive/step<1..67>/`.
-- Tested with `npm run qa:visibility -- --tutorial drive`: 0 open findings across all 268 runs (67 steps x 4 viewports: 1920x1080, 1440x900, 1280x720, 390x844). TypeScript, lint, and production build clean.
+- Central sample data in `components/drive/drive-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, Alex Morgan, Jordan Lee, Casey Brown, populated shared items).
+- Per-step scenes in `scenes/drive/step<1..68>/`.
+- Progress storage key versioned to `snaarp-tutorials:progress:v2` in `lib/progress.ts`.
+- All 68 steps tested and clean across viewports (1920x1080, 1440x900, 1280x720, 390x844). TypeScript, lint, and production build clean.

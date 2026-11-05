@@ -651,7 +651,7 @@ Files: Reusable Workforce stage components/workforce/WorkforceStage.tsx and app 
 Files: OneCardX stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (thin suite rail, 205px OneCardX sidebar, top bar with apps grid and admin avatar). Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` (`beginOneCardX` with mandatory `tl.placeCursor`, `finishOneCardX`). Central sample data in `components/onecardx/onecardx-data.ts` (Sam Taylor admin, Alex Morgan employee/contact, Acme Ltd, neutral sample portraits and logos). Views: `OneCardXHomeView`, `OneCardXOrgCardsView`, `OneCardXEditorView`, `OneCardXCardDetailView` + `OneCardXPublicPreviewOverlay`, `OneCardXMemberView`, `OneCardXIDCardsView`, `OneCardXUsersView`, `OneCardXBackgroundsView`, `OneCardXSignaturesView`, `OneCardXMailView`, `OneCardXContactsView`, `OneCardXAnalyticsView`, `OneCardXBugModal`. Per-step scenes in `scenes/onecardx/step<N>/`. All 66 steps clean with 0 open findings across 4 viewports in qa:visibility.
 
 ### Snaarp Drive ("Snaarp Drive, Parts 1, 2, 3 & 4: the complete product walkthrough", route `/tutorials/drive`)
-Config: `tutorials/drive.ts` (67 steps, all built: Part 1 navigation tour, Part 2 create & upload features, Part 3 item menu & organise, and Part 4 bulk actions & workspaces; completion card follows step 67). Recordings: `ref/drive-clip1.mp4` (1440x747, 1:26), `ref/drive-clip2.mp4` (1398x720, 3:13), `ref/drive-clip3.mp4` (1408x720, 5:18), and `ref/drive-clip4.mp4` (1408x720, 5:46). Stills: `ref/drive-frames-1/`, `ref/drive-frames-2/`, `ref/drive-frames-3/`, and `ref/drive-frames-4/`.
+Config: `tutorials/drive.ts` (68 steps, all built: Part 1 navigation tour, Part 2 create & upload features, Part 3 item menu & organise, and Part 4 bulk actions & workspaces; completion card follows step 68). Recordings: `ref/drive-clip1.mp4` (1440x747, 1:26), `ref/drive-clip2.mp4` (1398x720, 3:13), `ref/drive-clip3.mp4` (1408x720, 5:18), and `ref/drive-clip4.mp4` (1408x720, 5:46). Stills: `ref/drive-frames-1/`, `ref/drive-frames-2/`, `ref/drive-frames-3/`, and `ref/drive-frames-4/`.
 
 | Step | Status |
 |---|---|
@@ -703,30 +703,31 @@ Config: `tutorials/drive.ts` (67 steps, all built: Part 1 navigation tour, Part 
 | 46. Favorites and pin to top | Done |
 | 47. Change a folder colour | Done |
 | 48. View item details | Done |
-| 49. Select several items | Done |
-| 50. Move items together | Done |
-| 51. Delete selected items | Done |
-| 52. Open Recycle Bin | Done |
+| 49. Select several items and the bulk action bar | Done |
+| 50. Move 3 items to a folder | Done |
+| 51. Delete 2 items | Done |
+| 52. Recycle Bin | Done |
 | 53. Restore an item | Done |
 | 54. Empty Trash | Done |
 | 55. Meetings recordings | Done |
-| 56. Shared with you | Done |
-| 57. Shared by you | Done |
-| 58. Remove shared items | Done |
-| 59. Favorites list | Done |
-| 60. Workspaces list | Done |
-| 61. Create a workspace | Done |
-| 62. Workspace details | Done |
-| 63. Invite members | Done |
-| 64. Change roles and remove members | Done |
-| 65. Workspace files and folders | Done |
-| 66. Upload to workspace folder | Done |
-| 67. Delete a workspace | Done |
+| 56. Share a file with a teammate | Done |
+| 57. Shared: With you | Done |
+| 58. Shared: By you and row menu | Done |
+| 59. Shared: bulk actions | Done |
+| 60. Favorites | Done |
+| 61. Workspaces list | Done |
+| 62. Create a workspace | Done |
+| 63. Workspace detail page | Done |
+| 64. Invite organisation members | Done |
+| 65. Change a member's role and remove a member | Done |
+| 66. Browse Workspace Files and create a folder | Done |
+| 67. Upload a file into the folder | Done |
+| 68. Delete a workspace | Done |
 
-Files: Reusable stage `components/drive/DriveStage.tsx` and app shell `components/drive/DriveShell.tsx` (thin suite rail with Drive active, collapsible 230px inner sidebar with storage bar 2.8 GB / 20.0 GB 14% or 17.0 GB / 20.0 GB 85%, top bar with Photos/Files pill, search, user avatar, and apps 9-dot grid). Views & Modals: `DriveHomeView.tsx`, `DrivePhotosView.tsx`, `DriveFilesView.tsx`, `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveWorkspaceDetailView.tsx`, `DriveBulkActionBar.tsx`, `DriveBulkMoveModal.tsx`, `DriveBulkDeleteModal.tsx`, `DriveEmptyTrashModal.tsx`, `DriveCreateWorkspaceModal.tsx`, `DriveInviteMemberModal.tsx`, `DriveDeleteWorkspaceModal.tsx`, `DrivePart4Toasts.tsx`, `DriveCreateMenu.tsx`, `DriveFolderModal.tsx`, `DriveUploadToast.tsx`, `DriveFilePickerModal.tsx`, `DriveMarkdownModal.tsx`, `DriveMarkdownEditor.tsx`, `DriveTextModal.tsx`, `DriveTextEditor.tsx`, `DriveImportModal.tsx`, `DriveItemMenu.tsx`, `DriveShareModal.tsx`, `DriveShareConfirmModal.tsx`, `DriveLinkSettingsModal.tsx`, `DriveDeleteModal.tsx`, `DriveRenameModal.tsx`, `DriveMoveCopyModal.tsx`, `DriveFolderColorModal.tsx`, `DriveCopyLinkToast.tsx`, `DriveMoveToast.tsx`. Shared timeline helpers in `components/drive/drive-timeline.ts` (`beginDrive` with mandatory `tl.placeCursor`, `finishDrive`). Central sample data in `components/drive/drive-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, Alex Morgan, Jordan Lee, Casey Brown). All 67 steps clean with 0 open findings across 4 viewports in qa:visibility.
+Files: Reusable stage `components/drive/DriveStage.tsx` and app shell `components/drive/DriveShell.tsx` (thin suite rail with Drive active, collapsible 230px inner sidebar with storage bar 2.8 GB / 20.0 GB 14% or 17.0 GB / 20.0 GB 85%, top bar with Photos/Files pill, search, user avatar, and apps 9-dot grid). Views & Modals: `DriveHomeView.tsx`, `DrivePhotosView.tsx`, `DriveFilesView.tsx`, `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveWorkspaceDetailView.tsx`, `DriveBulkActionBar.tsx`, `DriveBulkMoveModal.tsx`, `DriveBulkDeleteModal.tsx`, `DriveEmptyTrashModal.tsx`, `DriveCreateWorkspaceModal.tsx`, `DriveInviteMemberModal.tsx`, `DriveDeleteWorkspaceModal.tsx`, `DrivePart4Toasts.tsx`, `DriveCreateMenu.tsx`, `DriveFolderModal.tsx`, `DriveUploadToast.tsx`, `DriveFilePickerModal.tsx`, `DriveMarkdownModal.tsx`, `DriveMarkdownEditor.tsx`, `DriveTextModal.tsx`, `DriveTextEditor.tsx`, `DriveImportModal.tsx`, `DriveItemMenu.tsx`, `DriveShareModal.tsx`, `DriveShareConfirmModal.tsx`, `DriveLinkSettingsModal.tsx`, `DriveDeleteModal.tsx`, `DriveRenameModal.tsx`, `DriveMoveCopyModal.tsx`, `DriveFolderColorModal.tsx`, `DriveCopyLinkToast.tsx`, `DriveMoveToast.tsx`. Shared timeline helpers in `components/drive/drive-timeline.ts` (`beginDrive` with mandatory `tl.placeCursor`, `finishDrive`). Central sample data in `components/drive/drive-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, Alex Morgan, Jordan Lee, Casey Brown). All 68 steps clean with 0 open findings across 4 viewports in qa:visibility.
 
 ### Product switcher
-(Snaarp Admin is the fourth product: `tutorials/snaarp-admin.ts`, 12 steps, all built. Snaarp Slides is the fifth: `tutorials/snaarp-slides.ts`, 56 steps (the whole product), all built. Snaarp Sheets is the sixth: `tutorials/snaarp-sheets.ts`, 116 steps (the whole product: every menu, the toolbar and the header tools), all built. Workforce is the seventh product: `tutorials/workforce.ts`, 124 steps, all built and COMPLETE. OneCardX is the eighth product: `tutorials/onecardx.ts`, 66 steps, all built and COMPLETE. Snaarp Drive is the ninth product: `tutorials/drive.ts`, 67 steps, all built and COMPLETE.) The rail starts with the search box (see "Rail search"). The rail's product card is a dropdown of every product in `tutorials/index.ts` (Snaarp 360 first). Each product has its own steps (modules) listed below it; a product with no built scenes shows a "coming soon" stage (`components/player/ComingSoon.tsx`). Snaarp Mail (`tutorials/snaarp-mail.ts`) is listed with its 17 modules, all built. Real product logos live in `public/logos/` and are shown with `ProductLogo` from `components/icons.tsx`.
+(Snaarp Admin is the fourth product: `tutorials/snaarp-admin.ts`, 12 steps, all built. Snaarp Slides is the fifth: `tutorials/snaarp-slides.ts`, 56 steps (the whole product), all built. Snaarp Sheets is the sixth: `tutorials/snaarp-sheets.ts`, 116 steps (the whole product: every menu, the toolbar and the header tools), all built. Workforce is the seventh product: `tutorials/workforce.ts`, 124 steps, all built and COMPLETE. OneCardX is the eighth product: `tutorials/onecardx.ts`, 66 steps, all built and COMPLETE. Snaarp Drive is the ninth product: `tutorials/drive.ts`, 68 steps, all built and COMPLETE.) The rail starts with the search box (see "Rail search"). The rail's product card is a dropdown of every product in `tutorials/index.ts` (Snaarp 360 first). Each product has its own steps (modules) listed below it; a product with no built scenes shows a "coming soon" stage (`components/player/ComingSoon.tsx`). Snaarp Mail (`tutorials/snaarp-mail.ts`) is listed with its 17 modules, all built. Real product logos live in `public/logos/` and are shown with `ProductLogo` from `components/icons.tsx`.
 
 ### Rail search ("Search products, modules")
 The box at the top of the rail searches products AND modules (steps) as you type (60 ms debounce, first letter instant). Files: `components/player/RailSearch.tsx` (the combobox + results panel; the normal rail content is passed in as children and stays mounted, `inert`, under the panel), copy and limits in `components/player/rail-search-data.ts`, the pure index and ranking in `lib/search-index.ts`, the cross-product jump slot in `lib/pending-jump.ts`, shared `components/player/ProductMark.tsx`. **The index is built from `tutorials/*.ts`** (`buildSearchIndex(tutorials)`), so a new product or step is searchable with no extra list: one product entry per tutorial (name + `product.aliases`) and one module entry per BUILT step (title, group, product name). Optional config fields: `product.aliases` (find the product only: "doc", "email"...) and `groups: [{ title, from: <step id> }]` (Snaarp Doc has Getting started, File, Edit, View, Insert, Format, Tools, eSignature, Toolbar, Header buttons; a group name is matched and shown in the result's small line, it is not a result of its own). Ranking: word-start match first, then the field (title, group, product name); results are max 6 products and 10 modules with "Show N more". Picking a module in the open product calls the player's `select`; in another product it stores the step in `lib/pending-jump.ts` and `router.push`es, and the new `TutorialPlayer` starts on that step (so the rail shows it active; the rail list scrolls the active step into view). Keys: ArrowUp/Down, Enter, Escape (clears and blurs), "/" (handled in `TutorialPlayer`: expands the rail and focuses the box). While the rail is collapsed, `BrowserFrame` shows a search icon next to the expand button (`onSearch`). Typing never touches the tutorial; only picking a result does.

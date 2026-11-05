@@ -639,19 +639,107 @@ export const MEETINGS_RECORDINGS: MeetingItem[] = [
   { id: "m-14", name: "Morning Meeting", code: "vlo-qgua-dds", date: "Oct 13, 2026 · 1:59 PM", duration: "—", size: "13.3 MB", format: "MP4", status: "Completed" },
 ];
 
+export type SharedCategory = "folders" | "documents" | "images" | "videos" | "other";
+
 export interface SharedItem {
   id: string;
   name: string;
   permission: "Can edit" | "Can view";
   dateShared: string;
-  sharedWith: string;
+  sharedBy?: string;
+  sharedWith?: string;
   isFolder?: boolean;
+  category: SharedCategory;
+  fileType?: "docx" | "pptx" | "png" | "mp4" | "zip" | "pdf" | "xlsx" | "folder";
 }
 
+export const SHARED_WITH_YOU_ITEMS: SharedItem[] = [
+  {
+    id: "sw-1",
+    name: "Project brief.docx",
+    permission: "Can edit",
+    dateShared: "03/11/2026",
+    sharedBy: "Alex Morgan",
+    category: "documents",
+    fileType: "docx",
+  },
+  {
+    id: "sw-2",
+    name: "Roadmap.pptx",
+    permission: "Can view",
+    dateShared: "28/10/2026",
+    sharedBy: "Jordan Lee",
+    category: "documents",
+    fileType: "pptx",
+  },
+  {
+    id: "sw-3",
+    name: "Design Assets",
+    permission: "Can view",
+    dateShared: "21/10/2026",
+    sharedBy: "Casey Brown",
+    isFolder: true,
+    category: "folders",
+    fileType: "folder",
+  },
+  {
+    id: "sw-4",
+    name: "Team photo.png",
+    permission: "Can view",
+    dateShared: "18/10/2026",
+    sharedBy: "Taylor Reed",
+    category: "images",
+    fileType: "png",
+  },
+  {
+    id: "sw-5",
+    name: "Launch video.mp4",
+    permission: "Can view",
+    dateShared: "12/10/2026",
+    sharedBy: "Morgan Blake",
+    category: "videos",
+    fileType: "mp4",
+  },
+  {
+    id: "sw-6",
+    name: "Brand colours.zip",
+    permission: "Can view",
+    dateShared: "10/10/2026",
+    sharedBy: "Riley Cole",
+    category: "other",
+    fileType: "zip",
+  },
+];
+
 export const SHARED_BY_YOU_ITEMS: SharedItem[] = [
-  { id: "s-1", name: "Q3 report.xlsx", permission: "Can edit", dateShared: "04/11/2026", sharedWith: "casey.brown@acme.example" },
-  { id: "s-2", name: "Brand Guidelines", permission: "Can view", dateShared: "22m ago", sharedWith: "jordan.lee@acme.example", isFolder: true },
-  { id: "s-3", name: "Marketing Space", permission: "Can view", dateShared: "5h ago", sharedWith: "alex.morgan@acme.example", isFolder: true },
+  {
+    id: "sb-1",
+    name: "Q3 report.pdf",
+    permission: "Can edit",
+    dateShared: "22m ago",
+    sharedWith: "alex.morgan@acme.example",
+    category: "documents",
+    fileType: "pdf",
+  },
+  {
+    id: "sb-2",
+    name: "Client Files",
+    permission: "Can view",
+    dateShared: "5h ago",
+    sharedWith: "jordan.lee@acme.example",
+    isFolder: true,
+    category: "folders",
+    fileType: "folder",
+  },
+  {
+    id: "sb-3",
+    name: "Budget.xlsx",
+    permission: "Can view",
+    dateShared: "25/10/2026",
+    sharedWith: "casey.brown@acme.example",
+    category: "documents",
+    fileType: "xlsx",
+  },
 ];
 
 export interface OrgMember {
