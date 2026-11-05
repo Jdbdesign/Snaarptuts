@@ -1976,13 +1976,14 @@ Source recording: `ref/1103(1).mp4` (copy of `Downloads/1103 (1).mp4`, stills in
 - Timeline & Data: `components/onecardx/onecardx-timeline.ts` (`beginOneCardX`, `finishOneCardX`), `components/onecardx/onecardx-data.ts`
 - Step Scenes & Scripts: `scenes/onecardx/step<1..66>/Step<N>.tsx`, `script.ts`, `data.ts`
 
-## Snaarp Drive Part 1: The Navigation Tour (steps 1-21)
+## Snaarp Drive Part 1: The Navigation Tour (Orientation Only) (steps 1-21)
 
 Source recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`, stills in `ref/drive-frames-1/` `t0001s.jpg` to `t0085s.jpg`).
+All sidebar navigation steps are strictly orientation-only (highlight sidebar item, click, let page open, one-line caption explaining page purpose, gentle highlight, finish. No filtering, row menus, dialogs, or deep actions).
 
 | Step | Title | Start state and what happens | Time |
 |---|---|---|---|
-| 1 | Your Drive home | Opens on Snaarp Drive home (`drive.snaarp.com/dashboard`). Explains Get started cards, recent files filter chips, and recent files table. | 6.0 s |
+| 1 | Navigate: Home | Opens on Snaarp Drive home (`drive.snaarp.com/dashboard`). Explains Get started cards, recent files filter chips, and recent files table. | 6.0 s |
 | 2 | Switch to Photos | Clicks the Photos pill in the top bar switch. View navigates to Photos gallery (`drive.snaarp.com/photos`) showing date-grouped photos grid. | 6.5 s |
 | 3 | Moments | Clicks the Moments sub-tab (`drive.snaarp.com/photos/moments`). Reviews curated moments collection (Weekend getaway, Team retreat, Product launch). | 6.0 s |
 | 4 | Albums | Clicks the Albums sub-tab (`drive.snaarp.com/photos/albums`). Reviews albums cards (Summer 2026, Design System Assets, Brand Photography). | 6.0 s |
@@ -1992,17 +1993,17 @@ Source recording: `ref/drive-clip1.mp4` (copy of `Downloads/1103 (1)(1).mp4`, st
 | 8 | Back to Files | Clicks the Files pill in the top bar switcher. Returns smoothly to Drive home (`drive.snaarp.com/dashboard`). | 5.5 s |
 | 9 | Filter your recent files | Clicks the "Documents" filter chip, then "Sheets". Recent files table filters smoothly to match the selected type, then resets back to All. | 7.5 s |
 | 10 | Create or upload | Clicks "+ New" button in the inner sidebar. Popover menu opens displaying Folder, File upload, Folder upload, and Snaarp suite doc options. Clicks New to close menu. | 6.5 s |
-| 11 | My Files | Clicks "My Files" in the sidebar (`drive.snaarp.com/files`). Reviews 4 folders (Brand assets, Brand assets (copy), Favicons, Icons) and 3 files in list view. | 6.0 s |
+| 11 | Navigate: My Files | Orientation: clicks "My Files" in the sidebar (`drive.snaarp.com/files`). One-line caption explains My Files is where personal and uploaded files and folders live. | 6.0 s |
 | 12 | Sort your files | Clicks "Last modified" sort button in toolbar. Sort menu dropdown opens with Name, Last modified, and Size options. Clicks to close. | 6.5 s |
 | 13 | Change the view | Clicks view switcher icon in toolbar. File list switches from list view to 5-column thumbnail tiles view (`tiles-view-grid`). | 6.5 s |
 | 14 | Open the details panel | Clicks information "i" icon in toolbar. Right-side details drawer slides open showing selected file preview, type, size, modified date, and access permissions. | 7.0 s |
-| 15 | Meetings | Clicks "Meetings" in sidebar (`drive.snaarp.com/meetings`). Reviews meeting recordings directory with "Untitled Meeting" (`ysp-xqsx-wmh`) recording item. | 6.0 s |
-| 16 | Photos from the sidebar | Clicks "Photos" in the left navigation sidebar. Smoothly switches directly to Photos gallery view. | 6.0 s |
-| 17 | Shared files | Clicks "Shared" in sidebar (`drive.snaarp.com/shared`). Reviews shared files and folders shared by teammates with permissions badges. | 6.0 s |
-| 18 | Favorites | Clicks "Favorites" in sidebar (`drive.snaarp.com/favorites`). Reviews starred/favorited files and quick access shortcuts. | 6.0 s |
-| 19 | Recycle Bin | Clicks "Recycle Bin" in sidebar (`drive.snaarp.com/trash`). Reviews deleted items with Restore and Delete permanently actions, and "Budget draft.xlsx" item. | 6.5 s |
-| 20 | Workspaces | Clicks "Workspaces" in sidebar (`drive.snaarp.com/workspaces`). Reviews shared organizational team spaces (Design Team, Marketing Assets, Q3 Planning). | 6.5 s |
-| 21 | Back to Home | Clicks "Home" in sidebar (`drive.snaarp.com/dashboard`). Returns to Drive home. Completion card follows. | 6.0 s |
+| 15 | Navigate: Meetings | Orientation: clicks "Meetings" in sidebar (`drive.snaarp.com/meetings`). One-line caption explains the meetings recording hub. | 6.0 s |
+| 16 | Navigate: Photos | Orientation: clicks "Photos" in sidebar (`drive.snaarp.com/photos`). One-line caption explains photo library navigation from the sidebar. | 6.0 s |
+| 17 | Navigate: Shared | Orientation: clicks "Shared" in sidebar (`drive.snaarp.com/shared`). One-line caption explains files shared with you and shared by you. | 6.0 s |
+| 18 | Navigate: Favorites | Orientation: clicks "Favorites" in sidebar (`drive.snaarp.com/favorites`). One-line caption explains quick access to starred items. | 6.0 s |
+| 19 | Navigate: Recycle Bin | Orientation: clicks "Recycle Bin" in sidebar (`drive.snaarp.com/trash`). One-line caption explains deleted files and the 30-day safety net. | 6.0 s |
+| 20 | Navigate: Workspaces | Orientation: clicks "Workspaces" in sidebar (`drive.snaarp.com/workspaces`). One-line caption explains shared organizational team spaces. | 6.0 s |
+| 21 | Navigate: Back to Home | Orientation: clicks "Home" in sidebar (`drive.snaarp.com/dashboard`). One-line caption confirms return to main dashboard. | 6.0 s |
 
 ## Snaarp Drive Part 2: Create & Upload Features (steps 22-32)
 
@@ -2022,7 +2023,7 @@ Source recording: `ref/drive-clip2.mp4` (copy of `Downloads/1104.mp4`, stills in
 | 31 | Create a text document | Clicks "+ Create or upload" > "Text document". Modal opens with .txt badge. Names file "Sample" and clicks "Create". Blank text editor opens, enters text, clicks "Save" and closes editor. "Sample.txt" tile with red TXT icon appears in top row. | 11.0 s |
 | 32 | Import from other drives | Clicks "+ Create or upload" > "Import from other drives". Modal "Import cloud photos and files" opens with Google Drive, Dropbox, OneDrive, Google Photos options. Passes cursor over providers, clicks Google Drive, shows "Connecting to Google Drive..." for 800ms, closes modal, shows success toast "Google Drive connected · 2 files imported", and imported files appear in My Files. | 12.0 s |
 
-## Snaarp Drive Part 3: Item Menu & Organise (steps 33-48)
+## Snaarp Drive Part 3: Item Menu & Organise (steps 33-46)
 
 Source recording: `ref/drive-clip3.mp4` (copy of `Downloads/1104(1).mp4`, stills in `ref/drive-frames-3/` `thumb-0001.jpg` to `thumb-0159.jpg`).
 
@@ -2030,47 +2031,55 @@ Source recording: `ref/drive-clip3.mp4` (copy of `Downloads/1104(1).mp4`, stills
 |---|---|---|---|
 | 33 | Open the item menu | In My Files tiles view, hovers "Workspaces" folder tile, revealing checkbox and three-dot button. Clicks three dots to open context menu with Open, Share, Copy link, Manage access, Delete, Rename, Move to, Copy to, Folder color, Add to favorites, Pin to top, Details. | 9.0 s |
 | 34 | Open a folder | In Workspaces item menu, clicks "Open". Folder opens with breadcrumb "My Files > Workspaces" containing "Social media Resources". Clicks it -> breadcrumb becomes "My Files > Workspaces > Social media Resources" containing "Videos" and "Images". Opens "Videos" to see 6 MP4 video tiles, returns via breadcrumb, then clicks "My Files" to return to root. | 14.0 s |
-| 35 | Share a folder | Clicks three dots on "Workspaces" > "Share". Modal 'Share "Workspaces"' opens showing email input with eye icon, message trigger, and People with access list (Sam Taylor Owner, media@acme.example Viewer, casey.brown@acme.example Viewer). | 9.5 s |
-| 36 | Invite someone | Inside Share dialog, types "design@acme.example" into email field, turning into a chip. Clicks "Send", opening confirmation modal "Shared with" displaying "D" avatar, Viewer link box, Copy link action, and "Done" button. Clicks "Done" to dismiss. | 12.0 s |
-| 37 | Copy a link | Clicks three dots on "Workspaces" > "Copy link". Context menu closes and bottom-right toast appears with green checkmark: "Share link copied." | 8.0 s |
-| 38 | Manage who has access | Clicks three dots on "Workspaces" > "Manage access". Share dialog opens directly showing scrollable People with access list and collaborator removal options. | 8.0 s |
-| 39 | Set the link permissions | From Share dialog, clicks gear icon on top right. Transitions to "Link settings" with 3 radio cards (Anyone, Only people with existing access, People you choose), permission dropdown (Can view / Can edit), and expiration date field. Hovers options, selects "Anyone with the link", clicks "Save settings" (shows "Saving..."), closes dialog, and success toast "Link permissions updated" appears. | 11.5 s |
-| 40 | Delete a folder | Clicks three dots on "Brand Logos" > "Delete". Warning modal "Delete" opens with red trash tile and warning text. Clicks "Delete" confirm button, shows "Deleting...", closes modal, shows success toast "Folder moved to Recycle Bin", and folder disappears from files. | 9.5 s |
-| 41 | Rename a folder | Clicks three dots on "Workspaces" > "Rename". Modal "Rename Folder" opens with prefilled "Workspaces" input. Renames folder to "Team Workspaces", clicks "Rename" (shows "Renaming..."), closes modal, shows success toast "Folder renamed to Team Workspaces", and folder card updates. | 10.0 s |
-| 42 | The file menu | Hovers "Sample.txt" tile and clicks three dots. File context menu opens, showcasing presence of "Download" action and absence of "Folder color". | 8.5 s |
-| 43 | Rename a file | From file menu, clicks "Rename". Modal "Rename File" opens prefilled with "Sample.txt". Changes name to "Sample notes.txt" and clicks "Rename". Button briefly shows "Renaming...", closes, and tile updates to "Sample notes.txt". | 11.0 s |
-| 44 | Move a file | Clicks three dots on "Sample notes.txt" > "Move to". Destination tree modal opens with expandable folders. Selects "Brand Logos", clicks "Move Here". Toast "Moving 'Sample notes.txt' to 'Brand Logos'..." appears with "Undo". Clicks "Undo", restoring file to root My Files. | 13.0 s |
-| 45 | Copy a file | Clicks three dots on "Sample notes.txt" > "Copy to". Tree modal opens. Selects "Workspaces", clicks "Copy Here" (shows "Copying..."), closes modal, shows success toast "Copy created in Workspaces", and original file remains in My Files. | 11.5 s |
-| 46 | Favorites and pin to top | Clicks three dots on "Sample notes.txt" > "Add to favorites", turning star gold. Clicks three dots > "Pin to top". Tiles grid reorganizes with PINNED and ALL ITEMS sections. Clicks "Favorites" in sidebar, viewing table with starred item, then returns to My Files. | 14.0 s |
-| 47 | Change a folder colour | Clicks three dots on "Workspaces" > "Folder color". Modal "Folder Color" opens with 4x2 palette swatches. Selects purple swatch, clicks "Apply". Folder turns purple. | 10.5 s |
-| 48 | View item details | Clicks three dots on "Workspaces" > "Details". Right-side drawer opens showing folder metadata (1 items, 0 B, purple color, timestamps, Sam Taylor owner, / path). Grid narrows to fit. | 9.0 s |
+| 35 | Delete a folder | Clicks three dots on "Brand Logos" > "Delete". Warning modal "Delete" opens with red trash tile and warning text. Clicks "Delete" confirm button, shows "Deleting...", closes modal, shows success toast "Folder moved to Recycle Bin", and folder disappears from files. | 9.5 s |
+| 36 | Rename a folder | Clicks three dots on "Workspaces" > "Rename". Modal "Rename Folder" opens with prefilled "Workspaces" input. Renames folder to "Team Workspaces", clicks "Rename" (shows "Renaming..."), closes modal, shows success toast "Folder renamed to Team Workspaces", and folder card updates. | 10.0 s |
+| 37 | The file menu | Hovers "Sample.txt" tile and clicks three dots. File context menu opens, showcasing presence of "Download" action and absence of "Folder color". | 8.5 s |
+| 38 | Rename a file | From file menu, clicks "Rename". Modal "Rename File" opens prefilled with "Sample.txt". Changes name to "Sample notes.txt" and clicks "Rename". Button briefly shows "Renaming...", closes, and tile updates to "Sample notes.txt". | 11.0 s |
+| 39 | Move a file | Clicks three dots on "Sample notes.txt" > "Move to". Destination tree modal opens with expandable folders. Selects "Brand Logos", clicks "Move Here". Toast "Moving 'Sample notes.txt' to 'Brand Logos'..." appears with "Undo". Clicks "Undo", restoring file to root My Files. | 13.0 s |
+| 40 | Copy a file | Clicks three dots on "Sample notes.txt" > "Copy to". Tree modal opens. Selects "Workspaces", clicks "Copy Here" (shows "Copying..."), closes modal, shows success toast "Copy created in Workspaces", and original file remains in My Files. | 11.5 s |
+| 41 | Favorites and pin to top | Clicks three dots on "Sample notes.txt" > "Add to favorites", turning star gold. Clicks three dots > "Pin to top". Tiles grid reorganizes with PINNED and ALL ITEMS sections. Clicks "Favorites" in sidebar, viewing table with starred item, then returns to My Files. | 14.0 s |
+| 42 | Change a folder colour | Clicks three dots on "Workspaces" > "Folder color". Modal "Folder Color" opens with 4x2 palette swatches. Selects purple swatch, clicks "Apply". Folder turns purple. | 10.5 s |
+| 43 | View item details | Clicks three dots on "Workspaces" > "Details". Right-side drawer opens showing folder metadata (1 items, 0 B, purple color, timestamps, Sam Taylor owner, / path). Grid narrows to fit. | 9.0 s |
+| 44 | Select several items and the bulk action bar | In My Files tiles view, checks checkboxes on payslip.pdf and Meeting notes.docx. Floating bulk action bar appears bottom-center with Move, Download, Delete, and Close. | 7.0 s |
+| 45 | Move 3 items to a folder | From bulk bar (3 selected: payslip, Meeting notes, Project brief), clicks "Move". Destination folder modal opens, selects "Project Notes", clicks "Move here" (shows "Moving..."), closes modal, shows success toast "Moved 3 items to Project Notes", and items move into folder. | 10.5 s |
+| 46 | Delete 2 items | Checks checkboxes on 2 items, clicks "Delete" on bulk action bar. Confirmation modal opens ("Delete 2 items?"), clicks "Delete" confirm button, shows "Deleting...", closes modal, shows success toast "2 items moved to Recycle Bin", and items disappear. | 8.5 s |
 
-## Snaarp Drive Part 4: Bulk Actions & Workspaces (steps 49-68)
+## Snaarp Drive Part 4: Dedicated Sharing Module (steps 47-56)
+
+Source recording: `ref/drive-clip3.mp4` & `ref/drive-clip4.mp4`.
+All 10 sharing steps grouped into one dedicated module. State-driven Share dialog: only Sam Taylor (Owner) shown initially; no unseeded collaborators or leftover addresses appear before action.
+
+| Step | Title | Start state and what happens | Time |
+|---|---|---|---|
+| 47 | Sharing: Share a file with a teammate | Starts in My Files tiles view. Opens three dots on "Q3 report.pdf" > "Share". Modal 'Share "Q3 report.pdf"' opens with only Sam Taylor (Owner). Types "alex", selects Alex Morgan (`alex.morgan@acme.example`), sets role to "Can edit", adds message "Please review before Friday.", clicks "Send" (shows "Sharing..."). Modal closes with success toast "File shared with alex.morgan@acme.example.". Navigates to Shared in sidebar, switches to "By you" tab where Q3 report.pdf is listed. | 12.0 s |
+| 48 | Sharing: Share a folder | Clicks three dots on "Client Files" folder > "Share". Share modal opens with only Sam Taylor (Owner). Types "jordan", selects Jordan Lee, sets role to "Can view", clicks Send. Closes with success toast "Folder shared with jordan.lee@acme.example.", and Client Files tile displays the shared badge. | 10.5 s |
+| 49 | Sharing: Copy a link | Opens three dots on "Workspaces" > "Share". Clicks "Copy link" button. Button transitions to "Copied!" with checkmark and toast "Share link copied." appears. | 8.5 s |
+| 50 | Sharing: Set the link permissions | Inside Share dialog, clicks top-right gear icon. Link settings modal opens with link permissions. Selects "Anyone with the link can view", clicks "Apply". Shows success toast "Link permissions updated", and footer updates to "Anyone with the link can view.". | 11.5 s |
+| 51 | Sharing: Manage who has access | Share modal for "Workspaces" opens showing Sam Taylor, Alex Morgan, and Casey Brown. Changes Alex Morgan's role to "Can edit" with toast "Role updated to Can edit", and removes Casey Brown with X button and toast "Casey Brown removed from access". Closes modal; Shared > By you reflects the updated roles. | 10.0 s |
+| 52 | Sharing: Shared with you: the tab | Navigates to Shared tab (`drive.snaarp.com/shared`). Explains the "With you" tab, category filter chips (Documents, Images, All), filter search by typing "Alex", and clicks "Project brief.docx" to open document preview. Closes preview. | 11.0 s |
+| 53 | Sharing: Shared with you: row menu | On "Project brief.docx", clicks row menu > "Add shortcut to My files" with toast. Navigates to My Files to verify the shortcut tile, returns to Shared, and clicks row menu on "Roadmap.pptx" > "Hide from Shared" with toast. | 12.0 s |
+| 54 | Sharing: Shared by you: the tab | Switches to "By you" tab in Shared. Explains the columns (Name, Shared with, Access, Date shared), category chips, and search filter typing "Budget". | 9.5 s |
+| 55 | Sharing: Shared by you: row menu and sharing again | Clicks three dots on "Budget.xlsx" > "Share". Dialog opens showing Sam Taylor and Casey Brown. Adds Taylor Reed (`taylor.reed@acme.example`), clicks Send with toast "File shared with taylor.reed@acme.example.". Table row updates to show the new collaborator. | 12.5 s |
+| 56 | Sharing: Shared: bulk actions | Checks row checkboxes on 2 items in "By you". Shared bulk action bar appears directly above table. Clicks "Add shortcut to My files" with toast, then clicks "Hide from Shared" with toast. | 10.5 s |
+
+## Snaarp Drive Part 5: Deep Modules & Workspaces (steps 57-68)
 
 Source recording: `ref/drive-clip4.mp4` (copy of `Downloads/1104 (2).mp4`, stills in `ref/drive-frames-4/` `frame-0001.jpg` to `frame-0347.jpg`).
 
 | Step | Title | Start state and what happens | Time |
 |---|---|---|---|
-| 49 | Select several items and the bulk action bar | In My Files tiles view, checks checkboxes on payslip.pdf and Meeting notes.docx. Floating bulk action bar appears bottom-center with Move, Download, Delete, and Close. | 7.0 s |
-| 50 | Move 3 items to a folder | From bulk bar (3 selected: payslip, Meeting notes, Project brief), clicks "Move". Destination folder modal opens, selects "Project Notes", clicks "Move here" (shows "Moving..."), closes modal, shows success toast "Moved 3 items to Project Notes", and items move into folder. | 10.5 s |
-| 51 | Delete 2 items | Checks checkboxes on 2 items, clicks "Delete" on bulk action bar. Confirmation modal opens ("Delete 2 items?"), clicks "Delete" confirm button, shows "Deleting...", closes modal, shows success toast "2 items moved to Recycle Bin", and items disappear. | 8.5 s |
-| 52 | Recycle Bin | Navigates to Recycle Bin (`drive.snaarp.com/trash`), showing banner "Items in trash are deleted permanently after 30 days" and deleted files table. | 6.5 s |
-| 53 | Restore an item | Hovers row for "Meeting notes.docx", clicks three dots > "Restore". Item restores with "Restoring..." state, disappears from trash, and success toast "Meeting notes.docx restored to My Files" appears. | 8.5 s |
-| 54 | Empty Trash | Clicks "Empty Trash" button in header. Confirmation modal opens ("Empty Trash? All items in trash will be permanently deleted"), clicks "Empty Trash", shows "Emptying...", table clears to empty state, and success toast "Recycle Bin emptied" appears. | 9.0 s |
-| 55 | Meetings recordings | Navigates to Meetings tab (`drive.snaarp.com/meetings`). Reviews meeting recordings list (morning standups with meeting codes, dates, MP4 format, file sizes, and status badges). Hovers first row. | 7.5 s |
-| 56 | Share a file with a teammate | Starts in My Files tiles view, opens three-dot menu on "Q3 report.pdf", clicks "Share". Types "Alex", picks Alex Morgan (`alex.morgan@acme.example`), sets role to "Can edit", adds message "Please review before Friday.", clicks Send/Share ("Sharing..."), closes modal with success toast "File shared with alex.morgan@acme.example.". Navigates to Shared in sidebar, switches to "By you" tab, and opens the three-dot menu on Q3 report.pdf. | 12.0 s |
-| 57 | Shared: With you | Navigates to Shared tab (`drive.snaarp.com/shared`). Explores "With you" sub-tab showing populated items across all category chips. Filters by typing "Alex", opens row menu on "Project brief.docx", clicks "Add shortcut to My files" with toast, then navigates to My Files to show the new shortcut tile. | 11.0 s |
-| 58 | Shared: By you and row menu | Clicks "By you" sub-tab, displaying populated table of files and folders shared with teammates. Clicks three-dot menu on first row ("Q3 report.pdf") and clicks Share with toast. Clicks row menu on "Budget.xlsx" and clicks "Hide from Shared" with toast. | 10.5 s |
-| 59 | Shared: bulk actions | Selects items using row checkboxes in "By you". Shared bulk action bar appears directly above table with Open, Share, Add shortcut to My files, Download, Hide from Shared. Clicks "Add shortcut to My files" with toast, then clicks "Hide from Shared" with toast. | 10.5 s |
-| 60 | Favorites | Navigates to Favorites tab (`drive.snaarp.com/favorites`). Reviews starred items ("Brand assets" folder, "Sample notes.txt", "Q3 report.xlsx") rendered cleanly without outer white card container. Hovers star icon and file row. | 7.0 s |
-| 61 | Workspaces list | Navigates to Workspaces tab (`drive.snaarp.com/workspaces`). Reviews organizational team workspaces grid ("Social media Resources" card with owner badge, 5/100 members, and storage usage). | 7.0 s |
-| 62 | Create a workspace | Clicks "Create Workspace" button. Modal opens, types name "Marketing Space", description "Campaign assets and planning", clicks "Create Workspace", shows "Creating...", closes modal, shows success toast "Workspace 'Marketing Space' created", and new workspace card appears. | 10.5 s |
-| 63 | Workspace detail page | Clicks "Marketing Space" card, opening detail page (`drive.snaarp.com/workspaces/2172`). Explores Storage Usage card, Browse Workspace Files entry, and Members card with Sam Taylor as Owner. | 7.5 s |
-| 64 | Invite organisation members | Clicks "Invite Member" button. Modal "Invite organisation members" opens with member checklist. Selects Alex Morgan and Jordan Lee, sets role to Viewer, clicks "Invite selected", shows "Inviting...", closes modal, shows success toast "2 members invited to Marketing Space", and member list updates to 3 members. | 10.5 s |
-| 65 | Change a member's role and remove a member | In members list, clicks three dots on Alex Morgan > "Set as Member", role updates with toast "Alex Morgan's role updated to Member". Clicks three dots on Jordan Lee > "Remove from Workspace", Jordan is removed with toast "Jordan Lee removed from workspace". | 10.5 s |
-| 66 | Browse Workspace Files and create a folder | Clicks "Browse Workspace Files", navigating to `/files?folder=2172`. Folder is empty. Clicks "+ Create or upload" > "Folder", names it "All videos", clicks "Create", folder tile appears with toast "Folder 'All videos' created". | 11.5 s |
-| 67 | Upload a file into the folder | Clicks "All videos" folder, then "+ Create or upload" > "Files upload". In-app file picker selects "Launch video.mp4", upload toast tracks progress to 100%, and "Launch video.mp4" video card appears in folder. | 11.0 s |
-| 68 | Delete a workspace | Returns to workspace detail page, clicks "Delete workspace". Warning modal opens with amber notice that other members will lose access. Checks confirmation box, clicks "Delete workspace", shows "Deleting...", redirects to Workspaces list, and toast "Workspace 'Marketing Space' deleted" appears. Completion card follows. | 9.5 s |
+| 57 | Recycle Bin: restore an item | Navigates to Recycle Bin (`drive.snaarp.com/trash`). Hovers row for "Meeting notes.docx", clicks three dots > "Restore". Item restores with "Restoring..." state, disappears from trash, and success toast "Meeting notes.docx restored to My Files" appears. | 8.5 s |
+| 58 | Recycle Bin: empty the trash | Clicks "Empty Trash" button in header. Confirmation modal opens ("Empty Trash? All items in trash will be permanently deleted"), clicks "Empty Trash", shows "Emptying...", table clears to empty state, and success toast "Recycle Bin emptied" appears. | 9.0 s |
+| 59 | Meetings: recordings and downloads | Navigates to Meetings tab (`drive.snaarp.com/meetings`). Reviews meeting recordings list (morning standups with meeting codes, dates, MP4 format, file sizes, and status badges). Hovers first row and explores downloads. | 7.5 s |
+| 60 | Favorites: preview and manage starred items | Navigates to Favorites tab (`drive.snaarp.com/favorites`). Reviews starred items ("Brand assets" folder, "Sample notes.txt", "Q3 report.xlsx") rendered cleanly without outer white card container. Hovers star icon and file row. | 7.0 s |
+| 61 | Workspaces: list workspaces | Navigates to Workspaces tab (`drive.snaarp.com/workspaces`). Reviews organizational team workspaces grid ("Social media Resources" card with owner badge, 5/100 members, and storage usage). | 7.0 s |
+| 62 | Workspaces: create a workspace | Clicks "Create Workspace" button. Modal opens, types name "Marketing Space", description "Campaign assets and planning", clicks "Create Workspace", shows "Creating...", closes modal, shows success toast "Workspace 'Marketing Space' created", and new workspace card appears. | 10.5 s |
+| 63 | Workspaces: workspace details | Clicks "Marketing Space" card, opening detail page (`drive.snaarp.com/workspaces/2172`). Explores Storage Usage card, Browse Workspace Files entry, and Members card with Sam Taylor as Owner. | 7.5 s |
+| 64 | Workspaces: invite organisation members | Clicks "Invite Member" button. Modal "Invite organisation members" opens with member checklist. Selects Alex Morgan and Jordan Lee, sets role to Viewer, clicks "Invite selected", shows "Inviting...", closes modal, shows success toast "2 members invited to Marketing Space", and member list updates to 3 members. | 10.5 s |
+| 65 | Workspaces: change member role and remove member | In members list, clicks three dots on Alex Morgan > "Set as Member", role updates with toast "Alex Morgan's role updated to Member". Clicks three dots on Jordan Lee > "Remove from Workspace", Jordan is removed with toast "Jordan Lee removed from workspace". | 10.5 s |
+| 66 | Workspaces: browse files and create folder | Clicks "Browse Workspace Files", navigating to `/files?folder=2172`. Folder is empty. Clicks "+ Create or upload" > "Folder", names it "All videos", clicks "Create", folder tile appears with toast "Folder 'All videos' created". | 11.5 s |
+| 67 | Workspaces: upload file to workspace folder | Clicks "All videos" folder, then "+ Create or upload" > "Files upload". In-app file picker selects "Launch video.mp4", upload toast tracks progress to 100%, and "Launch video.mp4" video card appears in folder. | 11.0 s |
+| 68 | Workspaces: delete workspace | Returns to workspace detail page, clicks "Delete workspace". Warning modal opens with amber notice that other members will lose access. Checks confirmation box, clicks "Delete workspace", shows "Deleting...", redirects to Workspaces list, and toast "Workspace 'Marketing Space' deleted" appears. Completion card follows. | 9.5 s |
 
 **Files.**
 - Config: `tutorials/drive.ts` (registered in `tutorials/index.ts`)

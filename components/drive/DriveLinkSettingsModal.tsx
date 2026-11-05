@@ -186,7 +186,14 @@ export function DriveLinkSettingsModal({ tl }: Props) {
           <button
             type="button"
             data-tl="btn-link-settings-apply"
-            onClick={() => tl.setVar("driveLinkSettingsOpen", false)}
+            onClick={() => {
+              tl.setVar("driveLinkSettingsOpen", false);
+              tl.setVar("driveShareModalOpen", true);
+              if (selectedScope === "anyone") {
+                tl.setVar("driveShareLinkFooterText", "Anyone with the link can view.");
+              }
+              tl.setVar("driveLinkSettingsToastOpen", true);
+            }}
             className="rounded-xl bg-blue-600 px-5 py-2 text-[12.5px] font-semibold text-white shadow-2xs hover:bg-blue-700 transition-colors cursor-pointer"
           >
             Apply

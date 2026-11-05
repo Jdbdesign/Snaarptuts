@@ -337,7 +337,18 @@ export interface SharedPerson {
   avatarBg?: string;
 }
 
-export const SHARE_PEOPLE_INITIAL: SharedPerson[] = [
+export const DEFAULT_SHARE_PEOPLE: SharedPerson[] = [
+  {
+    id: "p-owner",
+    name: "Sam Taylor",
+    email: "sam.taylor@snaarp.com",
+    role: "Owner",
+    avatar: "S",
+    avatarBg: "bg-purple-100 text-purple-700",
+  },
+];
+
+export const SHARE_PEOPLE_ALREADY_SHARED: SharedPerson[] = [
   {
     id: "p-owner",
     name: "Sam Taylor",
@@ -347,11 +358,11 @@ export const SHARE_PEOPLE_INITIAL: SharedPerson[] = [
     avatarBg: "bg-purple-100 text-purple-700",
   },
   {
-    id: "p-media",
-    name: "Media Team",
-    email: "media@acme.example",
+    id: "p-alex",
+    name: "Alex Morgan",
+    email: "alex.morgan@acme.example",
     role: "Can view",
-    avatar: "M",
+    avatar: "A",
     avatarBg: "bg-blue-100 text-blue-700",
   },
   {
@@ -363,6 +374,27 @@ export const SHARE_PEOPLE_INITIAL: SharedPerson[] = [
     avatarBg: "bg-emerald-100 text-emerald-700",
   },
 ];
+
+export const SHARE_PEOPLE_BUDGET: SharedPerson[] = [
+  {
+    id: "p-owner",
+    name: "Sam Taylor",
+    email: "sam.taylor@snaarp.com",
+    role: "Owner",
+    avatar: "S",
+    avatarBg: "bg-purple-100 text-purple-700",
+  },
+  {
+    id: "p-casey",
+    name: "Casey Brown",
+    email: "casey.brown@acme.example",
+    role: "Can view",
+    avatar: "C",
+    avatarBg: "bg-emerald-100 text-emerald-700",
+  },
+];
+
+export const SHARE_PEOPLE_INITIAL: SharedPerson[] = DEFAULT_SHARE_PEOPLE;
 
 export const PALETTE_COLORS_4X2 = [
   { id: "red", hex: "#EF4444", label: "Red" },

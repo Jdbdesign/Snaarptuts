@@ -38,6 +38,9 @@ export function DriveSharedView({ tl }: Props) {
   const selectedIds = useTimelineVar<string[]>(tl, "driveSharedSelectedIds", []);
   const rowMenuOpenId = useTimelineVar<string>(tl, "driveSharedRowMenuOpenId", "");
   const hiddenIds = useTimelineVar<string[]>(tl, "driveSharedHiddenIds", []);
+  const previewOpen = useTimelineVar(tl, "driveSharedPreviewOpen", false);
+  const byYouBudgetSharedWith = useTimelineVar<string>(tl, "driveBudgetSharedWith", "casey.brown@acme.example");
+  const byYouQ3Role = useTimelineVar<"Can view" | "Can edit" | "">(tl, "driveQ3Role", "");
 
   const filterChips = ["All", "Folders", "Documents", "Images", "Videos", "Other"];
 
@@ -52,7 +55,25 @@ export function DriveSharedView({ tl }: Props) {
     }
   };
 
-  const baseItems = activeTab === "with-you" ? SHARED_WITH_YOU_ITEMS : SHARED_BY_YOU_ITEMS;
+  const dynamicByYouItems: SharedItem[] = SHARED_BY_YOU_ITEMS.map((it) => {
+    if (it.id === "shared-by-1") {
+      const perm: "Can view" | "Can edit" = byYouQ3Role === "Can edit" ? "Can edit" : it.permission;
+      return {
+        ...it,
+        permission: perm,
+        sharedWith: byYouQ3Role ? `alex.morgan@acme.example (${byYouQ3Role})` : it.sharedWith,
+      };
+    }
+    if (it.id === "shared-by-3") {
+      return {
+        ...it,
+        sharedWith: byYouBudgetSharedWith,
+      };
+    }
+    return it;
+  });
+
+  const baseItems = activeTab === "with-you" ? SHARED_WITH_YOU_ITEMS : dynamicByYouItems;
 
   const visibleItems = baseItems
     .filter((item) => !hiddenIds.includes(item.id))
@@ -287,9 +308,18 @@ export function DriveSharedView({ tl }: Props) {
                         {getItemIcon(item)}
                       </div>
                       <div>
-                        <div className="font-semibold text-gray-900 leading-tight">
+                        <button
+                          type="button"
+                          data-tl={item.id === "shared-with-1" ? "link-shared-projectbrief" : `link-shared-item-${idx + 1}`}
+                          onClick={() => {
+                            if (item.name.includes("Project brief")) {
+                              tl.setVar("driveSharedPreviewOpen", true);
+                            }
+                          }}
+                          className="font-semibold text-gray-900 leading-tight text-left hover:text-[#7014D9] transition-colors cursor-pointer"
+                        >
                           {item.name}
-                        </div>
+                        </button>
                         <div className="text-[11px] text-gray-400 mt-0.5">
                           {item.permission}
                         </div>
@@ -420,6 +450,47 @@ export function DriveSharedView({ tl }: Props) {
           </div>
         </div>
       </div>
+
+      {/* 6. Document Preview Modal */}
+      {previewOpen && (
+        <div
+          data-tl="dialog-shared-preview"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px] animate-in fade-in duration-150"
+          onClick={() => tl.setVar("driveSharedPreviewOpen", false)}
+        >
+          <div
+            className="w-[600px] h-[380px] rounded-2xl bg-white p-6 shadow-2xl flex flex-col font-['Poppins',sans-serif] relative animate-in zoom-in-95 duration-150 select-none"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                  <FileText className="w-4 h-4 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 text-sm leading-tight">Project brief.docx</h3>
+                  <span className="text-[11px] text-gray-400">Shared by Alex Morgan</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                data-tl="btn-preview-close"
+                onClick={() => tl.setVar("driveSharedPreviewOpen", false)}
+                className="text-gray-400 hover:text-gray-600 p-1 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className="flex-1 mt-4 p-5 bg-gray-50/70 rounded-xl overflow-y-auto text-xs text-gray-700 leading-relaxed border border-gray-100">
+              <p className="font-bold text-sm mb-2 text-gray-900">Project Brief &amp; Product Deliverables</p>
+              <p className="mb-3 text-[11px] text-gray-500 font-medium">Author: Alex Morgan &bull; Updated: Yesterday &bull; Version 1.2</p>
+              <p className="text-gray-600 leading-normal">
+                This document outlines the core architecture, deliverable milestones, and team assignments for the upcoming cloud release. Please review the timelines before Friday and annotate questions directly in comments.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

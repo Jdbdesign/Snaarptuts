@@ -25,6 +25,12 @@ export function DrivePart4Toasts({ tl }: Props) {
   const workspaceDeletedOpen = useTimelineVar(tl, "driveWorkspaceDeletedToastOpen", false);
   const workspaceFolderOpen = useTimelineVar(tl, "driveWorkspaceFolderToastOpen", false);
   const shareSuccessOpen = useTimelineVar(tl, "driveShareSuccessToastOpen", false);
+  const folderShareOpen = useTimelineVar(tl, "driveFolderShareToastOpen", false);
+  const shareAgainOpen = useTimelineVar(tl, "driveShareAgainToastOpen", false);
+  const personRoleUpdatedOpen = useTimelineVar(tl, "drivePersonRoleUpdatedToastOpen", false);
+  const personRemovedOpen = useTimelineVar(tl, "drivePersonRemovedToastOpen", false);
+  const linkSettingsOpen = useTimelineVar(tl, "driveLinkSettingsToastOpen", false);
+  const linkCopiedOpen = useTimelineVar(tl, "driveLinkCopiedToastOpen", false);
 
   return (
     <>
@@ -342,6 +348,126 @@ export function DrivePart4Toasts({ tl }: Props) {
           <button
             type="button"
             onClick={() => tl.setVar("driveShareSuccessToastOpen", false)}
+            className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+
+      {/* 16. Folder Share Success Toast */}
+      {folderShareOpen && (
+        <div
+          data-tl="toast-folder-share-success"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+        >
+          <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          <span className="font-medium text-[#111827]">
+            Folder shared with jordan.lee@acme.example.
+          </span>
+          <button
+            type="button"
+            onClick={() => tl.setVar("driveFolderShareToastOpen", false)}
+            className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+
+      {/* 17. Share Again Success Toast */}
+      {shareAgainOpen && (
+        <div
+          data-tl="toast-share-again-success"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+        >
+          <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          <span className="font-medium text-[#111827]">
+            File shared with taylor.reed@acme.example.
+          </span>
+          <button
+            type="button"
+            onClick={() => tl.setVar("driveShareAgainToastOpen", false)}
+            className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+
+      {/* 18. Person Role Updated Toast */}
+      {personRoleUpdatedOpen && (
+        <div
+          data-tl="toast-person-role-updated"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+        >
+          <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          <span className="font-medium text-[#111827]">
+            Alex Morgan&apos;s permissions updated to Can edit.
+          </span>
+          <button
+            type="button"
+            onClick={() => tl.setVar("drivePersonRoleUpdatedToastOpen", false)}
+            className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+
+      {/* 19. Person Removed Toast */}
+      {personRemovedOpen && (
+        <div
+          data-tl="toast-person-removed"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+        >
+          <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          <span className="font-medium text-[#111827]">
+            Access removed for casey.brown@acme.example.
+          </span>
+          <button
+            type="button"
+            onClick={() => tl.setVar("drivePersonRemovedToastOpen", false)}
+            className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+
+      {/* 20. Link Settings Updated Toast */}
+      {linkSettingsOpen && (
+        <div
+          data-tl="toast-link-settings-success"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+        >
+          <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          <span className="font-medium text-[#111827]">
+            Link settings updated.
+          </span>
+          <button
+            type="button"
+            onClick={() => tl.setVar("driveLinkSettingsToastOpen", false)}
+            className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+
+      {/* 21. Link Copied Toast */}
+      {linkCopiedOpen && (
+        <div
+          data-tl="toast-link-copied"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+        >
+          <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          <span className="font-medium text-[#111827]">
+            Link copied to clipboard.
+          </span>
+          <button
+            type="button"
+            onClick={() => tl.setVar("driveLinkCopiedToastOpen", false)}
             className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
           >
             <X size={15} />

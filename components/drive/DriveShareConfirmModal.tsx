@@ -10,6 +10,8 @@ type Props = {
 
 export function DriveShareConfirmModal({ tl }: Props) {
   const isOpen = useTimelineVar(tl, "driveShareConfirmOpen", false);
+  const recipientEmail = useTimelineVar(tl, "driveShareRecipientEmail", "alex.morgan@acme.example");
+  const avatar = (recipientEmail.charAt(0) || "A").toUpperCase();
 
   if (!isOpen) return null;
 
@@ -36,15 +38,15 @@ export function DriveShareConfirmModal({ tl }: Props) {
 
         <h2 className="text-[17px] font-semibold text-[#111827]">Shared with</h2>
 
-        {/* Avatar D */}
+        {/* Avatar */}
         <div className="mt-3 flex justify-center">
           <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 text-[16px] font-bold text-white shadow-2xs">
-            D
+            {avatar}
           </div>
         </div>
 
         <p className="mt-2 text-[13px] font-semibold text-[#111827]">
-          design@acme.example
+          {recipientEmail}
         </p>
         <p className="mt-1 text-[11.5px] text-gray-500 max-w-xs mx-auto leading-relaxed">
           They can view this item. If they didn&apos;t get an email, send them the link below.

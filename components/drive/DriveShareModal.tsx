@@ -13,7 +13,7 @@ import {
   ChevronDown,
   Loader2,
 } from "lucide-react";
-import { SHARE_PEOPLE_INITIAL } from "./drive-data";
+import { DEFAULT_SHARE_PEOPLE, type SharedPerson } from "./drive-data";
 
 type Props = {
   tl: Timeline;
@@ -24,20 +24,26 @@ export function DriveShareModal({ tl }: Props) {
   const itemName = useTimelineVar<string>(tl, "driveShareItemName", "Workspaces");
   const emailVal = useTimelineVar(tl, "field:share-email", useTimelineVar(tl, "driveShareEmailVal", ""));
   const hasChip = useTimelineVar(tl, "driveShareHasChip", false);
-  const recipientName = useTimelineVar<string>(tl, "driveShareRecipientName", "design@acme.example");
+  const recipientName = useTimelineVar<string>(tl, "driveShareRecipientName", "Alex Morgan");
   const role = useTimelineVar<"Can edit" | "Can view">(tl, "driveShareRole", "Can view");
   const roleDropdownOpen = useTimelineVar(tl, "driveShareRoleDropdownOpen", false);
   const showMessage = useTimelineVar(tl, "driveShareShowMessage", false);
   const messageVal = useTimelineVar(tl, "field:share-message", useTimelineVar(tl, "driveShareMessage", ""));
   const isSharing = useTimelineVar(tl, "driveIsSharing", false);
   const suggestVar = useTimelineVar(tl, "driveShareShowSuggest", false);
+  const people = useTimelineVar<SharedPerson[]>(tl, "driveSharePeople", DEFAULT_SHARE_PEOPLE);
+  const linkCopied = useTimelineVar(tl, "driveLinkCopied", false);
+  const isShareAgain = useTimelineVar(tl, "driveShareAgain", false);
   const footerText = useTimelineVar<string>(
     tl,
     "driveShareLinkFooterText",
     "Only people with access can view."
   );
 
-  const showSuggest = (emailVal.toLowerCase().includes("alex") || suggestVar) && !hasChip;
+  const lowerEmail = emailVal.toLowerCase();
+  const showAlexSuggest = (lowerEmail.includes("alex") || (suggestVar && !lowerEmail.includes("jordan") && !lowerEmail.includes("taylor"))) && !hasChip;
+  const showJordanSuggest = lowerEmail.includes("jordan") && !hasChip;
+  const showTaylorSuggest = lowerEmail.includes("taylor") && !hasChip;
 
   if (!isOpen) return null;
 
@@ -158,13 +164,27 @@ export function DriveShareModal({ tl }: Props) {
                   readOnly
                   className="w-full text-[13px] text-[#111827] placeholder:text-gray-400 focus:outline-none"
                 />
-                <Plus size={16} className="ml-auto text-gray-400 shrink-0" />
+                <button
+                  type="button"
+                  data-tl="btn-share-add-email"
+                  onClick={() => {
+                    if (emailVal.trim()) {
+                      tl.setVar("driveShareHasChip", true);
+                      tl.setVar("driveShareRecipientName", emailVal.trim());
+                      tl.setVar("driveShareEmailVal", "");
+                      tl.setVar("field:share-email", "");
+                    }
+                  }}
+                  className="ml-auto text-gray-400 hover:text-gray-600 transition-colors cursor-pointer shrink-0"
+                >
+                  <Plus size={16} />
+                </button>
               </>
             )}
           </div>
 
-          {/* Autocomplete suggestion popover */}
-          {showSuggest && (
+          {/* Autocomplete suggestion popovers */}
+          {showAlexSuggest && (
             <div
               data-tl="share-suggest-alex"
               onClick={() => {
@@ -182,6 +202,50 @@ export function DriveShareModal({ tl }: Props) {
               <div>
                 <p className="text-[12.5px] font-semibold text-gray-900 leading-tight">Alex Morgan</p>
                 <p className="text-[11px] text-gray-400">alex.morgan@acme.example</p>
+              </div>
+            </div>
+          )}
+
+          {showJordanSuggest && (
+            <div
+              data-tl="share-suggest-jordan"
+              onClick={() => {
+                tl.setVar("driveShareHasChip", true);
+                tl.setVar("driveShareEmailVal", "");
+                tl.setVar("field:share-email", "");
+                tl.setVar("driveShareRecipientName", "Jordan Lee");
+                tl.setVar("driveShareRecipientEmail", "jordan.lee@acme.example");
+              }}
+              className="mt-1 flex items-center gap-2.5 rounded-xl border border-gray-200 bg-white p-2.5 shadow-lg hover:bg-blue-50/50 cursor-pointer animate-in fade-in transition-colors"
+            >
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-amber-100 text-amber-700 text-xs font-semibold">
+                J
+              </div>
+              <div>
+                <p className="text-[12.5px] font-semibold text-gray-900 leading-tight">Jordan Lee</p>
+                <p className="text-[11px] text-gray-400">jordan.lee@acme.example</p>
+              </div>
+            </div>
+          )}
+
+          {showTaylorSuggest && (
+            <div
+              data-tl="share-suggest-taylor"
+              onClick={() => {
+                tl.setVar("driveShareHasChip", true);
+                tl.setVar("driveShareEmailVal", "");
+                tl.setVar("field:share-email", "");
+                tl.setVar("driveShareRecipientName", "Taylor Reed");
+                tl.setVar("driveShareRecipientEmail", "taylor.reed@acme.example");
+              }}
+              className="mt-1 flex items-center gap-2.5 rounded-xl border border-gray-200 bg-white p-2.5 shadow-lg hover:bg-blue-50/50 cursor-pointer animate-in fade-in transition-colors"
+            >
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-purple-100 text-purple-700 text-xs font-semibold">
+                T
+              </div>
+              <div>
+                <p className="text-[12.5px] font-semibold text-gray-900 leading-tight">Taylor Reed</p>
+                <p className="text-[11px] text-gray-400">taylor.reed@acme.example</p>
               </div>
             </div>
           )}
@@ -218,7 +282,7 @@ export function DriveShareModal({ tl }: Props) {
           </span>
 
           <div className="mt-2.5 space-y-2.5 max-h-48 overflow-y-auto">
-            {SHARE_PEOPLE_INITIAL.map((person) => (
+            {people.map((person) => (
               <div key={person.id} className="flex items-center justify-between text-[12.5px]">
                 <div className="flex items-center gap-2.5">
                   <div
@@ -232,7 +296,25 @@ export function DriveShareModal({ tl }: Props) {
                     <p className="font-medium text-[#111827] leading-tight">
                       {person.email}
                     </p>
-                    <p className="text-[11px] text-gray-400">{person.role}</p>
+                    {person.role === "Owner" ? (
+                      <p className="text-[11px] text-gray-400">Owner</p>
+                    ) : (
+                      <button
+                        type="button"
+                        data-tl={`select-person-role-${person.id}`}
+                        onClick={() => {
+                          const newRole = person.role === "Can view" ? "Can edit" : "Can view";
+                          tl.setVar(
+                            "driveSharePeople",
+                            people.map((p) => (p.id === person.id ? { ...p, role: newRole } : p))
+                          );
+                          tl.setVar("drivePersonRoleUpdatedToastOpen", true);
+                        }}
+                        className="text-[11px] text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
+                      >
+                        {person.role}
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -240,6 +322,13 @@ export function DriveShareModal({ tl }: Props) {
                   <button
                     type="button"
                     data-tl={`btn-remove-person-${person.id}`}
+                    onClick={() => {
+                      tl.setVar(
+                        "driveSharePeople",
+                        people.filter((p) => p.id !== person.id)
+                      );
+                      tl.setVar("drivePersonRemovedToastOpen", true);
+                    }}
                     className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
                   >
                     <X size={14} />
@@ -262,13 +351,13 @@ export function DriveShareModal({ tl }: Props) {
               type="button"
               data-tl="btn-share-copy-link"
               onClick={() => {
-                tl.setVar("driveShareModalOpen", false);
-                tl.setVar("driveCopyLinkToastOpen", true);
+                tl.setVar("driveLinkCopied", true);
+                tl.setVar("driveLinkCopiedToastOpen", true);
               }}
               className="flex items-center gap-1.5 rounded-xl border border-gray-300 bg-white px-3 py-1.5 text-[12px] font-medium text-gray-700 shadow-2xs hover:bg-gray-50 transition-colors cursor-pointer"
             >
               <LinkIcon size={14} className="text-gray-500" />
-              <span>Copy link</span>
+              <span>{linkCopied ? "Copied!" : "Copy link"}</span>
             </button>
 
             <button
@@ -277,7 +366,14 @@ export function DriveShareModal({ tl }: Props) {
               disabled={isSharing}
               onClick={() => {
                 tl.setVar("driveShareModalOpen", false);
-                tl.setVar("driveShareSuccessToastOpen", true);
+                if (itemName === "Client Files") {
+                  tl.setVar("driveFolderShareToastOpen", true);
+                  tl.setVar("driveClientFilesShared", true);
+                } else if (isShareAgain) {
+                  tl.setVar("driveShareAgainToastOpen", true);
+                } else {
+                  tl.setVar("driveShareSuccessToastOpen", true);
+                }
               }}
               className="flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-1.5 text-[12px] font-semibold text-white shadow-2xs hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-75"
             >

@@ -72,6 +72,7 @@ export function DriveFilesView({ tl }: Props) {
   const hasWorkspaceFolder = useTimelineVar(tl, "driveWorkspaceFolderAdded", false);
   const hasWorkspaceFile = useTimelineVar(tl, "driveWorkspaceFileUploaded", false);
   const hasShortcut = useTimelineVar(tl, "driveHasShortcutProjectBrief", false);
+  const clientFilesShared = useTimelineVar(tl, "driveClientFilesShared", false);
 
   const isInsideWorkspaces = breadcrumbs[0] === "Workspaces";
   const currentFolderDepth = breadcrumbs.length;
@@ -824,6 +825,47 @@ export function DriveFilesView({ tl }: Props) {
                       <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
                     </div>
                   )}
+
+                  {/* Folder: Client Files */}
+                  <div
+                    data-tl="tile-folder-client-files"
+                    className="relative rounded-2xl border border-[#EBECEF] bg-white p-3.5 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                  >
+                    <button
+                      type="button"
+                      data-tl="btn-tile-menu-client-files"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        tl.setVar("driveItemMenuType", "folder");
+                        tl.setVar("driveItemMenuName", "Client Files");
+                        tl.setVar("driveShareItemName", "Client Files");
+                        tl.setVar("driveItemMenuCoords", { top: 220, left: 340 });
+                        tl.setVar("driveItemMenuOpen", true);
+                      }}
+                      className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 p-1 cursor-pointer"
+                    >
+                      <MoreVertical size={14} />
+                    </button>
+                    <div className="flex items-start justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-[#F59E0B]">
+                        <Folder size={26} fill="#FDE68A" />
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        {clientFilesShared && (
+                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 text-blue-600 text-[10px]" title="Shared">
+                            <Users size={11} />
+                          </span>
+                        )}
+                        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
+                          4
+                        </span>
+                      </div>
+                    </div>
+                    <h4 className="mt-3 text-[12.5px] font-semibold text-[#111827] truncate">
+                      Client Files
+                    </h4>
+                    <p className="text-[11px] text-[#9CA3AF] mt-0.5">Today</p>
+                  </div>
 
                   {/* Snaarp product logos */}
                   <div

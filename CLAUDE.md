@@ -651,11 +651,11 @@ Files: Reusable Workforce stage components/workforce/WorkforceStage.tsx and app 
 Files: OneCardX stage `components/onecardx/OneCardXStage.tsx` and app shell `components/onecardx/OneCardXShell.tsx` (thin suite rail, 205px OneCardX sidebar, top bar with apps grid and admin avatar). Shared timeline helpers in `components/onecardx/onecardx-timeline.ts` (`beginOneCardX` with mandatory `tl.placeCursor`, `finishOneCardX`). Central sample data in `components/onecardx/onecardx-data.ts` (Sam Taylor admin, Alex Morgan employee/contact, Acme Ltd, neutral sample portraits and logos). Views: `OneCardXHomeView`, `OneCardXOrgCardsView`, `OneCardXEditorView`, `OneCardXCardDetailView` + `OneCardXPublicPreviewOverlay`, `OneCardXMemberView`, `OneCardXIDCardsView`, `OneCardXUsersView`, `OneCardXBackgroundsView`, `OneCardXSignaturesView`, `OneCardXMailView`, `OneCardXContactsView`, `OneCardXAnalyticsView`, `OneCardXBugModal`. Per-step scenes in `scenes/onecardx/step<N>/`. All 66 steps clean with 0 open findings across 4 viewports in qa:visibility.
 
 ### Snaarp Drive ("Snaarp Drive, Parts 1, 2, 3 & 4: the complete product walkthrough", route `/tutorials/drive`)
-Config: `tutorials/drive.ts` (68 steps, all built: Part 1 navigation tour, Part 2 create & upload features, Part 3 item menu & organise, and Part 4 bulk actions & workspaces; completion card follows step 68). Recordings: `ref/drive-clip1.mp4` (1440x747, 1:26), `ref/drive-clip2.mp4` (1398x720, 3:13), `ref/drive-clip3.mp4` (1408x720, 5:18), and `ref/drive-clip4.mp4` (1408x720, 5:46). Stills: `ref/drive-frames-1/`, `ref/drive-frames-2/`, `ref/drive-frames-3/`, and `ref/drive-frames-4/`.
+Config: `tutorials/drive.ts` (68 steps, all built: Part 1 navigation tour [orientation-only for nav items], Part 2 create & upload features, Part 3 item menu & organise, Part 4 dedicated sharing module [S1-S10], and Part 5 deep feature modules & workspaces; completion card follows step 68). Recordings: `ref/drive-clip1.mp4` (1440x747, 1:26), `ref/drive-clip2.mp4` (1398x720, 3:13), `ref/drive-clip3.mp4` (1408x720, 5:18), and `ref/drive-clip4.mp4` (1408x720, 5:46). Stills: `ref/drive-frames-1/`, `ref/drive-frames-2/`, `ref/drive-frames-3/`, and `ref/drive-frames-4/`.
 
 | Step | Status |
 |---|---|
-| 1. Your Drive home | Done |
+| 1. Navigate: Home | Done |
 | 2. Switch to Photos | Done |
 | 3. Moments | Done |
 | 4. Albums | Done |
@@ -665,17 +665,17 @@ Config: `tutorials/drive.ts` (68 steps, all built: Part 1 navigation tour, Part 
 | 8. Back to Files | Done |
 | 9. Filter your recent files | Done |
 | 10. Create or upload | Done |
-| 11. My Files | Done |
+| 11. Navigate: My Files | Done |
 | 12. Sort your files | Done |
 | 13. Change the view | Done |
 | 14. Open the details panel | Done |
-| 15. Meetings | Done |
-| 16. Photos from the sidebar | Done |
-| 17. Shared files | Done |
-| 18. Favorites | Done |
-| 19. Recycle Bin | Done |
-| 20. Workspaces | Done |
-| 21. Back to Home | Done |
+| 15. Navigate: Meetings | Done |
+| 16. Navigate: Photos | Done |
+| 17. Navigate: Shared | Done |
+| 18. Navigate: Favorites | Done |
+| 19. Navigate: Recycle Bin | Done |
+| 20. Navigate: Workspaces | Done |
+| 21. Navigate: Back to Home | Done |
 | 22. Start a new folder | Done |
 | 23. Name and colour the folder | Done |
 | 24. See your new folder | Done |
@@ -689,40 +689,40 @@ Config: `tutorials/drive.ts` (68 steps, all built: Part 1 navigation tour, Part 
 | 32. Import from other drives | Done |
 | 33. Open the item menu | Done |
 | 34. Open a folder | Done |
-| 35. Share a folder | Done |
-| 36. Invite someone | Done |
-| 37. Copy a link | Done |
-| 38. Manage who has access | Done |
-| 39. Set the link permissions | Done |
-| 40. Delete a folder | Done |
-| 41. Rename a folder | Done |
-| 42. The file menu | Done |
-| 43. Rename a file | Done |
-| 44. Move a file | Done |
-| 45. Copy a file | Done |
-| 46. Favorites and pin to top | Done |
-| 47. Change a folder colour | Done |
-| 48. View item details | Done |
-| 49. Select several items and the bulk action bar | Done |
-| 50. Move 3 items to a folder | Done |
-| 51. Delete 2 items | Done |
-| 52. Recycle Bin | Done |
-| 53. Restore an item | Done |
-| 54. Empty Trash | Done |
-| 55. Meetings recordings | Done |
-| 56. Share a file with a teammate | Done |
-| 57. Shared: With you | Done |
-| 58. Shared: By you and row menu | Done |
-| 59. Shared: bulk actions | Done |
-| 60. Favorites | Done |
-| 61. Workspaces list | Done |
-| 62. Create a workspace | Done |
-| 63. Workspace detail page | Done |
-| 64. Invite organisation members | Done |
-| 65. Change a member's role and remove a member | Done |
-| 66. Browse Workspace Files and create a folder | Done |
-| 67. Upload a file into the folder | Done |
-| 68. Delete a workspace | Done |
+| 35. Delete a folder | Done |
+| 36. Rename a folder | Done |
+| 37. The file menu | Done |
+| 38. Rename a file | Done |
+| 39. Move a file | Done |
+| 40. Copy a file | Done |
+| 41. Favorites and pin to top | Done |
+| 42. Change a folder colour | Done |
+| 43. View item details | Done |
+| 44. Select several items and the bulk action bar | Done |
+| 45. Move 3 items to a folder | Done |
+| 46. Delete 2 items | Done |
+| 47. Sharing: Share a file with a teammate | Done |
+| 48. Sharing: Share a folder | Done |
+| 49. Sharing: Copy a link | Done |
+| 50. Sharing: Set the link permissions | Done |
+| 51. Sharing: Manage who has access | Done |
+| 52. Sharing: Shared with you: the tab | Done |
+| 53. Sharing: Shared with you: row menu | Done |
+| 54. Sharing: Shared by you: the tab | Done |
+| 55. Sharing: Shared by you: row menu and sharing again | Done |
+| 56. Sharing: Shared: bulk actions | Done |
+| 57. Recycle Bin: restore an item | Done |
+| 58. Recycle Bin: empty the trash | Done |
+| 59. Meetings: recordings and downloads | Done |
+| 60. Favorites: preview and manage starred items | Done |
+| 61. Workspaces: list workspaces | Done |
+| 62. Workspaces: create a workspace | Done |
+| 63. Workspaces: workspace details | Done |
+| 64. Workspaces: invite organisation members | Done |
+| 65. Workspaces: change member role and remove member | Done |
+| 66. Workspaces: browse files and create folder | Done |
+| 67. Workspaces: upload file to workspace folder | Done |
+| 68. Workspaces: delete workspace | Done |
 
 Files: Reusable stage `components/drive/DriveStage.tsx` and app shell `components/drive/DriveShell.tsx` (thin suite rail with Drive active, collapsible 230px inner sidebar with storage bar 2.8 GB / 20.0 GB 14% or 17.0 GB / 20.0 GB 85%, top bar with Photos/Files pill, search, user avatar, and apps 9-dot grid). Views & Modals: `DriveHomeView.tsx`, `DrivePhotosView.tsx`, `DriveFilesView.tsx`, `DriveMeetingsView.tsx`, `DriveSharedView.tsx`, `DriveFavoritesView.tsx`, `DriveTrashView.tsx`, `DriveWorkspacesView.tsx`, `DriveWorkspaceDetailView.tsx`, `DriveBulkActionBar.tsx`, `DriveBulkMoveModal.tsx`, `DriveBulkDeleteModal.tsx`, `DriveEmptyTrashModal.tsx`, `DriveCreateWorkspaceModal.tsx`, `DriveInviteMemberModal.tsx`, `DriveDeleteWorkspaceModal.tsx`, `DrivePart4Toasts.tsx`, `DriveCreateMenu.tsx`, `DriveFolderModal.tsx`, `DriveUploadToast.tsx`, `DriveFilePickerModal.tsx`, `DriveMarkdownModal.tsx`, `DriveMarkdownEditor.tsx`, `DriveTextModal.tsx`, `DriveTextEditor.tsx`, `DriveImportModal.tsx`, `DriveItemMenu.tsx`, `DriveShareModal.tsx`, `DriveShareConfirmModal.tsx`, `DriveLinkSettingsModal.tsx`, `DriveDeleteModal.tsx`, `DriveRenameModal.tsx`, `DriveMoveCopyModal.tsx`, `DriveFolderColorModal.tsx`, `DriveCopyLinkToast.tsx`, `DriveMoveToast.tsx`. Shared timeline helpers in `components/drive/drive-timeline.ts` (`beginDrive` with mandatory `tl.placeCursor`, `finishDrive`). Central sample data in `components/drive/drive-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, Alex Morgan, Jordan Lee, Casey Brown). All 68 steps clean with 0 open findings across 4 viewports in qa:visibility.
 

@@ -144,12 +144,12 @@ export const drive: Tutorial = {
     name: "Snaarp Drive",
     railLabel: "Snaarp Drive",
     logo: "drive",
-    aliases: ["drive", "cloud", "storage", "files", "photos", "documents"],
+    aliases: ["drive", "cloud", "storage", "files", "photos", "documents", "sharing"],
   },
   steps: [
     {
-      id: "drive-home",
-      title: "Your Drive home",
+      id: "navigate-home",
+      title: "Navigate: Home",
       url: DRIVE_URLS.dashboard,
       scene: {
         Component: Step1,
@@ -248,8 +248,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "my-files",
-      title: "My Files",
+      id: "navigate-my-files",
+      title: "Navigate: My Files",
       url: DRIVE_URLS.dashboard,
       scene: {
         Component: Step11,
@@ -288,8 +288,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "meetings",
-      title: "Meetings",
+      id: "navigate-meetings",
+      title: "Navigate: Meetings",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step15,
@@ -298,8 +298,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "photos-from-sidebar",
-      title: "Photos from the sidebar",
+      id: "navigate-photos",
+      title: "Navigate: Photos",
       url: DRIVE_URLS.meetings,
       scene: {
         Component: Step16,
@@ -308,8 +308,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "shared-files",
-      title: "Shared files",
+      id: "navigate-shared",
+      title: "Navigate: Shared",
       url: DRIVE_URLS.dashboard,
       scene: {
         Component: Step17,
@@ -318,8 +318,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "favorites",
-      title: "Favorites",
+      id: "navigate-favorites",
+      title: "Navigate: Favorites",
       url: DRIVE_URLS.shared,
       scene: {
         Component: Step18,
@@ -328,8 +328,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "recycle-bin",
-      title: "Recycle Bin",
+      id: "navigate-recycle-bin",
+      title: "Navigate: Recycle Bin",
       url: DRIVE_URLS.favorites,
       scene: {
         Component: Step19,
@@ -338,8 +338,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspaces",
-      title: "Workspaces",
+      id: "navigate-workspaces",
+      title: "Navigate: Workspaces",
       url: DRIVE_URLS.trash,
       scene: {
         Component: Step20,
@@ -348,8 +348,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "back-to-home",
-      title: "Back to Home",
+      id: "navigate-back-to-home",
+      title: "Navigate: Back to Home",
       url: DRIVE_URLS.workspaces,
       scene: {
         Component: Step21,
@@ -488,8 +488,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "share-folder",
-      title: "Share a folder",
+      id: "delete-folder",
+      title: "Delete a folder",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step35,
@@ -498,8 +498,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "invite-someone",
-      title: "Invite someone",
+      id: "rename-folder",
+      title: "Rename a folder",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step36,
@@ -508,8 +508,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "copy-link",
-      title: "Copy a link",
+      id: "file-menu",
+      title: "The file menu",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step37,
@@ -518,8 +518,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "manage-access",
-      title: "Manage who has access",
+      id: "rename-file",
+      title: "Rename a file",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step38,
@@ -528,8 +528,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "link-permissions",
-      title: "Set the link permissions",
+      id: "move-file",
+      title: "Move a file",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step39,
@@ -538,8 +538,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "delete-folder",
-      title: "Delete a folder",
+      id: "copy-file",
+      title: "Copy a file",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step40,
@@ -548,8 +548,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "rename-folder",
-      title: "Rename a folder",
+      id: "favorites-pin-top",
+      title: "Favorites and pin to top",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step41,
@@ -558,8 +558,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "file-menu",
-      title: "The file menu",
+      id: "change-folder-color",
+      title: "Change a folder colour",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step42,
@@ -568,8 +568,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "rename-file",
-      title: "Rename a file",
+      id: "view-item-details",
+      title: "View item details",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step43,
@@ -578,8 +578,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "move-file",
-      title: "Move a file",
+      id: "select-bulk-actions",
+      title: "Select several items and the bulk action bar",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step44,
@@ -588,8 +588,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "copy-file",
-      title: "Copy a file",
+      id: "move-3-items",
+      title: "Move 3 items to a folder",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step45,
@@ -598,8 +598,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "favorites-pin-top",
-      title: "Favorites and pin to top",
+      id: "delete-2-items",
+      title: "Delete 2 items",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step46,
@@ -608,8 +608,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "change-folder-color",
-      title: "Change a folder colour",
+      id: "sharing-file-teammate",
+      title: "Sharing: Share a file with a teammate",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step47,
@@ -618,8 +618,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "view-item-details",
-      title: "View item details",
+      id: "sharing-folder",
+      title: "Sharing: Share a folder",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step48,
@@ -628,8 +628,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "select-bulk-actions",
-      title: "Select several items and the bulk action bar",
+      id: "sharing-copy-link",
+      title: "Sharing: Copy a link",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step49,
@@ -638,8 +638,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "move-3-items",
-      title: "Move 3 items to a folder",
+      id: "sharing-link-permissions",
+      title: "Sharing: Set the link permissions",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step50,
@@ -648,8 +648,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "delete-2-items",
-      title: "Delete 2 items",
+      id: "sharing-manage-access",
+      title: "Sharing: Manage who has access",
       url: DRIVE_URLS.files,
       scene: {
         Component: Step51,
@@ -658,9 +658,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "recycle-bin-actions",
-      title: "Recycle Bin",
-      url: DRIVE_URLS.trash,
+      id: "sharing-shared-with-you-tab",
+      title: "Sharing: Shared with you: the tab",
+      url: DRIVE_URLS.shared,
       scene: {
         Component: Step52,
         run: runStep52,
@@ -668,9 +668,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "restore-item",
-      title: "Restore an item",
-      url: DRIVE_URLS.trash,
+      id: "sharing-shared-with-you-menu",
+      title: "Sharing: Shared with you: row menu",
+      url: DRIVE_URLS.shared,
       scene: {
         Component: Step53,
         run: runStep53,
@@ -678,9 +678,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "empty-trash",
-      title: "Empty Trash",
-      url: DRIVE_URLS.trash,
+      id: "sharing-shared-by-you-tab",
+      title: "Sharing: Shared by you: the tab",
+      url: DRIVE_URLS.shared,
       scene: {
         Component: Step54,
         run: runStep54,
@@ -688,9 +688,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "meetings-recordings",
-      title: "Meetings recordings",
-      url: DRIVE_URLS.meetings,
+      id: "sharing-shared-by-you-menu",
+      title: "Sharing: Shared by you: row menu and sharing again",
+      url: DRIVE_URLS.shared,
       scene: {
         Component: Step55,
         run: runStep55,
@@ -698,9 +698,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "share-file-teammate",
-      title: "Share a file with a teammate",
-      url: DRIVE_URLS.files,
+      id: "sharing-bulk-actions",
+      title: "Sharing: Shared: bulk actions",
+      url: DRIVE_URLS.shared,
       scene: {
         Component: Step56,
         run: runStep56,
@@ -708,9 +708,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "shared-with-you",
-      title: "Shared: With you",
-      url: DRIVE_URLS.shared,
+      id: "recycle-bin-restore",
+      title: "Recycle Bin: restore an item",
+      url: DRIVE_URLS.trash,
       scene: {
         Component: Step57,
         run: runStep57,
@@ -718,9 +718,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "shared-by-you",
-      title: "Shared: By you and row menu",
-      url: DRIVE_URLS.shared,
+      id: "recycle-bin-empty",
+      title: "Recycle Bin: empty the trash",
+      url: DRIVE_URLS.trash,
       scene: {
         Component: Step58,
         run: runStep58,
@@ -728,9 +728,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "shared-bulk-actions",
-      title: "Shared: bulk actions",
-      url: DRIVE_URLS.shared,
+      id: "meetings-recordings",
+      title: "Meetings: recordings and downloads",
+      url: DRIVE_URLS.meetings,
       scene: {
         Component: Step59,
         run: runStep59,
@@ -738,8 +738,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "favorites-view",
-      title: "Favorites",
+      id: "favorites-manage",
+      title: "Favorites: preview and manage starred items",
       url: DRIVE_URLS.favorites,
       scene: {
         Component: Step60,
@@ -749,7 +749,7 @@ export const drive: Tutorial = {
     },
     {
       id: "workspaces-list",
-      title: "Workspaces list",
+      title: "Workspaces: list workspaces",
       url: DRIVE_URLS.workspaces,
       scene: {
         Component: Step61,
@@ -758,8 +758,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "create-workspace",
-      title: "Create a workspace",
+      id: "workspaces-create",
+      title: "Workspaces: create a workspace",
       url: DRIVE_URLS.workspaces,
       scene: {
         Component: Step62,
@@ -768,8 +768,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspace-detail",
-      title: "Workspace detail page",
+      id: "workspaces-detail",
+      title: "Workspaces: workspace details",
       url: "drive.snaarp.com/workspaces/2172",
       scene: {
         Component: Step63,
@@ -778,8 +778,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "invite-org-members",
-      title: "Invite organisation members",
+      id: "workspaces-invite",
+      title: "Workspaces: invite organisation members",
       url: "drive.snaarp.com/workspaces/2172",
       scene: {
         Component: Step64,
@@ -788,8 +788,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspace-member-roles",
-      title: "Change a member's role and remove a member",
+      id: "workspaces-roles",
+      title: "Workspaces: change member role and remove member",
       url: "drive.snaarp.com/workspaces/2172",
       scene: {
         Component: Step65,
@@ -798,8 +798,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspace-browse-folder",
-      title: "Browse Workspace Files and create a folder",
+      id: "workspaces-browse-folder",
+      title: "Workspaces: browse files and create folder",
       url: "drive.snaarp.com/files?folder=2172",
       scene: {
         Component: Step66,
@@ -808,8 +808,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspace-upload-file",
-      title: "Upload a file into the folder",
+      id: "workspaces-upload-file",
+      title: "Workspaces: upload file to workspace folder",
       url: "drive.snaarp.com/files?folder=2173",
       scene: {
         Component: Step67,
@@ -818,8 +818,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "delete-workspace",
-      title: "Delete a workspace",
+      id: "workspaces-delete",
+      title: "Workspaces: delete workspace",
       url: "drive.snaarp.com/workspaces/2172",
       scene: {
         Component: Step68,
@@ -829,12 +829,14 @@ export const drive: Tutorial = {
     },
   ],
   groups: [
+    { title: "Navigation & Photos", from: "navigate-home" },
     { title: "Photos & Media", from: "switch-to-photos" },
-    { title: "Files & Storage", from: "back-to-files" },
-    { title: "Navigation & Spaces", from: "meetings" },
+    { title: "Files & Navigation", from: "back-to-files" },
     { title: "Create & Upload", from: "start-new-folder" },
     { title: "Item Menu & Organise", from: "open-item-menu" },
-    { title: "Bulk & Workspaces", from: "select-bulk-actions" },
+    { title: "Sharing", from: "sharing-file-teammate" },
+    { title: "Recycle Bin & Deep Features", from: "recycle-bin-restore" },
+    { title: "Workspaces", from: "workspaces-list" },
   ],
   completion: {
     title: "Tour complete",

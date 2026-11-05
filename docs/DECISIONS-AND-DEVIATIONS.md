@@ -1066,6 +1066,38 @@ Built from video recording `1104 (2).mp4` (5m46s) and extracted stills `ref/driv
   5. `lib/timeline.ts` safety net added: `waitForElement` retries element lookup over 3 seconds before logging a clear console error with the selector instead of hanging or failing prematurely during asynchronous React renders.
   6. Verified with automated Playwright testing across all 68 Drive steps both individually and continuously through autoplay.
 
+## Restructure: Navigation vs Dedicated Sharing Module (Steps 1-68)
+
+1. **Orientation-Only Navigation Steps**:
+   - Sidebar navigation steps (1: Home, 11: My Files, 15: Meetings, 16: Photos, 17: Shared, 18: Favorites, 19: Recycle Bin, 20: Workspaces, 21: Back to Home) were previously mixing navigation orientation with deep feature demonstrations (filtering, row menus, dialogs, empty trash).
+   - All navigation steps now strictly serve as orientation: highlight sidebar item, click, let page open, one-line caption explaining what the page is for, gentle highlight on key area (title, tabs or table), and finish. No deep actions, no dialogs, no row menus.
+   - Rail titles formatted as `"Navigate: <Name>"` (e.g. `Navigate: Home`, `Navigate: My Files`, `Navigate: Shared`, etc.).
+
+2. **Dedicated Sharing Module (Steps 47-56 / S1 to S10)**:
+   - All 10 sharing steps are grouped together into one dedicated module placed right after file & folder management (steps 47 to 56):
+     - Step 47 (S1): `Sharing: Share a file with a teammate` - Q3 report.pdf share flow with Alex Morgan (`alex.morgan@acme.example`), role "Can edit", note "Please review before Friday.", success toast, verify in By you.
+     - Step 48 (S2): `Sharing: Share a folder` - Client Files folder share flow with Jordan Lee (`jordan.lee@acme.example`), role "Can view", success toast, shared folder badge.
+     - Step 49 (S3): `Sharing: Copy a link` - Open Share modal on Workspaces, click "Copy link", button transitions to "Copied!" and share link copied toast displays.
+     - Step 50 (S4): `Sharing: Set the link permissions` - Open Link settings modal from Share modal gear icon, select "Anyone with the link can view", apply, toast + footer updates to "Anyone with the link can view.".
+     - Step 51 (S5): `Sharing: Manage who has access` - Share modal opens with Sam Taylor, Alex Morgan, and Casey Brown. Change Alex's role to "Can edit" with toast, remove Casey with X button with toast. Shared > By you reflects updated permissions.
+     - Step 52 (S6): `Sharing: Shared with you: the tab` - Explains "With you" tab, category chips (Documents, Images, All), filter search by typing "Alex", opens document preview for "Project brief.docx", closes preview.
+     - Step 53 (S7): `Sharing: Shared with you: row menu` - Opens row menu on "Project brief.docx" > "Add shortcut to My files" with toast, verifies shortcut in My Files, returns to Shared, opens row menu on "Roadmap.pptx" > "Hide from Shared" with toast.
+     - Step 54 (S8): `Sharing: Shared by you: the tab` - Explains columns (Name, Shared with, Access, Date shared), category chips, and search filter typing "Budget".
+     - Step 55 (S9): `Sharing: Shared by you: row menu and sharing again` - Three-dot menu on "Budget.xlsx" > Share dialog (seeded with Sam Taylor and Casey Brown), types "taylor", selects Taylor Reed, Send with toast, row updates collaborator list.
+     - Step 56 (S10): `Sharing: Shared: bulk actions` - Checks rows 2 & 3 in "By you", bulk bar appears above table, clicks bulk shortcut with toast, clicks bulk hide with toast.
+
+3. **State-Driven Share Dialog**:
+   - The Share modal (`DriveShareModal.tsx`) is driven by timeline state (`driveSharePeople`). It opens showing only what exists at that moment for that item:
+     - Unshared items start with only Sam Taylor (Owner). No hardcoded `media@acme.example` or unseeded collaborators appear before the user adds them.
+     - Previously shared items (Workspaces in step 51, Budget in step 55) seed only their actual collaborators.
+     - Title is dynamic: `Share "${itemName}"`.
+     - Email autocomplete provides authentic suggestions: "alex" -> Alex Morgan, "jordan" -> Jordan Lee, "taylor" -> Taylor Reed.
+     - Plus icon (`+`) button allows clicking to add typed addresses into email chips.
+
+4. **Progress Storage Key Version**:
+   - Bumped `PROGRESS_KEY` in `lib/progress.ts` to `snaarp-tutorials:progress:v3` to ensure users who tested earlier configurations start fresh with the new 68-step structure.
+
+
 
 
 
