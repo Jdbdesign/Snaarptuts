@@ -1,5 +1,3 @@
 export const CAPTIONS = {
-  intro: "Recordings from your Snaarp Meet calls are stored automatically.",
-  clickMeetings: "Click Meetings in the sidebar.",
-  recording: "Download or review your meeting recordings.",
+  clickMeetings: "Meetings gives you quick access to all your recorded meetings and transcripts.",
 };
