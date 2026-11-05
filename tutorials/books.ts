@@ -95,6 +95,8 @@ import { Step47 } from "@/scenes/books/step47/Step47";
 import { runStep47, STEP47_DURATION_MS } from "@/scenes/books/step47/script";
 import { Step48 } from "@/scenes/books/step48/Step48";
 import { runStep48, STEP48_DURATION_MS } from "@/scenes/books/step48/script";
+import { Step49 } from "@/scenes/books/step49/Step49";
+import { runStep49, STEP49_DURATION_MS } from "@/scenes/books/step49/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -593,6 +595,16 @@ export const books: Tutorial = {
         Component: Step48,
         run: runStep48,
         durationMs: STEP48_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-discount-shipping-adjustment",
+      title: "Quotes: add discount, shipping and an adjustment",
+      url: BOOKS_URLS.newQuote,
+      scene: {
+        Component: Step49,
+        run: runStep49,
+        durationMs: STEP49_DURATION_MS,
       },
     },
   ],
