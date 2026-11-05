@@ -8,52 +8,71 @@ import {
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP40_DURATION_MS = 10000;
+export const STEP40_DURATION_MS = 12500;
 
 export async function runStep40(tl: Timeline) {
-  beginDrive(tl, DRIVE_URLS.files, "files", [0.35, 0.35]);
+  beginDrive(tl, DRIVE_URLS.files, "files", [0.45, 0.45]);
   tl.setVar("driveFilesViewMode", "tiles");
   tl.setVar("driveFolderBrandLogosAdded", true);
   tl.setVar("driveFolderProjectFilesAdded", true);
   tl.setVar("driveFileQuarterlyReportAdded", true);
   tl.setVar("driveFileMeetingNotesAdded", true);
   tl.setVar("driveFileSampleTxtAdded", true);
+  tl.setVar("driveFileSampleTxtTitle", "Sample notes.txt");
 
   await tl.at(500);
-  tl.showCaption(CAPTIONS.clickMenu);
-  await hoverOn(tl, "[data-tl=btn-tile-menu-workspaces]", { ms: 600 });
+  tl.showCaption(CAPTIONS.clickFileMenu);
+  await hoverOn(tl, "[data-tl=btn-tile-menu-sample-txt]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-tile-menu-workspaces]");
-  tl.setVar("driveItemMenuType", "folder");
-  tl.setVar("driveItemMenuName", "Workspaces");
-  tl.setVar("driveItemMenuCoords", { top: 140, left: 450 });
+  await pressOn(tl, "[data-tl=btn-tile-menu-sample-txt]");
+  tl.setVar("driveItemMenuType", "file");
+  tl.setVar("driveItemMenuName", "Sample notes.txt");
+  tl.setVar("driveItemMenuCoords", { top: 180, left: 450 });
   tl.setVar("driveItemMenuOpen", true);
 
   await tl.at(2500);
-  tl.showCaption(CAPTIONS.clickDelete);
-  await hoverOn(tl, "[data-tl=item-menu-delete]", { ms: 600 });
+  tl.showCaption(CAPTIONS.clickCopy);
+  await hoverOn(tl, "[data-tl=item-menu-copy-to]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=item-menu-delete]");
+  await pressOn(tl, "[data-tl=item-menu-copy-to]");
   tl.setVar("driveItemMenuOpen", false);
-  tl.setVar("driveDeleteModalOpen", true);
+  tl.setVar("driveCopyModalOpen", true);
 
   await tl.at(4800);
-  tl.showCaption(CAPTIONS.confirmDelete);
-  await hoverOn(tl, "[data-tl=btn-delete-confirm]", { ms: 600 });
+  tl.showCaption(CAPTIONS.expandTarget);
+  await hoverOn(tl, "[data-tl=tree-folder-workspaces]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-delete-confirm]");
-  tl.setVar("driveIsDeletingFolder", true);
+  await pressOn(tl, "[data-tl=tree-folder-workspaces]");
+  tl.setVar("driveTreeExpandWorkspaces", true);
 
   await tl.at(6500);
-  tl.setVar("driveIsDeletingFolder", false);
-  tl.setVar("driveDeleteModalOpen", false);
-  tl.setVar("driveFolderWorkspacesDeleted", true);
-  tl.setVar("driveDeleteToastOpen", true);
+  await hoverOn(tl, "[data-tl=tree-folder-social]", { ms: 500 });
+  await tl.wait(150);
+  await pressOn(tl, "[data-tl=tree-folder-social]");
+  tl.setVar("driveTreeExpandSocial", true);
 
   await tl.at(7800);
-  tl.showCaption(CAPTIONS.folderDeleted);
-  await hoverOn(tl, "[data-tl=toast-delete-success]", { ms: 600 });
-  await tl.wait(1200);
+  await hoverOn(tl, "[data-tl=tree-folder-images]", { ms: 500 });
+  await tl.wait(150);
+  await pressOn(tl, "[data-tl=tree-folder-images]");
+  tl.setVar("driveSelectedDestFolder", "Images");
+
+  await tl.at(9200);
+  tl.showCaption(CAPTIONS.confirmCopy);
+  await hoverOn(tl, "[data-tl=btn-copy-submit]", { ms: 500 });
+  await tl.wait(150);
+  await pressOn(tl, "[data-tl=btn-copy-submit]");
+  tl.setVar("driveIsCopying", true);
+
+  await tl.at(10500);
+  tl.setVar("driveIsCopying", false);
+  tl.setVar("driveCopyModalOpen", false);
+  tl.setVar("driveCopyToastOpen", true);
+
+  await tl.at(11200);
+  tl.showCaption(CAPTIONS.copyComplete);
+  await hoverOn(tl, "[data-tl=toast-copy-success]", { ms: 500 });
+  await tl.wait(1000);
 
   await finishDrive(tl, STEP40_DURATION_MS);
 }
