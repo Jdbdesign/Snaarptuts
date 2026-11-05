@@ -1,5 +1,6 @@
 export const CAPTIONS = {
-  clickMenu: "Click the three dots on the folder.",
-  manageAccess: "Click Manage access to view all collaborators.",
-  inspectCollaborators: "You can see each collaborator and remove permissions anytime.",
+  clickRename: "Click Rename to change the filename.",
+  typeNewName: "Type the updated file name.",
+  applyRename: "Click Rename to apply the change.",
+  renameDone: "The file is now renamed to Sample notes.txt.",
 };
