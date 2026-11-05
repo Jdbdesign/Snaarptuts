@@ -8,71 +8,54 @@ import {
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP45_DURATION_MS = 12500;
+export const STEP45_DURATION_MS = 10500;
 
 export async function runStep45(tl: Timeline) {
-  beginDrive(tl, DRIVE_URLS.files, "files", [0.45, 0.45]);
+  beginDrive(tl, DRIVE_URLS.files, "files", [0.5, 0.9]);
   tl.setVar("driveFilesViewMode", "tiles");
   tl.setVar("driveFolderBrandLogosAdded", true);
   tl.setVar("driveFolderProjectFilesAdded", true);
-  tl.setVar("driveFileQuarterlyReportAdded", true);
-  tl.setVar("driveFileMeetingNotesAdded", true);
-  tl.setVar("driveFileSampleTxtAdded", true);
-  tl.setVar("driveFileSampleTxtTitle", "Sample notes.txt");
+  tl.setVar("driveBulkSelectedIds", ["payslip", "meeting-notes", "project-brief"]);
+  tl.setVar("driveBulkSelectedCount", 3);
+  tl.setVar("driveBulkBarOpen", true);
 
   await tl.at(500);
-  tl.showCaption(CAPTIONS.clickFileMenu);
-  await hoverOn(tl, "[data-tl=btn-tile-menu-sample-txt]", { ms: 600 });
+  tl.showCaption(CAPTIONS.clickMove, { target: "[data-tl=btn-bulk-move]" });
+  await hoverOn(tl, "[data-tl=btn-bulk-move]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-tile-menu-sample-txt]");
-  tl.setVar("driveItemMenuType", "file");
-  tl.setVar("driveItemMenuName", "Sample notes.txt");
-  tl.setVar("driveItemMenuCoords", { top: 180, left: 450 });
-  tl.setVar("driveItemMenuOpen", true);
+  await pressOn(tl, "[data-tl=btn-bulk-move]");
+  tl.setVar("driveBulkMoveModalOpen", true);
 
   await tl.at(2500);
-  tl.showCaption(CAPTIONS.clickCopy);
-  await hoverOn(tl, "[data-tl=item-menu-copy-to]", { ms: 600 });
+  tl.showCaption(CAPTIONS.selectDestination);
+  await hoverOn(tl, "[data-tl=item-folder-project-notes]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=item-menu-copy-to]");
-  tl.setVar("driveItemMenuOpen", false);
-  tl.setVar("driveCopyModalOpen", true);
+  await pressOn(tl, "[data-tl=item-folder-project-notes]");
+  tl.setVar("driveBulkMoveTargetFolder", "Project Notes");
 
-  await tl.at(4800);
-  tl.showCaption(CAPTIONS.expandTarget);
-  await hoverOn(tl, "[data-tl=tree-folder-workspaces]", { ms: 500 });
+  await tl.at(4500);
+  tl.showCaption(CAPTIONS.clickMoveHere);
+  await hoverOn(tl, "[data-tl=btn-bulk-move-confirm]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=tree-folder-workspaces]");
-  tl.setVar("driveTreeExpandWorkspaces", true);
+  await pressOn(tl, "[data-tl=btn-bulk-move-confirm]");
+  tl.setVar("driveIsBulkMoving", true);
 
-  await tl.at(6500);
-  await hoverOn(tl, "[data-tl=tree-folder-social]", { ms: 500 });
+  await tl.wait(800);
+  tl.setVar("driveIsBulkMoving", false);
+  tl.setVar("driveBulkMoveModalOpen", false);
+  tl.setVar("driveBulkBarOpen", false);
+  tl.setVar("driveBulkSelectedIds", []);
+  tl.setVar("driveBulkItemsMoved", true);
+  tl.setVar("driveBulkMoveToastOpen", true);
+
+  await tl.at(7200);
+  tl.showCaption(CAPTIONS.openTargetFolder);
+  await hoverOn(tl, "[data-tl=tile-folder-project-notes]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=tree-folder-social]");
-  tl.setVar("driveTreeExpandSocial", true);
-
-  await tl.at(7800);
-  await hoverOn(tl, "[data-tl=tree-folder-images]", { ms: 500 });
-  await tl.wait(150);
-  await pressOn(tl, "[data-tl=tree-folder-images]");
-  tl.setVar("driveSelectedDestFolder", "Images");
-
-  await tl.at(9200);
-  tl.showCaption(CAPTIONS.confirmCopy);
-  await hoverOn(tl, "[data-tl=btn-copy-submit]", { ms: 500 });
-  await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-copy-submit]");
-  tl.setVar("driveIsCopying", true);
-
-  await tl.at(10500);
-  tl.setVar("driveIsCopying", false);
-  tl.setVar("driveCopyModalOpen", false);
-  tl.setVar("driveCopyToastOpen", true);
-
-  await tl.at(11200);
-  tl.showCaption(CAPTIONS.copyComplete);
-  await hoverOn(tl, "[data-tl=toast-copy-success]", { ms: 500 });
-  await tl.wait(1000);
+  await pressOn(tl, "[data-tl=tile-folder-project-notes]");
+  tl.setVar("driveInsideProjectNotesFolder", true);
+  tl.setUrl("drive.snaarp.com/files?folder=project-notes");
+  await tl.wait(1500);
 
   await finishDrive(tl, STEP45_DURATION_MS);
 }
