@@ -101,6 +101,8 @@ import { Step50 } from "@/scenes/books/step50/Step50";
 import { runStep50, STEP50_DURATION_MS } from "@/scenes/books/step50/script";
 import { Step51 } from "@/scenes/books/step51/Step51";
 import { runStep51, STEP51_DURATION_MS } from "@/scenes/books/step51/script";
+import { Step52 } from "@/scenes/books/step52/Step52";
+import { runStep52, STEP52_DURATION_MS } from "@/scenes/books/step52/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -631,6 +633,16 @@ export const books: Tutorial = {
         durationMs: STEP51_DURATION_MS,
       },
     },
+    {
+      id: "quotes-save-and-send",
+      title: "Quotes: save and send a quote",
+      url: BOOKS_URLS.newQuote,
+      scene: {
+        Component: Step52,
+        run: runStep52,
+        durationMs: STEP52_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -640,7 +652,7 @@ export const books: Tutorial = {
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, and client accounts in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, and sales quotes in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",
