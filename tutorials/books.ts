@@ -71,6 +71,8 @@ import { Step35 } from "@/scenes/books/step35/Step35";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/books/step35/script";
 import { Step36 } from "@/scenes/books/step36/Step36";
 import { runStep36, STEP36_DURATION_MS } from "@/scenes/books/step36/script";
+import { Step37 } from "@/scenes/books/step37/Step37";
+import { runStep37, STEP37_DURATION_MS } from "@/scenes/books/step37/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -449,6 +451,16 @@ export const books: Tutorial = {
         Component: Step36,
         run: runStep36,
         durationMs: STEP36_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-send-to-customer",
+      title: "Quotes: send a quote to a customer",
+      url: BOOKS_URLS.quoteDetails,
+      scene: {
+        Component: Step37,
+        run: runStep37,
+        durationMs: STEP37_DURATION_MS,
       },
     },
   ],
