@@ -21,9 +21,11 @@ export function BooksHomeView({ tl }: Props) {
   const activeTab = useTimelineVar<"dashboard" | "recent">(tl, "booksHomeTab", "dashboard");
   const period = useTimelineVar<string>(tl, "booksCashFlowPeriod", "This Month");
   const watchlistBasis = useTimelineVar<"Accrual" | "Cash">(tl, "booksWatchlistBasis", "Accrual");
-  const [periodDropdownOpen, setPeriodDropdownOpen] = useState(false);
-  const [watchlistDropdownOpen, setWatchlistDropdownOpen] = useState(false);
-  const [hoveredBar, setHoveredBar] = useState<number | null>(null);
+  const periodDropdownOpen = useTimelineVar<boolean>(tl, "booksCashFlowDropdownOpen", false);
+  const watchlistDropdownOpen = useTimelineVar<boolean>(tl, "booksWatchlistDropdownOpen", false);
+  const timelineHoveredBar = useTimelineVar<number | null>(tl, "booksCashFlowHoveredBar", null);
+  const [localHoveredBar, setLocalHoveredBar] = useState<number | null>(null);
+  const hoveredBar = timelineHoveredBar !== null ? timelineHoveredBar : localHoveredBar;
 
   const cashFlow = CASH_FLOW_PERIODS[period] || CASH_FLOW_PERIODS["This Month"];
   const watchlistItems = watchlistBasis === "Accrual" ? WATCHLIST_ACCRUAL : WATCHLIST_CASH;
@@ -141,7 +143,7 @@ export function BooksHomeView({ tl }: Props) {
                 <button
                   type="button"
                   data-tl="btn-cash-flow-period"
-                  onClick={() => setPeriodDropdownOpen((o) => !o)}
+                  onClick={() => tl.setVar("booksCashFlowDropdownOpen", !periodDropdownOpen)}
                   className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
                 >
                   <span>{period}</span>
@@ -160,7 +162,7 @@ export function BooksHomeView({ tl }: Props) {
                         data-tl={`opt-period-${p.toLowerCase().replace(/\s+/g, "-")}`}
                         onClick={() => {
                           tl.setVar("booksCashFlowPeriod", p);
-                          setPeriodDropdownOpen(false);
+                          tl.setVar("booksCashFlowDropdownOpen", false);
                         }}
                         className={`flex w-full px-3 py-2 text-left hover:bg-gray-50 transition-colors cursor-pointer ${
                           p === period ? "font-semibold text-blue-600 bg-blue-50/50" : "text-gray-700"
@@ -310,7 +312,7 @@ export function BooksHomeView({ tl }: Props) {
                 <button
                   type="button"
                   data-tl="btn-watchlist-basis"
-                  onClick={() => setWatchlistDropdownOpen((o) => !o)}
+                  onClick={() => tl.setVar("booksWatchlistDropdownOpen", !watchlistDropdownOpen)}
                   className="flex items-center gap-2 rounded-lg border border-purple-200 bg-purple-50/30 px-3 py-1.5 text-xs font-medium text-purple-700 hover:bg-purple-50 transition-colors cursor-pointer"
                 >
                   <span>{watchlistBasis}</span>
@@ -329,7 +331,7 @@ export function BooksHomeView({ tl }: Props) {
                         data-tl={`opt-basis-${b.toLowerCase()}`}
                         onClick={() => {
                           tl.setVar("booksWatchlistBasis", b);
-                          setWatchlistDropdownOpen(false);
+                          tl.setVar("booksWatchlistDropdownOpen", false);
                         }}
                         className={`flex w-full px-3 py-2 text-left hover:bg-gray-50 transition-colors cursor-pointer ${
                           b === watchlistBasis ? "font-semibold text-purple-700 bg-purple-50/60" : "text-gray-700"

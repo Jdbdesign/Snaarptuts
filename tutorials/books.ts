@@ -3,6 +3,8 @@ import { Step1 } from "@/scenes/books/step1/Step1";
 import { runStep1, STEP1_DURATION_MS } from "@/scenes/books/step1/script";
 import { Step2 } from "@/scenes/books/step2/Step2";
 import { runStep2, STEP2_DURATION_MS } from "@/scenes/books/step2/script";
+import { Step3 } from "@/scenes/books/step3/Step3";
+import { runStep3, STEP3_DURATION_MS } from "@/scenes/books/step3/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -47,6 +49,11 @@ export const books: Tutorial = {
       id: "home-cashflow-period",
       title: "Home: Check cash flow by period",
       url: BOOKS_URLS.dashboard,
+      scene: {
+        Component: Step3,
+        run: runStep3,
+        durationMs: STEP3_DURATION_MS,
+      },
     },
     {
       id: "home-watch-key-accounts",
