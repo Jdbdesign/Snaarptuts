@@ -1,0 +1,151 @@
+import type { Tutorial } from "./types";
+import { Step1 } from "@/scenes/books/step1/Step1";
+import { runStep1, STEP1_DURATION_MS } from "@/scenes/books/step1/script";
+import { BOOKS_URLS } from "@/components/books/books-data";
+
+export const books: Tutorial = {
+  product: {
+    id: "books",
+    name: "Snaarp Books",
+    railLabel: "Snaarp Books",
+    logo: "books",
+    aliases: [
+      "books",
+      "accounting",
+      "invoices",
+      "bills",
+      "products",
+      "items",
+      "cashflow",
+      "inventory",
+    ],
+  },
+  steps: [
+    {
+      id: "books-find-way-around",
+      title: "Books: Find your way around",
+      url: BOOKS_URLS.dashboard,
+      scene: {
+        Component: Step1,
+        run: runStep1,
+        durationMs: STEP1_DURATION_MS,
+      },
+    },
+    {
+      id: "home-receivables-payables",
+      title: "Home: Read your receivables and payables",
+      url: BOOKS_URLS.dashboard,
+    },
+    {
+      id: "home-cashflow-period",
+      title: "Home: Check cash flow by period",
+      url: BOOKS_URLS.dashboard,
+    },
+    {
+      id: "home-watch-key-accounts",
+      title: "Home: Watch key accounts (accrual or cash)",
+      url: BOOKS_URLS.dashboard,
+    },
+    {
+      id: "home-recent-updates",
+      title: "Home: See recent updates",
+      url: BOOKS_URLS.dashboard,
+    },
+    {
+      id: "products-browse-filter",
+      title: "Products: Browse and filter your items",
+      url: BOOKS_URLS.products,
+    },
+    {
+      id: "products-sort-list",
+      title: "Products: Sort the item list",
+      url: BOOKS_URLS.products,
+    },
+    {
+      id: "products-show-hide-columns",
+      title: "Products: Show or hide columns",
+      url: BOOKS_URLS.products,
+    },
+    {
+      id: "products-import-csv",
+      title: "Products: Import items from a CSV file",
+      url: BOOKS_URLS.products,
+    },
+    {
+      id: "products-export-list",
+      title: "Products: Export your item list",
+      url: BOOKS_URLS.products,
+    },
+    {
+      id: "products-refresh-list",
+      title: "Products: Refresh the item list",
+      url: BOOKS_URLS.products,
+    },
+    {
+      id: "products-create-goods",
+      title: "Products: Create a new item (goods)",
+      url: BOOKS_URLS.newProduct,
+    },
+    {
+      id: "products-create-service",
+      title: "Products: Create a service item",
+      url: BOOKS_URLS.newProduct,
+    },
+    {
+      id: "products-open-details",
+      title: "Products: Open an item's details",
+      url: BOOKS_URLS.details,
+    },
+    {
+      id: "products-check-transactions-history",
+      title: "Products: Check an item's transactions and history",
+      url: BOOKS_URLS.details,
+    },
+    {
+      id: "products-edit-item",
+      title: "Products: Edit an item",
+      url: BOOKS_URLS.edit,
+    },
+    {
+      id: "products-clone-item",
+      title: "Products: Clone an item",
+      url: BOOKS_URLS.details,
+    },
+    {
+      id: "products-toggle-active",
+      title: "Products: Mark an item inactive and active again",
+      url: BOOKS_URLS.details,
+    },
+    {
+      id: "products-lock-unlock",
+      title: "Products: Lock and unlock an item",
+      url: BOOKS_URLS.details,
+    },
+    {
+      id: "products-delete-single",
+      title: "Products: Delete an item",
+      url: BOOKS_URLS.details,
+    },
+    {
+      id: "products-select-several",
+      title: "Products: Select several items",
+      url: BOOKS_URLS.products,
+    },
+    {
+      id: "products-delete-several",
+      title: "Products: Delete several items at once",
+      url: BOOKS_URLS.products,
+    },
+  ],
+  groups: [
+    { title: "Navigation & Home", from: "books-find-way-around" },
+    { title: "Products & Items", from: "products-browse-filter" },
+  ],
+  completion: {
+    title: "Tour complete",
+    text: "You can now manage your Home dashboard, browse, filter, sort, import, export, and create items in Snaarp Books.",
+    replayLabel: "Replay tour",
+    backLabel: "Back to Snaarp",
+    backHref: "https://snaarp.com",
+  },
+};
