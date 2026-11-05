@@ -53,6 +53,8 @@ import { Step26 } from "@/scenes/books/step26/Step26";
 import { runStep26, STEP26_DURATION_MS } from "@/scenes/books/step26/script";
 import { Step27 } from "@/scenes/books/step27/Step27";
 import { runStep27, STEP27_DURATION_MS } from "@/scenes/books/step27/script";
+import { Step28 } from "@/scenes/books/step28/Step28";
+import { runStep28, STEP28_DURATION_MS } from "@/scenes/books/step28/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -347,6 +349,11 @@ export const books: Tutorial = {
       id: "customers-import-csv",
       title: "Customers: Import customers from a CSV file",
       url: BOOKS_URLS.customers,
+      scene: {
+        Component: Step28,
+        run: runStep28,
+        durationMs: STEP28_DURATION_MS,
+      },
     },
     {
       id: "customers-view-edit",
