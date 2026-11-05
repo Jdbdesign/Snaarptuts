@@ -5,56 +5,32 @@ import {
   hoverOn,
   pressOn,
 } from "@/components/drive/drive-timeline";
+import { DRIVE_URLS } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP63_DURATION_MS = 10500;
+export const STEP63_DURATION_MS = 7500;
 
 export async function runStep63(tl: Timeline) {
-  beginDrive(tl, "drive.snaarp.com/workspaces/2172", "workspaces", [0.75, 0.1]);
+  beginDrive(tl, DRIVE_URLS.workspaces, "workspaces", [0.4, 0.3]);
   tl.setVar("drivePage", "workspaces");
   tl.setVar("driveActiveNav", "workspaces");
-  tl.setVar("driveActiveWorkspaceId", "2172");
   tl.setVar("driveWorkspaceMarketingSpaceCreated", true);
 
   await tl.at(500);
-  tl.showCaption(CAPTIONS.clickInvite);
-  await hoverOn(tl, "[data-tl=btn-ws-detail-invite]", { ms: 600 });
+  tl.showCaption(CAPTIONS.openWorkspace);
+  await hoverOn(tl, "[data-tl=card-workspace-marketing-space]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-ws-detail-invite]");
-  tl.setVar("driveInviteMemberModalOpen", true);
+  await pressOn(tl, "[data-tl=card-workspace-marketing-space]");
+  tl.setVar("driveActiveWorkspaceId", "2172");
+  tl.setUrl("drive.snaarp.com/workspaces/2172");
 
   await tl.at(2500);
-  tl.showCaption(CAPTIONS.selectTeammates);
-  await hoverOn(tl, "[data-tl=row-invite-member-mem-2]", { ms: 500 });
-  await tl.wait(150);
-  await pressOn(tl, "[data-tl=row-invite-member-mem-2]");
-  tl.setVar("driveInviteSelectedIds", ["mem-2"]);
-
-  await tl.at(4200);
-  await hoverOn(tl, "[data-tl=row-invite-member-mem-3]", { ms: 500 });
-  await tl.wait(150);
-  await pressOn(tl, "[data-tl=row-invite-member-mem-3]");
-  tl.setVar("driveInviteSelectedIds", ["mem-2", "mem-3"]);
-
-  await tl.at(6000);
-  tl.showCaption(CAPTIONS.setRole);
-  await hoverOn(tl, "[data-tl=select-invite-role]", { ms: 500 });
-  await tl.wait(150);
-  tl.setVar("driveInviteRoleVal", "viewer");
-  tl.setVar("driveAlexMemberRole", "viewer");
-
-  await tl.at(7800);
-  tl.showCaption(CAPTIONS.confirmInvite);
-  await hoverOn(tl, "[data-tl=btn-invite-submit]", { ms: 500 });
-  await tl.wait(150);
-  await pressOn(tl, "[data-tl=btn-invite-submit]");
-  tl.setVar("driveIsInvitingMembers", true);
-
-  await tl.wait(800);
-  tl.setVar("driveIsInvitingMembers", false);
-  tl.setVar("driveInviteMemberModalOpen", false);
-  tl.setVar("driveWorkspaceMembersInvited", true);
-  tl.setVar("driveInviteSuccessToastOpen", true);
+  tl.showCaption(CAPTIONS.inspectDetail);
+  await hoverOn(tl, "[data-tl=card-ws-storage]", { ms: 600 });
+  await tl.wait(600);
+  await hoverOn(tl, "[data-tl=card-browse-ws-files]", { ms: 600 });
+  await tl.wait(600);
+  await hoverOn(tl, "[data-tl=card-ws-members]", { ms: 600 });
   await tl.wait(1500);
 
   await finishDrive(tl, STEP63_DURATION_MS);

@@ -10,6 +10,8 @@ import {
   Link as LinkIcon,
   Send,
   MessageSquare,
+  ChevronDown,
+  Loader2,
 } from "lucide-react";
 import { SHARE_PEOPLE_INITIAL } from "./drive-data";
 
@@ -20,13 +22,22 @@ type Props = {
 export function DriveShareModal({ tl }: Props) {
   const isOpen = useTimelineVar(tl, "driveShareModalOpen", false);
   const itemName = useTimelineVar<string>(tl, "driveShareItemName", "Workspaces");
-  const emailVal = useTimelineVar<string>(tl, "driveShareEmailVal", "");
+  const emailVal = useTimelineVar(tl, "field:share-email", useTimelineVar(tl, "driveShareEmailVal", ""));
   const hasChip = useTimelineVar(tl, "driveShareHasChip", false);
+  const recipientName = useTimelineVar<string>(tl, "driveShareRecipientName", "design@acme.example");
+  const role = useTimelineVar<"Can edit" | "Can view">(tl, "driveShareRole", "Can view");
+  const roleDropdownOpen = useTimelineVar(tl, "driveShareRoleDropdownOpen", false);
+  const showMessage = useTimelineVar(tl, "driveShareShowMessage", false);
+  const messageVal = useTimelineVar(tl, "field:share-message", useTimelineVar(tl, "driveShareMessage", ""));
+  const isSharing = useTimelineVar(tl, "driveIsSharing", false);
+  const suggestVar = useTimelineVar(tl, "driveShareShowSuggest", false);
   const footerText = useTimelineVar<string>(
     tl,
     "driveShareLinkFooterText",
     "Only people with access can view."
   );
+
+  const showSuggest = (emailVal.toLowerCase().includes("alex") || suggestVar) && !hasChip;
 
   if (!isOpen) return null;
 
@@ -38,7 +49,7 @@ export function DriveShareModal({ tl }: Props) {
     >
       <div
         data-tl="dialog-share"
-        className="w-[460px] rounded-2xl bg-white p-5 shadow-2xl font-['Poppins',sans-serif] text-[#111827] select-none animate-in zoom-in-95 duration-150"
+        className="w-[460px] rounded-2xl bg-white p-5 shadow-2xl font-['Poppins',sans-serif] text-[#111827] select-none animate-in zoom-in-95 duration-150 relative"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -71,45 +82,133 @@ export function DriveShareModal({ tl }: Props) {
         </div>
 
         {/* Add Email input */}
-        <div className="mt-2">
+        <div className="mt-2 relative">
           <div className="flex items-center rounded-xl border border-gray-300 px-3 py-2 bg-white focus-within:border-blue-500 shadow-2xs">
             {hasChip ? (
-              <div
-                data-tl="share-email-chip"
-                className="flex items-center gap-1.5 rounded bg-blue-50 border border-blue-200 px-2 py-0.5 text-[12px] text-blue-700 font-medium"
-              >
-                <span>design@acme.example</span>
-                <button
-                  type="button"
-                  data-tl="btn-remove-chip"
-                  onClick={() => tl.setVar("driveShareHasChip", false)}
-                  className="hover:text-blue-900 cursor-pointer"
+              <div className="flex items-center justify-between w-full">
+                <div
+                  data-tl="share-email-chip"
+                  className="flex items-center gap-1.5 rounded-lg bg-blue-50 border border-blue-200 px-2.5 py-1 text-[12px] text-blue-700 font-medium"
                 >
-                  <X size={12} />
-                </button>
+                  <span>{recipientName}</span>
+                  <button
+                    type="button"
+                    data-tl="btn-remove-chip"
+                    onClick={() => tl.setVar("driveShareHasChip", false)}
+                    className="hover:text-blue-900 cursor-pointer ml-1"
+                  >
+                    <X size={12} />
+                  </button>
+                </div>
+
+                {/* Role dropdown trigger */}
+                <div className="relative">
+                  <button
+                    type="button"
+                    data-tl="select-share-role"
+                    onClick={() => tl.setVar("driveShareRoleDropdownOpen", !roleDropdownOpen)}
+                    className="flex items-center gap-1 text-[12px] font-medium text-gray-700 hover:text-gray-900 px-2 py-1 rounded-lg border border-gray-200 cursor-pointer bg-white"
+                  >
+                    <span>{role}</span>
+                    <ChevronDown size={12} className="text-gray-400" />
+                  </button>
+
+                  {roleDropdownOpen && (
+                    <div
+                      data-tl="menu-share-role"
+                      className="absolute right-0 top-8 z-30 w-32 rounded-xl border border-gray-200 bg-white py-1 shadow-lg text-[12px]"
+                    >
+                      <button
+                        type="button"
+                        data-tl="option-role-view"
+                        onClick={() => {
+                          tl.setVar("driveShareRole", "Can view");
+                          tl.setVar("driveShareRoleDropdownOpen", false);
+                        }}
+                        className={`flex w-full items-center px-3 py-1.5 text-left hover:bg-gray-50 cursor-pointer ${
+                          role === "Can view" ? "font-semibold text-blue-600" : "text-gray-700"
+                        }`}
+                      >
+                        Can view
+                      </button>
+                      <button
+                        type="button"
+                        data-tl="option-role-edit"
+                        onClick={() => {
+                          tl.setVar("driveShareRole", "Can edit");
+                          tl.setVar("driveShareRoleDropdownOpen", false);
+                        }}
+                        className={`flex w-full items-center px-3 py-1.5 text-left hover:bg-gray-50 cursor-pointer ${
+                          role === "Can edit" ? "font-semibold text-blue-600" : "text-gray-700"
+                        }`}
+                      >
+                        Can edit
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             ) : (
-              <input
-                type="text"
-                data-tl="share-email-input"
-                placeholder="Add email addresses"
-                value={emailVal}
-                readOnly
-                className="w-full text-[13px] text-[#111827] placeholder:text-gray-400 focus:outline-none"
-              />
+              <>
+                <input
+                  type="text"
+                  data-tl="share-email-input"
+                  placeholder="Add email addresses"
+                  value={emailVal}
+                  readOnly
+                  className="w-full text-[13px] text-[#111827] placeholder:text-gray-400 focus:outline-none"
+                />
+                <Plus size={16} className="ml-auto text-gray-400 shrink-0" />
+              </>
             )}
-            <Plus size={16} className="ml-auto text-gray-400 shrink-0" />
           </div>
 
-          {/* Add a message trigger */}
-          <button
-            type="button"
-            data-tl="btn-share-add-message"
-            className="flex items-center gap-1.5 mt-2.5 text-[12px] text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
-          >
-            <MessageSquare size={13} className="text-gray-400" />
-            <span>Add a message</span>
-          </button>
+          {/* Autocomplete suggestion popover */}
+          {showSuggest && (
+            <div
+              data-tl="share-suggest-alex"
+              onClick={() => {
+                tl.setVar("driveShareHasChip", true);
+                tl.setVar("driveShareEmailVal", "");
+                tl.setVar("field:share-email", "");
+                tl.setVar("driveShareRecipientName", "Alex Morgan");
+                tl.setVar("driveShareRecipientEmail", "alex.morgan@acme.example");
+              }}
+              className="mt-1 flex items-center gap-2.5 rounded-xl border border-gray-200 bg-white p-2.5 shadow-lg hover:bg-blue-50/50 cursor-pointer animate-in fade-in transition-colors"
+            >
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
+                A
+              </div>
+              <div>
+                <p className="text-[12.5px] font-semibold text-gray-900 leading-tight">Alex Morgan</p>
+                <p className="text-[11px] text-gray-400">alex.morgan@acme.example</p>
+              </div>
+            </div>
+          )}
+
+          {/* Add a message trigger / input */}
+          {!showMessage ? (
+            <button
+              type="button"
+              data-tl="btn-share-add-message"
+              onClick={() => tl.setVar("driveShareShowMessage", true)}
+              className="flex items-center gap-1.5 mt-2.5 text-[12px] text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
+            >
+              <MessageSquare size={13} className="text-gray-400" />
+              <span>Add a message</span>
+            </button>
+          ) : (
+            <div className="mt-2.5">
+              <textarea
+                data-tl="share-message-input"
+                placeholder="Add a message..."
+                value={messageVal}
+                readOnly
+                rows={2}
+                className="w-full rounded-xl border border-gray-300 p-2.5 text-[12px] text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-blue-500 shadow-2xs resize-none"
+              />
+            </div>
+          )}
         </div>
 
         {/* PEOPLE WITH ACCESS */}
@@ -175,14 +274,24 @@ export function DriveShareModal({ tl }: Props) {
             <button
               type="button"
               data-tl="btn-share-send"
+              disabled={isSharing}
               onClick={() => {
                 tl.setVar("driveShareModalOpen", false);
-                tl.setVar("driveShareConfirmOpen", true);
+                tl.setVar("driveShareSuccessToastOpen", true);
               }}
-              className="flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-1.5 text-[12px] font-semibold text-white shadow-2xs hover:bg-blue-700 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-1.5 text-[12px] font-semibold text-white shadow-2xs hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-75"
             >
-              <Send size={13} />
-              <span>Send</span>
+              {isSharing ? (
+                <>
+                  <Loader2 size={13} className="animate-spin" />
+                  <span>Sharing...</span>
+                </>
+              ) : (
+                <>
+                  <Send size={13} />
+                  <span>{hasChip ? "Share" : "Send"}</span>
+                </>
+              )}
             </button>
           </div>
         </div>

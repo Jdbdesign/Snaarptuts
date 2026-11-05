@@ -132,6 +132,8 @@ import { Step66 } from "@/scenes/drive/step66/Step66";
 import { runStep66, STEP66_DURATION_MS } from "@/scenes/drive/step66/script";
 import { Step67 } from "@/scenes/drive/step67/Step67";
 import { runStep67, STEP67_DURATION_MS } from "@/scenes/drive/step67/script";
+import { Step68 } from "@/scenes/drive/step68/Step68";
+import { runStep68, STEP68_DURATION_MS } from "@/scenes/drive/step68/script";
 
 import { DRIVE_URLS } from "@/components/drive/drive-data";
 import type { Tutorial } from "./types";
@@ -696,9 +698,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "shared-with-you",
-      title: "Shared: With you",
-      url: DRIVE_URLS.shared,
+      id: "share-file-teammate",
+      title: "Share a file with a teammate",
+      url: DRIVE_URLS.files,
       scene: {
         Component: Step56,
         run: runStep56,
@@ -706,8 +708,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "shared-by-you",
-      title: "Shared: By you and row menu",
+      id: "shared-with-you",
+      title: "Shared: With you",
       url: DRIVE_URLS.shared,
       scene: {
         Component: Step57,
@@ -716,8 +718,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "shared-bulk-actions",
-      title: "Shared: bulk actions",
+      id: "shared-by-you",
+      title: "Shared: By you and row menu",
       url: DRIVE_URLS.shared,
       scene: {
         Component: Step58,
@@ -726,9 +728,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "favorites-view",
-      title: "Favorites",
-      url: DRIVE_URLS.favorites,
+      id: "shared-bulk-actions",
+      title: "Shared: bulk actions",
+      url: DRIVE_URLS.shared,
       scene: {
         Component: Step59,
         run: runStep59,
@@ -736,9 +738,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspaces-list",
-      title: "Workspaces list",
-      url: DRIVE_URLS.workspaces,
+      id: "favorites-view",
+      title: "Favorites",
+      url: DRIVE_URLS.favorites,
       scene: {
         Component: Step60,
         run: runStep60,
@@ -746,8 +748,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "create-workspace",
-      title: "Create a workspace",
+      id: "workspaces-list",
+      title: "Workspaces list",
       url: DRIVE_URLS.workspaces,
       scene: {
         Component: Step61,
@@ -756,9 +758,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspace-detail",
-      title: "Workspace detail page",
-      url: "drive.snaarp.com/workspaces/2172",
+      id: "create-workspace",
+      title: "Create a workspace",
+      url: DRIVE_URLS.workspaces,
       scene: {
         Component: Step62,
         run: runStep62,
@@ -766,8 +768,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "invite-org-members",
-      title: "Invite organisation members",
+      id: "workspace-detail",
+      title: "Workspace detail page",
       url: "drive.snaarp.com/workspaces/2172",
       scene: {
         Component: Step63,
@@ -776,8 +778,8 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspace-member-roles",
-      title: "Change a member's role and remove a member",
+      id: "invite-org-members",
+      title: "Invite organisation members",
       url: "drive.snaarp.com/workspaces/2172",
       scene: {
         Component: Step64,
@@ -786,9 +788,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspace-browse-folder",
-      title: "Browse Workspace Files and create a folder",
-      url: "drive.snaarp.com/files?folder=2172",
+      id: "workspace-member-roles",
+      title: "Change a member's role and remove a member",
+      url: "drive.snaarp.com/workspaces/2172",
       scene: {
         Component: Step65,
         run: runStep65,
@@ -796,9 +798,9 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "workspace-upload-file",
-      title: "Upload a file into the folder",
-      url: "drive.snaarp.com/files?folder=2173",
+      id: "workspace-browse-folder",
+      title: "Browse Workspace Files and create a folder",
+      url: "drive.snaarp.com/files?folder=2172",
       scene: {
         Component: Step66,
         run: runStep66,
@@ -806,13 +808,23 @@ export const drive: Tutorial = {
       },
     },
     {
-      id: "delete-workspace",
-      title: "Delete a workspace",
-      url: "drive.snaarp.com/workspaces/2172",
+      id: "workspace-upload-file",
+      title: "Upload a file into the folder",
+      url: "drive.snaarp.com/files?folder=2173",
       scene: {
         Component: Step67,
         run: runStep67,
         durationMs: STEP67_DURATION_MS,
+      },
+    },
+    {
+      id: "delete-workspace",
+      title: "Delete a workspace",
+      url: "drive.snaarp.com/workspaces/2172",
+      scene: {
+        Component: Step68,
+        run: runStep68,
+        durationMs: STEP68_DURATION_MS,
       },
     },
   ],

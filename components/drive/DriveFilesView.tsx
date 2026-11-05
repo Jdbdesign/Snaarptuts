@@ -20,6 +20,7 @@ import {
   Video,
   Star,
   FileSpreadsheet,
+  Link as LinkIcon,
 } from "lucide-react";
 import {
   FOLDER_ITEMS,
@@ -70,6 +71,7 @@ export function DriveFilesView({ tl }: Props) {
   const bulkItemsDeleted = useTimelineVar(tl, "driveBulkItemsDeleted", false);
   const hasWorkspaceFolder = useTimelineVar(tl, "driveWorkspaceFolderAdded", false);
   const hasWorkspaceFile = useTimelineVar(tl, "driveWorkspaceFileUploaded", false);
+  const hasShortcut = useTimelineVar(tl, "driveHasShortcutProjectBrief", false);
 
   const isInsideWorkspaces = breadcrumbs[0] === "Workspaces";
   const currentFolderDepth = breadcrumbs.length;
@@ -1137,7 +1139,14 @@ export function DriveFilesView({ tl }: Props) {
                       >
                         <button
                           type="button"
-                          data-tl="btn-tile-menu"
+                          data-tl="btn-tile-menu-q3report"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            tl.setVar("driveItemMenuType", "file");
+                            tl.setVar("driveItemMenuName", "Q3 report.pdf");
+                            tl.setVar("driveItemMenuCoords", { top: 290, left: 240 });
+                            tl.setVar("driveItemMenuOpen", true);
+                          }}
                           className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
                         >
                           <MoreVertical size={14} />
@@ -1154,6 +1163,35 @@ export function DriveFilesView({ tl }: Props) {
                         <p className="text-[10px] text-[#9CA3AF] mt-0.5">Google Drive</p>
                       </div>
                     </>
+                  )}
+
+                  {/* Shortcut to Project brief */}
+                  {hasShortcut && (
+                    <div
+                      data-tl="tile-file-shortcut-projectbrief"
+                      className="relative rounded-2xl border border-[#EBECEF] bg-white p-3 shadow-2xs hover:shadow-xs transition-shadow cursor-pointer"
+                    >
+                      <button
+                        type="button"
+                        data-tl="btn-tile-menu-shortcut"
+                        className="absolute right-2 top-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                      >
+                        <MoreVertical size={14} />
+                      </button>
+                      <div className="flex h-20 w-full items-center justify-center rounded-xl bg-blue-50 text-blue-600 relative">
+                        <FileText size={28} />
+                        <span className="absolute bottom-1 right-1 rounded bg-white px-1 py-0.5 text-[9px] font-bold text-blue-600 border border-blue-200">
+                          DOCX
+                        </span>
+                        <span className="absolute top-1 left-1 rounded-full bg-white p-1 shadow-xs border border-gray-200 text-gray-700">
+                          <LinkIcon size={11} />
+                        </span>
+                      </div>
+                      <h4 className="mt-2 text-[11.5px] font-semibold text-[#111827] truncate">
+                        Project brief.docx
+                      </h4>
+                      <p className="text-[10px] text-[#9CA3AF] mt-0.5">Shortcut</p>
+                    </div>
                   )}
 
                   {/* Regular image files */}

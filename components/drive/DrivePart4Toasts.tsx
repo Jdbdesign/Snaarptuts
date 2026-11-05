@@ -16,6 +16,7 @@ export function DrivePart4Toasts({ tl }: Props) {
   const meetingsDownloadOpen = useTimelineVar(tl, "driveMeetingsDownloadedToastOpen", false);
   const sharedShortcutOpen = useTimelineVar(tl, "driveSharedShortcutToastOpen", false);
   const sharedHideOpen = useTimelineVar(tl, "driveSharedHideToastOpen", false);
+  const sharedHideCount = useTimelineVar<number>(tl, "driveSharedHideCount", 2);
   const favoritesOpen = useTimelineVar(tl, "driveFavoritesToastOpen", false);
   const workspaceCreatedOpen = useTimelineVar(tl, "driveWorkspaceCreatedToastOpen", false);
   const inviteSuccessOpen = useTimelineVar(tl, "driveInviteSuccessToastOpen", false);
@@ -23,6 +24,7 @@ export function DrivePart4Toasts({ tl }: Props) {
   const memberRemovedOpen = useTimelineVar(tl, "driveMemberRemovedToastOpen", false);
   const workspaceDeletedOpen = useTimelineVar(tl, "driveWorkspaceDeletedToastOpen", false);
   const workspaceFolderOpen = useTimelineVar(tl, "driveWorkspaceFolderToastOpen", false);
+  const shareSuccessOpen = useTimelineVar(tl, "driveShareSuccessToastOpen", false);
 
   return (
     <>
@@ -176,7 +178,7 @@ export function DrivePart4Toasts({ tl }: Props) {
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
-            2 items hidden from Shared.
+            {sharedHideCount === 1 ? "1 item" : `${sharedHideCount} items`} hidden from Shared.
           </span>
           <button
             type="button"
@@ -320,6 +322,26 @@ export function DrivePart4Toasts({ tl }: Props) {
           <button
             type="button"
             onClick={() => tl.setVar("driveWorkspaceFolderToastOpen", false)}
+            className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+
+      {/* 15. Share Success Toast */}
+      {shareSuccessOpen && (
+        <div
+          data-tl="toast-share-success"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+        >
+          <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          <span className="font-medium text-[#111827]">
+            File shared with alex.morgan@acme.example.
+          </span>
+          <button
+            type="button"
+            onClick={() => tl.setVar("driveShareSuccessToastOpen", false)}
             className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
           >
             <X size={15} />

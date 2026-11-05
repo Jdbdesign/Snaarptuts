@@ -6,7 +6,7 @@
  */
 import { tutorials } from "@/tutorials";
 
-export const PROGRESS_KEY = "snaarp-tutorials:progress:v1";
+export const PROGRESS_KEY = "snaarp-tutorials:progress:v2";
 
 export type ProgressEntry = { completed: string[]; updatedAt: string };
 export type ProgressStore = Record<string, ProgressEntry>;

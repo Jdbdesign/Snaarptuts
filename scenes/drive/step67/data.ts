@@ -1,5 +1,6 @@
 export const CAPTIONS = {
-  clickDeleteWorkspace: "Click Delete workspace to remove the collaborative space.",
-  confirmCheckbox: "Acknowledge that team members will lose access to the workspace.",
-  confirmDelete: "Click Delete workspace to complete the removal.",
+  openVideosFolder: "Click All videos to navigate inside the folder.",
+  clickUpload: "Click Create or upload and choose File upload.",
+  uploadProgress: "The dark upload panel monitors upload status in real time.",
+  finishUpload: "Close the upload panel once the file is ready in the folder.",
 };
