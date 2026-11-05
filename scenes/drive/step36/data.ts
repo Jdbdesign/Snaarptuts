@@ -1,6 +1,7 @@
 export const CAPTIONS = {
-  typeEmail: "Type an email address to invite a collaborator.",
-  clickSend: "Click Send to share access.",
-  viewerLink: "A viewer link is generated for your collaborator.",
-  clickDone: "Click Done to finish inviting.",
+  clickMenu: "Click the three dots on the folder.",
+  clickRename: "Click Rename to edit the folder name.",
+  typeNewName: "Enter the new name for the folder.",
+  applyRename: "Click Rename to save your changes.",
+  renameDone: "The folder is renamed with its updated title.",
 };
