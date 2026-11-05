@@ -7,6 +7,8 @@ import { Step3 } from "@/scenes/books/step3/Step3";
 import { runStep3, STEP3_DURATION_MS } from "@/scenes/books/step3/script";
 import { Step4 } from "@/scenes/books/step4/Step4";
 import { runStep4, STEP4_DURATION_MS } from "@/scenes/books/step4/script";
+import { Step5 } from "@/scenes/books/step5/Step5";
+import { runStep5, STEP5_DURATION_MS } from "@/scenes/books/step5/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -71,6 +73,11 @@ export const books: Tutorial = {
       id: "home-recent-updates",
       title: "Home: See recent updates",
       url: BOOKS_URLS.dashboard,
+      scene: {
+        Component: Step5,
+        run: runStep5,
+        durationMs: STEP5_DURATION_MS,
+      },
     },
     {
       id: "products-browse-filter",
