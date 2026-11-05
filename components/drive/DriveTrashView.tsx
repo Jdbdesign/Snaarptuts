@@ -19,7 +19,7 @@ export const DriveTrashView: React.FC<DriveTrashViewProps> = ({ tl }) => {
     : INITIAL_TRASH_ITEMS.filter((item) => item.id !== restoredId);
 
   return (
-    <div className="flex-1 flex flex-col p-6 bg-white overflow-y-auto font-['Poppins',sans-serif]" data-tl="trash-view">
+    <div className="flex-1 flex flex-col font-['Poppins',sans-serif]" data-tl="trash-view">
       {/* Header */}
       <div className="flex items-center justify-between pb-4">
         <div>

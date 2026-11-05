@@ -30,7 +30,7 @@ export const DriveFavoritesView: React.FC<DriveFavoritesViewProps> = ({ tl }) =>
   const activeItems = FAVORITE_ITEMS.filter((item) => item.id !== unstarredId);
 
   return (
-    <div className="flex-1 flex flex-col p-6 bg-white overflow-y-auto font-['Poppins',sans-serif]" data-tl="favorites-view">
+    <div className="flex-1 flex flex-col font-['Poppins',sans-serif]" data-tl="favorites-view">
       {/* Header */}
       <div className="pb-4">
         <h1 className="text-xl font-bold text-gray-900 leading-tight">Favorites</h1>
