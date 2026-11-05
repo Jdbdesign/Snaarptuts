@@ -69,6 +69,8 @@ import { Step34 } from "@/scenes/books/step34/Step34";
 import { runStep34, STEP34_DURATION_MS } from "@/scenes/books/step34/script";
 import { Step35 } from "@/scenes/books/step35/Step35";
 import { runStep35, STEP35_DURATION_MS } from "@/scenes/books/step35/script";
+import { Step36 } from "@/scenes/books/step36/Step36";
+import { runStep36, STEP36_DURATION_MS } from "@/scenes/books/step36/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -437,6 +439,16 @@ export const books: Tutorial = {
         Component: Step35,
         run: runStep35,
         durationMs: STEP35_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-view-details",
+      title: "Quotes: open a quote and read its details",
+      url: BOOKS_URLS.quoteDetails,
+      scene: {
+        Component: Step36,
+        run: runStep36,
+        durationMs: STEP36_DURATION_MS,
       },
     },
   ],
