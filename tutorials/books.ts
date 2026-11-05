@@ -59,6 +59,8 @@ import { Step29 } from "@/scenes/books/step29/Step29";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/books/step29/script";
 import { Step30 } from "@/scenes/books/step30/Step30";
 import { runStep30, STEP30_DURATION_MS } from "@/scenes/books/step30/script";
+import { Step31 } from "@/scenes/books/step31/Step31";
+import { runStep31, STEP31_DURATION_MS } from "@/scenes/books/step31/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -383,6 +385,11 @@ export const books: Tutorial = {
       id: "customers-reactivate",
       title: "Customers: Reactivate a customer",
       url: BOOKS_URLS.customers,
+      scene: {
+        Component: Step31,
+        run: runStep31,
+        durationMs: STEP31_DURATION_MS,
+      },
     },
     {
       id: "customers-delete",
