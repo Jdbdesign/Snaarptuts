@@ -4,39 +4,32 @@ import {
   finishDrive,
   hoverOn,
   pressOn,
+  ring,
 } from "@/components/drive/drive-timeline";
-import { DRIVE_URLS } from "@/components/drive/drive-data";
+import { DRIVE_URLS, DEFAULT_SHARE_PEOPLE } from "@/components/drive/drive-data";
 import { CAPTIONS } from "./data";
 
-export const STEP49_DURATION_MS = 7000;
+export const STEP49_DURATION_MS = 7500;
 
 export async function runStep49(tl: Timeline) {
-  beginDrive(tl, DRIVE_URLS.files, "files", [0.4, 0.4]);
+  beginDrive(tl, DRIVE_URLS.files, "files", [0.45, 0.45]);
   tl.setVar("driveFilesViewMode", "tiles");
-  tl.setVar("driveFolderBrandLogosAdded", true);
-  tl.setVar("driveFolderProjectFilesAdded", true);
+  tl.setVar("driveShareModalOpen", true);
+  tl.setVar("driveShareItemName", "Q3 report.pdf");
+  tl.setVar("driveSharePeople", DEFAULT_SHARE_PEOPLE);
 
   await tl.at(500);
-  tl.showCaption(CAPTIONS.selectFirst);
-  await hoverOn(tl, "[data-tl=checkbox-bulk-payslip]", { ms: 600 });
+  tl.showCaption(CAPTIONS.clickCopyLink);
+  await hoverOn(tl, "[data-tl=btn-share-copy-link]", { ms: 600 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=checkbox-bulk-payslip]");
-  tl.setVar("driveBulkSelectedIds", ["payslip"]);
-  tl.setVar("driveBulkSelectedCount", 1);
-  tl.setVar("driveBulkBarOpen", true);
+  await pressOn(tl, "[data-tl=btn-share-copy-link]");
+  tl.setVar("driveLinkCopied", true);
+  tl.setVar("driveLinkCopiedToastOpen", true);
 
-  await tl.at(2400);
-  tl.showCaption(CAPTIONS.selectMore);
-  await hoverOn(tl, "[data-tl=checkbox-bulk-meeting-notes]", { ms: 500 });
-  await tl.wait(100);
-  await pressOn(tl, "[data-tl=checkbox-bulk-meeting-notes]");
-  tl.setVar("driveBulkSelectedIds", ["payslip", "meeting-notes"]);
-  tl.setVar("driveBulkSelectedCount", 2);
-
-  await tl.at(4800);
-  tl.showCaption(CAPTIONS.bulkBar);
-  await hoverOn(tl, "[data-tl=bar-bulk-actions]", { ms: 700 });
-  await tl.wait(1500);
+  await tl.at(3000);
+  tl.showCaption(CAPTIONS.linkCopied);
+  await hoverOn(tl, "[data-tl=toast-link-copied]", { ms: 600 });
+  await ring(tl, "[data-tl=toast-link-copied]", 2200);
 
   await finishDrive(tl, STEP49_DURATION_MS);
 }

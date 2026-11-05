@@ -1,5 +1,4 @@
 export const CAPTIONS = {
-  selectFirst: "Select items using the checkbox on each card.",
-  selectMore: "Select multiple items to perform bulk actions.",
-  bulkBar: "Use the bulk action bar to Move, Download, or Delete selected items.",
+  clickCopyLink: "Click Copy link to generate a shareable viewer link.",
+  linkCopied: "The link is copied to your clipboard with instant access for collaborators.",
 };
