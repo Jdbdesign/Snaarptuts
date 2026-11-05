@@ -19,6 +19,8 @@ import { Step9 } from "@/scenes/books/step9/Step9";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/books/step9/script";
 import { Step10 } from "@/scenes/books/step10/Step10";
 import { runStep10, STEP10_DURATION_MS } from "@/scenes/books/step10/script";
+import { Step11 } from "@/scenes/books/step11/Step11";
+import { runStep11, STEP11_DURATION_MS } from "@/scenes/books/step11/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -143,6 +145,11 @@ export const books: Tutorial = {
       id: "products-refresh-list",
       title: "Products: Refresh the item list",
       url: BOOKS_URLS.products,
+      scene: {
+        Component: Step11,
+        run: runStep11,
+        durationMs: STEP11_DURATION_MS,
+      },
     },
     {
       id: "products-create-goods",

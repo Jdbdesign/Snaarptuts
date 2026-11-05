@@ -20,6 +20,7 @@ import {
   type BookItem,
   INITIAL_ACTIVE_ITEMS,
   INITIAL_INACTIVE_ITEMS,
+  REFRESHED_NEW_ITEM,
 } from "./books-data";
 
 type Props = {
@@ -307,9 +308,15 @@ export function BooksProductsView({ tl }: Props) {
                   tl.setVar("booksLoadingList", true);
                   setTimeout(() => {
                     tl.setVar("booksLoadingList", false);
+                    const current = tl.getVar<BookItem[]>("booksItems", INITIAL_ACTIVE_ITEMS);
+                    if (!current.some((x) => x.id === REFRESHED_NEW_ITEM.id)) {
+                      tl.setVar("booksItems", [REFRESHED_NEW_ITEM, ...current]);
+                    }
+                    tl.setVar("booksToastMessage", "Item list refreshed.");
+                    tl.setVar("booksToastOpen", true);
                   }, 600);
                 }}
-                className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 <RotateCw className="w-4 h-4 text-gray-500" />
                 <span>Refresh List</span>
