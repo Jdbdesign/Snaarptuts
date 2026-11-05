@@ -38,6 +38,9 @@ button {
 .tl-hl.absolute {
   position: absolute;
 }
+.tl-hl.fixed {
+  position: fixed;
+}
 .tl-hl::after {
   content: "";
   position: absolute;

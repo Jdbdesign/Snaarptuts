@@ -38,7 +38,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {bulkMoveOpen && (
         <div
           data-tl="toast-bulk-move-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-3 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <div className="space-y-0.5">
@@ -80,7 +80,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {bulkDeleteOpen && (
         <div
           data-tl="toast-bulk-delete-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -100,7 +100,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {trashRestoredOpen && (
         <div
           data-tl="toast-trash-restored-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -120,7 +120,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {trashEmptiedOpen && (
         <div
           data-tl="toast-trash-emptied-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -140,7 +140,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {meetingsDownloadOpen && (
         <div
           data-tl="toast-meeting-download-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -160,7 +160,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {sharedShortcutOpen && (
         <div
           data-tl="toast-shared-shortcut-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -180,7 +180,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {sharedHideOpen && (
         <div
           data-tl="toast-shared-hide-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -200,7 +200,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {favoritesOpen && (
         <div
           data-tl="toast-favorites-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -220,7 +220,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {workspaceCreatedOpen && (
         <div
           data-tl="toast-workspace-created-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -240,7 +240,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {inviteSuccessOpen && (
         <div
           data-tl="toast-invite-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -260,7 +260,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {memberRoleOpen && (
         <div
           data-tl="toast-member-role-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -280,7 +280,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {memberRemovedOpen && (
         <div
           data-tl="toast-member-removed-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -300,7 +300,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {workspaceDeletedOpen && (
         <div
           data-tl="toast-workspace-deleted-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -319,7 +319,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {workspaceFolderOpen && (
         <div
           data-tl="toast-ws-folder-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -339,7 +339,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {shareSuccessOpen && (
         <div
           data-tl="toast-share-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -359,7 +359,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {folderShareOpen && (
         <div
           data-tl="toast-folder-share-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -379,7 +379,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {shareAgainOpen && (
         <div
           data-tl="toast-share-again-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -399,7 +399,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {personRoleUpdatedOpen && (
         <div
           data-tl="toast-person-role-updated"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -419,7 +419,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {personRemovedOpen && (
         <div
           data-tl="toast-person-removed"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -439,7 +439,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {linkSettingsOpen && (
         <div
           data-tl="toast-link-settings-success"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
@@ -459,7 +459,7 @@ export function DrivePart4Toasts({ tl }: Props) {
       {linkCopiedOpen && (
         <div
           data-tl="toast-link-copied"
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+          className="fixed bottom-6 right-6 z-50 flex items-center h-auto shrink-0 gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
         >
           <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
           <span className="font-medium text-[#111827]">
