@@ -45,6 +45,8 @@ import { Step22 } from "@/scenes/books/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/books/step22/script";
 import { Step23 } from "@/scenes/books/step23/Step23";
 import { runStep23, STEP23_DURATION_MS } from "@/scenes/books/step23/script";
+import { Step24 } from "@/scenes/books/step24/Step24";
+import { runStep24, STEP24_DURATION_MS } from "@/scenes/books/step24/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -299,6 +301,11 @@ export const books: Tutorial = {
       id: "customers-search-filter",
       title: "Customers: Search and filter customers",
       url: BOOKS_URLS.customers,
+      scene: {
+        Component: Step24,
+        run: runStep24,
+        durationMs: STEP24_DURATION_MS,
+      },
     },
     {
       id: "customers-add-business",
