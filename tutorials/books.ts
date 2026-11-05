@@ -83,6 +83,8 @@ import { Step41 } from "@/scenes/books/step41/Step41";
 import { runStep41, STEP41_DURATION_MS } from "@/scenes/books/step41/script";
 import { Step42 } from "@/scenes/books/step42/Step42";
 import { runStep42, STEP42_DURATION_MS } from "@/scenes/books/step42/script";
+import { Step43 } from "@/scenes/books/step43/Step43";
+import { runStep43, STEP43_DURATION_MS } from "@/scenes/books/step43/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -521,6 +523,16 @@ export const books: Tutorial = {
         Component: Step42,
         run: runStep42,
         durationMs: STEP42_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-configure-numbering",
+      title: "Quotes: set up quote numbering",
+      url: BOOKS_URLS.newQuote,
+      scene: {
+        Component: Step43,
+        run: runStep43,
+        durationMs: STEP43_DURATION_MS,
       },
     },
   ],
