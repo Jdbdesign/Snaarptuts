@@ -15,7 +15,7 @@ First product: **Snaarp 360**. More products will follow, each with its own modu
 - Snaarp 360: **all 5 steps built and working**, plus the **completion screen**. Plays about 2:04 hands off from page load to the completion card. Verified at 1920x1080, 1440x900, 1280x720 and 390x844: no console errors, no scrollbars, no document scroll.
 - Product switcher in the rail: a dropdown of products (Snaarp 360, Snaarp Mail, Snaarp Doc, Snaarp Admin, Snaarp Slides, Snaarp Sheets, Snaarp Workforce, OneCardX, Snaarp Drive, and Snaarp Books).
 - Real Snaarp product logos are in place across the suite rail and UI headers. Real SVG product logos live in `public/logos/`.
-- **Snaarp Books (latest)**: **22 steps built and complete** (Part 1: Home and Products). Config in `tutorials/books.ts`, route `/tutorials/books`. Features dashboard, receivables/payables, cash flow chart by period, account watchlist with accrual/cash toggle, recent updates audit log, catalog browsing and filtering, sort drawer, column preferences drawer, CSV import, CSV export, list refresh, create goods item with validation error handling, create service item, item detail view with tabs, edit item, clone item, mark inactive/active, lock/unlock item, delete item with in-app confirmation modal, multi-select, and bulk delete with completion card.
+- **Snaarp Books (latest)**: **32 steps built and complete** (Part 1: Home and Products; Part 2: Sales > Customers). Config in `tutorials/books.ts`, route `/tutorials/books`. Features dashboard, receivables/payables, cash flow chart by period, account watchlist with accrual/cash toggle, recent updates audit log, catalog browsing and filtering, sort drawer, column preferences drawer, CSV import, CSV export, list refresh, create goods item with validation error handling, create service item, item detail view with tabs, edit item, clone item, mark inactive/active, lock/unlock item, delete item with in-app confirmation modal, multi-select, bulk delete, customer catalog navigation and filtering, customer search, add business customer with billing/shipping address and copy functionality, add individual customer with contact persons, customer CSV import, view/update customer details, deactivate customer, reactivate customer, and delete customer with in-app confirmation modal and completion card.
 - No backend, accounts, cloud sync or AI features (named exclusions for v1). No automated tests. The folder is **not a git repository** (see known issues).
 
 | Step | Title | Status |
@@ -312,9 +312,9 @@ How it is built:
 - Progress storage key versioned to `snaarp-tutorials:progress:v3` in `lib/progress.ts`.
 - All 68 steps tested and clean across viewports (1920x1080, 1440x900, 1280x720, 390x844). TypeScript, lint, and production build clean.
 
-## Snaarp Books (tenth tutorial, Part 1 complete: 22 steps)
+## Snaarp Books (tenth tutorial, Part 1 & Part 2 complete: 32 steps)
 
-Route `/tutorials/books`, config `tutorials/books.ts`: **22 steps, all built and complete for Part 1 (Home and Products)**.
+Route `/tutorials/books`, config `tutorials/books.ts`: **32 steps, all built and complete (Part 1: Home and Products; Part 2: Sales > Customers)**.
 - Steps 1-5 (Navigation & Home):
   - Step 1: Books: Find your way around (Orientation of suite rail, left navigation menu, top search bar, avatar).
   - Step 2: Home: Read your receivables and payables (Total receivables £520.80 and payables £115.20 with aging breakdowns and "+ New" lead-ins).
@@ -338,27 +338,40 @@ Route `/tutorials/books`, config `tutorials/books.ts`: **22 steps, all built and
   - Step 19: Products: Lock and unlock an item (Lock item action, amber banner warning, disabled edit button, unlock action, success toast).
   - Step 20: Products: Delete an item (In-app confirmation modal with "books.snaarp.com says" and "Deleting..." spinner, item deleted from catalog, success toast).
   - Step 21: Products: Select several items (Checkbox selection on 3 items, floating bulk action bar, select all toggle, deselect all, batch selection).
-  - Step 22: Products: Delete several items at once (Bulk delete 3 selected items with in-app confirmation modal, items removed from catalog, success toast, completion card).
-- Completion card follows step 22: "Tour complete / You have mastered Home and Products in Snaarp Books. Explore Sales, Purchases, and Banking in upcoming modules."
-Recording: `ref/1105 (2).mp4` (4m53s). Extracted stills: `ref/books-frames/frame_001.png` to `frame_098.png`.
+  - Step 22: Products: Delete several items at once (Bulk delete 3 selected items with in-app confirmation modal, items removed from catalog, success toast).
+- Steps 23-32 (Sales > Customers):
+  - Step 23: Customers: Open the customer list (Expand Sales navigation group, navigate to Customers `/sales/customers`, inspect customer table).
+  - Step 24: Customers: Search and filter customers (Search "bright" to find Brightway Stores, toggle status filter to Inactive, All, and Active).
+  - Step 25: Customers: Add a business customer (Select Business type, fill Salutation Mr., First Name Mark, Last Name Davies, Company Greenleaf Bakery, Display Name, Email `mark@greenleafbakery.co.uk`, Country Code +44, Phone `0113 496 0892`, save customer, success toast).
+  - Step 26: Customers: Add billing and shipping addresses (Open Address tab, fill Billing Country, Street, City Leeds, State West Yorkshire, Zip LS1 4DY, click Copy billing address to populate shipping, Note box on PDF formatting).
+  - Step 27: Customers: Add an individual customer with a contact person (Select Individual type, fill Salutation Ms., First Name Helen, Last Name Carter, Display Name, Email `helen.carter@outlook.example`, open Contact Persons tab, add contact Jordan Lee `jordan.lee@acme.example`, save customer, success toast).
+  - Step 28: Customers: Import customers from a CSV file (Click Import, open CSV picker with sample `customers-import.csv`, import spinner, success toast, 4 appended customer records).
+  - Step 29: Customers: View and edit a customer's details (Breadcrumb navigation, Brightway Stores details, edit phone to `+44 7700 900388`, add notes "Preferred delivery on Thursdays", click Update Customer, success toast).
+  - Step 30: Customers: Deactivate a customer (Open Casey Brown detail page, click Deactivate, confirmation toast, badge changes to Inactive).
+  - Step 31: Customers: Reactivate a customer (Filter Inactive customers, open Casey Brown detail page, click Activate, confirmation toast, badge returns to Active).
+  - Step 32: Customers: Delete a customer (Click trash icon for Summit Cycles, in-app confirmation dialog "Delete customer? / This cannot be undone.", customer deleted, success toast, completion card).
+- Completion card follows step 32: "Tour complete / You have mastered Home, Products, and Customers in Snaarp Books. Explore Invoices, Banking, and Purchases in upcoming modules."
+Recordings: `ref/1105 (2).mp4` (Part 1, 4m53s), `ref/1105 (2)(1).mp4` (Part 2, 5m05s).
 
 How it is built:
-- Reusable stage `components/books/BooksStage.tsx` and app shell `components/books/BooksShell.tsx` (thin suite rail with Books active, collapsible 200px left navigation menu, top bar with Books logo, search bar, user avatar 'S', and apps 9-dot grid).
+- Reusable stage `components/books/BooksStage.tsx` and app shell `components/books/BooksShell.tsx` (thin suite rail with Books active, collapsible left navigation menu with expandable Sales subnav, top bar with Books logo, search bar, user avatar 'S', and apps 9-dot grid).
 - Views & Modals:
   - `BooksHomeView.tsx`: Dashboard with greeting, Receivables, Payables, Cash Flow chart with period toggle & tooltip, Quick Actions, Bank and Credit Cards, Account Watchlist with Accrual/Cash toggle, and Recent Updates tab with 10 audit logs.
   - `BooksProductsView.tsx`: Catalog table with status filters (Active/Inactive/All), header search magnifier, sort button, column preferences button, bulk action bar, more actions menu, and pagination.
   - `BooksNewItemView.tsx`: Form for Goods and Services with name, unit, photo upload box, sales info, purchase info, and purchase account validation.
   - `BooksItemDetailView.tsx`: Item detail page with breadcrumbs, lock banner, Edit button, More menu (Clone, Inactive/Active, Lock/Unlock, Delete), and Overview / Transactions / History tabs.
+  - `BooksCustomersView.tsx`: Customers table with status filter dropdown (Active/Inactive/All), search filter, Import button, "+ New Customer" button, row action links, and trash buttons.
+  - `BooksNewCustomerView.tsx`: Customer creation form supporting Business vs Individual types, salutation, contact names, company name, display name, email, country code dropdown, work/mobile phones, language select, 6 tabs (Other Details, Address with two-column layout + Copy billing address + yellow Note box, Contact Persons with dynamic add/remove rows, Custom Fields, Reporting Tags, Remarks), and Save/Cancel buttons.
+  - `BooksCustomerDetailView.tsx`: Customer detail view with breadcrumbs, Deactivate / Activate action button, contact info, billing/shipping addresses, Tax ID, Notes, and Update Customer button.
   - `BooksSortDrawer.tsx`: Sliding sort drawer.
   - `BooksColumnsDrawer.tsx`: Visible columns preferences drawer.
-  - `BooksImportDrawer.tsx`: CSV import drawer.
-  - `BooksExportDrawer.tsx`: Item list export drawer.
-  - `BooksCsvPickerModal.tsx`: In-app CSV picker modal.
-  - `BooksImagePickerModal.tsx`: In-app photo picker modal.
-  - `BooksConfirmDialog.tsx`: In-app styled confirmation modal replacing native browser confirm alerts.
+  - `BooksImportDrawer.tsx` & `BooksExportDrawer.tsx`: Catalog CSV import and export drawers.
+  - `BooksCustomerImportDrawer.tsx` & `BooksCustomerCsvPickerModal.tsx`: Customer CSV import drawer and sample file picker.
+  - `BooksCsvPickerModal.tsx` & `BooksImagePickerModal.tsx`: In-app CSV picker and photo picker modals.
+  - `BooksConfirmDialog.tsx` & `BooksCustomerConfirmDialog.tsx`: In-app styled confirmation modals replacing native browser confirm alerts.
   - `BooksToast.tsx`: Green check confirmation toast (top-14 right-6).
 - Shared timeline helpers in `components/books/books-timeline.ts` (`beginBooks` with mandatory `tl.placeCursor`, `finishBooks`, `pressOn`, `hoverOn`, `ring`).
-- Central sample data in `components/books/books-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, GBP £, 14 active catalog items, 2 inactive items, cash flow chart data, account watchlist, 10 recent updates).
-- Per-step scenes in `scenes/books/step<1..22>/`.
-- Verified cleanly across all 22 steps. TypeScript, lint, and production build clean.
+- Central sample data in `components/books/books-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, GBP £, 14 active catalog items, 2 inactive items, 4 active customers, 1 inactive customer, 4 CSV import customers, cash flow chart data, account watchlist, 10 recent updates).
+- Per-step scenes in `scenes/books/step<1..32>/`.
+- Verified cleanly across all 32 steps. TypeScript, lint, and production build clean.
 

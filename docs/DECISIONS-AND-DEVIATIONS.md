@@ -1191,6 +1191,43 @@ The tutorial faithfully showcases entry points to future Snaarp Books modules wi
    - In `components/books/books-timeline.ts`, `pressOn`, `hoverOn`, and `ring` now wrap selector lookups in a Books-scoped try/catch.
    - If an element cannot be found on stage, it logs `[Books Safety Net]: target "<selector>" not found in <sceneId>. Ending step gracefully.`, sets `tl.setVar("__booksStepEnded", true)`, clears captions/highlights, and applies `fade: true` so playback proceeds to the next step cleanly without freezing the player.
 
+## Snaarp Books Part 2: Sales > Customers (Steps 23 to 32)
+
+### Sample Data & Realistic Content
+All real personal names, companies, and identifiers from video recording `1105 (2)(1).mp4` (Mayopo, Metropolitan School of Business and Management, Gtext Homes, adeoyemayopoelijah, tolulope, farouq, Olayinka, Snaarp as customer, UI/UX, Daniel Joe, ikeka, Shieldfield, real postcodes, UUID tax numbers) were replaced with clean, UK-compliant sample data:
+- User profile: Sam Taylor (`sam.taylor@snaarp.com`, avatar "S", currency GBP).
+- Active customer directory:
+  - Acme Foods Ltd | accounts@acmefoods.example | +44 7700 900101 | Active
+  - Brightway Stores | billing@brightway.example | +44 7700 900102 | Active
+  - Northfield Cafe | hello@northfieldcafe.example | +44 7700 900103 | Active
+  - Harvest Tables Ltd | finance@harvesttables.example | +44 114 496 0104 | Active
+  - Sterling Interiors | office@sterlinginteriors.example | +44 7700 900105 | Active
+  - Casey Brown | casey.brown@acme.example | +44 7700 900106 | Active
+- Inactive customer accounts:
+  - Old Mill Traders | accounts@oldmill.example | +44 114 496 0107 | Inactive
+  - Riverside Studio | hello@riversidestudio.example | +44 7700 900108 | Inactive
+- Created in tutorial flows:
+  - Greenleaf Bakery (Business client, Sheffield, Daniel Green)
+  - Helen Carter (Individual client, Leeds, Jordan Lee contact representative)
+- Imported in CSV flow:
+  - Pinewood Catering, Lakeside Florists, Summit Cycles (from `customers-import.csv`)
+
+### Completed Beyond the Video
+In accordance with the **COMPLETE EVERY FLOW** rule:
+1. **Step 25 (Add Business Customer)**: Instead of leaving fields half-filled, completes full primary contact, company name, UK dial code (+44), work & mobile numbers, VAT Standard (20%), Company ID, Accounts Receivable, opening balance, Net 30 terms, and portal access checkbox. Saves and confirms new record in active directory.
+2. **Step 26 (Billing & Shipping Addresses)**: Fills complete Sheffield billing address (Unit 3, Mill Lane, Kelham Island, Sheffield, S3 8RY), clicks "Copy billing address" to mirror values into Shipping Address, highlights yellow Note box explaining PDF preferences, and saves customer.
+3. **Step 27 (Individual Customer & Contact Persons)**: Demonstrates Individual type (Company Name field dynamically unmounts), Leeds address, adds contact person Jordan Lee, adds second contact row (Alex Morgan) via "+ Add Contact Person", and removes second row using the red "x" delete button.
+4. **Step 28 (CSV Customer Import)**: Replaces OS file dialogue with in-app modal `BooksCustomerCsvPickerModal`, selects `customers-import.csv`, simulates upload, runs import with progress spinner, closes drawer, and adds 3 new customers to the live catalog.
+5. **Step 29 (View and Edit Customer Details)**: Replaces empty fields with full Brightway Stores profile (Leeds billing/shipping, GB tax ID, notes). Updates phone to `7700 900199` and notes, clicks "Update Customer" ("Saving..."), receives success toast, navigates back to list, and re-opens customer to verify persistence.
+6. **Step 30 (Deactivate Customer)**: Opens Casey Brown, clicks red "Deactivate" button, displays toast "Customer deactivated successfully", verifies removal from Active list, and confirms presence under Inactive filter.
+7. **Step 31 (Reactivate Customer)**: Opens inactive Casey Brown, clicks "Activate" button, receives success toast, and confirms reactivation under Active status filter.
+8. **Step 32 (Delete Customer)**: Uses Actions column trash button on Summit Cycles, opens in-app confirmation dialog (`BooksCustomerConfirmDialog`), executes confirmed delete, and mounts the final Completion Card.
+
+### Inferred Features
+1. **Reactivate Button (Step 31)**: The recording did not show how to reactivate an inactive customer. Implemented an "Activate" button on customer details when `status === "inactive"` matching the shape and position of the Deactivate button with green/emerald primary styling.
+2. **In-App Delete Customer Confirmation (Step 32)**: The recording did not demonstrate row deletion. Implemented an in-app confirmation modal ("Delete customer? / This cannot be undone.") matching the Books dialog pattern to avoid native browser `window.confirm`.
+
+
 
 
 
