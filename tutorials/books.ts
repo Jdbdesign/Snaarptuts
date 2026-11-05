@@ -77,6 +77,8 @@ import { Step38 } from "@/scenes/books/step38/Step38";
 import { runStep38, STEP38_DURATION_MS } from "@/scenes/books/step38/script";
 import { Step39 } from "@/scenes/books/step39/Step39";
 import { runStep39, STEP39_DURATION_MS } from "@/scenes/books/step39/script";
+import { Step40 } from "@/scenes/books/step40/Step40";
+import { runStep40, STEP40_DURATION_MS } from "@/scenes/books/step40/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -485,6 +487,16 @@ export const books: Tutorial = {
         Component: Step39,
         run: runStep39,
         durationMs: STEP39_DURATION_MS,
+      },
+    },
+    {
+      id: "quotes-edit-quote",
+      title: "Quotes: edit a quote and save changes",
+      url: BOOKS_URLS.editQuote,
+      scene: {
+        Component: Step40,
+        run: runStep40,
+        durationMs: STEP40_DURATION_MS,
       },
     },
   ],
