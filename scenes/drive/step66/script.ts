@@ -32,9 +32,9 @@ export async function runStep66(tl: Timeline) {
   tl.setVar("driveCreateMenuOpen", true);
 
   await tl.at(4500);
-  await hoverOn(tl, "[data-tl=create-opt-file-upload]", { ms: 500 });
+  await hoverOn(tl, "[data-tl=menu-item-file-upload]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=create-opt-file-upload]");
+  await pressOn(tl, "[data-tl=menu-item-file-upload]");
   tl.setVar("driveCreateMenuOpen", false);
   tl.setVar("driveUploadToastOpen", true);
   tl.setVar("driveUploadToastExpanded", true);

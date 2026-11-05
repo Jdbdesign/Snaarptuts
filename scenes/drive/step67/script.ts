@@ -45,6 +45,7 @@ export async function runStep67(tl: Timeline) {
   tl.setVar("driveWorkspaceMarketingSpaceDeleted", true);
   tl.setUrl(DRIVE_URLS.workspaces);
   tl.setVar("driveWorkspaceDeletedToastOpen", true);
+  await tl.wait(200);
   await hoverOn(tl, "[data-tl=card-workspace-social-media]", { ms: 600 });
   await tl.wait(1500);
 

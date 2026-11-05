@@ -35,9 +35,9 @@ export async function runStep65(tl: Timeline) {
 
   await tl.at(4500);
   tl.showCaption(CAPTIONS.selectFolder);
-  await hoverOn(tl, "[data-tl=create-opt-folder]", { ms: 500 });
+  await hoverOn(tl, "[data-tl=menu-item-folder]", { ms: 500 });
   await tl.wait(150);
-  await pressOn(tl, "[data-tl=create-opt-folder]");
+  await pressOn(tl, "[data-tl=menu-item-folder]");
   tl.setVar("driveCreateMenuOpen", false);
   tl.setVar("driveFolderModalOpen", true);
 
