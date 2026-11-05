@@ -1,5 +1,6 @@
 export const CAPTIONS = {
-  clickMenu: "Click the three dots on the Workspaces folder.",
-  clickShare: "Click Share to open the sharing settings.",
-  reviewAccess: "Review people who currently have access to this folder.",
+  clickMenu: "Click the three dots on the folder.",
+  clickDelete: "Click Delete to see the removal warning.",
+  confirmDelete: "Click Delete to move the folder and its contents to the trash.",
+  folderDeleted: "The folder is moved to the Recycle Bin.",
 };
