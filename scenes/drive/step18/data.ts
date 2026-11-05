@@ -1,4 +1,3 @@
 export const CAPTIONS = {
-  intro: "Access your starred files and folders in one place.",
-  clickFavorites: "Click Favorites in the sidebar.",
+  clickFavorites: "Favorites gives you quick access to all your starred files and folders.",
 };
