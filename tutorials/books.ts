@@ -61,6 +61,8 @@ import { Step30 } from "@/scenes/books/step30/Step30";
 import { runStep30, STEP30_DURATION_MS } from "@/scenes/books/step30/script";
 import { Step31 } from "@/scenes/books/step31/Step31";
 import { runStep31, STEP31_DURATION_MS } from "@/scenes/books/step31/script";
+import { Step32 } from "@/scenes/books/step32/Step32";
+import { runStep32, STEP32_DURATION_MS } from "@/scenes/books/step32/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -395,8 +397,12 @@ export const books: Tutorial = {
       id: "customers-delete",
       title: "Customers: Delete a customer",
       url: BOOKS_URLS.customers,
+      scene: {
+        Component: Step32,
+        run: runStep32,
+        durationMs: STEP32_DURATION_MS,
+      },
     },
-
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -405,7 +411,7 @@ export const books: Tutorial = {
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, browse, filter, sort, import, export, and create items in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, and client accounts in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",
