@@ -1221,11 +1221,49 @@ In accordance with the **COMPLETE EVERY FLOW** rule:
 5. **Step 29 (View and Edit Customer Details)**: Replaces empty fields with full Brightway Stores profile (Leeds billing/shipping, GB tax ID, notes). Updates phone to `7700 900199` and notes, clicks "Update Customer" ("Saving..."), receives success toast, navigates back to list, and re-opens customer to verify persistence.
 6. **Step 30 (Deactivate Customer)**: Opens Casey Brown, clicks red "Deactivate" button, displays toast "Customer deactivated successfully", verifies removal from Active list, and confirms presence under Inactive filter.
 7. **Step 31 (Reactivate Customer)**: Opens inactive Casey Brown, clicks "Activate" button, receives success toast, and confirms reactivation under Active status filter.
-8. **Step 32 (Delete Customer)**: Uses Actions column trash button on Summit Cycles, opens in-app confirmation dialog (`BooksCustomerConfirmDialog`), executes confirmed delete, and mounts the final Completion Card.
+8. **Step 32 (Delete Customer)**: Uses Actions column trash button on Summit Cycles, opens in-app confirmation dialog (`BooksCustomerConfirmDialog`), executes confirmed delete, and advances to Step 33.
 
 ### Inferred Features
 1. **Reactivate Button (Step 31)**: The recording did not show how to reactivate an inactive customer. Implemented an "Activate" button on customer details when `status === "inactive"` matching the shape and position of the Deactivate button with green/emerald primary styling.
 2. **In-App Delete Customer Confirmation (Step 32)**: The recording did not demonstrate row deletion. Implemented an in-app confirmation modal ("Delete customer? / This cannot be undone.") matching the Books dialog pattern to avoid native browser `window.confirm`.
+
+## Snaarp Books Part 3: Sales > Quotes (Steps 33 to 52)
+
+### Sample Data & Realistic Content
+All real personal names, client data, and phone numbers from video recording `1105 (2)(2).mp4` (Mayopo, 0000000000001, Nigerian phone numbers, real personal emails) were replaced with clean, UK-compliant sample data:
+- Currency: British Pound Sterling (GBP £).
+- Date format: `MM/DD/YYYY` (e.g. `11/05/2026`), directly following the video's date inputs and displays.
+- User profile: Sam Taylor (`sam.taylor@snaarp.com`, avatar "S").
+- Realistic initial quotes catalog covering all 6 statuses (`Draft`, `Sent`, `Accepted`, `Declined`, `Expired`):
+  - `QT-0008` | Brightway Stores | 11/04/2026 | GBP 48.00 | Draft
+  - `QT-0007` | Acme Foods Ltd | 11/02/2026 | GBP 185.00 | Sent
+  - `QT-0006` | Northfield Cafe | 10/28/2026 | GBP 340.00 | Accepted
+  - `QT-0005` | Harvest Tables Ltd | 10/24/2026 | GBP 92.50 | Accepted
+  - `QT-0004` | Sterling Interiors | 10/18/2026 | GBP 520.00 | Expired
+  - `QT-0003` | Casey Brown | 10/15/2026 | GBP 74.00 | Declined
+  - `QT-0002` | Old Mill Traders | 10/10/2026 | GBP 210.00 | Sent
+  - `QT-0001` | Riverside Studio | 10/05/2026 | GBP 165.00 | Accepted
+
+### Completed Beyond the Video
+In accordance with the **COMPLETE EVERY FLOW** rule:
+1. **Step 37 (Send Quote to Customer)**: Instead of a dead-end hover or click, clicking "Send Quote" shows an inline spinner ("Sending..."), updates the status badge to "Sent" (amber), displays the success toast "Quote sent to customer successfully.", and persists across subsequent views.
+2. **Step 38 (Download Quote as PDF)**: Replaced OS/browser PDF save with an in-app progression: "Generating Quote PDF..." toast followed by "Quote QT-0008 downloaded as PDF."
+3. **Step 39 (Preview Quote PDF)**: Instead of opening an external browser tab or plugin, built `BooksQuotePdfPreviewModal`: an in-app modal matching the video's "Estimate Pdf" sheet with dark top header ("Page 1 of 1", Close button), scrollable body, and cleanly formatted invoice document.
+4. **Step 40 (Edit Quote and Save Changes)**: Completes line-item editing (adding a row, deleting row 1), discount percentage (5%), shipping charge (£2.00), adjustment (£3.00), live recalculation of total (£60.10), saving changes ("Saving..."), toast "Quote updated successfully.", and verified persistence on detail view.
+5. **Step 41 (Delete Quote)**: Replaced browser native `confirm()` with in-app modal `BooksQuoteConfirmDialog` ("Delete this quote? / This cannot be undone."). Confirms deletion, displays toast "Quote deleted successfully.", removes quote from catalog, and returns to Quotes table.
+6. **Step 43 (Configure Quote Numbering)**: Opened via the gear icon on the New Quote form. Replaces the modal with `BooksQuoteNumberingDialog`, enters next number "0009", saves preferences, and updates the form's Quote# input.
+7. **Step 44 (Dates with Custom Popover)**: Replaced native date picker with custom in-app `BooksDatePickerPopover` for November 2026 with Clear and Today buttons, selecting quote date 11/05/2026 and expiry date 11/19/2026.
+8. **Step 47 (Scan Barcode)**: Replaced webcam/hardware device scanner with in-app `BooksQuoteScanDialog` modal featuring an animated camera viewport box and prefilled barcode "506012345001", which appends "Ground Pepper 500g" (£6.50) to the quote items.
+9. **Step 48 (Bulk Add Items)**: Replaced modal with in-app `BooksQuoteBulkItemsDialog`, allowing item search ("honey"), multi-checkbox selection across items (Honey Beans, Yam Tubers, Packaging Boxes), and batch addition.
+10. **Step 50 (Notes, File Attachment, Terms)**: Replaced OS file chooser with in-app `BooksQuoteFilePickerModal`, attaches `Catering-request.pdf` as a removable chip with file icon, enters complete terms and conditions, and rings the Additional Fields note.
+11. **Step 51 (Save as Draft)**: Clicks Save as Draft, creates quote `QT-0009` with Draft status, redirects to Quotes list, displays toast "Quote saved as draft", and opens quote to inspect draft details.
+12. **Step 52 (Save and Send)**: Prefilled with Harvest Tables Ltd order, highlights PDF Template link, clicks Save and Send, displays "Quote sent successfully.", transitions to details view with `Sent` status badge, and triggers the final Completion Card ("Tour complete / You can now manage your Home dashboard, catalog items, client accounts, and sales quotes in Snaarp Books.").
+
+### Inferred Features & Deviations
+1. **Status Header Title**: The status column header in the Quotes table is titled `"All"`, matching the pattern established in the Customers table.
+2. **Settings Note**: Video displays "Additional Fields: Start adding custom fields for your quotes by going to Settings → Sales → Quotes." Highlighted in step 50 and documented as an entry point leading to the future Settings module.
+3. **Ignored Stray Video Frames**: At frame 35, the video recording briefly cuts to Snaarp Drive Trash. Per project instructions, this was ignored.
+
 
 
 
