@@ -13,7 +13,9 @@ export async function runStep66(tl: Timeline) {
   beginDrive(tl, "drive.snaarp.com/files?folder=2172", "files", [0.45, 0.45]);
   tl.setVar("drivePage", "files");
   tl.setVar("driveActiveNav", "files");
+  tl.setVar("driveFilesViewMode", "tiles");
   tl.setVar("driveCurrentBreadcrumb", ["Workspaces", "Marketing Space"]);
+  tl.setVar("driveWorkspaceMarketingSpaceCreated", true);
   tl.setVar("driveWorkspaceFolderAdded", true);
 
   await tl.at(500);

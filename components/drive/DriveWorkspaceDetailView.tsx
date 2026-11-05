@@ -74,6 +74,8 @@ export function DriveWorkspaceDetailView({ tl }: Props) {
         data-tl="card-browse-ws-files"
         onClick={() => {
           tl.setVar("drivePage", "files");
+          tl.setVar("driveActiveNav", "files");
+          tl.setVar("driveFilesViewMode", "tiles");
           tl.setVar("driveCurrentBreadcrumb", ["Workspaces", "Marketing Space"]);
           tl.setUrl("drive.snaarp.com/files?folder=2172");
         }}

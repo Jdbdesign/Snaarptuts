@@ -22,6 +22,7 @@ export function DrivePart4Toasts({ tl }: Props) {
   const memberRoleOpen = useTimelineVar(tl, "driveMemberRoleToastOpen", false);
   const memberRemovedOpen = useTimelineVar(tl, "driveMemberRemovedToastOpen", false);
   const workspaceDeletedOpen = useTimelineVar(tl, "driveWorkspaceDeletedToastOpen", false);
+  const workspaceFolderOpen = useTimelineVar(tl, "driveWorkspaceFolderToastOpen", false);
 
   return (
     <>
@@ -300,6 +301,25 @@ export function DrivePart4Toasts({ tl }: Props) {
           <button
             type="button"
             onClick={() => tl.setVar("driveWorkspaceDeletedToastOpen", false)}
+            className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
+      {/* 14. Workspace Folder Created Toast */}
+      {workspaceFolderOpen && (
+        <div
+          data-tl="toast-ws-folder-success"
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-3 shadow-xl font-['Poppins',sans-serif] text-[12.5px] animate-in slide-in-from-bottom-2 duration-200"
+        >
+          <CheckCircle2 size={18} className="text-emerald-500 shrink-0" />
+          <span className="font-medium text-[#111827]">
+            Folder &quot;All videos&quot; created successfully.
+          </span>
+          <button
+            type="button"
+            onClick={() => tl.setVar("driveWorkspaceFolderToastOpen", false)}
             className="ml-2 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
           >
             <X size={15} />

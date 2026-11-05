@@ -177,6 +177,31 @@ export class Timeline {
     return el;
   }
 
+  /**
+   * Waits up to `timeoutMs` (default 3000ms) for an element matching `selector` to be mounted in the scroller DOM.
+   * If not found within the timeout, logs a clear console error naming the selector and throws an informative Error.
+   */
+  async waitForElement(selector: string, timeoutMs = 3000): Promise<HTMLElement> {
+    let el = this.host.scroller()?.querySelector<HTMLElement>(selector);
+    if (el) return el;
+
+    const start = performance.now();
+    while (!el && performance.now() - start < timeoutMs) {
+      if (this.cancelled) throw new CancelledError();
+      await this.wait(50);
+      el = this.host.scroller()?.querySelector<HTMLElement>(selector);
+    }
+
+    if (!el) {
+      console.error(
+        `[Timeline Error]: element matching "${selector}" was not found within ${timeoutMs}ms.`
+      );
+      throw new Error(`Timeline: no element matches "${selector}" after ${timeoutMs}ms`);
+    }
+
+    return el;
+  }
+
   /** Centre of an element in overlay-frame pixels. */
   private centreOf(el: HTMLElement) {
     const frame = this.host.frame()!.getBoundingClientRect();
@@ -296,7 +321,7 @@ export class Timeline {
   /** Glide the cursor along an eased, slightly curved path to an element. `onMove` is called on every frame with the cursor's client position. */
   async moveCursorTo(selector: string, opts: { dx?: number; dy?: number; ms?: number; onMove?: (clientX: number, clientY: number) => void } = {}) {
     const { dx = 0, dy = 0, ms = 900, onMove } = opts;
-    const el = this.query(selector);
+    const el = await this.waitForElement(selector, 3000);
     await this.ensureVisible(el);
     this.dodgeCaption(el);
     const c = this.centreOf(el); // after the scroll has settled, so it is the final position
@@ -327,7 +352,7 @@ export class Timeline {
    * (e.g. stroke-dashoffset). The selector must match a <path> (or any SVG geometry element).
    */
   async followPath(selector: string, ms: number, onProgress: (p: number) => void, opts: { approachMs?: number } = {}) {
-    const path = this.query(selector) as unknown as SVGGeometryElement;
+    const path = (await this.waitForElement(selector, 3000)) as unknown as SVGGeometryElement;
     await this.ensureVisible(path as unknown as HTMLElement);
     const len = path.getTotalLength();
     const frame = () => this.host.frame()!.getBoundingClientRect();
@@ -352,7 +377,7 @@ export class Timeline {
 
   /** Press the target (pressed state + ripple), then fire its real click handler. */
   async click(selector: string) {
-    const el = this.query(selector);
+    const el = await this.waitForElement(selector, 3000);
     // Normally the cursor is already on the target. If it was off screen, scroll to it and bring the cursor along.
     if (await this.ensureVisible(el)) await this.moveCursorTo(selector, { ms: 350 });
     this.probe("click", selector, el);
@@ -490,8 +515,16 @@ export class Timeline {
     this.host.setCaption(text);
     const target = opts.target;
     if (target) {
-      const el = this.query(target);
-      this.reveal(el, () => this.probe("caption", target, el));
+      const el = this.host.scroller()?.querySelector<HTMLElement>(target);
+      if (el) {
+        this.reveal(el, () => this.probe("caption", target, el));
+      } else {
+        this.waitForElement(target, 3000)
+          .then((found) => {
+            if (!this.cancelled) this.reveal(found, () => this.probe("caption", target, found));
+          })
+          .catch(() => {});
+      }
     }
   }
   hideCaption() {
@@ -499,7 +532,19 @@ export class Timeline {
   }
 
   highlight(selector: string) {
-    const el = this.query(selector);
+    const el = this.host.scroller()?.querySelector<HTMLElement>(selector);
+    if (!el) {
+      this.waitForElement(selector, 3000)
+        .then((found) => {
+          if (!this.cancelled) {
+            found.classList.add("tl-hl");
+            this.highlighted.add(found);
+            this.reveal(found, () => this.probe("highlight", selector, found));
+          }
+        })
+        .catch(() => {});
+      return;
+    }
     el.classList.add("tl-hl");
     this.highlighted.add(el);
     this.reveal(el, () => this.probe("highlight", selector, el));
@@ -514,10 +559,23 @@ export class Timeline {
     this.hovered?.removeAttribute("data-hover");
     this.hovered = null;
     if (selector) {
-      const el = this.query(selector);
-      this.hovered = el;
-      el.setAttribute("data-hover", "true");
-      this.reveal(el, () => this.probe("hover", selector, el));
+      const el = this.host.scroller()?.querySelector<HTMLElement>(selector);
+      if (el) {
+        this.hovered = el;
+        el.setAttribute("data-hover", "true");
+        this.reveal(el, () => this.probe("hover", selector, el));
+      } else {
+        this.waitForElement(selector, 3000)
+          .then((found) => {
+            if (!this.cancelled) {
+              if (this.hovered && this.hovered !== found) this.hovered.removeAttribute("data-hover");
+              this.hovered = found;
+              found.setAttribute("data-hover", "true");
+              this.reveal(found, () => this.probe("hover", selector, found));
+            }
+          })
+          .catch(() => {});
+      }
     }
   }
 

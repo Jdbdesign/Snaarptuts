@@ -2,7 +2,7 @@
 
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 import { FOLDER_COLOR_SWATCHES } from "./drive-data";
 
 type Props = {
@@ -11,18 +11,26 @@ type Props = {
 
 export function DriveFolderModal({ tl }: Props) {
   const isOpen = useTimelineVar(tl, "driveFolderModalOpen", false);
+  const isCreating = useTimelineVar(tl, "driveIsCreatingFolder", false);
   const folderName = useTimelineVar(tl, "field:folderName", useTimelineVar(tl, "driveFolderName", ""));
   const selectedColor = useTimelineVar(tl, "driveFolderColor", "");
 
   if (!isOpen) return null;
 
   const handleCreate = () => {
-    tl.setVar("driveFolderModalOpen", false);
-    tl.setVar("driveHomeHasProjectFiles", true);
-    tl.setVar("driveFolderProjectFilesAdded", true);
+    if (isCreating) return;
+    const breadcrumbs = tl.getVar<string[]>("driveCurrentBreadcrumb", []);
+    const isWorkspaceFolder = breadcrumbs.length >= 2 && breadcrumbs[1] === "Marketing Space";
+    if (isWorkspaceFolder) {
+      tl.setVar("driveWorkspaceFolderAdded", true);
+    } else {
+      tl.setVar("driveHomeHasProjectFiles", true);
+      tl.setVar("driveFolderProjectFilesAdded", true);
+    }
   };
 
   const handleClose = () => {
+    if (isCreating) return;
     tl.setVar("driveFolderModalOpen", false);
   };
 
@@ -99,14 +107,17 @@ export function DriveFolderModal({ tl }: Props) {
           <button
             type="button"
             data-tl="btn-modal-create"
+            disabled={isCreating}
             onClick={handleCreate}
-            className="rounded-xl bg-[#2563EB] px-5 py-2 text-[12.5px] font-semibold text-white shadow-xs hover:bg-blue-700 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 rounded-xl bg-[#2563EB] px-5 py-2 text-[12.5px] font-semibold text-white shadow-xs hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-75"
           >
-            Create
+            {isCreating && <Loader2 size={13} className="animate-spin" />}
+            <span>{isCreating ? "Creating..." : "Create"}</span>
           </button>
           <button
             type="button"
             data-tl="btn-modal-cancel"
+            disabled={isCreating}
             onClick={handleClose}
             className="rounded-xl border border-gray-300 bg-white px-4 py-2 text-[12.5px] font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
           >

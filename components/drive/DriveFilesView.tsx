@@ -363,8 +363,8 @@ export function DriveFilesView({ tl }: Props) {
           </div>
         </div>
 
-        {/* View Mode: Tiles */}
-        {viewMode === "tiles" ? (
+        {/* View Mode: Tiles or Subfolder Navigation */}
+        {viewMode === "tiles" || insideBrandLogos || insideProjectNotes || isInsideWorkspaces ? (
           insideBrandLogos ? (
             /* Inside Brand Logos Folder: 6 SVG files */
             <div data-tl="tiles-view-grid" className="grid grid-cols-6 gap-3.5">

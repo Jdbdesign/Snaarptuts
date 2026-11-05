@@ -15,6 +15,7 @@ export async function runStep65(tl: Timeline) {
   tl.setVar("driveActiveNav", "workspaces");
   tl.setVar("driveActiveWorkspaceId", "2172");
   tl.setVar("driveWorkspaceMarketingSpaceCreated", true);
+  tl.setVar("driveFilesViewMode", "tiles");
 
   await tl.at(500);
   tl.showCaption(CAPTIONS.clickBrowseFiles);
@@ -23,6 +24,7 @@ export async function runStep65(tl: Timeline) {
   await pressOn(tl, "[data-tl=card-browse-ws-files]");
   tl.setVar("drivePage", "files");
   tl.setVar("driveActiveNav", "files");
+  tl.setVar("driveFilesViewMode", "tiles");
   tl.setVar("driveCurrentBreadcrumb", ["Workspaces", "Marketing Space"]);
   tl.setUrl("drive.snaarp.com/files?folder=2172");
 

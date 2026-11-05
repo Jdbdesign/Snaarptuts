@@ -1042,6 +1042,19 @@ Built from video recording `1104 (2).mp4` (5m46s) and extracted stills `ref/driv
 3. **Completion card**:
    - Moved to follow Step 67: "Tour complete / You can now organise, manage trash, share, collaborate, and manage workspaces in Snaarp Drive."
 
+## Fix: Playback from Step 65 Onwards
+- **Root causes**:
+  1. `DriveFilesView.tsx` previously gated subfolder contents (`insideBrandLogos`, `insideProjectNotes`, `isInsideWorkspaces`) strictly on `viewMode === "tiles"`. When navigating to My Files from the workspace detail page via `Browse Workspace Files`, `driveFilesViewMode` was initially `"list"` (set by `beginDrive`), which caused `DriveFilesView` to fall back to the root table view instead of rendering the workspace subfolder tiles. As a consequence, `[data-tl=tile-folder-all-videos]` never mounted in the DOM.
+  2. In `scenes/drive/step65/script.ts`, the create menu item selector was `create-opt-folder` instead of `menu-item-folder` as declared in `DriveCreateMenu.tsx`. Similarly in `scenes/drive/step66/script.ts`, the upload file selector was `create-opt-file-upload` instead of `menu-item-file-upload`.
+  3. `lib/timeline.ts` query methods threw immediate synchronous errors if a target element was temporarily unmounted during React state transitions or route transitions.
+- **Resolution**:
+  1. `DriveFilesView.tsx` updated so subfolder views always render when a subfolder path is active (`viewMode === "tiles" || insideBrandLogos || insideProjectNotes || isInsideWorkspaces`).
+  2. `DriveWorkspaceDetailView.tsx` explicitly sets `driveFilesViewMode: "tiles"` and `driveActiveNav: "files"` when clicking `Browse Workspace Files`.
+  3. `scenes/drive/step65/script.ts` and `step66/script.ts` align selectors with `DriveCreateMenu.tsx` (`menu-item-folder` and `menu-item-file-upload`) and set `driveFilesViewMode: "tiles"`.
+  4. Added `isCreating` support (`Loader2` spinner and "Creating..." label) to `DriveFolderModal.tsx`, along with workspace folder creation detection and toast trigger in `DrivePart4Toasts.tsx`.
+  5. `lib/timeline.ts` safety net added: `waitForElement` retries element lookup over 3 seconds before logging a clear console error with the selector instead of hanging or failing prematurely during asynchronous React renders.
+  6. Verified with automated Playwright testing across all 67 Drive steps both individually and continuously through autoplay.
+
 
 
 
