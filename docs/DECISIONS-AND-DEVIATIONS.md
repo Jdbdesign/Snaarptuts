@@ -1264,6 +1264,43 @@ In accordance with the **COMPLETE EVERY FLOW** rule:
 2. **Settings Note**: Video displays "Additional Fields: Start adding custom fields for your quotes by going to Settings → Sales → Quotes." Highlighted in step 50 and documented as an entry point leading to the future Settings module.
 3. **Ignored Stray Video Frames**: At frame 35, the video recording briefly cuts to Snaarp Drive Trash. Per project instructions, this was ignored.
 
+## Snaarp Books Part 4: Sales > Invoices (Steps 53 to 77)
+
+### Sample Data & Realistic Content
+All real personal names, client data, and phone numbers from video recording `1106.mp4` were replaced with clean, UK-compliant sample data:
+- Currency: British Pound Sterling (GBP £).
+- Date format: `MM/DD/YYYY` (e.g. `11/05/2026`).
+- Initial invoices catalog covering all 7 status filter states (`Draft`, `Sent`, `Unpaid`, `Partially Paid`, `Paid`, `Overdue`):
+  - `INV10010` | Acme Foods Ltd | 11/05/2026 | GBP 156.00 | Paid (£156.00 paid, £0.00 balance due)
+  - `INV10008` | Sterling Interiors | 11/04/2026 | GBP 20.00 | Sent / Unpaid (£0.00 paid, £20.00 balance due)
+  - `INV10007` | Northfield Cafe | 11/02/2026 | GBP 84.00 | Paid (£84.00 paid, £0.00 balance due)
+  - `INV10006` | Sterling Interiors | 10/28/2026 | GBP 89.30 | Sent / Unpaid (£0.00 paid, £89.30 balance due)
+  - `INV10003` | Brightway Stores | 10/20/2026 | GBP 100.80 | Partially Paid / Unpaid (£50.40 paid, £50.40 balance due)
+  - `INV10000` | Casey Brown | 10/12/2026 | GBP 45.00 | Overdue (£0.00 paid, £45.00 balance due)
+  - `INV09999` | Greenleaf Bakery | 10/01/2026 | GBP 320.00 | Paid (£320.00 paid, £0.00 balance due)
+  - `INV-0006` | Riverside Studio | 09/20/2026 | GBP 110.00 | Sent / Unpaid (£0.00 paid, £110.00 balance due)
+  - `INV-0005` | Old Mill Traders | 09/10/2026 | GBP 250.00 | Paid (£250.00 paid, £0.00 balance due)
+
+### Completed Beyond the Video
+In accordance with the **COMPLETE EVERY FLOW** rule:
+1. **Errors in Video Left Out**: The video shows validation warnings ("Please fix highlighted fields"), transient errors ("Invoice saved, but sending failed!"), stuck "Saving..." spinners, and blank loading skeletons. None of these were reproduced. Every flow completes with clean success feedback.
+2. **Step 56 (Import Invoices from CSV)**: Replaced native file picker with in-app `BooksInvoiceCsvPickerModal` selecting `invoices-nov-2026.csv`. Completes import drawer progression with green checkmark and success toast "Invoices imported successfully.".
+3. **Step 58 (Send Invoice to Customer)**: Shows brief inline spinner, toast "Invoice sent to customer successfully.", and transitions status badge to Sent.
+4. **Step 59 (Mark as Paid)**: Clicking green "Mark as Paid" button opens in-app confirmation modal `BooksInvoiceMarkPaidDialog`. On confirm, updates invoice status to "Paid", sets Amount Paid to full total, sets Balance Due to £0.00, and displays toast "Invoice marked as paid.".
+5. **Step 60 (Download Invoice PDF)**: Replaced native browser PDF download prompt with an in-app progression displaying toast "Invoice PDF downloaded.".
+6. **Step 61 (Preview Invoice PDF)**: Replaced external viewer with in-app modal `BooksInvoicePdfPreviewModal` matching the video's "Invoice Pdf" layout, Page 1 of 1 indicator, and document preview.
+7. **Step 62 (Edit Invoice)**: Opens Edit view for `INV10006`, adds Delivery Fee (£10.00), enters Discount 5%, calculates Total £89.30, saves changes, displays toast "Invoice updated successfully.", and returns to details view.
+8. **Step 63 (Review Payment Plan on Existing Invoice)**: Inspects `INV10003` showing the Scheduled payment plan card with 2 installments of £50.40 each.
+9. **Step 64 (Delete Invoice)**: Clicks Delete on `INV10000`, in-app confirmation modal `BooksInvoiceConfirmDialog` opens, confirms deletion, displays toast "Invoice deleted successfully.", and returns to Invoices list.
+10. **Step 66 (Configure Invoice Numbering)**: Opened via the gear icon on the New Invoice form. Modal `BooksInvoiceNumberingDialog` sets next sequence number to "10013", saves preferences, and updates the form's Invoice# input to `INV10013`.
+11. **Step 70 (Scan Barcode)**: Replaced hardware scanner with in-app `BooksInvoiceScanDialog` modal with barcode "5012345678900", appending Delivery Fee (£10.00) to invoice line items.
+12. **Step 71 (Bulk Add Items)**: Replaced modal with in-app `BooksInvoiceBulkItemsDialog` searching "tote", selecting "Reusable Tote Bag" and "Notebook A5", and batch adding them.
+13. **Step 73 (Notes, Attachment, Terms)**: Replaced OS file chooser with in-app `BooksInvoiceFilePickerModal`, attaching `PO-4471.pdf` as a chip.
+14. **Step 74 (Flexible Payment Plan)**: Selects "Flexible" chip, displays customer flexibility helper text, and enters optional PIN "4821".
+15. **Step 75 (Scheduled Installment Plan)**: Selects "Scheduled" chip, clicks quick split "3x", generating 3 installments (£62.49, £62.48, £62.48) with green sum indicator "Sum GBP 187.45 / 187.45 ✓".
+16. **Step 76 (Save as Draft)**: Clicks "Save as Draft", preserves invoice with Draft status, displays toast "Invoice saved as draft.", and opens details view showing Draft status badge.
+17. **Step 77 (Save and Send)**: Form with Harvest Tables Ltd (Palm Oil £111.00 + Delivery Fee £10.00 = Total £121.00, Scheduled plan 2x £60.50). Clicks purple "Save and Send", displays toast "Invoice saved and sent to customer successfully.", transitions to details view with Sent badge, and triggers the final Completion Card ("Tour complete / You can now manage your Home dashboard, catalog items, client accounts, sales quotes, and customer invoices in Snaarp Books.").
+
 
 
 
