@@ -52,7 +52,7 @@ async function main() {
         await page.waitForFunction(
           (slug) => {
             try {
-              const raw = localStorage.getItem("snaarp-tutorials:progress:v1");
+              const raw = localStorage.getItem("snaarp-tutorials:progress:v3");
               return !!raw && Object.values(JSON.parse(raw) as Record<string, { completed: string[] }>).some((p) => p.completed.length > 0) && slug.length > 0;
             } catch {
               return false;

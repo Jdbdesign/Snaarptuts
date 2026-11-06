@@ -22,7 +22,7 @@ const TOTAL = Number(arg("total", "77"));
   let last = 0;
   const t0 = Date.now();
   while (Date.now() - t0 < 25 * 60_000) {
-    const n = await page.evaluate(() => { try { return Object.values(JSON.parse(localStorage.getItem("snaarp-tutorials:progress:v1") || "{}") as Record<string, { completed: string[] }>).reduce((a, p) => a + p.completed.length, 0); } catch { return 0; } });
+    const n = await page.evaluate(() => { try { return Object.values(JSON.parse(localStorage.getItem("snaarp-tutorials:progress:v3") || "{}") as Record<string, { completed: string[] }>).reduce((a, p) => a + p.completed.length, 0); } catch { return 0; } });
     if (n !== last) { last = n; console.log(`completed ${n}/${need}`); }
     if (n >= need) break;
     await page.waitForTimeout(1000);
