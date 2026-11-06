@@ -18,6 +18,14 @@ import { BooksInvoicesView } from "./BooksInvoicesView";
 import { BooksNewInvoiceView } from "./BooksNewInvoiceView";
 import { BooksInvoiceDetailView } from "./BooksInvoiceDetailView";
 import { BooksEditInvoiceView } from "./BooksEditInvoiceView";
+import { BooksReceiptsView } from "./BooksReceiptsView";
+import { BooksNewReceiptView } from "./BooksNewReceiptView";
+import { BooksReceiptDetailView } from "./BooksReceiptDetailView";
+import { BooksEditReceiptView } from "./BooksEditReceiptView";
+import { BooksRecurringInvoicesView } from "./BooksRecurringInvoicesView";
+import { BooksNewRecurringInvoiceView } from "./BooksNewRecurringInvoiceView";
+import { BooksRecurringDetailView } from "./BooksRecurringDetailView";
+import { BooksEditRecurringInvoiceView } from "./BooksEditRecurringInvoiceView";
 
 type Props = {
   tl: Timeline;
@@ -54,6 +62,14 @@ export function BooksStage({ tl }: Props) {
       {currentView === "new-invoice" && <BooksNewInvoiceView tl={tl} />}
       {currentView === "invoice-detail" && <BooksInvoiceDetailView tl={tl} />}
       {currentView === "edit-invoice" && <BooksEditInvoiceView tl={tl} />}
+      {currentView === "receipts" && <BooksReceiptsView tl={tl} />}
+      {currentView === "new-receipt" && <BooksNewReceiptView tl={tl} />}
+      {currentView === "receipt-detail" && <BooksReceiptDetailView tl={tl} />}
+      {currentView === "edit-receipt" && <BooksEditReceiptView tl={tl} />}
+      {currentView === "recurring" && <BooksRecurringInvoicesView tl={tl} />}
+      {currentView === "new-recurring" && <BooksNewRecurringInvoiceView tl={tl} />}
+      {currentView === "recurring-detail" && <BooksRecurringDetailView tl={tl} />}
+      {currentView === "edit-recurring" && <BooksEditRecurringInvoiceView tl={tl} />}
     </BooksShell>
   );
 }

@@ -50,6 +50,15 @@ import { BooksInvoiceMarkPaidDialog } from "./BooksInvoiceMarkPaidDialog";
 import { BooksInvoiceFilePickerModal } from "./BooksInvoiceFilePickerModal";
 import { BooksInvoiceImportDrawer } from "./BooksInvoiceImportDrawer";
 import { BooksInvoiceCsvPickerModal } from "./BooksInvoiceCsvPickerModal";
+import { BooksReceiptNumberingDialog } from "./BooksReceiptNumberingDialog";
+import { BooksReceiptScanDialog } from "./BooksReceiptScanDialog";
+import { BooksReceiptBulkItemsDialog } from "./BooksReceiptBulkItemsDialog";
+import { BooksReceiptPdfPreviewModal } from "./BooksReceiptPdfPreviewModal";
+import { BooksReceiptConfirmDialog } from "./BooksReceiptConfirmDialog";
+import { BooksReceiptFilePickerModal } from "./BooksReceiptFilePickerModal";
+import { BooksRecurringPreferencesDialog } from "./BooksRecurringPreferencesDialog";
+import { BooksRecurringBulkItemsDialog } from "./BooksRecurringBulkItemsDialog";
+import { BooksRecurringConfirmDialog } from "./BooksRecurringConfirmDialog";
 import { BooksToast } from "./BooksToast";
 
 type Props = {
@@ -90,10 +99,20 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "new-invoice" ||
     currentView === "invoice-detail" ||
     currentView === "edit-invoice";
+  const isReceiptsView =
+    currentView === "receipts" ||
+    currentView === "new-receipt" ||
+    currentView === "receipt-detail" ||
+    currentView === "edit-receipt";
+  const isRecurringView =
+    currentView === "recurring" ||
+    currentView === "new-recurring" ||
+    currentView === "recurring-detail" ||
+    currentView === "edit-recurring";
   const salesExpanded = useTimelineVar<boolean>(
     tl,
     "booksSalesExpanded",
-    isCustomerView || isQuotesView || isInvoicesView
+    isCustomerView || isQuotesView || isInvoicesView || isReceiptsView || isRecurringView
   );
 
   return (
@@ -353,14 +372,30 @@ export function BooksShell({ tl, children, overlay }: Props) {
                 <button
                   type="button"
                   data-tl="nav-sales-receipts"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "receipts");
+                    tl.setUrl(BOOKS_URLS.salesReceipts);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isReceiptsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Sales Receipts</span>
                 </button>
                 <button
                   type="button"
                   data-tl="nav-sales-recurring"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "recurring");
+                    tl.setUrl(BOOKS_URLS.recurringInvoices);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isRecurringView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Recurring Invoices</span>
                 </button>
@@ -563,6 +598,15 @@ export function BooksShell({ tl, children, overlay }: Props) {
       <BooksInvoiceFilePickerModal tl={tl} />
       <BooksInvoiceImportDrawer tl={tl} />
       <BooksInvoiceCsvPickerModal tl={tl} />
+      <BooksReceiptNumberingDialog tl={tl} />
+      <BooksReceiptScanDialog tl={tl} />
+      <BooksReceiptBulkItemsDialog tl={tl} />
+      <BooksReceiptPdfPreviewModal tl={tl} />
+      <BooksReceiptConfirmDialog tl={tl} />
+      <BooksReceiptFilePickerModal tl={tl} />
+      <BooksRecurringPreferencesDialog tl={tl} />
+      <BooksRecurringBulkItemsDialog tl={tl} />
+      <BooksRecurringConfirmDialog tl={tl} />
       <BooksToast tl={tl} />
 
       {/* Optional fade overlay */}

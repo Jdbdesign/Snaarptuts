@@ -6,7 +6,20 @@ import {
   INITIAL_INACTIVE_CUSTOMERS,
   INITIAL_QUOTES,
   INITIAL_INVOICES,
+  INITIAL_RECEIPTS,
+  INITIAL_RECURRING_INVOICES,
 } from "./books-data";
+
+/** Safe scroll that handles step cancellation and waits for element */
+export async function scrollView(tl: Timeline, px: number, ms = 500) {
+  if (tl.getVar<boolean>("__booksStepEnded", false)) return;
+  try {
+    await tl.wait(100);
+    await tl.scrollTo(px, ms);
+  } catch (err: unknown) {
+    if (err instanceof CancelledError) throw err;
+  }
+}
 
 /** Move onto an element, ring it, click it and clear the ring. */
 export async function pressOn(
@@ -181,6 +194,18 @@ export function beginBooks(
     page === "invoice-detail" ||
     page === "edit-invoice";
 
+  const isReceiptPage =
+    page === "receipts" ||
+    page === "new-receipt" ||
+    page === "receipt-detail" ||
+    page === "edit-receipt";
+
+  const isRecurringPage =
+    page === "recurring" ||
+    page === "new-recurring" ||
+    page === "recurring-detail" ||
+    page === "edit-recurring";
+
   const isSalesPage =
     page === "customers" ||
     page === "new-customer" ||
@@ -189,7 +214,9 @@ export function beginBooks(
     page === "new-quote" ||
     page === "quote-detail" ||
     page === "edit-quote" ||
-    isInvoicePage;
+    isInvoicePage ||
+    isReceiptPage ||
+    isRecurringPage;
   tl.setVar("booksSalesExpanded", isSalesPage);
   tl.setVar("booksCustomers", INITIAL_ACTIVE_CUSTOMERS);
   tl.setVar("booksInactiveCustomers", INITIAL_INACTIVE_CUSTOMERS);
@@ -301,6 +328,87 @@ export function beginBooks(
   tl.setVar("booksInvoiceTermsDropdownOpen", false);
   tl.setVar("booksInvoiceSalespersonDropdownOpen", false);
   tl.setVar("booksInvoiceARDropdownOpen", false);
+
+  // Sales Receipts state (steps 78-96)
+  tl.setVar("booksReceipts", INITIAL_RECEIPTS);
+  tl.setVar("booksReceiptSearch", "");
+  tl.setVar("booksActiveReceipt", INITIAL_RECEIPTS[0]); // SR-00002
+  tl.setVar("booksReceiptSending", false);
+  tl.setVar("booksReceiptPreparingPdf", false);
+  tl.setVar("booksReceiptNumberingDialogOpen", false);
+  tl.setVar("booksReceiptAutoGenerate", true);
+  tl.setVar("booksReceiptPrefix", "SR-");
+  tl.setVar("booksReceiptNextNumber", "00003");
+  tl.setVar("booksReceiptPdfPreviewOpen", false);
+  tl.setVar("booksReceiptConfirmDialogOpen", false);
+  tl.setVar("booksReceiptScanDialogOpen", false);
+  tl.setVar("booksReceiptScanInput", "");
+  tl.setVar("booksReceiptBulkItemsDialogOpen", false);
+  tl.setVar("booksReceiptBulkSearch", "");
+  tl.setVar("booksReceiptBulkSelected", []);
+  tl.setVar("booksReceiptFilePickerOpen", false);
+  tl.setVar("booksReceiptDate", "11/05/2026");
+  tl.setVar("booksReceiptNumber", "SR-00003");
+  tl.setVar("booksReceiptCustomer", "");
+  tl.setVar("booksReceiptSalesperson", "None");
+  tl.setVar("booksReceiptPaymentMode", "Bank Transfer");
+  tl.setVar("booksReceiptDepositTo", "Bank Account");
+  tl.setVar("booksReceiptReference", "");
+  // Start with one blank row so input-item-select-0 is always in the DOM
+  tl.setVar("booksReceiptLineItems", [
+    { id: "row-0", name: "", quantity: 1, rate: 0, tax: "VAT Standard (20%)", amount: 0 },
+  ]);
+  tl.setVar("booksReceiptDiscount", 0);
+  tl.setVar("booksReceiptShipping", 0);
+  tl.setVar("booksReceiptAdjustment", 0);
+  tl.setVar("booksReceiptCustomerNotes", "");
+  tl.setVar("booksReceiptTerms", "");
+  tl.setVar("booksReceiptFiles", []);
+  tl.setVar("booksReceiptCustomerDropdownOpen", false);
+  tl.setVar("booksReceiptPaymentModeDropdownOpen", false);
+  tl.setVar("booksReceiptDepositToDropdownOpen", false);
+  tl.setVar("booksReceiptSalespersonDropdownOpen", false);
+  tl.setVar("booksReceiptDatePickerOpen", false);
+
+  // Recurring Invoices state (steps 97-110)
+  tl.setVar("booksRecurringEmpty", false);
+  tl.setVar("booksRecurringInvoices", INITIAL_RECURRING_INVOICES);
+  tl.setVar("booksRecurringSearch", "");
+  tl.setVar("booksRecurringStatusFilter", "all");
+  tl.setVar("booksActiveRecurring", INITIAL_RECURRING_INVOICES[0]); // Monthly Retainer
+  tl.setVar("booksRecurringConfirmDialogOpen", false);
+  tl.setVar("booksRecurringPreferencesDialogOpen", false);
+  tl.setVar("booksRecurringPreferences", "Create Invoices as Drafts");
+  tl.setVar("booksRecurringProfileName", "");
+  tl.setVar("booksRecurringCustomer", "");
+  tl.setVar("booksRecurringOrderNumber", "");
+  tl.setVar("booksRecurringFrequency", "Month");
+  tl.setVar("booksRecurringStartDate", "11/05/2026");
+  tl.setVar("booksRecurringNeverExpires", true);
+  tl.setVar("booksRecurringEndDate", "11/05/2027");
+  tl.setVar("booksRecurringTerms", "Net 15");
+  tl.setVar("booksRecurringAR", "Accounts Receivable");
+  tl.setVar("booksRecurringSalesperson", "None");
+  tl.setVar("booksRecurringSubject", "");
+  // Start with one blank row so input-item-select-0 is always in the DOM
+  tl.setVar("booksRecurringLineItems", [
+    { id: "row-0", name: "", quantity: 1, rate: 0, tax: "VAT Standard (20%)", amount: 0 },
+  ]);
+  tl.setVar("booksRecurringDiscount", 0);
+  tl.setVar("booksRecurringShipping", 0);
+  tl.setVar("booksRecurringAdjustment", 0);
+  tl.setVar("booksRecurringRoundOff", 0);
+  tl.setVar("booksRecurringCustomerNotes", "");
+  tl.setVar("booksRecurringTermsText", "");
+  tl.setVar("booksRecurringCustomerDropdownOpen", false);
+  tl.setVar("booksRecurringFrequencyDropdownOpen", false);
+  tl.setVar("booksRecurringTermsDropdownOpen", false);
+  tl.setVar("booksRecurringSalespersonDropdownOpen", false);
+  tl.setVar("booksRecurringStartDatePickerOpen", false);
+  tl.setVar("booksRecurringEndDatePickerOpen", false);
+  tl.setVar("booksRecurringBulkItemsDialogOpen", false);
+  tl.setVar("booksRecurringBulkSearch", "");
+  tl.setVar("booksRecurringBulkSelected", []);
 
   // Toast state
   tl.setVar("booksToastOpen", false);

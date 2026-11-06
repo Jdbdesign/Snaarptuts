@@ -153,6 +153,72 @@ import { Step76 } from "@/scenes/books/step76/Step76";
 import { runStep76, STEP76_DURATION_MS } from "@/scenes/books/step76/script";
 import { Step77 } from "@/scenes/books/step77/Step77";
 import { runStep77, STEP77_DURATION_MS } from "@/scenes/books/step77/script";
+import { Step78 } from "@/scenes/books/step78/Step78";
+import { runStep78, STEP78_DURATION_MS } from "@/scenes/books/step78/script";
+import { Step79 } from "@/scenes/books/step79/Step79";
+import { runStep79, STEP79_DURATION_MS } from "@/scenes/books/step79/script";
+import { Step80 } from "@/scenes/books/step80/Step80";
+import { runStep80, STEP80_DURATION_MS } from "@/scenes/books/step80/script";
+import { Step81 } from "@/scenes/books/step81/Step81";
+import { runStep81, STEP81_DURATION_MS } from "@/scenes/books/step81/script";
+import { Step82 } from "@/scenes/books/step82/Step82";
+import { runStep82, STEP82_DURATION_MS } from "@/scenes/books/step82/script";
+import { Step83 } from "@/scenes/books/step83/Step83";
+import { runStep83, STEP83_DURATION_MS } from "@/scenes/books/step83/script";
+import { Step84 } from "@/scenes/books/step84/Step84";
+import { runStep84, STEP84_DURATION_MS } from "@/scenes/books/step84/script";
+import { Step85 } from "@/scenes/books/step85/Step85";
+import { runStep85, STEP85_DURATION_MS } from "@/scenes/books/step85/script";
+import { Step86 } from "@/scenes/books/step86/Step86";
+import { runStep86, STEP86_DURATION_MS } from "@/scenes/books/step86/script";
+import { Step87 } from "@/scenes/books/step87/Step87";
+import { runStep87, STEP87_DURATION_MS } from "@/scenes/books/step87/script";
+import { Step88 } from "@/scenes/books/step88/Step88";
+import { runStep88, STEP88_DURATION_MS } from "@/scenes/books/step88/script";
+import { Step89 } from "@/scenes/books/step89/Step89";
+import { runStep89, STEP89_DURATION_MS } from "@/scenes/books/step89/script";
+import { Step90 } from "@/scenes/books/step90/Step90";
+import { runStep90, STEP90_DURATION_MS } from "@/scenes/books/step90/script";
+import { Step91 } from "@/scenes/books/step91/Step91";
+import { runStep91, STEP91_DURATION_MS } from "@/scenes/books/step91/script";
+import { Step92 } from "@/scenes/books/step92/Step92";
+import { runStep92, STEP92_DURATION_MS } from "@/scenes/books/step92/script";
+import { Step93 } from "@/scenes/books/step93/Step93";
+import { runStep93, STEP93_DURATION_MS } from "@/scenes/books/step93/script";
+import { Step94 } from "@/scenes/books/step94/Step94";
+import { runStep94, STEP94_DURATION_MS } from "@/scenes/books/step94/script";
+import { Step95 } from "@/scenes/books/step95/Step95";
+import { runStep95, STEP95_DURATION_MS } from "@/scenes/books/step95/script";
+import { Step96 } from "@/scenes/books/step96/Step96";
+import { runStep96, STEP96_DURATION_MS } from "@/scenes/books/step96/script";
+import { Step97 } from "@/scenes/books/step97/Step97";
+import { runStep97, STEP97_DURATION_MS } from "@/scenes/books/step97/script";
+import { Step98 } from "@/scenes/books/step98/Step98";
+import { runStep98, STEP98_DURATION_MS } from "@/scenes/books/step98/script";
+import { Step99 } from "@/scenes/books/step99/Step99";
+import { runStep99, STEP99_DURATION_MS } from "@/scenes/books/step99/script";
+import { Step100 } from "@/scenes/books/step100/Step100";
+import { runStep100, STEP100_DURATION_MS } from "@/scenes/books/step100/script";
+import { Step101 } from "@/scenes/books/step101/Step101";
+import { runStep101, STEP101_DURATION_MS } from "@/scenes/books/step101/script";
+import { Step102 } from "@/scenes/books/step102/Step102";
+import { runStep102, STEP102_DURATION_MS } from "@/scenes/books/step102/script";
+import { Step103 } from "@/scenes/books/step103/Step103";
+import { runStep103, STEP103_DURATION_MS } from "@/scenes/books/step103/script";
+import { Step104 } from "@/scenes/books/step104/Step104";
+import { runStep104, STEP104_DURATION_MS } from "@/scenes/books/step104/script";
+import { Step105 } from "@/scenes/books/step105/Step105";
+import { runStep105, STEP105_DURATION_MS } from "@/scenes/books/step105/script";
+import { Step106 } from "@/scenes/books/step106/Step106";
+import { runStep106, STEP106_DURATION_MS } from "@/scenes/books/step106/script";
+import { Step107 } from "@/scenes/books/step107/Step107";
+import { runStep107, STEP107_DURATION_MS } from "@/scenes/books/step107/script";
+import { Step108 } from "@/scenes/books/step108/Step108";
+import { runStep108, STEP108_DURATION_MS } from "@/scenes/books/step108/script";
+import { Step109 } from "@/scenes/books/step109/Step109";
+import { runStep109, STEP109_DURATION_MS } from "@/scenes/books/step109/script";
+import { Step110 } from "@/scenes/books/step110/Step110";
+import { runStep110, STEP110_DURATION_MS } from "@/scenes/books/step110/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -943,6 +1009,336 @@ export const books: Tutorial = {
         durationMs: STEP77_DURATION_MS,
       },
     },
+    {
+      id: "books-receipts-open-list",
+      title: "Sales Receipts: Open the receipts list",
+      url: BOOKS_URLS.salesReceipts,
+      scene: {
+        Component: Step78,
+        run: runStep78,
+        durationMs: STEP78_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-search",
+      title: "Sales Receipts: Search for a receipt",
+      url: BOOKS_URLS.salesReceipts,
+      scene: {
+        Component: Step79,
+        run: runStep79,
+        durationMs: STEP79_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-view-details",
+      title: "Sales Receipts: Open a receipt and read its details",
+      url: BOOKS_URLS.salesReceipts,
+      scene: {
+        Component: Step80,
+        run: runStep80,
+        durationMs: STEP80_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-send",
+      title: "Sales Receipts: Send a receipt to a customer",
+      url: BOOKS_URLS.receiptDetails,
+      scene: {
+        Component: Step81,
+        run: runStep81,
+        durationMs: STEP81_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-download-pdf",
+      title: "Sales Receipts: Download a receipt as PDF",
+      url: BOOKS_URLS.receiptDetails,
+      scene: {
+        Component: Step82,
+        run: runStep82,
+        durationMs: STEP82_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-preview-pdf",
+      title: "Sales Receipts: Preview a receipt PDF",
+      url: BOOKS_URLS.receiptDetails,
+      scene: {
+        Component: Step83,
+        run: runStep83,
+        durationMs: STEP83_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-edit",
+      title: "Sales Receipts: Edit a receipt and save changes",
+      url: BOOKS_URLS.receiptDetails,
+      scene: {
+        Component: Step84,
+        run: runStep84,
+        durationMs: STEP84_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-new-choose-customer",
+      title: "Sales Receipts: Start a new receipt and choose a customer",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step85,
+        run: runStep85,
+        durationMs: STEP85_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-date-and-numbering",
+      title: "Sales Receipts: Set the date and receipt number",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step86,
+        run: runStep86,
+        durationMs: STEP86_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-choose-salesperson",
+      title: "Sales Receipts: Choose a salesperson",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step87,
+        run: runStep87,
+        durationMs: STEP87_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-add-items",
+      title: "Sales Receipts: Add items to the item table",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step88,
+        run: runStep88,
+        durationMs: STEP88_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-scan-item",
+      title: "Sales Receipts: Scan an item by barcode",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step89,
+        run: runStep89,
+        durationMs: STEP89_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-bulk-items",
+      title: "Sales Receipts: Add several items in bulk",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step90,
+        run: runStep90,
+        durationMs: STEP90_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-discount-shipping",
+      title: "Sales Receipts: Add discount, shipping and an adjustment",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step91,
+        run: runStep91,
+        durationMs: STEP91_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-notes-and-attachment",
+      title: "Sales Receipts: Add notes, an attachment and terms",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step92,
+        run: runStep92,
+        durationMs: STEP92_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-payment-details",
+      title: "Sales Receipts: Choose how it was paid",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step93,
+        run: runStep93,
+        durationMs: STEP93_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-save",
+      title: "Sales Receipts: Save a receipt",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step94,
+        run: runStep94,
+        durationMs: STEP94_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-save-and-send",
+      title: "Sales Receipts: Save and send a receipt",
+      url: BOOKS_URLS.newReceipt,
+      scene: {
+        Component: Step95,
+        run: runStep95,
+        durationMs: STEP95_DURATION_MS,
+      },
+    },
+    {
+      id: "books-receipts-delete",
+      title: "Sales Receipts: Delete a receipt",
+      url: BOOKS_URLS.salesReceipts,
+      scene: {
+        Component: Step96,
+        run: runStep96,
+        durationMs: STEP96_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-empty-state",
+      title: "Recurring Invoices: Start from the empty state",
+      url: BOOKS_URLS.recurringInvoices,
+      scene: {
+        Component: Step97,
+        run: runStep97,
+        durationMs: STEP97_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-customer-and-name",
+      title: "Recurring Invoices: Choose a customer and name the profile",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step98,
+        run: runStep98,
+        durationMs: STEP98_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-frequency",
+      title: "Recurring Invoices: Choose how often it repeats",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step99,
+        run: runStep99,
+        durationMs: STEP99_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-schedule-dates",
+      title: "Recurring Invoices: Set the start and end dates",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step100,
+        run: runStep100,
+        durationMs: STEP100_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-terms-and-salesperson",
+      title: "Recurring Invoices: Set terms, account and salesperson",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step101,
+        run: runStep101,
+        durationMs: STEP101_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-add-items",
+      title: "Recurring Invoices: Add items",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step102,
+        run: runStep102,
+        durationMs: STEP102_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-bulk-items",
+      title: "Recurring Invoices: Add several items in bulk",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step103,
+        run: runStep103,
+        durationMs: STEP103_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-totals-and-roundoff",
+      title: "Recurring Invoices: Add discount, shipping, adjustment and round off",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step104,
+        run: runStep104,
+        durationMs: STEP104_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-notes-and-terms",
+      title: "Recurring Invoices: Add notes and terms",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step105,
+        run: runStep105,
+        durationMs: STEP105_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-preferences",
+      title: "Recurring Invoices: Choose how invoices are created",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step106,
+        run: runStep106,
+        durationMs: STEP106_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-save",
+      title: "Recurring Invoices: Save a recurring invoice",
+      url: BOOKS_URLS.newRecurring,
+      scene: {
+        Component: Step107,
+        run: runStep107,
+        durationMs: STEP107_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-search-filter",
+      title: "Recurring Invoices: Search and filter the list",
+      url: BOOKS_URLS.recurringInvoices,
+      scene: {
+        Component: Step108,
+        run: runStep108,
+        durationMs: STEP108_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-view-details",
+      title: "Recurring Invoices: Open a profile and read its details",
+      url: BOOKS_URLS.recurringDetails,
+      scene: {
+        Component: Step109,
+        run: runStep109,
+        durationMs: STEP109_DURATION_MS,
+      },
+    },
+    {
+      id: "books-recurring-edit-and-delete",
+      title: "Recurring Invoices: Edit and delete recurring profile",
+      url: BOOKS_URLS.recurringDetails,
+      scene: {
+        Component: Step110,
+        run: runStep110,
+        durationMs: STEP110_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -951,10 +1347,12 @@ export const books: Tutorial = {
     { title: "Quotes", from: "quotes-open-list" },
     { title: "Invoices: find, review and manage", from: "invoices-open-list" },
     { title: "Invoices: create a new invoice", from: "invoices-new-choose-customer" },
+    { title: "Sales Receipts: create, manage and send", from: "books-receipts-open-list" },
+    { title: "Recurring Invoices: automated schedules", from: "books-recurring-empty-state" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, and customer invoices in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, and recurring invoices in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

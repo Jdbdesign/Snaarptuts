@@ -680,6 +680,14 @@ export const BOOKS_URLS = {
   newInvoice: "books.snaarp.com/invoices/new",
   invoiceDetails: "books.snaarp.com/invoices/69daed2d-52db-429f-81a2-d8030dc6250e",
   editInvoice: "books.snaarp.com/invoices/69daed2d-52db-429f-81a2-d8030dc6250e/edit",
+  salesReceipts: "books.snaarp.com/sales-receipts",
+  newReceipt: "books.snaarp.com/sales-receipts/new",
+  receiptDetails: "books.snaarp.com/sales-receipts/sr-00002",
+  editReceipt: "books.snaarp.com/sales-receipts/sr-00002/edit",
+  recurringInvoices: "books.snaarp.com/recurring-invoices",
+  newRecurring: "books.snaarp.com/recurring-invoices/new",
+  recurringDetails: "books.snaarp.com/recurring-invoices/rec-1",
+  editRecurring: "books.snaarp.com/recurring-invoices/rec-1/edit",
 };
 
 export type BooksPage =
@@ -700,7 +708,15 @@ export type BooksPage =
   | "invoices"
   | "new-invoice"
   | "invoice-detail"
-  | "edit-invoice";
+  | "edit-invoice"
+  | "receipts"
+  | "new-receipt"
+  | "receipt-detail"
+  | "edit-receipt"
+  | "recurring"
+  | "new-recurring"
+  | "recurring-detail"
+  | "edit-recurring";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -2035,6 +2051,307 @@ export const INVOICE_STATUS_FILTERS = [
   { id: "paid", label: "Paid" },
   { id: "overdue", label: "Overdue" },
 ];
+
+// ── Sales Receipts Data Types & Lists ───────────────────────────────────────
+
+export type ReceiptPaymentMode =
+  | "Cash"
+  | "Bank Transfer"
+  | "Cheque"
+  | "Credit Card";
+
+export type ReceiptDepositAccount =
+  | "Petty Cash"
+  | "Bank Account"
+  | "Undeposited Funds";
+
+export interface ReceiptLineItem {
+  id: string;
+  name: string;
+  description?: string;
+  quantity: number;
+  rate: number;
+  tax: string;
+  amount: number;
+}
+
+export interface SalesReceiptItem {
+  id: string;
+  receiptNumber: string;
+  customerName: string;
+  date: string;
+  receiptDate?: string;
+  reference?: string;
+  paymentMode: ReceiptPaymentMode;
+  depositTo: ReceiptDepositAccount;
+  salesperson?: string;
+  items?: ReceiptLineItem[];
+  lineItems?: ReceiptLineItem[];
+  subTotal?: number;
+  taxAmount?: number;
+  discount?: number;
+  discountPercent?: number;
+  discountAmount?: number;
+  shipping?: number;
+  adjustment?: number;
+  amount: number;
+  total?: number;
+  customerNotes?: string;
+  terms?: string;
+  termsAndConditions?: string;
+  files?: string[];
+  status: "Paid" | "Sent";
+}
+
+export const RECEIPT_PAYMENT_MODES: { id: string; label: ReceiptPaymentMode }[] = [
+  { id: "cash", label: "Cash" },
+  { id: "bank-transfer", label: "Bank Transfer" },
+  { id: "cheque", label: "Cheque" },
+  { id: "credit-card", label: "Credit Card" },
+];
+
+export const RECEIPT_DEPOSIT_ACCOUNTS: { id: string; label: ReceiptDepositAccount }[] = [
+  { id: "petty-cash", label: "Petty Cash" },
+  { id: "bank-account", label: "Bank Account" },
+  { id: "undeposited-funds", label: "Undeposited Funds" },
+];
+
+export const INITIAL_RECEIPTS: SalesReceiptItem[] = [
+  {
+    id: "sr-2",
+    receiptNumber: "SR-00002",
+    customerName: "Acme Foods Ltd",
+    date: "11/05/2026",
+    receiptDate: "11/05/2026",
+    reference: "Auto-created from invoice INV10008",
+    paymentMode: "Cash",
+    depositTo: "Petty Cash",
+    salesperson: "Sam Taylor",
+    items: [
+      {
+        id: "item-1",
+        name: "Organic Rice 25kg",
+        description: "Premium long-grain white rice",
+        quantity: 1,
+        rate: 20.0,
+        tax: "VAT Standard (20%)",
+        amount: 20.0,
+      },
+    ],
+    lineItems: [
+      {
+        id: "item-1",
+        name: "Organic Rice 25kg",
+        description: "Premium long-grain white rice",
+        quantity: 1,
+        rate: 20.0,
+        tax: "VAT Standard (20%)",
+        amount: 20.0,
+      },
+    ],
+    subTotal: 20.0,
+    taxAmount: 0.0,
+    amount: 20.0,
+    total: 20.0,
+    customerNotes: "Auto-generated when invoice INV10008 was marked paid",
+    terms: "Receipt valid as proof of payment.",
+    termsAndConditions: "Receipt valid as proof of payment.",
+    status: "Paid",
+  },
+  {
+    id: "sr-1",
+    receiptNumber: "SR-00001",
+    customerName: "Harvest Tables Ltd",
+    date: "10/05/2026",
+    receiptDate: "10/05/2026",
+    reference: "HT-CARD-091",
+    paymentMode: "Credit Card",
+    depositTo: "Bank Account",
+    salesperson: "Sam Taylor",
+    items: [
+      {
+        id: "item-1",
+        name: "Palm Oil 5L",
+        description: "Pure refined palm cooking oil",
+        quantity: 20,
+        rate: 20.0,
+        tax: "VAT Standard (20%)",
+        amount: 400.0,
+      },
+    ],
+    lineItems: [
+      {
+        id: "item-1",
+        name: "Palm Oil 5L",
+        description: "Pure refined palm cooking oil",
+        quantity: 20,
+        rate: 20.0,
+        tax: "VAT Standard (20%)",
+        amount: 400.0,
+      },
+    ],
+    subTotal: 400.0,
+    taxAmount: 0.0,
+    amount: 400.0,
+    total: 400.0,
+    customerNotes: "Paid via terminal card transaction.",
+    terms: "Receipt valid as proof of payment.",
+    termsAndConditions: "Receipt valid as proof of payment.",
+    status: "Paid",
+  },
+];
+
+// ── Recurring Invoices Data Types & Lists ───────────────────────────────────
+
+export type RecurringFrequency = "Weekly" | "Monthly" | "Yearly";
+export type RecurringStatus = "Active" | "Draft" | "Stopped" | "Expired";
+export type RecurringInvoicePreference =
+  | "Create Invoices as Drafts"
+  | "Create and Send Invoices"
+  | "Create, Charge and Send Invoices";
+
+export interface RecurringLineItem {
+  id: string;
+  name: string;
+  description?: string;
+  quantity: number;
+  rate: number;
+  tax: string;
+  amount: number;
+}
+
+export interface RecurringInvoiceItem {
+  id: string;
+  profileName: string;
+  customerName: string;
+  frequency: RecurringFrequency | string;
+  startDate: string;
+  neverExpires: boolean;
+  endDate?: string;
+  orderNumber?: string;
+  paymentTerms: string;
+  accountsReceivable: string;
+  salesperson?: string;
+  subject?: string;
+  items?: RecurringLineItem[];
+  lineItems?: RecurringLineItem[];
+  subTotal?: number;
+  discount?: number;
+  discountPercent?: number;
+  discountAmount?: number;
+  shipping?: number;
+  adjustment?: number;
+  roundOff?: number;
+  amount: number;
+  total?: number;
+  customerNotes?: string;
+  termsText?: string;
+  termsAndConditions?: string;
+  preferences: RecurringInvoicePreference;
+  status: RecurringStatus;
+}
+
+export const RECURRING_FREQUENCY_OPTIONS: RecurringFrequency[] = [
+  "Weekly",
+  "Monthly",
+  "Yearly",
+];
+
+export const RECURRING_STATUS_FILTERS = [
+  { id: "all", label: "All" },
+  { id: "active", label: "Active" },
+  { id: "draft", label: "Draft" },
+  { id: "stopped", label: "Stopped" },
+];
+
+export const INITIAL_RECURRING_INVOICES: RecurringInvoiceItem[] = [
+  {
+    id: "rec-1",
+    profileName: "Monthly Retainer",
+    customerName: "Acme Foods Ltd",
+    frequency: "Monthly",
+    startDate: "11/01/2026",
+    neverExpires: true,
+    orderNumber: "PO-RETAINER-01",
+    paymentTerms: "Net 30",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Monthly retainer consulting and accounting",
+    items: [
+      {
+        id: "rec-item-1",
+        name: "Business Setup Consulting",
+        description: "Monthly strategic business advisory services",
+        quantity: 3,
+        rate: 150.0,
+        tax: "-",
+        amount: 450.0,
+      },
+    ],
+    subTotal: 450.0,
+    amount: 450.0,
+    total: 450.0,
+    lineItems: [
+      {
+        id: "rec-item-1",
+        name: "Business Setup Consulting",
+        description: "Monthly strategic business advisory services",
+        quantity: 3,
+        rate: 150.0,
+        tax: "-",
+        amount: 450.0,
+      },
+    ],
+    customerNotes: "Billed monthly on the 1st.",
+    termsAndConditions: "Standard retainer payment terms.",
+    preferences: "Create and Send Invoices",
+    status: "Active",
+  },
+  {
+    id: "rec-2",
+    profileName: "Weekly Supplies",
+    customerName: "Brightway Stores",
+    frequency: "Weekly",
+    startDate: "10/26/2026",
+    neverExpires: false,
+    endDate: "10/26/2027",
+    orderNumber: "PO-WEEKLY-99",
+    paymentTerms: "Net 15",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Weekly grocery staples replenishment",
+    items: [
+      {
+        id: "rec-item-2",
+        name: "Cassava Flour 10kg",
+        description: "Gluten-free baking grade flour",
+        quantity: 5,
+        rate: 24.0,
+        tax: "-",
+        amount: 120.0,
+      },
+    ],
+    subTotal: 120.0,
+    amount: 120.0,
+    total: 120.0,
+    lineItems: [
+      {
+        id: "rec-item-2",
+        name: "Cassava Flour 10kg",
+        description: "Gluten-free baking grade flour",
+        quantity: 5,
+        rate: 24.0,
+        tax: "-",
+        amount: 120.0,
+      },
+    ],
+    customerNotes: "Scheduled weekly restocking order.",
+    termsAndConditions: "Net 15 terms apply.",
+    preferences: "Create and Send Invoices",
+    status: "Active",
+  },
+];
+
 
 
 
