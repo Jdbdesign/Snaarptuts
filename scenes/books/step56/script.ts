@@ -31,7 +31,7 @@ export async function runStep56(tl: Timeline) {
   await pressOn(tl, "[data-tl=btn-submit-invoice-import]");
 
   await tl.wait(800);
-  await ring(tl, "[data-tl=invoices-table-header]", 1200);
+  await ring(tl, "[data-tl=card-invoices-table]", 1200);
 
   await finishBooks(tl, STEP56_DURATION_MS);
 }

@@ -25,7 +25,7 @@ export async function runStep64(tl: Timeline) {
 
   await tl.wait(800);
   tl.showCaption(STEP64_CAPTIONS.deletedSuccess);
-  await ring(tl, "[data-tl=invoices-table-header]", 1200);
+  await ring(tl, "[data-tl=card-invoices-table]", 1200);
 
   await finishBooks(tl, STEP64_DURATION_MS);
 }

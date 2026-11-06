@@ -55,7 +55,7 @@ export async function runStep77(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP77_CAPTIONS.clickSaveAndSend);
-  await pressOn(tl, "[data-tl=btn-save-and-send-invoice]");
+  await pressOn(tl, "[data-tl=btn-save-send-invoice]");
 
   await tl.wait(1000);
   tl.showCaption(STEP77_CAPTIONS.sentSuccess);

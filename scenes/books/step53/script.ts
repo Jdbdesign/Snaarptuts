@@ -23,7 +23,7 @@ export async function runStep53(tl: Timeline) {
 
   await tl.wait(600);
   tl.showCaption(STEP53_CAPTIONS.viewList);
-  await ring(tl, "[data-tl=invoices-table-header]", 1500);
+  await ring(tl, "[data-tl=card-invoices-table]", 1500);
   await tl.wait(800);
 
   await finishBooks(tl, STEP53_DURATION_MS);

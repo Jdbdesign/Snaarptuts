@@ -905,7 +905,7 @@ export function BooksNewInvoiceView({ tl }: Props) {
             <div className="w-80 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Sub Total</span>
-                <span className="font-semibold text-gray-900">
+                <span data-tl="invoice-sub-total" className="font-semibold text-gray-900">
                   {subTotal.toFixed(2)}
                 </span>
               </div>

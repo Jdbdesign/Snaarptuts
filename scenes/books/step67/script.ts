@@ -24,19 +24,19 @@ export async function runStep67(tl: Timeline) {
 
   await tl.wait(500);
   tl.showCaption(STEP67_CAPTIONS.pickDate);
-  await pressOn(tl, "[data-tl=btn-invoice-date-picker]");
+  await pressOn(tl, "[data-tl=btn-invoice-date-calendar]");
   await tl.wait(300);
   // close calendar by clicking invoice date
-  await pressOn(tl, "[data-tl=btn-invoice-date-picker]");
+  await pressOn(tl, "[data-tl=btn-invoice-date-calendar]");
 
   await tl.wait(500);
   tl.showCaption(STEP67_CAPTIONS.selectTerms);
   await pressOn(tl, "[data-tl=select-invoice-terms]");
   await tl.wait(300);
-  await pressOn(tl, "[data-tl=terms-option-net-30]");
+  await pressOn(tl, "[data-tl=terms-opt-net-30]");
 
   await tl.wait(600);
-  await ring(tl, "[data-tl=invoice-due-date-display]", 1200);
+  await ring(tl, "[data-tl=input-invoice-due-date]", 1200);
 
   await finishBooks(tl, STEP67_DURATION_MS);
 }

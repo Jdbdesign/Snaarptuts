@@ -17,7 +17,7 @@ export async function runStep59(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP59_CAPTIONS.clickMarkPaid);
-  await pressOn(tl, "[data-tl=btn-mark-paid]");
+  await pressOn(tl, "[data-tl=btn-mark-as-paid]");
 
   await tl.wait(500);
   tl.showCaption(STEP59_CAPTIONS.confirmDialog);

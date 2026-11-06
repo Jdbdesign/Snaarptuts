@@ -23,15 +23,15 @@ export async function runStep75(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP75_CAPTIONS.selectScheduled);
-  await pressOn(tl, "[data-tl=plan-chip-scheduled]");
+  await pressOn(tl, "[data-tl=chip-plan-scheduled]");
 
   await tl.wait(500);
   tl.showCaption(STEP75_CAPTIONS.quickSplit3x);
-  await pressOn(tl, "[data-tl=btn-invoice-split-3x]");
+  await pressOn(tl, "[data-tl=chip-split-3x]");
 
   await tl.wait(600);
   tl.showCaption(STEP75_CAPTIONS.sumVerified);
-  await ring(tl, "[data-tl=invoice-plan-sum-match]", 1800);
+  await ring(tl, "[data-tl=plan-sum-check]", 1800);
 
   await finishBooks(tl, STEP75_DURATION_MS);
 }

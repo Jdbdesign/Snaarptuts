@@ -16,15 +16,15 @@ export async function runStep55(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP55_CAPTIONS.openFilter);
-  await pressOn(tl, "[data-tl=btn-invoice-status-filter]");
+  await pressOn(tl, "[data-tl=btn-invoices-filter]");
 
   await tl.wait(400);
   tl.showCaption(STEP55_CAPTIONS.selectUnpaid);
-  await pressOn(tl, "[data-tl=filter-invoice-status-unpaid]");
+  await pressOn(tl, "[data-tl=status-opt-unpaid]");
 
   await tl.wait(600);
   tl.showCaption(STEP55_CAPTIONS.viewFiltered);
-  await ring(tl, "[data-tl=invoices-table-header]", 1500);
+  await ring(tl, "[data-tl=card-invoices-table]", 1500);
   await tl.wait(600);
 
   // Reset to all

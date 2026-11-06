@@ -16,7 +16,7 @@ export async function runStep57(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP57_CAPTIONS.clickRow);
-  await pressOn(tl, "[data-tl=invoice-row-inv-2]");
+  await pressOn(tl, "[data-tl=invoice-row-1]");
 
   tl.setVar("booksActiveInvoice", INITIAL_INVOICES[1]); // INV10008
   tl.setVar("booksView", "invoice-detail");

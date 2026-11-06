@@ -69,6 +69,7 @@ async function main() {
       await ctx.close();
       results.push({ step: n, title, problems: Array.from(new Set(problems)) });
       console.log(`${n} ${title}: ${problems.length ? "FAIL " + problems.length : "OK"}`);
+      for (const p of Array.from(new Set(problems)).slice(0, 6)) console.log("     - " + p.slice(0, 200));
     }
   }
   await Promise.all(Array.from({ length: WORKERS }, worker));

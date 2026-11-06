@@ -17,7 +17,7 @@ export async function runStep66(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP66_CAPTIONS.clickGear);
-  await pressOn(tl, "[data-tl=btn-invoice-numbering-settings]");
+  await pressOn(tl, "[data-tl=btn-configure-numbering]");
 
   await tl.wait(500);
   tl.showCaption(STEP66_CAPTIONS.typeNumber);

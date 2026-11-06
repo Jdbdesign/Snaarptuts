@@ -16,13 +16,13 @@ export async function runStep54(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP54_CAPTIONS.search);
-  await pressOn(tl, "[data-tl=input-invoice-search]");
-  await tl.typeText("[data-tl=input-invoice-search]", "Sterling");
+  await pressOn(tl, "[data-tl=input-invoices-search]");
+  await tl.typeText("[data-tl=input-invoices-search]", "Sterling");
   tl.setVar("booksInvoiceSearch", "Sterling");
 
   await tl.wait(600);
   tl.showCaption(STEP54_CAPTIONS.results);
-  await ring(tl, "[data-tl=invoice-row-inv-2]", 1500);
+  await ring(tl, "[data-tl=invoice-row-1]", 1500);
   await tl.wait(600);
 
   // Clear search

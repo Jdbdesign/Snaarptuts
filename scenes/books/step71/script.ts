@@ -53,7 +53,7 @@ export async function runStep71(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP71_CAPTIONS.clickBulk);
-  await pressOn(tl, "[data-tl=btn-invoice-bulk-actions]");
+  await pressOn(tl, "[data-tl=btn-bulk-items]");
 
   await tl.wait(500);
   tl.showCaption(STEP71_CAPTIONS.searchBulk);
@@ -68,7 +68,7 @@ export async function runStep71(tl: Timeline) {
 
   await tl.wait(600);
   tl.showCaption(STEP71_CAPTIONS.subTotalUpdated);
-  await ring(tl, "[data-tl=invoice-subtotal-display]", 1500);
+  await ring(tl, "[data-tl=invoice-sub-total]", 1500);
 
   await finishBooks(tl, STEP71_DURATION_MS);
 }

@@ -22,7 +22,7 @@ export async function runStep68(tl: Timeline) {
   tl.showCaption(STEP68_CAPTIONS.chooseSalesperson);
   await pressOn(tl, "[data-tl=select-invoice-salesperson]");
   await tl.wait(300);
-  await pressOn(tl, "[data-tl=salesperson-option-sam]");
+  await pressOn(tl, "[data-tl=salesperson-opt-sam-taylor]");
 
   await tl.wait(500);
   tl.showCaption(STEP68_CAPTIONS.typeSubject);

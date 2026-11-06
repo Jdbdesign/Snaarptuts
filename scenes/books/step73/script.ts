@@ -23,12 +23,12 @@ export async function runStep73(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP73_CAPTIONS.customerNotes);
-  await pressOn(tl, "[data-tl=textarea-invoice-customer-notes]");
+  await pressOn(tl, "[data-tl=input-customer-notes]");
   tl.setVar("booksInvoiceCustomerNotes", "Thank you for your business. Please reference PO-8820.");
 
   await tl.wait(500);
   tl.showCaption(STEP73_CAPTIONS.attachFile);
-  await pressOn(tl, "[data-tl=btn-invoice-attach-file]");
+  await pressOn(tl, "[data-tl=btn-upload-invoice-file]");
 
   await tl.wait(500);
   tl.showCaption(STEP73_CAPTIONS.selectFile);
@@ -38,7 +38,7 @@ export async function runStep73(tl: Timeline) {
 
   await tl.wait(600);
   tl.showCaption(STEP73_CAPTIONS.reviewTerms);
-  await ring(tl, "[data-tl=textarea-invoice-terms]", 1200);
+  await ring(tl, "[data-tl=input-invoice-terms-text]", 1200);
 
   await finishBooks(tl, STEP73_DURATION_MS);
 }

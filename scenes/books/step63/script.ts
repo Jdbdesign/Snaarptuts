@@ -20,7 +20,7 @@ export async function runStep63(tl: Timeline) {
 
   await tl.wait(600);
   tl.showCaption(STEP63_CAPTIONS.installments);
-  await ring(tl, "[data-tl=invoice-payment-plan-card]", 1800);
+  await ring(tl, "[data-tl=card-payment-plan]", 1800);
   await tl.wait(800);
 
   await finishBooks(tl, STEP63_DURATION_MS);

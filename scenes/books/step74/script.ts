@@ -23,17 +23,17 @@ export async function runStep74(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP74_CAPTIONS.selectFlexible);
-  await pressOn(tl, "[data-tl=plan-chip-flexible]");
+  await pressOn(tl, "[data-tl=chip-plan-flexible]");
 
   await tl.wait(500);
   tl.showCaption(STEP74_CAPTIONS.optionalPin);
-  await pressOn(tl, "[data-tl=input-invoice-plan-pin]");
-  await tl.typeText("[data-tl=input-invoice-plan-pin]", "4821");
+  await pressOn(tl, "[data-tl=input-plan-pin]");
+  await tl.typeText("[data-tl=input-plan-pin]", "4821");
   tl.setVar("booksInvoicePlanPin", "4821");
 
   await tl.wait(600);
   tl.showCaption(STEP74_CAPTIONS.planConfigured);
-  await ring(tl, "[data-tl=invoice-payment-plan-section]", 1500);
+  await ring(tl, "[data-tl=card-form-payment-plan]", 1500);
 
   await finishBooks(tl, STEP74_DURATION_MS);
 }

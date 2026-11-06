@@ -25,14 +25,14 @@ export async function runStep69(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP69_CAPTIONS.selectFirstItem);
-  await pressOn(tl, "[data-tl=btn-select-invoice-item-0]");
+  await pressOn(tl, "[data-tl=input-item-select-0]");
   await tl.wait(300);
-  await pressOn(tl, "[data-tl=item-option-food-farm-1]");
+  await pressOn(tl, "[data-tl=item-opt-organic-rice]");
 
   tl.setVar("booksInvoiceLineItems", [
     {
       id: "row-rice",
-      name: "Organic Rice 5kg",
+      name: "Organic Rice 25kg",
       description: "Premium long-grain parboiled white rice",
       quantity: 2,
       rate: 42.0,
@@ -43,18 +43,18 @@ export async function runStep69(tl: Timeline) {
 
   await tl.wait(500);
   tl.showCaption(STEP69_CAPTIONS.addSecondLine);
-  await pressOn(tl, "[data-tl=btn-invoice-add-line]");
+  await pressOn(tl, "[data-tl=btn-add-line-item]");
 
   await tl.wait(500);
   tl.showCaption(STEP69_CAPTIONS.selectSecondItem);
-  await pressOn(tl, "[data-tl=btn-select-invoice-item-1]");
+  await pressOn(tl, "[data-tl=input-item-select-1]");
   await tl.wait(300);
-  await pressOn(tl, "[data-tl=item-option-food-farm-2]");
+  await pressOn(tl, "[data-tl=item-opt-cassava-flour]");
 
   tl.setVar("booksInvoiceLineItems", [
     {
       id: "row-rice",
-      name: "Organic Rice 5kg",
+      name: "Organic Rice 25kg",
       description: "Premium long-grain parboiled white rice",
       quantity: 2,
       rate: 42.0,
@@ -74,7 +74,7 @@ export async function runStep69(tl: Timeline) {
 
   await tl.wait(600);
   tl.showCaption(STEP69_CAPTIONS.subTotalUpdated);
-  await ring(tl, "[data-tl=invoice-subtotal-display]", 1500);
+  await ring(tl, "[data-tl=invoice-sub-total]", 1500);
 
   await finishBooks(tl, STEP69_DURATION_MS);
 }

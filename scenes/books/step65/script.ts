@@ -27,10 +27,10 @@ export async function runStep65(tl: Timeline) {
 
   await tl.wait(500);
   tl.showCaption(STEP65_CAPTIONS.selectCustomer);
-  await pressOn(tl, "[data-tl=customer-option-cust-1]");
+  await pressOn(tl, "[data-tl=customer-opt-sterling]");
 
   await tl.wait(600);
-  await ring(tl, "[data-tl=invoice-billing-address-block]", 1200);
+  await ring(tl, "[data-tl=select-invoice-customer]", 1200);
 
   await finishBooks(tl, STEP65_DURATION_MS);
 }
