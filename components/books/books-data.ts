@@ -676,6 +676,10 @@ export const BOOKS_URLS = {
   newQuote: "books.snaarp.com/quotes/new",
   quoteDetails: "books.snaarp.com/quotes/4c5f94a8-451f-4adc-9845-0bef8de60156",
   editQuote: "books.snaarp.com/quotes/4c5f94a8-451f-4adc-9845-0bef8de60156/edit",
+  invoices: "books.snaarp.com/invoices",
+  newInvoice: "books.snaarp.com/invoices/new",
+  invoiceDetails: "books.snaarp.com/invoices/69daed2d-52db-429f-81a2-d8030dc6250e",
+  editInvoice: "books.snaarp.com/invoices/69daed2d-52db-429f-81a2-d8030dc6250e/edit",
 };
 
 export type BooksPage =
@@ -692,7 +696,11 @@ export type BooksPage =
   | "quotes"
   | "new-quote"
   | "quote-detail"
-  | "edit-quote";
+  | "edit-quote"
+  | "invoices"
+  | "new-invoice"
+  | "invoice-detail"
+  | "edit-invoice";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -1521,5 +1529,512 @@ export const QUOTE_PROJECTS_BY_CUSTOMER: Record<string, string[]> = {
   "Sterling Interiors": ["Studio Renovation Consulting"],
   "Casey Brown": ["Private Catering Supplies"],
 };
+
+// -------------------------------------------------------------
+// Invoices Types and Data (Part 4: Sales > Invoices)
+// -------------------------------------------------------------
+
+export type InvoiceStatus =
+  | "All"
+  | "Draft"
+  | "Sent"
+  | "Unpaid"
+  | "Partially Paid"
+  | "Paid"
+  | "Overdue";
+
+export interface InvoiceLineItem {
+  id: string;
+  name: string;
+  quantity: number;
+  rate: number;
+  tax: string;
+  amount: number;
+}
+
+export interface PaymentInstallment {
+  id: string;
+  label?: string;
+  dueDate: string;
+  amount: number;
+}
+
+export interface PaymentPlan {
+  type: "none" | "flexible" | "scheduled";
+  pin?: string;
+  installments: PaymentInstallment[];
+}
+
+export interface InvoiceItem {
+  id: string;
+  invoiceNumber: string;
+  customerName: string;
+  customerId: string;
+  date: string;
+  dueDate: string;
+  terms: string;
+  orderNumber?: string;
+  accountsReceivable?: string;
+  salesperson?: string;
+  subject?: string;
+  amount: number;
+  amountPaid: number;
+  balanceDue: number;
+  status: "Draft" | "Sent" | "Partially Paid" | "Paid" | "Overdue";
+  deliveryPending?: boolean;
+  items: InvoiceLineItem[];
+  subTotal: number;
+  discountPercent: number;
+  discountAmount: number;
+  shipping: number;
+  adjustment: number;
+  total: number;
+  customerNotes?: string;
+  termsAndConditions?: string;
+  attachments?: string[];
+  customerAddress?: {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+  };
+  customerEmail?: string;
+  paymentPlan?: PaymentPlan;
+}
+
+export const INITIAL_INVOICES: InvoiceItem[] = [
+  {
+    id: "inv-10010",
+    invoiceNumber: "INV10010",
+    customerName: "Acme Foods Ltd",
+    customerId: "cust-1",
+    date: "11/4/2026",
+    dueDate: "12/4/2026",
+    terms: "Net 30",
+    orderNumber: "PO-9102",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Wholesale grain supply",
+    amount: 312.0,
+    amountPaid: 0.0,
+    balanceDue: 312.0,
+    status: "Sent",
+    deliveryPending: false,
+    items: [
+      {
+        id: "ili-1",
+        name: "Organic Rice 25kg",
+        quantity: 6,
+        rate: 52.0,
+        tax: "VAT Standard (20%)",
+        amount: 312.0,
+      },
+    ],
+    subTotal: 312.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 312.0,
+    customerNotes: "Thanks for your business.",
+    termsAndConditions: "Payment is due within 30 days of the invoice date.",
+    customerAddress: {
+      street: "42 High Street",
+      city: "Birmingham",
+      state: "West Midlands",
+      zip: "B2 4XJ",
+      country: "United Kingdom",
+    },
+    customerEmail: "contact@acmefoods.co.uk",
+  },
+  {
+    id: "inv-10008",
+    invoiceNumber: "INV10008",
+    customerName: "Brightway Stores",
+    customerId: "cust-2",
+    date: "11/2/2026",
+    dueDate: "11/2/2026",
+    terms: "Due on Receipt",
+    orderNumber: "",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "",
+    amount: 20.0,
+    amountPaid: 0.0,
+    balanceDue: 20.0,
+    status: "Sent",
+    deliveryPending: true,
+    items: [
+      {
+        id: "ili-2",
+        name: "Reusable Tote Bag",
+        quantity: 1,
+        rate: 20.0,
+        tax: "-",
+        amount: 20.0,
+      },
+    ],
+    subTotal: 20.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 20.0,
+    customerNotes: "Thanks for your business.",
+    termsAndConditions: "Payment is due upon receipt of invoice.",
+    customerAddress: {
+      street: "14 Market Street",
+      city: "Leeds",
+      state: "West Yorkshire",
+      zip: "LS1 6BG",
+      country: "United Kingdom",
+    },
+    customerEmail: "orders@brightway.example",
+    paymentPlan: {
+      type: "none",
+      installments: [],
+    },
+  },
+  {
+    id: "inv-10007",
+    invoiceNumber: "INV10007",
+    customerName: "Brightway Stores",
+    customerId: "cust-2",
+    date: "11/2/2026",
+    dueDate: "11/2/2026",
+    terms: "Due on Receipt",
+    orderNumber: "PO-8812",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Speciality pantry order",
+    amount: 100.8,
+    amountPaid: 0.0,
+    balanceDue: 100.8,
+    status: "Draft",
+    deliveryPending: true,
+    items: [
+      {
+        id: "ili-3",
+        name: "Honey Beans 1kg",
+        quantity: 4,
+        rate: 9.0,
+        tax: "-",
+        amount: 36.0,
+      },
+      {
+        id: "ili-4",
+        name: "Cold Pressed Juice 1L",
+        quantity: 8,
+        rate: 8.1,
+        tax: "-",
+        amount: 64.8,
+      },
+    ],
+    subTotal: 100.8,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 100.8,
+    customerNotes: "Thanks for your business.",
+    termsAndConditions: "Payment is due upon receipt of invoice.",
+    customerAddress: {
+      street: "14 Market Street",
+      city: "Leeds",
+      state: "West Yorkshire",
+      zip: "LS1 6BG",
+      country: "United Kingdom",
+    },
+    customerEmail: "orders@brightway.example",
+  },
+  {
+    id: "inv-10006",
+    invoiceNumber: "INV10006",
+    customerName: "Sterling Interiors",
+    customerId: "cust-5",
+    date: "10/21/2026",
+    dueDate: "10/21/2026",
+    terms: "Due on Receipt",
+    orderNumber: "",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "None",
+    subject: "",
+    amount: 84.0,
+    amountPaid: 0.0,
+    balanceDue: 84.0,
+    status: "Sent",
+    deliveryPending: false,
+    items: [
+      {
+        id: "ili-5",
+        name: "Reusable Tote Bag",
+        quantity: 4,
+        rate: 21.0,
+        tax: "-",
+        amount: 84.0,
+      },
+    ],
+    subTotal: 84.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 84.0,
+    customerNotes: "Thanks for your business.",
+    termsAndConditions: "Payment is due upon receipt of invoice.",
+    customerAddress: {
+      street: "29 St Pauls Square",
+      city: "Birmingham",
+      state: "West Midlands",
+      zip: "B3 1QZ",
+      country: "United Kingdom",
+    },
+    customerEmail: "office@sterlinginteriors.example",
+  },
+  {
+    id: "inv-10003",
+    invoiceNumber: "INV10003",
+    customerName: "Harvest Tables Ltd",
+    customerId: "cust-3",
+    date: "10/21/2026",
+    dueDate: "10/21/2026",
+    terms: "Due on Receipt",
+    orderNumber: "HT-OCT-21",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Autumn produce bulk supply",
+    amount: 100.8,
+    amountPaid: 0.0,
+    balanceDue: 100.8,
+    status: "Sent",
+    deliveryPending: false,
+    items: [
+      {
+        id: "ili-6",
+        name: "Cold Pressed Juice 1L",
+        quantity: 12,
+        rate: 8.4,
+        tax: "-",
+        amount: 100.8,
+      },
+    ],
+    subTotal: 100.8,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 100.8,
+    customerNotes: "Thanks for your business.",
+    termsAndConditions: "Payment is due upon receipt of invoice.",
+    customerAddress: {
+      street: "5 Mill Lane",
+      city: "Sheffield",
+      state: "South Yorkshire",
+      zip: "S1 2GU",
+      country: "United Kingdom",
+    },
+    customerEmail: "supplies@harvesttables.example",
+    paymentPlan: {
+      type: "none",
+      installments: [],
+    },
+  },
+  {
+    id: "inv-10000",
+    invoiceNumber: "INV10000",
+    customerName: "Northfield Cafe",
+    customerId: "cust-6",
+    date: "10/21/2026",
+    dueDate: "10/21/2026",
+    terms: "Due on Receipt",
+    orderNumber: "NC-2026-10",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Cafe staple reorder",
+    amount: 84.0,
+    amountPaid: 20.0,
+    balanceDue: 64.0,
+    status: "Partially Paid",
+    deliveryPending: false,
+    items: [
+      {
+        id: "ili-7",
+        name: "Organic Rice 25kg",
+        quantity: 2,
+        rate: 42.0,
+        tax: "-",
+        amount: 84.0,
+      },
+    ],
+    subTotal: 84.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 84.0,
+    customerNotes: "Thanks for your business.",
+    termsAndConditions: "Payment is due upon receipt of invoice.",
+    customerAddress: {
+      street: "18 Northfield Avenue",
+      city: "Leeds",
+      state: "West Yorkshire",
+      zip: "LS6 2QJ",
+      country: "United Kingdom",
+    },
+    customerEmail: "orders@northfieldcafe.co.uk",
+  },
+  {
+    id: "inv-09999",
+    invoiceNumber: "INV09999",
+    customerName: "Casey Brown",
+    customerId: "cust-4",
+    date: "10/18/2026",
+    dueDate: "10/18/2026",
+    terms: "Due on Receipt",
+    orderNumber: "",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "",
+    amount: 84.0,
+    amountPaid: 0.0,
+    balanceDue: 84.0,
+    status: "Draft",
+    deliveryPending: false,
+    items: [
+      {
+        id: "ili-8",
+        name: "Organic Rice 25kg",
+        quantity: 2,
+        rate: 42.0,
+        tax: "-",
+        amount: 84.0,
+      },
+    ],
+    subTotal: 84.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 84.0,
+    customerNotes: "Thanks for your business.",
+    termsAndConditions: "Payment is due upon receipt of invoice.",
+    customerAddress: {
+      street: "8 Victoria Road",
+      city: "Manchester",
+      state: "Greater Manchester",
+      zip: "M14 6AB",
+      country: "United Kingdom",
+    },
+    customerEmail: "casey.brown@acme.example",
+  },
+  {
+    id: "inv-0006",
+    invoiceNumber: "INV-0006",
+    customerName: "Acme Foods Ltd",
+    customerId: "cust-1",
+    date: "10/15/2026",
+    dueDate: "10/15/2026",
+    terms: "Due on Receipt",
+    orderNumber: "AF-OLD-6",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Bulk flour supply",
+    amount: 252.0,
+    amountPaid: 0.0,
+    balanceDue: 252.0,
+    status: "Overdue",
+    deliveryPending: false,
+    items: [
+      {
+        id: "ili-9",
+        name: "Cassava Flour 10kg",
+        quantity: 10,
+        rate: 25.2,
+        tax: "-",
+        amount: 252.0,
+      },
+    ],
+    subTotal: 252.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 252.0,
+    customerNotes: "Overdue invoice notice.",
+    termsAndConditions: "Payment is overdue. Immediate settlement requested.",
+    customerAddress: {
+      street: "42 High Street",
+      city: "Birmingham",
+      state: "West Midlands",
+      zip: "B2 4XJ",
+      country: "United Kingdom",
+    },
+    customerEmail: "contact@acmefoods.co.uk",
+  },
+  {
+    id: "inv-0005",
+    invoiceNumber: "INV-0005",
+    customerName: "Harvest Tables Ltd",
+    customerId: "cust-3",
+    date: "9/30/2026",
+    dueDate: "9/30/2026",
+    terms: "Due on Receipt",
+    orderNumber: "HT-SEP-30",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "September bulk produce",
+    amount: 420.0,
+    amountPaid: 420.0,
+    balanceDue: 0.0,
+    status: "Paid",
+    deliveryPending: false,
+    items: [
+      {
+        id: "ili-10",
+        name: "Organic Rice 25kg",
+        quantity: 10,
+        rate: 42.0,
+        tax: "-",
+        amount: 420.0,
+      },
+    ],
+    subTotal: 420.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    shipping: 0,
+    adjustment: 0,
+    total: 420.0,
+    customerNotes: "Paid in full. Thank you!",
+    termsAndConditions: "Receipt and settlement acknowledged.",
+    customerAddress: {
+      street: "5 Mill Lane",
+      city: "Sheffield",
+      state: "South Yorkshire",
+      zip: "S1 2GU",
+      country: "United Kingdom",
+    },
+    customerEmail: "supplies@harvesttables.example",
+  },
+];
+
+export const INVOICE_TERMS_OPTIONS = [
+  "Due on Receipt",
+  "Net 15",
+  "Net 30",
+  "Net 45",
+  "Net 60",
+];
+
+export const INVOICE_STATUS_FILTERS = [
+  { id: "all", label: "All" },
+  { id: "draft", label: "Draft" },
+  { id: "sent", label: "Sent" },
+  { id: "unpaid", label: "Unpaid" },
+  { id: "partially-paid", label: "Partially Paid" },
+  { id: "paid", label: "Paid" },
+  { id: "overdue", label: "Overdue" },
+];
+
 
 

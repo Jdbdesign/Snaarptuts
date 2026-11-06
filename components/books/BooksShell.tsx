@@ -41,6 +41,15 @@ import { BooksQuoteBulkItemsDialog } from "./BooksQuoteBulkItemsDialog";
 import { BooksQuotePdfPreviewModal } from "./BooksQuotePdfPreviewModal";
 import { BooksQuoteConfirmDialog } from "./BooksQuoteConfirmDialog";
 import { BooksQuoteFilePickerModal } from "./BooksQuoteFilePickerModal";
+import { BooksInvoiceNumberingDialog } from "./BooksInvoiceNumberingDialog";
+import { BooksInvoiceScanDialog } from "./BooksInvoiceScanDialog";
+import { BooksInvoiceBulkItemsDialog } from "./BooksInvoiceBulkItemsDialog";
+import { BooksInvoicePdfPreviewModal } from "./BooksInvoicePdfPreviewModal";
+import { BooksInvoiceConfirmDialog } from "./BooksInvoiceConfirmDialog";
+import { BooksInvoiceMarkPaidDialog } from "./BooksInvoiceMarkPaidDialog";
+import { BooksInvoiceFilePickerModal } from "./BooksInvoiceFilePickerModal";
+import { BooksInvoiceImportDrawer } from "./BooksInvoiceImportDrawer";
+import { BooksInvoiceCsvPickerModal } from "./BooksInvoiceCsvPickerModal";
 import { BooksToast } from "./BooksToast";
 
 type Props = {
@@ -76,10 +85,15 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "new-quote" ||
     currentView === "quote-detail" ||
     currentView === "edit-quote";
+  const isInvoicesView =
+    currentView === "invoices" ||
+    currentView === "new-invoice" ||
+    currentView === "invoice-detail" ||
+    currentView === "edit-invoice";
   const salesExpanded = useTimelineVar<boolean>(
     tl,
     "booksSalesExpanded",
-    isCustomerView || isQuotesView
+    isCustomerView || isQuotesView || isInvoicesView
   );
 
   return (
@@ -324,7 +338,15 @@ export function BooksShell({ tl, children, overlay }: Props) {
                 <button
                   type="button"
                   data-tl="nav-sales-invoices"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "invoices");
+                    tl.setUrl(BOOKS_URLS.invoices);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isInvoicesView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Invoices</span>
                 </button>
@@ -532,6 +554,15 @@ export function BooksShell({ tl, children, overlay }: Props) {
       <BooksQuotePdfPreviewModal tl={tl} />
       <BooksQuoteConfirmDialog tl={tl} />
       <BooksQuoteFilePickerModal tl={tl} />
+      <BooksInvoiceNumberingDialog tl={tl} />
+      <BooksInvoiceScanDialog tl={tl} />
+      <BooksInvoiceBulkItemsDialog tl={tl} />
+      <BooksInvoicePdfPreviewModal tl={tl} />
+      <BooksInvoiceConfirmDialog tl={tl} />
+      <BooksInvoiceMarkPaidDialog tl={tl} />
+      <BooksInvoiceFilePickerModal tl={tl} />
+      <BooksInvoiceImportDrawer tl={tl} />
+      <BooksInvoiceCsvPickerModal tl={tl} />
       <BooksToast tl={tl} />
 
       {/* Optional fade overlay */}

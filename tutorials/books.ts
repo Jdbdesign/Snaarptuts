@@ -103,6 +103,56 @@ import { Step51 } from "@/scenes/books/step51/Step51";
 import { runStep51, STEP51_DURATION_MS } from "@/scenes/books/step51/script";
 import { Step52 } from "@/scenes/books/step52/Step52";
 import { runStep52, STEP52_DURATION_MS } from "@/scenes/books/step52/script";
+import { Step53 } from "@/scenes/books/step53/Step53";
+import { runStep53, STEP53_DURATION_MS } from "@/scenes/books/step53/script";
+import { Step54 } from "@/scenes/books/step54/Step54";
+import { runStep54, STEP54_DURATION_MS } from "@/scenes/books/step54/script";
+import { Step55 } from "@/scenes/books/step55/Step55";
+import { runStep55, STEP55_DURATION_MS } from "@/scenes/books/step55/script";
+import { Step56 } from "@/scenes/books/step56/Step56";
+import { runStep56, STEP56_DURATION_MS } from "@/scenes/books/step56/script";
+import { Step57 } from "@/scenes/books/step57/Step57";
+import { runStep57, STEP57_DURATION_MS } from "@/scenes/books/step57/script";
+import { Step58 } from "@/scenes/books/step58/Step58";
+import { runStep58, STEP58_DURATION_MS } from "@/scenes/books/step58/script";
+import { Step59 } from "@/scenes/books/step59/Step59";
+import { runStep59, STEP59_DURATION_MS } from "@/scenes/books/step59/script";
+import { Step60 } from "@/scenes/books/step60/Step60";
+import { runStep60, STEP60_DURATION_MS } from "@/scenes/books/step60/script";
+import { Step61 } from "@/scenes/books/step61/Step61";
+import { runStep61, STEP61_DURATION_MS } from "@/scenes/books/step61/script";
+import { Step62 } from "@/scenes/books/step62/Step62";
+import { runStep62, STEP62_DURATION_MS } from "@/scenes/books/step62/script";
+import { Step63 } from "@/scenes/books/step63/Step63";
+import { runStep63, STEP63_DURATION_MS } from "@/scenes/books/step63/script";
+import { Step64 } from "@/scenes/books/step64/Step64";
+import { runStep64, STEP64_DURATION_MS } from "@/scenes/books/step64/script";
+import { Step65 } from "@/scenes/books/step65/Step65";
+import { runStep65, STEP65_DURATION_MS } from "@/scenes/books/step65/script";
+import { Step66 } from "@/scenes/books/step66/Step66";
+import { runStep66, STEP66_DURATION_MS } from "@/scenes/books/step66/script";
+import { Step67 } from "@/scenes/books/step67/Step67";
+import { runStep67, STEP67_DURATION_MS } from "@/scenes/books/step67/script";
+import { Step68 } from "@/scenes/books/step68/Step68";
+import { runStep68, STEP68_DURATION_MS } from "@/scenes/books/step68/script";
+import { Step69 } from "@/scenes/books/step69/Step69";
+import { runStep69, STEP69_DURATION_MS } from "@/scenes/books/step69/script";
+import { Step70 } from "@/scenes/books/step70/Step70";
+import { runStep70, STEP70_DURATION_MS } from "@/scenes/books/step70/script";
+import { Step71 } from "@/scenes/books/step71/Step71";
+import { runStep71, STEP71_DURATION_MS } from "@/scenes/books/step71/script";
+import { Step72 } from "@/scenes/books/step72/Step72";
+import { runStep72, STEP72_DURATION_MS } from "@/scenes/books/step72/script";
+import { Step73 } from "@/scenes/books/step73/Step73";
+import { runStep73, STEP73_DURATION_MS } from "@/scenes/books/step73/script";
+import { Step74 } from "@/scenes/books/step74/Step74";
+import { runStep74, STEP74_DURATION_MS } from "@/scenes/books/step74/script";
+import { Step75 } from "@/scenes/books/step75/Step75";
+import { runStep75, STEP75_DURATION_MS } from "@/scenes/books/step75/script";
+import { Step76 } from "@/scenes/books/step76/Step76";
+import { runStep76, STEP76_DURATION_MS } from "@/scenes/books/step76/script";
+import { Step77 } from "@/scenes/books/step77/Step77";
+import { runStep77, STEP77_DURATION_MS } from "@/scenes/books/step77/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -643,16 +693,268 @@ export const books: Tutorial = {
         durationMs: STEP52_DURATION_MS,
       },
     },
+    {
+      id: "invoices-open-list",
+      title: "Invoices: open the invoices list",
+      url: BOOKS_URLS.invoices,
+      scene: {
+        Component: Step53,
+        run: runStep53,
+        durationMs: STEP53_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-search",
+      title: "Invoices: search by customer or number",
+      url: BOOKS_URLS.invoices,
+      scene: {
+        Component: Step54,
+        run: runStep54,
+        durationMs: STEP54_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-filter-status",
+      title: "Invoices: filter by status",
+      url: BOOKS_URLS.invoices,
+      scene: {
+        Component: Step55,
+        run: runStep55,
+        durationMs: STEP55_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-import-csv",
+      title: "Invoices: import invoices from CSV",
+      url: BOOKS_URLS.invoices,
+      scene: {
+        Component: Step56,
+        run: runStep56,
+        durationMs: STEP56_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-view-details",
+      title: "Invoices: view invoice details",
+      url: BOOKS_URLS.invoiceDetails,
+      scene: {
+        Component: Step57,
+        run: runStep57,
+        durationMs: STEP57_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-send-to-customer",
+      title: "Invoices: send invoice to customer",
+      url: BOOKS_URLS.invoiceDetails,
+      scene: {
+        Component: Step58,
+        run: runStep58,
+        durationMs: STEP58_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-mark-paid",
+      title: "Invoices: mark invoice as paid",
+      url: BOOKS_URLS.invoiceDetails,
+      scene: {
+        Component: Step59,
+        run: runStep59,
+        durationMs: STEP59_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-download-pdf",
+      title: "Invoices: download invoice PDF",
+      url: BOOKS_URLS.invoiceDetails,
+      scene: {
+        Component: Step60,
+        run: runStep60,
+        durationMs: STEP60_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-preview-pdf",
+      title: "Invoices: preview invoice PDF",
+      url: BOOKS_URLS.invoiceDetails,
+      scene: {
+        Component: Step61,
+        run: runStep61,
+        durationMs: STEP61_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-edit-invoice",
+      title: "Invoices: edit invoice",
+      url: BOOKS_URLS.editInvoice,
+      scene: {
+        Component: Step62,
+        run: runStep62,
+        durationMs: STEP62_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-payment-plan-existing",
+      title: "Invoices: review payment plan on an invoice",
+      url: BOOKS_URLS.invoiceDetails,
+      scene: {
+        Component: Step63,
+        run: runStep63,
+        durationMs: STEP63_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-delete-invoice",
+      title: "Invoices: delete an invoice",
+      url: BOOKS_URLS.invoiceDetails,
+      scene: {
+        Component: Step64,
+        run: runStep64,
+        durationMs: STEP64_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-new-choose-customer",
+      title: "Invoices: start a new invoice and choose customer",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step65,
+        run: runStep65,
+        durationMs: STEP65_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-configure-numbering",
+      title: "Invoices: configure invoice numbering",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step66,
+        run: runStep66,
+        durationMs: STEP66_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-order-date-terms",
+      title: "Invoices: set order number, dates, and payment terms",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step67,
+        run: runStep67,
+        durationMs: STEP67_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-ar-salesperson-subject",
+      title: "Invoices: select accounts receivable and salesperson",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step68,
+        run: runStep68,
+        durationMs: STEP68_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-add-items-table",
+      title: "Invoices: add line items manually",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step69,
+        run: runStep69,
+        durationMs: STEP69_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-scan-barcode",
+      title: "Invoices: scan item or barcode",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step70,
+        run: runStep70,
+        durationMs: STEP70_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-bulk-items",
+      title: "Invoices: add items in bulk",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step71,
+        run: runStep71,
+        durationMs: STEP71_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-discount-shipping-adjustment",
+      title: "Invoices: apply discount, shipping, and adjustment",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step72,
+        run: runStep72,
+        durationMs: STEP72_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-notes-attachment-terms",
+      title: "Invoices: add customer notes, attachment, and terms",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step73,
+        run: runStep73,
+        durationMs: STEP73_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-flexible-plan",
+      title: "Invoices: configure a flexible payment plan",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step74,
+        run: runStep74,
+        durationMs: STEP74_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-scheduled-plan",
+      title: "Invoices: configure a scheduled installment plan",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step75,
+        run: runStep75,
+        durationMs: STEP75_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-save-as-draft",
+      title: "Invoices: save invoice as draft",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step76,
+        run: runStep76,
+        durationMs: STEP76_DURATION_MS,
+      },
+    },
+    {
+      id: "invoices-save-and-send",
+      title: "Invoices: save and send invoice to customer",
+      url: BOOKS_URLS.newInvoice,
+      scene: {
+        Component: Step77,
+        run: runStep77,
+        durationMs: STEP77_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
     { title: "Products & Items", from: "products-browse-filter" },
     { title: "Sales & Customers", from: "customers-open-list" },
     { title: "Quotes", from: "quotes-open-list" },
+    { title: "Invoices: find, review and manage", from: "invoices-open-list" },
+    { title: "Invoices: create a new invoice", from: "invoices-new-choose-customer" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, and sales quotes in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, and customer invoices in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

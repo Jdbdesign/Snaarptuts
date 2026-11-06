@@ -5,6 +5,7 @@ import {
   INITIAL_ACTIVE_CUSTOMERS,
   INITIAL_INACTIVE_CUSTOMERS,
   INITIAL_QUOTES,
+  INITIAL_INVOICES,
 } from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
@@ -173,7 +174,13 @@ export function beginBooks(
   tl.setVar("booksItemFoodFarmCopyDeleted", false);
   tl.setVar("booksBulkItemsDeleted", false);
 
-  // Sales, Customers & Quotes state
+  // Sales, Customers, Quotes & Invoices state
+  const isInvoicePage =
+    page === "invoices" ||
+    page === "new-invoice" ||
+    page === "invoice-detail" ||
+    page === "edit-invoice";
+
   const isSalesPage =
     page === "customers" ||
     page === "new-customer" ||
@@ -181,7 +188,8 @@ export function beginBooks(
     page === "quotes" ||
     page === "new-quote" ||
     page === "quote-detail" ||
-    page === "edit-quote";
+    page === "edit-quote" ||
+    isInvoicePage;
   tl.setVar("booksSalesExpanded", isSalesPage);
   tl.setVar("booksCustomers", INITIAL_ACTIVE_CUSTOMERS);
   tl.setVar("booksInactiveCustomers", INITIAL_INACTIVE_CUSTOMERS);
@@ -237,6 +245,56 @@ export function beginBooks(
   tl.setVar("booksQuoteProjectDropdownOpen", false);
   tl.setVar("booksQuoteItemDropdownOpen", null);
   tl.setVar("booksQuoteTaxDropdownOpen", null);
+
+  // Invoices state
+  tl.setVar("booksInvoices", INITIAL_INVOICES);
+  tl.setVar("booksInvoiceFilter", "all");
+  tl.setVar("booksInvoiceSearch", "");
+  tl.setVar("booksInvoiceStatusDropdownOpen", false);
+  tl.setVar("booksActiveInvoice", INITIAL_INVOICES[1]); // INV10008
+  tl.setVar("booksInvoiceNumberingDialogOpen", false);
+  tl.setVar("booksInvoiceAutoGenerate", true);
+  tl.setVar("booksInvoicePrefix", "INV");
+  tl.setVar("booksInvoiceNextNumber", "10013");
+  tl.setVar("booksInvoiceScanDialogOpen", false);
+  tl.setVar("booksInvoiceScanInput", "");
+  tl.setVar("booksInvoiceBulkItemsDialogOpen", false);
+  tl.setVar("booksInvoiceBulkSearch", "");
+  tl.setVar("booksInvoiceBulkSelected", []);
+  tl.setVar("booksInvoicePdfPreviewOpen", false);
+  tl.setVar("booksInvoiceConfirmDialogOpen", false);
+  tl.setVar("booksInvoiceMarkPaidDialogOpen", false);
+  tl.setVar("booksInvoiceFilePickerOpen", false);
+  tl.setVar("booksInvoiceImportDrawerOpen", false);
+  tl.setVar("booksInvoiceCsvPickerOpen", false);
+  tl.setVar("booksInvoiceCsvSelectedFile", "");
+  tl.setVar("booksInvoiceFiles", []);
+  tl.setVar("booksInvoiceDate", "11/5/2026");
+  tl.setVar("booksInvoiceDueDate", "12/5/2026");
+  tl.setVar("booksInvoiceTerms", "Net 30");
+  tl.setVar("booksInvoiceOrderNumber", "");
+  tl.setVar("booksInvoiceAR", "Accounts Receivable");
+  tl.setVar("booksInvoiceSalesperson", "None");
+  tl.setVar("booksInvoiceSubject", "");
+  tl.setVar("booksInvoiceCustomer", "");
+  tl.setVar("booksInvoiceLineItems", []);
+  tl.setVar("booksInvoiceDiscount", 0);
+  tl.setVar("booksInvoiceShipping", 0);
+  tl.setVar("booksInvoiceAdjustment", 0);
+  tl.setVar("booksInvoiceCustomerNotes", "Thanks for your business.");
+  tl.setVar(
+    "booksInvoiceTermsText",
+    "Payment is due within 30 days of the invoice date. Late payments may be subject to a fee."
+  );
+  tl.setVar("booksInvoicePlanType", "none"); // "none" | "flexible" | "scheduled"
+  tl.setVar("booksInvoicePlanPin", "");
+  tl.setVar("booksInvoiceInstallments", []);
+  tl.setVar("booksInvoiceSending", false);
+  tl.setVar("booksInvoicePreparingPdf", false);
+  tl.setVar("booksInvoiceCustomerDropdownOpen", false);
+  tl.setVar("booksInvoiceTermsDropdownOpen", false);
+  tl.setVar("booksInvoiceSalespersonDropdownOpen", false);
+  tl.setVar("booksInvoiceARDropdownOpen", false);
 
   // Toast state
   tl.setVar("booksToastOpen", false);
