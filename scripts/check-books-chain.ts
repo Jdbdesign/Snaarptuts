@@ -15,7 +15,7 @@ const TOTAL = Number(arg("total", "77"));
   await page.addInitScript(`window.__name = (f) => f; window.__snaarpSpeed = ${SPEED};`);
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(`pageerror: ${String(e).slice(0, 240)}`));
-  page.on("console", (m) => m.type() === "error" && errors.push(m.text().slice(0, 300)));
+  page.on("console", (m) => (m.type() === "error" || m.text().includes("Safety Net")) && errors.push(m.text().slice(0, 300)));
   await page.goto("http://localhost:3000/tutorials/books", { waitUntil: "networkidle" });
   await page.locator("ol li button").nth(FROM - 1).click();
   const need = TOTAL - FROM + 1;
