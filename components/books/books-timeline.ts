@@ -10,17 +10,6 @@ import {
   INITIAL_RECURRING_INVOICES,
 } from "./books-data";
 
-/** Safe scroll that handles step cancellation and waits for element */
-export async function scrollView(tl: Timeline, px: number, ms = 500) {
-  if (tl.getVar<boolean>("__booksStepEnded", false)) return;
-  try {
-    await tl.wait(100);
-    await tl.scrollTo(px, ms);
-  } catch (err: unknown) {
-    if (err instanceof CancelledError) throw err;
-  }
-}
-
 /** Move onto an element, ring it, click it and clear the ring. */
 export async function pressOn(
   tl: Timeline,
