@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+"""
+Audits user interactions across Books steps 135 to 147.
+Verifies that every dropdown, radio, checkbox, calendar, text input, or field variable
+is visibly opened and clicked/typed by the fake cursor (via pressOn / tl.click)
+rather than being silently updated.
+"""
+
+import os
+import re
+import sys
+
+FIELD_VARS = {
+    # Vendors
+    "booksVendorSearchQuery",
+    "booksVendorStatusFilter",
+    "booksVendorPaymentTerms",
+    "booksVendorNotes",
+    "booksNewVendorSalutation",
+    "booksNewVendorFirstName",
+    "booksNewVendorLastName",
+    "booksNewVendorCompanyName",
+    "booksNewVendorDisplayName",
+    "booksNewVendorEmail",
+    "booksNewVendorWorkPhone",
+    "booksNewVendorMobile",
+    "booksNewVendorTaxRate",
+    "booksNewVendorCompanyId",
+    "booksNewVendorAccountsPayable",
+    "booksNewVendorOpeningBalance",
+    "booksNewVendorPaymentTerms",
+    "booksNewVendorEnablePortal",
+    "booksNewVendorCountry",
+    "booksNewVendorAddress",
+    "booksNewVendorStreet2",
+    "booksNewVendorCity",
+    "booksNewVendorState",
+    "booksNewVendorZip",
+    "booksNewVendorAddressPhone",
+    "booksNewVendorFax",
+    "booksNewVendorCpSalutation",
+    "booksNewVendorCpFirstName",
+    "booksNewVendorCpLastName",
+    "booksNewVendorCpEmail",
+    "booksNewVendorCpWorkPhone",
+    "booksNewVendorCpMobile",
+    "booksNewVendorCpDesignation",
+    # Expenses
+    "booksExpenseDate",
+    "booksExpenseEmployee",
+    "booksExpenseAccount",
+    "booksExpenseAmount",
+    "booksExpenseAmountIs",
+    "booksExpensePaidThrough",
+    "booksExpenseTax",
+    "booksExpenseVendor",
+    "booksExpenseRef",
+    "booksExpenseNotes",
+    "booksExpenseCustomer",
+    "booksExpenseBillable",
+    "booksExpenseViewName",
+    "booksMileageCalcMethod",
+    "booksMileageDistance",
+    "booksMileagePaidThrough",
+    "booksMileageTax",
+    "booksMileageVendor",
+}
+
+LOOKBACK_LINES = 12
+
+def audit_step(step_num: int):
+    path = f"scenes/books/step{step_num}/script.ts"
+    if not os.path.exists(path):
+        return [f"File not found: {path}"]
+
+    errors = []
+    with open(path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    for idx, raw_line in enumerate(lines):
+        line = raw_line.strip()
+
+        # Check for typeIntoVar
+        is_type = "typeIntoVar(" in line
+        # Check for tl.setVar on a field variable
+        is_field_setvar = False
+        matched_var = None
+        m = re.search(r'tl\.setVar\(["\']([^"\']+)["\']', line)
+        if m:
+            var_name = m.group(1)
+            if var_name in FIELD_VARS:
+                is_field_setvar = True
+                matched_var = var_name
+
+        if is_type or is_field_setvar:
+            start = max(0, idx - LOOKBACK_LINES)
+            preceding = "".join(lines[start:idx])
+            has_interaction = "pressOn(" in preceding or "click(" in preceding
+
+            if not has_interaction:
+                target = matched_var if is_field_setvar else "typeIntoVar"
+                errors.append(
+                    f"{path}:{idx+1} Silent fill detected on field '{target}': "
+                    f"no pressOn or tl.click within preceding {LOOKBACK_LINES} lines."
+                )
+
+    return errors
+
+def main():
+    all_errors = []
+    for step_num in range(135, 148):
+        errs = audit_step(step_num)
+        all_errors.extend(errs)
+
+    if all_errors:
+        print("interaction audit: FAILED")
+        for err in all_errors:
+            print(f"  ERROR: {err}")
+        sys.exit(1)
+    else:
+        print("interaction audit: OK")
+
+if __name__ == "__main__":
+    main()

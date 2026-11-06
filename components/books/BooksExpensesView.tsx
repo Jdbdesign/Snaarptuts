@@ -202,7 +202,10 @@ export function BooksExpensesView({ tl }: Props) {
             </div>
 
             {/* Life Cycle Flow */}
-            <div className="w-full pt-4 space-y-3">
+            <div
+              data-tl="diagram-expense-lifecycle"
+              className="w-full pt-4 space-y-3"
+            >
               <h3 className="text-xs font-semibold text-gray-700">
                 Life cycle of an Expense
               </h3>
@@ -282,10 +285,10 @@ export function BooksExpensesView({ tl }: Props) {
                     </td>
                   </tr>
                 ) : (
-                  expenses.map((exp, idx) => (
+                  expenses.map((exp) => (
                     <tr
                       key={exp.id}
-                      data-tl={`expense-row-${idx}`}
+                      data-tl={`expense-row-${exp.id}`}
                       onClick={() => handleRowClick(exp)}
                       className="hover:bg-gray-50/80 transition-colors cursor-pointer group"
                     >
@@ -306,7 +309,7 @@ export function BooksExpensesView({ tl }: Props) {
                       <td className="py-3.5 px-4 text-right">
                         <button
                           type="button"
-                          data-tl={`btn-delete-expense-${idx}`}
+                          data-tl={`btn-delete-expense-${exp.id}`}
                           onClick={(e) => handleDeleteClick(e, exp)}
                           className="p-1 text-gray-400 hover:text-red-600 rounded transition-colors"
                           title="Delete"

@@ -1,5 +1,12 @@
 export const CAPTIONS = {
-  "openVendor": "Click Greenfield Packaging Ltd to view its details.",
-  "reviewFields": "Review vendor contact information, address, and payment terms.",
-  "checkDeactivate": "Check the Deactivate option to disable an inactive supplier."
+  clickNew: "Click + New to create a new vendor.",
+  openSalutation: "Open Salutation dropdown and select Mr.",
+  typeFirst: "Enter primary contact's first name.",
+  typeLast: "Enter primary contact's last name.",
+  typeCompany: "Enter the vendor company name.",
+  clickSuggestion: "Click the display name suggestion bubble.",
+  typeEmail: "Enter vendor billing email address.",
+  openCountryCode: "Open phone country code selector.",
+  typeWorkPhone: "Enter the work phone number.",
+  typeMobile: "Enter mobile phone number.",
 };

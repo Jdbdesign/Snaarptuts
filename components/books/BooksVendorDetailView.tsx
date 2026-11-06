@@ -8,7 +8,7 @@ import {
   INITIAL_VENDORS,
   type VendorItem,
 } from "./books-data";
-import { ArrowLeft, Home, ChevronRight } from "lucide-react";
+import { ArrowLeft, Home, ChevronRight, ChevronDown } from "lucide-react";
 
 type Props = {
   tl: Timeline;
@@ -26,8 +26,17 @@ export function BooksVendorDetailView({ tl }: Props) {
   const [phone, setPhone] = useState(activeVendor.phone?.replace("+44 ", "") || "");
   const [address, setAddress] = useState(activeVendor.address || "");
   const [taxId, setTaxId] = useState(activeVendor.taxIdentification || "GB 123 4567 89");
-  const [paymentTerms, setPaymentTerms] = useState(activeVendor.paymentTerms || "Due on Receipt");
-  const [notes, setNotes] = useState(activeVendor.notes || "");
+  const paymentTerms = useTimelineVar<string>(
+    tl,
+    "booksVendorPaymentTerms",
+    activeVendor.paymentTerms || "Due on Receipt"
+  );
+  const isPaymentTermsOpen = useTimelineVar<boolean>(
+    tl,
+    "booksVendorPaymentTermsOpen",
+    false
+  );
+  const notes = useTimelineVar<string>(tl, "booksVendorNotes", activeVendor.notes || "");
 
   const handleBack = () => {
     tl.setVar("booksView", "vendors");
@@ -200,18 +209,49 @@ export function BooksVendorDetailView({ tl }: Props) {
             <label className="block text-xs font-medium text-gray-700 mb-1">
               Payment Terms
             </label>
-            <select
-              data-tl="select-vendor-payment-terms"
-              value={paymentTerms}
-              onChange={(e) => setPaymentTerms(e.target.value)}
-              className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] cursor-pointer"
-            >
-              <option value="Due on Receipt">Due on Receipt</option>
-              <option value="Net 15">Net 15</option>
-              <option value="Net 30">Net 30</option>
-              <option value="Net 45">Net 45</option>
-              <option value="Net 60">Net 60</option>
-            </select>
+            <div className="relative">
+              <button
+                type="button"
+                data-tl="select-vendor-payment-terms"
+                onClick={() => tl.setVar("booksVendorPaymentTermsOpen", !isPaymentTermsOpen)}
+                className="w-full flex items-center justify-between px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white text-left focus:outline-none focus:border-[#7014D9] cursor-pointer"
+              >
+                <span>{paymentTerms}</span>
+                <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+              </button>
+
+              {isPaymentTermsOpen && (
+                <div
+                  data-tl="dropdown-vendor-payment-terms"
+                  className="absolute left-0 top-[calc(100%+4px)] z-30 w-full rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                >
+                  {[
+                    { label: "Due on Receipt", id: "due-on-receipt" },
+                    { label: "Net 15", id: "net15" },
+                    { label: "Net 30", id: "net30" },
+                    { label: "Net 45", id: "net45" },
+                    { label: "Net 60", id: "net60" },
+                  ].map((term) => (
+                    <button
+                      key={term.id}
+                      type="button"
+                      data-tl={`opt-terms-${term.id}`}
+                      onClick={() => {
+                        tl.setVar("booksVendorPaymentTerms", term.label);
+                        tl.setVar("booksVendorPaymentTermsOpen", false);
+                      }}
+                      className={`w-full px-3 py-1.5 text-left text-xs cursor-pointer ${
+                        paymentTerms === term.label
+                          ? "text-[#7014D9] font-medium bg-purple-50"
+                          : "text-gray-700 hover:bg-gray-50"
+                      }`}
+                    >
+                      {term.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div>
@@ -223,7 +263,7 @@ export function BooksVendorDetailView({ tl }: Props) {
               data-tl="input-vendor-notes"
               placeholder="Additional notes"
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={(e) => tl.setVar("booksVendorNotes", e.target.value)}
               className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] resize-none"
             />
           </div>

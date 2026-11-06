@@ -1,7 +1,12 @@
 export const CAPTIONS = {
-  enterCompany: "Enter Harbour Logistics Ltd as the company name.",
-  clickSuggestion: "Click the suggestion pill to set the vendor display name.",
-  enterEmail: "Enter daniel@example.com as the vendor email.",
-  enterWorkPhone: "Enter the supplier work phone number.",
-  enterMobile: "Enter the mobile contact number.",
+  clickContactsTab: "Click Contact Persons tab.",
+  addContact: "Click + Add Contact Person.",
+  openSalutation: "Select Mr. as contact salutation.",
+  typeFirst: "Enter contact's first name Jane.",
+  typeLast: "Enter contact's last name Doe.",
+  typeEmail: "Enter contact's email address.",
+  typeWorkPhone: "Enter contact's work phone number.",
+  typeMobile: "Enter contact's mobile number.",
+  clickSave: "Click Save to create the new vendor.",
+  vendorListed: "Harbour Logistics Ltd is now active in your vendor list.",
 };

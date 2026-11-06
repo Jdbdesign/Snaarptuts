@@ -3,84 +3,92 @@ import {
   beginBooks,
   finishBooks,
   pressOn,
+  ring,
+  typeIntoVar,
 } from "@/components/books/books-timeline";
-import { BOOKS_URLS, INITIAL_VENDORS, type VendorItem } from "@/components/books/books-data";
+import { BOOKS_URLS, INITIAL_EXPENSES } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP144_DURATION_MS = 6500;
+export const STEP144_DURATION_MS = 45000;
 
 export async function runStep144(tl: Timeline) {
-  beginBooks(tl, BOOKS_URLS.newVendor, "new-vendor", [0.45, 0.70]);
-  tl.setVar("booksNewVendorSalutation", "Mr.");
-  tl.setVar("booksNewVendorFirstName", "Daniel");
-  tl.setVar("booksNewVendorLastName", "Brooks");
-  tl.setVar("booksNewVendorCompanyName", "Harbour Logistics Ltd");
-  tl.setVar("booksNewVendorDisplayName", "Harbour Logistics Ltd");
-  tl.setVar("booksNewVendorEmail", "daniel@example.com");
-  tl.setVar("booksNewVendorWorkPhone", "20 7946 0812");
-  tl.setVar("booksNewVendorMobile", "7700 900543");
-  tl.setVar("booksNewVendorTaxRate", "VAT Standard (20%)");
-  tl.setVar("booksNewVendorCompanyId", "HL-2026");
-  tl.setVar("booksNewVendorAccountsPayable", "Accounts Payable");
-  tl.setVar("booksNewVendorOpeningBalance", "1000");
-  tl.setVar("booksNewVendorPaymentTerms", "Net 30");
-  tl.setVar("booksNewVendorEnablePortal", true);
-  tl.setVar("booksNewVendorCountry", "United Kingdom");
-  tl.setVar("booksNewVendorAddress", "10 Acme Street");
-  tl.setVar("booksNewVendorCity", "London");
-  tl.setVar("booksNewVendorState", "Aberdeen");
-  tl.setVar("booksNewVendorZip", "EC1A 1AA");
+  beginBooks(tl, BOOKS_URLS.newExpense, "new-expense", [0.45, 0.35], 144);
 
   await tl.at(400);
-  tl.showCaption(CAPTIONS.reviewForm);
+  tl.showCaption(CAPTIONS.pickVendor);
+  await pressOn(tl, "[data-tl=select-expense-vendor]");
+  tl.setVar("booksExpenseVendorOpen", true);
+  await tl.wait(600);
+
+  await pressOn(tl, "[data-tl=opt-vendor-greenfield]");
+  tl.setVar("booksExpenseVendor", "Greenfield Packaging Ltd");
+  tl.setVar("booksExpenseVendorOpen", false);
   await tl.wait(500);
 
-  tl.showCaption(CAPTIONS.clickSave);
-  await pressOn(tl, "[data-tl=btn-save-vendor]");
+  tl.showCaption(CAPTIONS.typeRef);
+  await pressOn(tl, "[data-tl=input-expense-ref]");
+  await typeIntoVar(tl, "[data-tl=input-expense-ref]", "booksExpenseRef", "INV-1123", { msPerChar: 60 });
+  await tl.wait(500);
 
-  const newVendor: VendorItem = {
-    id: "vend-harbour",
-    name: "Harbour Logistics Ltd",
-    companyName: "Harbour Logistics Ltd",
-    displayName: "Harbour Logistics Ltd",
-    email: "daniel@example.com",
-    phone: "+44 20 7946 0812",
-    paymentTerms: "Net 30",
-    status: "Active",
-    salutation: "Mr.",
-    firstName: "Daniel",
-    lastName: "Brooks",
-    workPhone: "20 7946 0812",
-    mobile: "7700 900543",
-    language: "English",
-    taxRate: "VAT Standard (20%)",
-    companyId: "HL-2026",
-    currency: "GBP- British Pound",
-    accountsPayable: "Accounts Payable",
-    openingBalance: "1000",
-    enablePortal: true,
-    country: "United Kingdom",
-    address: "10 Acme Street",
-    city: "London",
-    state: "Aberdeen",
-    zipCode: "EC1A 1AA",
-    fax: "020 7946 0999",
-    taxIdentification: "GB 123 4567 89",
-    notes: "Logistics and warehousing partner",
-    contactPersons: [],
-  };
-
-  const currentVendors = tl.getVar<VendorItem[]>("booksVendors", INITIAL_VENDORS);
-  tl.setVar("booksVendors", [newVendor, ...currentVendors.filter(v => v.id !== "vend-harbour")]);
-  tl.setVar("booksToastText", "Vendor created successfully");
-  tl.setVar("booksToastOpen", true);
-  tl.setVar("booksView", "vendors");
-  tl.setUrl(BOOKS_URLS.vendors);
-
+  tl.showCaption(CAPTIONS.typeNotes);
+  await pressOn(tl, "[data-tl=input-expense-notes]");
+  await typeIntoVar(tl, "[data-tl=input-expense-notes]", "booksExpenseNotes", "Monthly warehouse supplies and packaging materials", { msPerChar: 40 });
   await tl.wait(600);
-  tl.showCaption(CAPTIONS.viewInList);
-  await pressOn(tl, "[data-tl=vendor-row-harbour]");
-  await tl.wait(1000);
+
+  tl.showCaption(CAPTIONS.clickUpload);
+  await pressOn(tl, "[data-tl=btn-upload-receipts]");
+  tl.setVar("booksExpenseFilePickerOpen", true);
+  await tl.wait(600);
+
+  tl.showCaption(CAPTIONS.pickFile);
+  await pressOn(tl, "[data-tl=file-opt-f-receipt-nov]");
+  await tl.wait(400);
+  await pressOn(tl, "[data-tl=btn-select-expense-file]");
+  tl.setVar("booksAttachedReceipt", "receipt-nov-2026.pdf");
+  tl.setVar("booksExpenseFilePickerOpen", false);
+  await tl.wait(600);
+
+  tl.showCaption(CAPTIONS.pickCustomer);
+  await pressOn(tl, "[data-tl=select-expense-customer]");
+  tl.setVar("booksExpenseCustomerOpen", true);
+  await tl.wait(600);
+
+  await pressOn(tl, "[data-tl=opt-customer-acme]");
+  tl.setVar("booksExpenseCustomer", "Acme Foods Ltd");
+  tl.setVar("booksExpenseCustomerOpen", false);
+  await tl.wait(500);
+
+  tl.showCaption(CAPTIONS.tickBillable);
+  await pressOn(tl, "[data-tl=check-expense-billable]");
+  tl.setVar("booksExpenseBillable", true);
+  await tl.wait(600);
+
+  tl.showCaption(CAPTIONS.clickSave);
+  await ring(tl, "[data-tl=btn-save-expense]", 600);
+  await pressOn(tl, "[data-tl=btn-save-expense]");
+  tl.setVar("booksToastText", "Expense saved successfully");
+  tl.setVar("booksToastOpen", true);
+  tl.setVar("booksView", "expenses");
+  tl.setVar("booksExpenses", [
+    {
+      id: "exp-1200",
+      date: "11/05/2026",
+      reference: "INV-1123",
+      amount: 1200.0,
+      status: "Unbilled",
+      expenseAccount: "Cost of Goods Sold",
+      paidThrough: "Undeposited Funds",
+      vendor: "Greenfield Packaging Ltd",
+      customerName: "Acme Foods Ltd",
+    },
+    ...INITIAL_EXPENSES,
+  ]);
+  tl.setVar("booksView", "expenses");
+  tl.setUrl(BOOKS_URLS.expenses);
+  await tl.wait(800);
+
+  tl.showCaption(CAPTIONS.expenseSaved);
+  await ring(tl, "[data-tl=expense-row-exp-1200]", 1400);
 
   await finishBooks(tl, STEP144_DURATION_MS);
 }

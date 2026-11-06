@@ -30,3 +30,29 @@ Scope: Purchases > Vendors (Steps 135–145) and Expenses (Steps 146–159).
 - **Visibility QA (`npm run qa:visibility -- --tutorial books --from 135 --workers 2 --speed 6`)**: Clean across all 4 responsive viewports (1920x1080, 1440x900, 1280x720, 390x844).
 - **TypeScript compilation (`npx tsc --noEmit`)**: Clean (0 errors).
 - **ESLint (`npm run lint`)**: Clean (0 errors).
+
+## Part 8 Fix Pass Completed (Merged into 13 Steps 135–147)
+
+In the Part 8 Fix Pass, the 25 micro-steps (135–159) were consolidated into **13 comprehensive end-to-end steps** (numbered **135 to 147**; Step 148 is reserved and skipped, with the completion card immediately following Step 147).
+
+### Resolution of Silent Fills
+All 11 silent fill issues identified above have been eliminated:
+1. **Vendors Status Filter (`step135`)**: Custom dropdown `select-vendors-status` is clicked to open, dwells 600ms, cursor moves to `opt-status-inactive`, clicks it, verifies table update, and re-opens to click `opt-status-active`.
+2. **Vendor Details Update (`step136`)**: Custom payment terms dropdown `select-vendor-payment-terms` is opened, option `opt-terms-net30` is clicked, and payment notes are typed character-by-character into `input-vendor-notes` via `typeIntoVar`.
+3. **New Vendor Contact Details (`step137`)**: Salutation opened via `select-vendor-salutation` and option `opt-salutation-mr` clicked; First Name, Last Name, Company Name, Email, and Phones typed character-by-character; Phone country code popup opened and selected.
+4. **New Vendor Other Details (`step138`)**: Tax rate opened via `select-vendor-tax-rate` and `opt-tax-vat-20` clicked; Company ID typed; Accounts payable opened via `select-vendor-accounts-payable` and `opt-ap-accounts-payable` clicked; Opening balance typed; Payment terms opened via `select-vendor-new-payment-terms` and `opt-terms-net30` clicked; Portal access checkbox toggled via click.
+5. **New Vendor Address Details (`step139`)**: Searchable country selector opened and "United Kingdom" chosen; Street address, City, Zip, Phone, and Fax typed character-by-character; State dropdown `select-vendor-state` opened and `opt-state-aberdeen` clicked.
+6. **New Vendor Contact Persons (`step140`)**: `+ Add Contact Person` clicked; Row 0 salutation opened and `opt-cp-salutation-mr-0` clicked; First name, Last name, Email, Work phone, and Mobile typed character-by-character; Form saved via blue Save button.
+7. **Vendor Deactivate and Delete (`step141`)**: More actions dropdown opened to toggle Deactivate; Inactive filter selected; Delete button clicked on row; In-app confirm modal `BooksVendorConfirmDialog` opened and `btn-confirm-vendor-delete` clicked; Table updates and toast appears.
+8. **Expense Views and Filter (`step142`)**: Views dropdown `btn-expenses-views-dropdown` opened, `opt-view-invoiced` clicked to view empty state diagram; Re-opened and `opt-view-all` clicked; Row `expense-row-exp-1` clicked to review details and returned to list.
+9. **Record Expense Details & Amount (`step143`)**: Date input clicked opening `BooksDatePickerPopover` and day clicked; Employee dropdown opened and selected; Expense Account dropdown opened and `opt-account-cogs` clicked; Amount typed character-by-character; Paid through opened and `opt-pt-undeposited` clicked; Tax opened and `opt-tax-vat20` clicked.
+10. **Record Expense Vendor, Customer & Receipt Save (`step144`)**: Vendor opened and `opt-vendor-greenfield` clicked; Ref and notes typed; Receipt file picker opened and `file-opt-f-receipt-nov` clicked and attached; Customer opened and `opt-customer-acme` clicked; Billable checkbox clicked; Blue Save button clicked; New row appears in list.
+11. **Record Mileage (`step145`)**: Mileage tab clicked; Distance calculation toggle clicked; Distance typed character-by-character; Paid through, Tax, and Vendor custom dropdowns opened and clicked; Blue Save button clicked.
+12. **Bulk Add Expenses (`step146`)**: Bulk Add tab clicked; Row 0 date picker opened and day clicked; Account, Paid through, and Vendor dropdowns opened and selected; Amount typed; Row 1 filled similarly; Blue Save button clicked.
+13. **Delete Expense (`step147`)**: Delete icon `btn-delete-expense-exp-1` clicked; In-app modal `BooksExpenseConfirmDialog` opened and `btn-confirm-expense-delete` clicked; Expense removed from list with confirmation toast; Final tour completion card mounts.
+
+### Verification Results
+- **Interaction Audit (`scripts/audit-books-interactions.py`)**: `interaction audit: OK` (0 silent fills across all 13 steps).
+- **Selector Audit (`scripts/audit-books-selectors.py`)**: `selector audit: OK` (0 missing selectors across steps 33–147).
+- **Full Chain Test (`scripts/check-books-chain.ts --from 135 --speed 6`)**: `0 distinct error(s); completed 13/13`.
+- **TypeScript (`npx tsc --noEmit`)**: Clean (0 errors).

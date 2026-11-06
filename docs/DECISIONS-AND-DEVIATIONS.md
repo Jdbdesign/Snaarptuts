@@ -1440,3 +1440,9 @@ Reference video: `1106(3).mp4` (7:30, git-ignored `ref/`, frames in `ref/books8/
 7. **In-App File Attachment**: Receipt upload replaces native OS file dialogs with the in-app `BooksExpenseFilePickerModal` selecting sample file `receipt-nov-2026.pdf`.
 8. **Filtered Views Empty State**: In the Expenses list, switching the Views dropdown to `Invoiced`, `Reimbursed`, `Non-Billable`, `With Receipts`, or `Without Receipts` displays the "Life Cycle of an Expense" flow diagram with 4 checklist bullets and the blue `Record Expense` button.
 
+### Part 8 Fix Pass: Step Consolidation & Elimination of Silent Fills
+1. **Consolidation into 13 Steps (135–147)**: The original 25 micro-steps were merged into 13 larger, cohesive steps (numbered 135 to 147) with durations ranging from 35s to 54s. Step 148 is explicitly reserved and skipped; the final completion card mounts immediately after Step 147.
+2. **Elimination of Silent Fills**: Every dropdown, select element, radio button, checkbox, and calendar popover is rendered as an accessible in-DOM component that is explicitly opened by the fake cursor, dwelled for 600ms, hovered, and clicked. All text input fields are focused and typed character-by-character via `typeIntoVar`.
+3. **Automated Verification**: Enforced via `scripts/audit-books-interactions.py` (0 silent fills across all 13 steps), `scripts/audit-books-selectors.py` (0 missing selectors across steps 33–147), and `scripts/check-books-chain.ts` (0 distinct errors, 13/13 completed).
+
+

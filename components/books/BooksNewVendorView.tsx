@@ -9,7 +9,7 @@ import {
   type VendorItem,
   type VendorContactPerson,
 } from "./books-data";
-import { ArrowLeft, Home, ChevronRight, X, Plus } from "lucide-react";
+import { ArrowLeft, Home, ChevronRight, ChevronDown, X, Plus } from "lucide-react";
 
 type Props = {
   tl: Timeline;
@@ -18,6 +18,7 @@ type Props = {
 export function BooksNewVendorView({ tl }: Props) {
   const currentTab = useTimelineVar<string>(tl, "booksNewVendorTab", "other");
   const salutation = useTimelineVar<string>(tl, "booksNewVendorSalutation", "");
+  const isSalutationOpen = useTimelineVar<boolean>(tl, "booksNewVendorSalutationOpen", false);
   const firstName = useTimelineVar<string>(tl, "booksNewVendorFirstName", "");
   const lastName = useTimelineVar<string>(tl, "booksNewVendorLastName", "");
   const companyName = useTimelineVar<string>(tl, "booksNewVendorCompanyName", "");
@@ -26,15 +27,19 @@ export function BooksNewVendorView({ tl }: Props) {
   const email = useTimelineVar<string>(tl, "booksNewVendorEmail", "");
   const workPhone = useTimelineVar<string>(tl, "booksNewVendorWorkPhone", "");
   const mobile = useTimelineVar<string>(tl, "booksNewVendorMobile", "");
+  const isPhoneCountryOpen = useTimelineVar<boolean>(tl, "booksNewVendorPhoneCountryOpen", false);
   const language = useTimelineVar<string>(tl, "booksNewVendorLanguage", "English");
 
   // Other Details tab
   const taxRate = useTimelineVar<string>(tl, "booksNewVendorTaxRate", "Select a Tax");
+  const isTaxRateOpen = useTimelineVar<boolean>(tl, "booksNewVendorTaxRateOpen", false);
   const companyId = useTimelineVar<string>(tl, "booksNewVendorCompanyId", "");
   const currency = "GBP- British Pound";
   const accountsPayable = useTimelineVar<string>(tl, "booksNewVendorAccountsPayable", "Select an account");
+  const isAccountsPayableOpen = useTimelineVar<boolean>(tl, "booksNewVendorAccountsPayableOpen", false);
   const openingBalance = useTimelineVar<string>(tl, "booksNewVendorOpeningBalance", "");
   const paymentTerms = useTimelineVar<string>(tl, "booksNewVendorPaymentTerms", "Due on Receipt");
+  const isPaymentTermsOpen = useTimelineVar<boolean>(tl, "booksNewVendorPaymentTermsOpen", false);
   const enablePortal = useTimelineVar<boolean>(tl, "booksNewVendorEnablePortal", false);
 
   // Address tab
@@ -43,12 +48,22 @@ export function BooksNewVendorView({ tl }: Props) {
   const [countrySearch, setCountrySearch] = useState("");
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
   const address = useTimelineVar<string>(tl, "booksNewVendorAddress", "");
-  const [street2, setStreet2] = useState("");
+  const street2 = useTimelineVar<string>(tl, "booksNewVendorStreet2", "");
   const city = useTimelineVar<string>(tl, "booksNewVendorCity", "");
   const state = useTimelineVar<string>(tl, "booksNewVendorState", "Aberdeen");
+  const isStateOpen = useTimelineVar<boolean>(tl, "booksNewVendorStateOpen", false);
   const zip = useTimelineVar<string>(tl, "booksNewVendorZip", "");
   const addressPhone = useTimelineVar<string>(tl, "booksNewVendorAddressPhone", "");
   const fax = useTimelineVar<string>(tl, "booksNewVendorFax", "");
+
+  // Contact Persons tab
+  const isCpSalutationOpen = useTimelineVar<boolean>(tl, "booksNewVendorCpSalutationOpen", false);
+  const cpSalutation = useTimelineVar<string>(tl, "booksCpSalutation", "Mr.");
+  const cpFirstName = useTimelineVar<string>(tl, "booksCpFirstName", "");
+  const cpLastName = useTimelineVar<string>(tl, "booksCpLastName", "");
+  const cpEmail = useTimelineVar<string>(tl, "booksCpEmail", "");
+  const cpWorkPhone = useTimelineVar<string>(tl, "booksCpWorkPhone", "");
+  const cpMobile = useTimelineVar<string>(tl, "booksCpMobile", "");
 
   // Contact Persons tab
   const [contactPersons, setContactPersons] = useState<VendorContactPerson[]>([
@@ -154,21 +169,49 @@ export function BooksNewVendorView({ tl }: Props) {
               Primary Contact
             </label>
             <div className="flex items-center gap-2">
-              <select
-                data-tl="select-vendor-salutation"
-                value={salutation}
-                onChange={(e) => {
-                  tl.setVar("booksNewVendorSalutation", e.target.value);
-                }}
-                className="w-28 px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] cursor-pointer"
-              >
-                <option value="">Salutation</option>
-                <option value="Mr.">Mr.</option>
-                <option value="Mrs.">Mrs.</option>
-                <option value="Ms.">Ms.</option>
-                <option value="Miss">Miss</option>
-                <option value="Dr.">Dr.</option>
-              </select>
+              <div className="relative">
+                <button
+                  type="button"
+                  data-tl="select-vendor-salutation"
+                  onClick={() => tl.setVar("booksNewVendorSalutationOpen", !isSalutationOpen)}
+                  className="w-28 flex items-center justify-between px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] cursor-pointer"
+                >
+                  <span>{salutation || "Salutation"}</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+                </button>
+
+                {isSalutationOpen && (
+                  <div
+                    data-tl="dropdown-vendor-salutation"
+                    className="absolute left-0 top-[calc(100%+4px)] z-30 w-28 rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                  >
+                    {[
+                      { label: "Mr.", id: "mr" },
+                      { label: "Mrs.", id: "mrs" },
+                      { label: "Ms.", id: "ms" },
+                      { label: "Miss", id: "miss" },
+                      { label: "Dr.", id: "dr" },
+                    ].map((sal) => (
+                      <button
+                        key={sal.id}
+                        type="button"
+                        data-tl={`opt-salutation-${sal.id}`}
+                        onClick={() => {
+                          tl.setVar("booksNewVendorSalutation", sal.label);
+                          tl.setVar("booksNewVendorSalutationOpen", false);
+                        }}
+                        className={`w-full px-3 py-1.5 text-left text-xs cursor-pointer ${
+                          salutation === sal.label
+                            ? "text-[#7014D9] font-medium bg-purple-50"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        {sal.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <input
                 type="text"
                 data-tl="input-vendor-first-name"
@@ -276,8 +319,39 @@ export function BooksNewVendorView({ tl }: Props) {
             <label className="text-xs font-medium text-gray-700">Phone</label>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex gap-2">
-                <div className="flex items-center gap-1 px-2.5 py-2 border border-gray-200 rounded-lg bg-gray-50 text-xs text-gray-700 shrink-0">
-                  <span>GB +44</span>
+                <div className="relative">
+                  <button
+                    type="button"
+                    data-tl="btn-vendor-phone-country"
+                    onClick={() => tl.setVar("booksNewVendorPhoneCountryOpen", !isPhoneCountryOpen)}
+                    className="flex items-center gap-1 px-2.5 py-2 border border-gray-200 rounded-lg bg-gray-50 text-xs text-gray-700 shrink-0 cursor-pointer"
+                  >
+                    <span>GB +44</span>
+                    <ChevronDown className="w-3 h-3 text-gray-500" />
+                  </button>
+                  {isPhoneCountryOpen && (
+                    <div
+                      data-tl="dropdown-vendor-phone-country"
+                      className="absolute left-0 top-[calc(100%+4px)] z-30 w-28 rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                    >
+                      <button
+                        type="button"
+                        data-tl="opt-country-gb"
+                        onClick={() => tl.setVar("booksNewVendorPhoneCountryOpen", false)}
+                        className="w-full px-3 py-1.5 text-left text-xs text-[#2563EB] font-medium bg-[#EFF6FF] cursor-pointer"
+                      >
+                        GB +44
+                      </button>
+                      <button
+                        type="button"
+                        data-tl="opt-country-us"
+                        onClick={() => tl.setVar("booksNewVendorPhoneCountryOpen", false)}
+                        className="w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 cursor-pointer"
+                      >
+                        US +1
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <input
                   type="text"
@@ -400,18 +474,58 @@ export function BooksNewVendorView({ tl }: Props) {
                 </label>
               </div>
               <div className="space-y-1">
-                <select
-                  data-tl="select-vendor-tax-rate"
-                  value={taxRate}
-                  onChange={(e) => {
-                    tl.setVar("booksNewVendorTaxRate", e.target.value);
-                  }}
-                  className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] cursor-pointer"
-                >
-                  <option value="Select a Tax">Select a Tax</option>
-                  <option value="No Tax">No Tax</option>
-                  <option value="VAT Standard (20%)">VAT Standard (20%)</option>
-                </select>
+                <div className="relative">
+                  <button
+                    type="button"
+                    data-tl="select-vendor-tax-rate"
+                    onClick={() => tl.setVar("booksNewVendorTaxRateOpen", !isTaxRateOpen)}
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white text-left focus:outline-none focus:border-[#7014D9] cursor-pointer"
+                  >
+                    <span>{taxRate}</span>
+                    <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+                  </button>
+
+                  {isTaxRateOpen && (
+                    <div
+                      data-tl="dropdown-vendor-tax-rate"
+                      className="absolute left-0 top-[calc(100%+4px)] z-30 w-full rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                    >
+                      <button
+                        type="button"
+                        data-tl="opt-tax-select"
+                        onClick={() => {
+                          tl.setVar("booksNewVendorTaxRate", "Select a Tax");
+                          tl.setVar("booksNewVendorTaxRateOpen", false);
+                        }}
+                        className="w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 cursor-pointer"
+                      >
+                        Select a Tax
+                      </button>
+                      <button
+                        type="button"
+                        data-tl="opt-tax-no-tax"
+                        onClick={() => {
+                          tl.setVar("booksNewVendorTaxRate", "No Tax");
+                          tl.setVar("booksNewVendorTaxRateOpen", false);
+                        }}
+                        className="w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 cursor-pointer"
+                      >
+                        No Tax
+                      </button>
+                      <button
+                        type="button"
+                        data-tl="opt-tax-vat-20"
+                        onClick={() => {
+                          tl.setVar("booksNewVendorTaxRate", "VAT Standard (20%)");
+                          tl.setVar("booksNewVendorTaxRateOpen", false);
+                        }}
+                        className="w-full px-3 py-1.5 text-left text-xs text-[#7014D9] font-medium bg-purple-50 cursor-pointer"
+                      >
+                        VAT Standard (20%)
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <p className="text-[11px] text-gray-500">
                   To associate more than one tax, you need to create a tax group in Settings.
                 </p>
@@ -450,17 +564,47 @@ export function BooksNewVendorView({ tl }: Props) {
               <label className="text-xs font-medium text-gray-700">
                 Accounts Payable
               </label>
-              <select
-                data-tl="select-vendor-accounts-payable"
-                value={accountsPayable}
-                onChange={(e) => {
-                  tl.setVar("booksNewVendorAccountsPayable", e.target.value);
-                }}
-                className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] cursor-pointer"
-              >
-                <option value="Select an account">Select an account</option>
-                <option value="Accounts Payable">Accounts Payable</option>
-              </select>
+              <div className="relative">
+                <button
+                  type="button"
+                  data-tl="select-vendor-accounts-payable"
+                  onClick={() => tl.setVar("booksNewVendorAccountsPayableOpen", !isAccountsPayableOpen)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white text-left focus:outline-none focus:border-[#7014D9] cursor-pointer"
+                >
+                  <span>{accountsPayable}</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+                </button>
+
+                {isAccountsPayableOpen && (
+                  <div
+                    data-tl="dropdown-vendor-accounts-payable"
+                    className="absolute left-0 top-[calc(100%+4px)] z-30 w-full rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                  >
+                    <button
+                      type="button"
+                      data-tl="opt-ap-select"
+                      onClick={() => {
+                        tl.setVar("booksNewVendorAccountsPayable", "Select an account");
+                        tl.setVar("booksNewVendorAccountsPayableOpen", false);
+                      }}
+                      className="w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    >
+                      Select an account
+                    </button>
+                    <button
+                      type="button"
+                      data-tl="opt-ap-accounts-payable"
+                      onClick={() => {
+                        tl.setVar("booksNewVendorAccountsPayable", "Accounts Payable");
+                        tl.setVar("booksNewVendorAccountsPayableOpen", false);
+                      }}
+                      className="w-full px-3 py-1.5 text-left text-xs text-[#7014D9] font-medium bg-purple-50 cursor-pointer"
+                    >
+                      Accounts Payable
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-[180px_1fr] items-center gap-4">
@@ -483,20 +627,49 @@ export function BooksNewVendorView({ tl }: Props) {
               <label className="text-xs font-medium text-gray-700">
                 Payment Terms
               </label>
-              <select
-                data-tl="select-vendor-new-payment-terms"
-                value={paymentTerms}
-                onChange={(e) => {
-                  tl.setVar("booksNewVendorPaymentTerms", e.target.value);
-                }}
-                className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] cursor-pointer"
-              >
-                <option value="Due on Receipt">Due on Receipt</option>
-                <option value="Net 15">Net 15</option>
-                <option value="Net 30">Net 30</option>
-                <option value="Net 45">Net 45</option>
-                <option value="Net 60">Net 60</option>
-              </select>
+              <div className="relative">
+                <button
+                  type="button"
+                  data-tl="select-vendor-new-payment-terms"
+                  onClick={() => tl.setVar("booksNewVendorPaymentTermsOpen", !isPaymentTermsOpen)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white text-left focus:outline-none focus:border-[#7014D9] cursor-pointer"
+                >
+                  <span>{paymentTerms}</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+                </button>
+
+                {isPaymentTermsOpen && (
+                  <div
+                    data-tl="dropdown-vendor-new-payment-terms"
+                    className="absolute left-0 top-[calc(100%+4px)] z-30 w-full rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                  >
+                    {[
+                      { label: "Due on Receipt", id: "due-on-receipt" },
+                      { label: "Net 15", id: "net15" },
+                      { label: "Net 30", id: "net30" },
+                      { label: "Net 45", id: "net45" },
+                      { label: "Net 60", id: "net60" },
+                    ].map((term) => (
+                      <button
+                        key={term.id}
+                        type="button"
+                        data-tl={`opt-terms-${term.id}`}
+                        onClick={() => {
+                          tl.setVar("booksNewVendorPaymentTerms", term.label);
+                          tl.setVar("booksNewVendorPaymentTermsOpen", false);
+                        }}
+                        className={`w-full px-3 py-1.5 text-left text-xs cursor-pointer ${
+                          paymentTerms === term.label
+                            ? "text-[#7014D9] font-medium bg-purple-50"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        {term.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-[180px_1fr] items-center gap-4">
@@ -617,7 +790,7 @@ export function BooksNewVendorView({ tl }: Props) {
                 rows={2}
                 data-tl="input-vendor-street2"
                 value={street2}
-                onChange={(e) => setStreet2(e.target.value)}
+                onChange={(e) => tl.setVar("booksNewVendorStreet2", e.target.value)}
                 className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] resize-none"
               />
             </div>
@@ -641,18 +814,47 @@ export function BooksNewVendorView({ tl }: Props) {
               <label className="text-xs font-medium text-gray-700">
                 State
               </label>
-              <select
-                data-tl="select-vendor-state"
-                value={state}
-                onChange={(e) => {
-                  tl.setVar("booksNewVendorState", e.target.value);
-                }}
-                className="w-full px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-[#7014D9] cursor-pointer"
-              >
-                <option value="Aberdeen">Aberdeen</option>
-                <option value="Greater London">Greater London</option>
-                <option value="West Yorkshire">West Yorkshire</option>
-              </select>
+              <div className="relative">
+                <button
+                  type="button"
+                  data-tl="select-vendor-state"
+                  onClick={() => tl.setVar("booksNewVendorStateOpen", !isStateOpen)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-xs border border-gray-200 rounded-lg bg-white text-left focus:outline-none focus:border-[#7014D9] cursor-pointer"
+                >
+                  <span>{state}</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+                </button>
+
+                {isStateOpen && (
+                  <div
+                    data-tl="dropdown-vendor-state"
+                    className="absolute left-0 top-[calc(100%+4px)] z-30 w-full rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                  >
+                    {[
+                      { label: "Aberdeen", id: "aberdeen" },
+                      { label: "Greater London", id: "greater-london" },
+                      { label: "West Yorkshire", id: "west-yorkshire" },
+                    ].map((st) => (
+                      <button
+                        key={st.id}
+                        type="button"
+                        data-tl={`opt-state-${st.id}`}
+                        onClick={() => {
+                          tl.setVar("booksNewVendorState", st.label);
+                          tl.setVar("booksNewVendorStateOpen", false);
+                        }}
+                        className={`w-full px-3 py-1.5 text-left text-xs cursor-pointer ${
+                          state === st.label
+                            ? "text-[#7014D9] font-medium bg-purple-50"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        {st.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-[180px_1fr] items-center gap-4">
@@ -736,27 +938,68 @@ export function BooksNewVendorView({ tl }: Props) {
                   {contactPersons.map((cp, idx) => (
                     <tr key={cp.id}>
                       <td className="p-2">
-                        <select
-                          data-tl={`input-cp-salutation-${idx}`}
-                          value={cp.salutation}
-                          onChange={(e) => {
-                            const updated = [...contactPersons];
-                            updated[idx].salutation = e.target.value;
-                            setContactPersons(updated);
-                          }}
-                          className="w-full px-2 py-1.5 border border-gray-200 rounded bg-white text-xs focus:outline-none focus:border-[#2563EB]"
-                        >
-                          <option value="Mr.">Mr.</option>
-                          <option value="Mrs.">Mrs.</option>
-                          <option value="Ms.">Ms.</option>
-                        </select>
+                        {idx === 0 ? (
+                          <div className="relative">
+                            <button
+                              type="button"
+                              data-tl="select-cp-salutation-0"
+                              onClick={() => tl.setVar("booksNewVendorCpSalutationOpen", !isCpSalutationOpen)}
+                              className="w-full flex items-center justify-between px-2 py-1.5 border border-gray-200 rounded bg-white text-xs focus:outline-none focus:border-[#2563EB] cursor-pointer"
+                            >
+                              <span>{cpSalutation || "Salutation"}</span>
+                              <ChevronDown className="w-3 h-3 text-gray-500" />
+                            </button>
+
+                            {isCpSalutationOpen && (
+                              <div
+                                data-tl="dropdown-cp-salutation-0"
+                                className="absolute left-0 top-[calc(100%+4px)] z-30 w-24 rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                              >
+                                {[
+                                  { label: "Mr.", id: "mr" },
+                                  { label: "Mrs.", id: "mrs" },
+                                  { label: "Ms.", id: "ms" },
+                                ].map((sal) => (
+                                  <button
+                                    key={sal.id}
+                                    type="button"
+                                    data-tl={`opt-cp-salutation-${sal.id}`}
+                                    onClick={() => {
+                                      tl.setVar("booksCpSalutation", sal.label);
+                                      tl.setVar("booksNewVendorCpSalutationOpen", false);
+                                    }}
+                                    className="w-full px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-blue-50 hover:text-[#2563EB] cursor-pointer"
+                                  >
+                                    {sal.label}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <select
+                            data-tl={`input-cp-salutation-${idx}`}
+                            value={cp.salutation}
+                            onChange={(e) => {
+                              const updated = [...contactPersons];
+                              updated[idx].salutation = e.target.value;
+                              setContactPersons(updated);
+                            }}
+                            className="w-full px-2 py-1.5 border border-gray-200 rounded bg-white text-xs focus:outline-none focus:border-[#2563EB]"
+                          >
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Ms.">Ms.</option>
+                          </select>
+                        )}
                       </td>
                       <td className="p-2">
                         <input
                           type="text"
                           data-tl={`input-cp-first-name-${idx}`}
-                          value={cp.firstName}
+                          value={idx === 0 ? cpFirstName : cp.firstName}
                           onChange={(e) => {
+                            if (idx === 0) tl.setVar("booksCpFirstName", e.target.value);
                             const updated = [...contactPersons];
                             updated[idx].firstName = e.target.value;
                             setContactPersons(updated);
@@ -768,8 +1011,9 @@ export function BooksNewVendorView({ tl }: Props) {
                         <input
                           type="text"
                           data-tl={`input-cp-last-name-${idx}`}
-                          value={cp.lastName}
+                          value={idx === 0 ? cpLastName : cp.lastName}
                           onChange={(e) => {
+                            if (idx === 0) tl.setVar("booksCpLastName", e.target.value);
                             const updated = [...contactPersons];
                             updated[idx].lastName = e.target.value;
                             setContactPersons(updated);
@@ -781,8 +1025,9 @@ export function BooksNewVendorView({ tl }: Props) {
                         <input
                           type="email"
                           data-tl={`input-cp-email-${idx}`}
-                          value={cp.email}
+                          value={idx === 0 ? cpEmail : cp.email}
                           onChange={(e) => {
+                            if (idx === 0) tl.setVar("booksCpEmail", e.target.value);
                             const updated = [...contactPersons];
                             updated[idx].email = e.target.value;
                             setContactPersons(updated);
@@ -798,8 +1043,9 @@ export function BooksNewVendorView({ tl }: Props) {
                           <input
                             type="text"
                             data-tl={`input-cp-work-phone-${idx}`}
-                            value={cp.workPhone}
+                            value={idx === 0 ? cpWorkPhone : cp.workPhone}
                             onChange={(e) => {
+                              if (idx === 0) tl.setVar("booksCpWorkPhone", e.target.value);
                               const updated = [...contactPersons];
                               updated[idx].workPhone = e.target.value;
                               setContactPersons(updated);
@@ -816,8 +1062,9 @@ export function BooksNewVendorView({ tl }: Props) {
                           <input
                             type="text"
                             data-tl={`input-cp-mobile-${idx}`}
-                            value={cp.mobile}
+                            value={idx === 0 ? cpMobile : cp.mobile}
                             onChange={(e) => {
+                              if (idx === 0) tl.setVar("booksCpMobile", e.target.value);
                               const updated = [...contactPersons];
                               updated[idx].mobile = e.target.value;
                               setContactPersons(updated);

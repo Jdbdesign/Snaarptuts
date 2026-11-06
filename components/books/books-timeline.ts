@@ -40,6 +40,29 @@ export async function pressOn(
   }
 }
 
+/**
+ * Types text character by character into a timeline variable while focused on sel.
+ */
+export async function typeIntoVar(
+  tl: Timeline,
+  sel: string,
+  varName: string,
+  text: string,
+  opts: { msPerChar?: number } = {}
+) {
+  if (tl.getVar<boolean>("__booksStepEnded", false)) return;
+  const { msPerChar = 50 } = opts;
+  tl.highlight(sel);
+  for (let i = 1; i <= text.length; i++) {
+    if (tl.getVar<boolean>("__booksStepEnded", false)) break;
+    tl.setVar(varName, text.slice(0, i));
+    await tl.wait(msPerChar);
+  }
+  tl.setVar(varName, text);
+  await tl.wait(100);
+  tl.clearHighlight();
+}
+
 /** Move onto an element and hover it, without clicking. */
 export async function hoverOn(
   tl: Timeline,
@@ -92,7 +115,8 @@ export function beginBooks(
   tl: Timeline,
   url: string = BOOKS_URLS.dashboard,
   page: BooksPage = "home",
-  cursor: [number, number] = [0.45, 0.35]
+  cursor: [number, number] = [0.45, 0.35],
+  stepNum?: number
 ) {
   tl.placeCursor(cursor[0], cursor[1]);
   tl.setUrl(url);
@@ -492,11 +516,45 @@ export function beginBooks(
   // Vendors state
   tl.setVar("booksVendors", INITIAL_VENDORS);
   tl.setVar("booksVendorStatusFilter", "Active");
+  tl.setVar("booksVendorStatusFilterOpen", false);
   tl.setVar("booksVendorSearchQuery", "");
   tl.setVar("booksActiveVendor", INITIAL_VENDORS[0]);
+  tl.setVar("booksVendorPaymentTermsOpen", false);
+  tl.setVar("booksVendorPaymentTerms", "Due on Receipt");
+  tl.setVar("booksVendorNotes", "");
   tl.setVar("booksVendorConfirmOpen", false);
   tl.setVar("booksVendorToDelete", "Northgate Supplies");
   tl.setVar("booksNewVendorTab", "other");
+  tl.setVar("booksNewVendorSalutation", "");
+  tl.setVar("booksNewVendorSalutationOpen", false);
+  tl.setVar("booksNewVendorFirstName", "");
+  tl.setVar("booksNewVendorLastName", "");
+  tl.setVar("booksNewVendorCompanyName", "");
+  tl.setVar("booksNewVendorDisplayName", "");
+  tl.setVar("booksNewVendorEmail", "");
+  tl.setVar("booksNewVendorWorkPhone", "");
+  tl.setVar("booksNewVendorMobile", "");
+  tl.setVar("booksNewVendorPhoneCountryOpen", false);
+  tl.setVar("booksNewVendorTaxRate", "Select a Tax");
+  tl.setVar("booksNewVendorTaxRateOpen", false);
+  tl.setVar("booksNewVendorCompanyId", "");
+  tl.setVar("booksNewVendorAccountsPayable", "Select an account");
+  tl.setVar("booksNewVendorAccountsPayableOpen", false);
+  tl.setVar("booksNewVendorOpeningBalance", "");
+  tl.setVar("booksNewVendorPaymentTerms", "Due on Receipt");
+  tl.setVar("booksNewVendorPaymentTermsOpen", false);
+  tl.setVar("booksNewVendorEnablePortal", false);
+  tl.setVar("booksNewVendorCountry", "");
+  tl.setVar("booksNewVendorCountryDropdownOpen", false);
+  tl.setVar("booksNewVendorAddress", "");
+  tl.setVar("booksNewVendorStreet2", "");
+  tl.setVar("booksNewVendorCity", "");
+  tl.setVar("booksNewVendorState", "Aberdeen");
+  tl.setVar("booksNewVendorStateOpen", false);
+  tl.setVar("booksNewVendorZip", "");
+  tl.setVar("booksNewVendorAddressPhone", "");
+  tl.setVar("booksNewVendorFax", "");
+  tl.setVar("booksNewVendorCpSalutationOpen", false);
 
   // Expenses state
   tl.setVar("booksExpenses", INITIAL_EXPENSES);
@@ -504,15 +562,115 @@ export function beginBooks(
   tl.setVar("booksExpenseViewsDropdownOpen", false);
   tl.setVar("booksActiveExpense", INITIAL_EXPENSES[0]);
   tl.setVar("booksExpenseFormTab", "record");
+  tl.setVar("booksExpenseDate", "11/05/2026");
+  tl.setVar("booksExpenseDatePickerOpen", false);
+  tl.setVar("booksExpenseEmployee", "None");
+  tl.setVar("booksExpenseEmployeeOpen", false);
+  tl.setVar("booksExpenseAccount", "Select an account");
+  tl.setVar("booksExpenseAccountOpen", false);
+  tl.setVar("booksExpenseAmount", "");
+  tl.setVar("booksExpenseAmountIs", "Tax Exclusive");
+  tl.setVar("booksExpensePaidThrough", "Select an account");
+  tl.setVar("booksExpensePaidThroughOpen", false);
+  tl.setVar("booksExpenseTax", "Select a Tax");
+  tl.setVar("booksExpenseTaxOpen", false);
+  tl.setVar("booksExpenseVendor", "None");
+  tl.setVar("booksExpenseVendorOpen", false);
+  tl.setVar("booksExpenseRef", "");
+  tl.setVar("booksExpenseNotes", "");
+  tl.setVar("booksExpenseCustomer", "Select or add a customer");
+  tl.setVar("booksExpenseCustomerOpen", false);
+  tl.setVar("booksExpenseBillable", false);
   tl.setVar("booksExpenseConfirmOpen", false);
   tl.setVar("booksExpenseToDeleteLabel", "11/2/2026");
   tl.setVar("booksExpenseToDeleteId", "exp-1");
   tl.setVar("booksExpenseFilePickerOpen", false);
   tl.setVar("booksAttachedReceipt", "");
 
+  // Mileage & Bulk state
+  tl.setVar("booksMileageCalcMethod", "distance");
+  tl.setVar("booksMileageDistance", "");
+  tl.setVar("booksMileagePaidThrough", "Select an account");
+  tl.setVar("booksMileagePaidThroughOpen", false);
+  tl.setVar("booksMileageTax", "Select a Tax");
+  tl.setVar("booksMileageTaxOpen", false);
+  tl.setVar("booksMileageVendor", "None");
+  tl.setVar("booksMileageVendorOpen", false);
+  tl.setVar("booksBulkRow0DatePickerOpen", false);
+  tl.setVar("booksBulkRow0AccountOpen", false);
+  tl.setVar("booksBulkRow0PaidThroughOpen", false);
+  tl.setVar("booksBulkRow0VendorOpen", false);
+  tl.setVar("booksBulkRow1DatePickerOpen", false);
+  tl.setVar("booksBulkRow1AccountOpen", false);
+  tl.setVar("booksBulkRow1PaidThroughOpen", false);
+  tl.setVar("booksBulkRow1VendorOpen", false);
+
   // Toast state
   tl.setVar("booksToastOpen", false);
   tl.setVar("booksToastText", "");
+
+  // Step-specific preloaded states for independent scene starts
+  if (stepNum === 135) {
+    tl.setVar("booksPurchasesExpanded", false);
+  } else if (stepNum === 136) {
+    tl.setVar("booksActiveVendor", INITIAL_VENDORS[0]);
+  } else if (stepNum === 138) {
+    tl.setVar("booksNewVendorSalutation", "Mr.");
+    tl.setVar("booksNewVendorFirstName", "Daniel");
+    tl.setVar("booksNewVendorLastName", "Brooks");
+    tl.setVar("booksNewVendorCompanyName", "Harbour Logistics Ltd");
+    tl.setVar("booksNewVendorDisplayName", "Harbour Logistics Ltd");
+    tl.setVar("booksNewVendorEmail", "billing@harbourlogistics.co.uk");
+    tl.setVar("booksNewVendorWorkPhone", "020 7946 0812");
+    tl.setVar("booksNewVendorMobile", "07700 900543");
+    tl.setVar("booksNewVendorTab", "other");
+  } else if (stepNum === 139) {
+    tl.setVar("booksNewVendorSalutation", "Mr.");
+    tl.setVar("booksNewVendorFirstName", "Daniel");
+    tl.setVar("booksNewVendorLastName", "Brooks");
+    tl.setVar("booksNewVendorCompanyName", "Harbour Logistics Ltd");
+    tl.setVar("booksNewVendorDisplayName", "Harbour Logistics Ltd");
+    tl.setVar("booksNewVendorEmail", "billing@harbourlogistics.co.uk");
+    tl.setVar("booksNewVendorWorkPhone", "020 7946 0812");
+    tl.setVar("booksNewVendorMobile", "07700 900543");
+    tl.setVar("booksNewVendorTaxRate", "VAT Standard (20%)");
+    tl.setVar("booksNewVendorCompanyId", "HL-2026");
+    tl.setVar("booksNewVendorAccountsPayable", "Accounts Payable");
+    tl.setVar("booksNewVendorOpeningBalance", "1000");
+    tl.setVar("booksNewVendorPaymentTerms", "Net 30");
+    tl.setVar("booksNewVendorEnablePortal", true);
+    tl.setVar("booksNewVendorTab", "address");
+  } else if (stepNum === 140) {
+    tl.setVar("booksNewVendorSalutation", "Mr.");
+    tl.setVar("booksNewVendorFirstName", "Daniel");
+    tl.setVar("booksNewVendorLastName", "Brooks");
+    tl.setVar("booksNewVendorCompanyName", "Harbour Logistics Ltd");
+    tl.setVar("booksNewVendorDisplayName", "Harbour Logistics Ltd");
+    tl.setVar("booksNewVendorEmail", "billing@harbourlogistics.co.uk");
+    tl.setVar("booksNewVendorWorkPhone", "020 7946 0812");
+    tl.setVar("booksNewVendorMobile", "07700 900543");
+    tl.setVar("booksNewVendorTaxRate", "VAT Standard (20%)");
+    tl.setVar("booksNewVendorCompanyId", "HL-2026");
+    tl.setVar("booksNewVendorAccountsPayable", "Accounts Payable");
+    tl.setVar("booksNewVendorOpeningBalance", "1000");
+    tl.setVar("booksNewVendorPaymentTerms", "Net 30");
+    tl.setVar("booksNewVendorEnablePortal", true);
+    tl.setVar("booksNewVendorCountry", "United Kingdom");
+    tl.setVar("booksNewVendorAddress", "42 Maritime Way");
+    tl.setVar("booksNewVendorCity", "London");
+    tl.setVar("booksNewVendorState", "Aberdeen");
+    tl.setVar("booksNewVendorZip", "E14 5HP");
+    tl.setVar("booksNewVendorPhone", "020 7946 0812");
+    tl.setVar("booksNewVendorTab", "contacts");
+  } else if (stepNum === 144) {
+    tl.setVar("booksExpenseDate", "11/05/2026");
+    tl.setVar("booksExpenseEmployee", "None");
+    tl.setVar("booksExpenseAccount", "Cost of Goods Sold");
+    tl.setVar("booksExpenseAmount", "1000");
+    tl.setVar("booksExpenseAmountIs", "Tax Exclusive");
+    tl.setVar("booksExpensePaidThrough", "Undeposited Funds");
+    tl.setVar("booksExpenseTax", "VAT Standard (20%)");
+  }
 }
 
 /**

@@ -1,8 +1,11 @@
 export const CAPTIONS = {
-  openAddressTab: "Click the Address tab to enter address details.",
-  selectCountry: "Search and select United Kingdom.",
-  enterAddress: "Enter 10 Acme Street as street address.",
-  enterCityState: "Enter London and Aberdeen for city and state.",
-  enterZipPhone: "Enter EC1A 1AA and phone number.",
-  enterFax: "Enter the supplier fax number.",
+  clickPurchases: "Click Purchases to expand submenu.",
+  clickExpenses: "Click Expenses to view all recorded expenses.",
+  exploreHeader: "Review the Expenses toolbar, views, and action buttons.",
+  filterInvoiced: "Select Invoiced view to inspect invoices.",
+  reviewFlow: "Review the Life Cycle of an Expense empty state flow diagram.",
+  filterWithReceipts: "Select With Receipts view.",
+  restoreAll: "Return to All Expenses view.",
+  openDetails: "Click the first expense row to open its details card.",
+  backToList: "Click Back to return to Expenses list.",
 };

@@ -1,6 +1,6 @@
 export const CAPTIONS = {
-  "openDropdown": "Open the views dropdown to explore filtering options.",
-  "pickInvoiced": "Select Invoiced to inspect invoiced expense transactions.",
-  "pickWithReceipts": "Select With Receipts to filter by attached receipts.",
-  "restoreAll": "Select All to return to the full expenses table."
+  clickDelete: "Click the delete trash icon on an expense row.",
+  confirmPrompt: "Review the confirmation prompt: 'Delete 11/2/2026? This cannot be undone.'",
+  clickConfirm: "Click Delete to confirm expense deletion.",
+  deletedToast: "Expense deleted.",
 };

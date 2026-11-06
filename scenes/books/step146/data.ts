@@ -1,5 +1,15 @@
 export const CAPTIONS = {
-  "clickExpenses": "Click Expenses under Purchases to view expense records.",
-  "exploreControls": "Review Receipts Inbox, view filter, and creation actions.",
-  "reviewTable": "Inspect recorded operating expenses and unbilled amounts."
+  clickBulkTab: "Click the Bulk Add Expenses tab.",
+  row1Date: "Row 1: open calendar to pick expense date.",
+  row1Account: "Row 1: open Expense Account and select Cost of Goods Sold.",
+  row1Amount: "Row 1: enter amount £1000.",
+  row1PaidThrough: "Row 1: open Paid Through and select Accounts Receivable.",
+  row1Vendor: "Row 1: open Vendor and select Greenfield Packaging Ltd.",
+  row2Date: "Row 2: open calendar to pick expense date.",
+  row2Account: "Row 2: open Expense Account and select Office Supplies.",
+  row2Amount: "Row 2: enter amount £250.",
+  row2PaidThrough: "Row 2: open Paid Through and select Petty Cash.",
+  row2Vendor: "Row 2: open Vendor and select Victor Stationery.",
+  clickSave: "Click Save to record both bulk expenses.",
+  bulkSaved: "Both bulk expenses are displayed in the Expenses list.",
 };

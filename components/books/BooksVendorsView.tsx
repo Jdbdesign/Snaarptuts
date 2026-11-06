@@ -7,7 +7,7 @@ import {
   INITIAL_VENDORS,
   type VendorItem,
 } from "./books-data";
-import { Search, Plus, Trash2 } from "lucide-react";
+import { Search, Plus, Trash2, ChevronDown } from "lucide-react";
 
 type Props = {
   tl: Timeline;
@@ -16,6 +16,7 @@ type Props = {
 export function BooksVendorsView({ tl }: Props) {
   const vendors = useTimelineVar<VendorItem[]>(tl, "booksVendors", INITIAL_VENDORS);
   const statusFilter = useTimelineVar<string>(tl, "booksVendorStatusFilter", "Active");
+  const isStatusOpen = useTimelineVar<boolean>(tl, "booksVendorStatusFilterOpen", false);
   const searchQuery = useTimelineVar<string>(tl, "booksVendorSearchQuery", "");
 
   const filtered = vendors.filter((v) => {
@@ -98,22 +99,68 @@ export function BooksVendorsView({ tl }: Props) {
           </div>
 
           <div className="relative">
-            <select
+            <button
+              type="button"
               data-tl="select-vendors-status"
-              value={statusFilter}
-              onChange={(e) => tl.setVar("booksVendorStatusFilter", e.target.value)}
-              className="text-xs border border-gray-200 rounded-lg bg-white px-3 py-2 pr-8 focus:outline-none focus:border-[#2563EB] cursor-pointer"
+              onClick={() => tl.setVar("booksVendorStatusFilterOpen", !isStatusOpen)}
+              className="flex items-center gap-2 text-xs border border-gray-200 rounded-lg bg-white px-3 py-2 focus:outline-none focus:border-[#2563EB] cursor-pointer"
             >
-              <option data-tl="status-opt-active" value="Active">
-                Active
-              </option>
-              <option data-tl="status-opt-inactive" value="Inactive">
-                Inactive
-              </option>
-              <option data-tl="status-opt-all" value="All">
-                All
-              </option>
-            </select>
+              <span>{statusFilter}</span>
+              <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+            </button>
+
+            {isStatusOpen && (
+              <div
+                data-tl="dropdown-vendors-status"
+                className="absolute left-0 top-[calc(100%+4px)] z-30 w-32 rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+              >
+                <button
+                  type="button"
+                  data-tl="opt-status-active"
+                  onClick={() => {
+                    tl.setVar("booksVendorStatusFilter", "Active");
+                    tl.setVar("booksVendorStatusFilterOpen", false);
+                  }}
+                  className={`w-full px-3 py-1.5 text-left text-xs cursor-pointer ${
+                    statusFilter === "Active"
+                      ? "text-[#2563EB] font-medium bg-[#EFF6FF]"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
+                >
+                  Active
+                </button>
+                <button
+                  type="button"
+                  data-tl="opt-status-inactive"
+                  onClick={() => {
+                    tl.setVar("booksVendorStatusFilter", "Inactive");
+                    tl.setVar("booksVendorStatusFilterOpen", false);
+                  }}
+                  className={`w-full px-3 py-1.5 text-left text-xs cursor-pointer ${
+                    statusFilter === "Inactive"
+                      ? "text-[#2563EB] font-medium bg-[#EFF6FF]"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
+                >
+                  Inactive
+                </button>
+                <button
+                  type="button"
+                  data-tl="opt-status-all"
+                  onClick={() => {
+                    tl.setVar("booksVendorStatusFilter", "All");
+                    tl.setVar("booksVendorStatusFilterOpen", false);
+                  }}
+                  className={`w-full px-3 py-1.5 text-left text-xs cursor-pointer ${
+                    statusFilter === "All"
+                      ? "text-[#2563EB] font-medium bg-[#EFF6FF]"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
+                >
+                  All
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
