@@ -19,6 +19,7 @@ import {
   Paperclip,
   Barcode,
   Layers,
+  X,
 } from "lucide-react";
 
 type Props = {
@@ -225,11 +226,63 @@ export function BooksNewReceiptView({ tl }: Props) {
       className="flex-1 overflow-y-auto bg-[#F9FAFB] p-8 select-none"
     >
       <div className="max-w-5xl mx-auto space-y-6">
-        {/* Title */}
+        {/* Breadcrumb Navigation */}
+        <div className="flex items-center gap-2 text-xs text-gray-500">
+          <button
+            type="button"
+            data-tl="btn-breadcrumb-back"
+            onClick={() => {
+              tl.setVar("booksView", "receipts");
+              tl.setUrl(BOOKS_URLS.salesReceipts);
+            }}
+            className="hover:text-gray-900 cursor-pointer font-medium"
+          >
+            ← Back
+          </button>
+          <span>|</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-home"
+            onClick={() => {
+              tl.setVar("booksView", "home");
+              tl.setUrl(BOOKS_URLS.dashboard);
+            }}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Home
+          </button>
+          <span>&gt;</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-receipts"
+            onClick={() => {
+              tl.setVar("booksView", "receipts");
+              tl.setUrl(BOOKS_URLS.salesReceipts);
+            }}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Sales Receipts
+          </button>
+          <span>&gt;</span>
+          <span className="text-gray-800 font-medium">New</span>
+        </div>
+
+        {/* Title & Close */}
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-gray-900">
             New Sales Receipt
           </h1>
+          <button
+            type="button"
+            data-tl="btn-close-new-receipt"
+            onClick={() => {
+              tl.setVar("booksView", "receipts");
+              tl.setUrl(BOOKS_URLS.salesReceipts);
+            }}
+            className="p-1 text-gray-400 hover:text-gray-700 rounded-lg cursor-pointer transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Main Form Card */}

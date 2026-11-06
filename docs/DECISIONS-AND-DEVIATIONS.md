@@ -1357,3 +1357,13 @@ In accordance with the **COMPLETE EVERY FLOW** rule:
 
 
 
+
+
+### UI Match Fix Pass (Steps 78 to 110)
+- **Edit Recurring Invoice Screen**: Rebuilt to strictly match `1106(1).mp4` (ref frame `edit_rec_280.png`). Removed generic invoice form elements and card wrapper. Implemented 3-column grid (`Customer *`, `Profile Name *`, `Repeat Every *`), row 2 (`Start On *`, `Ends On`, `Never Expires`), row 3 (`Payment Terms`), thin divider, `Line Items` with `+ Add Item`, line items table (`Item Details` | `Qty` | `Rate` | `Amount`), totals with bold blue total, side-by-side textareas for Customer Notes & Terms, and bottom-right `Cancel` + purple `Save Changes`. Pre-filled with valid customer data and scripted Net 30 update saving end to end.
+- **Recurring Invoices Details Screen**: Added breadcrumb `Back | Home > Recurring Invoices > Details`, bold profile name header with Active badge, and 3 standard white section cards: `Schedule Details`, `Recurring Line Items`, and `Customer Notes`.
+- **Recurring Invoices List Empty State**: Removed decorative repeat icon to match video typography layout: `Automate your billing` heading, descriptive subtext, and purple all-caps `CREATE RECURRING INVOICE` button, with top header and `+ New` button visible.
+- **Recurring Invoices Row Selectors & Step 108 Fix**: Corrected selector generation in table rows where index-based fallback previously assigned `recurring-row-rec-1` to `rec-2` when filtered by search term "weekly", which caused a 3000ms timeout error and triggered the Next.js dev overlay "1 Issue" badge. Fixed row data-tl logic and verified 0 console errors.
+- **Recurring Invoices Preferences Dialog**: Added light blue info banner with Info icon, nested notification preferences card under Drafts option, footer disclaimer note, and styled action buttons.
+- **New Recurring Invoice Screen**: Added breadcrumb navigation `Back | Home > Recurring Invoices > New`, header `×` close icon, and PDF Template indicator in footer.
+- **Sales Receipts Views**: Added breadcrumb navigation and close buttons to New and Edit views; styled Payment Mode in list view as plain text (no pill badge); aligned two-column fields grid on Edit Sales Receipt; ensured Payment Details block sits at bottom of New Sales Receipt form.

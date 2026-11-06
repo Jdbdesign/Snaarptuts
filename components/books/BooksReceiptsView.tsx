@@ -151,10 +151,8 @@ export function BooksReceiptsView({ tl }: Props) {
                       <td className="py-3.5 px-5 text-right font-semibold text-gray-900">
                         £{rec.amount.toFixed(2)}
                       </td>
-                      <td className="py-3.5 px-5 text-gray-700 font-medium">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-gray-100 text-gray-800 border border-gray-200">
-                          {rec.paymentMode}
-                        </span>
+                      <td className="py-3.5 px-5 text-gray-700 font-medium uppercase text-xs">
+                        {rec.paymentMode}
                       </td>
                     </tr>
                   );

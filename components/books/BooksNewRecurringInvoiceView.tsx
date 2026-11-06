@@ -17,6 +17,7 @@ import {
   Plus,
   Trash2,
   Layers,
+  X,
 } from "lucide-react";
 
 type Props = {
@@ -266,9 +267,64 @@ export function BooksNewRecurringInvoiceView({ tl }: Props) {
       className="flex-1 overflow-y-auto bg-[#F9FAFB] p-8 select-none"
     >
       <div className="max-w-5xl mx-auto space-y-6">
-        <h1 className="text-xl font-bold text-gray-900">
-          New Recurring Invoice
-        </h1>
+        {/* Breadcrumb Navigation */}
+        <div className="flex items-center gap-2 text-xs text-gray-500">
+          <button
+            type="button"
+            data-tl="btn-breadcrumb-back"
+            onClick={() => {
+              tl.setVar("booksView", "recurring");
+              tl.setUrl(BOOKS_URLS.recurringInvoices);
+            }}
+            className="hover:text-gray-900 cursor-pointer font-medium"
+          >
+            ← Back
+          </button>
+          <span>|</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-home"
+            onClick={() => {
+              tl.setVar("booksView", "home");
+              tl.setUrl(BOOKS_URLS.dashboard);
+            }}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Home
+          </button>
+          <span>&gt;</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-recurring"
+            onClick={() => {
+              tl.setVar("booksView", "recurring");
+              tl.setUrl(BOOKS_URLS.recurringInvoices);
+            }}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Recurring Invoices
+          </button>
+          <span>&gt;</span>
+          <span className="text-gray-800 font-medium">New</span>
+        </div>
+
+        {/* Title & Close */}
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold text-gray-900">
+            New Recurring Invoice
+          </h1>
+          <button
+            type="button"
+            data-tl="btn-close-new-recurring"
+            onClick={() => {
+              tl.setVar("booksView", "recurring");
+              tl.setUrl(BOOKS_URLS.recurringInvoices);
+            }}
+            className="p-1 text-gray-400 hover:text-gray-700 rounded-lg cursor-pointer transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-6">
           {/* Top Fields Grid */}
@@ -1053,27 +1109,32 @@ export function BooksNewRecurringInvoiceView({ tl }: Props) {
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-end gap-3 pt-2">
-          <button
-            type="button"
-            data-tl="btn-cancel-recurring"
-            onClick={() => {
-              tl.setVar("booksView", "recurring");
-              tl.setUrl(BOOKS_URLS.recurringInvoices);
-            }}
-            className="px-4 py-2 border border-gray-200 hover:bg-gray-50 rounded-lg text-xs font-semibold text-gray-700 transition-colors cursor-pointer"
-          >
-            Cancel
-          </button>
+        <div className="flex items-center justify-between gap-4 pt-2">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              data-tl="btn-save-recurring"
+              onClick={handleSave}
+              className="px-5 py-2 bg-[#7014D9] hover:bg-[#5E10B7] text-white rounded-lg text-xs font-semibold shadow-sm transition-colors cursor-pointer"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              data-tl="btn-cancel-recurring"
+              onClick={() => {
+                tl.setVar("booksView", "recurring");
+                tl.setUrl(BOOKS_URLS.recurringInvoices);
+              }}
+              className="px-4 py-2 border border-gray-200 hover:bg-gray-50 rounded-lg text-xs font-semibold text-gray-700 transition-colors cursor-pointer"
+            >
+              Cancel
+            </button>
+          </div>
 
-          <button
-            type="button"
-            data-tl="btn-save-recurring"
-            onClick={handleSave}
-            className="px-5 py-2 bg-[#7014D9] hover:bg-[#5E10B7] text-white rounded-lg text-xs font-semibold shadow-sm transition-colors cursor-pointer"
-          >
-            Save
-          </button>
+          <div className="text-xs text-gray-500">
+            PDF Template: <span className="font-medium text-gray-700">&apos;Standard Template&apos;</span> <span className="text-[#7014D9] hover:underline cursor-pointer">Change</span>
+          </div>
         </div>
       </div>
     </div>

@@ -76,6 +76,41 @@ export function BooksReceiptDetailView({ tl }: Props) {
       className="flex-1 overflow-y-auto bg-[#F9FAFB] p-8 select-none"
     >
       <div className="max-w-5xl mx-auto space-y-6">
+        {/* Breadcrumb Navigation */}
+        <div className="flex items-center gap-2 text-xs text-gray-500">
+          <button
+            type="button"
+            data-tl="btn-breadcrumb-back"
+            onClick={handleBack}
+            className="hover:text-gray-900 cursor-pointer font-medium"
+          >
+            ← Back
+          </button>
+          <span>|</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-home"
+            onClick={() => {
+              tl.setVar("booksView", "home");
+              tl.setUrl(BOOKS_URLS.dashboard);
+            }}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Home
+          </button>
+          <span>&gt;</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-receipts"
+            onClick={handleBack}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Sales Receipts
+          </button>
+          <span>&gt;</span>
+          <span className="text-gray-800 font-medium">Details</span>
+        </div>
+
         {/* Top bar with back and actions */}
         <div className="flex items-center justify-between">
           <button

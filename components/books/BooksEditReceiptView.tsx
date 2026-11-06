@@ -8,7 +8,7 @@ import {
   type SalesReceiptItem,
   INITIAL_RECEIPTS,
 } from "./books-data";
-import { ChevronDown, ArrowLeft } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 
 type Props = {
   tl: Timeline;
@@ -28,6 +28,8 @@ export function BooksEditReceiptView({ tl }: Props) {
   const [customerNotes, setCustomerNotes] = useState<string>(
     activeReceipt?.customerNotes || "Auto-generated when invoice INV10008 was marked paid"
   );
+  const [paymentMode] = useState<string>(activeReceipt?.paymentMode || "Bank Transfer");
+  const [reference] = useState<string>(activeReceipt?.reference || "REF-8841");
 
   const handleSave = () => {
     const updated: SalesReceiptItem = {
@@ -64,27 +66,73 @@ export function BooksEditReceiptView({ tl }: Props) {
       className="flex-1 overflow-y-auto bg-[#F9FAFB] p-8 select-none"
     >
       <div className="max-w-4xl mx-auto space-y-6">
+        {/* Breadcrumb Navigation */}
+        <div className="flex items-center gap-2 text-xs text-gray-500">
+          <button
+            type="button"
+            data-tl="btn-breadcrumb-back"
+            onClick={handleCancel}
+            className="hover:text-gray-900 cursor-pointer font-medium"
+          >
+            ← Back
+          </button>
+          <span>|</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-home"
+            onClick={() => {
+              tl.setVar("booksView", "home");
+              tl.setUrl(BOOKS_URLS.dashboard);
+            }}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Home
+          </button>
+          <span>&gt;</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-receipts"
+            onClick={() => {
+              tl.setVar("booksView", "receipts");
+              tl.setUrl(BOOKS_URLS.salesReceipts);
+            }}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Sales Receipts
+          </button>
+          <span>&gt;</span>
+          <button
+            type="button"
+            data-tl="breadcrumb-receipt-details"
+            onClick={handleCancel}
+            className="hover:text-[#7014D9] cursor-pointer"
+          >
+            Details
+          </button>
+          <span>&gt;</span>
+          <span className="text-gray-800 font-medium">Edit</span>
+        </div>
+
+        {/* Title & Close */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              data-tl="btn-cancel-edit-receipt"
-              onClick={handleCancel}
-              className="text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <h1 className="text-xl font-bold text-gray-900">
-              Edit Sales Receipt {activeReceipt?.receiptNumber || "SR-00002"}
-            </h1>
-          </div>
+          <h1 className="text-xl font-bold text-gray-900">
+            Edit Sales Receipt {activeReceipt?.receiptNumber || "SR-00002"}
+          </h1>
+          <button
+            type="button"
+            data-tl="btn-cancel-edit-receipt"
+            onClick={handleCancel}
+            className="p-1 text-gray-400 hover:text-gray-700 rounded-lg cursor-pointer transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-6 text-xs">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="font-semibold text-gray-700 block mb-1">
-                Customer Name
+                Customer Name <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
@@ -96,7 +144,7 @@ export function BooksEditReceiptView({ tl }: Props) {
 
             <div>
               <label className="font-semibold text-gray-700 block mb-1">
-                Receipt Number
+                Sales Receipt#
               </label>
               <input
                 type="text"
@@ -108,12 +156,24 @@ export function BooksEditReceiptView({ tl }: Props) {
 
             <div>
               <label className="font-semibold text-gray-700 block mb-1">
-                Receipt Date
+                Receipt Date <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
                 readOnly
                 value={activeReceipt?.receiptDate || "11/05/2026"}
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 font-medium cursor-not-allowed"
+              />
+            </div>
+
+            <div>
+              <label className="font-semibold text-gray-700 block mb-1">
+                Payment Mode <span className="text-rose-500">*</span>
+              </label>
+              <input
+                type="text"
+                readOnly
+                value={paymentMode}
                 className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 font-medium cursor-not-allowed"
               />
             </div>
@@ -173,6 +233,18 @@ export function BooksEditReceiptView({ tl }: Props) {
                   </button>
                 </div>
               )}
+            </div>
+
+            <div>
+              <label className="font-semibold text-gray-700 block mb-1">
+                Reference#
+              </label>
+              <input
+                type="text"
+                readOnly
+                value={reference}
+                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 font-medium cursor-not-allowed"
+              />
             </div>
           </div>
 
