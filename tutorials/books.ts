@@ -267,6 +267,56 @@ import { Step133 } from "@/scenes/books/step133/Step133";
 import { runStep133, STEP133_DURATION_MS } from "@/scenes/books/step133/script";
 import { Step134 } from "@/scenes/books/step134/Step134";
 import { runStep134, STEP134_DURATION_MS } from "@/scenes/books/step134/script";
+import { Step135 } from "@/scenes/books/step135/Step135";
+import { runStep135, STEP135_DURATION_MS } from "@/scenes/books/step135/script";
+import { Step136 } from "@/scenes/books/step136/Step136";
+import { runStep136, STEP136_DURATION_MS } from "@/scenes/books/step136/script";
+import { Step137 } from "@/scenes/books/step137/Step137";
+import { runStep137, STEP137_DURATION_MS } from "@/scenes/books/step137/script";
+import { Step138 } from "@/scenes/books/step138/Step138";
+import { runStep138, STEP138_DURATION_MS } from "@/scenes/books/step138/script";
+import { Step139 } from "@/scenes/books/step139/Step139";
+import { runStep139, STEP139_DURATION_MS } from "@/scenes/books/step139/script";
+import { Step140 } from "@/scenes/books/step140/Step140";
+import { runStep140, STEP140_DURATION_MS } from "@/scenes/books/step140/script";
+import { Step141 } from "@/scenes/books/step141/Step141";
+import { runStep141, STEP141_DURATION_MS } from "@/scenes/books/step141/script";
+import { Step142 } from "@/scenes/books/step142/Step142";
+import { runStep142, STEP142_DURATION_MS } from "@/scenes/books/step142/script";
+import { Step143 } from "@/scenes/books/step143/Step143";
+import { runStep143, STEP143_DURATION_MS } from "@/scenes/books/step143/script";
+import { Step144 } from "@/scenes/books/step144/Step144";
+import { runStep144, STEP144_DURATION_MS } from "@/scenes/books/step144/script";
+import { Step145 } from "@/scenes/books/step145/Step145";
+import { runStep145, STEP145_DURATION_MS } from "@/scenes/books/step145/script";
+import { Step146 } from "@/scenes/books/step146/Step146";
+import { runStep146, STEP146_DURATION_MS } from "@/scenes/books/step146/script";
+import { Step147 } from "@/scenes/books/step147/Step147";
+import { runStep147, STEP147_DURATION_MS } from "@/scenes/books/step147/script";
+import { Step148 } from "@/scenes/books/step148/Step148";
+import { runStep148, STEP148_DURATION_MS } from "@/scenes/books/step148/script";
+import { Step149 } from "@/scenes/books/step149/Step149";
+import { runStep149, STEP149_DURATION_MS } from "@/scenes/books/step149/script";
+import { Step150 } from "@/scenes/books/step150/Step150";
+import { runStep150, STEP150_DURATION_MS } from "@/scenes/books/step150/script";
+import { Step151 } from "@/scenes/books/step151/Step151";
+import { runStep151, STEP151_DURATION_MS } from "@/scenes/books/step151/script";
+import { Step152 } from "@/scenes/books/step152/Step152";
+import { runStep152, STEP152_DURATION_MS } from "@/scenes/books/step152/script";
+import { Step153 } from "@/scenes/books/step153/Step153";
+import { runStep153, STEP153_DURATION_MS } from "@/scenes/books/step153/script";
+import { Step154 } from "@/scenes/books/step154/Step154";
+import { runStep154, STEP154_DURATION_MS } from "@/scenes/books/step154/script";
+import { Step155 } from "@/scenes/books/step155/Step155";
+import { runStep155, STEP155_DURATION_MS } from "@/scenes/books/step155/script";
+import { Step156 } from "@/scenes/books/step156/Step156";
+import { runStep156, STEP156_DURATION_MS } from "@/scenes/books/step156/script";
+import { Step157 } from "@/scenes/books/step157/Step157";
+import { runStep157, STEP157_DURATION_MS } from "@/scenes/books/step157/script";
+import { Step158 } from "@/scenes/books/step158/Step158";
+import { runStep158, STEP158_DURATION_MS } from "@/scenes/books/step158/script";
+import { Step159 } from "@/scenes/books/step159/Step159";
+import { runStep159, STEP159_DURATION_MS } from "@/scenes/books/step159/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -1627,6 +1677,256 @@ export const books: Tutorial = {
         durationMs: STEP134_DURATION_MS,
       },
     },
+    {
+      id: "vendors-open-list",
+      title: "Vendors: Open list & explore views",
+      url: BOOKS_URLS.vendors,
+      scene: {
+        Component: Step135,
+        run: runStep135,
+        durationMs: STEP135_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-search-filter",
+      title: "Vendors: Search and filter",
+      url: BOOKS_URLS.vendors,
+      scene: {
+        Component: Step136,
+        run: runStep136,
+        durationMs: STEP136_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-view-details",
+      title: "Vendors: View details",
+      url: BOOKS_URLS.vendorDetails,
+      scene: {
+        Component: Step137,
+        run: runStep137,
+        durationMs: STEP137_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-update-details",
+      title: "Vendors: Edit vendor details",
+      url: BOOKS_URLS.vendorDetails,
+      scene: {
+        Component: Step138,
+        run: runStep138,
+        durationMs: STEP138_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-new-primary-contact",
+      title: "Vendors: New vendor & primary contact",
+      url: BOOKS_URLS.newVendor,
+      scene: {
+        Component: Step139,
+        run: runStep139,
+        durationMs: STEP139_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-new-company-details",
+      title: "Vendors: Company name & display name",
+      url: BOOKS_URLS.newVendor,
+      scene: {
+        Component: Step140,
+        run: runStep140,
+        durationMs: STEP140_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-new-other-details",
+      title: "Vendors: Currency, terms & tax details",
+      url: BOOKS_URLS.newVendor,
+      scene: {
+        Component: Step141,
+        run: runStep141,
+        durationMs: STEP141_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-new-address",
+      title: "Vendors: Billing & shipping address",
+      url: BOOKS_URLS.newVendor,
+      scene: {
+        Component: Step142,
+        run: runStep142,
+        durationMs: STEP142_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-new-contact-persons",
+      title: "Vendors: Add contact persons",
+      url: BOOKS_URLS.newVendor,
+      scene: {
+        Component: Step143,
+        run: runStep143,
+        durationMs: STEP143_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-new-save",
+      title: "Vendors: Save new vendor",
+      url: BOOKS_URLS.vendors,
+      scene: {
+        Component: Step144,
+        run: runStep144,
+        durationMs: STEP144_DURATION_MS,
+      },
+    },
+    {
+      id: "vendors-delete",
+      title: "Vendors: Delete vendor",
+      url: BOOKS_URLS.vendors,
+      scene: {
+        Component: Step145,
+        run: runStep145,
+        durationMs: STEP145_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-open-list",
+      title: "Expenses: Open expenses list",
+      url: BOOKS_URLS.expenses,
+      scene: {
+        Component: Step146,
+        run: runStep146,
+        durationMs: STEP146_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-views-filter",
+      title: "Expenses: Views and filter",
+      url: BOOKS_URLS.expenses,
+      scene: {
+        Component: Step147,
+        run: runStep147,
+        durationMs: STEP147_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-new-vendor-account",
+      title: "Expenses: Choose vendor and expense account",
+      url: BOOKS_URLS.newExpense,
+      scene: {
+        Component: Step148,
+        run: runStep148,
+        durationMs: STEP148_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-new-amount-tax",
+      title: "Expenses: Enter amount and tax",
+      url: BOOKS_URLS.newExpense,
+      scene: {
+        Component: Step149,
+        run: runStep149,
+        durationMs: STEP149_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-new-paid-through",
+      title: "Expenses: Paid through, vendor notes & reference",
+      url: BOOKS_URLS.newExpense,
+      scene: {
+        Component: Step150,
+        run: runStep150,
+        durationMs: STEP150_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-new-customer-billable",
+      title: "Expenses: Billable expense and customer",
+      url: BOOKS_URLS.newExpense,
+      scene: {
+        Component: Step151,
+        run: runStep151,
+        durationMs: STEP151_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-new-upload-receipt",
+      title: "Expenses: Attach receipt file",
+      url: BOOKS_URLS.newExpense,
+      scene: {
+        Component: Step152,
+        run: runStep152,
+        durationMs: STEP152_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-new-save",
+      title: "Expenses: Save expense",
+      url: BOOKS_URLS.expenses,
+      scene: {
+        Component: Step153,
+        run: runStep153,
+        durationMs: STEP153_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-view-details",
+      title: "Expenses: View expense details",
+      url: BOOKS_URLS.expenseDetails,
+      scene: {
+        Component: Step154,
+        run: runStep154,
+        durationMs: STEP154_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-mileage-distance",
+      title: "Expenses: Mileage expense by distance",
+      url: BOOKS_URLS.newExpense,
+      scene: {
+        Component: Step155,
+        run: runStep155,
+        durationMs: STEP155_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-mileage-save",
+      title: "Expenses: Save mileage expense",
+      url: BOOKS_URLS.expenses,
+      scene: {
+        Component: Step156,
+        run: runStep156,
+        durationMs: STEP156_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-bulk-add",
+      title: "Expenses: Bulk add expenses",
+      url: BOOKS_URLS.newExpense,
+      scene: {
+        Component: Step157,
+        run: runStep157,
+        durationMs: STEP157_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-bulk-save",
+      title: "Expenses: Save bulk expenses",
+      url: BOOKS_URLS.expenses,
+      scene: {
+        Component: Step158,
+        run: runStep158,
+        durationMs: STEP158_DURATION_MS,
+      },
+    },
+    {
+      id: "expenses-delete",
+      title: "Expenses: Delete expense",
+      url: BOOKS_URLS.expenses,
+      scene: {
+        Component: Step159,
+        run: runStep159,
+        durationMs: STEP159_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -1639,10 +1939,12 @@ export const books: Tutorial = {
     { title: "Recurring Invoices: automated schedules", from: "books-recurring-empty-state" },
     { title: "Payments Received: record and manage payments", from: "books-payments-open-list" },
     { title: "Credit Notes: issue and manage credits", from: "books-credit-notes-open-list" },
+    { title: "Vendors", from: "vendors-open-list" },
+    { title: "Expenses", from: "expenses-open-list" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, and credit notes in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, and expenses in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

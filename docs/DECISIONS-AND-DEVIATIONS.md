@@ -1410,3 +1410,33 @@ Reference video: `1106(2).mp4` (3:30, git-ignored `ref/`, frames in `ref/books7/
 11. **Step 132 (Configure Credit Note Numbering)**: Opened via gear icon on New Credit Note form. Modal `BooksCreditNoteNumberingDialog` sets next sequence number to "00003", saves preferences, and updates Credit Note# to `CN-00003`.
 12. **Step 133 (Add Items in Bulk)**: Replaced modal with in-app `BooksCreditNoteBulkItemsDialog` searching "flour", selecting "Cassava Flour 10kg", and batch adding it to line items.
 13. **Step 134 (Save Credit Note as Open & Final Tour Completion)**: Applies Discount 5% and Adjustment, enters notes and terms, clicks "Save as Open", displays toast "Credit note created successfully", transitions to details view, and displays the complete tour end card covering all modules of Snaarp Books.
+
+## Snaarp Books Part 8: Purchases > Vendors (Steps 135 to 145) and Expenses (Steps 146 to 159)
+
+Reference video: `1106(3).mp4` (7:30, git-ignored `ref/`, frames in `ref/books8/`).
+
+### Sample Data & Realistic Content
+- Vendors: Greenfield Packaging Ltd, Victor Stationery, Northgate Supplies, Harbour Logistics Ltd
+- Customers: Acme Foods Ltd, Harvest Tables Ltd, Brightway Stores
+- Currency: GBP (£)
+- Dates: MM/DD/YYYY, default/today 11/05/2026
+- Vendor Data:
+  - `Greenfield Packaging Ltd` | `greenfield@example.com` | `+44 20 7946 0418` | Due on Receipt | Active
+  - `Victor Stationery` | `accounts@example.com` | `+44 20 7946 0731` | Due on Receipt | Active
+  - `Northgate Supplies` | `-` | `-` | `-` | Inactive
+  - `Harbour Logistics Ltd` | `daniel@example.com` | `+44 20 7946 0812` | Net 30 | Active
+- Expenses Data:
+  - `exp-1` | 11/02/2026 | Printing and Stationery | Victor Stationery | Petty Cash | Acme Foods Ltd | Non-Billable | £15.00
+  - `exp-2` | 11/04/2026 | Repairs and Maintenance | Greenfield Packaging Ltd | Undeposited Funds | - | Unbilled | £120.00
+  - `exp-3` | 11/05/2026 | Advertising and Marketing | Northgate Supplies | Petty Cash | Brightway Stores | Invoiced | £45.00
+
+### Decisions & Implementation Details
+1. **Purchases Submenu**: The sidebar Purchases group expands to display seven items: Vendors, Expenses, Recurring Expenses, Bills, Recurring Bills, Payments Made, Vendor Credits. In accordance with scope, Vendors and Expenses are interactive. The remaining five items are rendered in standard inactive style and logged as "leads to <module>".
+2. **Button Palette**: In accordance with the video recording, action buttons across Purchases (Vendors list `+ New`, New Vendor `Save`, Expenses list `+ New`, Record Expense `Save`, Mileage `Save`, Bulk Add `Save`) use royal blue (`#2563EB`). The `Update Vendor` button on the Vendor Details page retains the purple brand styling (`#7014D9`) to match the recording.
+3. **Import Workflows Omitted**: In both Vendors and Expenses list views, the `Import` button is rendered as an outlined action button to mirror the recording, but the import workflow is not wired to keep the tutorial focused on core creation and record management.
+4. **Display Name Suggestion**: On the New Vendor form, when the company name "Harbour Logistics Ltd" is entered, a floating dark tooltip pill suggests the company name for the Display Name field. Clicking it fills Display Name and auto-dismisses the bubble.
+5. **Mileage Calculation**: On the Record Mileage tab, distance entered in kilometers (20 km) is multiplied by the standard rate of £0.45/km to auto-populate the total amount (£9.00).
+6. **In-App Confirmation Dialogs**: Native browser confirm alerts shown in the recording for deleting a vendor or expense are replaced by accessible in-app confirmation modals (`BooksVendorConfirmDialog` and `BooksExpenseConfirmDialog`), followed by standard toast notifications.
+7. **In-App File Attachment**: Receipt upload replaces native OS file dialogs with the in-app `BooksExpenseFilePickerModal` selecting sample file `receipt-nov-2026.pdf`.
+8. **Filtered Views Empty State**: In the Expenses list, switching the Views dropdown to `Invoiced`, `Reimbursed`, `Non-Billable`, `With Receipts`, or `Without Receipts` displays the "Life Cycle of an Expense" flow diagram with 4 checklist bullets and the blue `Record Expense` button.
+

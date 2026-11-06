@@ -67,6 +67,9 @@ import { BooksCreditNoteConfirmDialog } from "./BooksCreditNoteConfirmDialog";
 import { BooksCreditNoteNumberingDialog } from "./BooksCreditNoteNumberingDialog";
 import { BooksCreditNoteBulkItemsDialog } from "./BooksCreditNoteBulkItemsDialog";
 import { BooksCreditNotePdfPreviewModal } from "./BooksCreditNotePdfPreviewModal";
+import { BooksVendorConfirmDialog } from "./BooksVendorConfirmDialog";
+import { BooksExpenseConfirmDialog } from "./BooksExpenseConfirmDialog";
+import { BooksExpenseFilePickerModal } from "./BooksExpenseFilePickerModal";
 import { BooksToast } from "./BooksToast";
 
 type Props = {
@@ -126,6 +129,19 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "credit-notes" ||
     currentView === "new-credit-note" ||
     currentView === "credit-note-details";
+  const isVendorView =
+    currentView === "vendors" ||
+    currentView === "new-vendor" ||
+    currentView === "vendor-details";
+  const isExpenseView =
+    currentView === "expenses" ||
+    currentView === "new-expense" ||
+    currentView === "expense-details";
+  const purchasesExpanded = useTimelineVar<boolean>(
+    tl,
+    "booksPurchasesExpanded",
+    isVendorView || isExpenseView
+  );
   const salesExpanded = useTimelineVar<boolean>(
     tl,
     "booksSalesExpanded",
@@ -450,16 +466,98 @@ export function BooksShell({ tl, children, overlay }: Props) {
             )}
           </div>
 
-          <button
-            data-tl="nav-books-purchases"
-            className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <ShoppingBag className="w-4 h-4 text-gray-500 shrink-0" />
-              <span className="whitespace-nowrap">Purchases</span>
-            </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          </button>
+          <div className="space-y-0.5">
+            <button
+              type="button"
+              data-tl="nav-books-purchases"
+              onClick={() => tl.setVar("booksPurchasesExpanded", !purchasesExpanded)}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                purchasesExpanded || isVendorView || isExpenseView
+                  ? "bg-[#F4EBFF] text-[#7014D9] font-semibold"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <ShoppingBag className="w-4 h-4 shrink-0" />
+                <span className="whitespace-nowrap">Purchases</span>
+              </div>
+              {purchasesExpanded ? (
+                <ChevronDown className="w-3.5 h-3.5 text-[#7014D9] shrink-0" />
+              ) : (
+                <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+              )}
+            </button>
+
+            {purchasesExpanded && (
+              <div className="pl-4 pr-1 py-0.5 space-y-0.5">
+                <button
+                  type="button"
+                  data-tl="nav-purchases-vendors"
+                  onClick={() => {
+                    tl.setVar("booksView", "vendors");
+                    tl.setUrl(BOOKS_URLS.vendors);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isVendorView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Vendors</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-purchases-expenses"
+                  onClick={() => {
+                    tl.setVar("booksView", "expenses");
+                    tl.setUrl(BOOKS_URLS.expenses);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isExpenseView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Expenses</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-purchases-recurring-expenses"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Recurring Expenses</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-purchases-bills"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Bills</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-purchases-recurring-bills"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Recurring Bills</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-purchases-payments-made"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Payments Made</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-purchases-vendor-credits"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Vendor Credits</span>
+                </button>
+              </div>
+            )}
+          </div>
 
           <button
             data-tl="nav-books-banking"
@@ -648,6 +746,9 @@ export function BooksShell({ tl, children, overlay }: Props) {
       <BooksCreditNoteNumberingDialog tl={tl} />
       <BooksCreditNoteBulkItemsDialog tl={tl} />
       <BooksCreditNotePdfPreviewModal tl={tl} />
+      <BooksVendorConfirmDialog tl={tl} />
+      <BooksExpenseConfirmDialog tl={tl} />
+      <BooksExpenseFilePickerModal tl={tl} />
       <BooksToast tl={tl} />
 
       {/* Optional fade overlay */}

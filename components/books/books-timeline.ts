@@ -10,6 +10,8 @@ import {
   INITIAL_RECURRING_INVOICES,
   INITIAL_PAYMENTS,
   INITIAL_CREDIT_NOTES,
+  INITIAL_VENDORS,
+  INITIAL_EXPENSES,
 } from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
@@ -476,6 +478,37 @@ export function beginBooks(
   tl.setVar("booksCreditNoteBulkSearch", "");
   tl.setVar("booksCreditNoteBulkSelected", []);
   tl.setVar("booksCreditNotePdfPreviewOpen", false);
+
+  // Purchases state (steps 135-159)
+  const isPurchasesPage =
+    page === "vendors" ||
+    page === "new-vendor" ||
+    page === "vendor-details" ||
+    page === "expenses" ||
+    page === "new-expense" ||
+    page === "expense-details";
+  tl.setVar("booksPurchasesExpanded", isPurchasesPage);
+
+  // Vendors state
+  tl.setVar("booksVendors", INITIAL_VENDORS);
+  tl.setVar("booksVendorStatusFilter", "Active");
+  tl.setVar("booksVendorSearchQuery", "");
+  tl.setVar("booksActiveVendor", INITIAL_VENDORS[0]);
+  tl.setVar("booksVendorConfirmOpen", false);
+  tl.setVar("booksVendorToDelete", "Northgate Supplies");
+  tl.setVar("booksNewVendorTab", "other");
+
+  // Expenses state
+  tl.setVar("booksExpenses", INITIAL_EXPENSES);
+  tl.setVar("booksExpenseViewName", "All Expenses");
+  tl.setVar("booksExpenseViewsDropdownOpen", false);
+  tl.setVar("booksActiveExpense", INITIAL_EXPENSES[0]);
+  tl.setVar("booksExpenseFormTab", "record");
+  tl.setVar("booksExpenseConfirmOpen", false);
+  tl.setVar("booksExpenseToDeleteLabel", "11/2/2026");
+  tl.setVar("booksExpenseToDeleteId", "exp-1");
+  tl.setVar("booksExpenseFilePickerOpen", false);
+  tl.setVar("booksAttachedReceipt", "");
 
   // Toast state
   tl.setVar("booksToastOpen", false);

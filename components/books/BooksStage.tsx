@@ -33,6 +33,12 @@ import { BooksRecordPaymentView } from "./BooksRecordPaymentView";
 import { BooksCreditNotesView } from "./BooksCreditNotesView";
 import { BooksCreditNoteDetailView } from "./BooksCreditNoteDetailView";
 import { BooksNewCreditNoteView } from "./BooksNewCreditNoteView";
+import { BooksVendorsView } from "./BooksVendorsView";
+import { BooksVendorDetailView } from "./BooksVendorDetailView";
+import { BooksNewVendorView } from "./BooksNewVendorView";
+import { BooksExpensesView } from "./BooksExpensesView";
+import { BooksExpenseDetailView } from "./BooksExpenseDetailView";
+import { BooksRecordExpenseView } from "./BooksRecordExpenseView";
 
 type Props = {
   tl: Timeline;
@@ -84,6 +90,12 @@ export function BooksStage({ tl }: Props) {
       {currentView === "credit-notes" && <BooksCreditNotesView tl={tl} />}
       {currentView === "credit-note-details" && <BooksCreditNoteDetailView tl={tl} />}
       {currentView === "new-credit-note" && <BooksNewCreditNoteView tl={tl} />}
+      {currentView === "vendors" && <BooksVendorsView tl={tl} />}
+      {currentView === "new-vendor" && <BooksNewVendorView tl={tl} />}
+      {currentView === "vendor-details" && <BooksVendorDetailView tl={tl} />}
+      {currentView === "expenses" && <BooksExpensesView tl={tl} />}
+      {currentView === "new-expense" && <BooksRecordExpenseView tl={tl} />}
+      {currentView === "expense-details" && <BooksExpenseDetailView tl={tl} />}
     </BooksShell>
   );
 }

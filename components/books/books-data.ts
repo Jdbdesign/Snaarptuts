@@ -695,6 +695,12 @@ export const BOOKS_URLS = {
   creditNotes: "books.snaarp.com/credit-notes",
   newCreditNote: "books.snaarp.com/credit-notes/new",
   creditNoteDetails: "books.snaarp.com/credit-notes/cn-00002",
+  vendors: "books.snaarp.com/vendors",
+  newVendor: "books.snaarp.com/vendors/new",
+  vendorDetails: "books.snaarp.com/vendors/details",
+  expenses: "books.snaarp.com/expenses",
+  newExpense: "books.snaarp.com/expenses/new",
+  expenseDetails: "books.snaarp.com/expenses/details",
 };
 
 export type BooksPage =
@@ -730,7 +736,13 @@ export type BooksPage =
   | "edit-payment"
   | "credit-notes"
   | "new-credit-note"
-  | "credit-note-details";
+  | "credit-note-details"
+  | "vendors"
+  | "new-vendor"
+  | "vendor-details"
+  | "expenses"
+  | "new-expense"
+  | "expense-details";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -2561,5 +2573,226 @@ export const INITIAL_CREDIT_NOTES: CreditNoteItem[] = [
     customerNotes: "Rebate on bulk purchase pricing difference.",
     termsAndConditions: "Standard credit note terms apply.",
     pdfTemplate: "Standard Template",
+  },
+];
+
+// ── Vendors & Expenses Data Types & Lists ─────────────────────────────────────
+
+export interface VendorContactPerson {
+  id: string;
+  salutation: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  workPhone: string;
+  mobile: string;
+}
+
+export interface VendorItem {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  paymentTerms: string;
+  status: "Active" | "Inactive";
+  salutation?: string;
+  firstName?: string;
+  lastName?: string;
+  companyName?: string;
+  displayName?: string;
+  workPhone?: string;
+  mobile?: string;
+  language?: string;
+  taxRate?: string;
+  companyId?: string;
+  currency?: string;
+  accountsPayable?: string;
+  openingBalance?: string;
+  enablePortal?: boolean;
+  attention?: string;
+  country?: string;
+  address?: string;
+  street2?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  fax?: string;
+  taxIdentification?: string;
+  notes?: string;
+  contactPersons?: VendorContactPerson[];
+}
+
+export const INITIAL_VENDORS: VendorItem[] = [
+  {
+    id: "vend-greenfield",
+    name: "Greenfield Packaging Ltd",
+    email: "greenfield@example.com",
+    phone: "+44 20 7946 0418",
+    paymentTerms: "Due on Receipt",
+    status: "Active",
+    salutation: "Mr.",
+    firstName: "Arthur",
+    lastName: "Pendleton",
+    companyName: "Greenfield Packaging Ltd",
+    displayName: "Greenfield Packaging Ltd",
+    workPhone: "+44 20 7946 0418",
+    mobile: "+44 7700 900122",
+    language: "English",
+    taxRate: "VAT Standard (20%)",
+    companyId: "GP-9021",
+    currency: "GBP- British Pound",
+    accountsPayable: "Accounts Payable",
+    openingBalance: "0.00",
+    enablePortal: true,
+    country: "United Kingdom",
+    address: "10 Acme Street, London, EC1A 1AA",
+    city: "London",
+    state: "Greater London",
+    zipCode: "EC1A 1AA",
+    fax: "+44 20 7946 0991",
+    taxIdentification: "GB 123 4567 89",
+    notes: "Preferred packaging supplier",
+    contactPersons: [
+      {
+        id: "cp-1",
+        salutation: "Ms.",
+        firstName: "Sarah",
+        lastName: "Jenkins",
+        email: "sarah.j@greenfield.example",
+        workPhone: "020 7946 0419",
+        mobile: "07700 900123",
+      },
+    ],
+  },
+  {
+    id: "vend-victor",
+    name: "Victor Stationery",
+    email: "accounts@example.com",
+    phone: "+44 20 7946 0731",
+    paymentTerms: "Due on Receipt",
+    status: "Active",
+    salutation: "Mr.",
+    firstName: "Victor",
+    lastName: "Vance",
+    companyName: "Victor Stationery",
+    displayName: "Victor Stationery",
+    workPhone: "+44 20 7946 0731",
+    mobile: "+44 7700 900234",
+    language: "English",
+    taxRate: "VAT Standard (20%)",
+    companyId: "VS-4412",
+    currency: "GBP- British Pound",
+    accountsPayable: "Accounts Payable",
+    openingBalance: "0.00",
+    enablePortal: false,
+    country: "United Kingdom",
+    address: "5 High Street, London, EC2M 4AA",
+    city: "London",
+    state: "Greater London",
+    zipCode: "EC2M 4AA",
+    fax: "+44 20 7946 0992",
+    taxIdentification: "GB 987 6543 21",
+    notes: "Office supplies & stationery",
+    contactPersons: [],
+  },
+  {
+    id: "vend-northgate",
+    name: "Northgate Supplies",
+    email: "-",
+    phone: "-",
+    paymentTerms: "-",
+    status: "Inactive",
+    salutation: "",
+    firstName: "",
+    lastName: "",
+    companyName: "Northgate Supplies",
+    displayName: "Northgate Supplies",
+    workPhone: "",
+    mobile: "",
+    language: "English",
+    taxRate: "No Tax",
+    companyId: "NS-1001",
+    currency: "GBP- British Pound",
+    accountsPayable: "Accounts Payable",
+    openingBalance: "0.00",
+    enablePortal: false,
+    country: "United Kingdom",
+    address: "-",
+    city: "-",
+    state: "-",
+    zipCode: "-",
+    fax: "-",
+    taxIdentification: "-",
+    notes: "-",
+    contactPersons: [],
+  },
+];
+
+export interface ExpenseItem {
+  id: string;
+  date: string;
+  reference: string;
+  amount: number;
+  status: "Unbilled" | "Invoiced" | "Reimbursed" | "Non-Billable";
+  expenseAccount: string;
+  amountIs: "Tax Inclusive" | "Tax Exclusive";
+  paidThrough: string;
+  vendor: string;
+  tax: string;
+  totalInclTax?: string;
+  notes?: string;
+  customerName?: string;
+  billable?: boolean;
+  created?: string;
+}
+
+export const INITIAL_EXPENSES: ExpenseItem[] = [
+  {
+    id: "exp-1",
+    date: "11/2/2026",
+    reference: "7845",
+    amount: 200.0,
+    status: "Unbilled",
+    expenseAccount: "Cost of Goods Sold",
+    amountIs: "Tax Exclusive",
+    paidThrough: "Petty Cash",
+    vendor: "Greenfield Packaging Ltd",
+    tax: "No Tax",
+    notes: "Warehouse packing supplies",
+    customerName: "Acme Foods Ltd",
+    billable: true,
+    created: "11/3/2026",
+  },
+  {
+    id: "exp-2",
+    date: "11/2/2026",
+    reference: "7845",
+    amount: 200.0,
+    status: "Unbilled",
+    expenseAccount: "Cost of Goods Sold",
+    amountIs: "Tax Exclusive",
+    paidThrough: "Petty Cash",
+    vendor: "Greenfield Packaging Ltd",
+    tax: "No Tax",
+    notes: "Shipping boxes",
+    customerName: "Acme Foods Ltd",
+    billable: true,
+    created: "11/3/2026",
+  },
+  {
+    id: "exp-3",
+    date: "10/13/2026",
+    reference: "-",
+    amount: 500.0,
+    status: "Unbilled",
+    expenseAccount: "Advertising and Marketing",
+    amountIs: "Tax Exclusive",
+    paidThrough: "Undeposited Funds",
+    vendor: "Victor Stationery",
+    tax: "No Tax",
+    notes: "Q4 printed brochures",
+    customerName: "",
+    billable: false,
+    created: "10/14/2026",
   },
 ];
