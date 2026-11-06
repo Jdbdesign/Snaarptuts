@@ -3,6 +3,7 @@ import {
   beginBooks,
   finishBooks,
   ring,
+  scrollView,
 } from "@/components/books/books-timeline";
 import { BOOKS_URLS, INITIAL_INVOICES } from "@/components/books/books-data";
 import { STEP63_CAPTIONS } from "./data";
@@ -16,7 +17,7 @@ export async function runStep63(tl: Timeline) {
 
   await tl.wait(400);
   tl.showCaption(STEP63_CAPTIONS.viewPlan);
-  await tl.scrollTo("[data-scroller=true]", 320);
+  await scrollView(tl, 320);
 
   await tl.wait(600);
   tl.showCaption(STEP63_CAPTIONS.installments);

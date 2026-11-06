@@ -288,8 +288,8 @@ export function BooksNewInvoiceView({ tl }: Props) {
     tl.setVar("booksActiveInvoice", newInvoice);
     tl.setVar("booksToastText", "Invoice saved as draft");
     tl.setVar("booksToastOpen", true);
-    tl.setVar("booksView", "invoices");
-    tl.setUrl(BOOKS_URLS.invoices);
+    tl.setVar("booksView", "invoice-detail");
+    tl.setUrl(BOOKS_URLS.invoiceDetails);
   };
 
   const handleSaveAndSend = async () => {
@@ -344,8 +344,8 @@ export function BooksNewInvoiceView({ tl }: Props) {
     await new Promise((r) => setTimeout(r, 600));
     tl.setVar("booksToastText", "Invoice sent successfully.");
     tl.setVar("booksToastOpen", true);
-    tl.setVar("booksView", "invoices");
-    tl.setUrl(BOOKS_URLS.invoices);
+    tl.setVar("booksView", "invoice-detail");
+    tl.setUrl(BOOKS_URLS.invoiceDetails);
   };
 
   const planSum = installments.reduce((acc, it) => acc + (it.amount || 0), 0);

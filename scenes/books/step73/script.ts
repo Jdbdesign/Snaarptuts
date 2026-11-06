@@ -3,6 +3,7 @@ import {
   beginBooks,
   finishBooks,
   pressOn,
+  scrollView,
   ring,
 } from "@/components/books/books-timeline";
 import { BOOKS_URLS } from "@/components/books/books-data";
@@ -19,7 +20,7 @@ export async function runStep73(tl: Timeline) {
   tl.setVar("booksInvoiceShipping", 4);
   tl.setVar("booksInvoiceAdjustment", 2);
 
-  await tl.scrollTo("[data-scroller=true]", 450);
+  await scrollView(tl, 450);
 
   await tl.wait(400);
   tl.showCaption(STEP73_CAPTIONS.customerNotes);

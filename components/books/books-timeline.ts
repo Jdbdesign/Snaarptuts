@@ -315,3 +315,9 @@ export async function finishBooks(tl: Timeline, totalDurationMs: number) {
   tl.setVar("fade", true);
   await tl.wait(400);
 }
+
+/** Scroll the current Books page (the view's own scrolling panel) to a position. Waits for the view to mount first. */
+export async function scrollView(tl: Timeline, top: number, ms = 1000) {
+  await tl.waitForElement("[data-scroller=true]");
+  await tl.scrollPanelTo("[data-scroller=true]", top, ms);
+}
