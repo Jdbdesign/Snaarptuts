@@ -1301,6 +1301,49 @@ In accordance with the **COMPLETE EVERY FLOW** rule:
 16. **Step 76 (Save as Draft)**: Clicks "Save as Draft", preserves invoice with Draft status, displays toast "Invoice saved as draft.", and opens details view showing Draft status badge.
 17. **Step 77 (Save and Send)**: Form with Harvest Tables Ltd (Palm Oil £111.00 + Delivery Fee £10.00 = Total £121.00, Scheduled plan 2x £60.50). Clicks purple "Save and Send", displays toast "Invoice saved and sent to customer successfully.", transitions to details view with Sent badge, and triggers the final Completion Card ("Tour complete / You can now manage your Home dashboard, catalog items, client accounts, sales quotes, and customer invoices in Snaarp Books.").
 
+## Snaarp Books Part 5: Sales > Sales Receipts (Steps 78 to 96)
+
+### Sample Data & Realistic Content
+All real personal names, client data, and phone numbers from video recording `1106(1).mp4` were replaced with clean, UK-compliant sample data:
+- Currency: British Pound Sterling (GBP £).
+- Date format: `MM/DD/YYYY` (today is `11/05/2026`).
+- Standard VAT: 20%.
+- Customers: Acme Foods Ltd, Harvest Tables Ltd, Sterling Interiors, Brightway Stores.
+- Items: Organic Rice 25kg, Palm Oil 5L, Cassava Flour 10kg, Delivery Fee, Reusable Tote Bag.
+- Initial sales receipts catalog:
+  - `SR-00002` | Acme Foods Ltd | 11/05/2026 | GBP 156.00 | Paid (Bank Transfer, Petty Cash)
+  - `SR-00001` | Harvest Tables Ltd | 11/04/2026 | GBP 84.00 | Paid (Cash, Bank Account)
+
+### Completed Beyond the Video
+In accordance with the **COMPLETE EVERY FLOW** rule:
+1. **Errors in Video Left Out**: Any transient loading or network glitches in the recording were omitted. Every flow completes with clean in-app confirmation and success toast feedback.
+2. **Step 82 (Send Receipt to Customer)**: Shows brief inline spinner, toast "Sales receipt sent to customer successfully."
+3. **Step 83 (Download Receipt PDF)**: Displays in-app progress and toast "Sales receipt PDF downloaded." (no native browser download popup).
+4. **Step 84 (Preview Receipt PDF)**: Replaced external viewer with in-app modal `BooksReceiptPdfPreviewModal` matching the video's "Sales Receipt Pdf" layout with Page 1 of 1 indicator and document preview.
+5. **Step 85 (Edit Receipt)**: Opens edit view for `SR-00002`, updates Deposit To account to "Bank Account", saves changes, displays toast "Sales receipt updated successfully", and updates detail view.
+6. **Step 86 (Delete Receipt)**: In-app confirmation dialog `BooksReceiptConfirmDialog` ("Delete this sales receipt? / This cannot be undone."). Confirms deletion, displays toast "Sales receipt deleted successfully", and returns to Receipts list.
+7. **Step 88 (Configure Receipt Numbering)**: Opened via the gear icon on the New Receipt form. Modal `BooksReceiptNumberingDialog` sets next sequence number to "00003", saves preferences, and updates Receipt# to `SR-00003`.
+8. **Step 93 (Scan Barcode)**: Replaced hardware scanner with in-app `BooksReceiptScanDialog` modal with barcode "5012345678900", appending Delivery Fee (£10.00) to line items.
+9. **Step 94 (Bulk Add Items)**: Replaced modal with in-app `BooksReceiptBulkItemsDialog` searching "tote", selecting "Reusable Tote Bag" and "Notebook A5", and batch adding them.
+10. **Step 96 (Add Notes, Attachment, and Save Receipt)**: Attaches `Delivery-note.pdf` via in-app file picker `BooksReceiptFilePickerModal`, saves receipt, displays toast "Sales receipt created successfully", and transitions to details view.
+
+## Snaarp Books Part 6: Sales > Recurring Invoices (Steps 97 to 110)
+
+### Sample Data & Realistic Content
+- Frequency options: Daily, Weekly, Month, Year.
+- Recurring invoice preferences: "Create Invoices as Drafts", "Create and Send Invoices", "Create, Charge and Send Invoices".
+- Initial profiles:
+  - `REC-00001` | Weekly Produce Box | Harvest Tables Ltd | Month | 11/05/2026 | £800.00 | Active
+  - `REC-00002` | Monthly Catering Retainer | Sterling Interiors | Month | 10/01/2026 | £320.00 | Stopped
+
+### Completed Beyond the Video
+1. **Step 97 (Empty State & Navigation)**: Shows empty state view with illustration, "+ New Recurring Invoice" button, and table view.
+2. **Step 101 & 102 (Stop and Resume Profile)**: Toggles profile status between "Stopped" and "Active" with toasts "Recurring invoice profile stopped" and "Recurring invoice profile resumed".
+3. **Step 104 (Delete Recurring Profile)**: Uses in-app confirmation modal `BooksRecurringConfirmDialog` ("Delete this recurring invoice profile? / This cannot be undone."). Confirms deletion, displays toast "Recurring profile deleted successfully", and returns to Recurring Invoices list.
+4. **Step 107 (Configure Preferences)**: Opened via gear icon beside Preferences on New Recurring Invoice form. In-app modal `BooksRecurringPreferencesDialog` selects "Create Invoices as Drafts", saves, and updates the form.
+5. **Step 110 (Create Profile & Completion)**: Creates profile `REC-00003` for Harvest Tables Ltd (£800.00 / month), displays toast "Recurring invoice profile created successfully", opens profile detail view with Active badge, and displays completion card.
+
+
 
 
 

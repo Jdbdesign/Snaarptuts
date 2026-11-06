@@ -30,7 +30,7 @@ const FROM = arg("from") ? Number(arg("from")) : 1;
 const OUT = arg("out", "docs/QA-VISIBILITY.md")!;
 // --retry <report.md>: replay only the steps (and viewports) that a previous report listed, e.g. at --speed 1 to rule out playback-speed artefacts
 const RETRY = arg("retry");
-const TUTORIALS = ["snaarp-360", "snaarp-mail", "snaarp-doc", "snaarp-admin", "snaarp-slides", "snaarp-sheets", "workforce", "onecardx", "drive"];
+const TUTORIALS = ["snaarp-360", "snaarp-mail", "snaarp-doc", "snaarp-admin", "snaarp-slides", "snaarp-sheets", "workforce", "onecardx", "drive", "books"];
 const VIEWPORTS = (arg("viewport") ? [arg("viewport")!] : ["1920x1080", "1440x900", "1280x720", "390x844"]).map((v) => {
   const [w, h] = v.split("x").map(Number);
   return { w, h, name: v };
@@ -288,7 +288,9 @@ async function runStep(browser: Browser, tutorial: string, index: number, vp: { 
     await page.waitForFunction(
       () => {
         try {
-          const raw = localStorage.getItem("snaarp-tutorials:progress:v1");
+          const raw =
+            localStorage.getItem("snaarp-tutorials:progress:v3") ||
+            localStorage.getItem("snaarp-tutorials:progress:v1");
           return !!raw && Object.values(JSON.parse(raw) as Record<string, { completed: string[] }>).some((p) => p.completed.length > 0);
         } catch {
           return false;
