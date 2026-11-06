@@ -232,7 +232,10 @@ export function beginBooks(
   tl.setVar("booksQuoteSalesperson", "None");
   tl.setVar("booksQuoteProject", "None");
   tl.setVar("booksQuoteSubject", "");
-  tl.setVar("booksQuoteLineItems", []);
+  // one blank row, exactly as the New Quote form opens (an empty list leaves the item table with no row to click)
+  tl.setVar("booksQuoteLineItems", [
+    { id: "initial-row", name: "", quantity: 1, rate: 0, tax: "Select a Tax", amount: 0 },
+  ]);
   tl.setVar("booksQuoteDiscount", 0);
   tl.setVar("booksQuoteShipping", 0);
   tl.setVar("booksQuoteAdjustment", 0);
@@ -277,7 +280,10 @@ export function beginBooks(
   tl.setVar("booksInvoiceSalesperson", "None");
   tl.setVar("booksInvoiceSubject", "");
   tl.setVar("booksInvoiceCustomer", "");
-  tl.setVar("booksInvoiceLineItems", []);
+  // one blank row, exactly as the New Invoice form opens
+  tl.setVar("booksInvoiceLineItems", [
+    { id: "initial-row", name: "", quantity: 1, rate: 0, tax: "Select a Tax", amount: 0 },
+  ]);
   tl.setVar("booksInvoiceDiscount", 0);
   tl.setVar("booksInvoiceShipping", 0);
   tl.setVar("booksInvoiceAdjustment", 0);
