@@ -219,6 +219,54 @@ import { Step109 } from "@/scenes/books/step109/Step109";
 import { runStep109, STEP109_DURATION_MS } from "@/scenes/books/step109/script";
 import { Step110 } from "@/scenes/books/step110/Step110";
 import { runStep110, STEP110_DURATION_MS } from "@/scenes/books/step110/script";
+import { Step111 } from "@/scenes/books/step111/Step111";
+import { runStep111, STEP111_DURATION_MS } from "@/scenes/books/step111/script";
+import { Step112 } from "@/scenes/books/step112/Step112";
+import { runStep112, STEP112_DURATION_MS } from "@/scenes/books/step112/script";
+import { Step113 } from "@/scenes/books/step113/Step113";
+import { runStep113, STEP113_DURATION_MS } from "@/scenes/books/step113/script";
+import { Step114 } from "@/scenes/books/step114/Step114";
+import { runStep114, STEP114_DURATION_MS } from "@/scenes/books/step114/script";
+import { Step115 } from "@/scenes/books/step115/Step115";
+import { runStep115, STEP115_DURATION_MS } from "@/scenes/books/step115/script";
+import { Step116 } from "@/scenes/books/step116/Step116";
+import { runStep116, STEP116_DURATION_MS } from "@/scenes/books/step116/script";
+import { Step117 } from "@/scenes/books/step117/Step117";
+import { runStep117, STEP117_DURATION_MS } from "@/scenes/books/step117/script";
+import { Step118 } from "@/scenes/books/step118/Step118";
+import { runStep118, STEP118_DURATION_MS } from "@/scenes/books/step118/script";
+import { Step119 } from "@/scenes/books/step119/Step119";
+import { runStep119, STEP119_DURATION_MS } from "@/scenes/books/step119/script";
+import { Step120 } from "@/scenes/books/step120/Step120";
+import { runStep120, STEP120_DURATION_MS } from "@/scenes/books/step120/script";
+import { Step121 } from "@/scenes/books/step121/Step121";
+import { runStep121, STEP121_DURATION_MS } from "@/scenes/books/step121/script";
+import { Step122 } from "@/scenes/books/step122/Step122";
+import { runStep122, STEP122_DURATION_MS } from "@/scenes/books/step122/script";
+import { Step123 } from "@/scenes/books/step123/Step123";
+import { runStep123, STEP123_DURATION_MS } from "@/scenes/books/step123/script";
+import { Step124 } from "@/scenes/books/step124/Step124";
+import { runStep124, STEP124_DURATION_MS } from "@/scenes/books/step124/script";
+import { Step125 } from "@/scenes/books/step125/Step125";
+import { runStep125, STEP125_DURATION_MS } from "@/scenes/books/step125/script";
+import { Step126 } from "@/scenes/books/step126/Step126";
+import { runStep126, STEP126_DURATION_MS } from "@/scenes/books/step126/script";
+import { Step127 } from "@/scenes/books/step127/Step127";
+import { runStep127, STEP127_DURATION_MS } from "@/scenes/books/step127/script";
+import { Step128 } from "@/scenes/books/step128/Step128";
+import { runStep128, STEP128_DURATION_MS } from "@/scenes/books/step128/script";
+import { Step129 } from "@/scenes/books/step129/Step129";
+import { runStep129, STEP129_DURATION_MS } from "@/scenes/books/step129/script";
+import { Step130 } from "@/scenes/books/step130/Step130";
+import { runStep130, STEP130_DURATION_MS } from "@/scenes/books/step130/script";
+import { Step131 } from "@/scenes/books/step131/Step131";
+import { runStep131, STEP131_DURATION_MS } from "@/scenes/books/step131/script";
+import { Step132 } from "@/scenes/books/step132/Step132";
+import { runStep132, STEP132_DURATION_MS } from "@/scenes/books/step132/script";
+import { Step133 } from "@/scenes/books/step133/Step133";
+import { runStep133, STEP133_DURATION_MS } from "@/scenes/books/step133/script";
+import { Step134 } from "@/scenes/books/step134/Step134";
+import { runStep134, STEP134_DURATION_MS } from "@/scenes/books/step134/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -1339,6 +1387,246 @@ export const books: Tutorial = {
         durationMs: STEP110_DURATION_MS,
       },
     },
+    {
+      id: "books-payments-open-list",
+      title: "Payments Received: Open payments list",
+      url: BOOKS_URLS.paymentsReceived,
+      scene: {
+        Component: Step111,
+        run: runStep111,
+        durationMs: STEP111_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-search",
+      title: "Payments Received: Search payments",
+      url: BOOKS_URLS.paymentsReceived,
+      scene: {
+        Component: Step112,
+        run: runStep112,
+        durationMs: STEP112_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-open-details",
+      title: "Payments Received: Open payment details",
+      url: BOOKS_URLS.paymentDetails,
+      scene: {
+        Component: Step113,
+        run: runStep113,
+        durationMs: STEP113_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-send-receipt",
+      title: "Payments Received: Send receipt",
+      url: BOOKS_URLS.paymentDetails,
+      scene: {
+        Component: Step114,
+        run: runStep114,
+        durationMs: STEP114_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-download-pdf",
+      title: "Payments Received: Download PDF",
+      url: BOOKS_URLS.paymentDetails,
+      scene: {
+        Component: Step115,
+        run: runStep115,
+        durationMs: STEP115_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-preview-pdf",
+      title: "Payments Received: Preview PDF",
+      url: BOOKS_URLS.paymentDetails,
+      scene: {
+        Component: Step116,
+        run: runStep116,
+        durationMs: STEP116_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-edit",
+      title: "Payments Received: Edit payment",
+      url: BOOKS_URLS.editPayment,
+      scene: {
+        Component: Step117,
+        run: runStep117,
+        durationMs: STEP117_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-record-open",
+      title: "Payments Received: Open Record Payment",
+      url: BOOKS_URLS.newPayment,
+      scene: {
+        Component: Step118,
+        run: runStep118,
+        durationMs: STEP118_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-record-customer",
+      title: "Payments Received: Select customer",
+      url: BOOKS_URLS.newPayment,
+      scene: {
+        Component: Step119,
+        run: runStep119,
+        durationMs: STEP119_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-record-amount",
+      title: "Payments Received: Enter amount & bank charges",
+      url: BOOKS_URLS.newPayment,
+      scene: {
+        Component: Step120,
+        run: runStep120,
+        durationMs: STEP120_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-record-details",
+      title: "Payments Received: Numbering, mode & deposit",
+      url: BOOKS_URLS.newPayment,
+      scene: {
+        Component: Step121,
+        run: runStep121,
+        durationMs: STEP121_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-record-apply",
+      title: "Payments Received: Apply to unpaid invoices",
+      url: BOOKS_URLS.newPayment,
+      scene: {
+        Component: Step122,
+        run: runStep122,
+        durationMs: STEP122_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-record-notes-attach",
+      title: "Payments Received: Notes, attachments & thank you",
+      url: BOOKS_URLS.newPayment,
+      scene: {
+        Component: Step123,
+        run: runStep123,
+        durationMs: STEP123_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-save-paid",
+      title: "Payments Received: Save as paid",
+      url: BOOKS_URLS.paymentsReceived,
+      scene: {
+        Component: Step124,
+        run: runStep124,
+        durationMs: STEP124_DURATION_MS,
+      },
+    },
+    {
+      id: "books-payments-delete",
+      title: "Payments Received: Delete a payment",
+      url: BOOKS_URLS.paymentsReceived,
+      scene: {
+        Component: Step125,
+        run: runStep125,
+        durationMs: STEP125_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-open-list",
+      title: "Credit Notes: Open credit notes list",
+      url: BOOKS_URLS.creditNotes,
+      scene: {
+        Component: Step126,
+        run: runStep126,
+        durationMs: STEP126_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-open-new",
+      title: "Credit Notes: Create new credit note",
+      url: BOOKS_URLS.newCreditNote,
+      scene: {
+        Component: Step127,
+        run: runStep127,
+        durationMs: STEP127_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-customer",
+      title: "Credit Notes: Select customer",
+      url: BOOKS_URLS.newCreditNote,
+      scene: {
+        Component: Step128,
+        run: runStep128,
+        durationMs: STEP128_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-details",
+      title: "Credit Notes: Details & salesperson",
+      url: BOOKS_URLS.newCreditNote,
+      scene: {
+        Component: Step129,
+        run: runStep129,
+        durationMs: STEP129_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-items",
+      title: "Credit Notes: Add line items & accounts",
+      url: BOOKS_URLS.newCreditNote,
+      scene: {
+        Component: Step130,
+        run: runStep130,
+        durationMs: STEP130_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-bulk-items",
+      title: "Credit Notes: Add items in bulk",
+      url: BOOKS_URLS.newCreditNote,
+      scene: {
+        Component: Step131,
+        run: runStep131,
+        durationMs: STEP131_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-totals",
+      title: "Credit Notes: Discount, shipping & adjustments",
+      url: BOOKS_URLS.newCreditNote,
+      scene: {
+        Component: Step132,
+        run: runStep132,
+        durationMs: STEP132_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-notes-terms",
+      title: "Credit Notes: Customer notes & terms",
+      url: BOOKS_URLS.newCreditNote,
+      scene: {
+        Component: Step133,
+        run: runStep133,
+        durationMs: STEP133_DURATION_MS,
+      },
+    },
+    {
+      id: "books-credit-notes-save-open",
+      title: "Credit Notes: Save and open",
+      url: BOOKS_URLS.creditNotes,
+      scene: {
+        Component: Step134,
+        run: runStep134,
+        durationMs: STEP134_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -1349,10 +1637,12 @@ export const books: Tutorial = {
     { title: "Invoices: create a new invoice", from: "invoices-new-choose-customer" },
     { title: "Sales Receipts: create, manage and send", from: "books-receipts-open-list" },
     { title: "Recurring Invoices: automated schedules", from: "books-recurring-empty-state" },
+    { title: "Payments Received: record and manage payments", from: "books-payments-open-list" },
+    { title: "Credit Notes: issue and manage credits", from: "books-credit-notes-open-list" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, and recurring invoices in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, and credit notes in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

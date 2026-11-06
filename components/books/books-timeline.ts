@@ -8,6 +8,8 @@ import {
   INITIAL_INVOICES,
   INITIAL_RECEIPTS,
   INITIAL_RECURRING_INVOICES,
+  INITIAL_PAYMENTS,
+  INITIAL_CREDIT_NOTES,
 } from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
@@ -195,6 +197,17 @@ export function beginBooks(
     page === "recurring-detail" ||
     page === "edit-recurring";
 
+  const isPaymentPage =
+    page === "payments" ||
+    page === "new-payment" ||
+    page === "payment-details" ||
+    page === "edit-payment";
+
+  const isCreditNotePage =
+    page === "credit-notes" ||
+    page === "new-credit-note" ||
+    page === "credit-note-details";
+
   const isSalesPage =
     page === "customers" ||
     page === "new-customer" ||
@@ -205,7 +218,9 @@ export function beginBooks(
     page === "edit-quote" ||
     isInvoicePage ||
     isReceiptPage ||
-    isRecurringPage;
+    isRecurringPage ||
+    isPaymentPage ||
+    isCreditNotePage;
   tl.setVar("booksSalesExpanded", isSalesPage);
   tl.setVar("booksCustomers", INITIAL_ACTIVE_CUSTOMERS);
   tl.setVar("booksInactiveCustomers", INITIAL_INACTIVE_CUSTOMERS);
@@ -398,6 +413,69 @@ export function beginBooks(
   tl.setVar("booksRecurringBulkItemsDialogOpen", false);
   tl.setVar("booksRecurringBulkSearch", "");
   tl.setVar("booksRecurringBulkSelected", []);
+
+  // Payments Received state (steps 111-125)
+  tl.setVar("booksPayments", INITIAL_PAYMENTS);
+  tl.setVar("booksPaymentSearch", "");
+  tl.setVar("booksActivePayment", INITIAL_PAYMENTS[1]); // PAY-00002
+  tl.setVar("booksPaymentConfirmDialogOpen", false);
+  tl.setVar("booksPaymentNumberingDialogOpen", false);
+  tl.setVar("booksPaymentAutoGenerate", true);
+  tl.setVar("booksPaymentPrefix", "PAY-");
+  tl.setVar("booksPaymentNextNumber", "000004");
+  tl.setVar("booksPaymentNumber", "PAY-00004");
+  tl.setVar("booksPaymentCustomer", "");
+  tl.setVar("booksPaymentAmount", "");
+  tl.setVar("booksPaymentBankCharges", "");
+  tl.setVar("booksPaymentDate", "11/05/2026");
+  tl.setVar("booksPaymentMode", "CASH");
+  tl.setVar("booksPaymentDepositTo", "Petty Cash");
+  tl.setVar("booksPaymentReference", "");
+  tl.setVar("booksPaymentTaxDeducted", "no");
+  tl.setVar("booksPaymentAppliedAmount", "500.00");
+  tl.setVar("booksPaymentAppliedDate", "11/05/2026");
+  tl.setVar("booksPaymentNotes", "");
+  tl.setVar("booksPaymentFiles", []);
+  tl.setVar("booksPaymentFilePickerOpen", false);
+  tl.setVar("booksPaymentPdfPreviewOpen", false);
+  tl.setVar("booksPaymentSendThankYou", true);
+  tl.setVar("booksPaymentSaving", false);
+
+  // Credit Notes state (steps 126-134)
+  tl.setVar("booksCreditNotes", INITIAL_CREDIT_NOTES);
+  tl.setVar("booksCreditNoteSearch", "");
+  tl.setVar("booksActiveCreditNote", INITIAL_CREDIT_NOTES[0]); // CN-00002
+  tl.setVar("booksCreditNoteConfirmDialogOpen", false);
+  tl.setVar("booksCreditNoteNumberingDialogOpen", false);
+  tl.setVar("booksCreditNoteAutoGenerate", true);
+  tl.setVar("booksCreditNotePrefix", "CN-");
+  tl.setVar("booksCreditNoteNextNumber", "000003");
+  tl.setVar("booksCreditNoteNumber", "CN-00003");
+  tl.setVar("booksCreditNoteCustomer", "");
+  tl.setVar("booksCreditNoteReference", "");
+  tl.setVar("booksCreditNoteDate", "11/05/2026");
+  tl.setVar("booksCreditNoteSalesperson", "None");
+  tl.setVar("booksCreditNoteSubject", "");
+  tl.setVar("booksCreditNoteLineItems", [
+    {
+      id: "cn-row-0",
+      name: "",
+      account: "Sales",
+      quantity: 1,
+      rate: 0,
+      tax: "VAT Standard (20%)",
+      amount: 0,
+    },
+  ]);
+  tl.setVar("booksCreditNoteDiscount", 0);
+  tl.setVar("booksCreditNoteShipping", 0);
+  tl.setVar("booksCreditNoteAdjustment", 0);
+  tl.setVar("booksCreditNoteCustomerNotes", "");
+  tl.setVar("booksCreditNoteTerms", "");
+  tl.setVar("booksCreditNoteBulkItemsDialogOpen", false);
+  tl.setVar("booksCreditNoteBulkSearch", "");
+  tl.setVar("booksCreditNoteBulkSelected", []);
+  tl.setVar("booksCreditNotePdfPreviewOpen", false);
 
   // Toast state
   tl.setVar("booksToastOpen", false);

@@ -688,6 +688,13 @@ export const BOOKS_URLS = {
   newRecurring: "books.snaarp.com/recurring-invoices/new",
   recurringDetails: "books.snaarp.com/recurring-invoices/rec-1",
   editRecurring: "books.snaarp.com/recurring-invoices/rec-1/edit",
+  paymentsReceived: "books.snaarp.com/payments-received",
+  newPayment: "books.snaarp.com/payments-received/new",
+  paymentDetails: "books.snaarp.com/payments-received/pay-00002",
+  editPayment: "books.snaarp.com/payments-received/pay-00002/edit",
+  creditNotes: "books.snaarp.com/credit-notes",
+  newCreditNote: "books.snaarp.com/credit-notes/new",
+  creditNoteDetails: "books.snaarp.com/credit-notes/cn-00002",
 };
 
 export type BooksPage =
@@ -716,7 +723,14 @@ export type BooksPage =
   | "recurring"
   | "new-recurring"
   | "recurring-detail"
-  | "edit-recurring";
+  | "edit-recurring"
+  | "payments"
+  | "new-payment"
+  | "payment-details"
+  | "edit-payment"
+  | "credit-notes"
+  | "new-credit-note"
+  | "credit-note-details";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -2355,3 +2369,197 @@ export const INITIAL_RECURRING_INVOICES: RecurringInvoiceItem[] = [
 
 
 
+
+
+// ── Payments Received & Credit Notes (Part 7) ───────────────────────────────
+
+export interface PaymentReceivedItem {
+  id: string; // "pay-3", "pay-2", "pay-1", "pay-4"
+  paymentNumber: string; // "PAY-00003", "PAY-00002", "PAY-00001", "PAY-00004"
+  customerName: string; // "Acme Foods Ltd", "Harvest Tables Ltd", "Brightway Stores"
+  paymentDate: string; // "11/05/2026", "10/21/2026", "10/08/2026"
+  amount: number; // 20.00, 20.00, 420.00
+  paymentMode: string; // "CASH", "Bank Transfer", "Credit Card", "Cheque"
+  depositTo: string; // "Petty Cash", "Bank Account", "Undeposited Funds"
+  reference?: string; // "PARTIAL-PAYMENT"
+  status: "Paid" | "Draft";
+  taxDeducted?: string; // "No Tax deducted"
+  bankCharges?: number;
+  notes?: string;
+  sendThankYou?: boolean;
+}
+
+export interface UnpaidInvoiceItem {
+  id: string;
+  invoiceNumber: string; // "INV10005"
+  customerName: string; // "Acme Foods Ltd"
+  date: string; // "10/20/2026"
+  invoiceAmount: number; // 500.00
+  amountDue: number; // 500.00
+  paymentReceivedOn?: string;
+  paymentAmount?: number;
+}
+
+export interface CreditNoteLineItem {
+  id: string;
+  name: string;
+  description?: string;
+  account: string; // "Sales", "Discount"
+  quantity: number;
+  rate: number;
+  tax: string; // "VAT Standard (20%)", "No Tax"
+  amount: number;
+}
+
+export interface CreditNoteItem {
+  id: string; // "cn-2", "cn-1", "cn-3"
+  creditNoteNumber: string; // "CN-00002", "CN-00001", "CN-00003"
+  customerName: string; // "Harvest Tables Ltd", "Brightway Stores", "Acme Foods Ltd"
+  creditNoteDate: string; // "10/25/2026", "10/10/2026", "11/05/2026"
+  reference?: string; // "RET-002"
+  accountsReceivable: string; // "Accounts Receivable"
+  salesperson?: string; // "Sam Taylor"
+  subject?: string;
+  status: "Open" | "Draft" | "Closed";
+  items: CreditNoteLineItem[];
+  subTotal: number;
+  discountPercent?: number;
+  discountAmount?: number;
+  taxAmount?: number;
+  shippingCharges?: number;
+  adjustment?: number;
+  total: number;
+  customerNotes?: string;
+  termsAndConditions?: string;
+  pdfTemplate?: string;
+}
+
+export const INITIAL_PAYMENTS: PaymentReceivedItem[] = [
+  {
+    id: "pay-3",
+    paymentNumber: "PAY-00003",
+    customerName: "Acme Foods Ltd",
+    paymentDate: "11/05/2026",
+    amount: 20.0,
+    paymentMode: "CASH",
+    depositTo: "Petty Cash",
+    reference: "INV-10005-PART",
+    status: "Paid",
+    taxDeducted: "No Tax deducted",
+    bankCharges: 0,
+    notes: "Initial partial cash payment",
+    sendThankYou: false,
+  },
+  {
+    id: "pay-2",
+    paymentNumber: "PAY-00002",
+    customerName: "Harvest Tables Ltd",
+    paymentDate: "10/21/2026",
+    amount: 20.0,
+    paymentMode: "CASH",
+    depositTo: "Petty Cash",
+    reference: "PARTIAL-PAYMENT",
+    status: "Paid",
+    taxDeducted: "No Tax deducted",
+    bankCharges: 0,
+    notes: "Partial payment (sample record)",
+    sendThankYou: false,
+  },
+  {
+    id: "pay-1",
+    paymentNumber: "PAY-00001",
+    customerName: "Brightway Stores",
+    paymentDate: "10/08/2026",
+    amount: 420.0,
+    paymentMode: "CASH",
+    depositTo: "Petty Cash",
+    reference: "FULL-SETTLE",
+    status: "Paid",
+    taxDeducted: "No Tax deducted",
+    bankCharges: 0,
+    notes: "Full settlement for October delivery",
+    sendThankYou: false,
+  },
+];
+
+export const INITIAL_UNPAID_INVOICES: UnpaidInvoiceItem[] = [
+  {
+    id: "unpaid-inv-1",
+    invoiceNumber: "INV10005",
+    customerName: "Acme Foods Ltd",
+    date: "10/20/2026",
+    invoiceAmount: 500.0,
+    amountDue: 500.0,
+    paymentReceivedOn: "11/05/2026",
+    paymentAmount: 500.0,
+  },
+];
+
+export const INITIAL_CREDIT_NOTES: CreditNoteItem[] = [
+  {
+    id: "cn-2",
+    creditNoteNumber: "CN-00002",
+    customerName: "Harvest Tables Ltd",
+    creditNoteDate: "10/25/2026",
+    reference: "RET-002",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Returned damaged goods adjustment",
+    status: "Open",
+    items: [
+      {
+        id: "cn-item-1",
+        name: "Cassava Flour 10kg",
+        description: "Fine cassava flour, 10kg bag",
+        account: "Sales",
+        quantity: 6,
+        rate: 25.0,
+        tax: "No Tax",
+        amount: 150.0,
+      },
+    ],
+    subTotal: 150.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    taxAmount: 0,
+    shippingCharges: 0,
+    adjustment: 0,
+    total: 150.0,
+    customerNotes: "Credit applied for returned damaged bags.",
+    termsAndConditions: "Standard credit note terms apply.",
+    pdfTemplate: "Standard Template",
+  },
+  {
+    id: "cn-1",
+    creditNoteNumber: "CN-00001",
+    customerName: "Brightway Stores",
+    creditNoteDate: "10/10/2026",
+    reference: "ADJ-001",
+    accountsReceivable: "Accounts Receivable",
+    salesperson: "Sam Taylor",
+    subject: "Pricing correction credit",
+    status: "Closed",
+    items: [
+      {
+        id: "cn-item-2",
+        name: "Palm Oil 5L",
+        description: "Palm oil, 5 litre can",
+        account: "Sales",
+        quantity: 5,
+        rate: 12.0,
+        tax: "No Tax",
+        amount: 60.0,
+      },
+    ],
+    subTotal: 60.0,
+    discountPercent: 0,
+    discountAmount: 0,
+    taxAmount: 0,
+    shippingCharges: 0,
+    adjustment: 0,
+    total: 60.0,
+    customerNotes: "Rebate on bulk purchase pricing difference.",
+    termsAndConditions: "Standard credit note terms apply.",
+    pdfTemplate: "Standard Template",
+  },
+];

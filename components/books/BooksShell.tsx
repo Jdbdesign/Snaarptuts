@@ -59,6 +59,14 @@ import { BooksReceiptFilePickerModal } from "./BooksReceiptFilePickerModal";
 import { BooksRecurringPreferencesDialog } from "./BooksRecurringPreferencesDialog";
 import { BooksRecurringBulkItemsDialog } from "./BooksRecurringBulkItemsDialog";
 import { BooksRecurringConfirmDialog } from "./BooksRecurringConfirmDialog";
+import { BooksPaymentConfirmDialog } from "./BooksPaymentConfirmDialog";
+import { BooksPaymentNumberingDialog } from "./BooksPaymentNumberingDialog";
+import { BooksPaymentPdfPreviewModal } from "./BooksPaymentPdfPreviewModal";
+import { BooksPaymentFilePickerModal } from "./BooksPaymentFilePickerModal";
+import { BooksCreditNoteConfirmDialog } from "./BooksCreditNoteConfirmDialog";
+import { BooksCreditNoteNumberingDialog } from "./BooksCreditNoteNumberingDialog";
+import { BooksCreditNoteBulkItemsDialog } from "./BooksCreditNoteBulkItemsDialog";
+import { BooksCreditNotePdfPreviewModal } from "./BooksCreditNotePdfPreviewModal";
 import { BooksToast } from "./BooksToast";
 
 type Props = {
@@ -109,10 +117,19 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "new-recurring" ||
     currentView === "recurring-detail" ||
     currentView === "edit-recurring";
+  const isPaymentsView =
+    currentView === "payments" ||
+    currentView === "new-payment" ||
+    currentView === "payment-details" ||
+    currentView === "edit-payment";
+  const isCreditNotesView =
+    currentView === "credit-notes" ||
+    currentView === "new-credit-note" ||
+    currentView === "credit-note-details";
   const salesExpanded = useTimelineVar<boolean>(
     tl,
     "booksSalesExpanded",
-    isCustomerView || isQuotesView || isInvoicesView || isReceiptsView || isRecurringView
+    isCustomerView || isQuotesView || isInvoicesView || isReceiptsView || isRecurringView || isPaymentsView || isCreditNotesView
   );
 
   return (
@@ -402,14 +419,30 @@ export function BooksShell({ tl, children, overlay }: Props) {
                 <button
                   type="button"
                   data-tl="nav-sales-payments"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "payments");
+                    tl.setUrl(BOOKS_URLS.paymentsReceived);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isPaymentsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Payments Received</span>
                 </button>
                 <button
                   type="button"
                   data-tl="nav-sales-credit-notes"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "credit-notes");
+                    tl.setUrl(BOOKS_URLS.creditNotes);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isCreditNotesView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Credit Notes</span>
                 </button>
@@ -607,6 +640,14 @@ export function BooksShell({ tl, children, overlay }: Props) {
       <BooksRecurringPreferencesDialog tl={tl} />
       <BooksRecurringBulkItemsDialog tl={tl} />
       <BooksRecurringConfirmDialog tl={tl} />
+      <BooksPaymentConfirmDialog tl={tl} />
+      <BooksPaymentNumberingDialog tl={tl} />
+      <BooksPaymentPdfPreviewModal tl={tl} />
+      <BooksPaymentFilePickerModal tl={tl} />
+      <BooksCreditNoteConfirmDialog tl={tl} />
+      <BooksCreditNoteNumberingDialog tl={tl} />
+      <BooksCreditNoteBulkItemsDialog tl={tl} />
+      <BooksCreditNotePdfPreviewModal tl={tl} />
       <BooksToast tl={tl} />
 
       {/* Optional fade overlay */}

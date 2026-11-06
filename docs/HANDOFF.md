@@ -374,4 +374,65 @@ How it is built:
 - Central sample data in `components/books/books-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, GBP £, 14 active catalog items, 2 inactive items, 4 active customers, 1 inactive customer, 4 CSV import customers, cash flow chart data, account watchlist, 10 recent updates).
 - Per-step scenes in `scenes/books/step<1..32>/`.
 - Verified cleanly across all 32 steps. TypeScript, lint, and production build clean.
+### Snaarp Books (tenth product)
 
+Route: `/tutorials/books`
+Config: `tutorials/books.ts`
+State: All 134 steps built and verified (COMPLETE for Parts 1 to 7).
+- Steps 1-5 (Navigation & Home):
+  - Step 1: Books: Find your way around
+  - Step 2: Home: Read your receivables and payables
+  - Step 3: Home: Check cash flow by period
+  - Step 4: Home: Watch key accounts (accrual or cash)
+  - Step 5: Home: See recent updates
+- Steps 6-22 (Products & Catalog Items):
+  - Steps 6-22 cover Item list, filtering, creation, detail overview, editing, cloning, active toggle, locking, deleting, sorting drawer, visible columns drawer, CSV import, CSV export, multi-selection, and bulk deletion.
+- Steps 23-32 (Sales > Customers):
+  - Steps 23-32 cover Customer list, search/filter, adding business customer, billing/shipping addresses, adding individual customer with contact person, CSV import, editing details, deactivation, reactivation, and deletion.
+- Steps 33-52 (Sales > Quotes):
+  - Steps 33-52 cover Quotes list, search, status filters, details view, PDF download, PDF preview, sending to customer, converting to invoice, editing, deleting, creating new quote, numbering configuration, dates, line items, barcode scanner, bulk items modal, discounts/shipping/adjustments, notes/terms, file attachments, and saving.
+- Steps 53-77 (Sales > Invoices):
+  - Steps 53-77 cover Invoices list, search, status filter, CSV import drawer, details view, PDF download/preview, sending to customer, marking as paid dialog, payment plan card, editing, deleting, new invoice form, numbering configuration, dates, terms, salesperson, line items, barcode scanner, bulk items modal, payment plans (None/Flexible/Scheduled), discount/shipping/adjustment, file attachments, and saving.
+- Steps 78-96 (Sales > Sales Receipts):
+  - Steps 78-96 cover Receipts list, search, payment mode filters, details view, sending receipt, PDF download/preview, editing, deleting, new receipt form, numbering configuration, dates, payment mode, deposit account, reference, salesperson, line items, barcode scanner, bulk items modal, discounts/shipping/adjustments, notes/terms, file attachments, and saving.
+- Steps 97-110 (Sales > Recurring Invoices):
+  - Steps 97-110 cover Recurring Invoices list, search, status filters, profile details, stopping/resuming profiles, editing terms, deleting, new recurring invoice form, frequency/duration, recurring preferences dialog (Drafts notification settings), order number, line items, notes/terms, and profile creation.
+- Steps 111-125 (Sales > Payments Received):
+  - Step 111: Payments Received: open payments list
+  - Step 112: Payments Received: search payments
+  - Step 113: Payments Received: view payment details
+  - Step 114: Payments Received: send payment receipt
+  - Step 115: Payments Received: download payment receipt PDF
+  - Step 116: Payments Received: preview payment receipt PDF
+  - Step 117: Payments Received: edit payment
+  - Step 118: Payments Received: delete a payment
+  - Step 119: Payments Received: start recording a payment and choose customer
+  - Step 120: Payments Received: configure payment numbering
+  - Step 121: Payments Received: set amount and bank charges
+  - Step 122: Payments Received: set payment date, mode, and deposit account
+  - Step 123: Payments Received: apply payment to unpaid invoices
+  - Step 124: Payments Received: enter notes and attach receipt document
+  - Step 125: Payments Received: save payment and view confirmation
+- Steps 126-134 (Sales > Credit Notes):
+  - Step 126: Credit Notes: open credit notes list
+  - Step 127: Credit Notes: search and filter credit notes
+  - Step 128: Credit Notes: view credit note details
+  - Step 129: Credit Notes: preview and download credit note PDF
+  - Step 130: Credit Notes: delete a credit note
+  - Step 131: Credit Notes: start a new credit note and choose customer
+  - Step 132: Credit Notes: configure numbering and credit note details
+  - Step 133: Credit Notes: add line items and add items in bulk
+  - Step 134: Credit Notes: apply adjustments, terms, and save credit note
+
+- Completion card follows step 134: "Tour complete / You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, and credit notes in Snaarp Books."
+Recordings: `ref/1105 (2).mp4` (Part 1), `ref/1105 (2)(1).mp4` (Part 2), `ref/1105 (2)(2).mp4` (Part 3), `ref/1106.mp4` (Part 4), `ref/1106(1).mp4` (Parts 5 & 6), `ref/1106(2).mp4` (Part 7).
+
+How it is built:
+- Reusable stage `components/books/BooksStage.tsx` and app shell `components/books/BooksShell.tsx` (thin suite rail with Books active, collapsible left navigation menu with expandable Sales subnav, top bar with Books logo, search bar, user avatar 'S', and apps 9-dot grid).
+- Views & Modals:
+  - Views: `BooksHomeView.tsx`, `BooksProductsView.tsx`, `BooksNewItemView.tsx`, `BooksItemDetailView.tsx`, `BooksCustomersView.tsx`, `BooksNewCustomerView.tsx`, `BooksCustomerDetailView.tsx`, `BooksQuotesView.tsx`, `BooksNewQuoteView.tsx`, `BooksQuoteDetailView.tsx`, `BooksEditQuoteView.tsx`, `BooksInvoicesView.tsx`, `BooksNewInvoiceView.tsx`, `BooksInvoiceDetailView.tsx`, `BooksEditInvoiceView.tsx`, `BooksReceiptsView.tsx`, `BooksReceiptDetailView.tsx`, `BooksNewReceiptView.tsx`, `BooksEditReceiptView.tsx`, `BooksRecurringInvoicesView.tsx`, `BooksRecurringDetailView.tsx`, `BooksNewRecurringInvoiceView.tsx`, `BooksEditRecurringInvoiceView.tsx`, `BooksPaymentsView.tsx`, `BooksPaymentDetailView.tsx`, `BooksEditPaymentView.tsx`, `BooksRecordPaymentView.tsx`, `BooksCreditNotesView.tsx`, `BooksCreditNoteDetailView.tsx`, `BooksNewCreditNoteView.tsx`.
+  - Drawers & Modals: `BooksSortDrawer.tsx`, `BooksColumnsDrawer.tsx`, `BooksImportDrawer.tsx`, `BooksExportDrawer.tsx`, `BooksCustomerImportDrawer.tsx`, `BooksInvoiceImportDrawer.tsx`, `BooksCsvPickerModal.tsx`, `BooksCustomerCsvPickerModal.tsx`, `BooksInvoiceCsvPickerModal.tsx`, `BooksImagePickerModal.tsx`, `BooksConfirmDialog.tsx`, `BooksCustomerConfirmDialog.tsx`, `BooksQuoteConfirmDialog.tsx`, `BooksInvoiceConfirmDialog.tsx`, `BooksInvoiceMarkPaidDialog.tsx`, `BooksReceiptConfirmDialog.tsx`, `BooksRecurringConfirmDialog.tsx`, `BooksPaymentConfirmDialog.tsx`, `BooksCreditNoteConfirmDialog.tsx`, `BooksQuoteNumberingDialog.tsx`, `BooksInvoiceNumberingDialog.tsx`, `BooksReceiptNumberingDialog.tsx`, `BooksPaymentNumberingDialog.tsx`, `BooksCreditNoteNumberingDialog.tsx`, `BooksQuoteScanDialog.tsx`, `BooksInvoiceScanDialog.tsx`, `BooksReceiptScanDialog.tsx`, `BooksQuoteBulkItemsDialog.tsx`, `BooksInvoiceBulkItemsDialog.tsx`, `BooksReceiptBulkItemsDialog.tsx`, `BooksRecurringBulkItemsDialog.tsx`, `BooksCreditNoteBulkItemsDialog.tsx`, `BooksQuotePdfPreviewModal.tsx`, `BooksInvoicePdfPreviewModal.tsx`, `BooksReceiptPdfPreviewModal.tsx`, `BooksPaymentPdfPreviewModal.tsx`, `BooksCreditNotePdfPreviewModal.tsx`, `BooksQuoteFilePickerModal.tsx`, `BooksInvoiceFilePickerModal.tsx`, `BooksReceiptFilePickerModal.tsx`, `BooksPaymentFilePickerModal.tsx`, `BooksRecurringPreferencesDialog.tsx`, `BooksDatePickerPopover.tsx`, `BooksToast.tsx`.
+- Shared timeline helpers in `components/books/books-timeline.ts` (`beginBooks` with mandatory `tl.placeCursor`, `finishBooks`, `pressOn`, `hoverOn`, `ring`).
+- Central sample data in `components/books/books-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, GBP £, 14 active catalog items, 2 inactive items, 4 active customers, 1 inactive customer, 4 CSV import customers, 8 initial quotes, 9 initial invoices, 2 initial sales receipts, 2 initial recurring profiles, 3 initial payments, 2 initial credit notes, unpaid invoices, cash flow chart data, account watchlist, 10 recent updates).
+- Per-step scenes in `scenes/books/step<1..134>/`.
+- Verified cleanly across all 134 steps. Zero console errors, TypeScript clean, ESLint clean, and 0 findings in QA visibility.

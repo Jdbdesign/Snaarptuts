@@ -1367,3 +1367,46 @@ In accordance with the **COMPLETE EVERY FLOW** rule:
 - **Recurring Invoices Preferences Dialog**: Added light blue info banner with Info icon, nested notification preferences card under Drafts option, footer disclaimer note, and styled action buttons.
 - **New Recurring Invoice Screen**: Added breadcrumb navigation `Back | Home > Recurring Invoices > New`, header `×` close icon, and PDF Template indicator in footer.
 - **Sales Receipts Views**: Added breadcrumb navigation and close buttons to New and Edit views; styled Payment Mode in list view as plain text (no pill badge); aligned two-column fields grid on Edit Sales Receipt; ensured Payment Details block sits at bottom of New Sales Receipt form.
+
+
+## Snaarp Books Part 7: Sales > Payments Received (Steps 111 to 125) and Credit Notes (Steps 126 to 134)
+
+Reference video: `1106(2).mp4` (3:30, git-ignored `ref/`, frames in `ref/books7/`).
+
+### Sample Data & Realistic Content
+- Customers: Acme Foods Ltd, Harvest Tables Ltd, Brightway Stores, Sterling Interiors
+- Catalog items: Organic Rice 25kg (£42.00), Palm Oil 5L (£18.00), Cassava Flour 10kg (£22.00)
+- Currency: GBP (£)
+- Dates: MM/DD/YYYY, default/today 11/05/2026
+- Payments:
+  - `PAY-00003` | Acme Foods Ltd | 11/05/2026 | £500.00 | Bank Transfer | Completed
+  - `PAY-00002` | Harvest Tables Ltd | 11/03/2026 | £250.00 | Cash | Completed
+  - `PAY-00001` | Brightway Stores | 11/01/2026 | £120.00 | Cheque | Completed
+- Credit Notes:
+  - `CN-00002` | Harvest Tables Ltd | 11/04/2026 | £150.00 | Open
+  - `CN-00001` | Acme Foods Ltd | 10/28/2026 | £85.00 | Closed
+
+### Inferred Sibling Screens (Owner to confirm)
+1. **Credit Notes List Screen (`BooksCreditNotesView.tsx`)**:
+   - The reference recording `1106(2).mp4` does not show the user clicking Credit Notes in the sidebar to open the list; it cuts directly into the New Credit Note form at 2:40.
+   - Sibling list view was built following the established pattern of All Received Payments and All Sales Receipts: breadcrumbs `Back | Home > Credit Notes`, title `All Credit Notes` with dropdown chevron, search box `Search in Credit Notes...`, `+ New` button, table columns (`Credit Note#`, `Customer Name`, `Date`, `Amount`, `Status` [Open/Closed], `Actions` [Delete trash icon]), and row clicks navigating to details.
+   - *Status: Inferred, owner to confirm.*
+2. **Credit Note Details Screen (`BooksCreditNoteDetailView.tsx`)**:
+   - The recording ends immediately after clicking "Save as Open" on the New Credit Note form (3:30), showing a toast and returning. It never demonstrates an existing Credit Note details page.
+   - Sibling detail view was built following the Quotes/Invoices/Receipts detail architecture: breadcrumb `Back | Home > Credit Notes > Details`, title `Credit Note CN-00002` with status badge `Open`, action buttons (`Send Credit Note`, `Download PDF`, `Preview PDF`, `Delete`, `Back to Credit Notes`), and section cards (`Credit Note Details`, `Line Items`, `Totals Summary`, `Customer Notes`).
+   - *Status: Inferred, owner to confirm.*
+
+### Completed Beyond the Video
+1. **Step 114 (Send Payment Receipt)**: Shows brief inline spinner, toast "Payment receipt sent to customer successfully."
+2. **Step 115 (Download Payment Receipt PDF)**: Displays in-app progress and toast "Payment receipt PDF downloaded." (no native browser download popup).
+3. **Step 116 (Preview Payment Receipt PDF)**: Replaced external viewer with in-app modal `BooksPaymentPdfPreviewModal` matching the video's "Payment Receipt PDF" layout with Page 1 of 1 indicator and document preview.
+4. **Step 117 (Edit Payment)**: Opens edit view for `PAY-00003`, updates Deposit Account dropdown (`[data-tl=select-edit-payment-deposit]`) to "Bank Account", saves changes, displays toast "Payment updated successfully", and updates detail view.
+5. **Step 118 (Delete Payment)**: In-app confirmation dialog `BooksPaymentConfirmDialog` ("Delete payment? / Are you sure you want to delete this payment? This cannot be undone."). Confirms deletion, displays toast "Payment deleted successfully", and returns to Payments list.
+6. **Step 120 (Configure Payment Numbering)**: Opened via the gear icon on the Record Payment form. Modal `BooksPaymentNumberingDialog` sets next sequence number to "00004", saves preferences, and updates Payment# to `PAY-00004`.
+7. **Step 124 (Attach File to Payment)**: Attaches `bank-confirmation.pdf` via in-app file picker `BooksPaymentFilePickerModal`.
+8. **Step 125 (Save Payment)**: Checks "Send a 'Thank you' note for this payment", clicks "Save", displays inline "Saving..." spinner, shows toast "Payment recorded successfully", and transitions to details view.
+9. **Step 129 (Preview and Download Credit Note PDF)**: In-app preview modal `BooksCreditNotePdfPreviewModal` and simulated download toast.
+10. **Step 130 (Delete Credit Note)**: In-app confirmation dialog `BooksCreditNoteConfirmDialog` ("Delete credit note? / Are you sure you want to delete this credit note? This cannot be undone."). Confirms deletion, displays toast "Credit note deleted successfully", and returns to Credit Notes list.
+11. **Step 132 (Configure Credit Note Numbering)**: Opened via gear icon on New Credit Note form. Modal `BooksCreditNoteNumberingDialog` sets next sequence number to "00003", saves preferences, and updates Credit Note# to `CN-00003`.
+12. **Step 133 (Add Items in Bulk)**: Replaced modal with in-app `BooksCreditNoteBulkItemsDialog` searching "flour", selecting "Cassava Flour 10kg", and batch adding it to line items.
+13. **Step 134 (Save Credit Note as Open & Final Tour Completion)**: Applies Discount 5% and Adjustment, enters notes and terms, clicks "Save as Open", displays toast "Credit note created successfully", transitions to details view, and displays the complete tour end card covering all modules of Snaarp Books.
