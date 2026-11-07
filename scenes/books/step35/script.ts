@@ -7,7 +7,7 @@ import {
 import { BOOKS_URLS } from "@/components/books/books-data";
 import { STEP35_CAPTIONS } from "./data";
 
-export const STEP35_DURATION_MS = 10500;
+export const STEP35_DURATION_MS = 16000;
 
 export async function runStep35(tl: Timeline) {
   tl.setVar("__sceneId", "step35");

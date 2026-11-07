@@ -14,7 +14,7 @@ import {
 } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP18_DURATION_MS = 18000;
+export const STEP18_DURATION_MS = 30500;
 
 export async function runStep18(tl: Timeline) {
   const farmCopy = {

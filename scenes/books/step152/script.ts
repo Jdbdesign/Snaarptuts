@@ -8,7 +8,7 @@ import {
 import { BOOKS_URLS } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP152_DURATION_MS = 60000;
+export const STEP152_DURATION_MS = 36700;
 
 export async function runStep152(tl: Timeline) {
   beginBooks(tl, BOOKS_URLS.recurringExpenses, "recurring-expenses", [0.1, 0.48], 152);

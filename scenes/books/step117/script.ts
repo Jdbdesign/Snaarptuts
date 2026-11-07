@@ -7,7 +7,7 @@ import {
 import { BOOKS_URLS, INITIAL_PAYMENTS } from "@/components/books/books-data";
 import { STEP117_CAPTIONS } from "./data";
 
-export const STEP117_DURATION_MS = 7500;
+export const STEP117_DURATION_MS = 10500;
 
 export async function runStep117(tl: Timeline) {
   tl.setVar("__sceneId", "step117");

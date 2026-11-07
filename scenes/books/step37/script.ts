@@ -7,7 +7,7 @@ import {
 import { BOOKS_URLS, INITIAL_QUOTES } from "@/components/books/books-data";
 import { STEP37_CAPTIONS } from "./data";
 
-export const STEP37_DURATION_MS = 7500;
+export const STEP37_DURATION_MS = 17200;
 
 export async function runStep37(tl: Timeline) {
   tl.setVar("__sceneId", "step37");
@@ -30,7 +30,7 @@ export async function runStep37(tl: Timeline) {
   tl.setVar("booksToastOpen", true);
 
   tl.showCaption(STEP37_CAPTIONS.sent);
-  await tl.wait(2500);
+  await tl.wait(1500);
 
   await finishBooks(tl, STEP37_DURATION_MS);
 }

@@ -8,7 +8,7 @@ import {
 import { BOOKS_URLS, type BillItemRow } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP156_DURATION_MS = 62000;
+export const STEP156_DURATION_MS = 48000;
 
 export async function runStep156(tl: Timeline) {
   beginBooks(tl, BOOKS_URLS.newBill, "new-bill", [0.35, 0.38], 156);

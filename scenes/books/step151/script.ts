@@ -8,7 +8,7 @@ import {
 import { BOOKS_URLS, INITIAL_RECURRING_EXPENSES } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP151_DURATION_MS = 36000;
+export const STEP151_DURATION_MS = 11300;
 
 export async function runStep151(tl: Timeline) {
   beginBooks(tl, BOOKS_URLS.recurringExpenses, "recurring-expenses", [0.92, 0.25], 151);
@@ -30,7 +30,7 @@ export async function runStep151(tl: Timeline) {
   tl.setVar("booksToastOpen", true);
 
   tl.showCaption(CAPTIONS.verifyDeleted);
-  await tl.wait(2000);
+  await tl.wait(1500);
 
   await finishBooks(tl, STEP151_DURATION_MS);
 }

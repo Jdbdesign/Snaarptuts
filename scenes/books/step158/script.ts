@@ -8,7 +8,7 @@ import {
 import { BOOKS_URLS, INITIAL_BILLS, type Bill } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP158_DURATION_MS = 36000;
+export const STEP158_DURATION_MS = 11500;
 
 export async function runStep158(tl: Timeline) {
   beginBooks(tl, BOOKS_URLS.bills, "bills", [0.92, 0.35], 158);
@@ -35,7 +35,7 @@ export async function runStep158(tl: Timeline) {
   tl.setVar("booksToastOpen", true);
 
   tl.showCaption(CAPTIONS.verifyDeleted);
-  await tl.wait(2200);
+  await tl.wait(1500);
 
   await finishBooks(tl, STEP158_DURATION_MS);
 }

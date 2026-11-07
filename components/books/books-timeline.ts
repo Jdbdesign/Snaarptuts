@@ -849,13 +849,38 @@ export function beginBooks(
   }
 }
 
+export const BOOKS_END_HOLD_MS = 1500;
+export const BOOKS_FADE_MS = 400;
+
 /**
  * Standard ending for a Snaarp Books step.
+ * Holds the finished state for holdMs (1500 ms) so the viewer can read the toast or new row,
+ * then fades to white (400 ms).
+ * totalDurationMs is kept for signature compatibility and acts as an upper limit only.
  */
-export async function finishBooks(tl: Timeline, totalDurationMs: number) {
-  await tl.at(totalDurationMs - 400);
+export async function finishBooks(
+  tl: Timeline,
+  _totalDurationMs?: number,
+  holdMs = BOOKS_END_HOLD_MS,
+) {
+  if (holdMs > 0) {
+    await tl.wait(holdMs);
+  }
   tl.setVar("fade", true);
-  await tl.wait(400);
+  await tl.wait(BOOKS_FADE_MS);
+  if (typeof window !== "undefined") {
+    const w = window as unknown as {
+      __snaarpLastStepFinished?: { sceneId: string; elapsed: number };
+      __snaarpStepTimings?: Record<string, number>;
+    };
+    const sceneId = tl.getVar<string>("__sceneId", "");
+    const elapsed = Math.round(tl.elapsed);
+    w.__snaarpLastStepFinished = { sceneId, elapsed };
+    if (sceneId) {
+      w.__snaarpStepTimings = w.__snaarpStepTimings || {};
+      w.__snaarpStepTimings[sceneId] = elapsed;
+    }
+  }
 }
 
 /** Scroll the current Books page (the view's own scrolling panel) to a position. Waits for the view to mount first. */

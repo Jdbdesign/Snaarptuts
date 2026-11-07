@@ -8,7 +8,7 @@ import {
 import { BOOKS_URLS, INITIAL_INVOICES } from "@/components/books/books-data";
 import { STEP64_CAPTIONS } from "./data";
 
-export const STEP64_DURATION_MS = 6500;
+export const STEP64_DURATION_MS = 14500;
 
 export async function runStep64(tl: Timeline) {
   tl.setVar("__sceneId", "step64");

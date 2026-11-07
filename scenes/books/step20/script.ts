@@ -13,7 +13,7 @@ import {
 } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP20_DURATION_MS = 12000;
+export const STEP20_DURATION_MS = 18300;
 
 export async function runStep20(tl: Timeline) {
   const farmCopy = {

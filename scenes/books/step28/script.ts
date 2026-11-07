@@ -9,7 +9,7 @@ import {
 import { BOOKS_URLS } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP28_DURATION_MS = 13500;
+export const STEP28_DURATION_MS = 23000;
 
 export async function runStep28(tl: Timeline) {
   beginBooks(tl, BOOKS_URLS.customers, "customers", [0.85, 0.16]);

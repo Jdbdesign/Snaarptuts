@@ -8,7 +8,7 @@ import {
 import { BOOKS_URLS, INITIAL_BILLS, type Bill } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP157_DURATION_MS = 52000;
+export const STEP157_DURATION_MS = 31500;
 
 export async function runStep157(tl: Timeline) {
   beginBooks(tl, BOOKS_URLS.newBill, "new-bill", [0.45, 0.45], 157);

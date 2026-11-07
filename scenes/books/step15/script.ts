@@ -12,7 +12,7 @@ import {
 } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP15_DURATION_MS = 10000;
+export const STEP15_DURATION_MS = 13800;
 
 export async function runStep15(tl: Timeline) {
   beginBooks(tl, BOOKS_URLS.details, "item-detail", [0.45, 0.25]);
