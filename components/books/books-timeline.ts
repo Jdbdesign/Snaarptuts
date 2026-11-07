@@ -12,6 +12,8 @@ import {
   INITIAL_CREDIT_NOTES,
   INITIAL_VENDORS,
   INITIAL_EXPENSES,
+  INITIAL_RECURRING_EXPENSES,
+  INITIAL_BILLS,
 } from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
@@ -510,7 +512,13 @@ export function beginBooks(
     page === "vendor-details" ||
     page === "expenses" ||
     page === "new-expense" ||
-    page === "expense-details";
+    page === "expense-details" ||
+    page === "recurring-expenses" ||
+    page === "new-recurring-expense" ||
+    page === "recurring-expense-detail" ||
+    page === "bills" ||
+    page === "new-bill" ||
+    page === "bill-detail";
   tl.setVar("booksPurchasesExpanded", isPurchasesPage);
 
   // Vendors state
@@ -605,6 +613,61 @@ export function beginBooks(
   tl.setVar("booksBulkRow1PaidThroughOpen", false);
   tl.setVar("booksBulkRow1VendorOpen", false);
 
+  // Recurring Expenses state (Part 9, steps 148-151)
+  tl.setVar("booksRecurringExpenses", INITIAL_RECURRING_EXPENSES);
+  tl.setVar("booksActiveRecurringExpense", INITIAL_RECURRING_EXPENSES[0]);
+  tl.setVar("booksRecProfileName", "");
+  tl.setVar("booksRecEmployee", "");
+  tl.setVar("booksRecRepeatEvery", "Week");
+  tl.setVar("booksRecStartDate", "11/07/2026");
+  tl.setVar("booksRecEndsOn", "");
+  tl.setVar("booksRecNeverExpires", true);
+  tl.setVar("booksRecExpenseAccount", "");
+  tl.setVar("booksRecAmount", "");
+  tl.setVar("booksRecAmountIs", "Tax Inclusive");
+  tl.setVar("booksRecTax", "VAT Standard (20%)");
+  tl.setVar("booksRecPaidThrough", "");
+  tl.setVar("booksRecVendor", "");
+  tl.setVar("booksRecNotes", "");
+  tl.setVar("booksRecCustomerName", "");
+  tl.setVar("booksRecExpenseConfirmOpen", false);
+  tl.setVar("booksRecExpenseToDeleteName", "Monthly Office Supplies");
+  tl.setVar("booksRecExpenseToDeleteId", "rec-exp-2");
+
+  // Bills state (Part 9, steps 152-158)
+  tl.setVar("booksBills", INITIAL_BILLS);
+  tl.setVar("booksActiveBill", INITIAL_BILLS[0]);
+  tl.setVar("booksBillViewMode", "list");
+  tl.setVar("booksBillCalendarMonth", "Nov 2026");
+  tl.setVar("booksBillStatusFilter", "Status");
+  tl.setVar("booksAllBillsView", "All");
+  tl.setVar("booksBillConfirmOpen", false);
+  tl.setVar("booksBillToDeleteNumber", "BILL-004");
+  tl.setVar("booksBillToDeleteId", "BILL-004");
+  tl.setVar("booksBillPdfPreviewOpen", false);
+  tl.setVar("booksBillFilePickerOpen", false);
+  tl.setVar("booksBillAttachment", "");
+  tl.setVar("booksBillSending", false);
+  tl.setVar("booksNewBillVendor", "");
+  tl.setVar("booksNewBillNumber", "");
+  tl.setVar("booksNewBillOrderNumber", "");
+  tl.setVar("booksNewBillDate", "11/07/2026");
+  tl.setVar("booksNewBillDueDate", "11/07/2026");
+  tl.setVar("booksNewBillTerms", "Due on Receipt");
+  tl.setVar("booksNewBillSubject", "");
+  tl.setVar("booksNewBillNotes", "");
+  tl.setVar("booksNewBillItems", [
+    {
+      id: "row-0",
+      name: "",
+      account: "Select an account",
+      quantity: 1,
+      rate: 0,
+      tax: "Select a..",
+      amount: 0,
+    },
+  ]);
+
   // Toast state
   tl.setVar("booksToastOpen", false);
   tl.setVar("booksToastText", "");
@@ -670,6 +733,119 @@ export function beginBooks(
     tl.setVar("booksExpenseAmountIs", "Tax Exclusive");
     tl.setVar("booksExpensePaidThrough", "Undeposited Funds");
     tl.setVar("booksExpenseTax", "VAT Standard (20%)");
+  } else if (stepNum === 148) {
+    tl.setVar("booksPurchasesExpanded", true);
+  } else if (stepNum === 150) {
+    tl.setVar("booksRecProfileName", "Monthly Office Supplies");
+    tl.setVar("booksRecEmployee", "Jane Doe");
+    tl.setVar("booksRecRepeatEvery", "Month");
+    tl.setVar("booksRecStartDate", "11/07/2026");
+    tl.setVar("booksRecNeverExpires", true);
+  } else if (stepNum === 151) {
+    tl.setVar("booksRecurringExpenses", [
+      {
+        id: "rec-exp-2",
+        profileName: "Monthly Office Supplies",
+        frequency: "Month",
+        amount: 450.0,
+        status: "Active",
+        startDate: "11/07/2026",
+        employee: "Jane Doe",
+        repeatEvery: "Month",
+        neverExpires: true,
+        expenseAccount: "Advertising and Marketing",
+        amountIs: "Tax Exclusive",
+        tax: "VAT Standard (20%)",
+        paidThrough: "Undeposited Funds",
+        vendor: "Greenfield Packaging Ltd",
+        notes: "Stationery, printer paper and breakroom essentials",
+        customerName: "Acme Foods Ltd",
+        created: "11/07/2026",
+      },
+      ...INITIAL_RECURRING_EXPENSES.filter((p) => p.id !== "rec-exp-2"),
+    ]);
+  } else if (stepNum === 152) {
+    tl.setVar("booksPurchasesExpanded", true);
+  } else if (stepNum === 154) {
+    tl.setVar("booksActiveBill", INITIAL_BILLS[4]); // BILL-002
+    tl.setVar("booksView", "bill-detail");
+    tl.setUrl(BOOKS_URLS.billDetails);
+  } else if (stepNum === 156) {
+    tl.setVar("booksNewBillVendor", "Greenfield Packaging Ltd");
+    tl.setVar("booksNewBillNumber", "BILL-1200");
+    tl.setVar("booksNewBillOrderNumber", "PO-5521");
+    tl.setVar("booksNewBillDate", "11/07/2026");
+    tl.setVar("booksNewBillDueDate", "11/09/2026");
+    tl.setVar("booksNewBillTerms", "Due on Receipt");
+    tl.setVar("booksNewBillSubject", "Materials for building");
+  } else if (stepNum === 157) {
+    tl.setVar("booksNewBillVendor", "Greenfield Packaging Ltd");
+    tl.setVar("booksNewBillNumber", "BILL-1200");
+    tl.setVar("booksNewBillOrderNumber", "PO-5521");
+    tl.setVar("booksNewBillDate", "11/07/2026");
+    tl.setVar("booksNewBillDueDate", "11/09/2026");
+    tl.setVar("booksNewBillTerms", "Due on Receipt");
+    tl.setVar("booksNewBillSubject", "Materials for building");
+    tl.setVar("booksNewBillItems", [
+      {
+        id: "row-0",
+        name: "Organic Rice 25kg",
+        account: "Cost of Goods Sold",
+        quantity: 20,
+        rate: 200,
+        tax: "VAT Standard (20%)",
+        amount: 4000,
+      },
+      {
+        id: "row-1",
+        name: "Palm Oil 5L",
+        account: "Cost of Goods Sold",
+        quantity: 5,
+        rate: 40,
+        tax: "VAT Standard (20%)",
+        amount: 200,
+      },
+    ]);
+  } else if (stepNum === 158) {
+    tl.setVar("booksBills", [
+      {
+        id: "BILL-1200",
+        billNumber: "BILL-1200",
+        vendorName: "Greenfield Packaging Ltd",
+        date: "11/7/2026",
+        dueDate: "11/9/2026",
+        orderNumber: "PO-5521",
+        amount: 5040.0,
+        status: "Open",
+        balanceDue: 5040.0,
+        subject: "Materials for building",
+        terms: "Due on Receipt",
+        items: [
+          {
+            id: "item-0",
+            name: "Organic Rice 25kg",
+            account: "Cost of Goods Sold",
+            quantity: 20,
+            rate: 200,
+            tax: "VAT Standard (20%)",
+            amount: 4000,
+          },
+          {
+            id: "item-1",
+            name: "Palm Oil 5L",
+            account: "Cost of Goods Sold",
+            quantity: 5,
+            rate: 40,
+            tax: "VAT Standard (20%)",
+            amount: 200,
+          },
+        ],
+        subTotal: 4200.0,
+        taxAmount: 840.0,
+        total: 5040.0,
+      },
+      ...INITIAL_BILLS.filter((b) => b.id !== "BILL-1200"),
+    ]);
   }
 }
 

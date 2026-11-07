@@ -1441,8 +1441,40 @@ Reference video: `1106(3).mp4` (7:30, git-ignored `ref/`, frames in `ref/books8/
 8. **Filtered Views Empty State**: In the Expenses list, switching the Views dropdown to `Invoiced`, `Reimbursed`, `Non-Billable`, `With Receipts`, or `Without Receipts` displays the "Life Cycle of an Expense" flow diagram with 4 checklist bullets and the blue `Record Expense` button.
 
 ### Part 8 Fix Pass: Step Consolidation & Elimination of Silent Fills
-1. **Consolidation into 13 Steps (135–147)**: The original 25 micro-steps were merged into 13 larger, cohesive steps (numbered 135 to 147) with durations ranging from 35s to 54s. Step 148 is explicitly reserved and skipped; the final completion card mounts immediately after Step 147.
+1. **Consolidation into 13 Steps (135–147)**: The original 25 micro-steps were merged into 13 larger, cohesive steps (numbered 135 to 147) with durations ranging from 35s to 54s.
 2. **Elimination of Silent Fills**: Every dropdown, select element, radio button, checkbox, and calendar popover is rendered as an accessible in-DOM component that is explicitly opened by the fake cursor, dwelled for 600ms, hovered, and clicked. All text input fields are focused and typed character-by-character via `typeIntoVar`.
 3. **Automated Verification**: Enforced via `scripts/audit-books-interactions.py` (0 silent fills across all 13 steps), `scripts/audit-books-selectors.py` (0 missing selectors across steps 33–147), and `scripts/check-books-chain.ts` (0 distinct errors, 13/13 completed).
+
+## Snaarp Books Part 9: Purchases > Recurring Expenses (Steps 148 to 151) and Bills (Steps 152 to 158)
+
+Reference video: `1106(4).mp4` (5:07, git-ignored `ref/`, frames in `ref/books9/`).
+
+### Sample Data & Realistic Content
+- Vendors: Greenfield Packaging Ltd, Victor Stationery
+- Customers: Acme Foods Ltd
+- Approvers: Jordan Lee, Casey Brown
+- Items: Organic Rice 25kg, Palm Oil 5L, Cassava Flour 10kg, Delivery Fee, Reusable Tote Bag
+- Currency: GBP (£)
+- Dates: MM/DD/YYYY, default/today 11/07/2026
+- Recurring Expenses Data:
+  - `rec-exp-1` | Cleaning Services | Weekly | £120.00 | Active | 10/13/2026 | Advertising and Marketing | Victor Stationery
+  - `rec-exp-2` | Monthly Office Supplies | Month | £450.00 | Active | 11/07/2026 | Advertising and Marketing | Greenfield Packaging Ltd
+- Bills Data:
+  - `BILL-005` | Greenfield Packaging Ltd | 11/03/2026 | Due: 11/03/2026 | £43.20 | PENDING_APPROVAL | Approvals: Jordan Lee (Awaiting), Casey Brown (Queued)
+  - `BILL-004` | Victor Stationery | 10/29/2026 | Due: 10/29/2026 | £36.00 | PENDING_APPROVAL | Approvals: Jordan Lee (Awaiting)
+  - `BILL-003` | Victor Stationery | 10/27/2026 | Due: 10/27/2026 | £43.20 | Open (OVERDUE) | Overdue banner and diagonal ribbon
+  - `BILL-001` | Victor Stationery | 10/27/2026 | Due: 10/27/2026 | £72.00 | Open
+  - `BILL-002` | Victor Stationery | 10/13/2026 | Due: 10/13/2026 | £200.00 | Paid | Journal entries
+  - `BILL-1200` | Greenfield Packaging Ltd | 11/07/2026 | Due: 11/09/2026 | £5,040.00 | Open | PO-5521
+
+### Decisions & Deviations from Video
+1. **Purchases Submenu Wiring**: In the Purchases sidebar group, items `Recurring Expenses` (`nav-purchases-recurring-expenses`) and `Bills` (`nav-purchases-bills`) are now wired and active. `Recurring Bills`, `Payments Made`, and `Vendor Credits` stay drawn and inactive (leads to future modules).
+2. **Server Error Toast Omitted**: During the creation of `BILL-1200` in the recording, an unexpected backend server error toast appears in red. In accordance with rule 2 (every flow finishes in its success state), this error toast was omitted; the bill successfully saves with a green success toast ("Bill saved successfully") and mounts at the top of the Bills list.
+3. **In-App Confirmations**: Native browser confirm alerts shown in the recording when deleting recurring profile `rec-exp-2` and bill `BILL-004` are replaced with in-app confirmation modals (`BooksRecurringExpenseConfirmDialog` and `BooksBillConfirmDialog`).
+4. **In-App File Attachment**: Receipt/invoice file upload replaces native OS file dialog with `BooksBillFilePickerModal` selecting sample file `supplier-invoice.pdf`.
+5. **In-App PDF Preview**: External browser PDF tab replaces in-app modal `BooksBillPdfPreviewModal`.
+6. **Omitted Unclicked Flows**: Features shown in the recording but not clicked/operated include Edit Bill, Record Payment, Submit for Approval, Withdraw & change approvers, "New View", and Associate Tags dialog. All controls remain rendered pixel-faithfully without extra branching.
+7. **11 Big Steps**: Built as exactly 11 steps (148 to 158) with zero silent fills, verified with `scripts/audit-books-interactions.py` and `scripts/check-books-chain.ts`.
+
 
 

@@ -293,6 +293,28 @@ import { Step146 } from "@/scenes/books/step146/Step146";
 import { runStep146, STEP146_DURATION_MS } from "@/scenes/books/step146/script";
 import { Step147 } from "@/scenes/books/step147/Step147";
 import { runStep147, STEP147_DURATION_MS } from "@/scenes/books/step147/script";
+import { Step148 } from "@/scenes/books/step148/Step148";
+import { runStep148, STEP148_DURATION_MS } from "@/scenes/books/step148/script";
+import { Step149 } from "@/scenes/books/step149/Step149";
+import { runStep149, STEP149_DURATION_MS } from "@/scenes/books/step149/script";
+import { Step150 } from "@/scenes/books/step150/Step150";
+import { runStep150, STEP150_DURATION_MS } from "@/scenes/books/step150/script";
+import { Step151 } from "@/scenes/books/step151/Step151";
+import { runStep151, STEP151_DURATION_MS } from "@/scenes/books/step151/script";
+import { Step152 } from "@/scenes/books/step152/Step152";
+import { runStep152, STEP152_DURATION_MS } from "@/scenes/books/step152/script";
+import { Step153 } from "@/scenes/books/step153/Step153";
+import { runStep153, STEP153_DURATION_MS } from "@/scenes/books/step153/script";
+import { Step154 } from "@/scenes/books/step154/Step154";
+import { runStep154, STEP154_DURATION_MS } from "@/scenes/books/step154/script";
+import { Step155 } from "@/scenes/books/step155/Step155";
+import { runStep155, STEP155_DURATION_MS } from "@/scenes/books/step155/script";
+import { Step156 } from "@/scenes/books/step156/Step156";
+import { runStep156, STEP156_DURATION_MS } from "@/scenes/books/step156/script";
+import { Step157 } from "@/scenes/books/step157/Step157";
+import { runStep157, STEP157_DURATION_MS } from "@/scenes/books/step157/script";
+import { Step158 } from "@/scenes/books/step158/Step158";
+import { runStep158, STEP158_DURATION_MS } from "@/scenes/books/step158/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -1783,6 +1805,116 @@ export const books: Tutorial = {
         durationMs: STEP147_DURATION_MS,
       },
     },
+    {
+      id: "recurring-expenses-list-read",
+      title: "Recurring expenses: open the list and read a profile",
+      url: BOOKS_URLS.recurringExpenses,
+      scene: {
+        Component: Step148,
+        run: runStep148,
+        durationMs: STEP148_DURATION_MS,
+      },
+    },
+    {
+      id: "recurring-expenses-create-schedule",
+      title: "Recurring expenses: create a profile, schedule",
+      url: BOOKS_URLS.newRecurringExpense,
+      scene: {
+        Component: Step149,
+        run: runStep149,
+        durationMs: STEP149_DURATION_MS,
+      },
+    },
+    {
+      id: "recurring-expenses-create-amounts-save",
+      title: "Recurring expenses: create a profile, amounts and save",
+      url: BOOKS_URLS.newRecurringExpense,
+      scene: {
+        Component: Step150,
+        run: runStep150,
+        durationMs: STEP150_DURATION_MS,
+      },
+    },
+    {
+      id: "recurring-expenses-delete-profile",
+      title: "Recurring expenses: delete a profile",
+      url: BOOKS_URLS.recurringExpenses,
+      scene: {
+        Component: Step151,
+        run: runStep151,
+        durationMs: STEP151_DURATION_MS,
+      },
+    },
+    {
+      id: "bills-browse-filter-views",
+      title: "Bills: browse, filter and switch views",
+      url: BOOKS_URLS.bills,
+      scene: {
+        Component: Step152,
+        run: runStep152,
+        durationMs: STEP152_DURATION_MS,
+      },
+    },
+    {
+      id: "bills-open-read",
+      title: "Bills: open a bill and read it",
+      url: BOOKS_URLS.bills,
+      scene: {
+        Component: Step153,
+        run: runStep153,
+        durationMs: STEP153_DURATION_MS,
+      },
+    },
+    {
+      id: "bills-send-preview-download",
+      title: "Bills: send, preview and download a bill",
+      url: BOOKS_URLS.billDetails,
+      scene: {
+        Component: Step154,
+        run: runStep154,
+        durationMs: STEP154_DURATION_MS,
+      },
+    },
+    {
+      id: "bills-create-vendor-dates",
+      title: "Bills: create a bill, vendor and dates",
+      url: BOOKS_URLS.newBill,
+      scene: {
+        Component: Step155,
+        run: runStep155,
+        durationMs: STEP155_DURATION_MS,
+      },
+    },
+    {
+      id: "bills-create-items-totals",
+      title: "Bills: create a bill, items and totals",
+      url: BOOKS_URLS.newBill,
+      scene: {
+        Component: Step156,
+        run: runStep156,
+        durationMs: STEP156_DURATION_MS,
+      },
+    },
+    {
+      id: "bills-create-notes-save",
+      title: "Bills: create a bill, notes and save",
+      url: BOOKS_URLS.newBill,
+      scene: {
+        Component: Step157,
+        run: runStep157,
+        durationMs: STEP157_DURATION_MS,
+      },
+    },
+    {
+      id: "bills-delete",
+      title: "Bills: delete a bill",
+      url: BOOKS_URLS.bills,
+      scene: {
+        Component: Step158,
+        run: runStep158,
+        durationMs: STEP158_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -1797,10 +1929,12 @@ export const books: Tutorial = {
     { title: "Credit Notes: issue and manage credits", from: "books-credit-notes-open-list" },
     { title: "Vendors", from: "vendors-list-browse-filter" },
     { title: "Expenses", from: "expenses-list-filter-views" },
+    { title: "Recurring Expenses", from: "recurring-expenses-list-read" },
+    { title: "Bills", from: "bills-browse-filter-views" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, and expenses in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, and vendor bills in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

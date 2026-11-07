@@ -701,6 +701,12 @@ export const BOOKS_URLS = {
   expenses: "books.snaarp.com/expenses",
   newExpense: "books.snaarp.com/expenses/new",
   expenseDetails: "books.snaarp.com/expenses/details",
+  recurringExpenses: "books.snaarp.com/recurring-expenses",
+  newRecurringExpense: "books.snaarp.com/recurring-expenses/new",
+  recurringExpenseDetails: "books.snaarp.com/recurring-expenses/673ba512-0c80-4115-afe8-2944467722aa",
+  bills: "books.snaarp.com/bills",
+  newBill: "books.snaarp.com/bills/new",
+  billDetails: "books.snaarp.com/bills/details",
 };
 
 export type BooksPage =
@@ -742,7 +748,13 @@ export type BooksPage =
   | "vendor-details"
   | "expenses"
   | "new-expense"
-  | "expense-details";
+  | "expense-details"
+  | "recurring-expenses"
+  | "new-recurring-expense"
+  | "recurring-expense-detail"
+  | "bills"
+  | "new-bill"
+  | "bill-detail";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -2794,5 +2806,233 @@ export const INITIAL_EXPENSES: ExpenseItem[] = [
     customerName: "",
     billable: false,
     created: "10/14/2026",
+  },
+];
+
+// ── Recurring Expenses (Part 9) ─────────────────────────────────────────────
+
+export interface RecurringExpenseProfile {
+  id: string;
+  profileName: string;
+  frequency: string;
+  amount: number;
+  status: "Active" | "Inactive";
+  startDate: string;
+  employee?: string;
+  repeatEvery?: string;
+  neverExpires?: boolean;
+  expenseAccount: string;
+  amountIs: "Tax Inclusive" | "Tax Exclusive";
+  tax: string;
+  paidThrough: string;
+  vendor: string;
+  notes?: string;
+  customerName?: string;
+  created: string;
+}
+
+export const INITIAL_RECURRING_EXPENSES: RecurringExpenseProfile[] = [
+  {
+    id: "rec-exp-1",
+    profileName: "Cleaning Services",
+    frequency: "Weekly",
+    amount: 120.0,
+    status: "Active",
+    startDate: "10/13/2026",
+    employee: "None",
+    repeatEvery: "Week",
+    neverExpires: true,
+    expenseAccount: "Advertising and Marketing",
+    amountIs: "Tax Inclusive",
+    tax: "VAT Standard (20%)",
+    paidThrough: "Accounts Receivable",
+    vendor: "Victor Stationery",
+    notes: "Weekly office cleaning and facilities",
+    customerName: "Acme Foods Ltd",
+    created: "10/13/2026",
+  },
+];
+
+// ── Bills (Part 9) ──────────────────────────────────────────────────────────
+
+export interface BillItemRow {
+  id: string;
+  name: string;
+  account: string;
+  quantity: number;
+  rate: number;
+  tax: string;
+  amount: number;
+}
+
+export interface BillApprovalStep {
+  step: number;
+  name: string;
+  status: "Awaiting" | "Queued" | "Approved";
+}
+
+export interface Bill {
+  id: string;
+  billNumber: string;
+  vendorName: string;
+  date: string;
+  dueDate: string;
+  orderNumber?: string;
+  amount: number;
+  status: "PENDING_APPROVAL" | "Open" | "Paid" | "Draft" | "Overdue" | "Partially Paid" | "Void";
+  balanceDue: number;
+  subject?: string;
+  terms?: string;
+  isOverdue?: boolean;
+  approvals?: BillApprovalStep[];
+  items: BillItemRow[];
+  subTotal: number;
+  taxAmount: number;
+  total: number;
+  notes?: string;
+  files?: string[];
+}
+
+export const INITIAL_BILLS: Bill[] = [
+  {
+    id: "BILL-005",
+    billNumber: "BILL-005",
+    vendorName: "Greenfield Packaging Ltd",
+    date: "11/3/2026",
+    dueDate: "11/3/2026",
+    orderNumber: "2",
+    amount: 43.2,
+    status: "PENDING_APPROVAL",
+    balanceDue: 43.2,
+    subject: "Packaging supplies",
+    terms: "Due on Receipt",
+    approvals: [
+      { step: 1, name: "Jordan Lee", status: "Awaiting" },
+      { step: 2, name: "Casey Brown", status: "Queued" },
+    ],
+    items: [
+      {
+        id: "item-row-1",
+        name: "Organic Rice 25kg",
+        account: "Cost of Goods Sold",
+        quantity: 1,
+        rate: 36.0,
+        tax: "VAT Standard (20%)",
+        amount: 36.0,
+      },
+    ],
+    subTotal: 36.0,
+    taxAmount: 7.2,
+    total: 43.2,
+  },
+  {
+    id: "BILL-004",
+    billNumber: "BILL-004",
+    vendorName: "Victor Stationery",
+    date: "10/29/2026",
+    dueDate: "10/29/2026",
+    orderNumber: "3",
+    amount: 36.0,
+    status: "PENDING_APPROVAL",
+    balanceDue: 36.0,
+    subject: "Stationery order",
+    terms: "Due on Receipt",
+    approvals: [{ step: 1, name: "Jordan Lee", status: "Awaiting" }],
+    items: [
+      {
+        id: "item-row-1",
+        name: "Palm Oil 5L",
+        account: "Cost of Goods Sold",
+        quantity: 3,
+        rate: 10.0,
+        tax: "VAT Standard (20%)",
+        amount: 30.0,
+      },
+    ],
+    subTotal: 30.0,
+    taxAmount: 6.0,
+    total: 36.0,
+  },
+  {
+    id: "BILL-003",
+    billNumber: "BILL-003",
+    vendorName: "Victor Stationery",
+    date: "10/27/2026",
+    dueDate: "10/27/2026",
+    orderNumber: "2",
+    amount: 43.2,
+    status: "Open",
+    balanceDue: 43.2,
+    subject: "Print paper supply",
+    terms: "Due on Receipt",
+    isOverdue: true,
+    items: [
+      {
+        id: "item-row-1",
+        name: "Cassava Flour 10kg",
+        account: "Cost of Goods Sold",
+        quantity: 2,
+        rate: 18.0,
+        tax: "VAT Standard (20%)",
+        amount: 36.0,
+      },
+    ],
+    subTotal: 36.0,
+    taxAmount: 7.2,
+    total: 43.2,
+  },
+  {
+    id: "BILL-001",
+    billNumber: "BILL-001",
+    vendorName: "Victor Stationery",
+    date: "10/27/2026",
+    dueDate: "10/27/2026",
+    orderNumber: "1",
+    amount: 72.0,
+    status: "Open",
+    balanceDue: 72.0,
+    subject: "Office delivery fees",
+    terms: "Due on Receipt",
+    items: [
+      {
+        id: "item-row-1",
+        name: "Delivery Fee",
+        account: "Cost of Goods Sold",
+        quantity: 1,
+        rate: 60.0,
+        tax: "VAT Standard (20%)",
+        amount: 60.0,
+      },
+    ],
+    subTotal: 60.0,
+    taxAmount: 12.0,
+    total: 72.0,
+  },
+  {
+    id: "BILL-002",
+    billNumber: "BILL-002",
+    vendorName: "Victor Stationery",
+    date: "10/13/2026",
+    dueDate: "10/13/2026",
+    orderNumber: "PO-3980",
+    amount: 200.0,
+    status: "Paid",
+    balanceDue: 0.0,
+    subject: "Thalking Subscription",
+    terms: "Due on Receipt",
+    items: [
+      {
+        id: "item-row-1",
+        name: "Thalking",
+        account: "Cost of Goods Sold",
+        quantity: 1,
+        rate: 200.0,
+        tax: "No Tax",
+        amount: 200.0,
+      },
+    ],
+    subTotal: 200.0,
+    taxAmount: 0.0,
+    total: 200.0,
   },
 ];

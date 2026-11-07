@@ -39,6 +39,12 @@ import { BooksNewVendorView } from "./BooksNewVendorView";
 import { BooksExpensesView } from "./BooksExpensesView";
 import { BooksExpenseDetailView } from "./BooksExpenseDetailView";
 import { BooksRecordExpenseView } from "./BooksRecordExpenseView";
+import { BooksRecurringExpensesView } from "./BooksRecurringExpensesView";
+import { BooksNewRecurringExpenseView } from "./BooksNewRecurringExpenseView";
+import { BooksRecurringExpenseDetailView } from "./BooksRecurringExpenseDetailView";
+import { BooksBillsView } from "./BooksBillsView";
+import { BooksNewBillView } from "./BooksNewBillView";
+import { BooksBillDetailView } from "./BooksBillDetailView";
 
 type Props = {
   tl: Timeline;
@@ -96,6 +102,12 @@ export function BooksStage({ tl }: Props) {
       {currentView === "expenses" && <BooksExpensesView tl={tl} />}
       {currentView === "new-expense" && <BooksRecordExpenseView tl={tl} />}
       {currentView === "expense-details" && <BooksExpenseDetailView tl={tl} />}
+      {currentView === "recurring-expenses" && <BooksRecurringExpensesView tl={tl} />}
+      {currentView === "new-recurring-expense" && <BooksNewRecurringExpenseView tl={tl} />}
+      {currentView === "recurring-expense-detail" && <BooksRecurringExpenseDetailView tl={tl} />}
+      {currentView === "bills" && <BooksBillsView tl={tl} />}
+      {currentView === "new-bill" && <BooksNewBillView tl={tl} />}
+      {currentView === "bill-detail" && <BooksBillDetailView tl={tl} />}
     </BooksShell>
   );
 }

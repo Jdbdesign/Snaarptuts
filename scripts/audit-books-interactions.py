@@ -64,6 +64,36 @@ FIELD_VARS = {
     "booksMileagePaidThrough",
     "booksMileageTax",
     "booksMileageVendor",
+    # Recurring Expenses (Part 9)
+    "booksRecProfileName",
+    "booksRecEmployee",
+    "booksRecRepeatEvery",
+    "booksRecStartDate",
+    "booksRecEndsOn",
+    "booksRecNeverExpires",
+    "booksRecExpenseAccount",
+    "booksRecAmount",
+    "booksRecAmountIs",
+    "booksRecTax",
+    "booksRecPaidThrough",
+    "booksRecVendor",
+    "booksRecNotes",
+    "booksRecCustomerName",
+    # Bills (Part 9)
+    "booksBillViewMode",
+    "booksBillCalendarMonth",
+    "booksBillStatusFilter",
+    "booksAllBillsView",
+    "booksNewBillVendor",
+    "booksNewBillNumber",
+    "booksNewBillOrderNumber",
+    "booksNewBillDate",
+    "booksNewBillDueDate",
+    "booksNewBillTerms",
+    "booksNewBillSubject",
+    "booksNewBillNotes",
+    "booksNewBillItems",
+    "booksBillAttachment",
 }
 
 LOOKBACK_LINES = 12
@@ -108,7 +138,7 @@ def audit_step(step_num: int):
 
 def main():
     all_errors = []
-    for step_num in range(135, 148):
+    for step_num in range(135, 159):
         errs = audit_step(step_num)
         all_errors.extend(errs)
 
