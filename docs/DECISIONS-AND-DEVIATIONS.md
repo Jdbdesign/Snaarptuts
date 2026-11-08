@@ -1534,3 +1534,30 @@ Reference video: `1108(1).mp4` (1500x720, 3:32, git-ignored `ref/`, frames in `r
 
 
 
+
+## Snaarp Books Part 12: Accountant > Manual Journals, Chart of Accounts, Budgets, Transaction Locking (Steps 179 to 189)
+
+Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `ref/books12/`).
+
+### Sample Data & Realistic Content
+- Manual Journals:
+  - JRN-0014: "Auto-post: Invoice INV10005 sent", REF-8841, Date: 21 Oct 2026, Published, £84.00 balanced debit/credit (Accounts Receivable & Sales)
+  - 14 published journals in table (JRN-0014 down to JRN-0001) matching the video's reverse chronological order
+  - Reversal: Reversal date scheduled for 30 Nov 2026 with "Publish on reverse date" enabled
+  - Templates: "Monthly Accrual", REF-9382, Notes "Recurring month-end accrual entry", Accrual and Cash method
+- Chart of Accounts:
+  - 17 standard operating accounts (Petty Cash, Undeposited Funds, Accounts Receivable, Inventory Asset, Equipment, Accounts Payable, VAT Payable, Bank Loan, Owner Equity, Retained Earnings, Sales, Service Income, COGS, Advertising, Rent, Office Supplies, Utilities)
+  - Sub-account: "Staff Float" / "Staff Petty Float" (code 1002, Cash asset under Accounts Receivable, indented in table)
+- Budgets:
+  - Budget 1: "Operations 2026", Jan 2026 - Dec 2026, Monthly, Active
+  - Budget 2: "Expenses", Jan 2026 - Dec 2026, Monthly, Balance Sheet included, accounts: Shipping Charges, Late Fee Income, COGS, Insurance. 12 monthly columns pre-filled and edited to £750.
+- Transaction Locking:
+  - Modules: Sales, Purchases, Banking, Accountant (all initially Unlocked)
+
+### Decisions & Deviations from Video
+1. **Accountant Sidebar Navigation**: Replaced the static single button with a collapsible menu revealing all 8 items (Manual Journals, Bulk Update, Currency Adjustments, Chart of Accounts, Budgets, Transaction Locking, Audit Logs, Import Data).
+2. **Skipped Menu Items**: Bulk Update, Currency Adjustments, Audit Logs, and Import Data are drawn pixel-faithfully in the menu, but per explicit instructions, are never clicked because they were skipped in the product/video recording.
+3. **No Browser Chrome & In-App Confirms**: Native browser confirm dialogs (when deleting account or deleting budget) replaced by accessible in-app modals (`BooksAccountConfirmDialog` and `BooksBudgetConfirmDialog`). Browser address bar, toolbars, and OS file picker omitted.
+4. **Error Toasts & Tooltips Omitted**: Any validation tooltip or server error toast in the video is omitted per Rule 2; every flow terminates in its clean success state.
+5. **Flow Stop Points**: Transaction Locking overview reviews the module freeze cards and clicks Lock Purchases with confirmation toast, cleanly stopping where the video stops without opening a native freeze date modal.
+6. **11 Big Steps**: Exactly 11 steps (179-189) with 0 silent fills, passing selector audits (`audit-books-selectors.py`), interaction audits (`audit-books-interactions.py`), chained execution (`check-books-chain.ts`), and 4-viewport visibility tests (`qa:visibility`).

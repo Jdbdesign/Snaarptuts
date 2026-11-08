@@ -1,0 +1,15 @@
+export const CAPTIONS = {
+  viewBudgets: "View the budgets list and plan fiscal target forecasts.",
+  openNewBudget: "Click + New Budget to initiate a budget plan.",
+  clickName: "Click Budget Name to enter the budget title.",
+  typeName: "Type Expenses for the budget title.",
+  openFiscalYear: "Click Fiscal Year to choose the accounting year.",
+  selectYear: "Click Jan 2026 - Dec 2026 to set the fiscal calendar period.",
+  checkBalanceSheet: "Click the checkbox to include balance sheet accounts in the budget.",
+  openAddAccounts: "Click + Add Accounts to configure income and expense categories.",
+  selectShipping: "Click to select Shipping Charges.",
+  selectLateFee: "Click to select Late Fee Income.",
+  selectCogs: "Click to select Cost of Goods Sold.",
+  updateAccounts: "Click Update to apply the selected accounts to the budget.",
+  createBudget: "Click Create Budget to proceed to the budget matrix grid.",
+};

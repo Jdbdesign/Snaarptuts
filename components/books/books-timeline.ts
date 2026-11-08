@@ -16,8 +16,12 @@ import {
   INITIAL_BILLS,
   INITIAL_BANK_ACCOUNTS,
   INITIAL_BANK_TRANSACTIONS,
+  INITIAL_MANUAL_JOURNALS,
+  INITIAL_CHART_OF_ACCOUNTS,
+  INITIAL_BUDGETS,
   type BankAccount,
   type BankTransaction,
+  type ChartAccount,
 } from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
@@ -747,6 +751,93 @@ export function beginBooks(
   tl.setVar("booksNewTxNotes", "");
   tl.setVar("booksNewTxSaving", false);
 
+  // Accountant state (steps 179-189)
+  const isAccountantPage =
+    page === "manual-journals" ||
+    page === "manual-journal-detail" ||
+    page === "choose-journal-template" ||
+    page === "new-journal-template" ||
+    page === "chart-of-accounts" ||
+    page === "account-detail" ||
+    page === "budgets" ||
+    page === "new-budget" ||
+    page === "budget-detail" ||
+    page === "transaction-locking";
+  tl.setVar("booksAccountantExpanded", isAccountantPage);
+
+  // Manual Journals
+  tl.setVar("booksManualJournals", INITIAL_MANUAL_JOURNALS);
+  tl.setVar("booksJournalsView", "All");
+  tl.setVar("booksJournalsViewOpen", false);
+  tl.setVar("booksJournalsSearch", "");
+  tl.setVar("booksActiveJournal", INITIAL_MANUAL_JOURNALS[0]);
+  tl.setVar("booksReversePanelOpen", false);
+  tl.setVar("booksReverseDate", "");
+  tl.setVar("booksPublishOnReverseDate", true);
+
+  // Templates
+  tl.setVar("booksTemplates", []);
+  tl.setVar("booksNewTemplateName", "");
+  tl.setVar("booksNewTemplateReference", "");
+  tl.setVar("booksNewTemplateNotes", "");
+  tl.setVar("booksNewTemplateMethod", "Accrual and Cash");
+  tl.setVar("booksNewTemplateCurrency", "GBP - British Pound");
+  tl.setVar("booksNewTemplateCurrencyOpen", false);
+  tl.setVar("booksNewTemplateLines", [
+    {
+      account: "",
+      description: "",
+      contact: "",
+      txType: "Sales",
+      tax: "No Tax",
+      type: "Credits" as const,
+    },
+  ]);
+
+  // Chart of Accounts
+  tl.setVar("booksChartOfAccounts", INITIAL_CHART_OF_ACCOUNTS);
+  tl.setVar("booksCoaView", "Active Accounts");
+  tl.setVar("booksCoaViewOpen", false);
+  tl.setVar("booksCoaSearch", "");
+  tl.setVar("booksCoaSelected", []);
+  tl.setVar("booksCreateAccountModalOpen", false);
+  tl.setVar("booksNewAccountType", "");
+  tl.setVar("booksNewAccountTypeOpen", false);
+  tl.setVar("booksNewAccountName", "");
+  tl.setVar("booksNewAccountIsSub", false);
+  tl.setVar("booksNewAccountParent", "");
+  tl.setVar("booksNewAccountParentOpen", false);
+  tl.setVar("booksNewAccountCode", "");
+  tl.setVar("booksNewAccountDescription", "");
+  tl.setVar("booksActiveAccount", null);
+  tl.setVar("booksAccountConfirmOpen", false);
+  tl.setVar("booksAccountToDelete", null);
+
+  // Budgets
+  tl.setVar("booksBudgets", INITIAL_BUDGETS);
+  tl.setVar("booksNewBudgetName", "");
+  tl.setVar("booksNewBudgetYear", "Jan 2026 - Dec 2026");
+  tl.setVar("booksNewBudgetYearOpen", false);
+  tl.setVar("booksNewBudgetPeriod", "Monthly");
+  tl.setVar("booksNewBudgetPeriodOpen", false);
+  tl.setVar("booksNewBudgetIncome", []);
+  tl.setVar("booksNewBudgetExpense", []);
+  tl.setVar("booksNewBudgetIncludeBalanceSheet", false);
+  tl.setVar("booksNewBudgetAsset", []);
+  tl.setVar("booksNewBudgetLiability", []);
+  tl.setVar("booksNewBudgetEquity", []);
+  tl.setVar("booksConfigAccountsModalOpen", false);
+  tl.setVar("booksConfigAccountsCategory", "");
+  tl.setVar("booksConfigAccountsSearch", "");
+  tl.setVar("booksConfigAccountsSelected", []);
+  tl.setVar("booksActiveBudget", INITIAL_BUDGETS[0]);
+  tl.setVar("booksBudgetGridTab", "income-expense");
+  tl.setVar("booksBudgetGridValues", {});
+  tl.setVar("booksBudgetGridSaving", false);
+  tl.setVar("booksBudgetActionsOpen", null);
+  tl.setVar("booksBudgetConfirmOpen", false);
+  tl.setVar("booksBudgetToDelete", null);
+
   // Step-specific preloaded states for independent scene starts
   if (stepNum === 135) {
     tl.setVar("booksPurchasesExpanded", false);
@@ -1050,6 +1141,77 @@ export function beginBooks(
         : t
     );
     tl.setVar("booksBankTransactions", [newTx, ...updatedTxs]);
+  } else if (stepNum === 179) {
+    tl.setVar("booksAccountantExpanded", false);
+  } else if (stepNum === 180) {
+    tl.setVar("booksAccountantExpanded", true);
+  } else if (stepNum === 181) {
+    tl.setVar("booksAccountantExpanded", true);
+    tl.setVar("booksActiveJournal", INITIAL_MANUAL_JOURNALS[0]);
+  } else if (stepNum === 182) {
+    tl.setVar("booksAccountantExpanded", true);
+  } else if (stepNum === 183) {
+    tl.setVar("booksAccountantExpanded", true);
+  } else if (stepNum === 184) {
+    tl.setVar("booksAccountantExpanded", true);
+    const staffFloat: ChartAccount = {
+      id: "coa-1002",
+      name: "Staff Float",
+      code: "1002",
+      type: "Cash",
+      parentAccountName: "1100 - Accounts Receivable",
+      status: "Active",
+      isSubAccount: true,
+      description: "Float for small daily costs",
+    };
+    tl.setVar("booksChartOfAccounts", [
+      ...INITIAL_CHART_OF_ACCOUNTS.slice(0, 3),
+      staffFloat,
+      ...INITIAL_CHART_OF_ACCOUNTS.slice(3),
+    ]);
+    tl.setVar("booksActiveAccount", staffFloat);
+  } else if (stepNum === 185) {
+    tl.setVar("booksAccountantExpanded", true);
+    const staffFloat: ChartAccount = {
+      id: "coa-1002",
+      name: "Staff Petty Float",
+      code: "1002",
+      type: "Cash",
+      parentAccountName: "1100 - Accounts Receivable",
+      status: "Active",
+      isSubAccount: true,
+      description: "Updated float account",
+    };
+    tl.setVar("booksChartOfAccounts", [
+      ...INITIAL_CHART_OF_ACCOUNTS.slice(0, 3),
+      staffFloat,
+      ...INITIAL_CHART_OF_ACCOUNTS.slice(3),
+    ]);
+  } else if (stepNum === 186) {
+    tl.setVar("booksAccountantExpanded", true);
+  } else if (stepNum === 187) {
+    tl.setVar("booksAccountantExpanded", true);
+    tl.setVar("booksNewBudgetName", "Expenses");
+    tl.setVar("booksNewBudgetYear", "Jan 2026 - Dec 2026");
+    tl.setVar("booksNewBudgetPeriod", "Monthly");
+    tl.setVar("booksNewBudgetIncome", ["Shipping Charges", "Late Fee Income"]);
+    tl.setVar("booksNewBudgetExpense", ["Cost of Goods Sold", "Insurance"]);
+    tl.setVar("booksNewBudgetIncludeBalanceSheet", true);
+  } else if (stepNum === 188) {
+    tl.setVar("booksAccountantExpanded", true);
+    tl.setVar("booksBudgets", [
+      {
+        id: "b-exp",
+        name: "Expenses",
+        fiscalYear: "Jan 2026 - Dec 2026",
+        period: "Monthly",
+        createdAt: "11/08/2026",
+        status: "Active",
+      },
+      ...INITIAL_BUDGETS,
+    ]);
+  } else if (stepNum === 189) {
+    tl.setVar("booksAccountantExpanded", true);
   }
 }
 

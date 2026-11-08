@@ -61,6 +61,16 @@ import { BooksEditBankAccountView } from "./BooksEditBankAccountView";
 import { BooksBankTransactionsView } from "./BooksBankTransactionsView";
 import { BooksNewBankTransactionView } from "./BooksNewBankTransactionView";
 import { BooksBankTransactionDetailView } from "./BooksBankTransactionDetailView";
+import { BooksManualJournalsView } from "./BooksManualJournalsView";
+import { BooksManualJournalDetailView } from "./BooksManualJournalDetailView";
+import { BooksChooseJournalTemplateView } from "./BooksChooseJournalTemplateView";
+import { BooksNewJournalTemplateView } from "./BooksNewJournalTemplateView";
+import { BooksChartOfAccountsView } from "./BooksChartOfAccountsView";
+import { BooksAccountDetailView } from "./BooksAccountDetailView";
+import { BooksBudgetsView } from "./BooksBudgetsView";
+import { BooksNewBudgetView } from "./BooksNewBudgetView";
+import { BooksBudgetDetailView } from "./BooksBudgetDetailView";
+import { BooksTransactionLockingView } from "./BooksTransactionLockingView";
 
 type Props = {
   tl: Timeline;
@@ -140,6 +150,16 @@ export function BooksStage({ tl }: Props) {
       {currentView === "bank-transactions" && <BooksBankTransactionsView tl={tl} />}
       {currentView === "new-bank-transaction" && <BooksNewBankTransactionView tl={tl} />}
       {currentView === "bank-transaction-detail" && <BooksBankTransactionDetailView tl={tl} />}
+      {currentView === "manual-journals" && <BooksManualJournalsView tl={tl} />}
+      {currentView === "manual-journal-detail" && <BooksManualJournalDetailView tl={tl} />}
+      {currentView === "choose-journal-template" && <BooksChooseJournalTemplateView tl={tl} />}
+      {currentView === "new-journal-template" && <BooksNewJournalTemplateView tl={tl} />}
+      {currentView === "chart-of-accounts" && <BooksChartOfAccountsView tl={tl} />}
+      {currentView === "account-detail" && <BooksAccountDetailView tl={tl} />}
+      {currentView === "budgets" && <BooksBudgetsView tl={tl} />}
+      {currentView === "new-budget" && <BooksNewBudgetView tl={tl} />}
+      {currentView === "budget-detail" && <BooksBudgetDetailView tl={tl} />}
+      {currentView === "transaction-locking" && <BooksTransactionLockingView tl={tl} />}
     </BooksShell>
   );
 }

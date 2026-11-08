@@ -723,6 +723,16 @@ export const BOOKS_URLS = {
   bankTransactions: "books.snaarp.com/bank-transactions",
   newBankTransaction: "books.snaarp.com/bank-transactions/new",
   bankTransactionDetails: "books.snaarp.com/bank-transactions/details",
+  manualJournals: "books.snaarp.com/accountant/manual-journals",
+  manualJournalDetails: "books.snaarp.com/accountant/manual-journals/JRN-0014",
+  chooseJournalTemplate: "books.snaarp.com/accountant/manual-journals/templates/choose",
+  newJournalTemplate: "books.snaarp.com/accountant/manual-journals/templates/new",
+  chartOfAccounts: "books.snaarp.com/accountant/chart-of-accounts",
+  accountDetails: "books.snaarp.com/accountant/chart-of-accounts/details",
+  budgets: "books.snaarp.com/accountant/budgets",
+  newBudget: "books.snaarp.com/accountant/budgets/new",
+  budgetDetails: "books.snaarp.com/accountant/budgets/details",
+  transactionLocking: "books.snaarp.com/accountant/transaction-locking",
 };
 
 export type BooksPage =
@@ -786,7 +796,17 @@ export type BooksPage =
   | "edit-bank-account"
   | "bank-transactions"
   | "new-bank-transaction"
-  | "bank-transaction-detail";
+  | "bank-transaction-detail"
+  | "manual-journals"
+  | "manual-journal-detail"
+  | "choose-journal-template"
+  | "new-journal-template"
+  | "chart-of-accounts"
+  | "account-detail"
+  | "budgets"
+  | "new-budget"
+  | "budget-detail"
+  | "transaction-locking";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -3632,5 +3652,328 @@ export const TRANSACTION_FILTER_TYPES = [
   "Interest",
   "Fee",
 ] as const;
+
+// ── Accountant Data Types & Lists ──────────────────────────────────────────
+
+export interface ManualJournalLine {
+  id: string;
+  account: string;
+  description: string;
+  contact?: string;
+  debit?: number;
+  credit?: number;
+}
+
+export interface ManualJournal {
+  id: string;
+  journalNumber: string;
+  date: string;
+  reference: string;
+  notes: string;
+  status: "Published" | "Draft";
+  total: number;
+  currency: "GBP" | "USD";
+  reverseDate?: string;
+  publishOnReverseDate?: boolean;
+  reportingMethod?: string;
+  lines: ManualJournalLine[];
+}
+
+export const INITIAL_MANUAL_JOURNALS: ManualJournal[] = [
+  {
+    id: "jrn-14",
+    journalNumber: "JRN-0014",
+    date: "21 Oct 2026",
+    reference: "INV10005",
+    notes: "Auto-post: Invoice INV10005 sent",
+    status: "Published",
+    total: 84.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [
+      {
+        id: "line-1",
+        account: "1100 - Accounts Receivable",
+        description: "AR - Invoice INV10005",
+        contact: "CUSTOMER: Acme Foods Ltd",
+        debit: 84.0,
+      },
+      {
+        id: "line-2",
+        account: "4000 - Sales",
+        description: "Revenue - Invoice INV10005",
+        credit: 84.0,
+      },
+    ],
+  },
+  {
+    id: "jrn-13",
+    journalNumber: "JRN-0013",
+    date: "21 Oct 2026",
+    reference: "INV10004",
+    notes: "Auto-post: Invoice INV10004 sent",
+    status: "Published",
+    total: 84.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-12",
+    journalNumber: "JRN-0012",
+    date: "21 Oct 2026",
+    reference: "INV10003",
+    notes: "Auto-post: Invoice INV10003 sent",
+    status: "Published",
+    total: 100.8,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-11",
+    journalNumber: "JRN-0011",
+    date: "21 Oct 2026",
+    reference: "INV10002",
+    notes: "Auto-reversal: Invoice INV10002 deleted",
+    status: "Published",
+    total: 84.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-10",
+    journalNumber: "JRN-0010",
+    date: "21 Oct 2026",
+    reference: "INV10002",
+    notes: "Auto-post: Invoice INV10002 sent",
+    status: "Published",
+    total: 84.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-9",
+    journalNumber: "JRN-0009",
+    date: "21 Oct 2026",
+    reference: "INV10001",
+    notes: "Auto-reversal: Invoice INV10001 deleted",
+    status: "Published",
+    total: 84.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-8",
+    journalNumber: "JRN-0008",
+    date: "21 Oct 2026",
+    reference: "INV10001",
+    notes: "Auto-post: Invoice INV10001 sent",
+    status: "Published",
+    total: 84.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-7",
+    journalNumber: "JRN-0007",
+    date: "21 Oct 2026",
+    reference: "INV10000",
+    notes: "Auto-post: Invoice INV10000 sent",
+    status: "Published",
+    total: 84.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-6",
+    journalNumber: "JRN-0006",
+    date: "11 Sept 2026",
+    reference: "BNK-0006",
+    notes: "Auto-post: Bank transaction - Cloud Hosting Ltd",
+    status: "Published",
+    total: 36.49,
+    currency: "USD",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-19",
+    journalNumber: "JRN-0019",
+    date: "14 Oct 2026",
+    reference: "2",
+    notes: "Auto-post: Payment made 2",
+    status: "Published",
+    total: 200.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-18",
+    journalNumber: "JRN-0018",
+    date: "13 Oct 2026",
+    reference: "BILL-002",
+    notes: "Auto-post: Bill BILL-002 opened",
+    status: "Published",
+    total: 200.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-17",
+    journalNumber: "JRN-0017",
+    date: "10 Oct 2026",
+    reference: "EXP-001",
+    notes: "Auto-post: Expense",
+    status: "Published",
+    total: 500.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-16",
+    journalNumber: "JRN-0016",
+    date: "08 Oct 2026",
+    reference: "8",
+    notes: "Auto-post: Payment received 8",
+    status: "Published",
+    total: 420.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+  {
+    id: "jrn-15",
+    journalNumber: "JRN-0015",
+    date: "31 Jan 2025",
+    reference: "BNK-0001",
+    notes: "Auto-post: Bank transaction - Client payment",
+    status: "Published",
+    total: 3200.0,
+    currency: "GBP",
+    reportingMethod: "Accrual and Cash",
+    lines: [],
+  },
+];
+
+export interface JournalTemplateLine {
+  account: string;
+  description: string;
+  contact: string;
+  txType: string;
+  tax: string;
+  type: "Debits" | "Credits";
+  amount?: number;
+}
+
+export interface JournalTemplate {
+  id: string;
+  name: string;
+  reference: string;
+  notes: string;
+  reportingMethod: string;
+  journalType?: string;
+  currency: string;
+  lines: JournalTemplateLine[];
+}
+
+export interface ChartAccount {
+  id: string;
+  name: string;
+  code: string;
+  type: string;
+  currency?: string;
+  parentAccountName?: string;
+  isSystemLocked?: boolean;
+  status: "Active" | "Inactive";
+  description?: string;
+  isSubAccount?: boolean;
+}
+
+export const INITIAL_CHART_OF_ACCOUNTS: ChartAccount[] = [
+  { id: "coa-1000", name: "Petty Cash", code: "1000", type: "Liability", isSystemLocked: true, status: "Active" },
+  { id: "coa-1001", name: "Undeposited Funds", code: "1001", type: "Asset", isSystemLocked: true, status: "Active" },
+  { id: "coa-1100", name: "Accounts Receivable", code: "1100", type: "Asset", isSystemLocked: true, status: "Active" },
+  { id: "coa-1200", name: "Inventory Asset", code: "1200", type: "Asset", isSystemLocked: true, status: "Active" },
+  { id: "coa-1300", name: "Prepaid Expenses", code: "1300", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-1301", name: "Advance Tax", code: "1301", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-1302", name: "Employee Advance", code: "1302", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-1303", name: "Input Tax", code: "1303", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-1400", name: "Furniture and Equipment", code: "1400", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-1401", name: "Fixed Asset - Computers", code: "1401", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-1500", name: "Goods in Transit", code: "1500", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-1501", name: "Finished Goods", code: "1501", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-1502", name: "Raw Materials and Consumables", code: "1502", type: "Asset", isSystemLocked: false, status: "Active" },
+  { id: "coa-2000", name: "Accounts Payable", code: "2000", type: "Liability", isSystemLocked: true, status: "Active" },
+  { id: "coa-2100", name: "Accrued Liabilities", code: "2100", type: "Liability", isSystemLocked: false, status: "Active" },
+  { id: "coa-2101", name: "Customer Advances", code: "2101", type: "Liability", isSystemLocked: false, status: "Active" },
+  { id: "coa-2102", name: "Unearned Revenue", code: "2102", type: "Liability", isSystemLocked: false, status: "Active" },
+];
+
+export interface Budget {
+  id: string;
+  name: string;
+  fiscalYear: string;
+  period: string;
+  createdAt: string;
+  status: "Active";
+  incomeAccounts?: string[];
+  expenseAccounts?: string[];
+  assetAccounts?: string[];
+  liabilityAccounts?: string[];
+  equityAccounts?: string[];
+}
+
+export const INITIAL_BUDGETS: Budget[] = [
+  {
+    id: "b-ops-2026",
+    name: "Operations 2026",
+    fiscalYear: "Jan 2026 - Dec 2026",
+    period: "Monthly",
+    createdAt: "09/27/2026",
+    status: "Active",
+    incomeAccounts: ["Shipping Charges", "Late Fee Income"],
+    expenseAccounts: ["Cost of Goods Sold", "Insurance"],
+  },
+];
+
+export const COA_ACCOUNT_TYPES = [
+  "Cash",
+  "Bank",
+  "Accounts Receivable",
+  "Other Current Asset",
+  "Fixed Asset",
+  "Other Asset",
+  "Accounts Payable",
+  "Other Current Liability",
+  "Long Term Liability",
+  "Equity",
+  "Income",
+  "Expense",
+  "Cost of Goods Sold",
+  "Other Expense",
+] as const;
+
+export const BUDGET_FISCAL_YEARS = [
+  "Jan 2026 - Dec 2026",
+  "Jan 2027 - Dec 2027",
+  "Apr 2026 - Mar 2027",
+] as const;
+
+export const BUDGET_PERIODS = [
+  "Monthly",
+  "Quarterly",
+  "Half Yearly",
+  "Yearly",
+] as const;
+
 
 

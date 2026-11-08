@@ -355,6 +355,28 @@ import { Step177 } from "@/scenes/books/step177/Step177";
 import { runStep177, STEP177_DURATION_MS } from "@/scenes/books/step177/script";
 import { Step178 } from "@/scenes/books/step178/Step178";
 import { runStep178, STEP178_DURATION_MS } from "@/scenes/books/step178/script";
+import { Step179 } from "@/scenes/books/step179/Step179";
+import { runStep179, STEP179_DURATION_MS } from "@/scenes/books/step179/script";
+import { Step180 } from "@/scenes/books/step180/Step180";
+import { runStep180, STEP180_DURATION_MS } from "@/scenes/books/step180/script";
+import { Step181 } from "@/scenes/books/step181/Step181";
+import { runStep181, STEP181_DURATION_MS } from "@/scenes/books/step181/script";
+import { Step182 } from "@/scenes/books/step182/Step182";
+import { runStep182, STEP182_DURATION_MS } from "@/scenes/books/step182/script";
+import { Step183 } from "@/scenes/books/step183/Step183";
+import { runStep183, STEP183_DURATION_MS } from "@/scenes/books/step183/script";
+import { Step184 } from "@/scenes/books/step184/Step184";
+import { runStep184, STEP184_DURATION_MS } from "@/scenes/books/step184/script";
+import { Step185 } from "@/scenes/books/step185/Step185";
+import { runStep185, STEP185_DURATION_MS } from "@/scenes/books/step185/script";
+import { Step186 } from "@/scenes/books/step186/Step186";
+import { runStep186, STEP186_DURATION_MS } from "@/scenes/books/step186/script";
+import { Step187 } from "@/scenes/books/step187/Step187";
+import { runStep187, STEP187_DURATION_MS } from "@/scenes/books/step187/script";
+import { Step188 } from "@/scenes/books/step188/Step188";
+import { runStep188, STEP188_DURATION_MS } from "@/scenes/books/step188/script";
+import { Step189 } from "@/scenes/books/step189/Step189";
+import { runStep189, STEP189_DURATION_MS } from "@/scenes/books/step189/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -2155,6 +2177,116 @@ export const books: Tutorial = {
         durationMs: STEP178_DURATION_MS,
       },
     },
+    {
+      id: "books-179",
+      title: "Manual Journals: list, filter Drafts and switch back",
+      url: BOOKS_URLS.manualJournals,
+      scene: {
+        Component: Step179,
+        run: runStep179,
+        durationMs: STEP179_DURATION_MS,
+      },
+    },
+    {
+      id: "books-180",
+      title: "Manual Journals: review entry JRN-0014",
+      url: BOOKS_URLS.manualJournals,
+      scene: {
+        Component: Step180,
+        run: runStep180,
+        durationMs: STEP180_DURATION_MS,
+      },
+    },
+    {
+      id: "books-181",
+      title: "Manual Journals: schedule reverse date",
+      url: BOOKS_URLS.manualJournalDetails,
+      scene: {
+        Component: Step181,
+        run: runStep181,
+        durationMs: STEP181_DURATION_MS,
+      },
+    },
+    {
+      id: "books-182",
+      title: "Manual Journals: choose template & create template",
+      url: BOOKS_URLS.chooseJournalTemplate,
+      scene: {
+        Component: Step182,
+        run: runStep182,
+        durationMs: STEP182_DURATION_MS,
+      },
+    },
+    {
+      id: "books-183",
+      title: "Chart of Accounts: list, filter, create sub-account",
+      url: BOOKS_URLS.chartOfAccounts,
+      scene: {
+        Component: Step183,
+        run: runStep183,
+        durationMs: STEP183_DURATION_MS,
+      },
+    },
+    {
+      id: "books-184",
+      title: "Chart of Accounts: edit account details",
+      url: BOOKS_URLS.chartOfAccounts,
+      scene: {
+        Component: Step184,
+        run: runStep184,
+        durationMs: STEP184_DURATION_MS,
+      },
+    },
+    {
+      id: "books-185",
+      title: "Chart of Accounts: select row, bulk bar, delete account",
+      url: BOOKS_URLS.chartOfAccounts,
+      scene: {
+        Component: Step185,
+        run: runStep185,
+        durationMs: STEP185_DURATION_MS,
+      },
+    },
+    {
+      id: "books-186",
+      title: "Budgets: list and create new budget",
+      url: BOOKS_URLS.budgets,
+      scene: {
+        Component: Step186,
+        run: runStep186,
+        durationMs: STEP186_DURATION_MS,
+      },
+    },
+    {
+      id: "books-187",
+      title: "Budgets: configure grid & pre-fill actuals",
+      url: BOOKS_URLS.budgetDetails,
+      scene: {
+        Component: Step187,
+        run: runStep187,
+        durationMs: STEP187_DURATION_MS,
+      },
+    },
+    {
+      id: "books-188",
+      title: "Budgets: delete budget",
+      url: BOOKS_URLS.budgets,
+      scene: {
+        Component: Step188,
+        run: runStep188,
+        durationMs: STEP188_DURATION_MS,
+      },
+    },
+    {
+      id: "books-189",
+      title: "Transaction Locking: overview & lock module",
+      url: BOOKS_URLS.transactionLocking,
+      scene: {
+        Component: Step189,
+        run: runStep189,
+        durationMs: STEP189_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -2175,10 +2307,11 @@ export const books: Tutorial = {
     { title: "Payments Made", from: "payments-made-list-filter" },
     { title: "Vendor Credits", from: "vendor-credits-list-filter" },
     { title: "Banking", from: "books-170" },
+    { title: "Accountant", from: "books-179" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, and bank transactions in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, bank transactions, manual journals, chart of accounts, budgets, and transaction locking in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

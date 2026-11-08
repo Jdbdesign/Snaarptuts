@@ -78,6 +78,10 @@ import { BooksRecurringBillConfirmDialog } from "./BooksRecurringBillConfirmDial
 import { BooksPaymentMadeFilePickerModal } from "./BooksPaymentMadeFilePickerModal";
 import { BooksVendorCreditConfirmDialog } from "./BooksVendorCreditConfirmDialog";
 import { BooksBankStatementImportDrawer } from "./BooksBankStatementImportDrawer";
+import { BooksCreateAccountModal } from "./BooksCreateAccountModal";
+import { BooksAccountConfirmDialog } from "./BooksAccountConfirmDialog";
+import { BooksConfigureAccountsModal } from "./BooksConfigureAccountsModal";
+import { BooksBudgetConfirmDialog } from "./BooksBudgetConfirmDialog";
 import { BooksToast } from "./BooksToast";
 
 type Props = {
@@ -175,6 +179,28 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "new-bank-transaction" ||
     currentView === "bank-transaction-detail";
   const isBankingView = isBankAccountsView || isBankTransactionsView;
+  const isManualJournalsView =
+    currentView === "manual-journals" ||
+    currentView === "manual-journal-detail" ||
+    currentView === "choose-journal-template" ||
+    currentView === "new-journal-template";
+  const isChartOfAccountsView =
+    currentView === "chart-of-accounts" || currentView === "account-detail";
+  const isBudgetsView =
+    currentView === "budgets" ||
+    currentView === "new-budget" ||
+    currentView === "budget-detail";
+  const isTransactionLockingView = currentView === "transaction-locking";
+  const isAccountantView =
+    isManualJournalsView ||
+    isChartOfAccountsView ||
+    isBudgetsView ||
+    isTransactionLockingView;
+  const accountantExpanded = useTimelineVar<boolean>(
+    tl,
+    "booksAccountantExpanded",
+    isAccountantView
+  );
   const bankingExpanded = useTimelineVar<boolean>(
     tl,
     "booksBankingExpanded",
@@ -713,16 +739,121 @@ export function BooksShell({ tl, children, overlay }: Props) {
             )}
           </div>
 
-          <button
-            data-tl="nav-books-accountant"
-            className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <BookOpen className="w-4 h-4 text-gray-500 shrink-0" />
-              <span className="whitespace-nowrap">Accountant</span>
-            </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          </button>
+          <div className="space-y-0.5">
+            <button
+              type="button"
+              data-tl="nav-books-accountant"
+              onClick={() => tl.setVar("booksAccountantExpanded", !accountantExpanded)}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                accountantExpanded || isAccountantView
+                  ? "bg-[#F4EBFF] text-[#7014D9] font-semibold"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <BookOpen className="w-4 h-4 shrink-0" />
+                <span className="whitespace-nowrap">Accountant</span>
+              </div>
+              {accountantExpanded ? (
+                <ChevronDown className="w-3.5 h-3.5 text-[#7014D9] shrink-0" />
+              ) : (
+                <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+              )}
+            </button>
+
+            {accountantExpanded && (
+              <div className="pl-4 pr-1 py-0.5 space-y-0.5">
+                <button
+                  type="button"
+                  data-tl="nav-accountant-manual-journals"
+                  onClick={() => {
+                    tl.setVar("booksView", "manual-journals");
+                    tl.setUrl(BOOKS_URLS.manualJournals);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isManualJournalsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Manual Journals</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-accountant-bulk-update"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Bulk Update</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-accountant-currency-adjustments"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Currency Adjustments</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-accountant-chart-of-accounts"
+                  onClick={() => {
+                    tl.setVar("booksView", "chart-of-accounts");
+                    tl.setUrl(BOOKS_URLS.chartOfAccounts);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isChartOfAccountsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Chart of Accounts</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-accountant-budgets"
+                  onClick={() => {
+                    tl.setVar("booksView", "budgets");
+                    tl.setUrl(BOOKS_URLS.budgets);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isBudgetsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Budgets</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-accountant-transaction-locking"
+                  onClick={() => {
+                    tl.setVar("booksView", "transaction-locking");
+                    tl.setUrl(BOOKS_URLS.transactionLocking);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isTransactionLockingView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Transaction Locking</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-accountant-audit-logs"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Audit Logs</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-accountant-import-data"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">Import Data</span>
+                </button>
+              </div>
+            )}
+          </div>
 
           <button
             data-tl="nav-books-filing"
@@ -900,6 +1031,10 @@ export function BooksShell({ tl, children, overlay }: Props) {
       <BooksPaymentMadeFilePickerModal tl={tl} />
       <BooksVendorCreditConfirmDialog tl={tl} />
       <BooksBankStatementImportDrawer tl={tl} />
+      <BooksCreateAccountModal tl={tl} />
+      <BooksAccountConfirmDialog tl={tl} />
+      <BooksConfigureAccountsModal tl={tl} />
+      <BooksBudgetConfirmDialog tl={tl} />
       <BooksToast tl={tl} />
 
       {/* Optional fade overlay */}

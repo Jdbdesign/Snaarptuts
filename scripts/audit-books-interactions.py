@@ -166,6 +166,30 @@ FIELD_VARS = {
     "booksNewTxDescription",
     "booksNewTxCategoryAccount",
     "booksNewTxNotes",
+    # Accountant (Part 12)
+    "booksJournalsSearch",
+    "booksJournalsView",
+    "booksReverseDate",
+    "booksPublishOnReverseDate",
+    "booksNewTemplateName",
+    "booksNewTemplateReference",
+    "booksNewTemplateNotes",
+    "booksNewTemplateMethod",
+    "booksCoaView",
+    "booksCoaSearch",
+    "booksNewAccountType",
+    "booksNewAccountName",
+    "booksNewAccountIsSub",
+    "booksNewAccountParent",
+    "booksNewAccountCode",
+    "booksNewAccountDescription",
+    "booksEditAccountName",
+    "booksEditAccountDesc",
+    "booksNewBudgetName",
+    "booksNewBudgetYear",
+    "booksNewBudgetPeriod",
+    "booksNewBudgetIncludeBalanceSheet",
+    "booksConfigAccountsSearch",
 }
 
 LOOKBACK_LINES = 12
@@ -210,7 +234,7 @@ def audit_step(step_num: int):
 
 def main():
     all_errors = []
-    for step_num in range(135, 179):
+    for step_num in range(135, 190):
         errs = audit_step(step_num)
         all_errors.extend(errs)
 
