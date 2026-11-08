@@ -337,6 +337,24 @@ import { Step168 } from "@/scenes/books/step168/Step168";
 import { runStep168, STEP168_DURATION_MS } from "@/scenes/books/step168/script";
 import { Step169 } from "@/scenes/books/step169/Step169";
 import { runStep169, STEP169_DURATION_MS } from "@/scenes/books/step169/script";
+import { Step170 } from "@/scenes/books/step170/Step170";
+import { runStep170, STEP170_DURATION_MS } from "@/scenes/books/step170/script";
+import { Step171 } from "@/scenes/books/step171/Step171";
+import { runStep171, STEP171_DURATION_MS } from "@/scenes/books/step171/script";
+import { Step172 } from "@/scenes/books/step172/Step172";
+import { runStep172, STEP172_DURATION_MS } from "@/scenes/books/step172/script";
+import { Step173 } from "@/scenes/books/step173/Step173";
+import { runStep173, STEP173_DURATION_MS } from "@/scenes/books/step173/script";
+import { Step174 } from "@/scenes/books/step174/Step174";
+import { runStep174, STEP174_DURATION_MS } from "@/scenes/books/step174/script";
+import { Step175 } from "@/scenes/books/step175/Step175";
+import { runStep175, STEP175_DURATION_MS } from "@/scenes/books/step175/script";
+import { Step176 } from "@/scenes/books/step176/Step176";
+import { runStep176, STEP176_DURATION_MS } from "@/scenes/books/step176/script";
+import { Step177 } from "@/scenes/books/step177/Step177";
+import { runStep177, STEP177_DURATION_MS } from "@/scenes/books/step177/script";
+import { Step178 } from "@/scenes/books/step178/Step178";
+import { runStep178, STEP178_DURATION_MS } from "@/scenes/books/step178/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -2047,6 +2065,96 @@ export const books: Tutorial = {
         durationMs: STEP169_DURATION_MS,
       },
     },
+    {
+      id: "books-170",
+      title: "Bank accounts list view & empty state",
+      url: BOOKS_URLS.bankAccounts,
+      scene: {
+        Component: Step170,
+        run: runStep170,
+        durationMs: STEP170_DURATION_MS,
+      },
+    },
+    {
+      id: "books-171",
+      title: "Add a bank account (Card 1: Account Details)",
+      url: BOOKS_URLS.newBankAccount,
+      scene: {
+        Component: Step171,
+        run: runStep171,
+        durationMs: STEP171_DURATION_MS,
+      },
+    },
+    {
+      id: "books-172",
+      title: "Add a bank account (Card 2: Financial Details & Save)",
+      url: BOOKS_URLS.newBankAccount,
+      scene: {
+        Component: Step172,
+        run: runStep172,
+        durationMs: STEP172_DURATION_MS,
+      },
+    },
+    {
+      id: "books-173",
+      title: "Bank account details view & edit",
+      url: BOOKS_URLS.bankAccounts,
+      scene: {
+        Component: Step173,
+        run: runStep173,
+        durationMs: STEP173_DURATION_MS,
+      },
+    },
+    {
+      id: "books-174",
+      title: "Bank account deactivate & list filter",
+      url: BOOKS_URLS.bankAccounts,
+      scene: {
+        Component: Step174,
+        run: runStep174,
+        durationMs: STEP174_DURATION_MS,
+      },
+    },
+    {
+      id: "books-175",
+      title: "Bank transactions list view & navigate",
+      url: BOOKS_URLS.bankTransactions,
+      scene: {
+        Component: Step175,
+        run: runStep175,
+        durationMs: STEP175_DURATION_MS,
+      },
+    },
+    {
+      id: "books-176",
+      title: "Record a bank transaction (deposit)",
+      url: BOOKS_URLS.newBankTransaction,
+      scene: {
+        Component: Step176,
+        run: runStep176,
+        durationMs: STEP176_DURATION_MS,
+      },
+    },
+    {
+      id: "books-177",
+      title: "Categorize a bank transaction",
+      url: BOOKS_URLS.bankTransactions,
+      scene: {
+        Component: Step177,
+        run: runStep177,
+        durationMs: STEP177_DURATION_MS,
+      },
+    },
+    {
+      id: "books-178",
+      title: "Import statement drawer & template",
+      url: BOOKS_URLS.bankTransactions,
+      scene: {
+        Component: Step178,
+        run: runStep178,
+        durationMs: STEP178_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -2066,10 +2174,11 @@ export const books: Tutorial = {
     { title: "Recurring Bills", from: "recurring-bills-list-filter" },
     { title: "Payments Made", from: "payments-made-list-filter" },
     { title: "Vendor Credits", from: "vendor-credits-list-filter" },
+    { title: "Banking", from: "books-170" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, and vendor credits in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, and bank transactions in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

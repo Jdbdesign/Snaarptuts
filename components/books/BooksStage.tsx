@@ -54,6 +54,13 @@ import { BooksPaymentMadeDetailView } from "./BooksPaymentMadeDetailView";
 import { BooksVendorCreditsView } from "./BooksVendorCreditsView";
 import { BooksNewVendorCreditView } from "./BooksNewVendorCreditView";
 import { BooksVendorCreditDetailView } from "./BooksVendorCreditDetailView";
+import { BooksBankAccountsView } from "./BooksBankAccountsView";
+import { BooksNewBankAccountView } from "./BooksNewBankAccountView";
+import { BooksBankAccountDetailView } from "./BooksBankAccountDetailView";
+import { BooksEditBankAccountView } from "./BooksEditBankAccountView";
+import { BooksBankTransactionsView } from "./BooksBankTransactionsView";
+import { BooksNewBankTransactionView } from "./BooksNewBankTransactionView";
+import { BooksBankTransactionDetailView } from "./BooksBankTransactionDetailView";
 
 type Props = {
   tl: Timeline;
@@ -126,6 +133,13 @@ export function BooksStage({ tl }: Props) {
       {currentView === "vendor-credits" && <BooksVendorCreditsView tl={tl} />}
       {currentView === "new-vendor-credit" && <BooksNewVendorCreditView tl={tl} />}
       {currentView === "vendor-credit-detail" && <BooksVendorCreditDetailView tl={tl} />}
+      {currentView === "bank-accounts" && <BooksBankAccountsView tl={tl} />}
+      {currentView === "new-bank-account" && <BooksNewBankAccountView tl={tl} />}
+      {currentView === "bank-account-detail" && <BooksBankAccountDetailView tl={tl} />}
+      {currentView === "edit-bank-account" && <BooksEditBankAccountView tl={tl} />}
+      {currentView === "bank-transactions" && <BooksBankTransactionsView tl={tl} />}
+      {currentView === "new-bank-transaction" && <BooksNewBankTransactionView tl={tl} />}
+      {currentView === "bank-transaction-detail" && <BooksBankTransactionDetailView tl={tl} />}
     </BooksShell>
   );
 }

@@ -1510,6 +1510,27 @@ Reference video: `1108.mp4` (5:48, git-ignored `ref/`, frames in `ref/books10/`)
    All controls remain rendered pixel-faithfully without extra branching.
 6. **11 Big Steps**: Built as exactly 11 steps (159 to 169) with zero silent fills, verified with `scripts/audit-books-interactions.py` and `scripts/check-books-chain.ts`. Full timing calibrated with 1500 ms hold and 400 ms fade, eliminating idle waits.
 
+## Snaarp Books Part 11: Banking > Bank Accounts (Steps 170 to 175) & Bank Transactions (Steps 176 to 178)
+
+Reference video: `1108(1).mp4` (1500x720, 3:32, git-ignored `ref/`, frames in `ref/books11/`).
+
+### Sample Data & Realistic Content
+- Bank Accounts:
+  - Account 1: "Main Business Account" | Barclays Bank UK | Checking | Acct: 88291044 | Sort: 20-04-01 | Currency: GBP (£) | Opening Balance: £10,000.00 | COA: 1000 - Operating Bank Account | Status: ACTIVE (deactivated to INACTIVE in step 175)
+  - Account 2 (List display): "Jordan Lee Savings" | HSBC Bank UK | Savings | Acct: 41092833 | Sort: 40-12-88 | Currency: GBP (£) | Opening Balance: £25,000.00 | COA: 1010 - Cash and Cash Equivalents | Status: ACTIVE
+- Transactions:
+  - 496 total transactions recorded; table renders realistic mixed debits/credits (deposits and withdrawals)
+  - Deposit: "Client retainers deposit" | £1,500.00 | Acme Client Corp | DEP-2026-089 | Status: MATCHED | Category: 1100 - Accounts Receivable (ASSET)
+  - Categorized Row: Tx 1 unmatched row categorized via modal search to "1302 - Employee Advance" -> status updates to MATCHED
+
+### Decisions & Deviations from Video
+1. **Banking Sidebar Group Active**: Added "Banking" group to rail and sidebar navigation. Both "Bank Accounts" (`nav-banking-accounts`) and "Bank Transactions" (`nav-banking-transactions`) are 100% interactive.
+2. **Connect Bank & Bank Feeds Flow Omitted**: Per prompt instruction, the "Bank feeds" card with "Connect bank" button on the Bank Accounts list is drawn pixel-faithfully, but never clicked by fake cursor.
+3. **Import Statement Drawer Flow Stoppage**: In Step 178, the Import Statement slide-out drawer opens, the fake cursor switches account selection, inspects the "Download CSV template" link and drag-and-drop zone, and then closes the drawer with the close button. Native OS file picker and fake file uploads are omitted per instructions; flow stops where video stops.
+4. **Sample Data**: Real names, account numbers, and personal details from video replaced with UK business sample data (Barclays Bank UK, Jordan Lee, Acme Client Corp, British pound £).
+5. **9 Big Steps**: Exactly 9 steps (170-178), zero silent fills, full timing calibration with 1500 ms hold and 400 ms fade, zero idle delays.
+
+
 
 
 

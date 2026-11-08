@@ -14,6 +14,10 @@ import {
   INITIAL_EXPENSES,
   INITIAL_RECURRING_EXPENSES,
   INITIAL_BILLS,
+  INITIAL_BANK_ACCOUNTS,
+  INITIAL_BANK_TRANSACTIONS,
+  type BankAccount,
+  type BankTransaction,
 } from "./books-data";
 
 /** Move onto an element, ring it, click it and clear the ring. */
@@ -681,6 +685,68 @@ export function beginBooks(
   tl.setVar("booksToastOpen", false);
   tl.setVar("booksToastText", "");
 
+  // Banking state (steps 170-178)
+  tl.setVar("booksBankingExpanded", false);
+  tl.setVar("booksBankAccounts", INITIAL_BANK_ACCOUNTS);
+  tl.setVar("booksBankAccountsSearch", "");
+  tl.setVar("booksBankAccountsStatusFilter", "Status");
+  tl.setVar("booksBankAccountsTypeFilter", "Account Type");
+  tl.setVar("booksActiveBankAccount", INITIAL_BANK_ACCOUNTS[0]);
+  tl.setVar("booksBankAccountsStatusFilterOpen", false);
+  tl.setVar("booksBankAccountsTypeFilterOpen", false);
+
+  // New Bank Account Form (steps 171-172)
+  tl.setVar("booksNewAccountName", "");
+  tl.setVar("booksNewAccountBankName", "");
+  tl.setVar("booksNewAccountNumber", "");
+  tl.setVar("booksNewAccountRoutingCode", "");
+  tl.setVar("booksNewAccountType", "Savings");
+  tl.setVar("booksNewAccountCurrency", "GBP");
+  tl.setVar("booksNewAccountOpeningBalance", "");
+  tl.setVar("booksNewAccountChartOfAccount", "1001 - Undeposited Funds");
+  tl.setVar("booksNewAccountDescription", "");
+  tl.setVar("booksNewAccountTypeDropdownOpen", false);
+  tl.setVar("booksNewAccountCurrencyDropdownOpen", false);
+  tl.setVar("booksNewAccountCoaDropdownOpen", false);
+  tl.setVar("booksNewAccountSaving", false);
+
+  // Edit Bank Account Form (step 173)
+  tl.setVar("booksEditAccountDescription", "Primary savings reserve account");
+  tl.setVar("booksEditAccountSaving", false);
+
+  // Bank Account Detail state (step 173-174)
+  tl.setVar("booksAccountDeactivating", false);
+
+  // Bank Transactions (steps 175-178)
+  tl.setVar("booksBankTransactions", INITIAL_BANK_TRANSACTIONS);
+  tl.setVar("booksTransactionsSearch", "");
+  tl.setVar("booksTransactionsAccountFilter", "All Accounts");
+  tl.setVar("booksTransactionsTypeFilter", "All Types");
+  tl.setVar("booksTransactionsAccountFilterOpen", false);
+  tl.setVar("booksTransactionsTypeFilterOpen", false);
+  tl.setVar("booksActiveTransaction", INITIAL_BANK_TRANSACTIONS[0]);
+  tl.setVar("booksCategorizePopoverOpen", false);
+  tl.setVar("booksCategorizeTargetTxId", null);
+  tl.setVar("booksCategorizeSearch", "");
+  tl.setVar("booksImportDrawerOpen", false);
+  tl.setVar("booksImportAccount", "Main Business Account");
+  tl.setVar("booksImportAccountDropdownOpen", false);
+
+  // New Bank Transaction Form (step 176)
+  tl.setVar("booksNewTxBankAccount", "Main Business Account");
+  tl.setVar("booksNewTxBankAccountOpen", false);
+  tl.setVar("booksNewTxType", "Deposit");
+  tl.setVar("booksNewTxTypeOpen", false);
+  tl.setVar("booksNewTxDate", "11/08/2026");
+  tl.setVar("booksNewTxAmount", "");
+  tl.setVar("booksNewTxPayee", "");
+  tl.setVar("booksNewTxReference", "");
+  tl.setVar("booksNewTxDescription", "");
+  tl.setVar("booksNewTxCategoryAccount", "1100 - Accounts Receivable (ASSET)");
+  tl.setVar("booksNewTxCategoryAccountOpen", false);
+  tl.setVar("booksNewTxNotes", "");
+  tl.setVar("booksNewTxSaving", false);
+
   // Step-specific preloaded states for independent scene starts
   if (stepNum === 135) {
     tl.setVar("booksPurchasesExpanded", false);
@@ -880,6 +946,110 @@ export function beginBooks(
     tl.setVar("booksNewVendorCreditAccountsPayable", "Accounts Payable");
     tl.setVar("booksNewVendorCreditTaxMode", "Tax Inclusive");
     tl.setVar("booksNewVendorCreditTaxLevel", "At Transaction Level");
+  } else if (stepNum === 170) {
+    tl.setVar("booksBankingExpanded", true);
+    tl.setVar("booksBankAccounts", []);
+  } else if (stepNum === 171) {
+    tl.setVar("booksBankingExpanded", true);
+  } else if (stepNum === 172) {
+    tl.setVar("booksBankingExpanded", true);
+    tl.setVar("booksNewAccountName", "Jordan Lee Savings");
+    tl.setVar("booksNewAccountBankName", "Barclays Bank UK");
+    tl.setVar("booksNewAccountNumber", "12345678");
+    tl.setVar("booksNewAccountRoutingCode", "20-00-00");
+    tl.setVar("booksNewAccountType", "Savings");
+    tl.setVar("booksNewAccountCurrency", "GBP");
+  } else if (stepNum === 173) {
+    tl.setVar("booksBankingExpanded", true);
+    const jordanAccount: BankAccount = {
+      id: "jordan-lee-savings",
+      name: "Jordan Lee Savings",
+      accountName: "Jordan Lee Savings",
+      bankName: "Barclays Bank UK",
+      accountNumber: "12345678",
+      routingCode: "20-00-00",
+      accountType: "Savings",
+      currency: "GBP",
+      balance: 2000.0,
+      openingBalance: 2000.0,
+      currentBalance: 2000.0,
+      chartOfAccount: "1001 - Undeposited Funds",
+      description: "Primary savings reserve account",
+      status: "ACTIVE",
+      reconciledBalance: 0,
+      createdAt: "11/08/2026",
+    };
+    tl.setVar("booksBankAccounts", [jordanAccount, ...INITIAL_BANK_ACCOUNTS]);
+    tl.setVar("booksActiveBankAccount", jordanAccount);
+    tl.setVar("booksEditAccountDescription", "Primary savings reserve account");
+  } else if (stepNum === 174) {
+    tl.setVar("booksBankingExpanded", true);
+    const jordanAccount: BankAccount = {
+      id: "jordan-lee-savings",
+      name: "Jordan Lee Savings",
+      accountName: "Jordan Lee Savings",
+      bankName: "Barclays Bank UK",
+      accountNumber: "12345678",
+      routingCode: "20-00-00",
+      accountType: "Savings",
+      currency: "GBP",
+      balance: 2000.0,
+      openingBalance: 2000.0,
+      currentBalance: 2000.0,
+      chartOfAccount: "1001 - Undeposited Funds",
+      description: "Primary business savings reserve account",
+      status: "ACTIVE",
+      reconciledBalance: 0,
+      createdAt: "11/08/2026",
+    };
+    tl.setVar("booksBankAccounts", [jordanAccount, ...INITIAL_BANK_ACCOUNTS]);
+    tl.setVar("booksActiveBankAccount", jordanAccount);
+  } else if (stepNum === 175) {
+    tl.setVar("booksBankingExpanded", true);
+    tl.setVar("booksBankTransactions", INITIAL_BANK_TRANSACTIONS);
+  } else if (stepNum === 176) {
+    tl.setVar("booksBankingExpanded", true);
+  } else if (stepNum === 177) {
+    tl.setVar("booksBankingExpanded", true);
+    const newTx: BankTransaction = {
+      id: "tx-new-dep",
+      type: "Deposit",
+      date: "11/08/2026",
+      description: "Client retainers deposit",
+      payee: "Acme Client Corp",
+      categoryAccount: "1100 - Accounts Receivable (ASSET)",
+      reference: "DEP-2026-089",
+      status: "Matched",
+      amount: 1500.0,
+      currency: "GBP",
+      bankAccount: "Main Business Account",
+    };
+    tl.setVar("booksBankTransactions", [newTx, ...INITIAL_BANK_TRANSACTIONS]);
+  } else if (stepNum === 178) {
+    tl.setVar("booksBankingExpanded", true);
+    const newTx: BankTransaction = {
+      id: "tx-new-dep",
+      type: "Deposit",
+      date: "11/08/2026",
+      description: "Client retainers deposit",
+      payee: "Acme Client Corp",
+      categoryAccount: "1100 - Accounts Receivable (ASSET)",
+      reference: "DEP-2026-089",
+      status: "Matched",
+      amount: 1500.0,
+      currency: "GBP",
+      bankAccount: "Main Business Account",
+    };
+    const updatedTxs = INITIAL_BANK_TRANSACTIONS.map((t) =>
+      t.id === "tx-1"
+        ? {
+            ...t,
+            status: "Matched" as const,
+            categoryAccount: "1302 - Employee Advance",
+          }
+        : t
+    );
+    tl.setVar("booksBankTransactions", [newTx, ...updatedTxs]);
   }
 }
 

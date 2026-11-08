@@ -8,7 +8,7 @@ templ = [re.sub(r'\$\{[^}]*\}', '.+', t) for t in re.findall(r'data-tl=\{`([^`]+
 templ += [re.sub(r'\$\{[^}]*\}', '.+', t) for t in re.findall(r'`((?:[a-z0-9]+-)+\$\{[^`]*)`', comp)]
 ok = lambda s: s in tls or any(re.fullmatch(t, s) for t in templ)
 bad = 0
-for n in range(33, 170):
+for n in range(33, 179):
     src = open(f'scenes/books/step{n}/script.ts', encoding="utf-8").read()
     miss = [s for s in sorted(set(re.findall(r'\[data-tl=([^\]]+)\]', src))) if not ok(s)]
     if miss:

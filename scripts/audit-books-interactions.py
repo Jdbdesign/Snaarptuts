@@ -138,6 +138,34 @@ FIELD_VARS = {
     "booksNewVendorCreditTax",
     "booksNewVendorCreditDiscount",
     "booksNewVendorCreditNotes",
+    # Banking (Part 11)
+    "booksBankAccountsSearch",
+    "booksBankAccountsStatusFilter",
+    "booksBankAccountsTypeFilter",
+    "booksNewAccountName",
+    "booksNewAccountBankName",
+    "booksNewAccountNumber",
+    "booksNewAccountRoutingCode",
+    "booksNewAccountType",
+    "booksNewAccountCurrency",
+    "booksNewAccountOpeningBalance",
+    "booksNewAccountChartOfAccount",
+    "booksNewAccountDescription",
+    "booksEditAccountDescription",
+    "booksTransactionsSearch",
+    "booksTransactionsAccountFilter",
+    "booksTransactionsTypeFilter",
+    "booksCategorizeSearch",
+    "booksImportAccount",
+    "booksNewTxBankAccount",
+    "booksNewTxType",
+    "booksNewTxDate",
+    "booksNewTxAmount",
+    "booksNewTxPayee",
+    "booksNewTxReference",
+    "booksNewTxDescription",
+    "booksNewTxCategoryAccount",
+    "booksNewTxNotes",
 }
 
 LOOKBACK_LINES = 12
@@ -182,7 +210,7 @@ def audit_step(step_num: int):
 
 def main():
     all_errors = []
-    for step_num in range(135, 170):
+    for step_num in range(135, 179):
         errs = audit_step(step_num)
         all_errors.extend(errs)
 

@@ -716,6 +716,13 @@ export const BOOKS_URLS = {
   vendorCredits: "books.snaarp.com/vendor-credits",
   newVendorCredit: "books.snaarp.com/vendor-credits/new",
   vendorCreditDetails: "books.snaarp.com/vendor-credits/vc-001",
+  bankAccounts: "books.snaarp.com/bank-accounts",
+  newBankAccount: "books.snaarp.com/bank-accounts/new",
+  bankAccountDetails: "books.snaarp.com/bank-accounts/details",
+  editBankAccount: "books.snaarp.com/bank-accounts/details/edit",
+  bankTransactions: "books.snaarp.com/bank-transactions",
+  newBankTransaction: "books.snaarp.com/bank-transactions/new",
+  bankTransactionDetails: "books.snaarp.com/bank-transactions/details",
 };
 
 export type BooksPage =
@@ -772,7 +779,14 @@ export type BooksPage =
   | "payment-made-detail"
   | "vendor-credits"
   | "new-vendor-credit"
-  | "vendor-credit-detail";
+  | "vendor-credit-detail"
+  | "bank-accounts"
+  | "new-bank-account"
+  | "bank-account-detail"
+  | "edit-bank-account"
+  | "bank-transactions"
+  | "new-bank-transaction"
+  | "bank-transaction-detail";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -3307,4 +3321,316 @@ export const PAYMENT_MADE_PAID_THROUGH = [
 ] as const;
 export const VENDOR_CREDIT_STATUS_FILTERS = ["Status", "Open", "Closed", "Void"] as const;
 export const PAYMENT_MADE_STATUS_FILTERS = ["Status", "Paid"] as const;
+
+// ── Banking Data Types & Lists (Part 11) ───────────────────────────────────
+
+export function formatGBP(amount: number): string {
+  return `GBP ${amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+export interface BankAccount {
+  id: string;
+  name: string;
+  accountName?: string;
+  bankName: string;
+  accountNumber: string;
+  rawAccountNumber?: string;
+  routingCode: string;
+  accountType: "Checking" | "Savings" | "Credit Card" | "Cash" | "Other";
+  currency: "GBP" | "USD" | "NGN";
+  balance: number;
+  currentBalance?: number;
+  openingBalance?: number;
+  balanceConvertedGbp?: number;
+  status: "ACTIVE" | "INACTIVE";
+  chartOfAccount: string;
+  description: string;
+  reconciledBalance: number;
+  createdAt: string;
+  lastUpdated?: string;
+}
+
+export interface BankTransaction {
+  id: string;
+  date: string;
+  description: string;
+  reference?: string;
+  accountId?: string;
+  accountName?: string;
+  bankAccount?: string;
+  bankName?: string;
+  type: "Deposit" | "Withdrawal" | "Transfer In" | "Transfer Out" | "Interest" | "Fee" | "Refund" | "Other";
+  amount: number;
+  currency: "GBP" | "USD";
+  status: "Matched" | "Unmatched";
+  categoryAccount?: string;
+  payee?: string;
+  notes?: string;
+}
+
+export const INITIAL_BANK_ACCOUNTS: BankAccount[] = [
+  {
+    id: "acct-1",
+    name: "Acme Current Account",
+    bankName: "Harbour Bank",
+    accountNumber: "****9655",
+    rawAccountNumber: "20459655",
+    routingCode: "20-45-18",
+    accountType: "Savings",
+    currency: "GBP",
+    balance: 1742.59,
+    status: "ACTIVE",
+    chartOfAccount: "1100 - Accounts Receivable",
+    description: "Main trading account",
+    reconciledBalance: 0,
+    createdAt: "11/8/2026",
+    lastUpdated: "11/8/2026",
+  },
+  {
+    id: "acct-2",
+    name: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    accountNumber: "****1216",
+    rawAccountNumber: "44121600",
+    routingCode: "20-45-18",
+    accountType: "Credit Card",
+    currency: "USD",
+    balance: -207.31,
+    balanceConvertedGbp: -154.98,
+    status: "ACTIVE",
+    chartOfAccount: "2000 - Accounts Payable",
+    description: "Corporate credit card",
+    reconciledBalance: 0,
+    createdAt: "11/8/2026",
+    lastUpdated: "11/8/2026",
+  },
+];
+
+export const INITIAL_NEW_BANK_ACCOUNT: BankAccount = {
+  id: "acct-3",
+  name: "Jordan Lee Savings",
+  bankName: "Harbour Bank",
+  accountNumber: "****9871",
+  rawAccountNumber: "20459871",
+  routingCode: "20-45-18",
+  accountType: "Savings",
+  currency: "GBP",
+  balance: 2000,
+  status: "ACTIVE",
+  chartOfAccount: "1100 - Accounts Receivable",
+  description: "Personal account for salary",
+  reconciledBalance: 0,
+  createdAt: "11/8/2026",
+  lastUpdated: "11/8/2026",
+};
+
+export const INITIAL_BANK_TRANSACTIONS: BankTransaction[] = [
+  {
+    id: "tx-1",
+    date: "9/29/2026",
+    description: "Cloud Hosting Ltd",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 5.47,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-2",
+    date: "9/29/2026",
+    description: "Design Software Ltd",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 5.42,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-3",
+    date: "9/29/2026",
+    description: "Domain Registrar",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 5.38,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-4",
+    date: "9/29/2026",
+    description: "Workspace Subscription",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 5.41,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-5",
+    date: "9/29/2026",
+    description: "Cloud Hosting Ltd",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 5.43,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-6",
+    date: "9/29/2026",
+    description: "Design Software Ltd",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 5.40,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-7",
+    date: "9/29/2026",
+    description: "Workspace Subscription",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 5.55,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-8",
+    date: "9/28/2026",
+    description: "Cloud Hosting Ltd",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 5.39,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-9",
+    date: "9/21/2026",
+    description: "Hardware Supplies",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 40.00,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-10",
+    date: "9/11/2026",
+    description: "International Transaction Fee",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 1.09,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-11",
+    date: "9/11/2026",
+    description: "Telephony Provider",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 36.49,
+    currency: "USD",
+    status: "Unmatched",
+  },
+  {
+    id: "tx-12",
+    date: "9/9/2026",
+    description: "Code Repository Pro",
+    accountId: "acct-2",
+    accountName: "Acme Foods Ltd - Cards",
+    bankName: "Harbour Bank",
+    type: "Deposit",
+    amount: 27.28,
+    currency: "USD",
+    status: "Unmatched",
+  },
+];
+
+export const BANK_CHART_OF_ACCOUNTS = [
+  "1001 - Undeposited Funds",
+  "1100 - Accounts Receivable",
+  "1200 - Inventory Asset",
+  "1300 - Prepaid Expenses",
+  "1301 - Advance Tax",
+  "1302 - Employee Advance",
+  "1303 - Input Tax",
+  "1400 - Furniture and Equipment",
+  "1401 - Fixed Asset - Computers",
+] as const;
+
+export const BANK_CHART_OF_ACCOUNTS_ASSET = [
+  "1001 - Undeposited Funds (ASSET)",
+  "1100 - Accounts Receivable (ASSET)",
+  "1200 - Inventory Asset (ASSET)",
+  "1300 - Prepaid Expenses (ASSET)",
+  "1301 - Advance Tax (ASSET)",
+  "1302 - Employee Advance (ASSET)",
+  "1303 - Input Tax (ASSET)",
+] as const;
+
+export const BANK_ACCOUNT_TYPES = [
+  "Checking",
+  "Savings",
+  "Credit Card",
+  "Cash",
+  "Other",
+] as const;
+
+export const BANK_CURRENCIES = ["GBP", "NGN", "USD"] as const;
+
+export const BANK_STATUS_FILTERS = ["Status", "Active", "Inactive"] as const;
+
+export const BANK_TYPE_FILTERS = [
+  "Account Type",
+  "Savings",
+  "Checking",
+  "Credit Card",
+  "Cash",
+  "Other",
+] as const;
+
+export const TRANSACTION_TYPE_OPTIONS = [
+  "Deposit",
+  "Withdrawal",
+  "Interest",
+  "Fee",
+  "Refund",
+  "Other",
+] as const;
+
+export const TRANSACTION_FILTER_TYPES = [
+  "Type",
+  "Deposit",
+  "Withdrawal",
+  "Transfer In",
+  "Transfer Out",
+  "Interest",
+  "Fee",
+] as const;
+
 

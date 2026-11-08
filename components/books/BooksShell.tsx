@@ -77,6 +77,7 @@ import { BooksBillFilePickerModal } from "./BooksBillFilePickerModal";
 import { BooksRecurringBillConfirmDialog } from "./BooksRecurringBillConfirmDialog";
 import { BooksPaymentMadeFilePickerModal } from "./BooksPaymentMadeFilePickerModal";
 import { BooksVendorCreditConfirmDialog } from "./BooksVendorCreditConfirmDialog";
+import { BooksBankStatementImportDrawer } from "./BooksBankStatementImportDrawer";
 import { BooksToast } from "./BooksToast";
 
 type Props = {
@@ -164,6 +165,21 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "vendor-credits" ||
     currentView === "new-vendor-credit" ||
     currentView === "vendor-credit-detail";
+  const isBankAccountsView =
+    currentView === "bank-accounts" ||
+    currentView === "new-bank-account" ||
+    currentView === "bank-account-detail" ||
+    currentView === "edit-bank-account";
+  const isBankTransactionsView =
+    currentView === "bank-transactions" ||
+    currentView === "new-bank-transaction" ||
+    currentView === "bank-transaction-detail";
+  const isBankingView = isBankAccountsView || isBankTransactionsView;
+  const bankingExpanded = useTimelineVar<boolean>(
+    tl,
+    "booksBankingExpanded",
+    isBankingView
+  );
   const purchasesExpanded = useTimelineVar<boolean>(
     tl,
     "booksPurchasesExpanded",
@@ -639,16 +655,63 @@ export function BooksShell({ tl, children, overlay }: Props) {
             )}
           </div>
 
-          <button
-            data-tl="nav-books-banking"
-            className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <Landmark className="w-4 h-4 text-gray-500 shrink-0" />
-              <span className="whitespace-nowrap">Banking</span>
-            </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          </button>
+          <div className="space-y-0.5">
+            <button
+              type="button"
+              data-tl="nav-books-banking"
+              onClick={() => tl.setVar("booksBankingExpanded", !bankingExpanded)}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                bankingExpanded || isBankingView
+                  ? "bg-[#F4EBFF] text-[#7014D9] font-semibold"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <Landmark className="w-4 h-4 shrink-0" />
+                <span className="whitespace-nowrap">Banking</span>
+              </div>
+              {bankingExpanded ? (
+                <ChevronDown className="w-3.5 h-3.5 text-[#7014D9] shrink-0" />
+              ) : (
+                <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+              )}
+            </button>
+
+            {bankingExpanded && (
+              <div className="pl-4 pr-1 py-0.5 space-y-0.5">
+                <button
+                  type="button"
+                  data-tl="nav-banking-accounts"
+                  onClick={() => {
+                    tl.setVar("booksView", "bank-accounts");
+                    tl.setUrl(BOOKS_URLS.bankAccounts);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isBankAccountsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Bank Accounts</span>
+                </button>
+                <button
+                  type="button"
+                  data-tl="nav-banking-transactions"
+                  onClick={() => {
+                    tl.setVar("booksView", "bank-transactions");
+                    tl.setUrl(BOOKS_URLS.bankTransactions);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isBankTransactionsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Bank Transactions</span>
+                </button>
+              </div>
+            )}
+          </div>
 
           <button
             data-tl="nav-books-accountant"
@@ -836,6 +899,7 @@ export function BooksShell({ tl, children, overlay }: Props) {
       <BooksRecurringBillConfirmDialog tl={tl} />
       <BooksPaymentMadeFilePickerModal tl={tl} />
       <BooksVendorCreditConfirmDialog tl={tl} />
+      <BooksBankStatementImportDrawer tl={tl} />
       <BooksToast tl={tl} />
 
       {/* Optional fade overlay */}
