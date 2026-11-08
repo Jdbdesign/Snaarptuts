@@ -1552,13 +1552,16 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 - Budgets:
   - Budget 1: "Operations 2026", Jan 2026 - Dec 2026, Monthly, Active
   - Budget 2: "Expenses", Jan 2026 - Dec 2026, Monthly, Balance Sheet included, accounts: Shipping Charges, Late Fee Income, COGS, Insurance. 12 monthly columns pre-filled and edited to £750.
-- Transaction Locking:
-  - Modules: Sales, Purchases, Banking, Accountant (all initially Unlocked)
+- Transaction Locking (Step 189):
+  - 100% 1:1 copy of the product recording (video 7:20–7:37, Screen A and Screen B):
+    - Screen A: Plain white page with heading "Transaction Locking", 3-line grey paragraph (~680px wide), full-width rounded card "All Transactions" with light-grey circular Lock icon and right-hand blue "Lock" link (`[data-tl=btn-lock-all-link]`), followed by "Lock Individual Modules" section with bullets and blue link (`[data-tl=link-lock-individual-modules]`).
+    - Screen B: When "Lock Individual Modules" is clicked, transitions to 4 stacked full-width rounded rows (Sales with ShoppingCart icon, Purchases with ShoppingBag icon, Banking with Landmark icon, Accountant with BookOpen icon) with subtitles "You have not locked the transactions in this module." and blue "Lock" links (`[data-tl=link-lock-sales]`, `[data-tl=link-lock-purchases]`, `[data-tl=link-lock-banking]`, `[data-tl=link-lock-accountant]`). Followed by thin divider, "Lock All Transactions At Once" section, and blue link "Switch to Lock All Transactions →" (`[data-tl=link-switch-lock-all]`).
+    - Zero fake cards, zero status badges, zero invented modals or forms. Flow stops cleanly after reviewing both views.
 
 ### Decisions & Deviations from Video
 1. **Accountant Sidebar Navigation**: Replaced the static single button with a collapsible menu revealing all 8 items (Manual Journals, Bulk Update, Currency Adjustments, Chart of Accounts, Budgets, Transaction Locking, Audit Logs, Import Data).
 2. **Skipped Menu Items**: Bulk Update, Currency Adjustments, Audit Logs, and Import Data are drawn pixel-faithfully in the menu, but per explicit instructions, are never clicked because they were skipped in the product/video recording.
 3. **No Browser Chrome & In-App Confirms**: Native browser confirm dialogs (when deleting account or deleting budget) replaced by accessible in-app modals (`BooksAccountConfirmDialog` and `BooksBudgetConfirmDialog`). Browser address bar, toolbars, and OS file picker omitted.
 4. **Error Toasts & Tooltips Omitted**: Any validation tooltip or server error toast in the video is omitted per Rule 2; every flow terminates in its clean success state.
-5. **Flow Stop Points**: Transaction Locking overview reviews the module freeze cards and clicks Lock Purchases with confirmation toast, cleanly stopping where the video stops without opening a native freeze date modal.
+5. **Flow Stop Points**: Transaction Locking (Step 189) inspects Screen A, clicks "Lock Individual Modules" to transition to Screen B, inspects the 4 module rows and the switch-back link, cleanly stopping without opening any unrecorded modals.
 6. **11 Big Steps**: Exactly 11 steps (179-189) with 0 silent fills, passing selector audits (`audit-books-selectors.py`), interaction audits (`audit-books-interactions.py`), chained execution (`check-books-chain.ts`), and 4-viewport visibility tests (`qa:visibility`).

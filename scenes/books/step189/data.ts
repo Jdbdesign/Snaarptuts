@@ -1,6 +1,7 @@
 export const CAPTIONS = {
-  viewLocking: "View Transaction Locking to prevent modification of closed accounting periods.",
-  ringAll: "Lock all transactions across the entire organization up to a freeze date.",
-  ringModules: "Review independent lock controls for Sales, Purchases, Banking, and Accountant.",
-  lockPurchases: "Click Lock Purchases to freeze transactions for the purchases module.",
+  viewLocking: "Transaction locking prevents modifying accounts in closed accounting periods.",
+  lockAllRow: "Choose to lock all organization transactions before a specific date.",
+  clickIndividual: "Click Lock Individual Modules to set different freeze dates per module.",
+  hoverModules: "Review independent lock controls for Sales, Purchases, Banking, and Accountant.",
+  switchAll: "Optionally switch back to lock all transactions at once.",
 };
