@@ -1565,3 +1565,16 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 4. **Error Toasts & Tooltips Omitted**: Any validation tooltip or server error toast in the video is omitted per Rule 2; every flow terminates in its clean success state.
 5. **Flow Stop Points**: Transaction Locking (Step 189) inspects Screen A, clicks "Lock Individual Modules" to transition to Screen B, inspects the 4 module rows and the switch-back link, cleanly stopping without opening any unrecorded modals.
 6. **11 Big Steps**: Exactly 11 steps (179-189) with 0 silent fills, passing selector audits (`audit-books-selectors.py`), interaction audits (`audit-books-interactions.py`), chained execution (`check-books-chain.ts`), and 4-viewport visibility tests (`qa:visibility`).
+
+## Snaarp Books Part 14: Filing & Compliance > VAT Filing, Self Assessment, MTD Income Tax (Steps 192 to 199)
+
+- Scope: VAT Filing (192-195), Self Assessment (196-197), MTD for Income Tax (198-199).
+- Reference recording: `C:\Users\HP\Downloads\1108(4).mp4` (1386x720, 2:57).
+
+### Decisions & Deviations from Video
+1. **VAT Payments Skipped**: "VAT Payments" is rendered faithfully in the left submenu, but per instructions is never clicked and has no step as it was skipped in the recording.
+2. **Valid VAT Registration Number**: The video showed a red error toast ("VAT registration number must be 9 or 12 digits..."). The tutorial uses a valid 9-digit sample number (`123456789`) so the setup succeeds with the toast "VAT settings saved".
+3. **October 2026 Period & Realistic Box Numbers**: The recording used an unpopulated November test period resulting in £0.00 across all boxes and empty treatment tables. The tutorial uses October 2026 (`10/01/2026 - 10/31/2026`) and populates the 9 boxes and treatment tables with realistic figures (Net VAT £827.50) using the money helper.
+4. **Self Assessment "Return not found" Glitch Omitted**: The video showed a momentary "Return not found" error screen. The tutorial transitions directly to the working return details view.
+5. **No Browser Chrome & In-App Dialogs**: Browser chrome omitted. Modals (Prepare VAT return, Mark as filed with HMRC, Generate Self Assessment, MTD Settings) match video layout 1:1 with backdrop overlay.
+6. **Timing & End Holds**: Every step ends ~1.5s after its result displays (2.0s on totals/scrolls), calibrated with `finishBooks`. Full duration measurements written in `tutorials/books.ts`.

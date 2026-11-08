@@ -73,6 +73,11 @@ import { BooksBudgetDetailView } from "./BooksBudgetDetailView";
 import { BooksTransactionLockingView } from "./BooksTransactionLockingView";
 import { BooksAuditLogsView } from "./BooksAuditLogsView";
 import { BooksImportDataView } from "./BooksImportDataView";
+import { BooksVatFilingView } from "./BooksVatFilingView";
+import { BooksVatReturnDetailView } from "./BooksVatReturnDetailView";
+import { BooksSelfAssessmentView } from "./BooksSelfAssessmentView";
+import { BooksSelfAssessmentReturnDetailView } from "./BooksSelfAssessmentReturnDetailView";
+import { BooksMtdIncomeTaxView } from "./BooksMtdIncomeTaxView";
 
 type Props = {
   tl: Timeline;
@@ -164,6 +169,11 @@ export function BooksStage({ tl }: Props) {
       {currentView === "transaction-locking" && <BooksTransactionLockingView tl={tl} />}
       {currentView === "audit-logs" && <BooksAuditLogsView tl={tl} />}
       {currentView === "import-data" && <BooksImportDataView tl={tl} />}
+      {currentView === "vat-filing" && <BooksVatFilingView tl={tl} />}
+      {currentView === "vat-return-detail" && <BooksVatReturnDetailView tl={tl} />}
+      {currentView === "self-assessment" && <BooksSelfAssessmentView tl={tl} />}
+      {currentView === "self-assessment-return-detail" && <BooksSelfAssessmentReturnDetailView tl={tl} />}
+      {currentView === "mtd-income-tax" && <BooksMtdIncomeTaxView tl={tl} />}
     </BooksShell>
   );
 }

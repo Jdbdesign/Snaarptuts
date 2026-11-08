@@ -190,6 +190,13 @@ FIELD_VARS = {
     "booksNewBudgetPeriod",
     "booksNewBudgetIncludeBalanceSheet",
     "booksConfigAccountsSearch",
+    # Filing & Compliance (Part 14)
+    "booksVatRegNumber",
+    "booksVatHmrcRef",
+    "booksSaTaxYear",
+    "booksSaHmrcRef",
+    "booksMtdNiNumber",
+    "booksMtdHmrcId",
 }
 
 LOOKBACK_LINES = 12
@@ -234,7 +241,7 @@ def audit_step(step_num: int):
 
 def main():
     all_errors = []
-    for step_num in range(135, 190):
+    for step_num in range(135, 200):
         errs = audit_step(step_num)
         all_errors.extend(errs)
 

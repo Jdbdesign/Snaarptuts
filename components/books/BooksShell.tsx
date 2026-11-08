@@ -200,6 +200,18 @@ export function BooksShell({ tl, children, overlay }: Props) {
     isTransactionLockingView ||
     isAuditLogsView ||
     isImportDataView;
+  const isVatFilingView =
+    currentView === "vat-filing" || currentView === "vat-return-detail";
+  const isSelfAssessmentView =
+    currentView === "self-assessment" ||
+    currentView === "self-assessment-return-detail";
+  const isMtdView = currentView === "mtd-income-tax";
+  const isFilingView = isVatFilingView || isSelfAssessmentView || isMtdView;
+  const filingExpanded = useTimelineVar<boolean>(
+    tl,
+    "booksFilingExpanded",
+    isFilingView
+  );
   const accountantExpanded = useTimelineVar<boolean>(
     tl,
     "booksAccountantExpanded",
@@ -875,16 +887,95 @@ export function BooksShell({ tl, children, overlay }: Props) {
             )}
           </div>
 
-          <button
-            data-tl="nav-books-filing"
-            className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <FileText className="w-4 h-4 text-gray-500 shrink-0" />
-              <span className="whitespace-nowrap">Filing & Compliance</span>
-            </div>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-          </button>
+          {/* Filing & Compliance */}
+          <div className="space-y-1">
+            <button
+              type="button"
+              data-tl="nav-books-filing"
+              onClick={() => tl.setVar("booksFilingExpanded", !filingExpanded)}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                filingExpanded || isFilingView
+                  ? "bg-purple-50 text-[#7014D9]"
+                  : "text-gray-700 hover:bg-gray-100"
+              }`}
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <FileText
+                  className={`w-4 h-4 shrink-0 ${
+                    filingExpanded || isFilingView
+                      ? "text-[#7014D9]"
+                      : "text-gray-500"
+                  }`}
+                />
+                <span className="whitespace-nowrap">Filing & Compliance</span>
+              </div>
+              {filingExpanded ? (
+                <ChevronDown className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+              ) : (
+                <ChevronRight className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+              )}
+            </button>
+
+            {filingExpanded && (
+              <div className="pl-9 pr-1 space-y-0.5">
+                <button
+                  type="button"
+                  data-tl="nav-filing-vat-filing"
+                  onClick={() => {
+                    tl.setVar("booksView", "vat-filing");
+                    tl.setUrl(BOOKS_URLS.vatFiling);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isVatFilingView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">VAT Filing</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="nav-filing-vat-payments"
+                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                >
+                  <span className="whitespace-nowrap">VAT Payments</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="nav-filing-self-assessment"
+                  onClick={() => {
+                    tl.setVar("booksView", "self-assessment");
+                    tl.setUrl(BOOKS_URLS.selfAssessment);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isSelfAssessmentView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">Self Assessment</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="nav-filing-mtd-income-tax"
+                  onClick={() => {
+                    tl.setVar("booksView", "mtd-income-tax");
+                    tl.setUrl(BOOKS_URLS.mtdIncomeTax);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isMtdView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <span className="whitespace-nowrap">MTD Income Tax</span>
+                </button>
+              </div>
+            )}
+          </div>
 
           <button
             data-tl="nav-books-reports"

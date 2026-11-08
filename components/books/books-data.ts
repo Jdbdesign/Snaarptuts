@@ -735,6 +735,11 @@ export const BOOKS_URLS = {
   transactionLocking: "books.snaarp.com/accountant/transaction-locking",
   auditLogs: "books.snaarp.com/audit-logs",
   importData: "books.snaarp.com/import",
+  vatFiling: "books.snaarp.com/vat-filing",
+  vatReturnDetail: "books.snaarp.com/vat-filing/returns/2026-10-01_2026-10-31",
+  selfAssessment: "books.snaarp.com/self-assessment",
+  selfAssessmentReturnDetail: "books.snaarp.com/self-assessment/returns/2024-25",
+  mtdIncomeTax: "books.snaarp.com/mtd-income-tax",
 };
 
 export type BooksPage =
@@ -810,7 +815,12 @@ export type BooksPage =
   | "budget-detail"
   | "transaction-locking"
   | "audit-logs"
-  | "import-data";
+  | "import-data"
+  | "vat-filing"
+  | "vat-return-detail"
+  | "self-assessment"
+  | "self-assessment-return-detail"
+  | "mtd-income-tax";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 

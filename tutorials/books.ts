@@ -381,6 +381,22 @@ import { Step190 } from "@/scenes/books/step190/Step190";
 import { runStep190, STEP190_DURATION_MS } from "@/scenes/books/step190/script";
 import { Step191 } from "@/scenes/books/step191/Step191";
 import { runStep191, STEP191_DURATION_MS } from "@/scenes/books/step191/script";
+import { Step192 } from "@/scenes/books/step192/Step192";
+import { runStep192, STEP192_DURATION_MS } from "@/scenes/books/step192/script";
+import { Step193 } from "@/scenes/books/step193/Step193";
+import { runStep193, STEP193_DURATION_MS } from "@/scenes/books/step193/script";
+import { Step194 } from "@/scenes/books/step194/Step194";
+import { runStep194, STEP194_DURATION_MS } from "@/scenes/books/step194/script";
+import { Step195 } from "@/scenes/books/step195/Step195";
+import { runStep195, STEP195_DURATION_MS } from "@/scenes/books/step195/script";
+import { Step196 } from "@/scenes/books/step196/Step196";
+import { runStep196, STEP196_DURATION_MS } from "@/scenes/books/step196/script";
+import { Step197 } from "@/scenes/books/step197/Step197";
+import { runStep197, STEP197_DURATION_MS } from "@/scenes/books/step197/script";
+import { Step198 } from "@/scenes/books/step198/Step198";
+import { runStep198, STEP198_DURATION_MS } from "@/scenes/books/step198/script";
+import { Step199 } from "@/scenes/books/step199/Step199";
+import { runStep199, STEP199_DURATION_MS } from "@/scenes/books/step199/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -2311,6 +2327,86 @@ export const books: Tutorial = {
         durationMs: STEP191_DURATION_MS,
       },
     },
+    {
+      id: "books-192",
+      title: "Filing & Compliance: explore tax menu",
+      url: BOOKS_URLS.vatFiling,
+      scene: {
+        Component: Step192,
+        run: runStep192,
+        durationMs: STEP192_DURATION_MS,
+      },
+    },
+    {
+      id: "books-193",
+      title: "VAT Filing: configure VAT registration",
+      url: BOOKS_URLS.vatFiling,
+      scene: {
+        Component: Step193,
+        run: runStep193,
+        durationMs: STEP193_DURATION_MS,
+      },
+    },
+    {
+      id: "books-194",
+      title: "VAT Return: prepare 9-box return",
+      url: BOOKS_URLS.vatFiling,
+      scene: {
+        Component: Step194,
+        run: runStep194,
+        durationMs: STEP194_DURATION_MS,
+      },
+    },
+    {
+      id: "books-195",
+      title: "VAT Return: finalise and mark as filed",
+      url: BOOKS_URLS.vatReturnDetail,
+      scene: {
+        Component: Step195,
+        run: runStep195,
+        durationMs: STEP195_DURATION_MS,
+      },
+    },
+    {
+      id: "books-196",
+      title: "Self Assessment: generate annual return",
+      url: BOOKS_URLS.selfAssessment,
+      scene: {
+        Component: Step196,
+        run: runStep196,
+        durationMs: STEP196_DURATION_MS,
+      },
+    },
+    {
+      id: "books-197",
+      title: "Self Assessment: finalise and mark as filed",
+      url: BOOKS_URLS.selfAssessmentReturnDetail,
+      scene: {
+        Component: Step197,
+        run: runStep197,
+        durationMs: STEP197_DURATION_MS,
+      },
+    },
+    {
+      id: "books-198",
+      title: "MTD for Income Tax: configure settings",
+      url: BOOKS_URLS.mtdIncomeTax,
+      scene: {
+        Component: Step198,
+        run: runStep198,
+        durationMs: STEP198_DURATION_MS,
+      },
+    },
+    {
+      id: "books-199",
+      title: "MTD for Income Tax: prepare and submit quarters",
+      url: BOOKS_URLS.mtdIncomeTax,
+      scene: {
+        Component: Step199,
+        run: runStep199,
+        durationMs: STEP199_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -2332,10 +2428,11 @@ export const books: Tutorial = {
     { title: "Vendor Credits", from: "vendor-credits-list-filter" },
     { title: "Banking", from: "books-170" },
     { title: "Accountant", from: "books-179" },
+    { title: "Filing & Compliance", from: "books-192" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, bank transactions, manual journals, chart of accounts, budgets, transaction locking, audit logs, and data import in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, bank transactions, manual journals, chart of accounts, budgets, transaction locking, audit logs, data import, VAT filing, Self Assessment, and MTD for Income Tax in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",
