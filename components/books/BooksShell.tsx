@@ -74,6 +74,9 @@ import { BooksRecurringExpenseConfirmDialog } from "./BooksRecurringExpenseConfi
 import { BooksBillConfirmDialog } from "./BooksBillConfirmDialog";
 import { BooksBillPdfPreviewModal } from "./BooksBillPdfPreviewModal";
 import { BooksBillFilePickerModal } from "./BooksBillFilePickerModal";
+import { BooksRecurringBillConfirmDialog } from "./BooksRecurringBillConfirmDialog";
+import { BooksPaymentMadeFilePickerModal } from "./BooksPaymentMadeFilePickerModal";
+import { BooksVendorCreditConfirmDialog } from "./BooksVendorCreditConfirmDialog";
 import { BooksToast } from "./BooksToast";
 
 type Props = {
@@ -149,10 +152,28 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "bills" ||
     currentView === "new-bill" ||
     currentView === "bill-detail";
+  const isRecurringBillsView =
+    currentView === "recurring-bills" ||
+    currentView === "new-recurring-bill" ||
+    currentView === "recurring-bill-detail";
+  const isPaymentsMadeView =
+    currentView === "payments-made" ||
+    currentView === "new-payment-made" ||
+    currentView === "payment-made-detail";
+  const isVendorCreditsView =
+    currentView === "vendor-credits" ||
+    currentView === "new-vendor-credit" ||
+    currentView === "vendor-credit-detail";
   const purchasesExpanded = useTimelineVar<boolean>(
     tl,
     "booksPurchasesExpanded",
-    isVendorView || isExpenseView || isRecurringExpensesView || isBillsView
+    isVendorView ||
+      isExpenseView ||
+      isRecurringExpensesView ||
+      isBillsView ||
+      isRecurringBillsView ||
+      isPaymentsMadeView ||
+      isVendorCreditsView
   );
   const salesExpanded = useTimelineVar<boolean>(
     tl,
@@ -484,7 +505,14 @@ export function BooksShell({ tl, children, overlay }: Props) {
               data-tl="nav-books-purchases"
               onClick={() => tl.setVar("booksPurchasesExpanded", !purchasesExpanded)}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
-                purchasesExpanded || isVendorView || isExpenseView || isRecurringExpensesView || isBillsView
+                purchasesExpanded ||
+                isVendorView ||
+                isExpenseView ||
+                isRecurringExpensesView ||
+                isBillsView ||
+                isRecurringBillsView ||
+                isPaymentsMadeView ||
+                isVendorCreditsView
                   ? "bg-[#F4EBFF] text-[#7014D9] font-semibold"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
@@ -565,21 +593,45 @@ export function BooksShell({ tl, children, overlay }: Props) {
                 <button
                   type="button"
                   data-tl="nav-purchases-recurring-bills"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "recurring-bills");
+                    tl.setUrl(BOOKS_URLS.recurringBills);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isRecurringBillsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Recurring Bills</span>
                 </button>
                 <button
                   type="button"
                   data-tl="nav-purchases-payments-made"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "payments-made");
+                    tl.setUrl(BOOKS_URLS.paymentsMade);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isPaymentsMadeView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Payments Made</span>
                 </button>
                 <button
                   type="button"
                   data-tl="nav-purchases-vendor-credits"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "vendor-credits");
+                    tl.setUrl(BOOKS_URLS.vendorCredits);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isVendorCreditsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Vendor Credits</span>
                 </button>
@@ -781,6 +833,9 @@ export function BooksShell({ tl, children, overlay }: Props) {
       <BooksBillConfirmDialog tl={tl} />
       <BooksBillPdfPreviewModal tl={tl} />
       <BooksBillFilePickerModal tl={tl} />
+      <BooksRecurringBillConfirmDialog tl={tl} />
+      <BooksPaymentMadeFilePickerModal tl={tl} />
+      <BooksVendorCreditConfirmDialog tl={tl} />
       <BooksToast tl={tl} />
 
       {/* Optional fade overlay */}

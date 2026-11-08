@@ -45,6 +45,15 @@ import { BooksRecurringExpenseDetailView } from "./BooksRecurringExpenseDetailVi
 import { BooksBillsView } from "./BooksBillsView";
 import { BooksNewBillView } from "./BooksNewBillView";
 import { BooksBillDetailView } from "./BooksBillDetailView";
+import { BooksRecurringBillsView } from "./BooksRecurringBillsView";
+import { BooksNewRecurringBillView } from "./BooksNewRecurringBillView";
+import { BooksRecurringBillDetailView } from "./BooksRecurringBillDetailView";
+import { BooksPaymentsMadeView } from "./BooksPaymentsMadeView";
+import { BooksRecordPaymentMadeView } from "./BooksRecordPaymentMadeView";
+import { BooksPaymentMadeDetailView } from "./BooksPaymentMadeDetailView";
+import { BooksVendorCreditsView } from "./BooksVendorCreditsView";
+import { BooksNewVendorCreditView } from "./BooksNewVendorCreditView";
+import { BooksVendorCreditDetailView } from "./BooksVendorCreditDetailView";
 
 type Props = {
   tl: Timeline;
@@ -108,6 +117,15 @@ export function BooksStage({ tl }: Props) {
       {currentView === "bills" && <BooksBillsView tl={tl} />}
       {currentView === "new-bill" && <BooksNewBillView tl={tl} />}
       {currentView === "bill-detail" && <BooksBillDetailView tl={tl} />}
+      {currentView === "recurring-bills" && <BooksRecurringBillsView tl={tl} />}
+      {currentView === "new-recurring-bill" && <BooksNewRecurringBillView tl={tl} />}
+      {currentView === "recurring-bill-detail" && <BooksRecurringBillDetailView tl={tl} />}
+      {currentView === "payments-made" && <BooksPaymentsMadeView tl={tl} />}
+      {currentView === "new-payment-made" && <BooksRecordPaymentMadeView tl={tl} />}
+      {currentView === "payment-made-detail" && <BooksPaymentMadeDetailView tl={tl} />}
+      {currentView === "vendor-credits" && <BooksVendorCreditsView tl={tl} />}
+      {currentView === "new-vendor-credit" && <BooksNewVendorCreditView tl={tl} />}
+      {currentView === "vendor-credit-detail" && <BooksVendorCreditDetailView tl={tl} />}
     </BooksShell>
   );
 }

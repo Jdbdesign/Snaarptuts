@@ -94,6 +94,50 @@ FIELD_VARS = {
     "booksNewBillNotes",
     "booksNewBillItems",
     "booksBillAttachment",
+    # Recurring Bills (Part 10)
+    "booksNewRecBillVendor",
+    "booksNewRecBillProfileName",
+    "booksNewRecBillRepeatEvery",
+    "booksNewRecBillStartDate",
+    "booksNewRecBillEndsOn",
+    "booksNewRecBillNeverExpires",
+    "booksNewRecBillAccountsPayable",
+    "booksNewRecBillPaymentTerms",
+    "booksNewRecBillTaxMode",
+    "booksNewRecBillTaxLevel",
+    "booksNewRecBillItemName",
+    "booksNewRecBillAccount",
+    "booksNewRecBillQty",
+    "booksNewRecBillRate",
+    "booksNewRecBillTax",
+    "booksNewRecBillCustomer",
+    "booksNewRecBillNotes",
+    # Payments Made (Part 10)
+    "booksPaymentMadeVendor",
+    "booksPaymentMadeAmount",
+    "booksPaymentMadePayFull",
+    "booksPaymentMadeDate",
+    "booksPaymentMadeMode",
+    "booksPaymentMadePaidThrough",
+    "booksPaymentMadeReference",
+    "booksPaymentMadeDeductTds",
+    "booksPaymentMadeNotes",
+    "booksPaymentMadeAttachedFile",
+    # Vendor Credits (Part 10)
+    "booksNewVendorCreditVendor",
+    "booksNewVendorCreditOrderNumber",
+    "booksNewVendorCreditDate",
+    "booksNewVendorCreditSubject",
+    "booksNewVendorCreditAccountsPayable",
+    "booksNewVendorCreditTaxMode",
+    "booksNewVendorCreditTaxLevel",
+    "booksNewVendorCreditItemName",
+    "booksNewVendorCreditAccount",
+    "booksNewVendorCreditQty",
+    "booksNewVendorCreditRate",
+    "booksNewVendorCreditTax",
+    "booksNewVendorCreditDiscount",
+    "booksNewVendorCreditNotes",
 }
 
 LOOKBACK_LINES = 12
@@ -138,7 +182,7 @@ def audit_step(step_num: int):
 
 def main():
     all_errors = []
-    for step_num in range(135, 159):
+    for step_num in range(135, 170):
         errs = audit_step(step_num)
         all_errors.extend(errs)
 

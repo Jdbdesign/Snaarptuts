@@ -707,6 +707,15 @@ export const BOOKS_URLS = {
   bills: "books.snaarp.com/bills",
   newBill: "books.snaarp.com/bills/new",
   billDetails: "books.snaarp.com/bills/details",
+  recurringBills: "books.snaarp.com/recurring-bills",
+  newRecurringBill: "books.snaarp.com/recurring-bills/new",
+  recurringBillDetails: "books.snaarp.com/recurring-bills/details",
+  paymentsMade: "books.snaarp.com/payments-made",
+  newPaymentMade: "books.snaarp.com/payments-made/new",
+  paymentMadeDetails: "books.snaarp.com/payments-made/2",
+  vendorCredits: "books.snaarp.com/vendor-credits",
+  newVendorCredit: "books.snaarp.com/vendor-credits/new",
+  vendorCreditDetails: "books.snaarp.com/vendor-credits/vc-001",
 };
 
 export type BooksPage =
@@ -754,7 +763,16 @@ export type BooksPage =
   | "recurring-expense-detail"
   | "bills"
   | "new-bill"
-  | "bill-detail";
+  | "bill-detail"
+  | "recurring-bills"
+  | "new-recurring-bill"
+  | "recurring-bill-detail"
+  | "payments-made"
+  | "new-payment-made"
+  | "payment-made-detail"
+  | "vendor-credits"
+  | "new-vendor-credit"
+  | "vendor-credit-detail";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -3036,3 +3054,257 @@ export const INITIAL_BILLS: Bill[] = [
     total: 200.0,
   },
 ];
+
+// ── Part 10: Recurring Bills, Payments Made & Vendor Credits ─────────────
+
+export interface RecurringBillItem {
+  id?: string;
+  itemDetails: string;
+  description?: string;
+  account: string;
+  quantity: number;
+  rate: number;
+  tax: string;
+  customerDetails?: string;
+  amount: number;
+}
+
+export interface RecurringBill {
+  id: string;
+  profileName: string;
+  vendorName: string;
+  frequency: "Week" | "Weekly" | "Month" | "Monthly" | "Year" | "Yearly" | string;
+  status: "Active" | "Paused" | "Expired" | "Draft" | string;
+  startDate: string;
+  neverExpires?: boolean;
+  paymentTerms?: string;
+  accountsPayable?: string;
+  currency?: string;
+  createdDate?: string;
+  taxMode?: "Tax Exclusive" | "Tax Inclusive" | string;
+  level?: string;
+  items?: RecurringBillItem[];
+  lineItems: RecurringBillItem[];
+  subTotal?: number;
+  taxAmount?: number;
+  total?: number;
+  notes?: string;
+}
+
+export const INITIAL_RECURRING_BILLS: RecurringBill[] = [
+  {
+    id: "rec-bill-1",
+    profileName: "Office Cleaning",
+    vendorName: "Greenfield Packaging Ltd",
+    frequency: "Monthly",
+    status: "Active",
+    startDate: "11/01/2026",
+    neverExpires: true,
+    paymentTerms: "Due on Receipt",
+    accountsPayable: "Accounts Payable",
+    currency: "GBP",
+    createdDate: "11/01/2026",
+    taxMode: "Tax Exclusive",
+    level: "At Transaction Level",
+    items: [
+      {
+        id: "rbi-1",
+        itemDetails: "Office Cleaning",
+        account: "Cost of Goods Sold",
+        quantity: 1,
+        rate: 180.0,
+        tax: "VAT Standard (20%)",
+        customerDetails: "None",
+        amount: 180.0,
+      },
+    ],
+    lineItems: [
+      {
+        id: "rbi-1",
+        itemDetails: "Office Cleaning",
+        account: "Cost of Goods Sold",
+        quantity: 1,
+        rate: 180.0,
+        tax: "20%",
+        customerDetails: "None",
+        amount: 180.0,
+      },
+    ],
+    subTotal: 180.0,
+    taxAmount: 36.0,
+    total: 216.0,
+    notes: "Monthly office cleaning service",
+  },
+];
+
+export interface PaymentMadeBill {
+  billNumber: string;
+  billDate: string;
+  billAmount: number;
+  amountDue: number;
+  dueDate?: string;
+  paymentApplied: number;
+}
+
+export interface PaymentMade {
+  id: string;
+  date: string;
+  paymentNumber: string;
+  vendorName: string;
+  mode?: string;
+  paymentMode?: string;
+  amount: number;
+  unusedAmount?: string | number;
+  status: "Paid" | string;
+  referenceNumber?: string;
+  paidThrough?: string;
+  paidThroughAccount?: string;
+  deductTds?: boolean;
+  bankCharges?: number;
+  notes?: string;
+  billsPaid: Array<{
+    billNumber: string;
+    billDate: string;
+    billAmount: number;
+    paymentApplied: number;
+  }>;
+}
+
+export const INITIAL_PAYMENTS_MADE: PaymentMade[] = [
+  {
+    id: "pay-made-2",
+    date: "11/08/2026",
+    paymentNumber: "2",
+    vendorName: "Victor Stationery",
+    mode: "Cash",
+    paymentMode: "Cash",
+    amount: 200.0,
+    unusedAmount: "—",
+    status: "Paid",
+    paidThrough: "Undeposited Funds",
+    paidThroughAccount: "Undeposited Funds",
+    referenceNumber: "REF-200",
+    billsPaid: [
+      {
+        billNumber: "BILL-002",
+        billDate: "11/07/2026",
+        billAmount: 200.0,
+        paymentApplied: 200.0,
+      },
+    ],
+  },
+];
+
+export const OPEN_BILL_BILL_007: PaymentMadeBill = {
+  billNumber: "BILL-007",
+  billDate: "07 Nov 2026",
+  dueDate: "09 Nov 2026",
+  billAmount: 4800.0,
+  amountDue: 4800.0,
+  paymentApplied: 0,
+};
+
+export interface VendorCreditItem {
+  id?: string;
+  itemDetails: string;
+  account?: string;
+  quantity: number;
+  rate: number;
+  tax?: string;
+  amount: number;
+}
+
+export interface VendorCredit {
+  id: string;
+  date: string;
+  creditNoteNumber: string;
+  vendorName: string;
+  orderNumber?: string;
+  status: "OPEN" | "Open" | "Closed" | "Void" | string;
+  amount: number;
+  balance?: number;
+  balanceRemaining: number;
+  subject?: string;
+  accountsPayable?: string;
+  taxMode?: "Tax Exclusive" | "Tax Inclusive" | string;
+  level?: string;
+  items: VendorCreditItem[];
+  subTotal?: number;
+  discountPercent?: number;
+  discountAmount?: number;
+  taxInclusiveAmount?: number;
+  total?: number;
+  notes?: string;
+}
+
+export const INITIAL_VENDOR_CREDITS: VendorCredit[] = [
+  {
+    id: "vc-002",
+    date: "10/20/2026",
+    creditNoteNumber: "VC-002",
+    vendorName: "Victor Stationery",
+    orderNumber: "PO-7702",
+    status: "OPEN",
+    amount: 95.0,
+    balance: 95.0,
+    balanceRemaining: 95.0,
+    items: [
+      {
+        id: "vci-1",
+        itemDetails: "Victor Stationery Supplies",
+        account: "Cost of Goods Sold",
+        quantity: 1,
+        rate: 95.0,
+        tax: "VAT Standard (20%)",
+        amount: 95.0,
+      },
+    ],
+    subTotal: 95.0,
+    total: 95.0,
+  },
+];
+
+// Option lists
+export const RECURRING_BILL_STATUS_FILTERS = ["Status", "Active", "Paused", "Expired", "Draft"] as const;
+export const RECURRING_BILL_REPEAT_EVERY = ["Week", "Month", "Year"] as const;
+export const ACCOUNTS_PAYABLE_OPTIONS = [
+  "Accounts Payable",
+  "Accrued Liabilities",
+  "Customer Advances",
+  "Unearned Revenue",
+  "Tax Payable",
+  "TDS Payable",
+  "Employee Reimbursements",
+] as const;
+export const PURCHASES_PAYMENT_TERMS = [
+  "Due on Receipt",
+  "Net 15",
+  "Net 30",
+  "Net 45",
+  "Net 60",
+] as const;
+export const TAX_MODE_OPTIONS = ["Tax Exclusive", "Tax Inclusive"] as const;
+export const LEVEL_OPTIONS = ["At Transaction Level", "At Line Item Level"] as const;
+export const PURCHASES_ITEM_ACCOUNTS = [
+  "Cost of Goods Sold",
+  "Advertising and Marketing",
+  "Bank Fees and Charges",
+  "Bad Debt",
+  "Commission and Fees",
+  "Consultant Expense",
+  "Depreciation Expense",
+] as const;
+export const CUSTOMER_DETAILS_OPTIONS = ["None"] as const;
+export const PAYMENT_MADE_MODES = ["Cash", "Bank Transfer", "Check", "Credit Card", "Other"] as const;
+export const PAYMENT_MADE_PAID_THROUGH = [
+  "Undeposited Funds",
+  "Accounts Receivable",
+  "Inventory Asset",
+  "Prepaid Expenses",
+  "Advance Tax",
+  "Employee Advance",
+  "Input Tax",
+] as const;
+export const VENDOR_CREDIT_STATUS_FILTERS = ["Status", "Open", "Closed", "Void"] as const;
+export const PAYMENT_MADE_STATUS_FILTERS = ["Status", "Paid"] as const;
+

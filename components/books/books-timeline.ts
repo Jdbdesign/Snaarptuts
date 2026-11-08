@@ -518,7 +518,16 @@ export function beginBooks(
     page === "recurring-expense-detail" ||
     page === "bills" ||
     page === "new-bill" ||
-    page === "bill-detail";
+    page === "bill-detail" ||
+    page === "recurring-bills" ||
+    page === "new-recurring-bill" ||
+    page === "recurring-bill-detail" ||
+    page === "payments-made" ||
+    page === "new-payment-made" ||
+    page === "payment-made-detail" ||
+    page === "vendor-credits" ||
+    page === "new-vendor-credit" ||
+    page === "vendor-credit-detail";
   tl.setVar("booksPurchasesExpanded", isPurchasesPage);
 
   // Vendors state
@@ -846,6 +855,31 @@ export function beginBooks(
       },
       ...INITIAL_BILLS.filter((b) => b.id !== "BILL-1200"),
     ]);
+  } else if (stepNum === 161) {
+    tl.setVar("booksNewRecBillVendor", "Greenfield Packaging Ltd");
+    tl.setVar("booksNewRecBillProfileName", "Monthly Packaging Supplies");
+    tl.setVar("booksNewRecBillRepeatEvery", "Month");
+    tl.setVar("booksNewRecBillStartDate", "11/08/2026");
+    tl.setVar("booksNewRecBillNeverExpires", true);
+    tl.setVar("booksNewRecBillAccountsPayable", "Accounts Payable");
+    tl.setVar("booksNewRecBillPaymentTerms", "Net 30");
+    tl.setVar("booksNewRecBillTaxMode", "Tax Exclusive");
+    tl.setVar("booksNewRecBillTaxLevel", "At Transaction Level");
+  } else if (stepNum === 165) {
+    tl.setVar("booksPaymentMadeVendor", "Greenfield Packaging Ltd");
+    tl.setVar("booksPaymentMadeAmount", "4800");
+    tl.setVar("booksPaymentMadePayFull", true);
+    tl.setVar("booksPaymentMadeDate", "11/08/2026");
+    tl.setVar("booksPaymentMadeMode", "Bank Transfer");
+    tl.setVar("booksPaymentMadePaidThrough", "Accounts Receivable");
+  } else if (stepNum === 168) {
+    tl.setVar("booksNewVendorCreditVendor", "Greenfield Packaging Ltd");
+    tl.setVar("booksNewVendorCreditOrderNumber", "PO-7781");
+    tl.setVar("booksNewVendorCreditDate", "11/08/2026");
+    tl.setVar("booksNewVendorCreditSubject", "Returned packaging");
+    tl.setVar("booksNewVendorCreditAccountsPayable", "Accounts Payable");
+    tl.setVar("booksNewVendorCreditTaxMode", "Tax Inclusive");
+    tl.setVar("booksNewVendorCreditTaxLevel", "At Transaction Level");
   }
 }
 

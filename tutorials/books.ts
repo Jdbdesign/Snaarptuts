@@ -315,6 +315,28 @@ import { Step157 } from "@/scenes/books/step157/Step157";
 import { runStep157, STEP157_DURATION_MS } from "@/scenes/books/step157/script";
 import { Step158 } from "@/scenes/books/step158/Step158";
 import { runStep158, STEP158_DURATION_MS } from "@/scenes/books/step158/script";
+import { Step159 } from "@/scenes/books/step159/Step159";
+import { runStep159, STEP159_DURATION_MS } from "@/scenes/books/step159/script";
+import { Step160 } from "@/scenes/books/step160/Step160";
+import { runStep160, STEP160_DURATION_MS } from "@/scenes/books/step160/script";
+import { Step161 } from "@/scenes/books/step161/Step161";
+import { runStep161, STEP161_DURATION_MS } from "@/scenes/books/step161/script";
+import { Step162 } from "@/scenes/books/step162/Step162";
+import { runStep162, STEP162_DURATION_MS } from "@/scenes/books/step162/script";
+import { Step163 } from "@/scenes/books/step163/Step163";
+import { runStep163, STEP163_DURATION_MS } from "@/scenes/books/step163/script";
+import { Step164 } from "@/scenes/books/step164/Step164";
+import { runStep164, STEP164_DURATION_MS } from "@/scenes/books/step164/script";
+import { Step165 } from "@/scenes/books/step165/Step165";
+import { runStep165, STEP165_DURATION_MS } from "@/scenes/books/step165/script";
+import { Step166 } from "@/scenes/books/step166/Step166";
+import { runStep166, STEP166_DURATION_MS } from "@/scenes/books/step166/script";
+import { Step167 } from "@/scenes/books/step167/Step167";
+import { runStep167, STEP167_DURATION_MS } from "@/scenes/books/step167/script";
+import { Step168 } from "@/scenes/books/step168/Step168";
+import { runStep168, STEP168_DURATION_MS } from "@/scenes/books/step168/script";
+import { Step169 } from "@/scenes/books/step169/Step169";
+import { runStep169, STEP169_DURATION_MS } from "@/scenes/books/step169/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -1915,6 +1937,116 @@ export const books: Tutorial = {
         durationMs: STEP158_DURATION_MS,
       },
     },
+    {
+      id: "recurring-bills-list-filter",
+      title: "Recurring bills: open list, filter status and view details",
+      url: BOOKS_URLS.recurringBills,
+      scene: {
+        Component: Step159,
+        run: runStep159,
+        durationMs: STEP159_DURATION_MS,
+      },
+    },
+    {
+      id: "recurring-bills-create-schedule",
+      title: "Recurring bills: select vendor, schedule and terms",
+      url: BOOKS_URLS.newRecurringBill,
+      scene: {
+        Component: Step160,
+        run: runStep160,
+        durationMs: STEP160_DURATION_MS,
+      },
+    },
+    {
+      id: "recurring-bills-create-items-save",
+      title: "Recurring bills: add line items, notes and save",
+      url: BOOKS_URLS.newRecurringBill,
+      scene: {
+        Component: Step161,
+        run: runStep161,
+        durationMs: STEP161_DURATION_MS,
+      },
+    },
+    {
+      id: "recurring-bills-delete",
+      title: "Recurring bills: view details and delete profile",
+      url: BOOKS_URLS.recurringBills,
+      scene: {
+        Component: Step162,
+        run: runStep162,
+        durationMs: STEP162_DURATION_MS,
+      },
+    },
+    {
+      id: "payments-made-list-filter",
+      title: "Payments made: open list, filter status and view details",
+      url: BOOKS_URLS.paymentsMade,
+      scene: {
+        Component: Step163,
+        run: runStep163,
+        durationMs: STEP163_DURATION_MS,
+      },
+    },
+    {
+      id: "payments-made-create-vendor-amount",
+      title: "Payments made: select vendor, enter amount and mode",
+      url: BOOKS_URLS.newPaymentMade,
+      scene: {
+        Component: Step164,
+        run: runStep164,
+        durationMs: STEP164_DURATION_MS,
+      },
+    },
+    {
+      id: "payments-made-create-reference-save",
+      title: "Payments made: enter reference, attach receipt and save",
+      url: BOOKS_URLS.newPaymentMade,
+      scene: {
+        Component: Step165,
+        run: runStep165,
+        durationMs: STEP165_DURATION_MS,
+      },
+    },
+    {
+      id: "vendor-credits-list-filter",
+      title: "Vendor credits: open list, filter status and empty state",
+      url: BOOKS_URLS.vendorCredits,
+      scene: {
+        Component: Step166,
+        run: runStep166,
+        durationMs: STEP166_DURATION_MS,
+      },
+    },
+    {
+      id: "vendor-credits-create-details",
+      title: "Vendor credits: select vendor, credit note# and tax mode",
+      url: BOOKS_URLS.newVendorCredit,
+      scene: {
+        Component: Step167,
+        run: runStep167,
+        durationMs: STEP167_DURATION_MS,
+      },
+    },
+    {
+      id: "vendor-credits-create-items-save",
+      title: "Vendor credits: add line items, discount and save as open",
+      url: BOOKS_URLS.newVendorCredit,
+      scene: {
+        Component: Step168,
+        run: runStep168,
+        durationMs: STEP168_DURATION_MS,
+      },
+    },
+    {
+      id: "vendor-credits-delete",
+      title: "Vendor credits: view details and delete credit note",
+      url: BOOKS_URLS.vendorCredits,
+      scene: {
+        Component: Step169,
+        run: runStep169,
+        durationMs: STEP169_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -1931,10 +2063,13 @@ export const books: Tutorial = {
     { title: "Expenses", from: "expenses-list-filter-views" },
     { title: "Recurring Expenses", from: "recurring-expenses-list-read" },
     { title: "Bills", from: "bills-browse-filter-views" },
+    { title: "Recurring Bills", from: "recurring-bills-list-filter" },
+    { title: "Payments Made", from: "payments-made-list-filter" },
+    { title: "Vendor Credits", from: "vendor-credits-list-filter" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, and vendor bills in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, and vendor credits in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

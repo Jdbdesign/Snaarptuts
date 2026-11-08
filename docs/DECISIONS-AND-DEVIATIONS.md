@@ -1476,5 +1476,40 @@ Reference video: `1106(4).mp4` (5:07, git-ignored `ref/`, frames in `ref/books9/
 6. **Omitted Unclicked Flows**: Features shown in the recording but not clicked/operated include Edit Bill, Record Payment, Submit for Approval, Withdraw & change approvers, "New View", and Associate Tags dialog. All controls remain rendered pixel-faithfully without extra branching.
 7. **11 Big Steps**: Built as exactly 11 steps (148 to 158) with zero silent fills, verified with `scripts/audit-books-interactions.py` and `scripts/check-books-chain.ts`.
 
+## Snaarp Books Part 10: Purchases > Recurring Bills (Steps 159 to 162), Payments Made (Steps 163 to 165), Vendor Credits (Steps 166 to 169)
+
+Reference video: `1108.mp4` (5:48, git-ignored `ref/`, frames in `ref/books10/`).
+
+### Sample Data & Realistic Content
+- Vendors: Greenfield Packaging Ltd, Victor Stationery
+- Items: Organic Rice 25kg, Palm Oil 5L, Cassava Flour 10kg, Delivery Fee, Reusable Tote Bag
+- Currency: GBP (£)
+- Dates: MM/DD/YYYY, default/today 11/08/2026
+- Recurring Bills Data:
+  - `rec-bill-1` | Monthly Packaging Supplies | Greenfield Packaging Ltd | Monthly | £5,040.00 | Active | 11/08/2026 | Due on Receipt
+- Payments Made Data:
+  - `PAY-002` | Greenfield Packaging Ltd | 11/08/2026 | £4,800.00 | Paid | BILL-002 | Accounts Payable | Bank Account
+- Vendor Credits Data:
+  - `VC-001` | Greenfield Packaging Ltd | 11/08/2026 | £5,040.00 | Open | Organic Rice 25kg (20 x £200.00), Palm Oil 5L (5 x £40.00)
+
+### Decisions & Deviations from Video
+1. **Purchases Submenu 100% Wired**: All seven items of the Purchases sidebar group are now fully interactive: Vendors, Expenses, Recurring Expenses, Bills, Recurring Bills (`nav-purchases-recurring-bills`), Payments Made (`nav-purchases-payments-made`), and Vendor Credits (`nav-purchases-vendor-credits`).
+2. **Server and Validation Errors Omitted**: In accordance with Rule 2 (every flow finishes in its success state), video errors are omitted:
+   - Save as Paid on Record Payment: In the video, clicking Save as Paid produces error toasts ("Effective account amount can not be..." and "Internal server error... could not allocate a journal number"). In the tutorial, clicking "Save as Paid" displays a green success toast ("Payment recorded successfully") and opens the Payment Details view.
+   - Apply to Bills on Vendor Credit: In the video, clicking Apply to Bills triggers an error toast ("Enter an amount to apply..."). The tutorial leaves "Apply to Bills" unclicked and ends on the successful creation and inspection of `VC-001`.
+3. **In-App Confirmation Dialogs**: Native browser confirm alerts shown in the recording when deleting a recurring bill or vendor credit are replaced by accessible in-app confirmation modals (`BooksRecurringBillConfirmDialog` and `BooksVendorCreditConfirmDialog`), followed by standard success toasts.
+4. **In-App File Attachment**: Receipt upload on Record Payment replaces native OS file dialog with `BooksPaymentMadeFilePickerModal` selecting sample file `payment_receipt.pdf`.
+5. **Omitted Unclicked Flows**: Features shown in the recording but not clicked/operated include:
+   - "Apply to Bills" action button on Vendor Credit details
+   - "Save as Draft" on Recurring Bills and Vendor Credits
+   - Deleting a payment / list trash icon for payments
+   - "Import Recurring Bills" and "Import Vendor Credits" outlined header buttons
+   - Bill link inside "Bills Paid" on Payment details
+   - "Bulk Actions" and "Add Items in Bulk" on line item tables
+   - "Clear Applied Amount" link on Record Payment form
+   All controls remain rendered pixel-faithfully without extra branching.
+6. **11 Big Steps**: Built as exactly 11 steps (159 to 169) with zero silent fills, verified with `scripts/audit-books-interactions.py` and `scripts/check-books-chain.ts`. Full timing calibrated with 1500 ms hold and 400 ms fade, eliminating idle waits.
+
+
 
 
