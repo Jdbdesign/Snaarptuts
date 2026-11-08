@@ -58,7 +58,7 @@ export function BooksCreateAccountModal({ tl }: Props) {
         <div className="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
           {/* Account Type */}
           <div className="relative">
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Account Type <span className="text-red-500">*</span>
             </label>
             <button
@@ -108,7 +108,7 @@ export function BooksCreateAccountModal({ tl }: Props) {
 
           {/* Account Name */}
           <div>
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Account Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -140,7 +140,7 @@ export function BooksCreateAccountModal({ tl }: Props) {
           {/* Parent Account Dropdown (shown when sub-account checked) */}
           {isSubAccount && (
             <div className="relative pl-6">
-              <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Parent Account <span className="text-red-500">*</span>
               </label>
               <button
@@ -177,7 +177,7 @@ export function BooksCreateAccountModal({ tl }: Props) {
 
           {/* Account Code */}
           <div>
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Account Code
             </label>
             <input
@@ -192,7 +192,7 @@ export function BooksCreateAccountModal({ tl }: Props) {
 
           {/* Description */}
           <div>
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Description
             </label>
             <textarea

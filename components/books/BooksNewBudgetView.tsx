@@ -56,7 +56,7 @@ export function BooksNewBudgetView({ tl }: Props) {
         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Budget Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -71,7 +71,7 @@ export function BooksNewBudgetView({ tl }: Props) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="relative">
-                <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Fiscal Year <span className="text-red-500">*</span>
                 </label>
                 <button
@@ -105,7 +105,7 @@ export function BooksNewBudgetView({ tl }: Props) {
               </div>
 
               <div className="relative">
-                <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Period <span className="text-red-500">*</span>
                 </label>
                 <button

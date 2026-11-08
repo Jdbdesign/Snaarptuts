@@ -1548,6 +1548,7 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 - Chart of Accounts:
   - 17 standard operating accounts (Petty Cash, Undeposited Funds, Accounts Receivable, Inventory Asset, Equipment, Accounts Payable, VAT Payable, Bank Loan, Owner Equity, Retained Earnings, Sales, Service Income, COGS, Advertising, Rent, Office Supplies, Utilities)
   - Sub-account: "Staff Float" / "Staff Petty Float" (code 1002, Cash asset under Accounts Receivable, indented in table)
+  - Account Details screen (Step 184): Exact 100% video match at `books.snaarp.com/accounts/<id>`: flat page with no outer card, ~600px centered column ~90px below breadcrumb (`<- Back | [Home] > Accounts > Details`), large heading `1002 — Staff Float` with em-dash `\u2014`, normal-case plain labels (Code, Name, Account Type dropdown, Description textarea, Parent Account dropdown, Header account checkbox), single full-width purple "Update Account" button (`#7014D9`), no Cancel button, and conditional Child Accounts table when viewing a parent account (e.g. 1100). Smoothly returns to list with updated row.
 - Budgets:
   - Budget 1: "Operations 2026", Jan 2026 - Dec 2026, Monthly, Active
   - Budget 2: "Expenses", Jan 2026 - Dec 2026, Monthly, Balance Sheet included, accounts: Shipping Charges, Late Fee Income, COGS, Insurance. 12 monthly columns pre-filled and edited to £750.

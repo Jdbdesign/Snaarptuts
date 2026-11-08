@@ -83,7 +83,7 @@ export async function runStep183(tl: Timeline) {
 
   tl.showCaption(CAPTIONS.selectParentAr);
   await pressOn(tl, "[data-tl=opt-parent-ar]");
-  tl.setVar("booksNewAccountParent", "1100 - Accounts Receivable");
+  tl.setVar("booksNewAccountParent", "1100 — Accounts Receivable");
   tl.setVar("booksNewAccountParentOpen", false);
   await tl.wait(300);
 
@@ -115,7 +115,7 @@ export async function runStep183(tl: Timeline) {
     name: "Staff Float",
     code: "1002",
     type: "Cash",
-    parentAccountName: "1100 - Accounts Receivable",
+    parentAccountName: "1100 — Accounts Receivable",
     status: "Active",
     isSubAccount: true,
     description: "Staff float for minor expenses",

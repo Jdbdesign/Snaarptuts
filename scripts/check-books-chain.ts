@@ -11,7 +11,7 @@ const arg = (n: string, d: string) => {
 };
 const FROM = Number(arg("from", "78"));
 const SPEED = Number(arg("speed", "8"));
-const TOTAL = Number(arg("total", "147"));
+const TOTAL = Number(arg("total", "189"));
 
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH });

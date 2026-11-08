@@ -94,7 +94,7 @@ export function BooksNewJournalTemplateView({ tl }: Props) {
         <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Template Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -107,7 +107,7 @@ export function BooksNewJournalTemplateView({ tl }: Props) {
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Reference#
               </label>
               <input
@@ -122,7 +122,7 @@ export function BooksNewJournalTemplateView({ tl }: Props) {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Notes
             </label>
             <input
@@ -137,7 +137,7 @@ export function BooksNewJournalTemplateView({ tl }: Props) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2 border-t border-gray-100">
             <div>
-              <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Journal Type
               </label>
               <div className="flex items-center gap-6">
@@ -167,7 +167,7 @@ export function BooksNewJournalTemplateView({ tl }: Props) {
             </div>
 
             <div className="relative">
-              <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Currency
               </label>
               <button

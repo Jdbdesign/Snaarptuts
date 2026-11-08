@@ -176,9 +176,9 @@ export function BooksManualJournalsView({ tl }: BooksManualJournalsViewProps) {
                   tl.setVar("booksView", "choose-journal-template");
                   tl.setUrl(BOOKS_URLS.chooseJournalTemplate);
                 }}
-                className="px-4 py-2 bg-[#2563EB] hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-xs transition-colors cursor-pointer uppercase tracking-wider"
+                className="px-4 py-2 bg-[#2563EB] hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-xs transition-colors cursor-pointer"
               >
-                CREATE NEW JOURNAL
+                Create New Journal
               </button>
               <button
                 type="button"

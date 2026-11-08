@@ -3,6 +3,7 @@ import {
   beginBooks,
   finishBooks,
   pressOn,
+  ring,
 } from "@/components/books/books-timeline";
 import {
   BOOKS_URLS,
@@ -11,7 +12,7 @@ import {
 } from "@/components/books/books-data";
 import { CAPTIONS } from "./data";
 
-export const STEP184_DURATION_MS = 9500;
+export const STEP184_DURATION_MS = 10500;
 
 export async function runStep184(tl: Timeline) {
   beginBooks(tl, BOOKS_URLS.chartOfAccounts, "chart-of-accounts", [0.4, 0.3], 184);
@@ -23,7 +24,7 @@ export async function runStep184(tl: Timeline) {
     name: "Staff Float",
     code: "1002",
     type: "Cash",
-    parentAccountName: "1100 - Accounts Receivable",
+    parentAccountName: "1100 — Accounts Receivable",
     status: "Active",
     isSubAccount: true,
     description: "Staff float for minor expenses",
@@ -70,7 +71,16 @@ export async function runStep184(tl: Timeline) {
     description: "Updated float account for minor office expenses",
   };
   tl.setVar("booksActiveAccount", updatedStaffFloat);
-  await tl.wait(600);
+  tl.setVar("booksView", "chart-of-accounts");
+  tl.setUrl(BOOKS_URLS.chartOfAccounts);
+  tl.setVar("booksChartOfAccounts", [
+    ...INITIAL_CHART_OF_ACCOUNTS.slice(0, 3),
+    updatedStaffFloat,
+    ...INITIAL_CHART_OF_ACCOUNTS.slice(3),
+  ]);
+  await tl.wait(500);
+
+  await ring(tl, "[data-tl=row-account-1002]", 1200);
 
   await finishBooks(tl, STEP184_DURATION_MS);
 }
