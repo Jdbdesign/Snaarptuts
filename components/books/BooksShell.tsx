@@ -191,11 +191,15 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "new-budget" ||
     currentView === "budget-detail";
   const isTransactionLockingView = currentView === "transaction-locking";
+  const isAuditLogsView = currentView === "audit-logs";
+  const isImportDataView = currentView === "import-data";
   const isAccountantView =
     isManualJournalsView ||
     isChartOfAccountsView ||
     isBudgetsView ||
-    isTransactionLockingView;
+    isTransactionLockingView ||
+    isAuditLogsView ||
+    isImportDataView;
   const accountantExpanded = useTimelineVar<boolean>(
     tl,
     "booksAccountantExpanded",
@@ -840,14 +844,30 @@ export function BooksShell({ tl, children, overlay }: Props) {
                 <button
                   type="button"
                   data-tl="nav-accountant-audit-logs"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "audit-logs");
+                    tl.setUrl(BOOKS_URLS.auditLogs);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isAuditLogsView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Audit Logs</span>
                 </button>
                 <button
                   type="button"
                   data-tl="nav-accountant-import-data"
-                  className="w-full flex items-center px-3 py-1.5 rounded-lg text-xs text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                  onClick={() => {
+                    tl.setVar("booksView", "import-data");
+                    tl.setUrl(BOOKS_URLS.importData);
+                  }}
+                  className={`w-full flex items-center px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
+                    isImportDataView
+                      ? "bg-[#F9F5FF] text-[#7014D9] font-medium"
+                      : "text-gray-600 hover:bg-gray-100"
+                  }`}
                 >
                   <span className="whitespace-nowrap">Import Data</span>
                 </button>

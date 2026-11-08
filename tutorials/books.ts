@@ -377,6 +377,10 @@ import { Step188 } from "@/scenes/books/step188/Step188";
 import { runStep188, STEP188_DURATION_MS } from "@/scenes/books/step188/script";
 import { Step189 } from "@/scenes/books/step189/Step189";
 import { runStep189, STEP189_DURATION_MS } from "@/scenes/books/step189/script";
+import { Step190 } from "@/scenes/books/step190/Step190";
+import { runStep190, STEP190_DURATION_MS } from "@/scenes/books/step190/script";
+import { Step191 } from "@/scenes/books/step191/Step191";
+import { runStep191, STEP191_DURATION_MS } from "@/scenes/books/step191/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -2287,6 +2291,26 @@ export const books: Tutorial = {
         durationMs: STEP189_DURATION_MS,
       },
     },
+    {
+      id: "books-190",
+      title: "Audit Logs: browse and filter audit trail",
+      url: BOOKS_URLS.auditLogs,
+      scene: {
+        Component: Step190,
+        run: runStep190,
+        durationMs: STEP190_DURATION_MS,
+      },
+    },
+    {
+      id: "books-191",
+      title: "Import Data: upload items CSV and review import",
+      url: BOOKS_URLS.importData,
+      scene: {
+        Component: Step191,
+        run: runStep191,
+        durationMs: STEP191_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -2311,7 +2335,7 @@ export const books: Tutorial = {
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, bank transactions, manual journals, chart of accounts, budgets, and transaction locking in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, bank transactions, manual journals, chart of accounts, budgets, transaction locking, audit logs, and data import in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

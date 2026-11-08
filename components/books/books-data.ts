@@ -733,6 +733,8 @@ export const BOOKS_URLS = {
   newBudget: "books.snaarp.com/accountant/budgets/new",
   budgetDetails: "books.snaarp.com/accountant/budgets/details",
   transactionLocking: "books.snaarp.com/accountant/transaction-locking",
+  auditLogs: "books.snaarp.com/audit-logs",
+  importData: "books.snaarp.com/import",
 };
 
 export type BooksPage =
@@ -806,7 +808,9 @@ export type BooksPage =
   | "budgets"
   | "new-budget"
   | "budget-detail"
-  | "transaction-locking";
+  | "transaction-locking"
+  | "audit-logs"
+  | "import-data";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 
@@ -3974,6 +3978,442 @@ export const BUDGET_PERIODS = [
   "Half Yearly",
   "Yearly",
 ] as const;
+
+// ── Audit Logs Data & Types (Part 13) ─────────────────────────────────────────
+
+export type AuditLogAction =
+  | "All Actions"
+  | "CREATE"
+  | "UPDATE"
+  | "DELETE"
+  | "DEACTIVATE"
+  | "STATUS CHANGE"
+  | "LOGIN";
+
+export type AuditLogEntity =
+  | "All Entities"
+  | "Account"
+  | "Banking"
+  | "Budget"
+  | "Invoice"
+  | "Manual journal"
+  | "Vendor credit"
+  | "Bank feed";
+
+export interface AuditLogEntry {
+  id: string;
+  timestamp: string;
+  user: string;
+  action: "CREATE" | "UPDATE" | "DELETE" | "DEACTIVATE" | "STATUS CHANGE" | "LOGIN";
+  entity: string;
+  description: string;
+}
+
+export const AUDIT_LOG_ACTIONS: AuditLogAction[] = [
+  "All Actions",
+  "CREATE",
+  "UPDATE",
+  "DELETE",
+  "DEACTIVATE",
+  "STATUS CHANGE",
+  "LOGIN",
+];
+
+export const AUDIT_LOG_ENTITIES: AuditLogEntity[] = [
+  "All Entities",
+  "Account",
+  "Banking",
+  "Budget",
+  "Invoice",
+  "Manual journal",
+  "Vendor credit",
+  "Bank feed",
+];
+
+export const INITIAL_AUDIT_LOGS: AuditLogEntry[] = [
+  {
+    id: "log-1",
+    timestamp: "11/8/2026, 11:00:27 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "DELETE",
+    entity: "Budget (c42d910d...)",
+    description: "DELETE budget (c42d910d-de86-4237-9b0f-e832b039a234)",
+  },
+  {
+    id: "log-2",
+    timestamp: "11/8/2026, 11:00:24 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "DELETE",
+    entity: "Budget (00609b56...)",
+    description: "DELETE budget (00609b56-9df9-4e4a-91cd-4434709a292f)",
+  },
+  {
+    id: "log-3",
+    timestamp: "11/8/2026, 11:00:15 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Budget (c42d910d...)",
+    description: "CREATE budget (Food (Copy))",
+  },
+  {
+    id: "log-4",
+    timestamp: "11/8/2026, 10:59:53 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Budget (7a17c554...)",
+    description: "UPDATE budget (Expenses)",
+  },
+  {
+    id: "log-5",
+    timestamp: "11/8/2026, 10:59:35 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Budget",
+    description: "CREATE budget (Expenses)",
+  },
+  {
+    id: "log-6",
+    timestamp: "11/8/2026, 10:58:07 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Account (bd72c4ac...)",
+    description: "UPDATE account (Personal Income)",
+  },
+  {
+    id: "log-7",
+    timestamp: "11/8/2026, 10:57:43 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Account (bd72c4ac...)",
+    description: "UPDATE account (Personal Income)",
+  },
+  {
+    id: "log-8",
+    timestamp: "11/8/2026, 10:56:55 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Account",
+    description: "CREATE account (1002 — Staff Float)",
+  },
+  {
+    id: "log-9",
+    timestamp: "11/8/2026, 10:55:07 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Bulk_account_update",
+    description: "CREATE bulk account update",
+  },
+  {
+    id: "log-10",
+    timestamp: "11/8/2026, 10:54:31 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Manual_journal (f0081798...)",
+    description: "CREATE manual journal (f0081798-8f90-4c7f-9134-1060132f588b)",
+  },
+  {
+    id: "log-11",
+    timestamp: "11/8/2026, 4:42:26 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Banking (a665dc9e...)",
+    description: "UPDATE banking (a665dc9e-125d-4b5e-b543-bbae7fe9cfd)",
+  },
+  {
+    id: "log-12",
+    timestamp: "11/8/2026, 4:42:17 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Banking",
+    description: "CREATE banking",
+  },
+  {
+    id: "log-13",
+    timestamp: "11/8/2026, 4:40:27 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Bank_feed",
+    description: "CREATE bank feed",
+  },
+  {
+    id: "log-14",
+    timestamp: "11/8/2026, 4:40:20 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "DELETE",
+    entity: "Banking (ef9bd4f3...)",
+    description: "DELETE banking (ef9bd4f3-ecaa-44ab-bbbc-ba0501b305a5)",
+  },
+  {
+    id: "log-15",
+    timestamp: "11/8/2026, 4:39:53 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Banking (ef9bd4f3...)",
+    description: "UPDATE banking (ef9bd4f3-ecaa-44ab-bbbc-ba0501b305a5)",
+  },
+  {
+    id: "log-16",
+    timestamp: "11/8/2026, 4:39:51 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Banking (ef9bd4f3...)",
+    description: "UPDATE banking (ef9bd4f3-ecaa-44ab-bbbc-ba0501b305a5)",
+  },
+  {
+    id: "log-17",
+    timestamp: "11/8/2026, 4:39:40 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Banking",
+    description: "CREATE banking",
+  },
+  {
+    id: "log-18",
+    timestamp: "11/8/2026, 1:44:26 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "DELETE",
+    entity: "Vendor_credit (ed2c6f5e...)",
+    description: "DELETE vendor credit (ed2c6f5e-89bc-430f-963c-d56ce6dfgf89)",
+  },
+  {
+    id: "log-19",
+    timestamp: "11/8/2026, 1:42:05 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Invoice (INV-00042)",
+    description: "CREATE invoice (INV-00042)",
+  },
+  {
+    id: "log-20",
+    timestamp: "11/8/2026, 1:41:50 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Invoice (INV-00042)",
+    description: "UPDATE invoice (INV-00042)",
+  },
+  // Page 2 (Entries 21-42)
+  {
+    id: "log-21",
+    timestamp: "11/7/2026, 5:30:12 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Customer (Acme Studio)",
+    description: "CREATE customer (Acme Studio)",
+  },
+  {
+    id: "log-22",
+    timestamp: "11/7/2026, 5:28:44 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Customer (Acme Studio)",
+    description: "UPDATE customer (Acme Studio)",
+  },
+  {
+    id: "log-23",
+    timestamp: "11/7/2026, 4:15:30 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "LOGIN",
+    entity: "User",
+    description: "LOGIN user (sam.taylor@snaarp.com)",
+  },
+  {
+    id: "log-24",
+    timestamp: "11/7/2026, 3:55:18 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "STATUS CHANGE",
+    entity: "Invoice (INV-00041)",
+    description: "STATUS CHANGE invoice (INV-00041) to Sent",
+  },
+  {
+    id: "log-25",
+    timestamp: "11/7/2026, 3:10:04 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Bill (BILL-0012)",
+    description: "CREATE bill (BILL-0012)",
+  },
+  {
+    id: "log-26",
+    timestamp: "11/7/2026, 3:05:22 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Bill (BILL-0012)",
+    description: "UPDATE bill (BILL-0012)",
+  },
+  {
+    id: "log-27",
+    timestamp: "11/7/2026, 2:40:11 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Expense (EXP-0089)",
+    description: "CREATE expense (EXP-0089)",
+  },
+  {
+    id: "log-28",
+    timestamp: "11/7/2026, 2:35:50 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Expense (EXP-0089)",
+    description: "UPDATE expense (EXP-0089)",
+  },
+  {
+    id: "log-29",
+    timestamp: "11/7/2026, 1:20:15 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Recurring_bill (REC-BILL-001)",
+    description: "CREATE recurring bill (REC-BILL-001)",
+  },
+  {
+    id: "log-30",
+    timestamp: "11/7/2026, 1:12:08 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Recurring_invoice (REC-INV-001)",
+    description: "CREATE recurring invoice (REC-INV-001)",
+  },
+  {
+    id: "log-31",
+    timestamp: "11/7/2026, 12:45:30 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Vendor (Apex Supplies Ltd)",
+    description: "CREATE vendor (Apex Supplies Ltd)",
+  },
+  {
+    id: "log-32",
+    timestamp: "11/7/2026, 12:40:19 PM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Vendor (Apex Supplies Ltd)",
+    description: "UPDATE vendor (Apex Supplies Ltd)",
+  },
+  {
+    id: "log-33",
+    timestamp: "11/7/2026, 11:25:40 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Payment_received (PAY-00002)",
+    description: "CREATE payment received (PAY-00002)",
+  },
+  {
+    id: "log-34",
+    timestamp: "11/7/2026, 11:15:20 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Payment_made (PAY-00003)",
+    description: "CREATE payment made (PAY-00003)",
+  },
+  {
+    id: "log-35",
+    timestamp: "11/7/2026, 10:50:11 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Manual_journal (JRN-0014)",
+    description: "CREATE manual journal (JRN-0014)",
+  },
+  {
+    id: "log-36",
+    timestamp: "11/7/2026, 10:45:00 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Manual_journal (JRN-0014)",
+    description: "UPDATE manual journal (JRN-0014)",
+  },
+  {
+    id: "log-37",
+    timestamp: "11/7/2026, 10:10:30 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Locking_rule (Prior periods)",
+    description: "CREATE locking rule (All transactions up to 31/10/2026)",
+  },
+  {
+    id: "log-38",
+    timestamp: "11/7/2026, 10:05:15 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Locking_rule (Prior periods)",
+    description: "UPDATE locking rule (All transactions up to 31/10/2026)",
+  },
+  {
+    id: "log-39",
+    timestamp: "11/7/2026, 9:40:00 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Account (1002 — Staff Float)",
+    description: "CREATE account (1002 — Staff Float)",
+  },
+  {
+    id: "log-40",
+    timestamp: "11/7/2026, 9:35:10 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "UPDATE",
+    entity: "Account (1002 — Staff Float)",
+    description: "UPDATE account (1002 — Staff Float)",
+  },
+  {
+    id: "log-41",
+    timestamp: "11/7/2026, 9:05:00 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "CREATE",
+    entity: "Chart_of_accounts",
+    description: "CREATE chart of accounts standard set",
+  },
+  {
+    id: "log-42",
+    timestamp: "11/7/2026, 9:00:15 AM",
+    user: "sam.taylor@snaarp.com",
+    action: "LOGIN",
+    entity: "User",
+    description: "LOGIN user (sam.taylor@snaarp.com)",
+  },
+];
+
+// ── Import Data Types (Part 13) ──────────────────────────────────────────────
+
+export type ImportCategory = "items" | "invoices" | "expenses" | "vendors" | "customers";
+
+export interface ImportCategoryConfig {
+  id: ImportCategory;
+  name: string;
+  description: string;
+  icon: "package" | "file-text" | "credit-card" | "truck" | "users";
+}
+
+export const IMPORT_CATEGORIES: ImportCategoryConfig[] = [
+  {
+    id: "items",
+    name: "Items / Products",
+    description: "Item catalogue export. Deduplicated by name.",
+    icon: "package",
+  },
+  {
+    id: "invoices",
+    name: "Invoices",
+    description: "Imported as drafts (not posted to the ledger).",
+    icon: "file-text",
+  },
+  {
+    id: "expenses",
+    name: "Expenses",
+    description: "Posted as already-paid cash outflows.",
+    icon: "credit-card",
+  },
+  {
+    id: "vendors",
+    name: "Vendors",
+    description: "Vendor/supplier contacts export. Deduplicated by name.",
+    icon: "truck",
+  },
+  {
+    id: "customers",
+    name: "Customers",
+    description: "Customer contacts export. Deduplicated by name.",
+    icon: "users",
+  },
+];
+
 
 
 

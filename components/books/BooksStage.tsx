@@ -71,6 +71,8 @@ import { BooksBudgetsView } from "./BooksBudgetsView";
 import { BooksNewBudgetView } from "./BooksNewBudgetView";
 import { BooksBudgetDetailView } from "./BooksBudgetDetailView";
 import { BooksTransactionLockingView } from "./BooksTransactionLockingView";
+import { BooksAuditLogsView } from "./BooksAuditLogsView";
+import { BooksImportDataView } from "./BooksImportDataView";
 
 type Props = {
   tl: Timeline;
@@ -160,6 +162,8 @@ export function BooksStage({ tl }: Props) {
       {currentView === "new-budget" && <BooksNewBudgetView tl={tl} />}
       {currentView === "budget-detail" && <BooksBudgetDetailView tl={tl} />}
       {currentView === "transaction-locking" && <BooksTransactionLockingView tl={tl} />}
+      {currentView === "audit-logs" && <BooksAuditLogsView tl={tl} />}
+      {currentView === "import-data" && <BooksImportDataView tl={tl} />}
     </BooksShell>
   );
 }
