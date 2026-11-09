@@ -2318,3 +2318,29 @@ Extracted stills: `ref/books-frames/`, `ref/books_customers/frames/`, `ref/books
 
 
 
+
+
+## Snaarp Lock (Steps 1–7)
+
+Product: **Snaarp Lock** (Password Manager)  
+Route: `/tutorials/snaarp-lock` (also `/tutorials/lock`)  
+Config: `tutorials/snaarp-lock.ts`  
+Reference video: `C:\Users\HP\Downloads\1109(1).mp4` (1386×720, 6:04)
+
+| Step | Title | Description | Duration |
+|:---:|:---|:---|:---:|
+| 1 | Find your way around the dashboard | Shows welcome caption, hovers over synced badge and 4 stat cards (Total Vaults, Secured Items, Active Devices, Last Sync), inspects Connected Devices and Recent Vaults cards, and highlights sidebar navigation items (Dashboard, Vaults, Organizations, Import). | 12.5 s |
+| 2 | Manage your connected devices | From the Dashboard Connected Devices card, clicks "Manage →", navigates to `/settings/devices`, smoothly scrolls through active session cards, clicks "Revoke" on an inactive session (toast "Device session revoked"), clicks "Revoke All Others", and returns to Dashboard via back arrow. | 13.5 s |
+| 3 | Generate a password and a passphrase | On Dashboard, adjusts the password length slider to 20, toggles character symbols, clicks "Generate" for a randomized password, switches to "Passphrase" tab, adjusts words slider to 5, and clicks "Copy" (toast "Copied to clipboard"). | 14.0 s |
+| 4 | Browse and create vaults | In left sidebar, clicks "Vaults", opens "Social Vault" (`/vaults/social-vault`), filters credentials by Login and All, returns to Vaults via back arrow, clicks "+ New Vault", enters "Personal Lock", and clicks "Create" (toast "Vault created successfully"). | 16.5 s |
+| 5 | Add and edit a login | Opens "Personal Lock" (`/vaults/personal-lock`), clicks "+ Add First Item", fills Login modal (Google, www.google.com, jane@example.com, password, notes), saves to vault, clicks newly added card to open Edit modal, updates title to GitHub and URL to repository link, and clicks Save (`#5147C9`). | 22.0 s |
+| 6 | Add a note, a card and an identity | In Personal Lock, clicks "+ Add Item" three times: adds Secure Note ("Certification Passwords"), adds Credit Card ("Mastercard" with Jane Doe, number, expiry, CVV), and adds Identity ("Voter Card" with Jane Doe, email, phone, UK address). All 4 credential cards displayed in grid. | 28.0 s |
+| 7 | Filter your items and delete a vault | In Personal Lock with 4 credentials, tests filter chips (Login, Secure Note, All), clicks back arrow to return to Vaults, hovers over Personal Lock, clicks "Delete", confirms in "Delete Vault" modal (toast "Vault deleted"), leaving Social Vault intact. | 16.5 s |
+
+**Files.**
+- Config: `tutorials/snaarp-lock.ts` (registered in `tutorials/index.ts`, route `/tutorials/snaarp-lock` and `/tutorials/lock`)
+- Shell & Stage: `components/lock/LockShell.tsx`, `components/lock/LockStage.tsx`, `components/lock/LockToast.tsx`
+- Views: `LockDashboardView.tsx`, `LockDevicesView.tsx`, `LockVaultsView.tsx`, `LockVaultItemsView.tsx`
+- Modals: `LockAddItemModal.tsx`, `LockEditItemModal.tsx`
+- Timeline & Data: `components/lock/lock-timeline.ts` (`beginLock`, `finishLock`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/lock/lock-data.ts`
+- Step Scenes: `scenes/lock/step<1..7>/Step<N>.tsx`, `script.ts`
