@@ -11,7 +11,7 @@ const arg = (n: string, d: string) => {
 };
 const PRODUCT = arg("product", "snaarp-lock");
 const FROM = Number(arg("from", "1"));
-const TOTAL = Number(arg("total", "7"));
+const TOTAL = Number(arg("total", "11"));
 const SPEED = Number(arg("speed", "8"));
 
 (async () => {
@@ -51,7 +51,7 @@ const SPEED = Number(arg("speed", "8"));
   const t0 = Date.now();
   console.log(`Waiting for ${need} steps to complete at ${SPEED}x speed...`);
 
-  while (Date.now() - t0 < 120_000) {
+  while (Date.now() - t0 < 180_000) {
     const n = await page.evaluate(() => {
       try {
         const store = JSON.parse(localStorage.getItem("snaarp-tutorials:progress:v3") || "{}");
@@ -84,7 +84,7 @@ const SPEED = Number(arg("speed", "8"));
   if (uniq.length > 0 || last < need) {
     process.exit(1);
   } else {
-    console.log("ALL 7 STEPS PASSED PERFECTLY!");
+    console.log(`ALL ${TOTAL} STEPS PASSED PERFECTLY!`);
     process.exit(0);
   }
 })();

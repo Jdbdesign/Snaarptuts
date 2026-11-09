@@ -8,8 +8,14 @@ import { LockDashboardView } from "./LockDashboardView";
 import { LockDevicesView } from "./LockDevicesView";
 import { LockVaultsView } from "./LockVaultsView";
 import { LockVaultItemsView } from "./LockVaultItemsView";
+import { LockOrganizationsView } from "./LockOrganizationsView";
+import { LockOrganizationDetailView } from "./LockOrganizationDetailView";
+import { LockImportView } from "./LockImportView";
+import { LockChromeImportView } from "./LockChromeImportView";
 import { LockAddItemModal } from "./LockAddItemModal";
 import { LockEditItemModal } from "./LockEditItemModal";
+import { LockTransferModal } from "./LockTransferModal";
+import { LockFileChooserModal } from "./LockFileChooserModal";
 import { LockToast } from "./LockToast";
 
 interface Props {
@@ -34,6 +40,8 @@ export function LockStage({ tl }: Props) {
           <>
             <LockAddItemModal tl={tl} />
             <LockEditItemModal tl={tl} />
+            <LockTransferModal tl={tl} />
+            <LockFileChooserModal tl={tl} />
           </>
         }
       >
@@ -41,6 +49,10 @@ export function LockStage({ tl }: Props) {
         {currentView === "devices" && <LockDevicesView tl={tl} />}
         {currentView === "vaults" && <LockVaultsView tl={tl} />}
         {currentView === "vault-items" && <LockVaultItemsView tl={tl} />}
+        {currentView === "organizations" && <LockOrganizationsView tl={tl} />}
+        {currentView === "org-detail" && <LockOrganizationDetailView tl={tl} />}
+        {currentView === "import" && <LockImportView tl={tl} />}
+        {currentView === "chrome-import" && <LockChromeImportView tl={tl} />}
       </LockShell>
     </div>
   );

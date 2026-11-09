@@ -12,6 +12,14 @@ import { Step6 } from "@/scenes/lock/step6/Step6";
 import { runStep6, STEP6_DURATION_MS } from "@/scenes/lock/step6/script";
 import { Step7 } from "@/scenes/lock/step7/Step7";
 import { runStep7, STEP7_DURATION_MS } from "@/scenes/lock/step7/script";
+import { Step8 } from "@/scenes/lock/step8/Step8";
+import { runStep8, STEP8_DURATION_MS } from "@/scenes/lock/step8/script";
+import { Step9 } from "@/scenes/lock/step9/Step9";
+import { runStep9, STEP9_DURATION_MS } from "@/scenes/lock/step9/script";
+import { Step10 } from "@/scenes/lock/step10/Step10";
+import { runStep10, STEP10_DURATION_MS } from "@/scenes/lock/step10/script";
+import { Step11 } from "@/scenes/lock/step11/Step11";
+import { runStep11, STEP11_DURATION_MS } from "@/scenes/lock/step11/script";
 
 import { LOCK_URLS } from "@/components/lock/lock-data";
 import type { Tutorial } from "./types";
@@ -95,13 +103,55 @@ export const snaarpLock: Tutorial = {
         durationMs: STEP7_DURATION_MS,
       },
     },
+    {
+      id: "lock-create-organization",
+      title: "Create an organization",
+      url: LOCK_URLS.organizations,
+      scene: {
+        Component: Step8,
+        run: runStep8,
+        durationMs: STEP8_DURATION_MS,
+      },
+    },
+    {
+      id: "lock-invite-member-role",
+      title: "Invite a member and set their role",
+      url: LOCK_URLS.orgDetail,
+      scene: {
+        Component: Step9,
+        run: runStep9,
+        durationMs: STEP9_DURATION_MS,
+      },
+    },
+    {
+      id: "lock-import-chrome",
+      title: "Import passwords from Chrome",
+      url: LOCK_URLS.import,
+      scene: {
+        Component: Step10,
+        run: runStep10,
+        durationMs: STEP10_DURATION_MS,
+      },
+    },
+    {
+      id: "lock-see-imported-passwords",
+      title: "See your imported passwords",
+      url: LOCK_URLS.vaults,
+      scene: {
+        Component: Step11,
+        run: runStep11,
+        durationMs: STEP11_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Password Manager", from: "lock-dashboard-tour" },
+    { title: "Organizations", from: "lock-create-organization" },
+    { title: "Import Passwords", from: "lock-import-chrome" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage password vaults, generate secure credentials, revoke connected sessions, and safeguard your sensitive logins, notes, cards, and identities in Snaarp Lock.",
+    text: "You can now manage password vaults, generate secure credentials, revoke connected sessions, collaborate with organizations, and import your credentials in Snaarp Lock.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

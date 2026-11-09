@@ -4,6 +4,7 @@ import {
   type LockPage,
   INITIAL_DEVICES,
   INITIAL_VAULTS,
+  INITIAL_ORGANIZATIONS,
 } from "./lock-data";
 
 export const LOCK_END_HOLD_MS = 1500;
@@ -140,6 +141,27 @@ export function beginLock(
 
   // Toast
   tl.setVar("lockToast", null);
+
+  // Organizations state
+  tl.setVar("lockOrgs", JSON.parse(JSON.stringify(INITIAL_ORGANIZATIONS)));
+  tl.setVar("lockActiveOrgId", "org-acme-studio");
+  tl.setVar("lockCreateOrgOpen", false);
+  tl.setVar("lockCreateOrgName", "");
+  tl.setVar("lockOrgDetailLoading", false);
+  tl.setVar("lockInviteOpen", false);
+  tl.setVar("lockInviteEmail", "");
+  tl.setVar("lockInviteRole", "Member");
+  tl.setVar("lockMemberCount", 1);
+  tl.setVar("lockMemberRole", "Member");
+  tl.setVar("lockRoleDropdownOpen", false);
+  tl.setVar("lockTransferModalOpen", false);
+  tl.setVar("lockTransferTooltip", false);
+
+  // Import state
+  tl.setVar("lockFileChooserOpen", false);
+  tl.setVar("lockFileChosen", false);
+  tl.setVar("lockImportProgress", 0);
+  tl.setVar("lockImportComplete", false);
 }
 
 /** Scroll helper for containers marked with data-lock-scroll=true. */

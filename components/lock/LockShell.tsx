@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
 import {
@@ -26,6 +26,10 @@ import {
   HardDrive,
   User,
   Briefcase,
+  BookOpen,
+  FolderKanban,
+  Zap,
+  ShieldCheck,
 } from "lucide-react";
 import { LOCK_URLS } from "./lock-data";
 import { LockToast } from "./LockToast";
@@ -38,6 +42,16 @@ interface Props {
 
 export function LockShell({ tl, children, overlay }: Props) {
   const currentView = useTimelineVar<string>(tl, "lockView", "dashboard");
+  const railScrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (railScrollRef.current) {
+      const docsEl = railScrollRef.current.querySelector<HTMLElement>('[data-tl="suite-rail-docs"]');
+      if (docsEl) {
+        railScrollRef.current.scrollTop = docsEl.offsetTop - railScrollRef.current.offsetTop;
+      }
+    }
+  }, []);
 
   const handleNav = (view: string, url: string) => {
     tl.setVar("lockView", view);
@@ -53,117 +67,172 @@ export function LockShell({ tl, children, overlay }: Props) {
       {/* 1. Far-left thin suite rail */}
       <aside
         data-tl="suite-rail"
-        className="w-[52px] shrink-0 border-r border-[#E5E7EB] bg-[#F6F6F6] flex flex-col items-center py-2 z-30 justify-between select-none"
+        className="w-[52px] shrink-0 border-r border-[#E5E7EB] bg-[#F6F6F6] flex flex-col items-center py-2 z-30 justify-between select-none h-full overflow-hidden"
       >
-        <div className="flex flex-col items-center w-full gap-1">
-          <button
-            type="button"
-            className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-900 rounded mb-1"
+        <button
+          type="button"
+          data-tl="suite-rail-hamburger"
+          className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-900 rounded mb-1 shrink-0"
+        >
+          <Menu className="w-4 h-4" />
+        </button>
+
+        {/* Scrollable app icon list, scrolled so Docs is at top */}
+        <div
+          ref={railScrollRef}
+          data-tl="suite-rail-scroll"
+          className="flex-1 w-full overflow-y-auto no-scrollbar flex flex-col items-center gap-1.5 py-1"
+        >
+          {/* 1. Mail */}
+          <div data-tl="suite-rail-mail" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <Mail className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-medium">Mail</span>
+          </div>
+
+          {/* 2. Meets */}
+          <div data-tl="suite-rail-meets" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <Video className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-medium">Meets</span>
+          </div>
+
+          {/* 3. Teams */}
+          <div data-tl="suite-rail-teams" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <Users className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-medium">Teams</span>
+          </div>
+
+          {/* 4. One Cardx */}
+          <div data-tl="suite-rail-onecard" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <CreditCard className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-medium">One Cardx</span>
+          </div>
+
+          {/* 5. Sheets */}
+          <div data-tl="suite-rail-sheets" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <Table className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-medium">Sheets</span>
+          </div>
+
+          {/* 6. Docs */}
+          <div data-tl="suite-rail-docs" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <FileText className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-medium">Docs</span>
+          </div>
+
+          {/* 7. Slides */}
+          <div data-tl="suite-rail-slides" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <Presentation className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-medium">Slides</span>
+          </div>
+
+          {/* 8. PDF */}
+          <div data-tl="suite-rail-pdf" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <FileCheck className="w-3.5 h-3.5" />
+            </div>
+            <span className="text-[8px] text-gray-500 font-medium">PDF</span>
+          </div>
+
+          {/* 9. Lock - ACTIVE */}
+          <div
+            data-tl="suite-rail-lock"
+            className="flex flex-col items-center cursor-pointer shrink-0"
           >
-            <Menu className="w-4 h-4" />
-          </button>
-
-          {/* App Icons */}
-          <div className="flex flex-col items-center gap-1.5 w-full">
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <Mail className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Mail</span>
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#EDE9FE] text-[#7C3AED]">
+              <Lock className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-[#7C3AED] font-semibold">Lock</span>
+          </div>
 
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <Video className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Meets</span>
+          {/* 10. Sign */}
+          <div data-tl="suite-rail-sign" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <PenTool className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-gray-500 font-medium">Sign</span>
+          </div>
 
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <Users className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Teams</span>
+          {/* 11. Drive */}
+          <div data-tl="suite-rail-drive" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <HardDrive className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-gray-500 font-medium">Drive</span>
+          </div>
 
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <CreditCard className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">OneCard</span>
+          {/* 12. Me */}
+          <div data-tl="suite-rail-me" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <User className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-gray-500 font-medium">Me</span>
+          </div>
 
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <Table className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Sheets</span>
+          {/* 13. CRM */}
+          <div data-tl="suite-rail-crm" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <Briefcase className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-gray-500 font-medium">CRM</span>
+          </div>
 
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <FileText className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Docs</span>
+          {/* 14. Books */}
+          <div data-tl="suite-rail-books" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <BookOpen className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-gray-500 font-medium">Books</span>
+          </div>
 
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <Presentation className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Slides</span>
+          {/* 15. Workforce */}
+          <div data-tl="suite-rail-workforce" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <Users className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-gray-500 font-medium">Workforce</span>
+          </div>
 
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <FileCheck className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">PDF</span>
+          {/* 16. Project */}
+          <div data-tl="suite-rail-project" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <FolderKanban className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-gray-500 font-medium">Project</span>
+          </div>
 
-            {/* Lock - ACTIVE */}
-            <div
-              data-tl="suite-rail-lock"
-              className="flex flex-col items-center cursor-pointer"
-            >
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-[#EDE9FE] text-[#7C3AED]">
-                <Lock className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-[#7C3AED] font-semibold">Lock</span>
+          {/* 17. Zeus */}
+          <div data-tl="suite-rail-zeus" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <Zap className="w-3.5 h-3.5" />
             </div>
+            <span className="text-[8px] text-gray-500 font-medium">Zeus</span>
+          </div>
 
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <PenTool className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Sign</span>
+          {/* 18. Verifyrit */}
+          <div data-tl="suite-rail-verifyrit" className="flex flex-col items-center group cursor-pointer shrink-0">
+            <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
+              <ShieldCheck className="w-3.5 h-3.5" />
             </div>
-
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <HardDrive className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Drive</span>
-            </div>
-
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <User className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">Me</span>
-            </div>
-
-            <div className="flex flex-col items-center group cursor-pointer">
-              <div className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-200/60">
-                <Briefcase className="w-3.5 h-3.5" />
-              </div>
-              <span className="text-[8px] text-gray-500 font-medium">CRM</span>
-            </div>
+            <span className="text-[8px] text-gray-500 font-medium">Verifyrit</span>
           </div>
         </div>
 
         {/* Bottom Logout */}
-        <div className="flex flex-col items-center cursor-pointer mb-1">
+        <div data-tl="suite-rail-logout" className="flex flex-col items-center cursor-pointer mb-1 pt-1 shrink-0 border-t border-gray-200/60 w-full">
           <div className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-700">
             <LogOut className="w-3.5 h-3.5" />
           </div>
@@ -241,24 +310,40 @@ export function LockShell({ tl, children, overlay }: Props) {
             <button
               type="button"
               data-tl="nav-lock-orgs"
-              className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium transition-colors cursor-pointer text-left"
+              onClick={() => handleNav("organizations", LOCK_URLS.organizations)}
+              className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs transition-colors cursor-pointer text-left ${
+                currentView === "organizations" || currentView === "org-detail"
+                  ? "bg-[#F3E8FF] text-[#7C3AED] font-semibold"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium"
+              }`}
             >
               <div className="flex items-center gap-2.5">
                 <Building2 className="w-4 h-4 shrink-0" />
                 <span>Organizations</span>
               </div>
+              {(currentView === "organizations" || currentView === "org-detail") && (
+                <div className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
+              )}
             </button>
 
             {/* Import */}
             <button
               type="button"
               data-tl="nav-lock-import"
-              className="flex items-center justify-between px-3 py-2.5 rounded-lg text-xs text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium transition-colors cursor-pointer text-left"
+              onClick={() => handleNav("import", LOCK_URLS.import)}
+              className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-xs transition-colors cursor-pointer text-left ${
+                currentView === "import" || currentView === "chrome-import"
+                  ? "bg-[#F3E8FF] text-[#7C3AED] font-semibold"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium"
+              }`}
             >
               <div className="flex items-center gap-2.5">
                 <ArrowDownToLine className="w-4 h-4 shrink-0" />
                 <span>Import</span>
               </div>
+              {(currentView === "import" || currentView === "chrome-import") && (
+                <div className="w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />
+              )}
             </button>
           </nav>
         </div>

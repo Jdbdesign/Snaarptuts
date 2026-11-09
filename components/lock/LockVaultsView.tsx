@@ -145,13 +145,15 @@ export function LockVaultsView({ tl }: Props) {
 
         {/* Vaults Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" data-tl="vaults-grid">
-          {vaults.map((vault) => (
-            <div
-              key={vault.id}
-              onClick={() => handleSelectVault(vault.id)}
-              className="group flex flex-col justify-between p-4.5 bg-white border border-gray-200/90 rounded-xl shadow-2xs hover:border-purple-300 hover:shadow-sm cursor-pointer transition-all min-h-[165px]"
-              data-tl={`vault-card-${vault.id}`}
-            >
+          {vaults.map((vault) => {
+            const cardTl = vault.id === "imported-from-chrome" ? "vault-card-chrome" : `vault-card-${vault.id}`;
+            return (
+              <div
+                key={vault.id}
+                onClick={() => handleSelectVault(vault.id)}
+                className="group flex flex-col justify-between p-4.5 bg-white border border-gray-200/90 rounded-xl shadow-2xs hover:border-purple-300 hover:shadow-sm cursor-pointer transition-all min-h-[165px]"
+                data-tl={cardTl}
+              >
               <div>
                 {/* Tile Icon */}
                 <div
@@ -209,7 +211,8 @@ export function LockVaultsView({ tl }: Props) {
                 </button>
               </div>
             </div>
-          ))}
+          );
+        })}
         </div>
       </div>
 

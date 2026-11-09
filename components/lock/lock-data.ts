@@ -4,9 +4,22 @@ export const LOCK_URLS = {
   vaults: "lock.snaarp.com/vaults",
   socialVault: "lock.snaarp.com/vaults/social-vault",
   personalLock: "lock.snaarp.com/vaults/personal-lock",
+  organizations: "lock.snaarp.com/organizations",
+  orgDetail: "lock.snaarp.com/organizations/acme-studio",
+  import: "lock.snaarp.com/settings/import",
+  chromeImport: "lock.snaarp.com/settings/import/chrome",
+  importedVault: "lock.snaarp.com/vaults/imported-from-chrome",
 } as const;
 
-export type LockPage = "dashboard" | "devices" | "vaults" | "vault-items";
+export type LockPage =
+  | "dashboard"
+  | "devices"
+  | "vaults"
+  | "vault-items"
+  | "organizations"
+  | "org-detail"
+  | "import"
+  | "chrome-import";
 
 export type ItemType = "all" | "login" | "note" | "card" | "identity";
 
@@ -48,6 +61,28 @@ export interface Vault {
   itemCount: number;
   date: string;
   items: VaultItem[];
+}
+
+export interface OrganizationMember {
+  id: string;
+  name?: string;
+  email: string;
+  role: "Owner" | "Admin" | "Member";
+}
+
+export interface Organization {
+  id: string;
+  name: string;
+  memberCount: number;
+  date: string;
+  members: OrganizationMember[];
+}
+
+export interface ImportedPasswordItem {
+  id: string;
+  name: string;
+  url: string;
+  username: string;
 }
 
 export const INITIAL_DEVICES: DeviceSession[] = [
@@ -164,3 +199,69 @@ export const INITIAL_VAULTS: Vault[] = [
     ],
   },
 ];
+
+export const INITIAL_ORGANIZATIONS: Organization[] = [
+  {
+    id: "org-acme-ltd",
+    name: "Acme Ltd",
+    memberCount: 1,
+    date: "6/15/2026",
+    members: [
+      {
+        id: "mem-1",
+        email: "jane@example.com",
+        role: "Owner",
+      },
+    ],
+  },
+];
+
+const BASE_DOMAINS = [
+  "github.com",
+  "figma.com",
+  "notion.so",
+  "slack.com",
+  "dropbox.com",
+  "spotify.com",
+  "linkedin.com",
+  "canva.com",
+  "zoom.us",
+  "trello.com",
+  "atlassian.net",
+  "linear.app",
+  "miro.com",
+  "airtable.com",
+  "stripe.com",
+  "gitlab.com",
+  "vercel.com",
+  "asana.com",
+  "zendesk.com",
+  "hubspot.com",
+  "intercom.com",
+  "mailchimp.com",
+  "adobe.com",
+  "digitalocean.com",
+];
+
+export const CHROME_IMPORT_ITEMS: ImportedPasswordItem[] = Array.from({ length: 142 }, (_, i) => {
+  const base = BASE_DOMAINS[i % BASE_DOMAINS.length];
+  const prefix = i >= BASE_DOMAINS.length ? `app${Math.floor(i / BASE_DOMAINS.length)}.` : "";
+  const domain = `${prefix}${base}`;
+  return {
+    id: `import-${i + 1}`,
+    name: domain,
+    url: `https://${domain}/login`,
+    username: i % 2 === 0 ? "jane@example.com" : "jane.doe@example.com",
+  };
+});
+
+export const CHROME_VAULT_ITEMS: VaultItem[] = CHROME_IMPORT_ITEMS.map((item) => ({
+  id: item.id,
+  type: "login" as const,
+  title: item.name.replace(/^app\d+\./, ""),
+  subtitle: item.name,
+  websiteUrl: item.url,
+  username: item.username,
+  password: "••••••••••••",
+  notes: "Imported from Google Chrome",
+}));

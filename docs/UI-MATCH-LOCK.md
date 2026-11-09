@@ -8,7 +8,7 @@ Target design width: 1440px. Route: `/tutorials/snaarp-lock`. Config: `tutorials
 
 | Element | Location | Dimensions / Spacing | Colors / Styles | Text / Content |
 |---|---|---|---|---|
-| `suite-rail` | Far left column | Width ~54px, full height | Background `#F6F6F6`, border-r `#E5E7EB` | Vertical app icons with labels: Mail, Meets, Teams, One Cardx, Sheets, Docs, Slides, PDF, Lock, Sign, Drive, Me, CRM, Logout at bottom |
+| `suite-rail` | Far left column | Width ~54px, full height | Background `#F6F6F6`, border-r `#E5E7EB` | Vertical app icons with labels: Mail, Meets, Teams, One Cardx, Sheets, Docs, Slides, PDF, Lock, Sign, Drive, Me, CRM, Books, Workforce, Project, Zeus, Verifyrit, and Logout pinned at bottom |
 | `suite-rail-lock` | Suite rail item 9 | ~44x44px pill | Background `#EDE9FE`, text `#7C3AED` | Lock icon, label "Lock" |
 | `sidebar` | Left navigation | Width ~240px, full height | Background `#FFFFFF`, border-r `#EBECEF` | Logo row, 4 nav items, Report a Bug at bottom |
 | `sidebar-logo` | Top of sidebar | ~240x60px, px-5 py-4 | Purple tile `#7014D9` with white "S" | Bold "SnaarpLock" (15px `#111827`), subtitle "PASSWORD MANAGER" (9px uppercase `#9CA3AF`) |
@@ -159,3 +159,127 @@ Target design width: 1440px. Route: `/tutorials/snaarp-lock`. Config: `tutorials
 | "Vault deleted" | Clicking Delete on a vault card | White pill, green checkmark, text 12px bold, top-right |
 | "Item saved to vault" | Saving Add Item modal | White pill, green checkmark, text 12px bold, top-right |
 | "Item updated" | Saving Edit Item modal | White pill, green checkmark, text 12px bold, top-right |
+| "Organization created successfully" | Creating Acme Studio org | White pill, green checkmark, text 12px bold, top-right |
+| "Invitation sent successfully" | Sending invite to john@example.com | White pill, green checkmark, text 12px bold, top-right |
+| "Role updated" | Changing role from Member to Admin | White pill, green checkmark, text 12px bold, top-right |
+| "Found 142 items to import" | Selecting Chrome Passwords.csv in in-app chooser | White pill, green checkmark, text 12px bold, top-right |
+| "Successfully imported 142 items!" | Import progress reaches 100% | White pill, green checkmark, text 12px bold, top-right |
+
+---
+
+## 9. Screen 7: Organizations List (`lock.snaarp.com/organizations`)
+
+| Element | Location | Dimensions / Spacing | Colors / Styles | Text / Content |
+|---|---|---|---|---|
+| `orgs-header` | Content top | Full width, mb-6 | Title 20px bold `#111827`, sub 12px `#6B7280` | "Organizations", "Collaborate and share vaults with your team" |
+| `btn-create-org` | Header top right | Height ~36px, px-4, rounded-lg | Bg `#7C3AED`, text `#FFFFFF`, hover bg `#6D28D9` | Plus icon, "+ Create Organization" |
+| `box-create-org` | Above list (when open) | Full width white card, border `#E5E7EB`, rounded-xl, p-4, mb-6, shadow-xs | Header with Building2 icon | "Create New Organization", close button "x" |
+| `input-org-name` | Inside create card | Width ~380px, h-9, rounded-lg | Border `#D1D5DB`, focus border `#7C3AED` | Placeholder "Organization name (1-100 characters)" |
+| `btn-submit-org` | Inside create card | Height 36px, px-4, rounded-lg | Bg `#7C3AED`, text `#FFFFFF` | "Create" |
+| `btn-close-create-org` | Inside create card right | 28x28px, text `#9CA3AF`, hover text `#4B5563` | Flat icon button | "X" |
+| `orgs-grid` | Main content | 3-column grid (or card list), gap-4 | White card, border `#E5E7EB`, rounded-xl, p-4, shadow-xs | Organizations cards (~365px wide) |
+| `org-card-studio` | Grid item 1 (new) | Width ~365px, rounded-xl, cursor-pointer | Purple building tile `#EDE9FE` with icon `#7C3AED` | Bold "Acme Studio", Users icon "1 members", Calendar icon "Today", chevron right |
+| `org-card-ltd` | Grid item 2 (existing) | Width ~365px, rounded-xl, cursor-pointer | Purple building tile `#EDE9FE` with icon `#7C3AED` | Bold "Acme Ltd", Users icon "1 members", Calendar icon "6/15/2026", chevron right |
+
+---
+
+## 10. Screen 8: Organization Detail (`lock.snaarp.com/organizations/<id>`)
+
+| Element | Location | Dimensions / Spacing | Colors / Styles | Text / Content |
+|---|---|---|---|---|
+| `btn-org-back` | Top left | Circle/rounded button, hover bg `#F3F4F6` | Text `#4B5563`, ArrowLeft icon | Back arrow |
+| `org-detail-title` | Header next to back | Title 20px bold `#111827`, sub 12px `#6B7280` | Flex col | "Acme Studio", "Manage members and permissions" |
+| `card-org-members` | Below header | Width ~500px, bg `#FFFFFF`, border `#E5E7EB`, rounded-xl, p-5, shadow-xs | Header with Users icon in purple tile `#EDE9FE` | Bold "Members", grey count pill "1" / "2", "+ Invite" button |
+| `pill-members-count` | Members card header | Pill bg `#F3F4F6`, text `#4B5563`, text-[11px] px-2 py-0.5 rounded-full | Count pill | "1" (then "2") |
+| `btn-open-invite` | Members card top right | Height ~32px, px-3, rounded-lg | Bg `#7C3AED`, text `#FFFFFF`, UserPlus icon | "+ Invite" |
+| `box-inline-invite` | Inside members card (when open) | Bg `#F9FAFB`, border `#E5E7EB`, rounded-lg, p-3.5, mb-3 | Header with Mail icon "Invite a new member" | Close button "x" |
+| `input-invite-email` | Inline invite box | Full width, h-8, rounded-md, text-xs | Border `#D1D5DB`, px-2.5 | Placeholder "member@example.com" |
+| `select-invite-role` | Inline invite box | Width ~110px, h-8, rounded-md, text-xs | Border `#D1D5DB`, bg `#FFFFFF`, chevron | "Member" |
+| `btn-send-invite` | Inline invite box right | Height 32px, px-3.5, rounded-md, text-xs | Bg `#7C3AED`, text `#FFFFFF` | "Send Invite" |
+| `member-row-owner` | Members list row 1 | Row items-center justify-between py-3 border-b `#F3F4F6` | Lilac circle avatar `bg-[#EDE9FE]` text `#7C3AED` with initial "J" | Crown icon, yellow pill `bg-[#FEF3C7] text-[#D97706]` "Owner" |
+| `member-row-john` | Members list row 2 | Row items-center justify-between py-3 border-b `#F3F4F6` | Lilac circle avatar `bg-[#EDE9FE]` text `#7C3AED` with initial "J" | User icon, grey pill "Member" (switches to purple "Admin"), role select, remove, transfer |
+| `pill-role-member` | Member row 2 badge | Pill bg `#F3F4F6`, text `#4B5563`, text-xs | User icon | "Member" |
+| `pill-role-admin` | Member row 2 badge (updated) | Pill bg `#EDE9FE`, text `#7C3AED`, text-xs | Shield icon | "Admin" |
+| `select-member-role` | Member row 2 action | Select button / trigger, h-7, px-2, text-xs, border `#E5E7EB` | Dropdown menu: "Member", "Admin" | "Member" (then "Admin") |
+| `btn-remove-member` | Member row 2 action | 26x26px, rounded text-[#EF4444] hover bg-[#FEF2F2] | UserMinus icon | Remove button |
+| `btn-transfer-owner` | Member row 2 action | 26x26px, rounded text-[#F59E0B] hover bg-[#FFFBEB] | ArrowLeftRight / Repeat icon | Transfer ownership trigger |
+| `tooltip-transfer` | Hover on transfer button | Dark pill bg `#1F2937`, text `#FFFFFF`, text-[10px], rounded px-2 py-1 | Tooltip above button | "Transfer ownership" |
+
+---
+
+## 11. Screen 9: Transfer Ownership Modal
+
+| Element | Location | Dimensions / Spacing | Colors / Styles | Text / Content |
+|---|---|---|---|---|
+| `modal-transfer-backdrop` | Fixed full screen | Dark overlay `bg-black/50` | Backdrop blur-xs | Overlay |
+| `modal-transfer-card` | Center screen | Width ~420px, bg `#FFFFFF`, rounded-2xl, p-6, shadow-2xl | Centered content | Modal card |
+| `tile-transfer-warning` | Top of card | 44x44px rounded-full bg `#FEF3C7`, text `#D97706` | AlertTriangle / RefreshCw icon | Yellow icon tile |
+| `title-transfer` | Below icon | Text 17px bold `#111827`, text-center mt-3 | Heading | "Transfer Ownership" |
+| `sub-transfer-warning` | Below title | Text 12px text-[#DC2626] font-medium text-center mt-1 | Warning line | "This action cannot be undone easily" |
+| `body-transfer` | Below warning | Text 13px text-[#4B5563] text-center mt-2 leading-relaxed | Body description | "Are you sure you want to transfer ownership? You will be demoted to admin." |
+| `btn-transfer-cancel` | Footer left | Width ~48%, h-10, rounded-lg, border `#D1D5DB`, bg `#FFFFFF` | Text `#374151`, font-medium | "Cancel" |
+| `btn-transfer-confirm` | Footer right | Width ~48%, h-10, rounded-lg, bg `#F59E0B`, text `#FFFFFF` | Repeat / ArrowLeftRight icon | "Transfer" |
+
+---
+
+## 12. Screen 10: Import Passwords Sources Grid (`lock.snaarp.com/settings/import`)
+
+| Element | Location | Dimensions / Spacing | Colors / Styles | Text / Content |
+|---|---|---|---|---|
+| `import-header` | Top of content | Full width, mb-6 | Title 20px bold `#111827`, sub 12px `#6B7280` | "Import Passwords", "Migrate your passwords from another browser or password manager" |
+| `import-source-sub` | Below header | Flex items-center gap-2 mb-4 | Upload icon in text `#7C3AED`, text 13px font-semibold `#111827` | "Select source platform" |
+| `import-sources-grid` | Main content | 3-column grid (3x3), gap-4 | 9 white cards, border `#E5E7EB`, rounded-xl, p-4, shadow-xs | Source platform cards (~160x85px) |
+| `card-import-chrome` | Grid card 1 | Rounded-xl, hover border `#7C3AED`, hover shadow-sm, cursor-pointer | Teal/cyan globe/Chrome tile `#E0F2FE` | "Google Chrome" |
+| `card-import-brave` | Grid card 2 | Rounded-xl, cursor-pointer | Orange shield tile `#FFEDD5` | "Brave Browser" |
+| `card-import-firefox` | Grid card 3 | Rounded-xl, cursor-pointer | Orange-pink globe tile `#FCE7F3` | "Mozilla Firefox" |
+| `card-import-safari` | Grid card 4 | Rounded-xl, cursor-pointer | Light blue compass/globe tile `#E0F2FE` | "Safari" |
+| `card-import-1password` | Grid card 5 | Rounded-xl, cursor-pointer | Blue key tile `#DBEAFE` | "1Password" |
+| `card-import-bitwarden` | Grid card 6 | Rounded-xl, cursor-pointer | Dark blue shield tile `#E0E7FF` | "Bitwarden" |
+| `card-import-dashlane` | Grid card 7 | Rounded-xl, cursor-pointer | Green key tile `#DCFCE7` | "Dashlane" |
+| `card-import-truekey` | Grid card 8 | Rounded-xl, cursor-pointer | Pink key tile `#FCE7F3` | "TrueKey" |
+| `card-import-dell` | Grid card 9 | Rounded-xl, cursor-pointer | Grey shield tile `#F1F5F9` | "Dell Password Manager" |
+
+---
+
+## 13. Screen 11: Chrome Import & In-App File Chooser
+
+| Element | Location | Dimensions / Spacing | Colors / Styles | Text / Content |
+|---|---|---|---|---|
+| `btn-chrome-back` | Top left | Circle/rounded button, hover bg `#F3F4F6` | Text `#4B5563`, ArrowLeft icon | Back arrow |
+| `chrome-header-title` | Top row next to back | Flex items-center gap-3 | Chrome teal tile `#E0F2FE`, bold title, grey sub | "Google Chrome", "Upload your exported CSV or JSON file" |
+| `box-chrome-notice` | Below header | Bg `#EFF6FF`, border `#BFDBFE`, rounded-lg, px-4 py-2.5, mb-5 | Info / HelpCircle icon, text 12px `#1E40AF` | "How to export: Settings -> Passwords -> (three dots) -> Export passwords" |
+| `dropzone-chrome` | Below notice | Width full, h-[140px], border-2 border-dashed border-[#DDD6FE], bg-[#FAF5FF], rounded-xl, cursor-pointer | Purple upload icon in `#EDE9FE` tile | "Click to select file", sub "Accepts CSV or JSON file" |
+| `dropzone-selected` | Dropzone state after pick | Same container, bg-[#FAF5FF] | FileText / Document icon, text `#7C3AED` bold | "Chrome Passwords.csv" |
+| `file-chooser-modal` | Center screen (when open) | Width ~460px, bg `#FFFFFF`, rounded-2xl, p-5, shadow-2xl | Clean in-app dialog, dark overlay | "Select File to Import", sample files list, Cancel, Open |
+| `file-row-chrome-csv` | Inside file chooser | Row items-center justify-between p-2.5 rounded-lg hover bg-[#F3E8FF] | FileText icon, bold "Chrome Passwords.csv", grey "CSV File • 18 KB" | Selected row bg `#EDE9FE` |
+| `btn-chooser-open` | File chooser footer right | Bg `#7C3AED`, text `#FFFFFF`, rounded-lg px-4 py-2 | Action button | "Open" |
+| `btn-chooser-cancel` | File chooser footer left | Text `#6B7280`, rounded px-3 py-2 | Flat text button | "Cancel" |
+| `bar-import-summary` | Below dropzone | Row items-center justify-between mt-5 mb-3 | CheckCircle icon `#10B981`, bold "142 items found" | Purple button "Import 142 items" with upload icon |
+| `btn-run-import` | Summary row right | Bg `#7C3AED`, text `#FFFFFF`, rounded-lg px-4 py-2 | Upload icon, disabled turns grey `#9CA3AF` | "Import 142 items" |
+| `bar-import-progress` | Above table (during import) | Bg `#F3F4F6`, rounded-full h-2 w-full mt-2 overflow-hidden | Purple bar `#7C3AED` transitions 25% -> 60% -> 100% | Text "Importing... 25%" / "60%" / "100%" |
+| `table-import-items` | Below summary/progress | Full width, bg `#FFFFFF`, border `#E5E7EB`, rounded-xl, overflow-hidden | Table header bg `#F9FAFB`, scrollable body | Headers: Name | URL | Username |
+| `table-footer-count` | Below table rows | Px-4 py-2 text-xs text-[#6B7280] bg `#F9FAFB` border-t `#E5E7EB` | Counter line | "Showing 10 of 142 items" |
+| `card-import-complete` | Screen state after 100% | Centered white card ~440px wide, border `#E5E7EB`, rounded-2xl, p-8, text-center, shadow-sm | Green rocket/check tile `#DCFCE7` text `#15803D` | Bold "Import Complete", grey "142 passwords imported successfully into your vault.", purple button "Import More" |
+
+---
+
+## 14. Screen 12: Imported Vault & 142 Items Grid (`lock.snaarp.com/vaults/<id>`)
+
+| Element | Location | Dimensions / Spacing | Colors / Styles | Text / Content |
+|---|---|---|---|---|
+| `vault-card-chrome` | Vaults grid item 1 | Width ~175px, min-h-[160px] | Purple lock tile `#EDE9FE` with icon `#7C3AED` | Bold "Imported from Chrome", box icon "142 items", clock icon "Today" |
+| `vault-items-container` | Inside imported vault | Full width, flex-1, scrollable | Header + filter chips + 4-column grid | 142 items |
+| `imported-grid-142` | Grid container | 4-column grid, gap-3.5, pb-12 | 142 cards, rounded-xl, border `#E5E7EB`, bg `#FFFFFF` | Item cards: Github, Figma, Notion, Slack, Dropbox, Spotify, LinkedIn, Canva, Zoom... |
+| `item-card-hover` | Hover state | Card transforms -translate-y-0.5 shadow-md | Red trash icon button appears at bottom right | Trash icon `#EF4444` |
+
+---
+
+## 15. Visual Verification & Side-by-Side Comparison
+
+- **Suite Rail (Steps 1–11)**: Side-by-side screenshots at 1920x1080 and 1280x720 compared against frame `010.png`. Full suite rail of 18 apps (Mail, Meets, Teams, One Cardx, Sheets, Docs, Slides, PDF, Lock, Sign, Drive, Me, CRM, Books, Workforce, Project, Zeus, Verifyrit) with Docs scrolled to top and Lock active with `#EDE9FE` pill and `#7C3AED` icon/label. Logout pinned at the bottom. Matches 100%.
+- **Step 8 (Create an organization)**: Side-by-side screenshots `step8_1080p.png` and `step8_720p.png` compared with frames `015.png` and `020.png`. Layout, input placeholder, purple button, inline card dismiss button, and resulting card list match 100%.
+- **Step 9 (Invite a member and set their role)**: Side-by-side screenshots `step9_1080p.png` and `step9_720p.png` compared with frames `030.png`, `045.png`, and `060.png`. Inline invite block, role select menu, Admin badge update, Transfer ownership tooltip, and Transfer Ownership modal match 100%.
+- **Step 10 (Import passwords from Chrome)**: Side-by-side screenshots `step10_1080p.png` and `step10_720p.png` compared with frames `078.png`, `082.png`, `090.png`, and `100.png`. 9 source cards, notice bar, dropzone, in-app file chooser dialog, items table, progress bar, and Import Complete card match 100%.
+- **Step 11 (See your imported passwords)**: Side-by-side screenshots `step11_1080p.png` and `step11_720p.png` compared with frames `105.png`, `115.png`, and `120.png`. "Imported from Chrome" vault card, 142 items grid, scroll smoothness, and hover lift with delete icon match 100%.
+
+

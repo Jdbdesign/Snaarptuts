@@ -2320,12 +2320,13 @@ Extracted stills: `ref/books-frames/`, `ref/books_customers/frames/`, `ref/books
 
 
 
-## Snaarp Lock (Steps 1–7)
+## Snaarp Lock (Steps 1–11, Complete)
 
 Product: **Snaarp Lock** (Password Manager)  
 Route: `/tutorials/snaarp-lock` (also `/tutorials/lock`)  
 Config: `tutorials/snaarp-lock.ts`  
-Reference video: `C:\Users\HP\Downloads\1109(1).mp4` (1386×720, 6:04)
+Reference video 1: `C:\Users\HP\Downloads\1109(1).mp4` (1386×720, 6:04; steps 1–7)  
+Reference video 2: `C:\Users\HP\Downloads\1109 (2).mp4` (1384×720, 2:05; steps 8–11)
 
 | Step | Title | Description | Duration |
 |:---:|:---|:---|:---:|
@@ -2336,11 +2337,15 @@ Reference video: `C:\Users\HP\Downloads\1109(1).mp4` (1386×720, 6:04)
 | 5 | Add and edit a login | Opens "Personal Lock" (`/vaults/personal-lock`), clicks "+ Add First Item", fills Login modal (Google, www.google.com, jane@example.com, password, notes), saves to vault, clicks newly added card to open Edit modal, updates title to GitHub and URL to repository link, and clicks Save (`#5147C9`). | 22.0 s |
 | 6 | Add a note, a card and an identity | In Personal Lock, clicks "+ Add Item" three times: adds Secure Note ("Certification Passwords"), adds Credit Card ("Mastercard" with Jane Doe, number, expiry, CVV), and adds Identity ("Voter Card" with Jane Doe, email, phone, UK address). All 4 credential cards displayed in grid. | 28.0 s |
 | 7 | Filter your items and delete a vault | In Personal Lock with 4 credentials, tests filter chips (Login, Secure Note, All), clicks back arrow to return to Vaults, hovers over Personal Lock, clicks "Delete", confirms in "Delete Vault" modal (toast "Vault deleted"), leaving Social Vault intact. | 16.5 s |
+| 8 | Create an organization | Clicks Organizations in left menu (`/organizations`), clicks "+ Create Organization", enters "Acme Studio", and clicks Create (toast "Organization created successfully", new card appears first before Acme Ltd). | 13.5 s |
+| 9 | Invite a member and set their role | Opens Acme Studio (`/organizations/acme-studio`), brief spinner inside Members card, clicks Invite, enters "john@example.com", selects Member, clicks Send Invite (toast "Invitation sent successfully", Member row mounts), opens role menu, changes to Admin (toast "Role updated", pill turns Admin), hovers transfer icon (tooltip "Transfer ownership"), clicks it to open modal, reads warning and clicks Cancel. | 24.0 s |
+| 10 | Import passwords from Chrome | Clicks Import in left menu (`/settings/import`), reviews 9 source cards, clicks Google Chrome, clicks dashed drop zone, clean in-app file chooser opens, selects "Chrome Passwords.csv" and clicks Open (toast "Found 142 items to import"), inspects parsed table with scroll, clicks "Import 142 items", progress bar animates 25% -> 60% -> 100%, toast "Successfully imported 142 items!", and Import Complete card shows. | 18.8 s |
+| 11 | See your imported passwords | Clicks Vaults in left menu (`/vaults`), opens "Imported from Chrome" vault, scrolls down through the 142 imported credential cards, hovers a card (card lifts, red trash icon appears at bottom right), ends on scrolled grid, followed by the tour completion card. | 13.5 s |
 
 **Files.**
 - Config: `tutorials/snaarp-lock.ts` (registered in `tutorials/index.ts`, route `/tutorials/snaarp-lock` and `/tutorials/lock`)
-- Shell & Stage: `components/lock/LockShell.tsx`, `components/lock/LockStage.tsx`, `components/lock/LockToast.tsx`
-- Views: `LockDashboardView.tsx`, `LockDevicesView.tsx`, `LockVaultsView.tsx`, `LockVaultItemsView.tsx`
-- Modals: `LockAddItemModal.tsx`, `LockEditItemModal.tsx`
+- Shell & Stage: `components/lock/LockShell.tsx` (with full 18-app suite rail), `components/lock/LockStage.tsx`, `components/lock/LockToast.tsx`
+- Views: `LockDashboardView.tsx`, `LockDevicesView.tsx`, `LockVaultsView.tsx`, `LockVaultItemsView.tsx`, `LockOrganizationsView.tsx`, `LockOrganizationDetailView.tsx`, `LockImportView.tsx`, `LockChromeImportView.tsx`
+- Modals: `LockAddItemModal.tsx`, `LockEditItemModal.tsx`, `LockTransferModal.tsx`, `LockFileChooserModal.tsx`
 - Timeline & Data: `components/lock/lock-timeline.ts` (`beginLock`, `finishLock`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/lock/lock-data.ts`
-- Step Scenes: `scenes/lock/step<1..7>/Step<N>.tsx`, `script.ts`
+- Step Scenes: `scenes/lock/step<1..11>/Step<N>.tsx`, `script.ts`

@@ -12,6 +12,8 @@ import {
   FileText,
   CreditCard,
   UserCheck,
+  Globe,
+  Trash2,
 } from "lucide-react";
 import {
   type Vault,
@@ -19,6 +21,7 @@ import {
   type ItemType,
   INITIAL_VAULTS,
   LOCK_URLS,
+  CHROME_VAULT_ITEMS,
 } from "./lock-data";
 
 interface Props {
@@ -31,7 +34,18 @@ export function LockVaultItemsView({ tl }: Props) {
   const activeFilter = useTimelineVar<ItemType>(tl, "lockItemsFilter", "all");
   const searchQuery = useTimelineVar<string>(tl, "lockItemsSearch", "");
 
-  const vault = vaults.find((v) => v.id === selectedVaultId) || vaults[0];
+  let vault = vaults.find((v) => v.id === selectedVaultId);
+  if (!vault && selectedVaultId === "imported-from-chrome") {
+    vault = {
+      id: "imported-from-chrome",
+      name: "Imported from Chrome",
+      itemCount: 142,
+      date: "Today",
+      items: CHROME_VAULT_ITEMS,
+    };
+  } else if (!vault) {
+    vault = vaults[0];
+  }
 
   const handleBack = () => {
     tl.setVar("lockView", "vaults");
@@ -81,6 +95,8 @@ export function LockVaultItemsView({ tl }: Props) {
     { id: "identity", label: "Identity", count: identityCount, icon: <UserCheck className="w-3.5 h-3.5" /> },
   ];
 
+  const isChromeVault = vault.id === "imported-from-chrome";
+
   return (
     <div
       className="flex-1 p-8 overflow-y-auto no-scrollbar select-none"
@@ -94,7 +110,7 @@ export function LockVaultItemsView({ tl }: Props) {
             <button
               type="button"
               onClick={handleBack}
-              className="p-2 -ml-2 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 -ml-2 text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
               title="Back to Vaults"
               data-tl="btn-vault-back"
             >
@@ -102,31 +118,33 @@ export function LockVaultItemsView({ tl }: Props) {
             </button>
             <div>
               <h1 className="text-[20px] font-bold text-gray-900 tracking-tight" data-tl="vault-items-title">
-                {vault.name}
+                {isChromeVault ? "Vault Items" : vault.name}
               </h1>
-              <p className="text-[12px] text-gray-500" data-tl="vault-items-count">
-                {vault.items.length} total {vault.items.length === 1 ? "item" : "items"}
+              <p className="text-[13px] text-gray-500 mt-0.5" data-tl="vault-items-subtitle">
+                {vault.items.length} {vault.items.length === 1 ? "total item" : "total items"}
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="relative">
-              <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            {/* Search Input */}
+            <div className="relative w-56">
+              <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
+                placeholder="Search items..."
                 value={searchQuery}
                 onChange={(e) => tl.setVar("lockItemsSearch", e.target.value)}
-                placeholder="Search items..."
-                className="pl-9 pr-3.5 py-1.5 w-56 text-[13px] bg-white border border-gray-300 rounded-lg focus:outline-hidden focus:border-purple-600 focus:ring-1 focus:ring-purple-600"
+                className="w-full pl-9 pr-3 py-1.5 text-[13px] bg-white border border-gray-300 rounded-lg focus:outline-hidden focus:border-purple-600 focus:ring-1 focus:ring-purple-600 placeholder-gray-400"
                 data-tl="input-items-search"
               />
             </div>
 
+            {/* Add Item Button */}
             <button
               type="button"
               onClick={() => handleOpenAddModal("login")}
-              className="flex items-center gap-1.5 px-3.5 py-2 text-[13px] font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-lg shadow-2xs transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 text-[13px] font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-lg shadow-2xs transition-colors cursor-pointer"
               data-tl="btn-add-item"
             >
               <Plus className="w-4 h-4" />
@@ -135,8 +153,8 @@ export function LockVaultItemsView({ tl }: Props) {
           </div>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex items-center gap-2" data-tl="chips-item-types">
+        {/* Filter Chips */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" data-tl="chips-item-types">
           {filterTabs.map((tab) => {
             const isActive = activeFilter === tab.id;
             return (
@@ -144,7 +162,7 @@ export function LockVaultItemsView({ tl }: Props) {
                 key={tab.id}
                 type="button"
                 onClick={() => tl.setVar("lockItemsFilter", tab.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium rounded-lg transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors cursor-pointer shrink-0 ${
                   isActive
                     ? "bg-purple-600 text-white shadow-2xs"
                     : "bg-white text-gray-600 border border-gray-200/90 hover:bg-gray-50 hover:text-gray-900"
@@ -195,12 +213,15 @@ export function LockVaultItemsView({ tl }: Props) {
             No items match this filter or search query.
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4" data-tl="items-grid">
+          <div
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4"
+            data-tl={isChromeVault ? "imported-grid-142" : "items-grid"}
+          >
             {filteredItems.map((item) => (
               <div
                 key={item.id}
                 onClick={() => handleOpenEdit(item)}
-                className="group flex flex-col bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:border-purple-300 hover:shadow-sm cursor-pointer transition-all"
+                className="group flex flex-col bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:border-purple-300 hover:shadow-md hover:-translate-y-0.5 cursor-pointer transition-all duration-150"
                 data-tl={`item-card-${item.id}`}
                 data-item-title={item.title}
               >
@@ -222,9 +243,25 @@ export function LockVaultItemsView({ tl }: Props) {
                       <div className="w-11 h-11 rounded-xl bg-red-600 shadow-2xs flex items-center justify-center text-white font-bold text-[18px]">
                         N
                       </div>
+                    ) : item.title.toLowerCase().includes("figma") ? (
+                      <div className="w-11 h-11 rounded-xl bg-purple-600 shadow-2xs flex items-center justify-center text-white font-bold text-[16px]">
+                        F
+                      </div>
+                    ) : item.title.toLowerCase().includes("spotify") ? (
+                      <div className="w-11 h-11 rounded-xl bg-emerald-500 shadow-2xs flex items-center justify-center text-white font-bold text-[16px]">
+                        S
+                      </div>
+                    ) : item.title.toLowerCase().includes("slack") ? (
+                      <div className="w-11 h-11 rounded-xl bg-[#4A154B] shadow-2xs flex items-center justify-center text-white font-bold text-[16px]">
+                        #
+                      </div>
+                    ) : item.title.toLowerCase().includes("dropbox") ? (
+                      <div className="w-11 h-11 rounded-xl bg-blue-600 shadow-2xs flex items-center justify-center text-white font-bold text-[16px]">
+                        D
+                      </div>
                     ) : (
-                      <div className="w-11 h-11 rounded-xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center">
-                        <Key className="w-5 h-5" />
+                      <div className="w-11 h-11 rounded-xl bg-gray-100 text-gray-500 border border-gray-200 flex items-center justify-center">
+                        <Globe className="w-5 h-5 text-gray-500" />
                       </div>
                     )
                   ) : item.type === "note" ? (
@@ -272,6 +309,18 @@ export function LockVaultItemsView({ tl }: Props) {
                         ? "Credit Card"
                         : "Identity"}
                     </span>
+
+                    <button
+                      type="button"
+                      data-tl={`btn-delete-${item.id}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      className="opacity-0 group-hover:opacity-100 p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition-all cursor-pointer"
+                      title="Delete item"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               </div>

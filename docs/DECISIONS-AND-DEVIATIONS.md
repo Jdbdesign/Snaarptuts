@@ -1594,3 +1594,24 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 5. **Budget vs Actuals**: Rendered with 30-row account matrix for FY2026 periods, scrolled smoothly with `scrollView(tl, 300)`.
 6. **No Browser Chrome**: Browser URL bar, bookmarks bar, and extensions omitted. Clean in-app "Back to Reports" buttons and sidebar navigation used for transitions.
 7. **Timing & End Holds**: Every step ends ~1.5s after results render (2.0s on table reading and financial sheets), ending with 400ms white fade and transitioning to the final tour completion card at the end of Step 205. Verified end-to-end with 0 console errors and 0 visibility findings across all 4 viewports.
+
+## Snaarp Lock (Password Manager, Steps 1–11 Complete)
+
+- Scope: Dashboard (1), Devices (2), Generator (3), Vaults (4), Items (5–7), Organizations (8–9), Import Passwords (10–11).
+- Reference recordings: `C:\Users\HP\Downloads\1109(1).mp4` (1386x720, 6:04; steps 1–7) and `C:\Users\HP\Downloads\1109 (2).mp4` (1384x720, 2:05; steps 8–11).
+
+### Decisions & Deviations from Video
+1. **Sample Data Instead of Real Personal Data**:
+   - The recordings showed real emails (`jacobsolayinka19@gmail.com` and others) and real websites. These have been completely replaced with clean, UK-locale sample entities: Jane Doe (`jane@example.com`), John (`john@example.com`), organizations "Acme Ltd" and "Acme Studio", and well-known brand domains (`github.com`, `figma.com`, `notion.so`, `slack.com`...).
+   - Zero occurrences of personal names or real addresses anywhere in code or data.
+2. **In-App File Chooser Instead of OS File Picker**:
+   - In Step 10, clicking the Chrome drop zone opens a styled in-app file chooser dialog (`LockFileChooserModal.tsx`) showing "Chrome Passwords.csv" (18 KB • CSV File), Cancel, and Open, rather than calling the Windows OS file explorer.
+3. **Members Count Displayed**:
+   - The video had a glitch where the members count number was momentarily blank next to "members" on some cards. The tutorial displays the correct count ("1 members", "2 members") at all times.
+4. **Transfer Ownership Ends on Cancel**:
+   - In Step 9, opening the Transfer Ownership modal inspects the confirmation dialog and warning, then clicks "Cancel" exactly as shown in the video.
+5. **Full 18-App Suite Rail Across All Steps**:
+   - Per requirements, the suite rail across all Lock steps (1–11) contains the full 18 apps in order (Mail, Meets, Teams, One Cardx, Sheets, Docs, Slides, PDF, Lock [active `#EDE9FE` pill], Sign, Drive, Me, CRM, Books, Workforce, Project, Zeus, Verifyrit) with Docs scrolled to top and Logout pinned at bottom.
+6. **Timing & End Holds**:
+   - Every step finishes ~1.5s after its visible success state (2.0s on table reading/grid inspection), ending with a 400ms fade before stepping forward. Step 11 seamlessly transitions to the data-driven completion card.
+
