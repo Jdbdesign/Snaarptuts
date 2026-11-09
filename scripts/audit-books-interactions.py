@@ -197,6 +197,20 @@ FIELD_VARS = {
     "booksSaHmrcRef",
     "booksMtdNiNumber",
     "booksMtdHmrcId",
+    # Reports (Part 15)
+    "booksReportsSearch",
+    "booksPnlCustomFrom",
+    "booksPnlCustomTo",
+    "booksSalesFromDate",
+    "booksSalesToDate",
+    "booksCustBalFromDate",
+    "booksCustBalToDate",
+    "booksTaxFromDate",
+    "booksTaxToDate",
+    "booksFxFromDate",
+    "booksFxToDate",
+    "booksTbAsOfDate",
+    "booksBsAsOfDate",
 }
 
 LOOKBACK_LINES = 12
@@ -241,7 +255,7 @@ def audit_step(step_num: int):
 
 def main():
     all_errors = []
-    for step_num in range(135, 200):
+    for step_num in range(135, 206):
         errs = audit_step(step_num)
         all_errors.extend(errs)
 

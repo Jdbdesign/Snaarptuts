@@ -1578,3 +1578,19 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 4. **Self Assessment "Return not found" Glitch Omitted**: The video showed a momentary "Return not found" error screen. The tutorial transitions directly to the working return details view.
 5. **No Browser Chrome & In-App Dialogs**: Browser chrome omitted. Modals (Prepare VAT return, Mark as filed with HMRC, Generate Self Assessment, MTD Settings) match video layout 1:1 with backdrop overlay.
 6. **Timing & End Holds**: Every step ends ~1.5s after its result displays (2.0s on totals/scrolls), calibrated with `finishBooks`. Full duration measurements written in `tutorials/books.ts`.
+
+## Snaarp Books Part 15: Reports (Steps 200 to 205)
+
+- Scope: Reports Center (200), Profit and Loss (201), Cash-basis P&L (202), Sales by Customer & Customer Balance Summary (203), Tax Summary & Budget vs Actuals (204), Balance Sheet, Trial Balance & Recurring Invoice Details (205).
+- Reference recording: `C:\Users\HP\Downloads\1109.mp4` (1376x720, 3:27).
+
+### Decisions & Deviations from Video
+1. **Sample Business Data**: Realistic sample business entities used (Northfield Cafe, Greenleaf Bakery, Sterling Interiors, Helen Carter) instead of test personal names.
+2. **Balanced Financial Statements**:
+   - Trial Balance balances with Net Debit £6,820.00 = Net Credit £6,820.00.
+   - Balance Sheet balances with Total Assets £3,163.51 = Total Liabilities & Equities £3,163.51.
+3. **Realized Gain or Loss**: Rendered with "No FX transactions in this period. Total: £0.00" matching the recording state exactly.
+4. **Recurring Invoice Details**: Populated with 3 active schedule profiles (Monthly Retainer, Quarterly Maintenance, Annual Subscription) matching the 3 profiles in the recording.
+5. **Budget vs Actuals**: Rendered with 30-row account matrix for FY2026 periods, scrolled smoothly with `scrollView(tl, 300)`.
+6. **No Browser Chrome**: Browser URL bar, bookmarks bar, and extensions omitted. Clean in-app "Back to Reports" buttons and sidebar navigation used for transitions.
+7. **Timing & End Holds**: Every step ends ~1.5s after results render (2.0s on table reading and financial sheets), ending with 400ms white fade and transitioning to the final tour completion card at the end of Step 205. Verified end-to-end with 0 console errors and 0 visibility findings across all 4 viewports.

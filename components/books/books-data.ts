@@ -740,6 +740,16 @@ export const BOOKS_URLS = {
   selfAssessment: "books.snaarp.com/self-assessment",
   selfAssessmentReturnDetail: "books.snaarp.com/self-assessment/returns/2024-25",
   mtdIncomeTax: "books.snaarp.com/mtd-income-tax",
+  reportsCenter: "books.snaarp.com/reports",
+  profitAndLoss: "books.snaarp.com/reports/profit-and-loss",
+  salesByCustomer: "books.snaarp.com/reports/sales-by-customer",
+  customerBalanceSummary: "books.snaarp.com/reports/customer-balance-summary",
+  taxSummary: "books.snaarp.com/reports/tax-summary",
+  realizedGainLoss: "books.snaarp.com/reports/realized-gain-loss",
+  budgetVsActuals: "books.snaarp.com/reports/budget-vs-actuals",
+  trialBalance: "books.snaarp.com/reports/trial-balance",
+  balanceSheet: "books.snaarp.com/reports/balance-sheet",
+  recurringInvoiceDetails: "books.snaarp.com/reports/recurring-invoice-details",
 };
 
 export type BooksPage =
@@ -820,7 +830,17 @@ export type BooksPage =
   | "vat-return-detail"
   | "self-assessment"
   | "self-assessment-return-detail"
-  | "mtd-income-tax";
+  | "mtd-income-tax"
+  | "reports-center"
+  | "reports-profit-and-loss"
+  | "reports-sales-by-customer"
+  | "reports-customer-balance-summary"
+  | "reports-tax-summary"
+  | "reports-realized-gain-loss"
+  | "reports-budget-vs-actuals"
+  | "reports-trial-balance"
+  | "reports-balance-sheet"
+  | "reports-recurring-invoice-details";
 
 // ── Customer Data Types & Lists ─────────────────────────────────────────────
 

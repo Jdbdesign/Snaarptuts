@@ -78,6 +78,16 @@ import { BooksVatReturnDetailView } from "./BooksVatReturnDetailView";
 import { BooksSelfAssessmentView } from "./BooksSelfAssessmentView";
 import { BooksSelfAssessmentReturnDetailView } from "./BooksSelfAssessmentReturnDetailView";
 import { BooksMtdIncomeTaxView } from "./BooksMtdIncomeTaxView";
+import { BooksReportsCenterView } from "./BooksReportsCenterView";
+import { BooksProfitAndLossView } from "./BooksProfitAndLossView";
+import { BooksSalesByCustomerView } from "./BooksSalesByCustomerView";
+import { BooksCustomerBalanceSummaryView } from "./BooksCustomerBalanceSummaryView";
+import { BooksTaxSummaryView } from "./BooksTaxSummaryView";
+import { BooksRealizedGainLossView } from "./BooksRealizedGainLossView";
+import { BooksBudgetVsActualsView } from "./BooksBudgetVsActualsView";
+import { BooksTrialBalanceView } from "./BooksTrialBalanceView";
+import { BooksBalanceSheetView } from "./BooksBalanceSheetView";
+import { BooksRecurringInvoiceDetailsView } from "./BooksRecurringInvoiceDetailsView";
 
 type Props = {
   tl: Timeline;
@@ -174,6 +184,16 @@ export function BooksStage({ tl }: Props) {
       {currentView === "self-assessment" && <BooksSelfAssessmentView tl={tl} />}
       {currentView === "self-assessment-return-detail" && <BooksSelfAssessmentReturnDetailView tl={tl} />}
       {currentView === "mtd-income-tax" && <BooksMtdIncomeTaxView tl={tl} />}
+      {currentView === "reports-center" && <BooksReportsCenterView tl={tl} />}
+      {currentView === "reports-profit-and-loss" && <BooksProfitAndLossView tl={tl} />}
+      {currentView === "reports-sales-by-customer" && <BooksSalesByCustomerView tl={tl} />}
+      {currentView === "reports-customer-balance-summary" && <BooksCustomerBalanceSummaryView tl={tl} />}
+      {currentView === "reports-tax-summary" && <BooksTaxSummaryView tl={tl} />}
+      {currentView === "reports-realized-gain-loss" && <BooksRealizedGainLossView tl={tl} />}
+      {currentView === "reports-budget-vs-actuals" && <BooksBudgetVsActualsView tl={tl} />}
+      {currentView === "reports-trial-balance" && <BooksTrialBalanceView tl={tl} />}
+      {currentView === "reports-balance-sheet" && <BooksBalanceSheetView tl={tl} />}
+      {currentView === "reports-recurring-invoice-details" && <BooksRecurringInvoiceDetailsView tl={tl} />}
     </BooksShell>
   );
 }

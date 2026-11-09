@@ -11,7 +11,7 @@ const arg = (n: string, d: string) => {
 };
 const FROM = Number(arg("from", "78"));
 const SPEED = Number(arg("speed", "8"));
-const TOTAL = Number(arg("total", "199"));
+const TOTAL = Number(arg("total", "205"));
 
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH });
@@ -19,8 +19,17 @@ const TOTAL = Number(arg("total", "199"));
   const page = await ctx.newPage();
   await page.addInitScript(`window.__name = (f) => f; window.__snaarpSpeed = ${SPEED};`);
   const errors: string[] = [];
-  page.on("pageerror", (e) => errors.push(`pageerror: ${String(e).slice(0, 240)}`));
-  page.on("console", (m) => (m.type() === "error" || m.text().includes("Safety Net")) && errors.push(m.text().slice(0, 300)));
+  page.on("pageerror", (e) => {
+    console.error(`PAGEERROR: ${e}`);
+    errors.push(`pageerror: ${String(e).slice(0, 240)}`);
+  });
+  page.on("console", (m) => {
+    const txt = m.text();
+    if (m.type() === "error" || txt.includes("Safety Net") || txt.includes("[Timeline]")) {
+      console.log(`[CONSOLE ${m.type()}] ${txt}`);
+    }
+    if (m.type() === "error" || txt.includes("Safety Net")) errors.push(txt.slice(0, 300));
+  });
   await page.goto("http://localhost:3000/tutorials/books", { waitUntil: "networkidle" });
   await page.evaluate(() => localStorage.clear());
   await page.locator("ol li button").nth(FROM - 1).click();
@@ -30,18 +39,20 @@ const TOTAL = Number(arg("total", "199"));
   while (Date.now() - t0 < 25 * 60_000) {
     const n = await page.evaluate(() => {
       try {
-        return Object.values(
-          JSON.parse(localStorage.getItem("snaarp-tutorials:progress:v3") || "{}") as Record<string, { completed: string[] }>
-        ).reduce((a, p) => a + p.completed.length, 0);
+        const store = JSON.parse(localStorage.getItem("snaarp-tutorials:progress:v3") || "{}");
+        return {
+          count: Object.values(store as Record<string, { completed: string[] }>).reduce((a, p) => a + p.completed.length, 0),
+          lastCompleted: Object.values(store as Record<string, { completed: string[] }>).map(p => p.completed[p.completed.length - 1]).join(", ")
+        };
       } catch {
-        return 0;
+        return { count: 0, lastCompleted: "" };
       }
     });
-    if (n !== last) {
-      last = n;
-      console.log(`completed ${n}/${need}`);
+    if (n.count !== last) {
+      last = n.count;
+      console.log(`completed ${n.count}/${need} (last: ${n.lastCompleted})`);
     }
-    if (n >= need) break;
+    if (n.count >= need) break;
     await page.waitForTimeout(1000);
   }
   await ctx.close();

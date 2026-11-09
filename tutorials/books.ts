@@ -397,6 +397,18 @@ import { Step198 } from "@/scenes/books/step198/Step198";
 import { runStep198, STEP198_DURATION_MS } from "@/scenes/books/step198/script";
 import { Step199 } from "@/scenes/books/step199/Step199";
 import { runStep199, STEP199_DURATION_MS } from "@/scenes/books/step199/script";
+import { Step200 } from "@/scenes/books/step200/Step200";
+import { runStep200, STEP200_DURATION_MS } from "@/scenes/books/step200/script";
+import { Step201 } from "@/scenes/books/step201/Step201";
+import { runStep201, STEP201_DURATION_MS } from "@/scenes/books/step201/script";
+import { Step202 } from "@/scenes/books/step202/Step202";
+import { runStep202, STEP202_DURATION_MS } from "@/scenes/books/step202/script";
+import { Step203 } from "@/scenes/books/step203/Step203";
+import { runStep203, STEP203_DURATION_MS } from "@/scenes/books/step203/script";
+import { Step204 } from "@/scenes/books/step204/Step204";
+import { runStep204, STEP204_DURATION_MS } from "@/scenes/books/step204/script";
+import { Step205 } from "@/scenes/books/step205/Step205";
+import { runStep205, STEP205_DURATION_MS } from "@/scenes/books/step205/script";
 import { BOOKS_URLS } from "@/components/books/books-data";
 
 export const books: Tutorial = {
@@ -2407,6 +2419,66 @@ export const books: Tutorial = {
         durationMs: STEP199_DURATION_MS,
       },
     },
+    {
+      id: "books-200",
+      title: "Reports: Find your way around the Reports Center",
+      url: BOOKS_URLS.reportsCenter,
+      scene: {
+        Component: Step200,
+        run: runStep200,
+        durationMs: STEP200_DURATION_MS,
+      },
+    },
+    {
+      id: "books-201",
+      title: "Reports: Run Profit and Loss",
+      url: BOOKS_URLS.reportsCenter,
+      scene: {
+        Component: Step201,
+        run: runStep201,
+        durationMs: STEP201_DURATION_MS,
+      },
+    },
+    {
+      id: "books-202",
+      title: "Reports: Profit and Loss on a cash basis for last year",
+      url: BOOKS_URLS.profitAndLoss,
+      scene: {
+        Component: Step202,
+        run: runStep202,
+        durationMs: STEP202_DURATION_MS,
+      },
+    },
+    {
+      id: "books-203",
+      title: "Reports: Sales by Customer and Customer Balance Summary",
+      url: BOOKS_URLS.reportsCenter,
+      scene: {
+        Component: Step203,
+        run: runStep203,
+        durationMs: STEP203_DURATION_MS,
+      },
+    },
+    {
+      id: "books-204",
+      title: "Reports: Tax Summary and Budget vs Actuals",
+      url: BOOKS_URLS.reportsCenter,
+      scene: {
+        Component: Step204,
+        run: runStep204,
+        durationMs: STEP204_DURATION_MS,
+      },
+    },
+    {
+      id: "books-205",
+      title: "Reports: Balance Sheet, Trial Balance and Recurring Invoice Details",
+      url: BOOKS_URLS.reportsCenter,
+      scene: {
+        Component: Step205,
+        run: runStep205,
+        durationMs: STEP205_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Navigation & Home", from: "books-find-way-around" },
@@ -2429,10 +2501,11 @@ export const books: Tutorial = {
     { title: "Banking", from: "books-170" },
     { title: "Accountant", from: "books-179" },
     { title: "Filing & Compliance", from: "books-192" },
+    { title: "Reports", from: "books-200" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, bank transactions, manual journals, chart of accounts, budgets, transaction locking, audit logs, data import, VAT filing, Self Assessment, and MTD for Income Tax in Snaarp Books.",
+    text: "You can now manage your Home dashboard, catalog items, client accounts, sales quotes, customer invoices, sales receipts, recurring invoices, payments received, credit notes, vendors, expenses, recurring expenses, vendor bills, recurring bills, payments made, vendor credits, bank accounts, bank transactions, manual journals, chart of accounts, budgets, transaction locking, audit logs, data import, VAT filing, Self Assessment, MTD for Income Tax, and financial reports in Snaarp Books.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

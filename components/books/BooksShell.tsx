@@ -207,6 +207,7 @@ export function BooksShell({ tl, children, overlay }: Props) {
     currentView === "self-assessment-return-detail";
   const isMtdView = currentView === "mtd-income-tax";
   const isFilingView = isVatFilingView || isSelfAssessmentView || isMtdView;
+  const isReportsActive = currentView.startsWith("reports");
   const filingExpanded = useTimelineVar<boolean>(
     tl,
     "booksFilingExpanded",
@@ -979,9 +980,17 @@ export function BooksShell({ tl, children, overlay }: Props) {
 
           <button
             data-tl="nav-books-reports"
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+            onClick={() => {
+              tl.setVar("booksView", "reports-center");
+              tl.setUrl(BOOKS_URLS.reportsCenter);
+            }}
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+              isReportsActive
+                ? "bg-[#EDE9FE] text-[#7C3AED] font-semibold"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
           >
-            <BarChart3 className="w-4 h-4 text-gray-500 shrink-0" />
+            <BarChart3 className={`w-4 h-4 shrink-0 ${isReportsActive ? "text-[#7C3AED]" : "text-gray-500"}`} />
             <span className="whitespace-nowrap">Reports</span>
           </button>
 
