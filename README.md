@@ -17,7 +17,7 @@ npm run build        # production build
 ```
 
 Open **http://localhost:3000/tutorials/snaarp-360**. The root route `/` redirects there.
-Other product routes follow the pattern `/tutorials/<product-id>` (e.g. `/tutorials/snaarp-lock`, `/tutorials/books`, `/tutorials/drive`, `/tutorials/workforce`, `/tutorials/onecardx`, `/tutorials/snaarp-sheets`, `/tutorials/snaarp-slides`, `/tutorials/snaarp-admin`, `/tutorials/snaarp-doc`, `/tutorials/snaarp-mail`, `/tutorials/snaarp-360`).
+Other product routes follow the pattern `/tutorials/<product-id>` (e.g. `/tutorials/snaarp-me`, `/tutorials/snaarp-lock`, `/tutorials/books`, `/tutorials/drive`, `/tutorials/workforce`, `/tutorials/onecardx`, `/tutorials/snaarp-sheets`, `/tutorials/snaarp-slides`, `/tutorials/snaarp-admin`, `/tutorials/snaarp-doc`, `/tutorials/snaarp-mail`, `/tutorials/snaarp-360`).
 
 ## Controls
 

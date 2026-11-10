@@ -1615,3 +1615,23 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 6. **Timing & End Holds**:
    - Every step finishes ~1.5s after its visible success state (2.0s on table reading/grid inspection), ending with a 400ms fade before stepping forward. Step 11 seamlessly transitions to the data-driven completion card.
 
+## Snaarp Me (Scheduling & Bookings, Steps 1–6 Complete)
+
+- Scope: Home Dashboard (1), Booking & Calendar (2), Create Event Type (3), Edit Event Type & Preview (4), Booking Link & Public Page (5), Home Dashboard Updated (6).
+- Reference recording: `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; steps 1–6).
+
+### Decisions & Deviations from Video
+1. **Sample Data Instead of Real Personal Data**:
+   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`, guest `guest@example.com`).
+   - Replaced "Kalender's" in the video with "Snaarp Me's" (e.g. "Snaarp Me's Default Availability").
+2. **No Browser Chrome & Standalone Public Booking Page**:
+   - Omitted all browser tabs, dark green new tab screen, address bar, extensions, and Chrome autofill popups.
+   - When navigating to `snaarp.me/jane/creative-meeting-with-the-team` in Step 5, the page renders standalone full screen with its blue-violet gradient header and NO application shell (no suite rail, no sidebar), exactly as a public booking guest would experience it.
+3. **Full 18-App Suite Rail Across App Views**:
+   - Per requirements, the suite rail across all Snaarp Me views contains the full 18 apps in order with Snaarp Me active (lilac `#EDE9FE` pill), matching the Snaarp suite shell specification.
+4. **Interactive Synchronization**:
+   - Buttons, modal closers, tabs, cards, preview slots, and calendar days feature direct `onClick` state setters paired with timeline script beats to ensure instantaneous, deterministic state propagation under all playback speeds (including x8 speed and visibility audits).
+5. **Timing & End Holds**:
+   - Every step ends ~1.5s after its primary action completes, concluding with a 400ms fade and transitioning to the completion card at the end of Step 6.
+
+

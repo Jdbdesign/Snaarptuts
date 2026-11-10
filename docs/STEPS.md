@@ -2349,3 +2349,30 @@ Reference video 2: `C:\Users\HP\Downloads\1109 (2).mp4` (1384×720, 2:05; steps 
 - Modals: `LockAddItemModal.tsx`, `LockEditItemModal.tsx`, `LockTransferModal.tsx`, `LockFileChooserModal.tsx`
 - Timeline & Data: `components/lock/lock-timeline.ts` (`beginLock`, `finishLock`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/lock/lock-data.ts`
 - Step Scenes: `scenes/lock/step<1..11>/Step<N>.tsx`, `script.ts`
+
+---
+
+## Snaarp Me (Steps 1–6, Complete)
+
+Product: **Snaarp Me** (Scheduling & Bookings)  
+Route: `/tutorials/snaarp-me` (also `/tutorials/me`, `/tutorials/snaarpme`, `/tutorials/scheduling`, `/tutorials/calendar`, `/tutorials/bookings`)  
+Config: `tutorials/snaarp-me.ts`  
+Reference video: `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; steps 1–6)
+
+| Step | Title | Description | Duration |
+|:---:|:---|:---|:---:|
+| 1 | Find your way around the Home dashboard | Shows welcome caption, hovers over the welcome banner, inspects Today's Schedule with confirmed meeting card, reviews the 4 stat cards (Bookings this week, Upcoming, Avg booking duration, Cancelled), smooth-scrolls and hovers Recent Activity, and highlights sidebar navigation items. | 16.5 s |
+| 2 | Open a booking and check your calendar | Clicks today's meeting card in Today's Schedule to open the booking details modal, inspects 2-column details, clicks "Copy" on Snaarp Meet conferencing link, closes modal, clicks Calendar in left menu (`snaarp.me/calendar`), hovers Day 10 in November 2026 grid and calendar integrations card, navigates to Meetings details (`snaarp.me/bookings/101`), and returns via "< Back to Bookings". | 19.5 s |
+| 3 | Create an event type | Clicks Event Types in sidebar, clicks "+ New Event Type", walks through 3-step wizard (Basic Info: "Creative Meeting with the Team", slug `creative-meeting-with-the-team`, Snaarp Meet location; Schedule & Availability: 30 min, 09:00 - 17:00, 15m buffer; Advanced: invitee questions and confirmation email), clicks Create Event Type, banner toast "Event type created successfully" confirms, and new card mounts first in the list. | 22.0 s |
+| 4 | Edit an event type and preview its booking page | Clicks the newly created "Creative Meeting with the Team" card, right-side Edit Drawer slides out alongside the floating interactive preview panel, modifies title by appending " (Design Review)", switches to Schedule tab to inspect availability slots, clicks preview slot "03:30pm" on preview calendar, and clicks Save Changes. | 20.0 s |
+| 5 | Copy your booking link and book a meeting | Clicks copy link icon on the event card (tooltip "Copy booking link"), navigates to public booking page (`snaarp.me/jane/creative-meeting-with-the-team` rendered standalone without app shell), selects date Day 18, picks slot "10:30am", fills invitee details ("Jane Doe", `jane@example.com`, notes "Looking forward to our sync"), clicks Confirm Booking, and scheduled confirmation page mounts. | 21.0 s |
+| 6 | See your new booking on Home | Navigates back to Home (`snaarp.me/dashboard`), inspects updated Today's Schedule showing the newly booked Creative Meeting alongside Sam Taylor, stat cards reflect incremented booking counts, and Recent Activity displays the fresh booking item. Concludes with a clean fade and the tour completion screen. | 15.0 s |
+
+**Files.**
+- Config: `tutorials/snaarp-me.ts` (registered in `tutorials/index.ts`, route `/tutorials/snaarp-me` with aliases `me`, `snaarpme`, `scheduling`, `calendar`, `bookings`)
+- Shell & Stage: `components/me/MeShell.tsx` (with 18-app suite rail, left menu with lilac active pill, header card), `components/me/MeStage.tsx`, `components/me/MeToastBanner.tsx`
+- Views: `MeHomeView.tsx`, `MeCalendarView.tsx`, `MeBookingDetailView.tsx`, `MeEventTypesView.tsx`, `MeBookingPage.tsx`
+- Modals & Drawers: `MeBookingModal.tsx`, `MeCreateEventModal.tsx`, `MeEditEventDrawer.tsx`
+- Timeline & Data: `components/me/me-timeline.ts` (`beginMe`, `finishMe`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/me/me-data.ts`
+- Step Scenes: `scenes/snaarp-me/step<1..6>/Step<N>.tsx`, `script.ts`
+

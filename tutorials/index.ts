@@ -9,6 +9,7 @@ import { onecardx } from "./onecardx";
 import { drive } from "./drive";
 import { books } from "./books";
 import { snaarpLock } from "./snaarp-lock";
+import { snaarpMe } from "./snaarp-me";
 import type { Tutorial } from "./types";
 
 /** Add a product by importing its config here. The array order is the order shown in the rail dropdown. The player shell never changes. */
@@ -24,6 +25,7 @@ export const tutorials: Tutorial[] = [
   drive,
   books,
   snaarpLock,
+  snaarpMe,
 ];
 
 export const getTutorial = (id: string) =>
