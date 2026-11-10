@@ -192,7 +192,15 @@ export function MeShell({ tl, children }: MeShellProps) {
                 (item.id === "meetings" && (currentView === "meetings" || currentView === "bookings" || currentView === "meeting-detail")) ||
                 (item.id === "event-types" && currentView === "event-types") ||
                 (item.id === "workflows" && (currentView === "workflows" || currentView === "workflows-create" || currentView === "workflow-detail" || currentView === "workflow-executions")) ||
-                (item.id === "contacts" && currentView === "contacts");
+                (item.id === "contacts" && currentView === "contacts") ||
+                (item.id === "analytics" && currentView === "analytics") ||
+                (item.id === "integrations" && (
+                  currentView === "integrations" ||
+                  currentView === "integrations-calendars" ||
+                  currentView === "integrations-video" ||
+                  currentView === "integrations-payments" ||
+                  currentView === "integrations-crm"
+                ));
 
               return (
                 <button
@@ -221,6 +229,12 @@ export function MeShell({ tl, children }: MeShellProps) {
                     } else if (item.id === "contacts") {
                       tl.setUrl("snaarp.me/contacts");
                       tl.setVar("meView", "contacts");
+                    } else if (item.id === "analytics") {
+                      tl.setUrl("snaarp.me/analytics");
+                      tl.setVar("meView", "analytics");
+                    } else if (item.id === "integrations") {
+                      tl.setUrl("snaarp.me/integrations");
+                      tl.setVar("meView", "integrations");
                     }
                   }}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${

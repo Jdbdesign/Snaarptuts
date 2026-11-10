@@ -404,4 +404,86 @@ Frames: `ref/me3/0670.png`, `0685.png`, `0702.png`
 | **Delete Field Confirm Modal** | In-app confirmation modal (replaces native browser confirm): "Delete the \"Job\" field? Values stored on every contact will be removed." Buttons: `Cancel` and red `OK`. On click: green banner `\"Job\" field deleted.` and column is removed. |
 | **Export CSV** | Hovering Export CSV icon shows tooltip "Export CSV". Clicking icon triggers in-app green banner `Contacts export started. Your CSV will download shortly.` Concludes with 1.5s finish hold and completion card. |
 
+---
+
+## 31. Screen 30: Meet Analytics (`snaarp.me/analytics`) — Step 27
+
+Frames: `ref/me4/0002.png`, `0012.png`, `0025.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Header** | Title: "Meet Analytics" (`text-2xl font-bold text-gray-900`). Subtitle: "Track your booking performance and team metrics." (`text-sm text-gray-500`). | `ref/me4/0002.png` |
+| **Filter Card** | White card `bg-white border border-gray-200 rounded-2xl p-4 flex items-center justify-between shadow-sm`. <br>• Left: Period buttons in a bordered pill group (`border border-gray-200 rounded-xl p-1 flex gap-1 bg-gray-50/50`). Buttons: `Today` (active `#7014D9` bg, text-white, font-semibold rounded-lg px-3 py-1.5 text-xs), `7 Days`, `30 Days`, `90 Days`, `Custom` (`text-gray-600 hover:text-gray-900 px-3 py-1.5 text-xs font-medium`). <br>• Right: Source dropdown (label "Source" `text-xs text-gray-400`, pill button showing "All Sources" with chevron; opens dropdown with "All Sources" ✓, "Web", "API", "Embed") and Event Type ID filter box (label "Event Type ID" `text-xs text-gray-400`, input with placeholder "Filter by event type", `border border-gray-200 rounded-lg px-3 py-1.5 text-xs`). | `ref/me4/0002.png`, `0012.png` |
+| **4 Stat Cards** | 4-column grid `grid grid-cols-4 gap-4 mt-6`. Each card `bg-white border border-gray-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between`. <br>1. **Total Bookings**: Top row with title "Total Bookings" (`text-xs font-medium text-gray-500 uppercase tracking-wider`) and lilac calendar icon in square `#F5EEFF`. Big number: "2" (`text-3xl font-bold text-gray-900`). <br>2. **Cancellations**: Title "Cancellations" with red/rose icon. Big number: "0". <br>3. **No-Shows**: Title "No-Shows" with amber icon. Big number: "0". <br>4. **Completion Rate**: Title "Completion Rate" with green checkmark icon. Big number: "0%". | `ref/me4/0002.png` |
+| **Bookings Over Time** | Card `bg-white border border-gray-200 rounded-2xl p-5 shadow-sm`. Title "Bookings Over Time" (`text-base font-bold text-gray-900`). Chart area: Left y-axis with labels "2" and "0". Bottom x-axis with label "2026-11-10". Line/point with purple dot at 2. | `ref/me4/0002.png`, `0025.png` |
+| **Popular Time Slots** | Card `bg-white border border-gray-200 rounded-2xl p-5 shadow-sm`. Title "Popular Time Slots" (`text-base font-bold text-gray-900`). Heatmap matrix: Rows for `Sun`, `Mon`, `Tue`, `Wed`, `Thu`, `Fri`, `Sat`. Columns for hours `6:00`, `9:00`, `12:00`, `15:00`, `18:00`. Tuesday 9:00 cell is dark purple `#7014D9`. All others are neutral light gray `#F3F4F6`. Bottom legend: "Less" [4 gradient squares from light gray to purple] "More". | `ref/me4/0025.png` |
+| **Top Performers** | Card `bg-white border border-gray-200 rounded-2xl p-5 shadow-sm`. Title "Top Performers" (`text-base font-bold text-gray-900`). Empty state: "No performer data available for this period." (`text-sm text-gray-400 py-8 text-center`). | `ref/me4/0025.png` |
+
+---
+
+## 32. Screen 31: Meet Integrations Hub (`snaarp.me/integrations`) — Step 28
+
+Frames: `ref/me4/0034.png`, `0112.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Header** | Title: "Meet Integrations" (`text-2xl font-bold text-gray-900`). Subtitle: "Connect your favourite tools to Snaarp Me to automate scheduling, sync calendars, and streamline workflows." (`text-sm text-gray-500`). | `ref/me4/0034.png` |
+| **Hub Grid** | 2x2 grid of cards (`grid grid-cols-2 gap-6 mt-6`). Each card `bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:border-[#7014D9]/40 hover:shadow-md cursor-pointer transition-all flex items-start justify-between`. <br>• **Card 1: Calendars**: Lilac calendar icon tile `bg-purple-50 text-[#7014D9] p-3 rounded-xl`. Heading "Calendars" (`text-lg font-bold text-gray-900`), subtitle "Connect Google Calendar, Outlook, or Exchange" (`text-sm text-gray-500 mt-1`). Right chevron arrow `->`. <br>• **Card 2: Video Conferencing**: Mint/lilac video icon tile `p-3 rounded-xl`. Heading "Video Conferencing" (`text-lg font-bold text-gray-900`), subtitle "Connect Zoom, Google Meet, Microsoft Teams, or Snaarp Meet" (`text-sm text-gray-500 mt-1`). Right chevron arrow `->`. <br>• **Card 3: Payments**: Amber/lilac credit card icon tile `p-3 rounded-xl`. Heading "Payments" (`text-lg font-bold text-gray-900`), subtitle "Connect Stripe or PayPal for paid bookings" (`text-sm text-gray-500 mt-1`). Right chevron arrow `->`. <br>• **Card 4: APPS and CRM**: Blue/lilac grid icon tile `p-3 rounded-xl`. Heading "APPS and CRM" (`text-lg font-bold text-gray-900`), subtitle "Connect Salesforce or HubSpot" (`text-sm text-gray-500 mt-1`). Right chevron arrow `->`. | `ref/me4/0034.png` |
+
+---
+
+## 33. Screen 32: Calendar Integrations (`snaarp.me/integrations/calendars`) — Step 29
+
+Frames: `ref/me4/0040.png`, `0045.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Back Button** | Link `< Back to Integrations` (`text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5 mb-3`). | `ref/me4/0040.png` |
+| **Header** | Title: "Calendar Integrations" (`text-2xl font-bold text-gray-900`). Subtitle: "Connect your calendars to sync events and check availability." (`text-sm text-gray-500`). | `ref/me4/0040.png` |
+| **Cards List** | Vertical stack of 4 integration cards (`flex flex-col gap-4 mt-6`). Each card `bg-white border border-gray-200 rounded-2xl p-5 shadow-sm flex items-center justify-between`. <br>1. **Snaarp Meet**: Left: Purple Snaarp Meet icon mark in tile, Title "Snaarp Meet" (`font-bold text-base text-gray-900`), badge "Connected" (`bg-green-100 text-green-700 text-xs px-2.5 py-0.5 rounded-full font-medium ml-2`), email "jane@example.com" (`text-xs text-gray-500 mt-0.5`). Right: "Disconnect" button (`border border-red-200 text-red-600 hover:bg-red-50 px-4 py-1.5 rounded-lg text-xs font-semibold`). <br>2. **Google Calendar**: Left: Google Calendar logo mark, Title "Google Calendar", description "Connect your Google Calendar to sync events and check availability." Right: "Connect" button (`bg-[#7014D9] hover:bg-[#5B0FB3] text-white px-5 py-2 rounded-xl text-xs font-semibold`). <br>3. **Microsoft Outlook**: Left: Outlook logo mark, Title "Microsoft Outlook", description "Connect your Microsoft Outlook calendar to sync events and check availability." Right: "Connect" button (`bg-[#7014D9] text-white px-5 py-2 rounded-xl text-xs font-semibold`). <br>4. **Microsoft Exchange**: Left: Exchange logo mark, Title "Microsoft Exchange", description "Connect your Microsoft Exchange calendar to sync events and check availability." Right: "Connect" button (`bg-[#7014D9] text-white px-5 py-2 rounded-xl text-xs font-semibold`). | `ref/me4/0040.png`, `0045.png` |
+
+---
+
+## 34. Screen 33: Video Conferencing (`snaarp.me/integrations/video`) — Step 30
+
+Frames: `ref/me4/0060.png`, `0065.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Back Button** | Link `< Back to Integrations` (`text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5 mb-3`). | `ref/me4/0060.png` |
+| **Header** | Title: "Video Conferencing" (`text-2xl font-bold text-gray-900`). Subtitle: "Connect your video conferencing accounts to automatically generate meeting links for bookings" (`text-sm text-gray-500`). | `ref/me4/0060.png` |
+| **Cards List** | Vertical stack of 3 video integration cards (`flex flex-col gap-4 mt-6`). <br>1. **Snaarp Meet**: Card `bg-white border border-gray-200 rounded-2xl p-5 shadow-sm`. Top row: Snaarp Meet logo, title "Snaarp Meet", badge "Connected" (`bg-green-100 text-green-700 text-xs px-2.5 py-0.5 rounded-full font-medium`). Description: "Use Snaarp Meet to automatically create meeting rooms for your Snaarp Me bookings". Gray details box `bg-gray-50 rounded-xl p-3 mt-3 flex items-center justify-between border border-gray-100`: Left labels "Account ID: acct-sample-0001" and "Email: jane@example.com" (`text-xs text-gray-600 font-mono`). Right: "Disconnect" button (`border border-red-200 text-red-600 hover:bg-red-50 px-4 py-1.5 rounded-lg text-xs font-semibold`). <br>2. **Zoom**: Card `bg-white border border-gray-200 rounded-2xl p-5 shadow-sm flex items-center justify-between`. Left: Zoom logo mark, title "Zoom" (`font-bold text-base text-gray-900`), description "Connect your Zoom account to automatically create meeting links for your bookings" (`text-xs text-gray-500 mt-0.5`). Right: "Connect" button (`bg-[#7014D9] text-white px-5 py-2 rounded-xl text-xs font-semibold`). <br>3. **Google Meet**: Card `bg-white border border-gray-200 rounded-2xl p-5 shadow-sm flex items-center justify-between`. Left: Google Meet logo mark, title "Google Meet" (`font-bold text-base text-gray-900`), description "Create Google Meet links for bookings using your connected Google Calendar" (`text-xs text-gray-500 mt-0.5`). Right: badge or info "Uses connected Google Calendar" (`text-xs text-gray-400 bg-gray-100 px-3 py-1.5 rounded-lg`). | `ref/me4/0060.png`, `0065.png` |
+
+---
+
+## 35. Screen 34: Payments (`snaarp.me/integrations/payments`) — Step 31
+
+Frames: `ref/me4/0075.png`, `0082.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Back Button** | Link `< Back to Integrations` (`text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5 mb-3`). | `ref/me4/0075.png` |
+| **Header** | Title: "Payments" (`text-2xl font-bold text-gray-900`). Subtitle: "Connect payment providers, configure pricing for event types, and manage payment history" (`text-sm text-gray-500`). | `ref/me4/0075.png` |
+| **Payment Providers** | Section heading: "Payment Providers" (`text-base font-bold text-gray-900 mt-6 mb-3`). 2-column grid `grid grid-cols-2 gap-4`. <br>• **Stripe Card**: Stripe logo mark, title "Stripe", description "Accept credit card payments through Stripe. Supports one-time and recurring payments." Right/bottom button: "Connect Stripe" (`bg-[#7014D9] text-white px-4 py-2 rounded-xl text-xs font-semibold`). <br>• **PayPal Card**: PayPal logo mark, title "PayPal", description "Accept payments via PayPal. Invitees can pay with their PayPal account or credit card." Right/bottom button: "Connect PayPal" (`bg-[#7014D9] text-white px-4 py-2 rounded-xl text-xs font-semibold`). | `ref/me4/0075.png` |
+| **Event Type Pricing** | Section heading: "Event Type Pricing" (`text-base font-bold text-gray-900 mt-8 mb-3`). Table container `bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden`. 3 rows: <br>1. "Creative meeting with the Team" · "30 min" · Require Payment toggle (off/on switch) · "Edit Price" button (`text-xs text-[#7014D9] font-medium hover:underline`). <br>2. "Standup Meeting with developers" · "30 min" · Require Payment toggle (off) · "Edit Price" button. <br>3. "30 Minute Meeting" · "30 min" · Require Payment toggle (off) · "Edit Price" button. | `ref/me4/0075.png`, `0082.png` |
+| **Payment History** | Section heading: "Payment History" (`text-base font-bold text-gray-900 mt-8 mb-3`). Card `bg-white border border-gray-200 rounded-2xl p-8 shadow-sm text-center`. Text: "No payments recorded yet." (`text-sm text-gray-400`). | `ref/me4/0075.png` |
+
+---
+
+## 36. Screen 35: Apps and CRM Integrations (`snaarp.me/integrations/crm`) — Step 32
+
+Frames: `ref/me4/0091.png`, `0095.png`, `0105.png`, `0112.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Loading State** | 1.0 second centered loading spinner with subtitle "Loading integrations..." before rendering page. | `ref/me4/0091.png` |
+| **Back Button** | Link `< Back to Integrations` (`text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5 mb-3`). | `ref/me4/0095.png` |
+| **Header** | Title: "Apps and CRM Integrations" (`text-2xl font-bold text-gray-900`). Subtitle: "Connect your CRM, email, and integration tools to automatically sync booking data and send workflow emails from your own accounts" (`text-sm text-gray-500`). | `ref/me4/0095.png` |
+| **CRM Platforms** | Section heading: "CRM Platforms" (`text-base font-bold text-gray-900 mt-6 mb-3`). 2-column grid of 8 cards. Platforms: Salesforce, HubSpot, Mailchimp, Dynamics 365, Zoho CRM, ActiveCampaign, Pipedrive, Freshsales. Each card: Brand logo mark, title, description (e.g. "Sync booking data and contacts with Salesforce"), right status badge "Not Connected" (`bg-gray-100 text-gray-600 text-xs px-2.5 py-0.5 rounded-full font-medium`) and purple "Connect" button (`bg-[#7014D9] text-white px-4 py-1.5 rounded-xl text-xs font-semibold`). | `ref/me4/0095.png` |
+| **Enrichment & Intelligence** | Section heading: "Enrichment & Intelligence" (`text-base font-bold text-gray-900 mt-8 mb-3`). 2 cards: Gong, LinkedIn Sales Navigator. Each with logo mark, title, description, "Not Connected", and purple "Connect" button. | `ref/me4/0105.png` |
+| **Form Integrations** | Section heading: "Form Integrations" (`text-base font-bold text-gray-900 mt-8 mb-3`). 2 cards: Typeform, JotForm. Each with logo mark, title, description, "Not Connected", and purple "Connect" button. | `ref/me4/0105.png` |
+| **Email Delivery** | Section heading: "Email Delivery" (`text-base font-bold text-gray-900 mt-8 mb-3`). 1 card: Postal. Logo mark, title, description, "Not Connected", and purple "Connect" button. | `ref/me4/0105.png` |
+| **Workflow Email Accounts** | Section heading: "Workflow Email Accounts" (`text-base font-bold text-gray-900 mt-8 mb-1`), subtitle: "Send workflow emails (confirmations, reminders, follow-ups) from your own email account" (`text-xs text-gray-500 mb-3`). 2 cards: Gmail, Outlook. Each with logo mark, title, description, "Not Connected", and purple "Connect" button. | `ref/me4/0105.png` |
+| **Completion Transition** | Clicking `< Back to Integrations` returns to Hub. 1.5s pause, then transition to completion card ("Tour complete"). | `ref/me4/0112.png` |
+
 

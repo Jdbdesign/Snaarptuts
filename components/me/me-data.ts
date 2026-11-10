@@ -13,6 +13,12 @@ export const ME_URLS = {
   workflowDetail: "snaarp.me/workflows/5fe64334-ee3f-43f7-b57f-573851734764",
   workflowExecutions: "snaarp.me/workflows/638418a1-e391-4bb5-b560-ff4092328add/executions",
   contacts: "snaarp.me/contacts",
+  analytics: "snaarp.me/analytics",
+  integrations: "snaarp.me/integrations",
+  integrationsCalendars: "snaarp.me/integrations/calendars",
+  integrationsVideo: "snaarp.me/integrations/video",
+  integrationsPayments: "snaarp.me/integrations/payments",
+  integrationsCrm: "snaarp.me/integrations/crm",
 } as const;
 
 export type MePage =
@@ -28,7 +34,13 @@ export type MePage =
   | "workflows-create"
   | "workflow-detail"
   | "workflow-executions"
-  | "contacts";
+  | "contacts"
+  | "analytics"
+  | "integrations"
+  | "integrations-calendars"
+  | "integrations-video"
+  | "integrations-payments"
+  | "integrations-crm";
 
 export interface Booking {
   id: string;
@@ -638,6 +650,38 @@ export const INVITEE_CONTACTS: Contact[] = [
     nextMeetingDate: "11/11/2026",
     lastMeetingDate: "10/11/2026",
     avatarInitial: "J",
+  },
+];
+
+export interface EventTypePricingItem {
+  id: string;
+  name: string;
+  duration: string;
+  requirePayment: boolean;
+  price: string;
+}
+
+export const INITIAL_EVENT_PRICING: EventTypePricingItem[] = [
+  {
+    id: "creative-meeting",
+    name: "Creative meeting with the Team",
+    duration: "30 min",
+    requirePayment: false,
+    price: "£0.00",
+  },
+  {
+    id: "standup-meeting",
+    name: "Standup Meeting with developers",
+    duration: "30 min",
+    requirePayment: false,
+    price: "£0.00",
+  },
+  {
+    id: "thirty-minute",
+    name: "30 Minute Meeting",
+    duration: "30 min",
+    requirePayment: false,
+    price: "£0.00",
   },
 ];
 

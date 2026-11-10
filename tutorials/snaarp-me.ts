@@ -50,6 +50,18 @@ import { Step25 } from "@/scenes/snaarp-me/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/snaarp-me/step25/script";
 import { Step26 } from "@/scenes/snaarp-me/step26/Step26";
 import { runStep26, STEP26_DURATION_MS } from "@/scenes/snaarp-me/step26/script";
+import { Step27 } from "@/scenes/snaarp-me/step27/Step27";
+import { runStep27, STEP27_DURATION_MS } from "@/scenes/snaarp-me/step27/script";
+import { Step28 } from "@/scenes/snaarp-me/step28/Step28";
+import { runStep28, STEP28_DURATION_MS } from "@/scenes/snaarp-me/step28/script";
+import { Step29 } from "@/scenes/snaarp-me/step29/Step29";
+import { runStep29, STEP29_DURATION_MS } from "@/scenes/snaarp-me/step29/script";
+import { Step30 } from "@/scenes/snaarp-me/step30/Step30";
+import { runStep30, STEP30_DURATION_MS } from "@/scenes/snaarp-me/step30/script";
+import { Step31 } from "@/scenes/snaarp-me/step31/Step31";
+import { runStep31, STEP31_DURATION_MS } from "@/scenes/snaarp-me/step31/script";
+import { Step32 } from "@/scenes/snaarp-me/step32/Step32";
+import { runStep32, STEP32_DURATION_MS } from "@/scenes/snaarp-me/step32/script";
 
 import { ME_URLS } from "@/components/me/me-data";
 import type { Tutorial } from "./types";
@@ -323,16 +335,78 @@ export const snaarpMe: Tutorial = {
         durationMs: STEP26_DURATION_MS,
       },
     },
+    {
+      id: "me-meet-analytics",
+      title: "Meet Analytics",
+      url: ME_URLS.analytics,
+      scene: {
+        Component: Step27,
+        run: runStep27,
+        durationMs: STEP27_DURATION_MS,
+      },
+    },
+    {
+      id: "me-meet-integrations",
+      title: "Meet Integrations",
+      url: ME_URLS.integrations,
+      scene: {
+        Component: Step28,
+        run: runStep28,
+        durationMs: STEP28_DURATION_MS,
+      },
+    },
+    {
+      id: "me-calendar-integrations",
+      title: "Calendar integrations",
+      url: ME_URLS.integrationsCalendars,
+      scene: {
+        Component: Step29,
+        run: runStep29,
+        durationMs: STEP29_DURATION_MS,
+      },
+    },
+    {
+      id: "me-video-conferencing",
+      title: "Video conferencing",
+      url: ME_URLS.integrationsVideo,
+      scene: {
+        Component: Step30,
+        run: runStep30,
+        durationMs: STEP30_DURATION_MS,
+      },
+    },
+    {
+      id: "me-payments",
+      title: "Payments",
+      url: ME_URLS.integrationsPayments,
+      scene: {
+        Component: Step31,
+        run: runStep31,
+        durationMs: STEP31_DURATION_MS,
+      },
+    },
+    {
+      id: "me-apps-crm",
+      title: "Apps and CRM",
+      url: ME_URLS.integrationsCrm,
+      scene: {
+        Component: Step32,
+        run: runStep32,
+        durationMs: STEP32_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Snaarp Me", from: "me-home-dashboard" },
     { title: "Availability, Calendar and Meetings", from: "me-meet-availability" },
     { title: "Workflows", from: "me-meet-workflows" },
     { title: "Contacts", from: "me-meet-contacts" },
+    { title: "Analytics", from: "me-meet-analytics" },
+    { title: "Integrations", from: "me-meet-integrations" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now configure event types, share public booking links, coordinate connected calendars, automate email workflows, and manage your contacts in Snaarp Me.",
+    text: "You can now configure event types, share public booking links, coordinate connected calendars, automate email workflows, manage contacts, track analytics, and integrate external tools in Snaarp Me.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

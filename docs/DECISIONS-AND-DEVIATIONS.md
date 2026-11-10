@@ -1615,20 +1615,22 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 6. **Timing & End Holds**:
    - Every step finishes ~1.5s after its visible success state (2.0s on table reading/grid inspection), ending with a 400ms fade before stepping forward. Step 11 seamlessly transitions to the data-driven completion card.
 
-## Snaarp Me (Scheduling & Bookings, Steps 1–26 Complete)
+## Snaarp Me (Scheduling & Bookings, Steps 1–32 Complete)
 
 - Scope:
   - Part 1 (steps 1–6): Home Dashboard (1), Booking & Calendar (2), Create Event Type (3), Edit Event Type & Preview (4), Booking Link & Public Page (5), Home Dashboard Updated (6).
   - Part 2 (steps 7–13): Meet Availability (7), Create Schedule (8), Add Date Override (9), Preview Availability (10), Explore Calendar (11), Open Day & Meeting (12), Meetings List (13).
   - Part 3 (steps 14–26): Meet Workflows (14), Create Workflow from Template (15), Turn Workflow On or Off (16), Edit Emails & Reminders (17), Check Execution Logs (18), Build Custom Workflow (19), Delete Custom Workflow (20), Meet Contacts (21), Show Columns & Filter (22), Add Contact & Upload CSV (23), Add Custom Field (24), Manage Column (25), Export Contacts (26).
+  - Part 4 (steps 27–32): Meet Analytics (27), Meet Integrations (28), Calendar integrations (29), Video conferencing (30), Payments (31), Apps and CRM (32).
 - Reference recordings:
   - `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; Part 1, steps 1–6).
   - `C:\Users\HP\Downloads\1110 (1)(1).mp4` (1426×720, 2:52; Part 2, steps 7–13).
   - `C:\Users\HP\Downloads\1110 (1)(2).mp4` (1414×720, 5:53; Part 3, steps 14–26).
+  - `C:\Users\HP\Downloads\1110 (2).mp4` (1422×720, 1:00; Part 4, steps 27–32).
 
 ### Decisions & Deviations from Video
 1. **Sample Data Instead of Real Personal Data**:
-   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`), Casey Brown (`casey@example.com`), Jordan Lee (`jordan.lee@example.com`, `+44 7700 900123`, `Acme Studio`, `CEO`, `London, United Kingdom`), Design Team (`design@example.com`), 18 organization colleagues (all `name@example.com`, initial avatars only), meeting codes `sample-abc-123`, `csv-vmbx-stn`. Dates formatted cleanly as DD/MM/YYYY.
+   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`), Casey Brown (`casey@example.com`), Jordan Lee (`jordan.lee@example.com`, `+44 7700 900123`, `Acme Studio`, `CEO`, `London, United Kingdom`), Design Team (`design@example.com`), 18 organization colleagues (all `name@example.com`, initial avatars only), account ID `acct-sample-0001`, meeting codes `sample-abc-123`, `csv-vmbx-stn`. Dates formatted cleanly as DD/MM/YYYY.
    - Replaced "Kalender's" in the video with "Snaarp Me's" (e.g. "Snaarp Me's Default Availability").
 2. **In-App Dialogs Replacing Browser/OS Dialogs**:
    - The video recorded native OS/browser dialogs: a Windows file picker dialog and a native JavaScript `confirm()` dialog (`snaarp.me says: Delete the "Job" field? Values stored on every contact will be removed.`).
@@ -1654,9 +1656,16 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
    - Step 23 tests Upload CSV with in-app file chooser (`sample-contacts.csv`) and Add manually with Jordan Lee form fields.
    - Step 24 slides out "Create a custom field" drawer, adds "Job" field, and verifies column creation.
    - Step 25 tests column management (Sort descending, Delete field with in-app confirmation modal).
-   - Step 26 tests Export CSV with tooltip hover and download started banner, concluding with 1.8s finish hold and completion card.
-7. **Timing & End Holds**:
-   - Every step ends ~1.2s to 1.8s after its primary action completes, concluding with a 400ms fade and transitioning to the completion card at the end of Step 26.
+   - Step 26 tests Export CSV with tooltip hover and download started banner.
+7. **Analytics & Integrations Ecosystem (Part 4)**:
+   - Step 27 introduces Meet Analytics (`snaarp.me/analytics`), testing period filters (7 Days and Today), Source dropdown (All Sources, Web, API, Embed), stat cards, Bookings Over Time line plot, and Popular Time Slots heatmap (purple Tuesday 9:00 cell).
+   - Step 28 introduces Meet Integrations hub (`snaarp.me/integrations`), reviewing Calendars, Video Conferencing, Payments, and APPS and CRM cards in logical sequence.
+   - Step 29 explores Calendar integrations (`snaarp.me/integrations/calendars`) with connected Snaarp Meet (`jane@example.com`) and external calendar providers, returning to hub.
+   - Step 30 explores Video conferencing (`snaarp.me/integrations/video`) with connected Snaarp Meet account details (`acct-sample-0001`), Zoom, and Google Meet, returning to hub.
+   - Step 31 explores Payments (`snaarp.me/integrations/payments`) with Stripe, PayPal, Event Type Pricing table (testing Require Payment toggle on and off), and Payment History empty state, returning to hub.
+   - Step 32 explores Apps and CRM (`snaarp.me/integrations/crm`) with 1.0s loading spinner, 8 CRM platforms, Gong, LinkedIn Sales Navigator, Typeform, JotForm, Postal, Gmail, and Outlook. Concludes with 1.5s finish hold and transitions to the completion card.
+8. **Timing & End Holds**:
+   - Every step ends ~1.2s to 1.8s after its primary action completes, concluding with a 400ms fade and transitioning to the completion card at the end of Step 32.
 
 
 

@@ -2352,7 +2352,7 @@ Reference video 2: `C:\Users\HP\Downloads\1109 (2).mp4` (1384×720, 2:05; steps 
 
 ---
 
-## Snaarp Me (Steps 1–26, Complete)
+## Snaarp Me (Steps 1–32, Complete)
 
 Product: **Snaarp Me** (Scheduling & Bookings)  
 Route: `/tutorials/snaarp-me` (also `/tutorials/me`, `/tutorials/snaarpme`, `/tutorials/scheduling`, `/tutorials/calendar`, `/tutorials/bookings`)  
@@ -2361,6 +2361,7 @@ Reference videos:
 - `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; Part 1, steps 1–6)
 - `C:\Users\HP\Downloads\1110 (1)(1).mp4` (1426×720, 2:52; Part 2, steps 7–13)
 - `C:\Users\HP\Downloads\1110 (1)(2).mp4` (1414×720, 5:53; Part 3, steps 14–26)
+- `C:\Users\HP\Downloads\1110 (2).mp4` (1422×720, 1:00; Part 4, steps 27–32)
 
 | Step | Title | Description | Duration |
 |:---:|:---|:---|:---:|
@@ -2390,6 +2391,12 @@ Reference videos:
 | 24 | Add a custom field | Clicks '+' in table header to slide out "Create a custom field" drawer, chooses Text type, enters field label "Job", and clicks Create. Green banner confirms and "Job" column is appended to table. | 11.5 s |
 | 25 | Manage a column | Opens three-dot menu on "Job" column, selects "Sort descending", re-opens menu, clicks "Delete field", confirms in-app prompt ("Delete the \"Job\" field?"), and observes column removal with confirmation banner. | 12.5 s |
 | 26 | Export your contacts | Hovers Export CSV icon button in top toolbar to reveal tooltip "Export CSV", clicks Export CSV to start download, green banner confirms, and concludes with a 1.8s finish hold and the tour completion card. | 9.5 s |
+| 27 | Meet Analytics | Introduces Meet Analytics (`snaarp.me/analytics`), inspects the filter bar with Today selected, explores the 4 stat cards (Total Bookings: 2, Cancellations: 0, No-Shows: 0, Completion Rate: 0%), clicks 7 Days filter and toggles back to Today, opens Source dropdown to review Web, API, and Embed filters, scrolls down to inspect Bookings Over Time and the Popular Time Slots heatmap (purple Tuesday 9:00 peak), and verifies Top Performers clean state. | 14.5 s |
+| 28 | Meet Integrations | Navigates to Meet Integrations hub (`snaarp.me/integrations`), explores the 4 integration hub categories (Calendars, Video Conferencing, Payments, APPS and CRM), highlights the multi-tool automation ecosystem, and clicks the Calendars card. | 9.0 s |
+| 29 | Calendar integrations | Enters Calendar Integrations (`snaarp.me/integrations/calendars`), reviews connected Snaarp Meet integration with account email `jane@example.com`, inspects external calendar connection options (Google Calendar, Microsoft Outlook, Microsoft Exchange), and returns via "< Back to Integrations". | 11.0 s |
+| 30 | Video conferencing | Opens Video Conferencing (`snaarp.me/integrations/video`), inspects connected Snaarp Meet account details (`acct-sample-0001`, `jane@example.com`), reviews Zoom and Google Meet integration options, and returns to the hub via "< Back to Integrations". | 11.0 s |
+| 31 | Payments | Opens Payments (`snaarp.me/integrations/payments`), reviews Stripe and PayPal payment gateway options, scrolls to Event Type Pricing, tests turning "Require Payment" on and off for "Creative meeting with the Team", verifies Payment History empty state ("No payments recorded yet."), and clicks "< Back to Integrations". | 14.5 s |
+| 32 | Apps and CRM | Opens Apps and CRM (`snaarp.me/integrations/crm`) with 1.0s loading spinner, explores CRM Platforms (Salesforce, HubSpot, Mailchimp, Dynamics 365, Zoho CRM, ActiveCampaign, Pipedrive, Freshsales), Enrichment & Intelligence (Gong, LinkedIn Sales Navigator), Form Integrations (Typeform, JotForm), Email Delivery (Postal), and Workflow Email Accounts (Gmail, Outlook). Scrolls to bottom and back, clicks "< Back to Integrations" to return to the hub, holds for 1.5s, and concludes the tutorial with the completion card. | 16.5 s |
 
 **Files.**
 - Config: `tutorials/snaarp-me.ts` (registered in `tutorials/index.ts`, route `/tutorials/snaarp-me` with aliases `me`, `snaarpme`, `scheduling`, `calendar`, `bookings`)
@@ -2398,7 +2405,9 @@ Reference videos:
   - `Availability, Calendar and Meetings` (steps 7–13)
   - `Workflows` (steps 14–20)
   - `Contacts` (steps 21–26)
-- Shell & Stage: `components/me/MeShell.tsx` (with 18-app suite rail, left menu with lilac active pill, header card), `components/me/MeStage.tsx`, `components/me/MeToastBanner.tsx`
+  - `Analytics` (step 27)
+  - `Integrations` (steps 28–32)
+- Shell & Stage: `components/me/MeShell.tsx` (with 18-app suite rail, left menu with lilac active pill, header card), `components/me/MeStage.tsx`, `components/me/MeToastBanner.tsx`, `components/me/me-brand-marks.tsx`
 - Views:
   - `MeHomeView.tsx`
   - `MeAvailabilityView.tsx`
@@ -2413,6 +2422,12 @@ Reference videos:
   - `MeWorkflowDetailView.tsx`
   - `MeExecutionLogsView.tsx`
   - `MeContactsView.tsx`
+  - `MeAnalyticsView.tsx`
+  - `MeIntegrationsHubView.tsx`
+  - `MeCalendarIntegrationsView.tsx`
+  - `MeVideoIntegrationsView.tsx`
+  - `MePaymentsView.tsx`
+  - `MeAppsCrmView.tsx`
 - Modals & Drawers:
   - `MeBookingModal.tsx`
   - `MeCreateEventModal.tsx`
@@ -2427,5 +2442,5 @@ Reference videos:
   - `MeCustomFieldDrawer.tsx`
   - `MeDeleteColumnModal.tsx`
 - Timeline & Data: `components/me/me-timeline.ts` (`beginMe`, `finishMe`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/me/me-data.ts`
-- Step Scenes: `scenes/snaarp-me/step<1..26>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes: `scenes/snaarp-me/step<1..32>/Step<N>.tsx`, `script.ts`, `data.ts`
 

@@ -268,6 +268,16 @@ export function beginMe(
   tl.setVar("meCustomFieldLabel", "");
   tl.setVar("meCustomFieldTypeDropdownOpen", false);
   tl.setVar("meDeleteColumnModalOpen", false);
+
+  // Part 4: Analytics & Integrations
+  tl.setVar("meAnalyticsPeriod", "today");
+  tl.setVar("meAnalyticsSource", "All Sources");
+  tl.setVar("meAnalyticsSourceDropdownOpen", false);
+  tl.setVar("meAnalyticsEventTypeFilter", "");
+  tl.setVar("mePaymentsToggleCreative", false);
+  tl.setVar("mePaymentsToggleStandup", false);
+  tl.setVar("mePaymentsToggleThirty", false);
+  tl.setVar("meAppsCrmLoading", false);
 }
 
 /** Scroll helper for containers marked with data-me-scroll=true or custom selector. */

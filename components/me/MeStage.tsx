@@ -34,6 +34,14 @@ import { MeAddContactModal } from "./MeAddContactModal";
 import { MeCustomFieldDrawer } from "./MeCustomFieldDrawer";
 import { MeDeleteColumnModal } from "./MeDeleteColumnModal";
 
+// Part 4 Views
+import { MeAnalyticsView } from "./MeAnalyticsView";
+import { MeIntegrationsHubView } from "./MeIntegrationsHubView";
+import { MeCalendarIntegrationsView } from "./MeCalendarIntegrationsView";
+import { MeVideoIntegrationsView } from "./MeVideoIntegrationsView";
+import { MePaymentsView } from "./MePaymentsView";
+import { MeAppsCrmView } from "./MeAppsCrmView";
+
 interface Props {
   tl: Timeline;
 }
@@ -90,6 +98,14 @@ export function MeStage({ tl }: Props) {
         {currentView === "workflow-detail" && <MeWorkflowDetailView tl={tl} />}
         {currentView === "workflow-executions" && <MeExecutionLogsView tl={tl} />}
         {currentView === "contacts" && <MeContactsView tl={tl} />}
+
+        {/* Part 4 Views */}
+        {currentView === "analytics" && <MeAnalyticsView tl={tl} />}
+        {currentView === "integrations" && <MeIntegrationsHubView tl={tl} />}
+        {currentView === "integrations-calendars" && <MeCalendarIntegrationsView tl={tl} />}
+        {currentView === "integrations-video" && <MeVideoIntegrationsView tl={tl} />}
+        {currentView === "integrations-payments" && <MePaymentsView tl={tl} />}
+        {currentView === "integrations-crm" && <MeAppsCrmView tl={tl} />}
       </MeShell>
 
       {/* Global Modals & Drawers */}
