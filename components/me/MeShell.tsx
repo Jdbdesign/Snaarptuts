@@ -187,8 +187,9 @@ export function MeShell({ tl, children }: MeShellProps) {
             {navItems.map((item) => {
               const isActive =
                 (item.id === "dashboard" && currentView === "dashboard") ||
+                (item.id === "availability" && currentView === "availability") ||
                 (item.id === "calendar" && currentView === "calendar") ||
-                (item.id === "meetings" && (currentView === "meetings" || currentView === "meeting-detail")) ||
+                (item.id === "meetings" && (currentView === "meetings" || currentView === "bookings" || currentView === "meeting-detail")) ||
                 (item.id === "event-types" && currentView === "event-types");
 
               return (
@@ -200,6 +201,9 @@ export function MeShell({ tl, children }: MeShellProps) {
                     if (item.id === "dashboard") {
                       tl.setUrl("snaarp.me/dashboard");
                       tl.setVar("meView", "dashboard");
+                    } else if (item.id === "availability") {
+                      tl.setUrl("snaarp.me/availability");
+                      tl.setVar("meView", "availability");
                     } else if (item.id === "event-types") {
                       tl.setUrl("snaarp.me/event-types");
                       tl.setVar("meView", "event-types");
@@ -207,8 +211,8 @@ export function MeShell({ tl, children }: MeShellProps) {
                       tl.setUrl("snaarp.me/calendar");
                       tl.setVar("meView", "calendar");
                     } else if (item.id === "meetings") {
-                      tl.setUrl("snaarp.me/bookings/a9eb4ed6-bdc7-40c1-affb-f3a5e21cd386");
-                      tl.setVar("meView", "meeting-detail");
+                      tl.setUrl("snaarp.me/bookings");
+                      tl.setVar("meView", "meetings");
                     }
                   }}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${

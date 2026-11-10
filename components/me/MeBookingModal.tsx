@@ -11,9 +11,28 @@ interface Props {
 
 export function MeBookingModal({ tl }: Props) {
   const isOpen = useTimelineVar<boolean>(tl, "meBookingModalOpen", false);
+  const isLoading = useTimelineVar<boolean>(tl, "meBookingModalLoading", false);
   const booking = useTimelineVar<Booking | null>(tl, "meBookingModalBooking", null);
 
-  if (!isOpen || !booking) return null;
+  if (!isOpen) return null;
+
+  if (isLoading) {
+    return (
+      <div
+        data-tl="me-booking-modal-overlay"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-2xs animate-fadeIn select-none"
+      >
+        <div
+          data-tl="me-booking-modal-loading"
+          className="relative w-full max-w-2xl h-72 rounded-3xl bg-white p-7 shadow-2xl border border-gray-100 flex items-center justify-center"
+        >
+          <div className="w-10 h-10 border-4 border-purple-200 border-t-[#7014D9] rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!booking) return null;
 
   return (
     <div

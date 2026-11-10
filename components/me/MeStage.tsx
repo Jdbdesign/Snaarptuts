@@ -9,9 +9,15 @@ import { MeHomeView } from "./MeHomeView";
 import { MeCalendarView } from "./MeCalendarView";
 import { MeBookingDetailView } from "./MeBookingDetailView";
 import { MeEventTypesView } from "./MeEventTypesView";
+import { MeAvailabilityView } from "./MeAvailabilityView";
+import { MeMeetingsView } from "./MeMeetingsView";
 import { MeBookingModal } from "./MeBookingModal";
 import { MeCreateEventModal } from "./MeCreateEventModal";
 import { MeEditEventDrawer } from "./MeEditEventDrawer";
+import { MeScheduleModal } from "./MeScheduleModal";
+import { MeDateOverrideModal } from "./MeDateOverrideModal";
+import { MeDayPopup } from "./MeDayPopup";
+import { MeToastBanner } from "./MeToastBanner";
 import { MeBookingPage } from "./MeBookingPage";
 
 interface Props {
@@ -45,12 +51,16 @@ export function MeStage({ tl }: Props) {
         fade ? "opacity-0" : "opacity-100"
       }`}
     >
+      <MeToastBanner tl={tl} />
+
       <MeShell tl={tl}>
         {currentView === "dashboard" && <MeHomeView tl={tl} />}
-        {currentView === "calendar" && <MeCalendarView />}
-        {(currentView === "meeting-detail" || currentView === "meetings") && (
-          <MeBookingDetailView tl={tl} />
+        {currentView === "availability" && <MeAvailabilityView tl={tl} />}
+        {currentView === "calendar" && <MeCalendarView tl={tl} />}
+        {(currentView === "meetings" || currentView === "bookings") && (
+          <MeMeetingsView tl={tl} />
         )}
+        {currentView === "meeting-detail" && <MeBookingDetailView tl={tl} />}
         {currentView === "event-types" && <MeEventTypesView tl={tl} />}
       </MeShell>
 
@@ -58,6 +68,9 @@ export function MeStage({ tl }: Props) {
       <MeBookingModal tl={tl} />
       <MeCreateEventModal tl={tl} />
       <MeEditEventDrawer tl={tl} />
+      <MeScheduleModal tl={tl} />
+      <MeDateOverrideModal tl={tl} />
+      <MeDayPopup tl={tl} />
     </div>
   );
 }

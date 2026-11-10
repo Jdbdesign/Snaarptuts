@@ -1,7 +1,9 @@
 export const ME_URLS = {
   dashboard: "snaarp.me/dashboard",
   calendar: "snaarp.me/calendar",
-  meetings: "snaarp.me/meetings",
+  availability: "snaarp.me/availability",
+  meetings: "snaarp.me/bookings",
+  bookings: "snaarp.me/bookings",
   meetingDetail: "snaarp.me/bookings/a9eb4ed6-bdc7-40c1-affb-f3a5e21cd386",
   eventTypes: "snaarp.me/event-types",
   bookingPage: "snaarp.me/jane/creative-meeting-with-the-team",
@@ -10,7 +12,9 @@ export const ME_URLS = {
 export type MePage =
   | "dashboard"
   | "calendar"
+  | "availability"
   | "meetings"
+  | "bookings"
   | "meeting-detail"
   | "event-types"
   | "booking-page";
@@ -201,3 +205,142 @@ export const NEW_ACTIVITY: ActivityItem = {
   eventName: "Creative meeting with the Team",
   timeAgo: "Just now",
 };
+
+export interface DayRange {
+  from: string;
+  to: string;
+}
+
+export interface DaySchedule {
+  enabled: boolean;
+  ranges: DayRange[];
+}
+
+export interface Schedule {
+  id: string;
+  name: string;
+  timezone: string;
+  isDefault: boolean;
+  weeklyHours: Record<string, DaySchedule>;
+}
+
+export interface DateOverride {
+  id: string;
+  date: string; // e.g. "Wed, Nov 11, 2026"
+  ranges: DayRange[];
+}
+
+export const INITIAL_SCHEDULES: Schedule[] = [
+  {
+    id: "open-days",
+    name: "Open Days",
+    timezone: "Africa/Lagos",
+    isDefault: true,
+    weeklyHours: {
+      Mon: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+      Tue: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+      Wed: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+      Thu: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+      Fri: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+      Sat: { enabled: false, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+      Sun: { enabled: false, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+    },
+  },
+];
+
+export const PERSONAL_SCHEDULE: Schedule = {
+  id: "personal-schedule",
+  name: "Personal Event time",
+  timezone: "Africa/Lagos",
+  isDefault: false,
+  weeklyHours: {
+    Mon: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+    Tue: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+    Wed: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+    Thu: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+    Fri: { enabled: true, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+    Sat: { enabled: true, ranges: [{ from: "9:00 AM", to: "1:00 PM" }] },
+    Sun: { enabled: false, ranges: [{ from: "9:00 AM", to: "5:00 PM" }] },
+  },
+};
+
+export const INITIAL_DATE_OVERRIDES: DateOverride[] = [
+  {
+    id: "override-wed-11-1",
+    date: "Wed, Nov 11, 2026",
+    ranges: [
+      { from: "9:00 AM", to: "5:00 PM" },
+      { from: "5:00 PM", to: "6:00 PM" },
+    ],
+  },
+];
+
+export interface MeetingItem {
+  id: string;
+  title: string;
+  inviteeName: string;
+  inviteeEmail: string;
+  dateStr: string;
+  timeStr: string;
+  duration: string;
+  status: "Confirmed" | "Rescheduled" | "Cancelled";
+  category: "Upcoming" | "Past";
+  avatarInitials: string;
+  meetUrl: string;
+}
+
+export const ALL_MEETINGS: MeetingItem[] = [
+  {
+    id: "meet-creative",
+    title: "Creative meeting with the Team",
+    inviteeName: "John Smith",
+    inviteeEmail: "john@example.com",
+    dateStr: "Wed, Nov 11",
+    timeStr: "11:30 AM",
+    duration: "30 min",
+    status: "Confirmed",
+    category: "Upcoming",
+    avatarInitials: "JS",
+    meetUrl: "https://meet.snaarp.com/meet/sample-abc-123",
+  },
+  {
+    id: "meet-standup",
+    title: "Standup Meeting with developers",
+    inviteeName: "Casey Brown",
+    inviteeEmail: "casey@example.com",
+    dateStr: "Tue, Nov 10",
+    timeStr: "11:30 AM",
+    duration: "30 min",
+    status: "Confirmed",
+    category: "Upcoming",
+    avatarInitials: "CB",
+    meetUrl: "https://meet.snaarp.com/meet/sample-abc-123",
+  },
+  {
+    id: "meet-past-sep22",
+    title: "30 Minute Meeting",
+    inviteeName: "Sam Taylor",
+    inviteeEmail: "sam@example.com",
+    dateStr: "Tue, Sep 22",
+    timeStr: "12:00 PM",
+    duration: "30 min",
+    status: "Confirmed",
+    category: "Past",
+    avatarInitials: "ST",
+    meetUrl: "https://meet.snaarp.com/meet/sample-abc-123",
+  },
+  {
+    id: "meet-rescheduled-sep21",
+    title: "30 Minute Meeting",
+    inviteeName: "Sam Taylor",
+    inviteeEmail: "sam@example.com",
+    dateStr: "Mon, Sep 21",
+    timeStr: "10:30 AM",
+    duration: "30 min",
+    status: "Rescheduled",
+    category: "Past",
+    avatarInitials: "ST",
+    meetUrl: "https://meet.snaarp.com/meet/sample-abc-123",
+  },
+];
+

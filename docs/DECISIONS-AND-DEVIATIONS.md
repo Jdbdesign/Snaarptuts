@@ -1615,23 +1615,35 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 6. **Timing & End Holds**:
    - Every step finishes ~1.5s after its visible success state (2.0s on table reading/grid inspection), ending with a 400ms fade before stepping forward. Step 11 seamlessly transitions to the data-driven completion card.
 
-## Snaarp Me (Scheduling & Bookings, Steps 1–6 Complete)
+## Snaarp Me (Scheduling & Bookings, Steps 1–13 Complete)
 
-- Scope: Home Dashboard (1), Booking & Calendar (2), Create Event Type (3), Edit Event Type & Preview (4), Booking Link & Public Page (5), Home Dashboard Updated (6).
-- Reference recording: `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; steps 1–6).
+- Scope:
+  - Part 1 (steps 1–6): Home Dashboard (1), Booking & Calendar (2), Create Event Type (3), Edit Event Type & Preview (4), Booking Link & Public Page (5), Home Dashboard Updated (6).
+  - Part 2 (steps 7–13): Meet Availability (7), Create Schedule (8), Add Date Override (9), Preview Availability (10), Explore Calendar (11), Open Day & Meeting (12), Meetings List (13).
+- Reference recordings:
+  - `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; Part 1, steps 1–6).
+  - `C:\Users\HP\Downloads\1110 (1)(1).mp4` (1426×720, 2:52; Part 2, steps 7–13).
 
 ### Decisions & Deviations from Video
 1. **Sample Data Instead of Real Personal Data**:
-   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`, guest `guest@example.com`).
+   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`), Casey Brown (`casey@example.com`), meeting codes `sample-abc-123`, `csv-vmbx-stn`.
    - Replaced "Kalender's" in the video with "Snaarp Me's" (e.g. "Snaarp Me's Default Availability").
 2. **No Browser Chrome & Standalone Public Booking Page**:
    - Omitted all browser tabs, dark green new tab screen, address bar, extensions, and Chrome autofill popups.
    - When navigating to `snaarp.me/jane/creative-meeting-with-the-team` in Step 5, the page renders standalone full screen with its blue-violet gradient header and NO application shell (no suite rail, no sidebar), exactly as a public booking guest would experience it.
 3. **Full 18-App Suite Rail Across App Views**:
    - Per requirements, the suite rail across all Snaarp Me views contains the full 18 apps in order with Snaarp Me active (lilac `#EDE9FE` pill), matching the Snaarp suite shell specification.
-4. **Interactive Synchronization**:
-   - Buttons, modal closers, tabs, cards, preview slots, and calendar days feature direct `onClick` state setters paired with timeline script beats to ensure instantaneous, deterministic state propagation under all playback speeds (including x8 speed and visibility audits).
-5. **Timing & End Holds**:
-   - Every step ends ~1.5s after its primary action completes, concluding with a 400ms fade and transitioning to the completion card at the end of Step 6.
+4. **Availability & Schedule Creation**:
+   - Step 7 introduces Availability (`snaarp.me/availability`) with Open Days schedule, Working Hours, Date Overrides, and Preview tabs.
+   - Step 8 creates "Personal Event time", enabling Saturday 9:00 AM – 1:00 PM.
+   - Step 9 switches to Calendar view in Working Hours, edits Wednesday 11, adds Range 2 (5:00 PM – 6:00 PM), and saves date override with bottom-right toast.
+   - Step 10 tests Preview tab in List mode (+8 more on Tue 10, scroll through days) and Calendar mode (14-day slot counts).
+5. **Calendar & Meetings Navigation**:
+   - Step 11 navigates to `snaarp.me/calendar`, checks Month view, Week view, and scrolls Calendar Integrations.
+   - Step 12 checks Day view, returns to Month view, clicks Tue 10 day popup, opens day schedule, and clicks Standup meeting block to view 2-column modal details with 0.8s loading spinner.
+   - Step 13 navigates to `snaarp.me/bookings`, tests Upcoming cards, Cancelled empty state, All tab, List/Grid view toggle, and Sort menu (A-Z and newest).
+6. **Timing & End Holds**:
+   - Every step ends ~1.2s to 1.5s after its primary action completes, concluding with a 400ms fade and transitioning to the completion card at the end of Step 13.
+
 
 

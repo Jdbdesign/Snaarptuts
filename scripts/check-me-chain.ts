@@ -1,7 +1,7 @@
 /*
- * Starts Snaarp Me tutorial and lets autoplay run to the end (6 steps),
+ * Starts Snaarp Me tutorial and lets autoplay run to the end (13 steps),
  * collecting every console error and verifying 0 failures.
- *   npx tsx scripts/check-me-chain.ts --from 1 --total 6 --speed 8
+ *   npx tsx scripts/check-me-chain.ts --from 1 --total 13 --speed 8
  */
 import { chromium } from "playwright";
 
@@ -11,7 +11,7 @@ const arg = (n: string, d: string) => {
 };
 const PRODUCT = arg("product", "snaarp-me");
 const FROM = Number(arg("from", "1"));
-const TOTAL = Number(arg("total", "6"));
+const TOTAL = Number(arg("total", "13"));
 const SPEED = Number(arg("speed", "8"));
 
 (async () => {

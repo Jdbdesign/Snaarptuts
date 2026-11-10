@@ -5,6 +5,7 @@ import {
   INITIAL_EVENT_TYPES,
   INITIAL_BOOKINGS,
   INITIAL_ACTIVITIES,
+  INITIAL_SCHEDULES,
 } from "./me-data";
 
 export const ME_END_HOLD_MS = 1500;
@@ -144,7 +145,38 @@ export function beginMe(
 
   // Notifications / Banners
   tl.setVar("meToast", null);
+  tl.setVar("meBannerToast", null);
+  tl.setVar("meBottomToast", null);
   tl.setVar("meLinkCopied", false);
+
+  // Availability & Schedule
+  tl.setVar("meAvailTab", "working-hours");
+  tl.setVar("meSelectedSchedule", "open-days");
+  tl.setVar("meSchedules", JSON.parse(JSON.stringify(INITIAL_SCHEDULES)));
+  tl.setVar("meWeeklyMode", "list");
+  tl.setVar("meCreateScheduleOpen", false);
+  tl.setVar("meScheduleNameInput", "");
+  tl.setVar("meScheduleSatEnabled", false);
+  tl.setVar("meScheduleSatTo", "5:00 PM");
+  tl.setVar("meScheduleSatDropdownOpen", false);
+  tl.setVar("meDatePopoverOpen", false);
+  tl.setVar("meDateOverrideModalOpen", false);
+  tl.setVar("meOverrideRange2Added", false);
+  tl.setVar("meOverrideIsSaving", false);
+  tl.setVar("meDateOverrideSaved", false);
+  tl.setVar("mePreviewMode", "list");
+  tl.setVar("mePreviewExpanded10", false);
+
+  // Calendar Views
+  tl.setVar("meCalView", "month");
+  tl.setVar("meDayPopupOpen", false);
+  tl.setVar("meBookingModalLoading", false);
+
+  // Meetings Page
+  tl.setVar("meMeetingsTab", "Upcoming");
+  tl.setVar("meMeetingsViewMode", "grid");
+  tl.setVar("meMeetingsSortMode", "newest");
+  tl.setVar("meMeetingsSortMenuOpen", false);
 
   // Public Booking Page State
   tl.setVar("meBookingPageStep", "select-slot"); // "select-slot" | "enter-details" | "scheduled"

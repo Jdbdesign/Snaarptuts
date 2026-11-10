@@ -147,3 +147,98 @@ Frame: `ref/me/300.png`
 | **Upcoming Bookings** | Two cards in stack: <br>1. "John Smith", "Creative meeting with the Team · 30 min", "Tomorrow, 11:30 AM - 12:00 PM", button "View ->" <br>2. "Sam Taylor", "Standup Meeting with developers · 30 min", "Today, 11:30 AM - 12:00 PM", button "View ->" |
 | **Recent Activity** | New row at the top: <br>- Green calendar icon <br>- "New booking — John Smith booked Creative meeting with the Team" <br>- Timestamp: "Just now" <br>Followed by Sam Taylor (Just now) and older rows. |
 | **Completion Card** | Displayed upon completing Step 6: standard tutorial celebration card with summary of Snaarp Me features explored. |
+
+---
+
+## 11. Screen 10: Availability Overview & Working Hours (`snaarp.me/availability`)
+
+Frames: `ref/me2/0001.png`, `0005.png`, `0008.png`
+
+| Section / Element | Specification |
+|---|---|
+| **Page Layout** | 2-column layout: Left column `w-[280px] shrink-0 border-r border-gray-100 pr-6`, Right panel `flex-1 min-w-0 pl-6`. |
+| **Left Schedules List** | - Heading: "SCHEDULES" (`text-xs font-semibold tracking-wider text-gray-400 uppercase`) with `+` button in rounded border (`border border-gray-200 w-6 h-6 flex items-center justify-center rounded-lg hover:border-purple-300 text-gray-500`). <br>- Schedule card "Open Days": `rounded-2xl p-4 bg-[#F5EEFF] border border-purple-200 flex items-center justify-between cursor-pointer`. Left: purple dot, bold "Open Days" (`text-sm font-bold text-gray-900`), subtitle "Africa/Lagos" (`text-xs text-gray-400`). Right: purple circle with white checkmark `w-5 h-5 rounded-full bg-[#7014D9] flex items-center justify-center text-white`. |
+| **Right Header & Tabs** | - Title: "Open Days" (`text-xl font-bold text-gray-900`) with pill badge "DEFAULT" (`text-[10px] font-bold text-[#7014D9] bg-purple-100 px-2 py-0.5 rounded-full`). <br>- Tabs: "Working Hours", "Date Overrides", "Preview". Active tab has purple underline (`border-b-2 border-[#7014D9] text-[#7014D9] font-semibold`). |
+| **Schedule Settings Form** | - "Schedule Name *": input `rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-2.5 text-sm`, counter "9/100 characters" below. <br>- "Timezone": "Africa/Lagos (GMT+1)", disabled/read-only input with down chevron. <br>- "Set as default schedule": card `rounded-2xl border border-gray-100 p-4 flex items-center justify-between`. Title "Set as default schedule", subtitle "This is your only schedule, so it stays the default." Toggle switch ON (`bg-[#7014D9]`). |
+| **Weekly Hours Section** | - Header: "Weekly Hours" (`text-base font-bold`), right side segmented control: `List` (active) / `Calendar`. <br>- Mon row: Purple toggle ON, "Mon" label (`text-sm font-semibold`), Range bar (`9:00 AM`, purple bar, `5:00 PM`), dropdown selectors: `9:00 AM` `v` to `5:00 PM` `v`. |
+
+---
+
+## 12. Screen 11: Create Schedule Modal
+
+Frames: `ref/me2/0015.png`, `0040.png`, `0060.png`, `0072.png`, `0085.png`
+
+| Element | Specification |
+|---|---|
+| **Modal Container** | `fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4`. Dialog `bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl relative border border-gray-100 max-h-[90vh] flex flex-col`. |
+| **Modal Header** | Title: "Create Schedule" (`text-xl font-bold text-gray-900`), Subtitle: "Define your available hours for meetings" (`text-xs text-gray-500`), top right close `X` button. |
+| **Inputs** | - "Schedule Name *": types `Personal Event time` (counter `19/100 characters`). <br>- "Timezone": `Africa/Lagos (GMT+1)` with chevron. <br>- "Set as default schedule": toggle OFF, subtitle "New event types will use this schedule by default". |
+| **Weekly Hours (Modal Body)** | Scrollable body: <br>- Weekdays Mon–Fri: toggle ON, From `9:00 AM` To `5:00 PM`, purple range bar, `+ Add range`, `Apply same hours to` with day checkboxes and `Weekdays` link. <br>- Saturday row: toggle turned ON, range bar appears. Opening To dropdown reveals 15-minute intervals (`12:15 PM`, `12:30 PM`, `12:45 PM`, `1:00 PM` [selected]). Bar shortens to 1:00 PM. <br>- Sunday row: toggle OFF, pill "Unavailable" (`bg-gray-100 text-gray-400 text-xs px-2.5 py-1 rounded-full`). |
+| **Footer** | Pinned footer: `Cancel` text button, purple `Create Schedule` button (`bg-[#7014D9] hover:bg-[#5e0eb8] text-white px-6 py-2.5 rounded-xl font-semibold text-sm`). |
+| **Success Banner** | Top green banner: `Schedule created successfully.`. New card "Personal Event time" mounted in schedules list. |
+
+---
+
+## 13. Screen 12: Date Overrides (Weekly Calendar & Override Modal)
+
+Frames: `ref/me2/0095.png`, `0105.png`, `0110.png`, `0120.png`, `0135.png`, `0168.png`
+
+| Section / Element | Specification |
+|---|---|
+| **Weekly Calendar View** | Switching List to Calendar in Weekly Hours renders month grid: <br>- Header: `< November 2026 >`, right: "West Africa Time". <br>- Column headers: `SUN MON TUE WED THU FRI SAT`. <br>- Cells: date number, recurring sync icon at top right, hours `09:00 - 17:00` (Sat `09:00 - 13:00`, Sun empty). Day 10 circled purple. |
+| **Date Popover Menu** | Clicking Wed 11 cell opens floating menu: <br>- Header: "WEDNESDAY, NOV 11" (`text-[10px] font-bold text-gray-400`). <br>- Item 1: Calendar icon, "Edit date" (`font-semibold text-xs`), "Custom hours for this day only". <br>- Item 2: Sync icon, "Edit all Wednesdays", "Update recurring weekly hours", chevron `>`. |
+| **Edit Date Modal** | Modal dialog: <br>- Title: "Edit date", "Wednesday, November 11, 2026", close `X`. <br>- "Available": toggle ON, subtitle "Set custom hours for this date". <br>- Range 1: From `9:00 AM` To `5:00 PM`, red "Remove" link. <br>- Click `+ Add time range`: Range 2 appears: Range 2 from `5:00 PM` Range 2 to `6:00 PM`, red "Remove" link. <br>- Purple `Save` button (goes disabled during save hold). <br>- Toast bottom right: `Date override saved.` with green checkmark. <br>- Day 11 cell updates to show: `09:00 - 17:00` and `17:00 - 18:00`. |
+| **Date Overrides Tab** | Clicking "Date Overrides" tab shows: <br>- Title: "Date Overrides", subtitle "Override your schedule for specific dates — mark days off or set custom hours." <br>- Left list "Active Overrides": 2 rows for Wed, Nov 11, 2026 (green pills `9:00 AM - 5:00 PM` and `5:00 PM - 6:00 PM`, each with red trash icon). <br>- Right mini calendar: November 2026, Day 10 lilac, Day 11 light green, legend: pink dot "Blocked", light green dot "Custom hours". |
+
+---
+
+## 14. Screen 13: 14-Day Preview (List & Calendar Views)
+
+Frames: `ref/me2/0185.png`, `0195.png`, `0205.png`, `0215.png`
+
+| View State | Specification |
+|---|---|
+| **Preview Tab Header** | Title: "14-Day Preview", subtitle "How bookers see your availability", right segmented button: `= List` / `Calendar`. |
+| **List View** | - Daily rows: Day name & number on left (`TUE 10`, `WED 11`, `THU 12`...). <br>- Time chips: lilac pills `#F5EEFF` with purple text `#7014D9` (`9:00 AM`, `9:30 AM`...). <br>- "+8 more" button: clicking on Tue 10 expands all remaining slots (`12:00 PM` to `4:30 PM`) and shows "Show less". <br>- Wed 11 shows `+10 more` chips (due to the added 5–6 PM override). <br>- Scrolling down shows `SAT 21` (slots up to 12:30 PM), `SUN 22` (grey italic "Unavailable"), `MON 23`. |
+| **Calendar View** | Switching to `Calendar` renders 14-day grid: <br>- Headers: `SUN MON TUE WED THU FRI SAT`. <br>- Tiles: rounded-2xl cards `#FBF8FF` with border border-purple-100. Day number bold at top, count number below (`TUE 10` has `16`, `WED 11` has `18`, `SAT 14` has `8`, `SUN` days grey with no count). |
+
+---
+
+## 15. Screen 14: Calendar View (`snaarp.me/calendar`)
+
+Frames: `ref/me2/0220.png`, `0230.png`, `0245.png`
+
+| View State | Specification |
+|---|---|
+| **Calendar Header** | Title: "Calendar", subtitle "Schedule personal events, and view bookings, connected calendars, and Snaarp Meet meetings". <br>- Tags: `• Snaarp Me` (purple dot), `• Snaarp Meet` (blue dot). <br>- Nav controls: `<` `>` `Today` `November 2026`. <br>- View toggle: `Month` / `Week` / `Day`. <br>- Action buttons: Purple `Schedule event`, Outline `* Connect Calendar`. |
+| **Right Column** | Width: `320px`. <br>- **Upcoming** (badge `2`): Standup Meeting with developers (Today 11:30 AM), Creative meeting with the Team (Tomorrow 11:30 AM). <br>- **Calendar Integrations**: Snaarp Meet (Connected, red Disconnect), Google Calendar (Not connected, Connect), Outlook Calendar (Not connected, Connect), Apple Calendar (Not connected, Soon). |
+| **Week View** | Header: `November 8 – November 14, 2026`. Columns: SUN 8, MON 9, TUE 10 (purple circle), WED 11, THU 12, FRI 13, SAT 14. Event blocks: TUE 10 has Standup, WED 11 has Creative meeting. |
+| **Day View** | Header: `Tuesday, November 10, 2026`. Hourly grid with scrollable timeline (8 AM to 2 PM+). Blue block for Standup Meeting with developers (`11:30 AM – 12:00 PM`). |
+
+---
+
+## 16. Screen 15: Day Popup & Booking Details
+
+Frames: `ref/me2/0255.png`, `0275.png`, `0285.png`
+
+| Component | Specification |
+|---|---|
+| **Day Popup (`MeDayPopup`)** | Clicking Day 10 in Month view opens modal popup: <br>- Title: "Tuesday, November 10, 2026", close `X`. <br>- Subtitle: "1 event" (`text-xs text-gray-400`). <br>- Event row: blue vertical stripe, "Standup Meeting with developers", "Today • 11:30 AM – 12:00 PM", initials pill "CB" (Casey Brown). <br>- Footer buttons: "Close" and purple "View day schedule". |
+| **Booking Details Modal** | Clicking Standup block shows 0.8s loading spinner, then opens full booking modal (`MeBookingModal.tsx`): Meeting details, Snaarp Meet conferencing URL with Copy button, Invitee details, purple "Join meeting", and "Close". |
+
+---
+
+## 17. Screen 16: Meetings Catalog (`snaarp.me/bookings`)
+
+Frames: `ref/me2/0311.png`, `0315.png`, `0318.png`, `0320.png`, `0325.png`, `0335.png`, `0344.png`
+
+| Feature / Tab | Specification |
+|---|---|
+| **Header** | Title: "Meetings", subtitle "Manage your scheduled meetings", right controls: sort button `Date (newest first)` with icon, view mode toggle `[Grid] [List]`. |
+| **Tabs** | `Upcoming` | `Past` | `Cancelled` | `All`. Active tab has bottom underline. |
+| **Upcoming Tab** | 2 confirmed cards: <br>1. Confirmed (green pill), `...`, John Smith (`john@example.com`), Creative meeting with the Team, `Wed, Nov 11 • 11:30 AM`, `30 min`. <br>2. Confirmed (green pill), `...`, Casey Brown (`casey@example.com`), Standup Meeting with developers, `Tue, Nov 10 • 11:30 AM`, `30 min`. |
+| **Cancelled Tab** | Empty state card: large outline calendar icon, bold "No meetings found", subtitle "No cancelled meetings." |
+| **All Tab (Grid View)** | 4 cards: the 2 upcoming confirmed meetings + 2 past meetings: <br>3. Confirmed: Sam Taylor (`sam@example.com`), 30 Minute Meeting, `Tue, Sep 22 • 12:00 PM`, `30 min`. <br>4. Rescheduled (orange pill): Sam Taylor (`sam@example.com`), 30 Minute Meeting, `Mon, Sep 21 • 10:30 AM`, `30 min`. |
+| **List View** | Switching to list view renders compact horizontal rows with participant names, pills, meeting details, and three-dot menus. |
+| **Sort Dropdown** | Clicking sort opens menu: `Date (newest first)` (check), `Date (oldest first)`, `A-Z`, `Z-A`. Testing `A-Z` reorders list, returning to `Date (newest first)` restores default order. |
+
