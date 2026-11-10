@@ -7,6 +7,12 @@ export const ME_URLS = {
   meetingDetail: "snaarp.me/bookings/a9eb4ed6-bdc7-40c1-affb-f3a5e21cd386",
   eventTypes: "snaarp.me/event-types",
   bookingPage: "snaarp.me/jane/creative-meeting-with-the-team",
+  workflows: "snaarp.me/workflows",
+  workflowsCreate: "snaarp.me/workflows/create",
+  workflowsCreateCustom: "snaarp.me/workflows/create?custom=1",
+  workflowDetail: "snaarp.me/workflows/5fe64334-ee3f-43f7-b57f-573851734764",
+  workflowExecutions: "snaarp.me/workflows/638418a1-e391-4bb5-b560-ff4092328add/executions",
+  contacts: "snaarp.me/contacts",
 } as const;
 
 export type MePage =
@@ -17,7 +23,12 @@ export type MePage =
   | "bookings"
   | "meeting-detail"
   | "event-types"
-  | "booking-page";
+  | "booking-page"
+  | "workflows"
+  | "workflows-create"
+  | "workflow-detail"
+  | "workflow-executions"
+  | "contacts";
 
 export interface Booking {
   id: string;
@@ -341,6 +352,292 @@ export const ALL_MEETINGS: MeetingItem[] = [
     category: "Past",
     avatarInitials: "ST",
     meetUrl: "https://meet.snaarp.com/meet/sample-abc-123",
+  },
+];
+
+/* =========================================================================
+ * PART 3: WORKFLOWS & CONTACTS DATA
+ * ========================================================================= */
+
+export interface WorkflowItem {
+  id: string;
+  name: string;
+  type: "booking" | "custom";
+  active: boolean;
+  subtitle: string;
+  scheduleItems: string[];
+  triggerEvent?: string;
+  stepsCount?: number;
+}
+
+export const INITIAL_WORKFLOWS: WorkflowItem[] = [
+  {
+    id: "custom-workflow-default",
+    name: "Custom workflow",
+    type: "booking",
+    active: false,
+    subtitle: "Automatic emails when someone books and before the meeting",
+    scheduleItems: [
+      "Confirmation email when someone books",
+      "Host notification when someone books on your calendar",
+    ],
+  },
+  {
+    id: "booking-confirmation",
+    name: "Booking Confirmation & Reminder",
+    type: "booking",
+    active: true,
+    subtitle: "Automatic emails when someone books and before the meeting",
+    scheduleItems: [
+      "Confirmation email when someone books",
+      "Host notification when someone books on your calendar",
+      "Reminder 24 hours before the meeting",
+      "Reminder 1 hour before the meeting",
+      "Reminder 15 minutes before the meeting",
+    ],
+  },
+];
+
+export const NOTIFY_ME_WORKFLOW: WorkflowItem = {
+  id: "notify-me",
+  name: "Notify me when someone books",
+  type: "booking",
+  active: true,
+  subtitle: "Automatic emails when someone books and before the meeting",
+  scheduleItems: [
+    "Confirmation email when someone books",
+    "Host notification when someone books on your calendar",
+  ],
+};
+
+export const NOTIFY_ME_SAVED_WORKFLOW: WorkflowItem = {
+  id: "notify-me",
+  name: "Notify me when someone books",
+  type: "booking",
+  active: true,
+  subtitle: "Automatic emails when someone books and before the meeting",
+  scheduleItems: [
+    "Confirmation email when someone books",
+    "Host notification when someone books on your calendar",
+    "Reminder 24 hours before the meeting",
+    "Reminder 1 hour before the meeting",
+    "Reminder 15 minutes before the meeting",
+  ],
+};
+
+export const CREATED_CUSTOM_WORKFLOW: WorkflowItem = {
+  id: "custom-workflow-created",
+  name: "Custom workflow",
+  type: "custom",
+  active: true,
+  subtitle: "Trigger: Meeting Started · 1 steps",
+  scheduleItems: [],
+  triggerEvent: "Meeting Started",
+  stepsCount: 1,
+};
+
+export interface WorkflowTemplate {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export const WORKFLOW_TEMPLATES: WorkflowTemplate[] = [
+  {
+    id: "tpl-booking-confirmation",
+    title: "Booking confirmation",
+    description: "Email the invitee as soon as they book, using booking details from the backend.",
+  },
+  {
+    id: "tpl-notify-me",
+    title: "Notify me when someone books",
+    description: "Email yourself when a new meeting is booked.",
+  },
+  {
+    id: "tpl-meeting-reminder",
+    title: "Meeting reminder",
+    description: "Remind the invitee 24 hours before the meeting starts.",
+  },
+  {
+    id: "tpl-cancellation-notice",
+    title: "Cancellation notice",
+    description: "Email the invitee when a booking is cancelled.",
+  },
+  {
+    id: "tpl-after-meeting",
+    title: "After-meeting follow-up",
+    description: "Send a thank-you email after the meeting ends.",
+  },
+  {
+    id: "tpl-no-show",
+    title: "No-show follow-up",
+    description: "Ask the invitee to reschedule if they missed the meeting.",
+  },
+];
+
+export interface ExecutionLog {
+  id: string;
+  inviteeName: string;
+  inviteeEmail: string;
+  step: string;
+  status: "completed" | "failed" | "pending" | "cancelled";
+  scheduledAt: string;
+  executedAt: string;
+  error?: string;
+}
+
+export const INITIAL_EXECUTION_LOGS: ExecutionLog[] = [
+  {
+    id: "log-1",
+    inviteeName: "John Smith",
+    inviteeEmail: "john@example.com",
+    step: "Step 4",
+    status: "failed",
+    scheduledAt: "10/11/2026, 12:30:08 PM",
+    executedAt: "10/11/2026, 11:30:08 AM",
+    error: "Email delivery failed via provider 'system': Missing '<'",
+  },
+  {
+    id: "log-2",
+    inviteeName: "John Smith",
+    inviteeEmail: "john@example.com",
+    step: "Step 6",
+    status: "pending",
+    scheduledAt: "11/11/2026, 10:30:00 AM",
+    executedAt: "—",
+  },
+  {
+    id: "log-3",
+    inviteeName: "John Smith",
+    inviteeEmail: "john@example.com",
+    step: "Step 1",
+    status: "completed",
+    scheduledAt: "10/11/2026, 2:54:35 AM",
+    executedAt: "10/11/2026, 2:54:35 AM",
+  },
+  {
+    id: "log-4",
+    inviteeName: "John Smith",
+    inviteeEmail: "john@example.com",
+    step: "Step 8",
+    status: "pending",
+    scheduledAt: "11/11/2026, 11:15:00 AM",
+    executedAt: "—",
+  },
+  {
+    id: "log-5",
+    inviteeName: "Sam Taylor",
+    inviteeEmail: "sam@example.com",
+    step: "Step 2",
+    status: "completed",
+    scheduledAt: "10/11/2026, 2:54:35 AM",
+    executedAt: "10/11/2026, 2:54:35 AM",
+  },
+  {
+    id: "log-6",
+    inviteeName: "Sam Taylor",
+    inviteeEmail: "sam@example.com",
+    step: "Step 1",
+    status: "completed",
+    scheduledAt: "10/11/2026, 2:48:22 AM",
+    executedAt: "10/11/2026, 2:48:22 AM",
+  },
+];
+
+export interface Contact {
+  id: string;
+  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  company: string;
+  jobTitle: string;
+  location: string;
+  linkedin?: string;
+  nextMeetingDate?: string;
+  lastMeetingDate?: string;
+  avatarInitial?: string;
+  customJob?: string;
+}
+
+export const SAMPLE_JORDAN_LEE: Contact = {
+  id: "contact-jordan-lee",
+  name: "Jordan Lee",
+  firstName: "Jordan",
+  lastName: "Lee",
+  email: "jordan.lee@example.com",
+  phone: "+44 7700 900123",
+  company: "Acme Studio",
+  jobTitle: "CEO",
+  location: "London, United Kingdom",
+  avatarInitial: "J",
+  customJob: "CEO",
+};
+
+export const ORGANIZATION_CONTACTS: Contact[] = [
+  { id: "org-1", name: "Aashir Patel", firstName: "Aashir", lastName: "Patel", email: "aashir@example.com", phone: "+44 7700 900001", company: "Product Team", jobTitle: "Engineer", location: "London", avatarInitial: "A" },
+  { id: "org-2", name: "Abisola Adeyemi", firstName: "Abisola", lastName: "Adeyemi", email: "abisola@example.com", phone: "+44 7700 900002", company: "Product Team", jobTitle: "Designer", location: "Lagos", avatarInitial: "A" },
+  { id: "org-3", name: "Akinbayo Ojo", firstName: "Akinbayo", lastName: "Ojo", email: "akinbayo@example.com", phone: "+44 7700 900003", company: "Product Team", jobTitle: "Tech Lead", location: "Lagos", avatarInitial: "A" },
+  { id: "org-4", name: "Casey Brown", firstName: "Casey", lastName: "Brown", email: "casey@example.com", phone: "+44 7700 900004", company: "Product Team", jobTitle: "Developer", location: "London", avatarInitial: "C" },
+  { id: "org-5", name: "Daniel Kawu", firstName: "Daniel", lastName: "Kawu", email: "daniel@example.com", phone: "+44 7700 900005", company: "Product Team", jobTitle: "QA Lead", location: "Lagos", avatarInitial: "D" },
+  { id: "org-6", name: "DevOps Bot", firstName: "DevOps", lastName: "Team", email: "devops@example.com", phone: "+44 7700 900006", company: "Infrastructure", jobTitle: "SRE", location: "Global", avatarInitial: "D" },
+  { id: "org-7", name: "Foluke Bello", firstName: "Foluke", lastName: "Bello", email: "foluke@example.com", phone: "+44 7700 900007", company: "Marketing", jobTitle: "Growth Manager", location: "Lagos", avatarInitial: "F" },
+  { id: "org-8", name: "Grace Hopper", firstName: "Grace", lastName: "Hopper", email: "grace@example.com", phone: "+44 7700 900008", company: "Engineering", jobTitle: "Staff Architect", location: "London", avatarInitial: "G" },
+  { id: "org-9", name: "Hassan Aliyu", firstName: "Hassan", lastName: "Aliyu", email: "hassan@example.com", phone: "+44 7700 900009", company: "Sales", jobTitle: "Account Exec", location: "London", avatarInitial: "H" },
+  { id: "org-10", name: "Ibrahim Sani", firstName: "Ibrahim", lastName: "Sani", email: "ibrahim@example.com", phone: "+44 7700 900010", company: "Support", jobTitle: "Customer Success", location: "Lagos", avatarInitial: "I" },
+  { id: "org-11", name: "John Smith", firstName: "John", lastName: "Smith", email: "john@example.com", phone: "+44 7700 900011", company: "Design Team", jobTitle: "Lead Designer", location: "London", avatarInitial: "J" },
+  { id: "org-12", name: "Kemi Adeleke", firstName: "Kemi", lastName: "Adeleke", email: "kemi@example.com", phone: "+44 7700 900012", company: "Finance", jobTitle: "Controller", location: "Lagos", avatarInitial: "K" },
+  { id: "org-13", name: "Liam Chen", firstName: "Liam", lastName: "Chen", email: "liam@example.com", phone: "+44 7700 900013", company: "Engineering", jobTitle: "Frontend Dev", location: "London", avatarInitial: "L" },
+  { id: "org-14", name: "Mina Tariq", firstName: "Mina", lastName: "Tariq", email: "mina@example.com", phone: "+44 7700 900014", company: "Product", jobTitle: "Product Manager", location: "London", avatarInitial: "M" },
+  { id: "org-15", name: "Nia Okon", firstName: "Nia", lastName: "Okon", email: "nia@example.com", phone: "+44 7700 900015", company: "Design", jobTitle: "Brand Designer", location: "Lagos", avatarInitial: "N" },
+  { id: "org-16", name: "Oliver Vance", firstName: "Oliver", lastName: "Vance", email: "oliver@example.com", phone: "+44 7700 900016", company: "Legal", jobTitle: "Counsel", location: "London", avatarInitial: "O" },
+  { id: "org-17", name: "Priya Sharma", firstName: "Priya", lastName: "Sharma", email: "priya@example.com", phone: "+44 7700 900017", company: "Engineering", jobTitle: "Backend Dev", location: "London", avatarInitial: "P" },
+  { id: "org-18", name: "Sam Taylor", firstName: "Sam", lastName: "Taylor", email: "sam@example.com", phone: "+44 7700 900018", company: "Operations", jobTitle: "Operations Lead", location: "London", avatarInitial: "S" },
+];
+
+export const INVITEE_CONTACTS: Contact[] = [
+  {
+    id: "inv-1",
+    name: "Sam Taylor",
+    firstName: "Sam",
+    lastName: "Taylor",
+    email: "sam@example.com",
+    phone: "",
+    company: "Operations",
+    jobTitle: "Operations Lead",
+    location: "London",
+    nextMeetingDate: "",
+    lastMeetingDate: "22/09/2026",
+    avatarInitial: "S",
+  },
+  {
+    id: "inv-2",
+    name: "Design Team",
+    firstName: "Design",
+    lastName: "Team",
+    email: "design@example.com",
+    phone: "",
+    company: "Acme Studio",
+    jobTitle: "Design Collective",
+    location: "London",
+    nextMeetingDate: "",
+    lastMeetingDate: "",
+    avatarInitial: "D",
+  },
+  {
+    id: "inv-3",
+    name: "John Smith",
+    firstName: "John",
+    lastName: "Smith",
+    email: "john@example.com",
+    phone: "+44 7700 900011",
+    company: "Product Team",
+    jobTitle: "Lead Designer",
+    location: "London",
+    nextMeetingDate: "11/11/2026",
+    lastMeetingDate: "10/11/2026",
+    avatarInitial: "J",
   },
 ];
 

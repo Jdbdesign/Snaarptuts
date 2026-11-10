@@ -2352,7 +2352,7 @@ Reference video 2: `C:\Users\HP\Downloads\1109 (2).mp4` (1384×720, 2:05; steps 
 
 ---
 
-## Snaarp Me (Steps 1–13, Complete)
+## Snaarp Me (Steps 1–26, Complete)
 
 Product: **Snaarp Me** (Scheduling & Bookings)  
 Route: `/tutorials/snaarp-me` (also `/tutorials/me`, `/tutorials/snaarpme`, `/tutorials/scheduling`, `/tutorials/calendar`, `/tutorials/bookings`)  
@@ -2360,6 +2360,7 @@ Config: `tutorials/snaarp-me.ts`
 Reference videos:
 - `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; Part 1, steps 1–6)
 - `C:\Users\HP\Downloads\1110 (1)(1).mp4` (1426×720, 2:52; Part 2, steps 7–13)
+- `C:\Users\HP\Downloads\1110 (1)(2).mp4` (1414×720, 5:53; Part 3, steps 14–26)
 
 | Step | Title | Description | Duration |
 |:---:|:---|:---|:---:|
@@ -2375,16 +2376,56 @@ Reference videos:
 | 10 | Preview availability | Switches to Preview tab to show the 14-day booking view, expands Tuesday 10 by clicking "+8 more" to show all 16 slots, scrolls down through upcoming days and back up, clicks "Show less", and toggles to the 14-day Calendar preview grid showing daily available slot counts. | 17.5 s |
 | 11 | Explore the Calendar | Clicks Calendar in sidebar (`snaarp.me/calendar`), inspects Month view with booked calls, switches to Week view (Nov 8–14), inspects the Upcoming sidebar (Casey Brown today, John Smith tomorrow), scrolls down to review Calendar Integrations (Snaarp Meet, Google, Outlook, Apple), and highlights Schedule event and Connect Calendar actions. | 18.5 s |
 | 12 | Open a day and a meeting | Switches to Day view, returns to Month view, clicks Tuesday 10 to open the Day popup ("Tuesday, November 10, 2026, 1 event"), clicks "View day schedule", clicks the blue Standup meeting event block in Day view, shows 0.8s loading spinner, reviews 2-column booking modal details, copies the Snaarp Meet link, and closes the modal. | 20.0 s |
-| 13 | Meetings list | Clicks Meetings in sidebar (`snaarp.me/bookings`), inspects Upcoming confirmed meeting cards, switches to Cancelled tab to review empty state, switches to All tab, toggles List view then returns to Grid view, opens Sort menu, sorts by A-Z then restores Date (newest first), and concludes with a clean fade and the tour completion screen. | 22.0 s |
+| 13 | Meetings list | Clicks Meetings in sidebar (`snaarp.me/bookings`), inspects Upcoming confirmed meeting cards, switches to Cancelled tab to review empty state, switches to All tab, toggles List view then returns to Grid view, opens Sort menu, sorts by A-Z then restores Date (newest first). | 22.0 s |
+| 14 | Meet Workflows | Introduces Workflows (`snaarp.me/workflows`), shows header buttons for Custom workflow and New Workflow, inspects "Booking emails & reminders" section with active status and email schedules, and reviews "Custom workflows" empty state. | 10.5 s |
+| 15 | Create a workflow from a template | Clicks "+ New Workflow" to open template chooser at `snaarp.me/workflows/create`, selects "Notify me when someone books" template, reviews steps, dynamic merge tags, and backend booking details toggle, and clicks Create Workflow. Banner confirms creation and active card appears in list. | 14.0 s |
+| 16 | Turn a workflow on or off | Toggles the notification workflow off, observing Inactive badge and deactivation banner toast, then toggles it back on to resume automated delivery. | 9.8 s |
+| 17 | Edit emails and reminders | Clicks "Edit emails" on the workflow, turns on 3 reminder toggles (24 hours before, 1 hour before, 15 minutes before), sets recipient to "Both", and clicks "Save changes" with confirmation banner. | 14.5 s |
+| 18 | Check execution logs | Clicks "View Logs" to verify new workflow starts with clean execution history, navigates back to All Workflows, opens logs for "Booking Confirmation & Reminder", and filters table by Pending status. | 14.5 s |
+| 19 | Build a custom workflow | Clicks "Custom workflow" to open builder (`snaarp.me/workflows/create?custom=1`), sets trigger event to "Meeting Started", recipient to "Both", types subject "Your {{event_title}}", and creates workflow. New automation mounts in the Custom workflows list. | 14.0 s |
+| 20 | Delete a custom workflow | Clicks "Delete" on custom automation, reviews in-app confirmation modal ("Are you sure you want to delete Custom workflow?"), and clicks Delete to remove the workflow and display green confirmation banner. | 10.5 s |
+| 21 | Meet Contacts | Clicks Contacts in sidebar (`snaarp.me/contacts`), inspects clean My Contacts tab, switches to Organization tab to review 18 team members, and switches to Invitees tab to view booked meeting attendees. | 11.5 s |
+| 22 | Show columns and filter | Opens "Show columns" popover, unticks and re-ticks "Phone number" to demonstrate dynamic column toggling, opens Filter popover, filters Where Email contains "design" to isolate Design Team, and clears filter to restore full directory. | 15.5 s |
+| 23 | Add a contact | Clicks "+ Add contact", selects "Upload CSV", opens in-app file chooser dialog, selects `sample-contacts.csv`, and imports records with banner confirmation. Then opens "Add manually", enters Jordan Lee details (CEO, Acme Studio, `jordan.lee@example.com`, London), submits, and searches "Jordan" in search input. | 16.5 s |
+| 24 | Add a custom field | Clicks '+' in table header to slide out "Create a custom field" drawer, chooses Text type, enters field label "Job", and clicks Create. Green banner confirms and "Job" column is appended to table. | 11.5 s |
+| 25 | Manage a column | Opens three-dot menu on "Job" column, selects "Sort descending", re-opens menu, clicks "Delete field", confirms in-app prompt ("Delete the \"Job\" field?"), and observes column removal with confirmation banner. | 12.5 s |
+| 26 | Export your contacts | Hovers Export CSV icon button in top toolbar to reveal tooltip "Export CSV", clicks Export CSV to start download, green banner confirms, and concludes with a 1.8s finish hold and the tour completion card. | 9.5 s |
 
 **Files.**
 - Config: `tutorials/snaarp-me.ts` (registered in `tutorials/index.ts`, route `/tutorials/snaarp-me` with aliases `me`, `snaarpme`, `scheduling`, `calendar`, `bookings`)
 - Rail Groups:
   - `Snaarp Me` (steps 1–6)
   - `Availability, Calendar and Meetings` (steps 7–13)
+  - `Workflows` (steps 14–20)
+  - `Contacts` (steps 21–26)
 - Shell & Stage: `components/me/MeShell.tsx` (with 18-app suite rail, left menu with lilac active pill, header card), `components/me/MeStage.tsx`, `components/me/MeToastBanner.tsx`
-- Views: `MeHomeView.tsx`, `MeAvailabilityView.tsx`, `MeCalendarView.tsx`, `MeMeetingsView.tsx`, `MeBookingDetailView.tsx`, `MeEventTypesView.tsx`, `MeBookingPage.tsx`
-- Modals & Drawers: `MeBookingModal.tsx`, `MeCreateEventModal.tsx`, `MeEditEventDrawer.tsx`, `MeScheduleModal.tsx`, `MeDateOverrideModal.tsx`, `MeDayPopup.tsx`
+- Views:
+  - `MeHomeView.tsx`
+  - `MeAvailabilityView.tsx`
+  - `MeCalendarView.tsx`
+  - `MeMeetingsView.tsx`
+  - `MeBookingDetailView.tsx`
+  - `MeEventTypesView.tsx`
+  - `MeBookingPage.tsx`
+  - `MeWorkflowsView.tsx`
+  - `MeWorkflowTemplatesView.tsx`
+  - `MeWorkflowEditorView.tsx`
+  - `MeWorkflowDetailView.tsx`
+  - `MeExecutionLogsView.tsx`
+  - `MeContactsView.tsx`
+- Modals & Drawers:
+  - `MeBookingModal.tsx`
+  - `MeCreateEventModal.tsx`
+  - `MeEditEventDrawer.tsx`
+  - `MeScheduleModal.tsx`
+  - `MeDateOverrideModal.tsx`
+  - `MeDayPopup.tsx`
+  - `MeDeleteWorkflowModal.tsx`
+  - `MeUploadCsvModal.tsx`
+  - `MeFileChooserModal.tsx`
+  - `MeAddContactModal.tsx`
+  - `MeCustomFieldDrawer.tsx`
+  - `MeDeleteColumnModal.tsx`
 - Timeline & Data: `components/me/me-timeline.ts` (`beginMe`, `finishMe`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/me/me-data.ts`
-- Step Scenes: `scenes/snaarp-me/step<1..13>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes: `scenes/snaarp-me/step<1..26>/Step<N>.tsx`, `script.ts`, `data.ts`
 

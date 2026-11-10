@@ -242,3 +242,166 @@ Frames: `ref/me2/0311.png`, `0315.png`, `0318.png`, `0320.png`, `0325.png`, `033
 | **List View** | Switching to list view renders compact horizontal rows with participant names, pills, meeting details, and three-dot menus. |
 | **Sort Dropdown** | Clicking sort opens menu: `Date (newest first)` (check), `Date (oldest first)`, `A-Z`, `Z-A`. Testing `A-Z` reorders list, returning to `Date (newest first)` restores default order. |
 
+---
+
+## 18. Screen 17: Workflows Catalog (`snaarp.me/workflows`) — Step 14
+
+Frames: `ref/me3/0002.png`, `0005.png`, `0015.png`
+
+| Element | Specification |
+|---|---|
+| **Header** | Title: "Workflows" (font-bold text-2xl text-gray-900). Subtitle: "Manage booking confirmation emails, meeting reminders, and custom automation when events occur." (text-xs text-gray-500). <br>- Top right: Outline button `Custom workflow` (`border border-[#7014D9] text-[#7014D9] rounded-xl px-4 py-2 text-xs font-semibold`), Purple button `+ New Workflow` (`bg-[#7014D9] hover:bg-[#5e0eb8] text-white rounded-xl px-4 py-2 text-xs font-semibold`). |
+| **Section 1: Booking emails & reminders** | Label: "Booking emails & reminders" (`text-sm font-bold text-gray-900`). <br>- **Card 1: Custom workflow**: Pill `Inactive` (`bg-gray-100 text-gray-600 rounded-full px-2 py-0.5 text-xs`), toggle OFF, purple button `Edit emails`, outline button `Logs`. Subtitle: "Automatic emails when someone books and before the meeting". Lilac box `EMAIL SCHEDULE` with 2 items: 1. Confirmation email when someone books, 2. Host notification when someone books on your calendar. <br>- **Card 2: Booking Confirmation & Reminder**: Pill `Active` (`bg-emerald-100 text-emerald-800 rounded-full px-2 py-0.5 text-xs`), toggle ON, purple button `Edit emails`, outline button `Logs`. Subtitle: "Automatic emails when someone books and before the meeting". Lilac box `EMAIL SCHEDULE` with 5 items: 1. Confirmation email when someone books, 2. Host notification when someone books on your calendar, 3. Reminder 24 hours before the meeting, 4. Reminder 1 hour before the meeting, 5. Reminder 15 minutes before the meeting. |
+| **Section 2: Custom workflows** | Header: "Custom workflows" (`text-sm font-bold text-gray-900`), right button: outline `Custom workflow`. <br>- Empty state card (`border border-dashed border-gray-200 bg-white p-6 rounded-2xl`): "Build your own automation with emails, SMS, delays, or webhooks — without starting from a template.", purple button `Create custom workflow`. |
+
+---
+
+## 19. Screen 18: Template Chooser (`snaarp.me/workflows/create`) — Step 15
+
+Frames: `ref/me3/0020.png`, `0025.png`, `0035.png`
+
+| Element | Specification |
+|---|---|
+| **Header & Loading** | Clicking `+ New Workflow` shows 1.0s loading spinner with text "Loading templates...". <br>- Header: "Choose a workflow template", Subtitle: "Start from a ready-made template or write your own message.", Right: `<- Back` link. |
+| **Custom Workflow Hero Card** | Lilac rounded border card (`border border-purple-200 bg-purple-50/20 p-5 rounded-2xl`): "Custom workflow", "Start from scratch. Pick a trigger and add your own email, SMS, delay, or webhook steps.", purple button on right `Create custom workflow`. |
+| **Templates Grid (6 cards)** | Section header "Or use a template" (`text-xs font-bold text-gray-800`). <br>1. **Booking confirmation**: "Email the invitee as soon as they book, using booking details from the backend." Button: `Use this template`. <br>2. **Notify me when someone books**: "Email yourself when a new meeting is booked." Button: `Use this template`. <br>3. **Meeting reminder**: "Remind the invitee 24 hours before the meeting starts." Button: `Use this template`. <br>4. **Cancellation notice**: "Email the invitee when a booking is cancelled." Button: `Use this template`. <br>5. **After-meeting follow-up**: "Send a thank-you email after the meeting ends." Button: `Use this template`. <br>6. **No-show follow-up**: "Ask the invitee to reschedule if they missed the meeting." Button: `Use this template`. |
+
+---
+
+## 20. Screen 19: Workflow Editor (`snaarp.me/workflows/create`) — Step 15
+
+Frames: `ref/me3/0045.png`, `0048.png`, `0055.png`
+
+| Field / Section | Specification |
+|---|---|
+| **Header & Steps Title** | Title: "Workflow Steps" (`text-base font-bold text-gray-900`). |
+| **Step 1: Send Email Card** | Top row: "Step 1: Send Email", controls on right: `^` (collapse), `v` (reorder), red `X` (delete). <br>- Action Type: `Send Email` (`bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-xs text-gray-700`). <br>- Recipient: `Organizer` (or `Invitee` / `Both`). <br>- Email Provider: `System (Default)` ("Choose which email account sends this message"). <br>- Use backend booking details: Toggle ON (`bg-[#7014D9]`), subtitle "Fill names, times, meeting links, and other fields from the booking when the email is sent." <br>- Subject: `{{invitee_name}} just booked a meeting on your Snaarp Me` (`bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-medium text-gray-800`). <br>- Insert merge field: `</> Insert Merge Field` link in purple. <br>- Body: Pre-filled multiline template text with merge fields. <br>- Bottom controls: `+ Add Condition`, dashed `+ Add Step`. <br>- Footer action: Purple button `Create Workflow` (`bg-[#7014D9] text-white rounded-xl px-6 py-2.5 text-xs font-semibold`). |
+
+---
+
+## 21. Screen 20: Activate/Deactivate Workflow — Step 16
+
+Frames: `ref/me3/0070.png`, `0080.png`
+
+| Action | Specification |
+|---|---|
+| **Toggle Off** | Clicking toggle on "Notify me when someone books": toggle moves left (gray), pill changes to `Inactive` (gray), top green banner displays: `\"Notify me when someone books\" deactivated successfully.` |
+| **Toggle On** | Clicking toggle again: toggle moves right (purple), pill changes to `Active` (green), top green banner displays: `\"Notify me when someone books\" activated successfully.` |
+
+---
+
+## 22. Screen 21: Edit Emails & Reminders (`snaarp.me/workflows/<id>`) — Step 17
+
+Frames: `ref/me3/0090.png`, `0100.png`, `0120.png`
+
+| Section / Card | Specification |
+|---|---|
+| **Header** | `<- Back` link, "Booking emails & reminders" + `Active` pill, subtitle "Notify me when someone books". Outline buttons: `Deactivate` (amber border/text) and `View Logs` (gray border/text). |
+| **Card 1: When someone books a meeting** | Subtitle: "These emails are sent automatically. Meeting links are included when available." Numbered list 1–2 (and 3–5 once reminders are enabled). |
+| **Card 2: Booking confirmation** | Subtitle: "Sent right after someone books", toggle ON, link "Customize email". |
+| **Card 3: Meeting reminders** | Subtitle: "Emails sent before the meeting starts". <br>- 24 hours before (Day-before reminder) -> Toggle. <br>- 1 hour before (Last-hour heads-up) -> Toggle. <br>- 15 minutes before (Right before the meeting) -> Toggle. <br>- Link: "Customize reminder email". |
+| **Card 4: Send to** | Subtitle: "Who receives these emails", Recipient dropdown: `Both` (changed from `Organizer`). |
+| **Footer Actions** | Link "Switch to advanced step editor", purple button `Save changes`. On click: top green banner `Workflow saved successfully.` and top list updates with 5 scheduled emails. |
+
+---
+
+## 23. Screen 22: Execution Logs (`snaarp.me/workflows/<id>/executions`) — Step 18
+
+Frames: `ref/me3/0200.png`, `0210.png`, `0225.png`
+
+| Feature | Specification |
+|---|---|
+| **Header** | `<- Back` link, "Execution Logs", subtitle "View the execution history for this workflow", right button `All Workflows`. |
+| **Controls** | Status dropdown: `All Statuses` (with `Completed`, `Failed`, `Pending`, `Cancelled`), button `Refresh` with rotate icon. |
+| **Empty State** | For empty workflow: "No execution logs found." |
+| **Logs Table** | Headers: `INVITEE`, `STEP`, `STATUS`, `SCHEDULED AT`, `EXECUTED AT`, `ERROR`. <br>- Row 1: John Smith (`john@example.com`), Step 4, `failed` (red pill), 10/11/2026 12:30:08 PM, 10/11/2026 11:30:08 AM, `Email delivery failed via provider 'system': Missing '<'`. <br>- Row 2: John Smith, Step 6, `pending` (amber pill), 11/11/2026 10:30:00 AM, —, —. <br>- Row 3: John Smith, Step 1, `completed` (green pill), 10/11/2026 2:54:35 AM, 10/11/2026 2:54:35 AM, —. <br>- Row 4: John Smith, Step 8, `pending` (amber pill), 11/11/2026 11:15:00 AM, —, —. <br>- Row 5: Sam Taylor (`sam@example.com`), Step 2, `completed` (green pill), 10/11/2026 2:54:35 AM, 10/11/2026 2:54:35 AM, —. |
+
+---
+
+## 24. Screen 23: Custom Workflow Builder (`snaarp.me/workflows/create?custom=1`) — Step 19
+
+Frames: `ref/me3/0260.png`, `0270.png`, `0280.png`, `0320.png`
+
+| Form Control | Specification |
+|---|---|
+| **Workflow Details** | Workflow Name*: input typed with `Custom workflow`. <br>Trigger Event*: dropdown options `Booking Created`, `Booking Cancelled`, `Booking Rescheduled`, `Meeting Started` (selected), `Meeting Completed`, `No Show`. |
+| **Workflow Step 1** | Action Type: `Send Email`. <br>Recipient: dropdown select `Both`. <br>Email Provider: `System (Default)`. <br>Use backend booking details: Toggle ON. <br>Subject: input typed with `Your {{event_title}}`. <br>Merge field menu: Invitee Name, Organizer Name, Event Title, Event Date, Event Time, Event Duration. <br>Body: `Hi {{invitee_name}}, Write your message here. Turn on backend booking details to insert names, times, and links automatically.` |
+| **Save Result** | Clicking `Create Workflow` returns to Workflows: new row in "Custom workflows" section showing `Custom workflow`, `Active`, `Trigger: Meeting Started · 1 steps`, toggle ON, `Edit`, `Logs`, red `Delete`. |
+
+---
+
+## 25. Screen 24: Delete Workflow Modal — Step 20
+
+Frames: `ref/me3/0355.png`, `0360.png`, `0365.png`
+
+| Modal Element | Specification |
+|---|---|
+| **Title & Prompt** | Modal title "Delete Workflow", prompt: "Are you sure you want to delete **Custom workflow**? This action cannot be undone." |
+| **Buttons** | Cancel (`text-gray-700`), red Delete (`bg-red-500 hover:bg-red-600 text-white rounded-xl px-5 py-2`). |
+| **Success Banner** | Clicking Delete shows top green banner: `Workflow deleted successfully.` and returns Custom workflows to empty state. |
+
+---
+
+## 26. Screen 25: Contacts Main Catalog (`snaarp.me/contacts`) — Step 21
+
+Frames: `ref/me3/0400.png`, `0405.png`, `0420.png`, `0430.png`
+
+| Section / Element | Specification |
+|---|---|
+| **Header** | Title: "Contacts" (bold text-2xl). Top right: Export CSV icon (with tooltip "Export CSV"), settings gear icon, purple button `+ Add contact` with chevron. |
+| **Tabs** | `My Contacts` | `Organization` | `Invitees`. |
+| **Control Bar** | Search input: `Search by name and email`. Button `Show columns` (eye icon), button `Filter` (funnel icon). |
+| **Filter Chips** | `All contacts` (dark pill when selected with checkmark), `New contacts`, `No activity in next 30d`, `No meetings in next 30d`, pencil edit icon, `+ Add list` purple link. |
+| **My Contacts Tab** | Starts empty: "No contacts yet. Add one manually or upload a CSV." with pagination "No contacts". |
+| **Organization Tab** | 18 sample colleagues (`Showing 1 - 18 of 18`), initial avatars, alphabetical order. |
+| **Invitees Tab** | 3 rows: John Smith (`john@example.com`), Sam Taylor (`sam@example.com`), Design Team (`design@example.com`) with meeting dates. |
+
+---
+
+## 27. Screen 26: Show Columns & Filter Popovers — Step 22
+
+Frames: `ref/me3/0460.png`, `0480.png`
+
+| Popover | Specification |
+|---|---|
+| **Show Columns** | Dropdown with checkboxes: First name, Last name, Email (checked), Phone number (checked), Next meeting date (checked), Last meeting date (checked), First email date (greyed with `?`), Last email date (greyed with `?`), Created on. Unticking and re-ticking Phone number updates table columns. |
+| **Filter** | Where row: Select field (Email), Select condition (contains), Enter value ("design"), Trash icon, `+ Add condition`, purple `Apply`. Applying filters table to only "Design Team". Removing condition restores all 3 rows. |
+
+---
+
+## 28. Screen 27: Add Contact Modal & CSV Upload — Step 23
+
+Frames: `ref/me3/0520.png`, `0540.png`, `0550.png`
+
+| Feature | Specification |
+|---|---|
+| **Add Contact Menu** | Clicking `+ Add contact` opens dropdown: `Add manually` and `Upload CSV`. |
+| **Upload CSV Modal** | Title "Upload CSV", subtitle "Upload a CSV of your contact list. Required column: Email. Optional: Name, Phone, Company, Job Title." <br>- Box with "Choose File" and "No file chosen". <br>- In-app file chooser dialog: shows sample file `sample-contacts.csv`. Picking it updates file name. <br>- Click `Upload CSV`: top green banner `Contacts imported successfully.` |
+| **Add Manually Modal** | Title "Add contact", close `X`. <br>- Fields: First name * (`Jordan`), Last name (`Lee`), Email * (`jordan.lee@example.com`), Phone (`+44 7700 900123`), Company (`Acme Studio`), Job title (`CEO`), Location (`London, United Kingdom`), LinkedIn. <br>- Footer: Cancel, purple `Add contact`. <br>- On save: green banner `Jordan Lee was added.` Contact appears in My Contacts table. Search query `design@example.com` or `jordan.lee@example.com` filters to matching row. |
+
+---
+
+## 29. Screen 28: Custom Field Drawer (`snaarp.me/contacts`) — Step 24
+
+Frames: `ref/me3/0650.png`, `0660.png`
+
+| Drawer Control | Specification |
+|---|---|
+| **Slide-out Drawer** | Title "Create a custom field", subtitle "Custom fields will be applied to all contact records.", close `X`. |
+| **Field Type** | Dropdown: `Text` (selected). Options: `Invitee question (from event types)`, `Text`, `Number`, `Currency`, `Tags`, `Date`, `Select`. |
+| **Field Label** | Input typed with `Job`. Create button activates (`bg-[#7014D9] text-white`). |
+| **Result** | Clicking Create: drawer closes, green banner `\"Job\" field created.` appears, and "Job" column is appended to table. |
+
+---
+
+## 30. Screen 29: Manage Column & Export Contacts — Steps 25 & 26
+
+Frames: `ref/me3/0670.png`, `0685.png`, `0702.png`
+
+| Feature | Specification |
+|---|---|
+| **Column Three-dot Menu** | Clicking three dots on "Job" header opens menu: `^ Sort ascending`, `v Sort descending`, `Hide column`, red `Delete field`. Click `Sort descending`, then click `Delete field`. |
+| **Delete Field Confirm Modal** | In-app confirmation modal (replaces native browser confirm): "Delete the \"Job\" field? Values stored on every contact will be removed." Buttons: `Cancel` and red `OK`. On click: green banner `\"Job\" field deleted.` and column is removed. |
+| **Export CSV** | Hovering Export CSV icon shows tooltip "Export CSV". Clicking icon triggers in-app green banner `Contacts export started. Your CSV will download shortly.` Concludes with 1.5s finish hold and completion card. |
+
+

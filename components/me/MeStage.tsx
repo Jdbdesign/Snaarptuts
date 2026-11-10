@@ -20,6 +20,20 @@ import { MeDayPopup } from "./MeDayPopup";
 import { MeToastBanner } from "./MeToastBanner";
 import { MeBookingPage } from "./MeBookingPage";
 
+// Part 3 Workflows & Contacts Views & Modals
+import { MeWorkflowsView } from "./MeWorkflowsView";
+import { MeWorkflowTemplatesView } from "./MeWorkflowTemplatesView";
+import { MeWorkflowEditorView } from "./MeWorkflowEditorView";
+import { MeWorkflowDetailView } from "./MeWorkflowDetailView";
+import { MeExecutionLogsView } from "./MeExecutionLogsView";
+import { MeDeleteWorkflowModal } from "./MeDeleteWorkflowModal";
+import { MeContactsView } from "./MeContactsView";
+import { MeUploadCsvModal } from "./MeUploadCsvModal";
+import { MeFileChooserModal } from "./MeFileChooserModal";
+import { MeAddContactModal } from "./MeAddContactModal";
+import { MeCustomFieldDrawer } from "./MeCustomFieldDrawer";
+import { MeDeleteColumnModal } from "./MeDeleteColumnModal";
+
 interface Props {
   tl: Timeline;
 }
@@ -27,6 +41,7 @@ interface Props {
 export function MeStage({ tl }: Props) {
   const currentView = useTimelineVar<MePage>(tl, "meView", "dashboard");
   const fade = useTimelineVar<boolean>(tl, "fade", false);
+  const templatesOpen = useTimelineVar<boolean>(tl, "meWorkflowTemplatesOpen", false);
 
   // If viewing the public booking page, render full screen without the app shell
   if (currentView === "booking-page") {
@@ -62,6 +77,19 @@ export function MeStage({ tl }: Props) {
         )}
         {currentView === "meeting-detail" && <MeBookingDetailView tl={tl} />}
         {currentView === "event-types" && <MeEventTypesView tl={tl} />}
+
+        {/* Part 3 Views */}
+        {currentView === "workflows" && <MeWorkflowsView tl={tl} />}
+        {currentView === "workflows-create" && (
+          templatesOpen ? (
+            <MeWorkflowTemplatesView tl={tl} />
+          ) : (
+            <MeWorkflowEditorView tl={tl} />
+          )
+        )}
+        {currentView === "workflow-detail" && <MeWorkflowDetailView tl={tl} />}
+        {currentView === "workflow-executions" && <MeExecutionLogsView tl={tl} />}
+        {currentView === "contacts" && <MeContactsView tl={tl} />}
       </MeShell>
 
       {/* Global Modals & Drawers */}
@@ -71,6 +99,14 @@ export function MeStage({ tl }: Props) {
       <MeScheduleModal tl={tl} />
       <MeDateOverrideModal tl={tl} />
       <MeDayPopup tl={tl} />
+
+      {/* Part 3 Modals & Drawers */}
+      <MeDeleteWorkflowModal tl={tl} />
+      <MeUploadCsvModal tl={tl} />
+      <MeFileChooserModal tl={tl} />
+      <MeAddContactModal tl={tl} />
+      <MeCustomFieldDrawer tl={tl} />
+      <MeDeleteColumnModal tl={tl} />
     </div>
   );
 }

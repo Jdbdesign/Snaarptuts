@@ -11,7 +11,7 @@ const arg = (n: string, d: string) => {
 };
 const PRODUCT = arg("product", "snaarp-me");
 const FROM = Number(arg("from", "1"));
-const TOTAL = Number(arg("total", "13"));
+const TOTAL = Number(arg("total", "26"));
 const SPEED = Number(arg("speed", "8"));
 
 (async () => {

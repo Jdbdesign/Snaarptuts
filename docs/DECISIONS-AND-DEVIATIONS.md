@@ -1615,35 +1615,48 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 6. **Timing & End Holds**:
    - Every step finishes ~1.5s after its visible success state (2.0s on table reading/grid inspection), ending with a 400ms fade before stepping forward. Step 11 seamlessly transitions to the data-driven completion card.
 
-## Snaarp Me (Scheduling & Bookings, Steps 1–13 Complete)
+## Snaarp Me (Scheduling & Bookings, Steps 1–26 Complete)
 
 - Scope:
   - Part 1 (steps 1–6): Home Dashboard (1), Booking & Calendar (2), Create Event Type (3), Edit Event Type & Preview (4), Booking Link & Public Page (5), Home Dashboard Updated (6).
   - Part 2 (steps 7–13): Meet Availability (7), Create Schedule (8), Add Date Override (9), Preview Availability (10), Explore Calendar (11), Open Day & Meeting (12), Meetings List (13).
+  - Part 3 (steps 14–26): Meet Workflows (14), Create Workflow from Template (15), Turn Workflow On or Off (16), Edit Emails & Reminders (17), Check Execution Logs (18), Build Custom Workflow (19), Delete Custom Workflow (20), Meet Contacts (21), Show Columns & Filter (22), Add Contact & Upload CSV (23), Add Custom Field (24), Manage Column (25), Export Contacts (26).
 - Reference recordings:
   - `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; Part 1, steps 1–6).
   - `C:\Users\HP\Downloads\1110 (1)(1).mp4` (1426×720, 2:52; Part 2, steps 7–13).
+  - `C:\Users\HP\Downloads\1110 (1)(2).mp4` (1414×720, 5:53; Part 3, steps 14–26).
 
 ### Decisions & Deviations from Video
 1. **Sample Data Instead of Real Personal Data**:
-   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`), Casey Brown (`casey@example.com`), meeting codes `sample-abc-123`, `csv-vmbx-stn`.
+   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`), Casey Brown (`casey@example.com`), Jordan Lee (`jordan.lee@example.com`, `+44 7700 900123`, `Acme Studio`, `CEO`, `London, United Kingdom`), Design Team (`design@example.com`), 18 organization colleagues (all `name@example.com`, initial avatars only), meeting codes `sample-abc-123`, `csv-vmbx-stn`. Dates formatted cleanly as DD/MM/YYYY.
    - Replaced "Kalender's" in the video with "Snaarp Me's" (e.g. "Snaarp Me's Default Availability").
-2. **No Browser Chrome & Standalone Public Booking Page**:
+2. **In-App Dialogs Replacing Browser/OS Dialogs**:
+   - The video recorded native OS/browser dialogs: a Windows file picker dialog and a native JavaScript `confirm()` dialog (`snaarp.me says: Delete the "Job" field? Values stored on every contact will be removed.`).
+   - Replaced both with high-fidelity in-app dialogs matching Snaarp Me design system:
+     - `MeFileChooserModal`: In-app file chooser dialog with file list (`sample-contacts.csv`) and Open/Cancel actions.
+     - `MeDeleteColumnModal`: In-app confirmation modal for deleting the "Job" custom field with OK and Cancel.
+3. **No Browser Chrome & Standalone Public Booking Page**:
    - Omitted all browser tabs, dark green new tab screen, address bar, extensions, and Chrome autofill popups.
    - When navigating to `snaarp.me/jane/creative-meeting-with-the-team` in Step 5, the page renders standalone full screen with its blue-violet gradient header and NO application shell (no suite rail, no sidebar), exactly as a public booking guest would experience it.
-3. **Full 18-App Suite Rail Across App Views**:
+4. **Full 18-App Suite Rail Across App Views**:
    - Per requirements, the suite rail across all Snaarp Me views contains the full 18 apps in order with Snaarp Me active (lilac `#EDE9FE` pill), matching the Snaarp suite shell specification.
-4. **Availability & Schedule Creation**:
-   - Step 7 introduces Availability (`snaarp.me/availability`) with Open Days schedule, Working Hours, Date Overrides, and Preview tabs.
-   - Step 8 creates "Personal Event time", enabling Saturday 9:00 AM – 1:00 PM.
-   - Step 9 switches to Calendar view in Working Hours, edits Wednesday 11, adds Range 2 (5:00 PM – 6:00 PM), and saves date override with bottom-right toast.
-   - Step 10 tests Preview tab in List mode (+8 more on Tue 10, scroll through days) and Calendar mode (14-day slot counts).
-5. **Calendar & Meetings Navigation**:
-   - Step 11 navigates to `snaarp.me/calendar`, checks Month view, Week view, and scrolls Calendar Integrations.
-   - Step 12 checks Day view, returns to Month view, clicks Tue 10 day popup, opens day schedule, and clicks Standup meeting block to view 2-column modal details with 0.8s loading spinner.
-   - Step 13 navigates to `snaarp.me/bookings`, tests Upcoming cards, Cancelled empty state, All tab, List/Grid view toggle, and Sort menu (A-Z and newest).
-6. **Timing & End Holds**:
-   - Every step ends ~1.2s to 1.5s after its primary action completes, concluding with a 400ms fade and transitioning to the completion card at the end of Step 13.
+5. **Workflows & Automation Engine**:
+   - Step 14 introduces the Workflows catalog (`snaarp.me/workflows`) with Booking emails & reminders and Custom workflows sections.
+   - Step 15 opens the template chooser (`snaarp.me/workflows/create`) and creates "Notify me when someone books" with merge tags and backend booking details toggle.
+   - Step 16 toggles the notification workflow off and on, observing Inactive/Active status and confirmation banner toasts.
+   - Step 17 configures reminders at 24 hours, 1 hour, and 15 minutes before meetings with recipient set to "Both".
+   - Step 18 checks execution logs for newly created workflows (empty state) and active booking confirmation workflows (filtered by Pending).
+   - Step 19 builds a custom workflow with "Meeting Started" trigger and "Both" recipients.
+   - Step 20 deletes the custom workflow via the in-app confirmation modal.
+6. **Contacts Directory Engine**:
+   - Step 21 introduces Contacts (`snaarp.me/contacts`) with My Contacts (empty state), Organization (18 team members), and Invitees (3 attendees) tabs.
+   - Step 22 tests Show columns popover (toggling Phone number) and Where filter popover (filtering Where Email contains "design").
+   - Step 23 tests Upload CSV with in-app file chooser (`sample-contacts.csv`) and Add manually with Jordan Lee form fields.
+   - Step 24 slides out "Create a custom field" drawer, adds "Job" field, and verifies column creation.
+   - Step 25 tests column management (Sort descending, Delete field with in-app confirmation modal).
+   - Step 26 tests Export CSV with tooltip hover and download started banner, concluding with 1.8s finish hold and completion card.
+7. **Timing & End Holds**:
+   - Every step ends ~1.2s to 1.8s after its primary action completes, concluding with a 400ms fade and transitioning to the completion card at the end of Step 26.
 
 
 

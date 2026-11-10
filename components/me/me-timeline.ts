@@ -6,6 +6,8 @@ import {
   INITIAL_BOOKINGS,
   INITIAL_ACTIVITIES,
   INITIAL_SCHEDULES,
+  INITIAL_WORKFLOWS,
+  INITIAL_EXECUTION_LOGS,
 } from "./me-data";
 
 export const ME_END_HOLD_MS = 1500;
@@ -189,6 +191,83 @@ export function beginMe(
   tl.setVar("meBookingPageGuestAdded", false);
   tl.setVar("meBookingPageNotes", "");
   tl.setVar("meBookingPageTimezone", "Lagos (GMT+1)");
+
+  // Part 3: Workflows
+  tl.setVar("meWorkflows", JSON.parse(JSON.stringify(INITIAL_WORKFLOWS)));
+  tl.setVar("meWorkflowBanner", null);
+  tl.setVar("meWorkflowTemplatesLoading", false);
+  tl.setVar("meWorkflowTemplatesOpen", false);
+  tl.setVar("meEditorIsCustom", false);
+  tl.setVar("meEditorWorkflowName", "Notify me when someone books");
+  tl.setVar("meEditorTrigger", "Booking Created");
+  tl.setVar("meEditorRecipient", "Organizer");
+  tl.setVar("meEditorBackendDetails", true);
+  tl.setVar("meEditorSubject", "{{invitee_name}} just booked a meeting on your Snaarp Me");
+  tl.setVar(
+    "meEditorBody",
+    "Meeting details:\n- Date: {{event_date}} at {{event_time}} ({{timezone}})\n- Duration: {{event_duration}}\n- Invitee: {{invitee_name}} ({{invitee_email}})\n- Venue: {{meeting_url}}\n\nSee you then!"
+  );
+  tl.setVar("meEditorRecipientDropdownOpen", false);
+  tl.setVar("meEditorTriggerDropdownOpen", false);
+  tl.setVar("meDetailWorkflowId", "booking-confirmation");
+  tl.setVar("meDetailBanner", null);
+  tl.setVar("meDetailBookingConfirm", true);
+  tl.setVar("meDetailReminder24h", false);
+  tl.setVar("meDetailReminder1h", false);
+  tl.setVar("meDetailReminder15m", false);
+  tl.setVar("meDetailRecipient", "Organizer");
+  tl.setVar("meDetailRecipientDropdownOpen", false);
+  tl.setVar("meLogsWorkflowId", "booking-confirmation");
+  tl.setVar("meWorkflowLogs", JSON.parse(JSON.stringify(INITIAL_EXECUTION_LOGS)));
+  tl.setVar("meLogsStatusFilter", "All Statuses");
+  tl.setVar("meLogsFilterDropdownOpen", false);
+  tl.setVar("meDeleteWorkflowModalOpen", false);
+  tl.setVar("meDeleteWorkflowItem", null);
+
+  // Part 3: Contacts
+  tl.setVar("meContactsTab", "my-contacts");
+  tl.setVar("meMyContacts", []);
+  tl.setVar("meContactsSearch", "");
+  tl.setVar("meContactsBanner", null);
+  tl.setVar("meAddContactMenuOpen", false);
+  tl.setVar("meShowColumnsOpen", false);
+  tl.setVar("meFilterOpen", false);
+  tl.setVar("meExportTooltipOpen", false);
+  tl.setVar("meColFirstName", false);
+  tl.setVar("meColLastName", false);
+  tl.setVar("meColEmail", true);
+  tl.setVar("meColPhone", true);
+  tl.setVar("meColNextMeeting", true);
+  tl.setVar("meColLastMeeting", true);
+  tl.setVar("meColCreatedOn", false);
+  tl.setVar("meColCompany", true);
+  tl.setVar("meJobColumnAdded", false);
+  tl.setVar("meJobColumnMenuOpen", false);
+  tl.setVar("meFilterField", "Email");
+  tl.setVar("meFilterCondition", "contains");
+  tl.setVar("meFilterValue", "design");
+  tl.setVar("meFilterApplied", false);
+  tl.setVar("meFilterFieldDropdownOpen", false);
+  tl.setVar("meFilterCondDropdownOpen", false);
+  tl.setVar("meActiveChip", "all");
+  tl.setVar("meUploadCsvModalOpen", false);
+  tl.setVar("meFileChooserOpen", false);
+  tl.setVar("meSelectedCsvFile", null);
+  tl.setVar("meFileChooserSelected", "sample-contacts.csv");
+  tl.setVar("meAddContactModalOpen", false);
+  tl.setVar("meAddContactFirstName", "");
+  tl.setVar("meAddContactLastName", "");
+  tl.setVar("meAddContactEmail", "");
+  tl.setVar("meAddContactPhone", "");
+  tl.setVar("meAddContactCompany", "");
+  tl.setVar("meAddContactJob", "");
+  tl.setVar("meAddContactLocation", "");
+  tl.setVar("meAddContactLinkedin", "");
+  tl.setVar("meCustomFieldDrawerOpen", false);
+  tl.setVar("meCustomFieldType", "Text");
+  tl.setVar("meCustomFieldLabel", "");
+  tl.setVar("meCustomFieldTypeDropdownOpen", false);
+  tl.setVar("meDeleteColumnModalOpen", false);
 }
 
 /** Scroll helper for containers marked with data-me-scroll=true or custom selector. */
