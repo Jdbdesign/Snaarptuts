@@ -19,6 +19,12 @@ export const ME_URLS = {
   integrationsVideo: "snaarp.me/integrations/video",
   integrationsPayments: "snaarp.me/integrations/payments",
   integrationsCrm: "snaarp.me/integrations/crm",
+  settings: "snaarp.me/settings",
+  settingsProfile: "snaarp.me/settings/profile",
+  settingsTeam: "snaarp.me/settings/team",
+  settingsBranding: "snaarp.me/settings/branding",
+  settingsSso: "snaarp.me/settings/sso",
+  settingsDeveloper: "snaarp.me/settings/developer",
 } as const;
 
 export type MePage =
@@ -40,7 +46,13 @@ export type MePage =
   | "integrations-calendars"
   | "integrations-video"
   | "integrations-payments"
-  | "integrations-crm";
+  | "integrations-crm"
+  | "settings"
+  | "settings-profile"
+  | "settings-team"
+  | "settings-branding"
+  | "settings-sso"
+  | "settings-developer";
 
 export interface Booking {
   id: string;
@@ -684,4 +696,62 @@ export const INITIAL_EVENT_PRICING: EventTypePricingItem[] = [
     price: "£0.00",
   },
 ];
+
+export interface ApiKeyItem {
+  id: string;
+  name: string;
+  key: string;
+  created: string;
+}
+
+export interface WebhookItem {
+  id: string;
+  url: string;
+  events: string[];
+  secret?: string;
+}
+
+export interface OAuthAppItem {
+  id: string;
+  name: string;
+  redirectUris: string;
+  scopes: string[];
+}
+
+export interface TeamInviteItem {
+  id: string;
+  email: string;
+  role: string;
+  sent: string;
+  expires: string;
+}
+
+export const SAMPLE_API_KEY: ApiKeyItem = {
+  id: "key-1",
+  name: "Production API Key",
+  key: "sk_sample_••••••••",
+  created: "10/11/2026",
+};
+
+export const SAMPLE_WEBHOOK: WebhookItem = {
+  id: "wh-1",
+  url: "https://example.com/webhooks/snaarp-me",
+  events: ["booking.created", "booking.cancelled"],
+  secret: "sample-secret",
+};
+
+export const SAMPLE_OAUTH_APP: OAuthAppItem = {
+  id: "app-1",
+  name: "Acme Studio Booking Sync",
+  redirectUris: "https://example.com/callback, https://example.com/auth/callback",
+  scopes: ["bookings:read", "event_types:read"],
+};
+
+export const SAMPLE_TEAM_INVITE: TeamInviteItem = {
+  id: "inv-team-1",
+  email: "design@example.com",
+  role: "Member",
+  sent: "Nov 10, 2026",
+  expires: "Nov 17, 2026",
+};
 

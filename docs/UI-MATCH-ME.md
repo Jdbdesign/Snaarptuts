@@ -486,4 +486,105 @@ Frames: `ref/me4/0091.png`, `0095.png`, `0105.png`, `0112.png`
 | **Workflow Email Accounts** | Section heading: "Workflow Email Accounts" (`text-base font-bold text-gray-900 mt-8 mb-1`), subtitle: "Send workflow emails (confirmations, reminders, follow-ups) from your own email account" (`text-xs text-gray-500 mb-3`). 2 cards: Gmail, Outlook. Each with logo mark, title, description, "Not Connected", and purple "Connect" button. | `ref/me4/0105.png` |
 | **Completion Transition** | Clicking `< Back to Integrations` returns to Hub. 1.5s pause, then transition to completion card ("Tour complete"). | `ref/me4/0112.png` |
 
+---
+
+## 37. Screen 36: Settings Hub (`snaarp.me/settings`) — Step 33
+
+Frames: `ref/me5/0208.png`, `0210.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Sidebar Navigation** | Bottom of left navigation list: "Settings" button (gear icon, label "Settings", `data-tl="me-nav-settings"`). Active state: `#F5EEFF` background, `#7014D9` text and icon. | `ref/me5/0208.png` |
+| **Page Header** | Title: "Settings" (`text-2xl font-bold text-gray-900`). Subtitle: "Manage your account and organization settings." (`text-sm text-gray-500`). | `ref/me5/0208.png` |
+| **Settings Grid** | 3 columns × 2 rows grid (`grid grid-cols-3 gap-6 mt-6`). Each card `bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:border-[#7014D9]/40 hover:shadow-md cursor-pointer transition-all flex flex-col justify-between`. <br>• **Card 1: Profile**: User icon in lilac square `bg-[#F5EEFF] text-[#7014D9] p-3 rounded-xl`. Heading "Profile" (`font-bold text-base text-gray-900 mt-4`), subtitle "Manage your name, username, timezone, and profile picture" (`text-xs text-gray-500 mt-1`). <br>• **Card 2: Team**: Users icon in lilac square `p-3 rounded-xl`. Heading "Team", subtitle "Manage team members, roles, and invitations". <br>• **Card 3: Branding**: Palette icon in lilac square `p-3 rounded-xl`. Heading "Branding", subtitle "Customize your booking page appearance". <br>• **Card 4: Security**: Shield lock icon in lilac square `p-3 rounded-xl`. Heading "Security", subtitle "Multi-factor authentication and account security". <br>• **Card 5: SSO**: Key / building icon in lilac square `p-3 rounded-xl`. Heading "SSO", subtitle "Configure Single Sign-On for your organization". <br>• **Card 6: Developer**: Code icon in lilac square `p-3 rounded-xl`. Heading "Developer", subtitle "API keys, webhooks, OAuth apps, and embed code". | `ref/me5/0208.png` |
+
+---
+
+## 38. Screen 37: Profile Settings (`snaarp.me/settings/profile`) — Step 34
+
+Frames: `ref/me5/0006.png`, `0012.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Back Button** | Link `< Back to Settings` (`text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5 mb-3`). | `ref/me5/0006.png` |
+| **Header** | Title: "Profile" (`text-2xl font-bold text-gray-900`). Subtitle: "Manage your personal information and preferences" (`text-sm text-gray-500`). | `ref/me5/0006.png` |
+| **Left Column (40%)** | • **Profile Picture Card**: Heading "Profile Picture", circular avatar (`w-20 h-20 rounded-full bg-[#7014D9] text-white flex items-center justify-center font-bold text-2xl`), button "Change Photo" (`bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-lg`), red link "Remove Photo". <br>• **Account Status Card**: Heading "Account Status", rows: Email Verified (`Yes` with green badge), MFA Enabled (`Disabled` with gray badge), Member Since (`20/09/2026`). | `ref/me5/0006.png` |
+| **Right Column (60%)** | • **Account Information Card**: Heading "Account Information". Fields: Full Name (`Jane Doe`), Username (`jane`, hint "Used in your booking page URL. Spaces are not allowed."), Email (`jane@example.com`, disabled with hint "Email cannot be changed"), Timezone dropdown (value "UTC (GMT+0)" / "Africa/Lagos", hint "Choose your timezone, then use Save Changes to confirm. Existing schedules keep their own timezone.", link "Use device timezone"). <br>• **Change Password Card**: Heading "Change Password". Fields: Current Password, New Password (hint "Min 8 chars with uppercase, lowercase, number, and special character"), Confirm New Password. Button "Change Password" (disabled until filled). <br>• **Footer Action**: Purple button "Save Changes" (`bg-[#7014D9] text-white px-5 py-2 rounded-xl text-sm font-semibold`). Banner toast: "Profile updated successfully." / "Password changed successfully." | `ref/me5/0006.png` |
+
+---
+
+## 39. Screen 38: Team Settings (`snaarp.me/settings/team`) — Step 35
+
+Frames: `ref/me5/0025.png`, `0050.png`, `0075.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Back Button** | Link `< Back to Settings` (`text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5 mb-3`). | `ref/me5/0025.png` |
+| **Header** | Title: "Team Management — Product Team" (`text-2xl font-bold text-gray-900`). Subtitle: "Switch accounts from your profile menu. You're on Product Team as Owner." (`text-sm text-gray-500`). | `ref/me5/0025.png` |
+| **Invite Card** | Card "Invite Team Member": Email input (`colleague@example.com`), Role dropdown (Admin, Manager, Member ✓), "Send Invite" button (disabled until email entered). On click: green alert inside card "Invitation sent to design@example.com". | `ref/me5/0025.png` |
+| **Tabs & Lists** | Tabs: `Members (1)` and `Invitations (0)` (becomes `Invitations (1)` when invite sent). <br>• **Members**: Jane Doe, purple "Owner" pill, `jane@example.com`, "Joined Sep 20, 2026". <br>• **Invitations**: Pending row: `design@example.com`, orange "Pending" pill, "Member", "Sent Nov 10, 2026 · Expires Nov 17, 2026", lilac button "Resend Invite", pink button "Cancel Invite". Clicking Resend shows green banner "Invitation resent to design@example.com". Clicking Cancel removes row, restores empty text, and shows banner "Invitation cancelled.". | `ref/me5/0050.png`, `0075.png` |
+
+---
+
+## 40. Screen 39: Branding Settings (`snaarp.me/settings/branding`) — Step 36
+
+Frames: `ref/me5/0120.png`, `0150.png`, `0180.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Back Button** | Link `< Back to Settings` (`text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5 mb-3`). | `ref/me5/0120.png` |
+| **Header** | Title: "Branding Settings" (`text-2xl font-bold text-gray-900`). Subtitle: "Customize the appearance of your public booking pages." (`text-sm text-gray-500`). | `ref/me5/0120.png` |
+| **Form Column (Left)** | • **Display Name**: Input `e.g. John Smith or Acme Consulting`, helper "This appears as the organizer name on your public booking page". <br>• **Profile Picture**: Box with upload button "Upload Snaarp Me profile picture". On click: opens in-app image picker modal with 3 sample graphics. Selecting graphic updates preview and displays "Change Snaarp Me profile picture" with red "Remove" link. <br>• **Colors**: Primary Color swatch + hex input `#6366f1` / `#7C3AED` ("Used for buttons and accents"), Secondary Color swatch + input `#818cf8` ("Used for hover states and highlights"). <br>• **Button Style**: Radios: Rounded (selected), Square, Pill. Sample Button updates shape live. <br>• **Welcome Message**: Textarea with character counter "0/500 characters". <br>• **Save Changes**: Purple button. Banner: "Branding settings saved." | `ref/me5/0120.png`, `0180.png` |
+| **Live Preview (Right)** | Card "Live Preview": Subtitle "Preview of your booking page appearance". Contains live-updating avatar, Display Name ("Jane Doe"), organizer title, booking cards ("30 Minute Meeting", "60 Minute Consultation") with dynamic button colors/radii, and footer "Powered by Snaarp Me". | `ref/me5/0120.png` |
+
+---
+
+## 41. Screen 40: Single Sign-On Settings (`snaarp.me/settings/sso`) — Step 37
+
+Frames: `ref/me5/0225.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Back Button** | Link `< Back to Settings` (`text-sm font-medium text-gray-600 hover:text-gray-900 flex items-center gap-1.5 mb-3`). | `ref/me5/0225.png` |
+| **Header** | Title: "Single Sign-On (SSO)" (`text-2xl font-bold text-gray-900`). Subtitle: "Configure SAML 2.0 or OpenID Connect authentication." (`text-sm text-gray-500`). | `ref/me5/0225.png` |
+| **SSO Status Card** | Heading "SSO Status", subtitle "Current Single Sign-On configuration for your organization". Status text: "SSO is not configured yet." (`text-sm text-gray-500 font-medium py-2`). | `ref/me5/0225.png` |
+| **Configure SSO Card** | Heading "Configure SSO", subtitle "Set up SAML 2.0 or OpenID Connect for your organization". Tabs: `SAML 2.0` (active) and `OpenID Connect`. <br>• **Entity ID ***: input with placeholder `https://your-idp.example.com/entity`. Types `https://idp.example.com/entity`. <br>• **SSO URL ***: input with placeholder `https://your-idp.example.com/sso/saml`. Types `https://idp.example.com/sso/saml`. <br>• **X.509 Certificate ***: textarea with certificate lines. <br>• **Email Domain ***: input with placeholder `example.com`. Types `example.com`. | `ref/me5/0225.png` |
+
+---
+
+## 42. Screen 41: Developer Settings — API Keys (`snaarp.me/settings/developer`) — Step 38
+
+Frames: `ref/me5/0250.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Header** | Title: "Developer Settings" (`text-2xl font-bold text-gray-900`). Subtitle: "Manage API keys, webhooks, OAuth apps, and embed integrations." (`text-sm text-gray-500`). | `ref/me5/0250.png` |
+| **Developer Tabs** | `API Keys` (selected) | `Webhooks` | `OAuth Apps` | `Embed Code`. | `ref/me5/0250.png` |
+| **API Keys Tab** | Description: "API keys allow external applications to authenticate with your account." Button: "Create API Key" (`bg-[#7014D9] text-white px-4 py-2 rounded-xl text-xs font-semibold`). Empty state: "No API keys yet. Create one to get started." | `ref/me5/0250.png` |
+| **Create Key Modal** | Modal "Create API Key": Key Name input (`e.g. Production API Key`), Expiry Date optional (`mm/dd/yyyy`), helper "Leave empty for no expiration", Cancel, Create button. On create: row mounts in table (`Production API Key`, `sk_sample_••••••••`, `Created 10/11/2026`). | `ref/me5/0250.png` |
+
+---
+
+## 43. Screen 42: Developer Settings — Webhooks & OAuth Apps — Step 39
+
+Frames: `ref/me5/0275.png`, `0290.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Webhooks Tab** | Description: "Receive real-time notifications when events occur in your account." Button: "Add Webhook". Empty state: "No webhooks configured. Add one to receive event notifications." <br>• **Add Webhook Modal**: Target URL (`https://example.com/webhooks/snaarp-me`), Events checkboxes (`booking.created` ✓, `booking.cancelled` ✓, `booking.rescheduled`, `booking.no_show`, `invitee.created`), Secret input (`sample-secret`), Cancel, Create. On submit: webhook row mounts with URL and event badges. | `ref/me5/0275.png` |
+| **OAuth Apps Tab** | Description: "Register OAuth applications to integrate with the Snaarp Me API." Button: "Register App". Empty state: "No OAuth apps registered. Register one to enable third-party integrations." <br>• **Register App Modal**: App Name (`Acme Studio Booking Sync`), Redirect URIs (`https://example.com/callback, https://example.com/auth/callback`), Scopes checkboxes (`bookings:read` ✓, `bookings:write`, `event_types:read` ✓, `event_types:write`, `availability:read`, `webhooks:read`, `webhooks:write`), Cancel, Register. On submit: app row mounts. | `ref/me5/0290.png` |
+
+---
+
+## 44. Screen 43: Developer Settings — Embed Code (`snaarp.me/settings/developer`) — Step 40
+
+Frames: `ref/me5/0305.png`
+
+| Section / Element | Specification | Frame Reference |
+|---|---|---|
+| **Embed Code Tab** | Subtitle: "Generate embed code to add scheduling to your website." 2-column layout. | `ref/me5/0305.png` |
+| **Configuration (Left)** | Card "Configuration", subtitle "Customize your embed widget". <br>• Embed Mode: dropdown "Inline Embed". <br>• Event Type: dropdown "Creative meeting with the Team" (switches to "Standup Meeting with developers"). <br>• Container Selector: input `#snaarp-me-embed`. | `ref/me5/0305.png` |
+| **Generated Code (Right)**| Card "Generated Code", subtitle "Copy and paste into your website". Top right "Copy" button (with copy icon; changes to "Copied!" checkmark on click). Dark code container (`bg-[#1E1E2E] p-4 rounded-xl text-xs font-mono text-gray-200`) rendering HTML embed snippet with `<script>` tags. | `ref/me5/0305.png` |
+| **Completion Card** | 1.5s calm pause, then transition to tour completion card ("Tour complete", Replay tour, Back to Snaarp). | Final |
+
 

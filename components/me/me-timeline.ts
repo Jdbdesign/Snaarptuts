@@ -278,6 +278,50 @@ export function beginMe(
   tl.setVar("mePaymentsToggleStandup", false);
   tl.setVar("mePaymentsToggleThirty", false);
   tl.setVar("meAppsCrmLoading", false);
+
+  // Part 5: Settings, Branding & Developer
+  tl.setVar("meSettingsProfileName", "Jane Doe");
+  tl.setVar("meSettingsTimezone", "UTC (GMT+0)");
+  tl.setVar("meProfilePhotoSelected", false);
+  tl.setVar("mePasswordCurrent", "");
+  tl.setVar("mePasswordNew", "");
+  tl.setVar("mePasswordConfirm", "");
+
+  tl.setVar("meTeamActiveTab", "members");
+  tl.setVar("meTeamInviteEmail", "");
+  tl.setVar("meTeamInviteRole", "Member");
+  tl.setVar("meTeamInvitesList", []);
+  tl.setVar("meTeamCardBanner", "");
+
+  tl.setVar("meBrandingDisplayName", "Jane Doe");
+  tl.setVar("meBrandingPhotoSelected", false);
+  tl.setVar("meBrandingPrimaryColor", "#6366f1");
+  tl.setVar("meBrandingSecondaryColor", "#818cf8");
+  tl.setVar("meBrandingButtonStyle", "rounded");
+  tl.setVar("meBrandingWelcomeMsg", "");
+
+  tl.setVar("meSsoTab", "saml");
+  tl.setVar("meSsoEntityId", "");
+  tl.setVar("meSsoUrl", "");
+  tl.setVar("meSsoCert", "");
+  tl.setVar("meSsoDomain", "");
+
+  tl.setVar("meDevActiveTab", "apikeys");
+  tl.setVar("meDevLoading", false);
+  tl.setVar("meApiKeyModalOpen", false);
+  tl.setVar("meApiKeysList", []);
+  tl.setVar("meWebhookModalOpen", false);
+  tl.setVar("meWebhooksList", []);
+  tl.setVar("meOAuthModalOpen", false);
+  tl.setVar("meOAuthAppsList", []);
+  tl.setVar("meEmbedMode", "Inline Embed");
+  tl.setVar("meEmbedEventType", "Creative meeting with the Team");
+  tl.setVar("meEmbedSelector", "#snaarp-me-embed");
+  tl.setVar("meEmbedCopied", false);
+
+  tl.setVar("meImagePickerOpen", false);
+  tl.setVar("meImagePickerSelected", "avatar-profile-1.png");
+  tl.setVar("meImagePickerTarget", "profile");
 }
 
 /** Scroll helper for containers marked with data-me-scroll=true or custom selector. */

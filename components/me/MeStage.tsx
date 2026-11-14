@@ -42,6 +42,18 @@ import { MeVideoIntegrationsView } from "./MeVideoIntegrationsView";
 import { MePaymentsView } from "./MePaymentsView";
 import { MeAppsCrmView } from "./MeAppsCrmView";
 
+// Part 5 Views & Modals
+import { MeSettingsHubView } from "./MeSettingsHubView";
+import { MeProfileSettingsView } from "./MeProfileSettingsView";
+import { MeTeamSettingsView } from "./MeTeamSettingsView";
+import { MeBrandingSettingsView } from "./MeBrandingSettingsView";
+import { MeSsoSettingsView } from "./MeSsoSettingsView";
+import { MeDeveloperSettingsView } from "./MeDeveloperSettingsView";
+import { MeImagePickerModal } from "./MeImagePickerModal";
+import { MeApiKeyModal } from "./MeApiKeyModal";
+import { MeWebhookModal } from "./MeWebhookModal";
+import { MeOAuthAppModal } from "./MeOAuthAppModal";
+
 interface Props {
   tl: Timeline;
 }
@@ -106,6 +118,14 @@ export function MeStage({ tl }: Props) {
         {currentView === "integrations-video" && <MeVideoIntegrationsView tl={tl} />}
         {currentView === "integrations-payments" && <MePaymentsView tl={tl} />}
         {currentView === "integrations-crm" && <MeAppsCrmView tl={tl} />}
+
+        {/* Part 5 Views */}
+        {currentView === "settings" && <MeSettingsHubView tl={tl} />}
+        {currentView === "settings-profile" && <MeProfileSettingsView tl={tl} />}
+        {currentView === "settings-team" && <MeTeamSettingsView tl={tl} />}
+        {currentView === "settings-branding" && <MeBrandingSettingsView tl={tl} />}
+        {currentView === "settings-sso" && <MeSsoSettingsView tl={tl} />}
+        {currentView === "settings-developer" && <MeDeveloperSettingsView tl={tl} />}
       </MeShell>
 
       {/* Global Modals & Drawers */}
@@ -123,6 +143,12 @@ export function MeStage({ tl }: Props) {
       <MeAddContactModal tl={tl} />
       <MeCustomFieldDrawer tl={tl} />
       <MeDeleteColumnModal tl={tl} />
+
+      {/* Part 5 Modals */}
+      <MeImagePickerModal tl={tl} />
+      <MeApiKeyModal tl={tl} />
+      <MeWebhookModal tl={tl} />
+      <MeOAuthAppModal tl={tl} />
     </div>
   );
 }

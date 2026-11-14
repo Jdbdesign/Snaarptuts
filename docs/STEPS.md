@@ -2352,7 +2352,7 @@ Reference video 2: `C:\Users\HP\Downloads\1109 (2).mp4` (1384×720, 2:05; steps 
 
 ---
 
-## Snaarp Me (Steps 1–32, Complete)
+## Snaarp Me (Steps 1–40, Complete)
 
 Product: **Snaarp Me** (Scheduling & Bookings)  
 Route: `/tutorials/snaarp-me` (also `/tutorials/me`, `/tutorials/snaarpme`, `/tutorials/scheduling`, `/tutorials/calendar`, `/tutorials/bookings`)  
@@ -2362,6 +2362,7 @@ Reference videos:
 - `C:\Users\HP\Downloads\1110 (1)(1).mp4` (1426×720, 2:52; Part 2, steps 7–13)
 - `C:\Users\HP\Downloads\1110 (1)(2).mp4` (1414×720, 5:53; Part 3, steps 14–26)
 - `C:\Users\HP\Downloads\1110 (2).mp4` (1422×720, 1:00; Part 4, steps 27–32)
+- `C:\Users\HP\Downloads\1114 (1).mp4` (1442×720, 2:34; Part 5, steps 33–40)
 
 | Step | Title | Description | Duration |
 |:---:|:---|:---|:---:|
@@ -2396,7 +2397,15 @@ Reference videos:
 | 29 | Calendar integrations | Enters Calendar Integrations (`snaarp.me/integrations/calendars`), reviews connected Snaarp Meet integration with account email `jane@example.com`, inspects external calendar connection options (Google Calendar, Microsoft Outlook, Microsoft Exchange), and returns via "< Back to Integrations". | 11.0 s |
 | 30 | Video conferencing | Opens Video Conferencing (`snaarp.me/integrations/video`), inspects connected Snaarp Meet account details (`acct-sample-0001`, `jane@example.com`), reviews Zoom and Google Meet integration options, and returns to the hub via "< Back to Integrations". | 11.0 s |
 | 31 | Payments | Opens Payments (`snaarp.me/integrations/payments`), reviews Stripe and PayPal payment gateway options, scrolls to Event Type Pricing, tests turning "Require Payment" on and off for "Creative meeting with the Team", verifies Payment History empty state ("No payments recorded yet."), and clicks "< Back to Integrations". | 14.5 s |
-| 32 | Apps and CRM | Opens Apps and CRM (`snaarp.me/integrations/crm`) with 1.0s loading spinner, explores CRM Platforms (Salesforce, HubSpot, Mailchimp, Dynamics 365, Zoho CRM, ActiveCampaign, Pipedrive, Freshsales), Enrichment & Intelligence (Gong, LinkedIn Sales Navigator), Form Integrations (Typeform, JotForm), Email Delivery (Postal), and Workflow Email Accounts (Gmail, Outlook). Scrolls to bottom and back, clicks "< Back to Integrations" to return to the hub, holds for 1.5s, and concludes the tutorial with the completion card. | 16.5 s |
+| 32 | Apps and CRM | Opens Apps and CRM (`snaarp.me/integrations/crm`) with 1.0s loading spinner, explores CRM Platforms (Salesforce, HubSpot, Mailchimp, Dynamics 365, Zoho CRM, ActiveCampaign, Pipedrive, Freshsales), Enrichment & Intelligence (Gong, LinkedIn Sales Navigator), Form Integrations (Typeform, JotForm), Email Delivery (Postal), and Workflow Email Accounts (Gmail, Outlook). Scrolls to bottom and back, clicks "< Back to Integrations" to return to the hub. | 16.5 s |
+| 33 | Meet Settings | Introduces the Settings hub (`snaarp.me/settings`), reviews the 6 configuration categories arranged in 3 columns × 2 rows: Profile, Team, Branding, Security, SSO, and Developer tools. | 14.0 s |
+| 34 | Update your profile | Opens Profile settings (`snaarp.me/settings/profile`), retypes full name, matches device timezone with Africa/Lagos, opens in-app image picker to change profile avatar, saves changes with confirmation banner, enters password credentials, and submits password change. | 22.0 s |
+| 35 | Invite team members | Opens Team settings (`snaarp.me/settings/team`), invites `design@example.com` with Member role, sends invite, inspects pending invitation in Invitations tab, triggers Resend Invite with confirmation, and cancels invite. | 18.0 s |
+| 36 | Brand your booking page | Opens Branding settings (`snaarp.me/settings/branding`), sets display name, uploads profile photo via in-app picker, customizes primary and secondary colors (`#7C3AED`, `#818cf8`), selects Pill button style, enters welcoming booking message, reviews live-updating preview page, and saves settings. | 22.0 s |
+| 37 | Set up single sign-on | Opens SSO settings (`snaarp.me/settings/sso`), reviews calm status card, configures SAML 2.0 with Entity ID, SSO URL, X.509 Certificate, and organization email domain `example.com`, and saves configuration. | 20.0 s |
+| 38 | Create an API key | Opens Developer settings (`snaarp.me/settings/developer`) with 1.0s loading spinner, clicks Create API Key, enters name "Production API Key", and creates key to mount row in API Keys table. | 14.0 s |
+| 39 | Add a webhook and register an OAuth app | Switches to Webhooks tab, adds endpoint `https://example.com/webhooks/snaarp-me` with booking event subscriptions, switches to OAuth Apps tab, registers "Acme Studio Booking Sync" with callback URIs and scopes. | 18.0 s |
+| 40 | Generate your embed code | Switches to Embed Code tab, selects "Standup Meeting with developers" event type, specifies container selector `#snaarp-me-embed`, clicks Copy to clipboard, holds for 1.5s, and concludes the Snaarp Me tutorial with the completion card. | 16.0 s |
 
 **Files.**
 - Config: `tutorials/snaarp-me.ts` (registered in `tutorials/index.ts`, route `/tutorials/snaarp-me` with aliases `me`, `snaarpme`, `scheduling`, `calendar`, `bookings`)
@@ -2407,6 +2416,7 @@ Reference videos:
   - `Contacts` (steps 21–26)
   - `Analytics` (step 27)
   - `Integrations` (steps 28–32)
+  - `Settings` (steps 33–40)
 - Shell & Stage: `components/me/MeShell.tsx` (with 18-app suite rail, left menu with lilac active pill, header card), `components/me/MeStage.tsx`, `components/me/MeToastBanner.tsx`, `components/me/me-brand-marks.tsx`
 - Views:
   - `MeHomeView.tsx`
@@ -2428,6 +2438,12 @@ Reference videos:
   - `MeVideoIntegrationsView.tsx`
   - `MePaymentsView.tsx`
   - `MeAppsCrmView.tsx`
+  - `MeSettingsHubView.tsx`
+  - `MeProfileSettingsView.tsx`
+  - `MeTeamSettingsView.tsx`
+  - `MeBrandingSettingsView.tsx`
+  - `MeSsoSettingsView.tsx`
+  - `MeDeveloperSettingsView.tsx`
 - Modals & Drawers:
   - `MeBookingModal.tsx`
   - `MeCreateEventModal.tsx`
@@ -2441,6 +2457,10 @@ Reference videos:
   - `MeAddContactModal.tsx`
   - `MeCustomFieldDrawer.tsx`
   - `MeDeleteColumnModal.tsx`
+  - `MeImagePickerModal.tsx`
+  - `MeApiKeyModal.tsx`
+  - `MeWebhookModal.tsx`
+  - `MeOAuthAppModal.tsx`
 - Timeline & Data: `components/me/me-timeline.ts` (`beginMe`, `finishMe`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/me/me-data.ts`
-- Step Scenes: `scenes/snaarp-me/step<1..32>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Step Scenes: `scenes/snaarp-me/step<1..40>/Step<N>.tsx`, `script.ts`, `data.ts`
 

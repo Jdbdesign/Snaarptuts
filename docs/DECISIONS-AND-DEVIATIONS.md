@@ -1615,34 +1615,40 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 6. **Timing & End Holds**:
    - Every step finishes ~1.5s after its visible success state (2.0s on table reading/grid inspection), ending with a 400ms fade before stepping forward. Step 11 seamlessly transitions to the data-driven completion card.
 
-## Snaarp Me (Scheduling & Bookings, Steps 1–32 Complete)
+## Snaarp Me (Scheduling & Bookings, Steps 1–40 Complete)
 
 - Scope:
   - Part 1 (steps 1–6): Home Dashboard (1), Booking & Calendar (2), Create Event Type (3), Edit Event Type & Preview (4), Booking Link & Public Page (5), Home Dashboard Updated (6).
   - Part 2 (steps 7–13): Meet Availability (7), Create Schedule (8), Add Date Override (9), Preview Availability (10), Explore Calendar (11), Open Day & Meeting (12), Meetings List (13).
   - Part 3 (steps 14–26): Meet Workflows (14), Create Workflow from Template (15), Turn Workflow On or Off (16), Edit Emails & Reminders (17), Check Execution Logs (18), Build Custom Workflow (19), Delete Custom Workflow (20), Meet Contacts (21), Show Columns & Filter (22), Add Contact & Upload CSV (23), Add Custom Field (24), Manage Column (25), Export Contacts (26).
   - Part 4 (steps 27–32): Meet Analytics (27), Meet Integrations (28), Calendar integrations (29), Video conferencing (30), Payments (31), Apps and CRM (32).
+  - Part 5 (steps 33–40): Meet Settings (33), Update your profile (34), Invite team members (35), Brand your booking page (36), Set up single sign-on (37), Create an API key (38), Add a webhook and register an OAuth app (39), Generate your embed code (40).
 - Reference recordings:
   - `C:\Users\HP\Downloads\1110 (1).mp4` (1430×720, 5:08; Part 1, steps 1–6).
   - `C:\Users\HP\Downloads\1110 (1)(1).mp4` (1426×720, 2:52; Part 2, steps 7–13).
   - `C:\Users\HP\Downloads\1110 (1)(2).mp4` (1414×720, 5:53; Part 3, steps 14–26).
   - `C:\Users\HP\Downloads\1110 (2).mp4` (1422×720, 1:00; Part 4, steps 27–32).
+  - `C:\Users\HP\Downloads\1114 (1).mp4` (1442×720, 2:34; Part 5, steps 33–40).
 
 ### Decisions & Deviations from Video
 1. **Sample Data Instead of Real Personal Data**:
-   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`), Casey Brown (`casey@example.com`), Jordan Lee (`jordan.lee@example.com`, `+44 7700 900123`, `Acme Studio`, `CEO`, `London, United Kingdom`), Design Team (`design@example.com`), 18 organization colleagues (all `name@example.com`, initial avatars only), account ID `acct-sample-0001`, meeting codes `sample-abc-123`, `csv-vmbx-stn`. Dates formatted cleanly as DD/MM/YYYY.
+   - The recording showed real accounts, personal handles, and real emails. All have been replaced with clean sample data: Jane Doe (`jane@example.com`, handle `jane`), Sam Taylor (`sam.taylor@example.com`), John Smith (`john@example.com`), Casey Brown (`casey@example.com`), Jordan Lee (`jordan.lee@example.com`, `+44 7700 900123`, `Acme Studio`, `CEO`, `London, United Kingdom`), Design Team (`design@example.com`), 18 organization colleagues (all `name@example.com`, initial avatars only), account ID `acct-sample-0001`, meeting codes `sample-abc-123`, `csv-vmbx-stn`, API key `sk_sample_••••••••`, webhook URL `https://example.com/webhooks/snaarp-me`, OAuth app `Acme Studio Booking Sync`. Dates formatted cleanly as DD/MM/YYYY.
    - Replaced "Kalender's" in the video with "Snaarp Me's" (e.g. "Snaarp Me's Default Availability").
 2. **In-App Dialogs Replacing Browser/OS Dialogs**:
    - The video recorded native OS/browser dialogs: a Windows file picker dialog and a native JavaScript `confirm()` dialog (`snaarp.me says: Delete the "Job" field? Values stored on every contact will be removed.`).
    - Replaced both with high-fidelity in-app dialogs matching Snaarp Me design system:
      - `MeFileChooserModal`: In-app file chooser dialog with file list (`sample-contacts.csv`) and Open/Cancel actions.
      - `MeDeleteColumnModal`: In-app confirmation modal for deleting the "Job" custom field with OK and Cancel.
-3. **No Browser Chrome & Standalone Public Booking Page**:
+     - `MeImagePickerModal`: In-app avatar and photo chooser dialog for Profile (Step 34) and Branding (Step 36) with 3 sample graphics and Open/Cancel actions.
+3. **Calm Text Replacing Transient Video Glitches & Errors**:
+   - In Step 36 (Branding Settings), omitted the video's red error banner ("File size must be less than 2MB.") that appeared when the user tested invalid uploads.
+   - In Step 37 (SSO Settings), replaced the video's error state ("Unable to load SSO status.") with calm, accurate status text: "SSO is not configured yet.".
+4. **No Browser Chrome & Standalone Public Booking Page**:
    - Omitted all browser tabs, dark green new tab screen, address bar, extensions, and Chrome autofill popups.
    - When navigating to `snaarp.me/jane/creative-meeting-with-the-team` in Step 5, the page renders standalone full screen with its blue-violet gradient header and NO application shell (no suite rail, no sidebar), exactly as a public booking guest would experience it.
-4. **Full 18-App Suite Rail Across App Views**:
+5. **Full 18-App Suite Rail Across App Views**:
    - Per requirements, the suite rail across all Snaarp Me views contains the full 18 apps in order with Snaarp Me active (lilac `#EDE9FE` pill), matching the Snaarp suite shell specification.
-5. **Workflows & Automation Engine**:
+6. **Workflows & Automation Engine**:
    - Step 14 introduces the Workflows catalog (`snaarp.me/workflows`) with Booking emails & reminders and Custom workflows sections.
    - Step 15 opens the template chooser (`snaarp.me/workflows/create`) and creates "Notify me when someone books" with merge tags and backend booking details toggle.
    - Step 16 toggles the notification workflow off and on, observing Inactive/Active status and confirmation banner toasts.
@@ -1650,22 +1656,31 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
    - Step 18 checks execution logs for newly created workflows (empty state) and active booking confirmation workflows (filtered by Pending).
    - Step 19 builds a custom workflow with "Meeting Started" trigger and "Both" recipients.
    - Step 20 deletes the custom workflow via the in-app confirmation modal.
-6. **Contacts Directory Engine**:
+7. **Contacts Directory Engine**:
    - Step 21 introduces Contacts (`snaarp.me/contacts`) with My Contacts (empty state), Organization (18 team members), and Invitees (3 attendees) tabs.
    - Step 22 tests Show columns popover (toggling Phone number) and Where filter popover (filtering Where Email contains "design").
    - Step 23 tests Upload CSV with in-app file chooser (`sample-contacts.csv`) and Add manually with Jordan Lee form fields.
    - Step 24 slides out "Create a custom field" drawer, adds "Job" field, and verifies column creation.
    - Step 25 tests column management (Sort descending, Delete field with in-app confirmation modal).
    - Step 26 tests Export CSV with tooltip hover and download started banner.
-7. **Analytics & Integrations Ecosystem (Part 4)**:
+8. **Analytics & Integrations Ecosystem (Part 4)**:
    - Step 27 introduces Meet Analytics (`snaarp.me/analytics`), testing period filters (7 Days and Today), Source dropdown (All Sources, Web, API, Embed), stat cards, Bookings Over Time line plot, and Popular Time Slots heatmap (purple Tuesday 9:00 cell).
    - Step 28 introduces Meet Integrations hub (`snaarp.me/integrations`), reviewing Calendars, Video Conferencing, Payments, and APPS and CRM cards in logical sequence.
    - Step 29 explores Calendar integrations (`snaarp.me/integrations/calendars`) with connected Snaarp Meet (`jane@example.com`) and external calendar providers, returning to hub.
    - Step 30 explores Video conferencing (`snaarp.me/integrations/video`) with connected Snaarp Meet account details (`acct-sample-0001`), Zoom, and Google Meet, returning to hub.
    - Step 31 explores Payments (`snaarp.me/integrations/payments`) with Stripe, PayPal, Event Type Pricing table (testing Require Payment toggle on and off), and Payment History empty state, returning to hub.
-   - Step 32 explores Apps and CRM (`snaarp.me/integrations/crm`) with 1.0s loading spinner, 8 CRM platforms, Gong, LinkedIn Sales Navigator, Typeform, JotForm, Postal, Gmail, and Outlook. Concludes with 1.5s finish hold and transitions to the completion card.
-8. **Timing & End Holds**:
-   - Every step ends ~1.2s to 1.8s after its primary action completes, concluding with a 400ms fade and transitioning to the completion card at the end of Step 32.
+   - Step 32 explores Apps and CRM (`snaarp.me/integrations/crm`) with 1.0s loading spinner, 8 CRM platforms, Gong, LinkedIn Sales Navigator, Typeform, JotForm, Postal, Gmail, and Outlook.
+9. **Settings, Branding & Developer Ecosystem (Part 5, Complete)**:
+   - Step 33 introduces the Settings hub (`snaarp.me/settings`) with 6 category cards (Profile, Team, Branding, Security, SSO, Developer).
+   - Step 34 updates Profile (`snaarp.me/settings/profile`), retypes full name, matches device timezone with Africa/Lagos, changes avatar via in-app picker, saves profile, and changes password.
+   - Step 35 manages Team (`snaarp.me/settings/team`), invites `design@example.com` with Member role, sends invite, inspects pending invitation in Invitations tab, triggers Resend Invite, and cancels invite.
+   - Step 36 brands public booking page (`snaarp.me/settings/branding`), sets display name, uploads profile photo via in-app picker, customizes primary and secondary colors (`#7C3AED`, `#818cf8`), selects Pill button style, enters welcoming booking message, reviews live-updating preview page, and saves settings.
+   - Step 37 configures Single Sign-On (`snaarp.me/settings/sso`), reviews calm status card, configures SAML 2.0 with Entity ID, SSO URL, X.509 Certificate, and organization email domain `example.com`, and saves configuration.
+   - Step 38 manages API Keys in Developer settings (`snaarp.me/settings/developer`) with 1.0s loading spinner, clicks Create API Key, enters name "Production API Key", and creates key.
+   - Step 39 manages Webhooks and OAuth Apps in Developer settings, adding endpoint `https://example.com/webhooks/snaarp-me` and registering "Acme Studio Booking Sync".
+   - Step 40 generates embed code, selects "Standup Meeting with developers" event type, specifies container selector `#snaarp-me-embed`, clicks Copy to clipboard, holds for 1.5s, and concludes the Snaarp Me tutorial with the completion card.
+10. **Timing & End Holds**:
+    - Every step ends ~1.2s to 1.8s after its primary action completes, concluding with a 400ms fade. Step 40 seamlessly transitions to the data-driven completion card.
 
 
 

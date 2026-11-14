@@ -452,3 +452,29 @@ How it is built:
 - Central sample data in `components/books/books-data.ts` (Sam Taylor, `sam.taylor@snaarp.com`, GBP £, 14 active catalog items, 2 inactive items, 4 active customers, 1 inactive customer, 4 CSV import customers, 8 initial quotes, 9 initial invoices, 2 initial sales receipts, 2 initial recurring profiles, 3 initial payments, 2 initial credit notes, 4 vendors, 3 initial expenses, unpaid invoices, cash flow chart data, account watchlist, 10 recent updates).
 - Per-step scenes in `scenes/books/step<1..147>/`.
 - Verified cleanly across all 147 steps. Zero console errors, TypeScript clean, ESLint clean, 0 silent fills, and 0 findings in QA visibility.
+
+## Snaarp Me (seventh tutorial, complete: 40 steps)
+
+Route: `/tutorials/snaarp-me` (aliases: `me`, `snaarpme`, `scheduling`, `calendar`, `bookings`)
+Config: `tutorials/snaarp-me.ts`
+State: All 40 steps built, verified, and COMPLETE across Parts 1 to 5.
+- Part 1 (steps 1–6): Home Dashboard (1), Booking & Calendar (2), Create Event Type (3), Edit Event Type & Preview (4), Booking Link & Public Page (5), Home Dashboard Updated (6).
+- Part 2 (steps 7–13): Meet Availability (7), Create Schedule (8), Add Date Override (9), Preview Availability (10), Explore Calendar (11), Open Day & Meeting (12), Meetings List (13).
+- Part 3 (steps 14–26): Meet Workflows (14), Create Workflow from Template (15), Turn Workflow On or Off (16), Edit Emails & Reminders (17), Check Execution Logs (18), Build Custom Workflow (19), Delete Custom Workflow (20), Meet Contacts (21), Show Columns & Filter (22), Add Contact & Upload CSV (23), Add Custom Field (24), Manage Column (25), Export Contacts (26).
+- Part 4 (steps 27–32): Meet Analytics (27), Meet Integrations (28), Calendar integrations (29), Video conferencing (30), Payments (31), Apps and CRM (32).
+- Part 5 (steps 33–40): Meet Settings (33), Update your profile (34), Invite team members (35), Brand your booking page (36), Set up single sign-on (37), Create an API key (38), Add a webhook and register an OAuth app (39), Generate your embed code (40).
+- Rail Groups:
+  - `Snaarp Me` (from `me-home-dashboard`)
+  - `Availability, Calendar and Meetings` (from `me-meet-availability`)
+  - `Workflows` (from `me-meet-workflows`)
+  - `Contacts` (from `me-meet-contacts`)
+  - `Analytics` (from `me-meet-analytics`)
+  - `Integrations` (from `me-meet-integrations`)
+  - `Settings` (from `me-meet-settings`)
+- Completion card follows step 40: "Tour complete / You can now configure event types, share public booking links, coordinate connected calendars, automate email workflows, manage contacts, track analytics, connect integrations, customize branding, and configure developer APIs in Snaarp Me."
+- Verification:
+  - `npx tsx scripts/check-me-chain.ts --from 1 --total 40 --speed 8`: 40/40 steps completed with 0 errors.
+  - `npm run qa:visibility -- --tutorial snaarp-me --from 33 --speed 4`: 32/32 viewports passed with 0 findings.
+  - `npx tsc --noEmit` clean (0 errors).
+  - `npm run lint` clean (0 errors).
+  - `npm run build` clean (75/75 pages generated statically).
