@@ -1753,6 +1753,43 @@ Reference recording: `1115.mp4` (1384x720, 4:20).
     - **Page Arrival**: Starts directly on `zeus.snaarp.com/settings` (Profile tab selected) as earlier Zeus steps did not implement an avatar dropdown menu.
     - **Completion Card**: Follows step 22 automatically as the final step of the full 22-step Zeus tutorial.
 
+## Snaarp Projects (Steps 1–9)
+
+Reference recording: `1115 (4).mp4` (1386x720, 4:25). Route: `/tutorials/projects`.
+
+1. **Sample Data (no real personal data)**:
+   - Account user: Jane Doe (`jane@example.com`), avatar "J" in purple circle. Replaces video's `yinka@snaarp.com`.
+   - Team members: Sam Taylor (Admin), Casey Brown (Member -> Admin), Jordan Lee (Admin), Alex Morgan (Member), Priya Shah (Member), Elena Marsh (Member), Ravi Menon (Member). Replaces recording's names and emails (`francis o`, `kola komolafe`, `yinka jacobs`, `victor ariyibi`, `akinbayo akinwande`, `iyanu ahmed`).
+   - Organization/Client: "Acme Studio" replaces recording's "Dee Tech".
+   - Client name in drawer: "Customer". Lead name: "Sam Taylor" replaces "kola komolafe".
+   - Project names: "Customer Acquisition Strategy", "Digital Marketing", "Mobile App Launch" (replaces recording's duplicate "Explore Snaarp Projects!" template card so the newly generated project card is distinct), "Backend Fix".
+   - Newly created project: "Explore Snaarp Projects!" with 5 starter tasks.
+   - Newly added task: "Research competitor onboarding flows", assignees `jane@example.com` and `sam.taylor@example.com`, due date `19/11/2026`, priority High, subtask "Compile findings into a spreadsheet". Replaces recording's "Research on Figma Remake".
+   - Description typed: "Check at least five competitors and note their sign-up steps."
+   - Activity comment: "Started the research today." posted by Jane Doe.
+
+2. **In-App Dialogs & Native Controls**:
+   - Delete task confirmation modal (`ProjectsDeleteTaskModal.tsx`) built in-app in the clean Snaarp Projects style ("Delete Task", "Are you sure you want to delete this task? This action cannot be undone.").
+   - In-app toast notifications (`pushProjectsToast`):
+     - `Project "Explore Snaarp Projects!" created with 5 tasks!`
+     - `Role updated to Admin`
+     - `Task created`
+     - `Task archived`
+     - `Task deleted`
+
+3. **Date Formatting**:
+   - Numeric dates formatted in UK format `DD/MM/YYYY` (`19/11/2026`).
+   - Long dates: `Oct 15, 2026`, `Nov 16, 2026`, `Dec 19, 2026`.
+   - Today's date on calendar: Sunday 15 Nov 2026, highlighted with a purple circle on day 15.
+
+4. **No Browser Chrome**:
+   - The browser toolbar, bookmarks bar, and tab strips visible in the video recording are omitted.
+   - The application renders inside the player frame with the 56px suite rail, top bar, and collapsible sidebar.
+
+5. **Completion Card**:
+   - Automatically follows Step 9 as the final step in `tutorials/projects.ts`.
+
+
 
 
 

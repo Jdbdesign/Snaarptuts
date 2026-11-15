@@ -2518,5 +2518,37 @@ Source recording:
 - Timeline & Data: `components/zeus/zeus-timeline.ts` (`beginZeus`, `finishZeus`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`, `pushZeusSettingsToast`), `components/zeus/zeus-data.ts`
 - Step Scenes: `scenes/zeus/step<1..22>/Step<N>.tsx`, `script.ts`, `data.ts`
 
+---
+
+# Steps of the Snaarp Projects tutorial
+
+Config: `tutorials/projects.ts`. Total steps: **9 steps**. Route: `/tutorials/projects`.
+
+Source recording:
+- `C:\Users\HP\Downloads\1115 (4).mp4` (1386x720, 4:25, Steps 1–9)
+
+## Step Summary
+
+| Step | Title | Route / URL | Duration |
+|---|---|---|---|
+| 1 | Meet Snaarp Projects | `projects.snaarp.com/dashboard` | 10.5 s |
+| 2 | Check the calendar | `projects.snaarp.com/dashboard` | 10.5 s |
+| 3 | Browse and search your projects | `projects.snaarp.com/projects` | 12.0 s |
+| 4 | Create a project from a template | `projects.snaarp.com/projects` | 14.0 s |
+| 5 | Manage the project team | `projects.snaarp.com/members` | 12.0 s |
+| 6 | Open a project's tasks | `projects.snaarp.com/tasks` | 11.5 s |
+| 7 | Add a task | `projects.snaarp.com/tasks` | 14.5 s |
+| 8 | Update a task | `projects.snaarp.com/tasks` | 13.0 s |
+| 9 | Archive or delete a task | `projects.snaarp.com/tasks` | 13.5 s |
+
+## Architecture & Components
+
+- Shell & Stage: `components/projects/ProjectsShell.tsx`, `components/projects/ProjectsStage.tsx`
+- Views: `ProjectsDashboardView.tsx`, `ProjectsListView.tsx`, `ProjectsMembersView.tsx`, `ProjectsTasksView.tsx`
+- Modals & Drawers: `ProjectsProjectDrawer.tsx`, `ProjectsTemplateGalleryModal.tsx`, `ProjectsTaskDrawer.tsx`, `ProjectsDeleteTaskModal.tsx`
+- Timeline & Data: `components/projects/projects-timeline.ts` (`beginProjects`, `finishProjects`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`, `pushProjectsToast`), `components/projects/projects-data.ts`
+- Step Scenes: `scenes/projects/step<1..9>/Step<N>.tsx`, `script.ts`
+
+
 
 
