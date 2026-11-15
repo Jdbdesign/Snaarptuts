@@ -11,6 +11,10 @@ import { ProjectsProjectDrawer } from "./ProjectsProjectDrawer";
 import { ProjectsTemplateGalleryModal } from "./ProjectsTemplateGalleryModal";
 import { ProjectsTaskDrawer } from "./ProjectsTaskDrawer";
 import { ProjectsDeleteTaskModal } from "./ProjectsDeleteTaskModal";
+import { ProjectsSprintsView } from "./ProjectsSprintsView";
+import { ProjectsCreateGoalView } from "./ProjectsCreateGoalView";
+import { ProjectsWhiteboardsView } from "./ProjectsWhiteboardsView";
+import { ProjectsWhiteboardCanvas } from "./ProjectsWhiteboardCanvas";
 import type { ProjectsView } from "./projects-data";
 
 interface Props {
@@ -43,6 +47,10 @@ export function ProjectsStage({ tl }: Props) {
         {currentView === "projects" && <ProjectsListView tl={tl} />}
         {currentView === "members" && <ProjectsMembersView tl={tl} />}
         {currentView === "tasks" && <ProjectsTasksView tl={tl} />}
+        {currentView === "sprints" && <ProjectsSprintsView tl={tl} />}
+        {currentView === "goals-new" && <ProjectsCreateGoalView tl={tl} />}
+        {currentView === "whiteboards" && <ProjectsWhiteboardsView tl={tl} />}
+        {currentView === "whiteboard-canvas" && <ProjectsWhiteboardCanvas tl={tl} />}
       </ProjectsShell>
     </div>
   );

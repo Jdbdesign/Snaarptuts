@@ -310,7 +310,12 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
                   <button
                     type="button"
                     data-tl="nav-sprints"
-                    className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    onClick={() => handleNav("sprints", PROJECTS_URLS.sprints)}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-colors ${
+                      currentView === "sprints" || currentView === "goals-new"
+                        ? "bg-[#F5EEFF] text-[#7014D9] font-semibold border-l-4 border-[#7014D9]"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    }`}
                   >
                     <RotateCw className="w-4 h-4 shrink-0" />
                     <span>Sprints</span>
@@ -335,7 +340,12 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
                   <button
                     type="button"
                     data-tl="nav-whiteboards"
-                    className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    onClick={() => handleNav("whiteboards", PROJECTS_URLS.whiteboards)}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-colors ${
+                      currentView === "whiteboards" || currentView === "whiteboard-canvas"
+                        ? "bg-[#F5EEFF] text-[#7014D9] font-semibold border-l-4 border-[#7014D9]"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    }`}
                   >
                     <PenTool className="w-4 h-4 shrink-0" />
                     <span>Whiteboards</span>

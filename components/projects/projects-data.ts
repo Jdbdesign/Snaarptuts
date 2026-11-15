@@ -3,9 +3,20 @@ export const PROJECTS_URLS = {
   projects: "projects.snaarp.com/projects",
   members: "projects.snaarp.com/members",
   tasks: "projects.snaarp.com/tasks",
+  sprints: "projects.snaarp.com/sprints",
+  goalsNew: "projects.snaarp.com/goals/new",
+  whiteboards: "projects.snaarp.com/whiteboards",
 } as const;
 
-export type ProjectsView = "dashboard" | "projects" | "members" | "tasks";
+export type ProjectsView =
+  | "dashboard"
+  | "projects"
+  | "members"
+  | "tasks"
+  | "sprints"
+  | "goals-new"
+  | "whiteboards"
+  | "whiteboard-canvas";
 
 export interface ProjectItem {
   id: string;
@@ -323,3 +334,115 @@ export const TEMPLATES_LIST: TemplateItem[] = [
     description: "Customize this IT support project template to meet your specific business requirements.",
   },
 ];
+
+// ==========================================
+// Part 2: Sprints, Goals, Time, Whiteboards
+// ==========================================
+
+export interface SprintItem {
+  id: string;
+  number: number;
+  name: string;
+  goal: string;
+  status: "Planning" | "Active" | "Completed" | "Cancelled";
+  startDate: string;
+  endDate: string;
+  capacity: number;
+  project: string;
+  completedItems: number;
+  totalItems: number;
+  points: number;
+}
+
+export interface GoalItem {
+  id: string;
+  name: string;
+  description: string;
+  targetType: "Percentage" | "Number" | "Currency";
+  targetValue: number;
+  dueDate: string;
+  status: "active" | "completed" | "behind";
+  progress: number;
+}
+
+export interface TimeEntryItem {
+  id: string;
+  taskName: string;
+  userEmail: string;
+  durationMinutes: number;
+  date: string; // e.g. "2026-11-15"
+  description?: string;
+}
+
+export interface WhiteboardItem {
+  id: string;
+  title: string;
+  updatedDate: string; // "17/11/2026"
+  thumbnailType?: "shapes" | "flow" | "empty";
+}
+
+export const CREATED_SPRINT_DATA: SprintItem = {
+  id: "sprint-1",
+  number: 1,
+  name: "Onboarding Flow",
+  goal: "Build the whole authentication flow from get started to the Home screen",
+  status: "Planning",
+  startDate: "2026-11-16",
+  endDate: "2026-11-18",
+  capacity: 40,
+  project: "Explore Snaarp Projects!",
+  completedItems: 0,
+  totalItems: 0,
+  points: 0,
+};
+
+export const CREATED_GOAL_DATA: GoalItem = {
+  id: "goal-1",
+  name: "Authentication Completion",
+  description: "The full authentication must be completed so users can test it",
+  targetType: "Percentage",
+  targetValue: 100,
+  dueDate: "2026-11-18",
+  status: "active",
+  progress: 0,
+};
+
+export const INITIAL_WHITEBOARDS: WhiteboardItem[] = [
+  {
+    id: "wb-sales",
+    title: "Sales & Marketing",
+    updatedDate: "17/11/2026",
+    thumbnailType: "shapes",
+  },
+  {
+    id: "wb-design",
+    title: "Design Idea",
+    updatedDate: "15/09/2026",
+    thumbnailType: "empty",
+  },
+];
+
+export const NEW_WHITEBOARD_DATA: WhiteboardItem = {
+  id: "wb-research",
+  title: "Research Product",
+  updatedDate: "15/11/2026",
+  thumbnailType: "flow",
+};
+
+export const TIME_TRACKING_USERS = [
+  "api@example.com",
+  "devops@example.com",
+  "jane@example.com",
+  "sam.taylor@example.com",
+  "casey.brown@example.com",
+  "jordan.lee@example.com",
+];
+
+export const ALL_PROJECT_NAMES = [
+  "Explore Snaarp Projects!",
+  "Customer Acquisition Strategy",
+  "Digital Marketing",
+  "Mobile App Launch",
+  "Backend Fix",
+];
+

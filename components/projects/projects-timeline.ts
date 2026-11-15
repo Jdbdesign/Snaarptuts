@@ -5,8 +5,18 @@ import {
   INITIAL_PROJECTS,
   INITIAL_MEMBERS,
   INITIAL_TASKS,
+  NEW_TASK_DATA,
+  CREATED_SPRINT_DATA,
+  CREATED_GOAL_DATA,
+  INITIAL_WHITEBOARDS,
+  NEW_WHITEBOARD_DATA,
+  ALL_PROJECT_NAMES,
   type TeamMember,
   type TaskItem,
+  type SprintItem,
+  type GoalItem,
+  type TimeEntryItem,
+  type WhiteboardItem,
 } from "./projects-data";
 
 export const PROJECTS_END_HOLD_MS = 1500;
@@ -170,7 +180,11 @@ export function beginProjects(
   // Step 7 adds task 6
   // Step 8 has task 6 with comments/description
   // Step 9 archives task 6 (so 5 left), then deletes task 5 (so 4 left)
-  const initialTasksCopy: TaskItem[] = INITIAL_TASKS.map((t) => ({ ...t }));
+  // Step 15 stands alone with all 6 tasks (none in progress)
+  const initialTasksCopy: TaskItem[] =
+    stepNum === 15
+      ? [...INITIAL_TASKS.map((t) => ({ ...t })), { ...NEW_TASK_DATA, status: "To Do" as const }]
+      : INITIAL_TASKS.map((t) => ({ ...t }));
   tl.setVar("tasksList", initialTasksCopy);
   tl.setVar("isAddTaskDrawerOpen", false);
   tl.setVar("selectedTaskId", null);
@@ -178,6 +192,7 @@ export function beginProjects(
   tl.setVar("isDeleteTaskModalOpen", false);
   tl.setVar("activeTaskTab", "tasks"); // "tasks" | "issues" | "bugs"
   tl.setVar("activeTaskSubTab", "list"); // "list" | "board" | "gantt" | "calendar"
+  tl.setVar("isTaskProjectDropdownOpen", false);
 
   // Add Task form state
   tl.setVar("newTaskTitle", "");
@@ -191,4 +206,98 @@ export function beginProjects(
   tl.setVar("taskDrawerDescription", "");
   tl.setVar("commentInputText", "");
   tl.setVar("taskRowMenuId", null);
+
+  // ==========================================
+  // Part 2: Sprints, Goals, Time, Whiteboards
+  // ==========================================
+
+  // Sprints state
+  let sprintsInit: SprintItem[] = [];
+  if (stepNum === 12) {
+    sprintsInit = [{ ...CREATED_SPRINT_DATA, status: "Planning" }];
+  } else if (stepNum && stepNum > 12) {
+    sprintsInit = [{ ...CREATED_SPRINT_DATA, status: "Completed" }];
+  }
+  tl.setVar("sprintsList", sprintsInit);
+  tl.setVar(
+    "sprintsActiveTab",
+    stepNum === 13 ? "goals" : stepNum === 14 ? "time" : "sprints"
+  ); // "sprints" | "calendar" | "goals" | "time"
+  tl.setVar("sprintsViewMode", "list"); // "list" | "board"
+  tl.setVar("sprintsFilter", "All"); // "All" | "Active" | "Planning" | "Completed" | "Cancelled"
+  tl.setVar("isNewSprintModalOpen", false);
+  tl.setVar("isSprintFilterOpen", false);
+  tl.setVar("sprintFilterStatus", ["Active", "Planning", "Completed", "Cancelled"]);
+  tl.setVar("sprintFilterProjects", [...ALL_PROJECT_NAMES]);
+  tl.setVar("hoverCalendarChip", false);
+
+  // New Sprint form state
+  tl.setVar("newSprintName", "");
+  tl.setVar("newSprintGoal", "");
+  tl.setVar("newSprintStartDate", "2026-11-16");
+  tl.setVar("newSprintEndDate", "2026-11-18");
+  tl.setVar("newSprintCapacity", "");
+  tl.setVar("newSprintProject", "Explore Snaarp Projects!");
+  tl.setVar("isSprintStartDatePickerOpen", false);
+  tl.setVar("isSprintEndDatePickerOpen", false);
+
+  // Goals state
+  let goalsInit: GoalItem[] = [];
+  if (stepNum && stepNum > 13) {
+    goalsInit = [{ ...CREATED_GOAL_DATA }];
+  }
+  tl.setVar("goalsList", goalsInit);
+  tl.setVar("goalViewMode", "list"); // "list" | "hierarchy"
+  tl.setVar("goalName", "");
+  tl.setVar("goalDescription", "");
+  tl.setVar("goalTargetType", "Number"); // "Number" | "Percentage" | "Currency"
+  tl.setVar("goalTargetValue", "");
+  tl.setVar("goalDueDate", "");
+  tl.setVar("isGoalDatePickerOpen", false);
+
+  // Time Tracking state
+  let timeEntriesInit: TimeEntryItem[] = [];
+  if (stepNum && stepNum > 14) {
+    timeEntriesInit = [{
+      id: "time-1",
+      taskName: "Set up task statuses",
+      userEmail: "jane@example.com",
+      durationMinutes: 40,
+      date: "2026-11-15",
+      description: "Set up the status workflow",
+    }];
+  }
+  tl.setVar("timeEntriesList", timeEntriesInit);
+  tl.setVar("viewingUser", "jane@example.com");
+  tl.setVar("isViewingDropdownOpen", false);
+  tl.setVar("isLogTimeModalOpen", false);
+  tl.setVar("logTimeTask", "Set up task statuses");
+  tl.setVar("logTimeDuration", "");
+  tl.setVar("logTimeDate", "2026-11-15");
+  tl.setVar("logTimeDescription", "");
+  tl.setVar("isLogTimeDatePickerOpen", false);
+  tl.setVar("isLogTimeTaskSelectOpen", false);
+
+  // Whiteboards state
+  let whiteboardsInit: WhiteboardItem[] = [];
+  if (stepNum === 18) {
+    whiteboardsInit = [NEW_WHITEBOARD_DATA, ...INITIAL_WHITEBOARDS];
+  } else {
+    whiteboardsInit = [...INITIAL_WHITEBOARDS];
+  }
+  tl.setVar("whiteboardsList", whiteboardsInit);
+  tl.setVar("activeWhiteboardId", null);
+  tl.setVar("isNewWhiteboardModalOpen", false);
+  tl.setVar("newWhiteboardTitle", "");
+  tl.setVar("isDeleteWhiteboardModalOpen", false);
+  tl.setVar("deleteTargetWhiteboardId", null);
+
+  // Whiteboard Canvas Editor state
+  tl.setVar("wbActiveTool", "select");
+  tl.setVar("wbActiveTooltip", null as string | null);
+  tl.setVar("wbSelectedShapeId", null as string | null);
+  tl.setVar("wbShapes", [] as unknown[]);
+  tl.setVar("wbDragPos", null as { x: number; y: number } | null);
+  tl.setVar("wbTextEditing", false);
+  tl.setVar("wbTextValue", "");
 }

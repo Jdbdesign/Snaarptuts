@@ -16,6 +16,24 @@ import { Step8 } from "@/scenes/projects/step8/Step8";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/projects/step8/script";
 import { Step9 } from "@/scenes/projects/step9/Step9";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/projects/step9/script";
+import { Step10 } from "@/scenes/projects/step10/Step10";
+import { runStep10, STEP10_DURATION_MS } from "@/scenes/projects/step10/script";
+import { Step11 } from "@/scenes/projects/step11/Step11";
+import { runStep11, STEP11_DURATION_MS } from "@/scenes/projects/step11/script";
+import { Step12 } from "@/scenes/projects/step12/Step12";
+import { runStep12, STEP12_DURATION_MS } from "@/scenes/projects/step12/script";
+import { Step13 } from "@/scenes/projects/step13/Step13";
+import { runStep13, STEP13_DURATION_MS } from "@/scenes/projects/step13/script";
+import { Step14 } from "@/scenes/projects/step14/Step14";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/projects/step14/script";
+import { Step15 } from "@/scenes/projects/step15/Step15";
+import { runStep15, STEP15_DURATION_MS } from "@/scenes/projects/step15/script";
+import { Step16 } from "@/scenes/projects/step16/Step16";
+import { runStep16, STEP16_DURATION_MS } from "@/scenes/projects/step16/script";
+import { Step17 } from "@/scenes/projects/step17/Step17";
+import { runStep17, STEP17_DURATION_MS } from "@/scenes/projects/step17/script";
+import { Step18 } from "@/scenes/projects/step18/Step18";
+import { runStep18, STEP18_DURATION_MS } from "@/scenes/projects/step18/script";
 
 import { PROJECTS_URLS } from "@/components/projects/projects-data";
 import type { Tutorial } from "./types";
@@ -119,15 +137,109 @@ export const projects: Tutorial = {
         durationMs: STEP9_DURATION_MS,
       },
     },
+    {
+      id: "projects-explore-sprints",
+      title: "Explore Sprints",
+      url: PROJECTS_URLS.sprints,
+      scene: {
+        Component: Step10,
+        run: runStep10,
+        durationMs: STEP10_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-create-sprint",
+      title: "Create a sprint",
+      url: PROJECTS_URLS.sprints,
+      scene: {
+        Component: Step11,
+        run: runStep11,
+        durationMs: STEP11_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-move-sprint-board-filter",
+      title: "Move a sprint on the board and filter",
+      url: PROJECTS_URLS.sprints,
+      scene: {
+        Component: Step12,
+        run: runStep12,
+        durationMs: STEP12_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-set-goal",
+      title: "Set a goal",
+      url: PROJECTS_URLS.sprints,
+      scene: {
+        Component: Step13,
+        run: runStep13,
+        durationMs: STEP13_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-log-time",
+      title: "Log your time",
+      url: PROJECTS_URLS.sprints,
+      scene: {
+        Component: Step14,
+        run: runStep14,
+        durationMs: STEP14_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-task-views",
+      title: "See tasks as a board, timeline or calendar",
+      url: PROJECTS_URLS.tasks,
+      scene: {
+        Component: Step15,
+        run: runStep15,
+        durationMs: STEP15_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-open-whiteboards",
+      title: "Open your whiteboards",
+      url: PROJECTS_URLS.whiteboards,
+      scene: {
+        Component: Step16,
+        run: runStep16,
+        durationMs: STEP16_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-draw-flow-whiteboard",
+      title: "Draw a flow on a new whiteboard",
+      url: PROJECTS_URLS.whiteboards,
+      scene: {
+        Component: Step17,
+        run: runStep17,
+        durationMs: STEP17_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-delete-whiteboard",
+      title: "Delete a whiteboard",
+      url: PROJECTS_URLS.whiteboards,
+      scene: {
+        Component: Step18,
+        run: runStep18,
+        durationMs: STEP18_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "projects-meet-projects" },
     { title: "Projects", from: "projects-browse-projects" },
     { title: "Tasks", from: "projects-open-tasks" },
+    { title: "Sprints", from: "projects-explore-sprints" },
+    { title: "Goals and time", from: "projects-set-goal" },
+    { title: "Task views", from: "projects-task-views" },
+    { title: "Whiteboards", from: "projects-open-whiteboards" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now track projects across your workspace, create projects from templates, manage team roles, and coordinate deliverables with tasks, subtasks, and activity streams.",
+    text: "You can now track projects across your workspace, manage sprints and goals, log timesheets, switch between task backlogs, boards, and timelines, and create interactive whiteboard diagrams.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

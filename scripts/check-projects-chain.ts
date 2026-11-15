@@ -1,7 +1,7 @@
 /*
- * Starts Snaarp Projects tutorial at --from and lets autoplay run to the end (9 steps),
+ * Starts Snaarp Projects tutorial at --from and lets autoplay run to the end (18 steps),
  * collecting every console error and verifying 0 failures.
- *   npx tsx scripts/check-projects-chain.ts --from 1 --total 9 --speed 8
+ *   npx tsx scripts/check-projects-chain.ts --from 1 --total 18 --speed 8
  */
 import { chromium } from "playwright";
 
@@ -11,7 +11,7 @@ const arg = (n: string, d: string) => {
 };
 const PRODUCT = arg("product", "projects");
 const FROM = Number(arg("from", "1"));
-const TOTAL = Number(arg("total", "9"));
+const TOTAL = Number(arg("total", "18"));
 const SPEED = Number(arg("speed", "8"));
 
 (async () => {

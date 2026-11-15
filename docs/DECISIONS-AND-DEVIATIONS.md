@@ -1787,7 +1787,54 @@ Reference recording: `1115 (4).mp4` (1386x720, 4:25). Route: `/tutorials/project
    - The application renders inside the player frame with the 56px suite rail, top bar, and collapsible sidebar.
 
 5. **Completion Card**:
-   - Automatically follows Step 9 as the final step in `tutorials/projects.ts`.
+   - Automatically follows Step 18 as the final step in `tutorials/projects.ts` (data-driven).
+
+### Part 2: Sprints, Goals, Time tracking, Task views, Whiteboards (Steps 10–18)
+
+1. **Sample Data**:
+   - Sprint (Step 11): Name "Onboarding Flow", goal "Build the whole authentication flow from get started to the Home screen", start date 2026-11-16, end date 2026-11-18, story point capacity 40, project "Explore Snaarp Projects!".
+   - Goal (Step 13): Name "Authentication Completion", description "The full authentication must be completed so users can test it", target type Percentage, target value 100, due date 2026-11-18.
+   - Time Tracking (Step 14): Viewing select with `jane@example.com` (user list includes `api@`, `devops@`, `jane@`, `sam.taylor@`, `casey.brown@`, `jordan.lee@`). Task logged: "Set up task statuses", duration 40m, date 2026-11-15, description "Set up the status workflow".
+   - Timesheet Task Name Glitch Fixed: The video's recording shows a raw hash/ID like `24bca22c` in the task cell of the weekly timesheet. In our tutorial, the clean task name "Set up task statuses" is displayed.
+   - Whiteboards (Steps 16–18): Existing boards "Sales & Marketing" (Updated 17/11/2026) and "Design Idea" (Updated 15/09/2026). New board created: "Research Product" (Updated 15/11/2026). Canvas label typed on diamond 1: "Home Screen".
+
+2. **Dialogs & Confirmations**:
+   - Delete whiteboard confirmation dialog (`ProjectsDeleteWhiteboardModal.tsx`) built in-app in the clean Snaarp Projects style ("Delete whiteboard", "Are you sure you want to delete \"Design Idea\"? This action cannot be undone.").
+   - In-app toast notifications (`pushProjectsToast`):
+     - `Sprint created`
+     - `Sprint status updated`
+     - `Goal created successfully`
+     - `Time entry added`
+     - `Task moved to In Progress`
+     - `Whiteboard saved`
+     - `Whiteboard deleted`
+
+3. **Filter and Clean Flows**:
+   - Filter Popover (Step 12): Video recording only opens the popover. We finished the flow cleanly: unticking "Completed" and clicking Apply shows the empty state "No sprints match filters.", and re-opening Filter, clicking Clear and Apply restores the sprint row.
+   - Whiteboards Delete (Step 18): Video recording stops before deleting. We completed the flow with the in-app confirmation dialog and removal of "Design Idea", leaving 2 boards before the completion card.
+
+4. **Date Formatting**:
+   - Dates on whiteboards formatted in UK `DD/MM/YYYY` format (`17/11/2026`, `15/09/2026`, `15/11/2026`) instead of ambiguous US numeric dates.
+   - Sprints date range: `2026-11-16 - 2026-11-18`.
+   - Goal due date: `Due Nov 18, 2026`.
+   - Timesheet header: `Nov 9 - Nov 15, 2026`.
+
+5. **No Browser Chrome or External Overlays**:
+   - The browser's dark "Bookmark added" popup that appears twice in the video around 5:50-6:10 is omitted.
+   - The browser autofill dropdown under the goal name input is omitted.
+   - The skeleton loader on Time Tracking tab is replaced with the clean loaded empty state.
+
+6. **Independent Start States**:
+   - Each step 10–18 stands completely alone from the rail with its own clean start state, decoupled from previous steps:
+     - Step 10: Sprints tab, 0 sprints.
+     - Step 11: Sprints tab, 0 sprints.
+     - Step 12: Sprints tab with "Onboarding Flow" in Planning.
+     - Step 13: Goals tab, 0 goals.
+     - Step 14: Time Tracking tab, 0 time entries.
+     - Step 15: Tasks List View, 6 tasks (none in progress).
+     - Step 16: Whiteboards gallery with 2 boards.
+     - Step 17: Whiteboards gallery with 2 boards.
+     - Step 18: Whiteboards gallery with 3 boards.
 
 
 

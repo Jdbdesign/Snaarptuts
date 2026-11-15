@@ -181,49 +181,49 @@ export function ProjectsProjectDrawer({ tl }: Props) {
               <span className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center">
                 A
               </span>
-              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">api@sn..</span>
+              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">alex@..</span>
             </div>
             <div className="flex flex-col items-center">
               <span className="w-7 h-7 rounded-full bg-gray-300 text-gray-700 text-[10px] font-bold flex items-center justify-center">
-                D
+                S
               </span>
-              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">devops..</span>
+              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">sam@..</span>
             </div>
             <div className="flex flex-col items-center">
               <span className="w-7 h-7 rounded-full bg-purple-100 text-[#7014D9] text-[10px] font-bold flex items-center justify-center">
-                Y
+                J
               </span>
-              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">yinka@..</span>
+              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">jane@..</span>
             </div>
             <div className="flex flex-col items-center">
               <span className="w-7 h-7 rounded-full bg-gray-300 text-gray-700 text-[10px] font-bold flex items-center justify-center">
-                V
+                T
               </span>
-              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">victor@..</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center">
-                A
-              </span>
-              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">akinbay..</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center">
-                I
-              </span>
-              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">iyanu@..</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center">
-                S
-              </span>
-              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">sales@..</span>
+              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">taylor@..</span>
             </div>
             <div className="flex flex-col items-center">
               <span className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center">
                 M
               </span>
-              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">media@..</span>
+              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">morgan@..</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center">
+                C
+              </span>
+              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">casey@..</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center">
+                R
+              </span>
+              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">riley@..</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="w-7 h-7 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center">
+                A
+              </span>
+              <span className="text-[9px] text-gray-400 truncate max-w-[48px] mt-0.5">avery@..</span>
             </div>
           </div>
         </div>

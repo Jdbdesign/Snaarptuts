@@ -2522,10 +2522,11 @@ Source recording:
 
 # Steps of the Snaarp Projects tutorial
 
-Config: `tutorials/projects.ts`. Total steps: **9 steps**. Route: `/tutorials/projects`.
+Config: `tutorials/projects.ts`. Total steps: **18 steps**. Route: `/tutorials/projects`.
 
 Source recording:
 - `C:\Users\HP\Downloads\1115 (4).mp4` (1386x720, 4:25, Steps 1–9)
+- `C:\Users\HP\Downloads\1115 (4)(1).mp4` (1382x720, 7:07, Steps 10–18)
 
 ## Step Summary
 
@@ -2540,14 +2541,23 @@ Source recording:
 | 7 | Add a task | `projects.snaarp.com/tasks` | 14.5 s |
 | 8 | Update a task | `projects.snaarp.com/tasks` | 13.0 s |
 | 9 | Archive or delete a task | `projects.snaarp.com/tasks` | 13.5 s |
+| 10 | Explore Sprints | `projects.snaarp.com/sprints` | 14.5 s |
+| 11 | Create a sprint | `projects.snaarp.com/sprints` | 21.0 s |
+| 12 | Move a sprint on the board and filter | `projects.snaarp.com/sprints` | 18.5 s |
+| 13 | Set a goal | `projects.snaarp.com/sprints` | 21.0 s |
+| 14 | Log your time | `projects.snaarp.com/sprints` | 21.0 s |
+| 15 | See tasks as a board, timeline or calendar | `projects.snaarp.com/tasks` | 21.0 s |
+| 16 | Open your whiteboards | `projects.snaarp.com/whiteboards` | 17.5 s |
+| 17 | Draw a flow on a new whiteboard | `projects.snaarp.com/whiteboards` | 24.0 s |
+| 18 | Delete a whiteboard | `projects.snaarp.com/whiteboards` | 12.0 s |
 
 ## Architecture & Components
 
 - Shell & Stage: `components/projects/ProjectsShell.tsx`, `components/projects/ProjectsStage.tsx`
-- Views: `ProjectsDashboardView.tsx`, `ProjectsListView.tsx`, `ProjectsMembersView.tsx`, `ProjectsTasksView.tsx`
-- Modals & Drawers: `ProjectsProjectDrawer.tsx`, `ProjectsTemplateGalleryModal.tsx`, `ProjectsTaskDrawer.tsx`, `ProjectsDeleteTaskModal.tsx`
+- Views: `ProjectsDashboardView.tsx`, `ProjectsListView.tsx`, `ProjectsMembersView.tsx`, `ProjectsTasksView.tsx`, `ProjectsSprintsView.tsx`, `ProjectsSprintList.tsx`, `ProjectsSprintBoard.tsx`, `ProjectsGoalsView.tsx`, `ProjectsCreateGoalView.tsx`, `ProjectsTimeTrackingView.tsx`, `ProjectsTaskBoardView.tsx`, `ProjectsGanttView.tsx`, `ProjectsTaskCalendarView.tsx`, `ProjectsWhiteboardsView.tsx`, `ProjectsWhiteboardCanvas.tsx`
+- Modals & Drawers: `ProjectsProjectDrawer.tsx`, `ProjectsTemplateGalleryModal.tsx`, `ProjectsTaskDrawer.tsx`, `ProjectsDeleteTaskModal.tsx`, `ProjectsNewSprintDialog.tsx`, `ProjectsSprintFilterPopover.tsx`, `ProjectsLogTimeDialog.tsx`, `ProjectsNewWhiteboardDialog.tsx`, `ProjectsDeleteWhiteboardModal.tsx`
 - Timeline & Data: `components/projects/projects-timeline.ts` (`beginProjects`, `finishProjects`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`, `pushProjectsToast`), `components/projects/projects-data.ts`
-- Step Scenes: `scenes/projects/step<1..9>/Step<N>.tsx`, `script.ts`
+- Step Scenes: `scenes/projects/step<1..18>/Step<N>.tsx`, `script.ts`
 
 
 

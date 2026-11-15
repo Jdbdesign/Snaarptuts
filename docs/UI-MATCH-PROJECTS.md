@@ -130,4 +130,139 @@ Frames: `ref/projects/frame_0465.png`, `frame_0468.png`, `frame_0485.png`, `fram
 | **Archive Task** | Row `...` popover menu | Menu item click | On row `Research competitor onboarding flows`, click `Archive`.<br>Toast appears: `Task archived`.<br>Table count drops to 5 tasks (`5 tasks · 0 issues · 0 bugs`, tab `Tasks (5)`). | `frame_0465.png` |
 | **Delete Task Action** | Row "Explore reports" `...` popover | Menu item click | On row `Explore reports`, click `...`, click `Delete`. | `frame_0465.png` |
 | **In-App Delete Modal** | Centered modal, `w-[420px]` | `bg-white rounded-2xl shadow-2xl p-6 border border-gray-200/90` | Title: "Delete Task" (`font-bold text-base text-gray-900`).<br>Body: "Are you sure you want to delete this task? This action cannot be undone." (`text-xs text-gray-500 mt-2`).<br>Footer: `Cancel` (`border border-gray-200 rounded-xl px-4 py-2 text-xs`) and `Delete` (`bg-red-600 hover:bg-red-700 text-white font-semibold text-xs px-4 py-2 rounded-xl`). | In-app modal |
-| **Confirm Delete** | Modal `Delete` button | Button click | Click `Delete`. Modal closes.<br>Toast: `Task deleted`.<br>Table count drops to 4 tasks (`4 tasks · 0 issues · 0 bugs`, progress `0 of 4 completed · 0%`, tab `Tasks (4)`).<br>Step finishes, completion card automatically displays! | `frame_0468.png` |
+| **Confirm Delete** | Modal `Delete` button | Button click | Click `Delete`. Modal closes.<br>Toast: `Task deleted`.<br>Table count drops to 4 tasks (`4 tasks · 0 issues · 0 bugs`, progress `0 of 4 completed · 0%`, tab `Tasks (4)`). | `frame_0468.png` |
+
+---
+
+## 11. Step 10: Explore Sprints (`projects.snaarp.com/sprints`)
+
+Frames: `ref/projects_part2/frame_0010.png`, `frame_0025.png`, `frame_0028.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Sprints Nav** | Sidebar | Nav item | Cursor clicks `Sprints` in workspace nav. Sidebar item highlights with `#7014D9` border. | `frame_0005.png` |
+| **Sprints Header** | Top of view | `flex items-center justify-between` | Left: RotateCw icon in lilac circle, Title "Sprints" (`font-bold text-lg text-gray-900`), subtitle "0 sprints total" (`text-xs text-gray-500`).<br>Right: Switcher List \| Board, Filter button, purple `+ New Sprint` button. | `frame_0010.png` |
+| **4 Sprints Tabs** | Below header | `flex items-center gap-2 border-b border-gray-200 pb-2` | 4 Tabs: `Sprints` (RotateCw), `Calendar` (CalendarIcon), `Goals` (Target), `Time Tracking` (Clock). `Sprints` tab active with `#7014D9` background. | `frame_0010.png` |
+| **5 Stat Cards** | Below tabs | `grid grid-cols-5 gap-3.5` | Total Sprints (0), Active Sprint (0), Completed (0), Avg Velocity (0), Points Delivered (0). | `frame_0010.png` |
+| **Filter Pills & Search** | Middle section | `flex items-center justify-between` | Pills: `0 All`, `0 Active`, `0 Planning`, `0 Completed`, `0 Cancelled`. Search input `Search sprints...`. | `frame_0010.png` |
+| **Empty State** | Main table container | `bg-white border border-gray-200 rounded-2xl p-12 text-center` | Tray icon in gray circle + "No sprints match filters." + subtitle. | `frame_0010.png` |
+| **Calendar Tab** | Click `Calendar` tab | Full calendar view | Month header: "November 2026", Prev/Today/Next controls. Legend: Tasks (purple), Issues (amber), Bugs (red). Grid: days 1-30 with today 15 circled in purple. Day 19 has chip "Research competitor onboarding flows". | `frame_0025.png` |
+| **Chip Preview Hover** | Hover chip on 19th | Floating card `w-60` | Card displays Task badge, To Do pill, title "Research competitor onboarding flows", Priority High, Due Nov 19 2026, Project: Explore Snaarp Projects! Return to Sprints tab. | `frame_0028.png` |
+
+---
+
+## 12. Step 11: Create a sprint (`projects.snaarp.com/sprints`)
+
+Frames: `ref/projects_part2/frame_0070.png`, `frame_0110.png`, `frame_0180.png`, `frame_0220.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **New Sprint Trigger** | Top right controls | Purple button | Click `+ New Sprint` -> modal dialog opens. | `frame_0070.png` |
+| **New Sprint Modal** | Centered modal `w-full max-w-lg` | `bg-white rounded-2xl shadow-2xl border border-gray-200 p-6` | Header: "New Sprint", subtitle "Plan and launch a new development sprint.", close X.<br>Fields: SPRINT NAME *, SPRINT GOAL, START DATE, END DATE, STORY POINT CAPACITY, PROJECT select.<br>Footer: Cancel and Create Sprint. | `frame_0070.png` |
+| **Form Inputs** | Inside modal | Interactive fields | • SPRINT NAME: type "Onboarding Flow".<br>• SPRINT GOAL: type "Build the whole authentication flow from get started to the Home screen".<br>• START DATE: click input -> calendar opens -> pick day 16 (2026-11-16).<br>• END DATE: click input -> calendar opens -> pick day 18 (2026-11-18).<br>• CAPACITY: type "40".<br>• PROJECT: open select -> pick "Explore Snaarp Projects!". | `frame_0110.png`, `frame_0180.png` |
+| **Create Action & Toast** | Modal submit button | Button & Top Toast | Click `Create Sprint`. Modal closes. Toast appears: `Sprint created`. Total Sprints stat updates to 1. | `frame_0210.png` |
+| **Sprint List Row** | Sprints list view | `bg-white border border-gray-200 rounded-2xl p-4` | Row: SPRINT #1 `Onboarding Flow`, pill `Planning`, goal snippet, dates `2026-11-16 - 2026-11-18`, counters `0/0 items`, `0 pts`, `40 pts cap`, edit and delete action buttons. | `frame_0220.png` |
+
+---
+
+## 13. Step 12: Move a sprint on the board and filter (`projects.snaarp.com/sprints`)
+
+Frames: `ref/projects_part2/frame_0290.png`, `frame_0310.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Board View Toggle** | Top right controls | Switcher button | Click `Board` in List \| Board toggle. | `frame_0280.png` |
+| **Kanban Columns** | Board container | `grid grid-cols-4 gap-4` | 4 columns: Active (0), Planning (1), Completed (0), Cancelled (0). Card "Onboarding Flow" sits in Planning. | `frame_0290.png` |
+| **Card Drag & Drop** | Planning to Completed column | Cursor follow drag | Drag card `Onboarding Flow` into `Completed` column. Drop updates status. Toast appears: `Sprint status updated`. Completed count = 1. | `frame_0290.png` |
+| **Return to List View** | Top right controls | Switcher button | Click `List` in toggle. Row now displays `Completed` status pill (emerald badge). Completed stat card = 1. | `frame_0300.png` |
+| **Filter Popover** | Under `Filter` button | `bg-white rounded-2xl shadow-xl p-4 w-72` | Checkboxes for Status (Active, Planning, Completed, Cancelled) and Projects, buttons Clear and Apply. | `frame_0310.png` |
+| **Filter Interactions** | Inside popover | Checkbox & Apply clicks | Untick `Completed`, click `Apply`. List shows empty state "No sprints match filters.". Open Filter again, click `Clear`, click `Apply`. Sprint row is restored! | `frame_0310.png` |
+
+---
+
+## 14. Step 13: Set a goal (`projects.snaarp.com/sprints` -> `/goals/new`)
+
+Frames: `ref/projects_part2/frame_0325.png`, `frame_0335.png`, `frame_0350.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Goals Tab** | Sprints view tabs | Tab button | Click `Goals` tab. Empty state shows: "No goals yet. Create your first goal to start tracking progress." with `+ Create Goal` button. | `frame_0325.png` |
+| **Create Goal Nav** | Empty state button | Button click | Click `+ Create Goal` -> navigates to `projects.snaarp.com/goals/new`. | `frame_0325.png` |
+| **Create Goal Form** | Form page `max-w-2xl` | `bg-white rounded-2xl p-6 border border-gray-200` | Header: Back button + "Create Goal".<br>Fields: GOAL NAME * (0/128), DESCRIPTION (0/2000), TARGET TYPE *, TARGET VALUE *, DUE DATE *.<br>Button: purple `Create Goal`. | `frame_0335.png` |
+| **Goal Fields Input** | Inside form | Interactive fields | • GOAL NAME: type "Authentication Completion".<br>• DESCRIPTION: type "The full authentication must be completed so users can test it".<br>• TARGET TYPE: select "Percentage" (shows `%` badge).<br>• TARGET VALUE: type "100".<br>• DUE DATE: click input -> pick day 18. | `frame_0335.png` |
+| **Submit Goal & Card** | Submit button & Goals tab | Button / Card | Click `Create Goal`. Toast: `Goal created successfully`. Returns to Goals tab.<br>Goal card displays: "Authentication Completion", `active` pill, description, progress bar 0%, "Due Nov 18, 2026", "Target: 100%". | `frame_0350.png` |
+
+---
+
+## 15. Step 14: Log your time (`projects.snaarp.com/sprints`)
+
+Frames: `ref/projects_part2/frame_0430.png`, `frame_0460.png`, `frame_0500.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Time Tracking Tab** | Sprints view tabs | Tab button | Click `Time Tracking` tab. Shows Viewing select (`jane@example.com`), Today 0m, This Week 0m, Weekly Timesheet "Nov 9 - Nov 15, 2026" with empty state. | `frame_0430.png` |
+| **Viewing Member Filter** | Under header | Select dropdown | Click `Viewing:` select. Menu opens with 6 users (`api@`, `devops@`, `jane@`, `sam.taylor@`, `casey.brown@`, `jordan.lee@`). Click `jane@example.com`. | `frame_0430.png` |
+| **Log Time Modal** | Top right button | Modal `w-full max-w-md` | Click `Log Time` -> dialog "Log Time Manually" opens.<br>Fields: TASK *, DURATION (MINUTES) *, DATE *, DESCRIPTION, submit button `Add Time Entry`. | `frame_0460.png` |
+| **Log Time Input** | Inside modal | Form inputs | • TASK: select "Set up task statuses".<br>• DURATION: type "40".<br>• DATE: pick day 15.<br>• DESCRIPTION: type "Set up the status workflow". | `frame_0460.png` |
+| **Add Time & Timesheet** | Modal submit button & table | Submit & Row | Click `Add Time Entry`. Toast: `Time entry added`.<br>Stats update: Today 40m, This Week 40m.<br>Timesheet row: "Set up task statuses" shows `40m` under Sun Nov 15 (blue column) and Total `40m`. Summary row: Daily Total 40m, Week Total 40m. | `frame_0500.png` |
+
+---
+
+## 16. Step 15: See tasks as a board, timeline or calendar (`projects.snaarp.com/tasks`)
+
+Frames: `ref/projects_part2/frame_0540.png`, `frame_0580.png`, `frame_0610.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Tasks Board Subtab** | Work Items subtabs | Subtab button | Click `Board` subtab. 4 columns appear: To Do (6), In Progress (0), Done (0), Closed (0). | `frame_0540.png` |
+| **Drag Task 1** | Board To Do column | Drag to In Progress | Drag card "Create your first project" into `In Progress`. Drop updates status. Toast: `Task moved to In Progress`. To Do = 5, In Progress = 1. | `frame_0540.png` |
+| **Drag Task 6** | Board To Do column | Drag to In Progress | Drag card "Research competitor onboarding flows" into `In Progress`. Toast: `Task moved to In Progress`. To Do = 4, In Progress = 2. | `frame_0540.png` |
+| **Gantt Subtab** | Work Items subtabs | Subtab button | Click `Gantt` subtab. November 2026 timeline with day columns 1-30. Row "Research competitor onboarding flows" shows purple bar on 19th. | `frame_0580.png` |
+| **Calendar Subtab** | Work Items subtabs | Subtab button | Click `Calendar` subtab. November 2026 grid displays purple chip on 19th. | `frame_0610.png` |
+| **Project Dropdown** | Header project selector | Dropdown menu | Click `Project: Explore Snaarp Projects! v`. Menu lists 5 projects. Pick "Explore Snaarp Projects!" again. Click back to `List View` to finish. | `frame_0610.png` |
+
+---
+
+## 17. Step 16: Open your whiteboards (`projects.snaarp.com/whiteboards`)
+
+Frames: `ref/projects_part2/frame_0660.png`, `frame_0700.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Whiteboards Nav** | Sidebar | Nav item | Click `Whiteboards` in workspace nav. Gallery opens with 2 cards: "Sales & Marketing" (Updated 17/11/2026) and "Design Idea" (Updated 15/09/2026), each with red Delete button. | `frame_0660.png` |
+| **Open Whiteboard** | Gallery card | Card click | Click "Sales & Marketing" card -> Whiteboard Canvas editor opens. | `frame_0660.png` |
+| **Canvas Top Bar** | Top of canvas | `h-12 border-b border-gray-200 bg-white/90 px-4` | Left: `< Back to whiteboards` button, title "Sales & Marketing" with edit pencil.<br>Right: "1 online" presence badge (green dot + avatar), purple `Save` button. | `frame_0700.png` |
+| **Canvas Shapes** | Canvas surface | Interactive SVG/DOM shapes | Displays a rectangle, a circle, and a yellow sticky note "Double-click to edit". Click the circle: blue selection box with corner handles appears. | `frame_0700.png` |
+| **Floating Toolbar** | Bottom center of canvas | `bg-white/95 rounded-2xl shadow-xl px-2.5 py-1.5` | Tools: Select, Hand, Rectangle, Circle, Diamond, Arrow, Pen, Text, Sticky note, Image, Color, Fill, Undo, Redo, Zoom controls, Fullscreen. | `frame_0700.png` |
+| **Tooltips & Back** | Floating toolbar tools | Hover tooltips & Back button | Hover Text tool -> "Text (T)". Hover Arrow tool -> "Arrow (A)". Hover Diamond tool -> "Diamond (D)". Click `< Back to whiteboards` to return. | `frame_0700.png` |
+
+---
+
+## 18. Step 17: Draw a flow on a new whiteboard (`projects.snaarp.com/whiteboards`)
+
+Frames: `ref/projects_part2/frame_0750.png`, `frame_0800.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **New Whiteboard Trigger** | Whiteboards view top right | Purple button | Click `+ New Whiteboard` -> modal "Create Whiteboard" opens. | `frame_0750.png` |
+| **Create Modal** | Modal `max-w-sm` | `bg-white rounded-2xl shadow-2xl p-6` | Input: TITLE * (placeholder "Whiteboard title"). Buttons: Cancel and Create (disabled until typed). Type "Research Product" -> Create turns active purple -> click `Create`. | `frame_0750.png` |
+| **Draw Diamond 1** | Toolbar Diamond tool & Canvas | Drawing drag | Click Diamond tool (turns purple). Drag on canvas to place diamond 1. Diamond renders with blue selection box. | `frame_0800.png` |
+| **Deselect & Diamond 2** | Toolbar Select & Diamond tools | Click & Drag | Click Select tool, click empty canvas to deselect. Click Diamond tool, drag to place diamond 2 to the right. | `frame_0800.png` |
+| **Connect Arrow** | Toolbar Arrow tool | Drag connection | Click Arrow tool. Drag from diamond 1 to diamond 2. Connecting arrow with right arrowhead appears. | `frame_0800.png` |
+| **Add Text Label** | Toolbar Text tool | Click & Type | Click Text tool. Click diamond 1: inline text input opens. Type "Home Screen". Click away: label "Home Screen" sits centered on diamond 1. | `frame_0800.png` |
+| **Save Whiteboard** | Canvas top right | Purple button | Click `Save`. Toast appears: `Whiteboard saved`. | `frame_0800.png` |
+
+---
+
+## 19. Step 18: Delete a whiteboard (`projects.snaarp.com/whiteboards`)
+
+Frames: `ref/projects_part2/frame_0830.png`, `frame_0850.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Gallery 3 Cards** | Whiteboards gallery | Grid of 3 cards | Gallery shows 3 cards: "Research Product" (Updated 15/11/2026), "Sales & Marketing" (Updated 17/11/2026), and "Design Idea" (Updated 15/09/2026). | `frame_0830.png` |
+| **Delete Trigger** | "Design Idea" card | Red Delete button | Click red `Delete` button on "Design Idea" card. In-app confirmation dialog opens. | `frame_0830.png` |
+| **In-App Delete Modal** | Centered modal `max-w-sm` | `bg-white rounded-2xl shadow-2xl p-6` | Title: "Delete whiteboard". Body: "Are you sure you want to delete \"Design Idea\"? This action cannot be undone." Buttons: Cancel and red Delete. | `frame_0850.png` |
+| **Confirm Deletion** | Modal red Delete button | Button click | Click `Delete`. Modal closes. Toast appears: `Whiteboard deleted`. Card disappears, leaving 2 cards ("Research Product" and "Sales & Marketing"). | `frame_0850.png` |
+| **Completion Card** | Post-tutorial card | Data-driven card | Step 18 finishes, and completion card automatically displays ("Tour complete", "Replay tour", "Back to Snaarp"). | In-app |
+

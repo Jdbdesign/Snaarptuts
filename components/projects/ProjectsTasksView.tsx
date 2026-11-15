@@ -16,8 +16,12 @@ import {
 import {
   type TaskItem,
   INITIAL_TASKS,
+  ALL_PROJECT_NAMES,
 } from "./projects-data";
 import { pushProjectsToast } from "./projects-timeline";
+import { ProjectsTaskBoardView } from "./ProjectsTaskBoardView";
+import { ProjectsGanttView } from "./ProjectsGanttView";
+import { ProjectsTaskCalendarView } from "./ProjectsTaskCalendarView";
 
 interface Props {
   tl: Timeline;
@@ -27,6 +31,16 @@ export function ProjectsTasksView({ tl }: Props) {
   const tasks = useTimelineVar<TaskItem[]>(tl, "tasksList", INITIAL_TASKS);
   const activeTab = useTimelineVar<string>(tl, "activeTaskTab", "tasks");
   const activeSubTab = useTimelineVar<string>(tl, "activeTaskSubTab", "list");
+  const isProjectDropdownOpen = useTimelineVar<boolean>(
+    tl,
+    "isTaskProjectDropdownOpen",
+    false
+  );
+  const selectedProject = useTimelineVar<string>(
+    tl,
+    "taskSelectedProject",
+    "Explore Snaarp Projects!"
+  );
   const taskRowMenuId = useTimelineVar<string | null>(tl, "taskRowMenuId", null);
 
   const tasksCount = tasks.length;
@@ -101,16 +115,50 @@ export function ProjectsTasksView({ tl }: Props) {
       </div>
 
       {/* 2. Project dropdown & label */}
-      <div className="flex items-center justify-between py-2 border-y border-gray-100">
+      <div className="flex items-center justify-between py-2 border-y border-gray-100 relative">
         <div
           data-tl="tasks-project-dropdown"
+          onClick={() =>
+            tl.setVar("isTaskProjectDropdownOpen", !isProjectDropdownOpen)
+          }
           className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-gray-800"
         >
           <span className="text-gray-400 font-normal">Project:</span>
-          <span>Explore Snaarp Projects!</span>
+          <span>{selectedProject}</span>
           <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
         </div>
-        <div className="text-xs text-gray-500 font-medium">Explore Snaarp Projects!</div>
+        <div className="text-xs text-gray-500 font-medium">
+          {selectedProject}
+        </div>
+
+        {/* Project Selector Menu */}
+        {isProjectDropdownOpen && (
+          <div
+            data-tl="tasks-project-dropdown-menu"
+            className="absolute top-10 left-0 w-64 bg-white border border-gray-200 rounded-xl shadow-xl py-1 z-50 animate-in fade-in text-xs font-sans"
+          >
+            {ALL_PROJECT_NAMES.map((proj) => {
+              const slug = proj.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+              return (
+                <div
+                  key={proj}
+                  data-tl={`tasks-project-option-${slug}`}
+                  onClick={() => {
+                    tl.setVar("taskSelectedProject", proj);
+                    tl.setVar("isTaskProjectDropdownOpen", false);
+                  }}
+                  className={`px-3 py-2 cursor-pointer hover:bg-purple-50 transition-colors ${
+                    proj === selectedProject
+                      ? "font-semibold text-[#7014D9] bg-purple-50/50"
+                      : "text-gray-700"
+                  }`}
+                >
+                  {proj}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* 3. Overall Progress */}
@@ -198,8 +246,9 @@ export function ProjectsTasksView({ tl }: Props) {
         </button>
       </div>
 
-      {/* 6. Tasks Table */}
-      <div className="bg-white border border-gray-200/90 rounded-2xl overflow-hidden shadow-2xs">
+      {/* 6. Subtab Views */}
+      {activeSubTab === "list" && (
+        <div className="bg-white border border-gray-200/90 rounded-2xl overflow-hidden shadow-2xs">
         <div className="grid grid-cols-12 px-6 py-3 border-b border-gray-100 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
           <div className="col-span-1">Type</div>
           <div className="col-span-4">Title</div>
@@ -338,6 +387,11 @@ export function ProjectsTasksView({ tl }: Props) {
           <span className="text-gray-400 ml-2">20 / page v</span>
         </div>
       </div>
+    )}
+
+      {activeSubTab === "board" && <ProjectsTaskBoardView tl={tl} />}
+      {activeSubTab === "gantt" && <ProjectsGanttView tl={tl} />}
+      {activeSubTab === "calendar" && <ProjectsTaskCalendarView tl={tl} />}
     </div>
   );
 }
