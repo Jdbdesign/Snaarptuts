@@ -1682,5 +1682,43 @@ Reference video: `1108(2).mp4` (1386x720, 7:37, git-ignored `ref/`, frames in `r
 10. **Timing & End Holds**:
     - Every step ends ~1.2s to 1.8s after its primary action completes, concluding with a 400ms fade. Step 40 seamlessly transitions to the data-driven completion card.
 
+---
+
+## Zeus (Lead Search & Discovery)
+
+Reference recording: `1115.mp4` (1384x720, 4:20).
+
+1. **Sample Data Only (No Real Personal Data)**:
+   - Fictional contact database with 28 rich profiles including Jordan Lee (Managing Director at Northwind Labs), Alex Morgan (CEO at Acme Studio), Elena Rostova (CTO at Brightwave Media), etc.
+   - All masked emails are `••••••@••••.com`.
+   - Revealed emails use `example.com` (`jordan.lee@example.com`).
+   - Phones read `Unavailable`.
+   - Fictional companies: Northwind Labs, Acme Studio, Brightwave Media, Harbor & Pine, Lumen Retail, Orbit Foods, Horizon Health, Apex Robotics, Zenith AI, Cobalt Logic, etc.
+
+2. **Credits Consistency**:
+   - Free plan initial balance: 99 / 100 credits.
+   - Finding Jordan Lee's email in Step 5 consumes 1 credit -> balance 98 credits.
+   - Revealing Jordan Lee's contact card in Step 6 consumes 1 credit -> balance 97 credits.
+   - Steps 7, 8, 9 maintain the 97 credits balance.
+
+3. **In-App Dialogs Instead of Browser / OS Dialogs**:
+   - Save Search modal (`ZeusSaveSearchModal.tsx`) for saving filter preset "CEOs".
+   - Create List modal (`ZeusCreateListModal.tsx`) for creating "New Leads" list.
+   - Delete List modal (`ZeusDeleteListModal.tsx`) for deleting "Tech CEO" list.
+
+4. **UK Currency & Pricing**:
+   - Free: £0/mo (50 credits/month).
+   - Basic: £49/mo (500 credits/month).
+   - Professional: £99/mo (2,000 credits/month).
+   - Enterprise: £249/mo (10,000 credits/month).
+
+5. **No Browser Chrome**:
+   - Omitted browser tabs, address bar, extensions, and bookmarks bar.
+   - App renders inside the player frame with suite rail and Zeus sidebar.
+
+6. **End Holds & Tour Completion**:
+   - Step 9 deletes the empty "Tech CEO" list, confirms deletion, and holds for 1.5s before concluding with the Zeus tour completion card.
+
+
 
 

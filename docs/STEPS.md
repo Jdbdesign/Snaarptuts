@@ -2464,3 +2464,38 @@ Reference videos:
 - Timeline & Data: `components/me/me-timeline.ts` (`beginMe`, `finishMe`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/me/me-data.ts`
 - Step Scenes: `scenes/snaarp-me/step<1..40>/Step<N>.tsx`, `script.ts`, `data.ts`
 
+---
+
+# Steps of the Zeus tutorial
+
+Config: `tutorials/zeus.ts`. Route: `/tutorials/zeus`. Product: Zeus (B2B Lead Search).
+Rail Groups:
+- **Overview**: Steps 1–2
+- **Find people**: Steps 3–5
+- **Contacts and lists**: Steps 6–9
+
+Source recording: `C:\Users\HP\Downloads\1115.mp4` (1384x720, 4:20).
+
+## Step Summary
+
+| Step | Title | Route / URL | Duration |
+|---|---|---|---|
+| 1 | Meet Zeus | `zeus.snaarp.com/people` | 10.5 s |
+| 2 | Check your credits and plan | `zeus.snaarp.com/billing` | 11.5 s |
+| 3 | Search with filters | `zeus.snaarp.com/people` | 14.5 s |
+| 4 | Save a search | `zeus.snaarp.com/people` | 12.5 s |
+| 5 | Find an email | `zeus.snaarp.com/people` | 13.5 s |
+| 6 | Open a contact and reveal details | `zeus.snaarp.com/people` | 13.0 s |
+| 7 | Create a list | `zeus.snaarp.com/lists` | 13.5 s |
+| 8 | Add a contact to a list | `zeus.snaarp.com/people` | 14.5 s |
+| 9 | Delete a list | `zeus.snaarp.com/lists` | 11.5 s |
+
+## Architecture & Components
+
+- Shell & Stage: `components/zeus/ZeusShell.tsx`, `components/zeus/ZeusStage.tsx`, `components/zeus/ZeusToast.tsx`
+- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`
+- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusDeleteListModal.tsx`
+- Timeline & Data: `components/zeus/zeus-timeline.ts` (`beginZeus`, `finishZeus`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/zeus/zeus-data.ts`
+- Step Scenes: `scenes/zeus/step<1..9>/Step<N>.tsx`, `script.ts`
+
+

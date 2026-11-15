@@ -973,6 +973,27 @@ Files:
 - Views: `MeHomeView.tsx`, `MeAvailabilityView.tsx`, `MeCalendarView.tsx`, `MeMeetingsView.tsx`, `MeBookingDetailView.tsx`, `MeEventTypesView.tsx`, `MeBookingPage.tsx`, `MeWorkflowsView.tsx`, `MeWorkflowTemplatesView.tsx`, `MeWorkflowEditorView.tsx`, `MeWorkflowDetailView.tsx`, `MeExecutionLogsView.tsx`, `MeContactsView.tsx`, `MeAnalyticsView.tsx`, `MeIntegrationsHubView.tsx`, `MeCalendarIntegrationsView.tsx`, `MeVideoIntegrationsView.tsx`, `MePaymentsView.tsx`, `MeAppsCrmView.tsx`, `MeSettingsHubView.tsx`, `MeProfileSettingsView.tsx`, `MeTeamSettingsView.tsx`, `MeBrandingSettingsView.tsx`, `MeSsoSettingsView.tsx`, `MeDeveloperSettingsView.tsx`
 - Modals & Drawers: `MeBookingModal.tsx`, `MeCreateEventModal.tsx`, `MeEditEventDrawer.tsx`, `MeScheduleModal.tsx`, `MeDateOverrideModal.tsx`, `MeDayPopup.tsx`, `MeDeleteWorkflowModal.tsx`, `MeUploadCsvModal.tsx`, `MeFileChooserModal.tsx`, `MeAddContactModal.tsx`, `MeCustomFieldDrawer.tsx`, `MeDeleteColumnModal.tsx`, `MeImagePickerModal.tsx`, `MeApiKeyModal.tsx`, `MeWebhookModal.tsx`, `MeOAuthAppModal.tsx`
 - Data & Timeline: `components/me/me-data.ts`, `components/me/me-timeline.ts`
+
+### Build status (Zeus - 9 steps, all built and COMPLETE)
+Route: `/tutorials/zeus` (aliases: `zeus`, `lead-search`, `people-search`, `leads`). Config: `tutorials/zeus.ts`.
+Recording: `1115.mp4` (1384x720, 4:20).
+1. Meet Zeus (Welcome overview, suite rail, Zeus sidebar, top bar with search box and lilac credits pill, 4 quick start cards)
+2. Check your credits and plan (Billing & credits page `/billing`, current plan card 99 / 100 credits, how credits work tiles, available plans with Free, Basic £49, Pro £99, Enterprise £249)
+3. Search with filters (C-Suite Executives preset click, search spinner, keyword "CEO" filter, "Has email" radio, "C-Suite" and "VP" seniority checkboxes, Search People click, filtered results table)
+4. Save a search (Save search button click, Save this search modal, type "CEOs", Save click, toast confirmation, Saved Searches dropdown, re-run search)
+5. Find an email (Segmented switch to Find Email, Email Finder form, type "Jordan Lee" and "example.com", Find Email click, verified email result `jordan.lee@example.com`, 1 credit used, balance updates 99 -> 98, return to Database)
+6. Open a contact and reveal details (Jordan Lee row click, contact drawer slides in, masked email `••••••@••••.com`, Reveal Contact 1 credit click, revealed email, credits update 98 -> 97, close drawer)
+7. Create a list (Lists sidebar nav `/lists`, My Lists panel with "Tech CEO", + New List click, Create New List modal, type "New Leads", toggle Dynamic and Static, Create List click, toast confirmation, new list mounts)
+8. Add a contact to a list (Open drawer for Jordan Lee, + Add to List click, select "New Leads", confirmation toast, navigate to Lists, open "New Leads", Jordan Lee member table row)
+9. Delete a list ("Tech CEO" empty list view, Delete button click, Delete List confirmation modal, Delete click, list removed from My Lists, toast confirmation, 1.5s finish hold and Zeus completion card)
+
+Files:
+- Shell & Stage: `components/zeus/ZeusShell.tsx`, `components/zeus/ZeusStage.tsx`, `components/zeus/ZeusToast.tsx`
+- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`
+- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusDeleteListModal.tsx`
+- Data & Timeline: `components/zeus/zeus-data.ts`, `components/zeus/zeus-timeline.ts`
+- Scenes: `scenes/zeus/step<1..9>/Step<N>.tsx`, `script.ts`
+
 - Scenes: `scenes/snaarp-me/step<1..40>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Product switcher
