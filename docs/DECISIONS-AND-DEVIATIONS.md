@@ -1717,7 +1717,26 @@ Reference recording: `1115.mp4` (1384x720, 4:20).
    - App renders inside the player frame with suite rail and Zeus sidebar.
 
 6. **End Holds & Tour Completion**:
-   - Step 9 deletes the empty "Tech CEO" list, confirms deletion, and holds for 1.5s before concluding with the Zeus tour completion card.
+   - Step 9 originally ended part 1; part 2 expands the tutorial to 17 steps. The tour completion card automatically follows step 17 as the last step in `tutorials/zeus.ts`.
+
+7. **Part 2 (Steps 10–17) Fictional Data**:
+   - Reference recording: `1115(2).mp4` (1386x720, 4:22).
+   - Fictional dataset of 125 companies across Europe and the UK with technology industries, team sizes, and GBP revenue tiers.
+   - Company profiles: "Brightwave Systems GmbH" (`www.brightwave.example`, Zurich, Switzerland, 31 employees) with decision makers Lukas Weber, Sophie Keller, Marc Steiner.
+   - Elena Marsh (Managing Director at Glassmere Ltd) and Ravi Menon (VP of Technology at Deepwater Studios) for CEO list building in Step 14.
+
+8. **Part 2 Credits Consistency**:
+   - Steps 10–13 carry 97 credits.
+   - Step 14: Elena Marsh reveal consumes 1 credit -> balance 96 credits; Ravi Menon reveal consumes 1 credit -> balance 95 credits.
+   - Steps 15–17 maintain the 95 credits balance.
+
+9. **Export Download Safe In-App Indicator**:
+   - The reference recording encountered a browser 404 error when clicking Download on the exported list. In accordance with project rules, we do not simulate browser error screens; clicking "Download" triggers an in-app toast notification "Download started" with a download progress indicator.
+
+10. **Integrations & Webhooks**:
+    - API Key: "Zeus Production" with masked token `zk_sample_••••••••` and "Active" status.
+    - Webhook: "Acme CRM" configured with endpoint `https://example.com/webhooks/zeus` and trigger events "Contact Revealed" and "Added to List".
+    - 4-step setup guide displayed cleanly beneath the configuration cards.
 
 
 

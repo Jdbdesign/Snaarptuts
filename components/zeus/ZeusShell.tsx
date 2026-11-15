@@ -195,9 +195,14 @@ export function ZeusShell({ tl, children, overlay }: Props) {
             <button
               type="button"
               data-tl="zeus-nav-companies"
-              className="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              onClick={() => handleNav("companies", ZEUS_URLS.companies)}
+              className={`w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold rounded-xl transition-colors ${
+                currentView === "companies"
+                  ? "bg-[#F5EEFF] text-[#7014D9]"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              }`}
             >
-              <Building2 className="w-4 h-4 text-gray-500" />
+              <Building2 className={`w-4 h-4 ${currentView === "companies" ? "text-[#7014D9]" : "text-gray-500"}`} />
               <span>Companies</span>
             </button>
 
@@ -220,9 +225,14 @@ export function ZeusShell({ tl, children, overlay }: Props) {
             <button
               type="button"
               data-tl="zeus-nav-exports"
-              className="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              onClick={() => handleNav("exports", ZEUS_URLS.exports)}
+              className={`w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold rounded-xl transition-colors ${
+                currentView === "exports"
+                  ? "bg-[#F5EEFF] text-[#7014D9]"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              }`}
             >
-              <Download className="w-4 h-4 text-gray-500" />
+              <Download className={`w-4 h-4 ${currentView === "exports" ? "text-[#7014D9]" : "text-gray-500"}`} />
               <span>Exports</span>
             </button>
 
@@ -230,9 +240,14 @@ export function ZeusShell({ tl, children, overlay }: Props) {
             <button
               type="button"
               data-tl="zeus-nav-integrations"
-              className="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+              onClick={() => handleNav("integrations", ZEUS_URLS.integrations)}
+              className={`w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold rounded-xl transition-colors ${
+                currentView === "integrations"
+                  ? "bg-[#F5EEFF] text-[#7014D9]"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              }`}
             >
-              <Boxes className="w-4 h-4 text-gray-500" />
+              <Boxes className={`w-4 h-4 ${currentView === "integrations" ? "text-[#7014D9]" : "text-gray-500"}`} />
               <span>Integrations</span>
             </button>
           </nav>

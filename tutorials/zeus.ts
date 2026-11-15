@@ -16,6 +16,22 @@ import { Step8 } from "@/scenes/zeus/step8/Step8";
 import { runStep8, STEP8_DURATION_MS } from "@/scenes/zeus/step8/script";
 import { Step9 } from "@/scenes/zeus/step9/Step9";
 import { runStep9, STEP9_DURATION_MS } from "@/scenes/zeus/step9/script";
+import { Step10 } from "@/scenes/zeus/step10/Step10";
+import { runStep10, STEP10_DURATION_MS } from "@/scenes/zeus/step10/script";
+import { Step11 } from "@/scenes/zeus/step11/Step11";
+import { runStep11, STEP11_DURATION_MS } from "@/scenes/zeus/step11/script";
+import { Step12 } from "@/scenes/zeus/step12/Step12";
+import { runStep12, STEP12_DURATION_MS } from "@/scenes/zeus/step12/script";
+import { Step13 } from "@/scenes/zeus/step13/Step13";
+import { runStep13, STEP13_DURATION_MS } from "@/scenes/zeus/step13/script";
+import { Step14 } from "@/scenes/zeus/step14/Step14";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/zeus/step14/script";
+import { Step15 } from "@/scenes/zeus/step15/Step15";
+import { runStep15, STEP15_DURATION_MS } from "@/scenes/zeus/step15/script";
+import { Step16 } from "@/scenes/zeus/step16/Step16";
+import { runStep16, STEP16_DURATION_MS } from "@/scenes/zeus/step16/script";
+import { Step17 } from "@/scenes/zeus/step17/Step17";
+import { runStep17, STEP17_DURATION_MS } from "@/scenes/zeus/step17/script";
 
 import { ZEUS_URLS } from "@/components/zeus/zeus-data";
 import type { Tutorial } from "./types";
@@ -119,15 +135,98 @@ export const zeus: Tutorial = {
         durationMs: STEP9_DURATION_MS,
       },
     },
+    {
+      id: "zeus-search-companies",
+      title: "Search for companies",
+      url: ZEUS_URLS.companies,
+      scene: {
+        Component: Step10,
+        run: runStep10,
+        durationMs: STEP10_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-open-company",
+      title: "Open a company",
+      url: ZEUS_URLS.companies,
+      scene: {
+        Component: Step11,
+        run: runStep11,
+        durationMs: STEP11_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-rename-list",
+      title: "Rename a list",
+      url: ZEUS_URLS.lists,
+      scene: {
+        Component: Step12,
+        run: runStep12,
+        durationMs: STEP12_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-delete-list-empty",
+      title: "Delete a list",
+      url: ZEUS_URLS.lists,
+      scene: {
+        Component: Step13,
+        run: runStep13,
+        durationMs: STEP13_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-build-ceo-list",
+      title: "Build your CEO lead list",
+      url: ZEUS_URLS.people,
+      scene: {
+        Component: Step14,
+        run: runStep14,
+        durationMs: STEP14_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-export-list",
+      title: "Export a list",
+      url: ZEUS_URLS.exports,
+      scene: {
+        Component: Step15,
+        run: runStep15,
+        durationMs: STEP15_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-create-api-key",
+      title: "Create an API key",
+      url: ZEUS_URLS.integrations,
+      scene: {
+        Component: Step16,
+        run: runStep16,
+        durationMs: STEP16_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-add-webhook",
+      title: "Add a webhook",
+      url: ZEUS_URLS.integrations,
+      scene: {
+        Component: Step17,
+        run: runStep17,
+        durationMs: STEP17_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "zeus-meet-zeus" },
     { title: "Find people", from: "zeus-search-filters" },
     { title: "Contacts and lists", from: "zeus-open-contact-reveal" },
+    { title: "Companies", from: "zeus-search-companies" },
+    { title: "Lists", from: "zeus-rename-list" },
+    { title: "Export and integrations", from: "zeus-export-list" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now discover verified B2B leads, filter by seniority and company, find individual email addresses, and manage curated lists in Zeus.",
+    text: "You can now discover verified B2B leads and companies, build curated lists, export contacts, and integrate Zeus with your CRM via webhooks and API keys.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

@@ -53,69 +53,89 @@ export function ZeusListsView({ tl }: Props) {
 
         {/* Lists Items */}
         <div data-tl="lists-scroll-area" className="flex-1 overflow-y-auto p-3 space-y-1">
-          {lists.map((list) => {
-            const isSelected = selectedList?.id === list.id;
-            const isTechCeo = list.name === "Tech CEO";
-            const isNewLeads = list.name === "New Leads";
+          {lists.length === 0 ? (
+            <div data-tl="lists-empty-panel" className="p-6 text-center text-xs text-gray-500">
+              <p className="font-semibold text-gray-800">No lists yet</p>
+              <p className="mt-1 text-[11px] text-gray-400">
+                Create your first list to organize your contacts.
+              </p>
+            </div>
+          ) : (
+            lists.map((list) => {
+              const isSelected = selectedList?.id === list.id;
+              const isTechCeo = list.name === "Tech CEO";
+              const isNewLeads = list.name === "New Leads";
+              const isPriorityLeads = list.name === "Priority Leads";
+              const isCeo = list.name === "CEO";
 
-            return (
-              <div
-                key={list.id}
-                data-tl={
-                  isTechCeo
-                    ? "list-item-tech-ceo"
-                    : isNewLeads
-                    ? "list-item-new-leads"
-                    : `list-item-${list.id}`
-                }
-                onClick={() => tl.setVar("zeusSelectedListId", list.id)}
-                className={`p-3 rounded-xl cursor-pointer transition-colors group flex items-center justify-between ${
-                  isSelected
-                    ? "bg-[#F5EEFF] border border-[#7014D9]/20"
-                    : "hover:bg-gray-50 border border-transparent"
-                }`}
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`text-xs font-bold ${
-                        isSelected ? "text-[#7014D9]" : "text-gray-900"
-                      }`}
-                    >
-                      {list.name}
-                    </span>
-                    <span className="text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
-                      {list.type}
-                    </span>
+              return (
+                <div
+                  key={list.id}
+                  data-tl={
+                    isTechCeo
+                      ? "list-item-tech-ceo"
+                      : isNewLeads
+                      ? "list-item-new-leads"
+                      : isPriorityLeads
+                      ? "list-item-priority-leads"
+                      : isCeo
+                      ? "list-item-ceo"
+                      : `list-item-${list.id}`
+                  }
+                  onClick={() => tl.setVar("zeusSelectedListId", list.id)}
+                  className={`p-3 rounded-xl cursor-pointer transition-colors group flex items-center justify-between ${
+                    isSelected
+                      ? "bg-[#F5EEFF] border border-[#7014D9]/20"
+                      : "hover:bg-gray-50 border border-transparent"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`text-xs font-bold ${
+                          isSelected ? "text-[#7014D9]" : "text-gray-900"
+                        }`}
+                      >
+                        {list.name}
+                      </span>
+                      <span className="text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
+                        {list.type}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-gray-500 mt-0.5">
+                      {list.type} • {list.contacts?.length ?? list.membersCount} members • {list.date}
+                    </p>
                   </div>
-                  <p className="text-[11px] text-gray-500 mt-0.5">
-                    {list.type} • {list.contacts?.length ?? list.membersCount} members • {list.date}
-                  </p>
-                </div>
 
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    type="button"
-                    className="p-1 text-gray-400 hover:text-gray-700 rounded"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Edit2 className="w-3 h-3" />
-                  </button>
-                  <button
-                    type="button"
-                    data-tl={`btn-quick-delete-${list.id}`}
-                    className="p-1 text-gray-400 hover:text-red-600 rounded"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleOpenDeleteModal(list);
-                    }}
-                  >
-                    <Trash2 className="w-3 h-3" />
-                  </button>
+                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      type="button"
+                      className="p-1 text-gray-400 hover:text-gray-700 rounded"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        tl.setVar("zeusListToEdit", list);
+                        tl.setVar("zeusEditListName", list.name);
+                        tl.setVar("zeusEditListModalOpen", true);
+                      }}
+                    >
+                      <Edit2 className="w-3 h-3" />
+                    </button>
+                    <button
+                      type="button"
+                      data-tl={`btn-quick-delete-${list.id}`}
+                      className="p-1 text-gray-400 hover:text-red-600 rounded"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenDeleteModal(list);
+                      }}
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </aside>
 
@@ -155,7 +175,12 @@ export function ZeusListsView({ tl }: Props) {
                 <button
                   type="button"
                   data-tl="btn-edit-list"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-gray-200 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                  onClick={() => {
+                    tl.setVar("zeusListToEdit", selectedList);
+                    tl.setVar("zeusEditListName", selectedList.name);
+                    tl.setVar("zeusEditListModalOpen", true);
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-gray-200 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
                 >
                   <Edit2 className="w-3.5 h-3.5 text-gray-500" />
                   <span>Edit</span>
@@ -164,7 +189,7 @@ export function ZeusListsView({ tl }: Props) {
                   type="button"
                   data-tl="btn-delete-list"
                   onClick={() => handleOpenDeleteModal(selectedList)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 text-xs font-semibold transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 text-xs font-semibold transition-colors cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>Delete</span>
@@ -193,7 +218,11 @@ export function ZeusListsView({ tl }: Props) {
                     {selectedList.contacts.map((contact) => (
                       <tr
                         key={contact.id}
-                        data-tl="list-member-row-jordan"
+                        data-tl={
+                          contact.id === "c-1"
+                            ? "list-member-row-jordan"
+                            : `list-member-row-${contact.id}`
+                        }
                         className="hover:bg-gray-50 cursor-pointer transition-colors"
                       >
                         <td className="py-3 px-4">
@@ -237,8 +266,9 @@ export function ZeusListsView({ tl }: Props) {
             )}
           </div>
         ) : (
-          <div className="flex-1 flex items-center justify-center text-gray-400 text-xs">
-            Select a list to view its details
+          <div data-tl="lists-empty-main" className="flex-1 flex flex-col items-center justify-center p-12 text-center text-gray-400">
+            <h3 className="text-sm font-bold text-gray-700">Select a list</h3>
+            <p className="text-xs text-gray-400 mt-1">Choose a list from the left panel to view its members, or create a new one.</p>
           </div>
         )}
       </div>

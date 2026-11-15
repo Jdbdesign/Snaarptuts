@@ -30,7 +30,7 @@ const FROM = arg("from") ? Number(arg("from")) : 1;
 const OUT = arg("out", "docs/QA-VISIBILITY.md")!;
 // --retry <report.md>: replay only the steps (and viewports) that a previous report listed, e.g. at --speed 1 to rule out playback-speed artefacts
 const RETRY = arg("retry");
-const TUTORIALS = ["snaarp-360", "snaarp-mail", "snaarp-doc", "snaarp-admin", "snaarp-slides", "snaarp-sheets", "workforce", "onecardx", "drive", "books", "snaarp-lock", "snaarp-me"];
+const TUTORIALS = ["snaarp-360", "snaarp-mail", "snaarp-doc", "snaarp-admin", "snaarp-slides", "snaarp-sheets", "workforce", "onecardx", "drive", "books", "snaarp-lock", "snaarp-me", "zeus"];
 const VIEWPORTS = (arg("viewport") ? [arg("viewport")!] : ["1920x1080", "1440x900", "1280x720", "390x844"]).map((v) => {
   const [w, h] = v.split("x").map(Number);
   return { w, h, name: v };
@@ -263,7 +263,12 @@ async function openStep(browser: Browser, tutorial: string, index: number, vp: {
   page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
   await page.goto(`${URL_BASE}/tutorials/${tutorial}`, { waitUntil: "domcontentloaded", timeout: 60000 });
   await page.waitForSelector("ol li button", { timeout: 30000 });
-  if (vp.w < 900) await page.getByRole("button", { name: "Expand step list" }).click();
+  if (vp.w < 900) {
+    const expand = page.getByRole("button", { name: "Expand step list" });
+    if (await expand.isVisible().catch(() => false)) {
+      await expand.click().catch(() => {});
+    }
+  }
   const button = page.locator("ol li button").nth(index);
   const title = (await button.getAttribute("title")) ?? `step ${index + 1}`;
   await button.click();

@@ -2473,8 +2473,13 @@ Rail Groups:
 - **Overview**: Steps 1–2
 - **Find people**: Steps 3–5
 - **Contacts and lists**: Steps 6–9
+- **Companies**: Steps 10–11
+- **Lists**: Steps 12–14
+- **Export and integrations**: Steps 15–17
 
-Source recording: `C:\Users\HP\Downloads\1115.mp4` (1384x720, 4:20).
+Source recording:
+- Part 1: `C:\Users\HP\Downloads\1115.mp4` (1384x720, 4:20, Steps 1–9)
+- Part 2: `C:\Users\HP\Downloads\1115(2).mp4` (1386x720, 4:22, Steps 10–17)
 
 ## Step Summary
 
@@ -2489,13 +2494,22 @@ Source recording: `C:\Users\HP\Downloads\1115.mp4` (1384x720, 4:20).
 | 7 | Create a list | `zeus.snaarp.com/lists` | 13.5 s |
 | 8 | Add a contact to a list | `zeus.snaarp.com/people` | 14.5 s |
 | 9 | Delete a list | `zeus.snaarp.com/lists` | 11.5 s |
+| 10 | Search for companies | `zeus.snaarp.com/companies` | 13.5 s |
+| 11 | Open a company | `zeus.snaarp.com/companies` | 12.0 s |
+| 12 | Rename a list | `zeus.snaarp.com/lists` | 11.0 s |
+| 13 | Delete a list | `zeus.snaarp.com/lists` | 14.0 s |
+| 14 | Build your CEO lead list | `zeus.snaarp.com/people` | 28.0 s |
+| 15 | Export a list | `zeus.snaarp.com/exports` | 14.0 s |
+| 16 | Create an API key | `zeus.snaarp.com/integrations` | 13.0 s |
+| 17 | Add a webhook | `zeus.snaarp.com/integrations` | 16.0 s |
 
 ## Architecture & Components
 
 - Shell & Stage: `components/zeus/ZeusShell.tsx`, `components/zeus/ZeusStage.tsx`, `components/zeus/ZeusToast.tsx`
-- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`
-- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusDeleteListModal.tsx`
+- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`, `ZeusCompaniesView.tsx`, `ZeusExportsView.tsx`, `ZeusIntegrationsView.tsx`
+- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusCompanyDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusEditListModal.tsx`, `ZeusDeleteListModal.tsx`
 - Timeline & Data: `components/zeus/zeus-timeline.ts` (`beginZeus`, `finishZeus`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/zeus/zeus-data.ts`
-- Step Scenes: `scenes/zeus/step<1..9>/Step<N>.tsx`, `script.ts`
+- Step Scenes: `scenes/zeus/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
+
 
 

@@ -18,7 +18,12 @@ import {
   Mail,
   Loader2,
 } from "lucide-react";
-import { SAMPLE_CONTACTS, type ZeusContact } from "./zeus-data";
+import {
+  SAMPLE_CONTACTS,
+  CEO_CONTACT_ELENA,
+  CEO_CONTACT_RAVI,
+  type ZeusContact,
+} from "./zeus-data";
 
 interface Props {
   tl: Timeline;
@@ -30,6 +35,9 @@ export function ZeusPeopleView({ tl }: Props) {
   const searchResults = useTimelineVar<boolean>(tl, "zeusSearchResults", false);
   const hideFilters = useTimelineVar<boolean>(tl, "zeusHideFilters", false);
   const contactRevealed = useTimelineVar<boolean>(tl, "zeusContactRevealed", false);
+  const revealedContacts = useTimelineVar<string[]>(tl, "zeusRevealedContactIds", []);
+  const sceneId = useTimelineVar<string>(tl, "__sceneId", "");
+  const isStep14 = sceneId.includes("step14") || tl.getVar<boolean>("zeusIsStep14", false);
 
   // Filters state
   const keyword = useTimelineVar<string>(tl, "zeusFilterKeyword", "");
@@ -394,7 +402,11 @@ export function ZeusPeopleView({ tl }: Props) {
                   data-tl="tab-total-results"
                   className="font-bold text-gray-900 border-b-2 border-gray-900 py-3.5"
                 >
-                  {seniority.length > 0 || keyword ? "Total 4,218,500" : "Total 89,187,648"}
+                  {isStep14
+                    ? "Total 203"
+                    : seniority.length > 0 || keyword
+                    ? "Total 4,218,500"
+                    : "Total 89,187,648"}
                 </span>
                 <span className="text-gray-400 py-3.5 cursor-pointer hover:text-gray-600">Saved 0</span>
               </div>
@@ -698,14 +710,29 @@ export function ZeusPeopleView({ tl }: Props) {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 bg-white">
-                      {SAMPLE_CONTACTS.slice(0, 25).map((contact, index) => {
+                      {(isStep14
+                        ? [CEO_CONTACT_ELENA, CEO_CONTACT_RAVI, ...SAMPLE_CONTACTS.slice(0, 23)]
+                        : SAMPLE_CONTACTS.slice(0, 25)
+                      ).map((contact, index) => {
                         const isJordan = contact.id === "c-1";
-                        const showRevealed = isJordan && contactRevealed;
+                        const isElena = contact.id === "c-ceo-1";
+                        const isRavi = contact.id === "c-ceo-2";
+                        const showRevealed =
+                          revealedContacts.includes(contact.id) ||
+                          (isJordan && contactRevealed);
+
+                        const rowTl = isElena
+                          ? "contact-row-elena-marsh"
+                          : isRavi
+                          ? "contact-row-ravi-menon"
+                          : isJordan
+                          ? "contact-row-jordan-lee"
+                          : `contact-row-${index}`;
 
                         return (
                           <tr
                             key={contact.id}
-                            data-tl={isJordan ? "contact-row-jordan-lee" : `contact-row-${index}`}
+                            data-tl={rowTl}
                             onClick={() => handleSelectContact(contact)}
                             className="hover:bg-[#F5EEFF]/40 cursor-pointer transition-colors group"
                           >

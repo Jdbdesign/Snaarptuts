@@ -126,6 +126,111 @@ Frames: `ref/zeus/0225.jpg`, `0230.jpg`
 |---|---|---|---|---|
 | **Select Tech CEO** | Click "Tech CEO" in My Lists | Content view | Header "Tech CEO", empty state: "No members in this list, Add people or companies from search results.", buttons: "Import CSV", "Edit", red "Delete". | `ref/zeus/0220.jpg` |
 | **Delete List Modal** | Click "Delete" button | Centered modal, `w-[460px]` | Title: "Delete List" (`text-base font-bold text-gray-900`).<br>Message: "Are you sure you want to delete \"Tech CEO\"? This will remove all members from the list. This action cannot be undone."<br>Buttons: Cancel + red "Delete" (`bg-red-600 hover:bg-red-700 text-white font-semibold text-xs px-4 py-2 rounded-xl`). | `ref/zeus/0225.jpg` |
-| **Deletion Result** | Click Delete | Transition | Button shows "Deleting..." spinner for 1s. Modal closes, "Tech CEO" is removed from My Lists, green toast confirms "List deleted", only "New Leads" remains.<br>Concludes tutorial -> Tour completion card! | `ref/zeus/0230.jpg` |
+| **Deletion Result** | Click Delete | Transition | Button shows "Deleting..." spinner for 1s. Modal closes, "Tech CEO" is removed from My Lists, green toast confirms "List deleted", only "New Leads" remains. | `ref/zeus/0230.jpg` |
+
+---
+
+## 11. Step 10: Search for companies (`zeus.snaarp.com/companies`)
+
+Frames: `ref/zeus2/0005.jpg`, `0060.jpg`, `0095.jpg`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Companies Filters** | Left column, `w-[280px]` | `bg-white border-r border-gray-200/80 p-4` | Header: "Filters" + "Clear all".<br>• Company Name: input "Search by name or domain..."<br>• Industry: input "Search industries...", tags "SaaS ×", "Technology ×", checkbox list (Technology, Healthcare, Finance, Education, Manufacturing...)<br>• Location: country list (Belarus, Belgium, Belize...)<br>• # Employees: checkboxes (1-10, 11-50, 51-200, 201-500, 501-1000...)<br>• Revenue: £0-£1M, £1M-£10M, £10M-£50M, £50M-£100M, £100M+<br>• Founded Year: input "e.g. 2015"<br>• Bottom button: "Search Companies" (`bg-[#7014D9]`). | `ref/zeus2/0005.jpg` |
+| **Empty State Hero** | Center area before search | `flex flex-col items-center justify-center py-12 text-center` | Icon: circular lilac badge with building icon.<br>Title: "Discover companies" (`text-xl font-bold text-gray-900 mt-4`).<br>Subtitle: "Search millions of company profiles across industries, team sizes, and revenue."<br>Quick Start Cards: `SaaS & Tech`, `Mid-market`, `Healthcare`, `£10M-£100M Revenue`. | `ref/zeus2/0005.jpg` |
+| **Results Toolbar** | Top bar above results | `h-12 border-b border-gray-200 px-6 bg-white flex items-center justify-between` | Left: "Total 175,203 results" + "Hide Filters".<br>Right: Segmented switch "Database" / "Web". | `ref/zeus2/0095.jpg` |
+| **Companies Table** | Main area | `w-full bg-white border-b border-gray-200 text-xs` | Columns: Checkbox, `COMPANY`, `INDUSTRY`, `LOCATION`, `EMPLOYEES`, `REVENUE`.<br>Rows: Fictional tech companies (e.g. Brightwave Systems GmbH, Veloce Cloud AG).<br>Pager: `1 ... 4 5 6 ... 7009`. | `ref/zeus2/0095.jpg` |
+
+---
+
+## 12. Step 11: Open a company (`zeus.snaarp.com/companies`)
+
+Frames: `ref/zeus2/0120.jpg`, `0130.jpg`, `0140.jpg`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Company Row Click** | Click "Brightwave Systems GmbH" | Row click | Opens company drawer from right. | `ref/zeus2/0120.jpg` |
+| **Company Drawer** | Right slide-out, `w-[420px]` | `bg-white shadow-2xl p-6 flex flex-col justify-between overflow-y-auto` | **Header**: Circular badge "1", "Brightwave Systems GmbH", domain "www.brightwave.example", close (X) button.<br>**Details Cards**: 2x2 grid:<br>• Industry: "Technology; Information and Internet"<br>• Employees: "31"<br>• Location: "Zurich, Switzerland"<br>• Website: "https://www.brightwave.example"<br>**Actions**: "View on LinkedIn" button.<br>**People Section**: "People at Brightwave Systems GmbH":<br>• Lukas Weber - Managing Director<br>• Sophie Keller - Head of Engineering<br>• Marc Steiner - Product Lead. | `ref/zeus2/0130.jpg` |
+| **Drawer Close** | Click close (X) button | Action | Drawer slides away, back to company search table. | `ref/zeus2/0145.jpg` |
+
+---
+
+## 13. Step 12: Rename a list (`zeus.snaarp.com/lists`)
+
+Frames: `ref/zeus2/0160.jpg`, `0180.jpg`, `0192.jpg`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **List Detail Header** | Top of list view | `bg-white border-b border-gray-200 p-6 flex items-center justify-between` | Title: "New Leads", subtitle: "Static list • 1 member", "Edit" button, red "Delete" button. | `ref/zeus2/0160.jpg` |
+| **Edit List Modal** | Centered modal, `w-[460px]` | `bg-white rounded-2xl p-6 shadow-2xl border border-gray-100` | Title: "Edit List".<br>Field: "List Name" with current value "New Leads".<br>User types "Priority Leads".<br>Buttons: Cancel, purple "Save Changes". | `ref/zeus2/0180.jpg` |
+| **Rename Confirmation** | Modal closes | Updated UI | Toast: `List updated, "Priority Leads" saved successfully`.<br>My Lists row and main header update to "Priority Leads". | `ref/zeus2/0192.jpg` |
+
+---
+
+## 14. Step 13: Delete a list (`zeus.snaarp.com/lists` -> `/exports` -> `/people`)
+
+Frames: `ref/zeus2/0210.jpg`, `0230.jpg`, `0245.jpg`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Delete List Trigger** | Header red "Delete" button | Action | Opens Delete List modal. | `ref/zeus2/0210.jpg` |
+| **Delete List Modal** | Centered modal, `w-[460px]` | `bg-white rounded-2xl p-6 shadow-2xl border border-gray-100` | Title: "Delete List".<br>Message: "Are you sure you want to delete \"Priority Leads\"? This will remove all members from the list. This action cannot be undone."<br>Buttons: Cancel, red "Delete". | `ref/zeus2/0215.jpg` |
+| **Lists Empty State** | Main & Sidebar panels | Empty state | Toast: `List deleted`.<br>Left panel: "No lists yet, Create your first list to organize your contacts."<br>Right area: "Select a list". | `ref/zeus2/0230.jpg` |
+| **Exports Empty State** | Nav to Exports | `zeus.snaarp.com/exports` | Title: "Export", subtitle: "Export contacts from your saved lists. You'll get an email when it's ready."<br>Card: "1. Select a list to export... No lists yet. Add contacts to a list first." | `ref/zeus2/0245.jpg` |
+| **Return to People** | Sidebar click People | Navigation | Navigates back to `zeus.snaarp.com/people`. | `ref/zeus2/0255.jpg` |
+
+---
+
+## 15. Step 14: Build your CEO lead list (`zeus.snaarp.com/people` -> `/lists` -> `/people`)
+
+Frames: `ref/zeus2/0270.jpg`, `0310.jpg`, `0360.jpg`, `0400.jpg`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **First Lead Reveal** | People table -> Elena Marsh | Action | Click Elena Marsh row -> Drawer opens -> Click "Reveal Contact (1 credit)" -> Spinner 1.2s -> Email `elena.marsh@example.com` revealed. Credits: 97 -> 96. | `ref/zeus2/0270.jpg` |
+| **Add to List (No Lists)** | In Elena Marsh drawer | Drawer action | Click "+ Add to List" -> Popover shows "No lists yet. Create one in the Lists page first." -> Click Cancel. | `ref/zeus2/0285.jpg` |
+| **Create CEO List** | Nav to Lists | `zeus.snaarp.com/lists` | Click "+ New List" -> Modal opens -> Types "CEO" -> Selects Static -> Click "Create List" -> Toast: `List created, "CEO" is ready to use`. | `ref/zeus2/0310.jpg` |
+| **Add Elena to CEO** | Back to People | `zeus.snaarp.com/people` | Click Elena Marsh row -> Click "+ Add to List" -> Select "CEO" -> Toast: `Added to list, Elena Marsh was added successfully`. | `ref/zeus2/0350.jpg` |
+| **Second Lead Reveal** | People table -> Ravi Menon | Action | Click Ravi Menon row -> Drawer opens -> Click "Reveal Contact (1 credit)" -> Spinner 1.2s -> Email `ravi.menon@example.com` revealed. Credits: 96 -> 95. | `ref/zeus2/0380.jpg` |
+| **Add Ravi to CEO** | In Ravi Menon drawer | Drawer action | Click "+ Add to List" -> Select "CEO" -> Toast: `Added to list, Ravi Menon was added successfully` -> Close drawer. | `ref/zeus2/0400.jpg` |
+
+---
+
+## 16. Step 15: Export a list (`zeus.snaarp.com/exports`)
+
+Frames: `ref/zeus2/0440.jpg`, `0450.jpg`, `0465.jpg`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Select List Card** | Card 1 | `bg-white border border-gray-200 rounded-2xl p-6` | Heading: "1. Select a list to export".<br>List card: "CEO" (Static • 2 members). Click selects list with purple border `#7014D9`. | `ref/zeus2/0440.jpg` |
+| **Export Action Card** | Card 2 | `bg-white border border-gray-200 rounded-2xl p-6 mt-6` | Heading: "2. Export".<br>Stats: 2 Total, 2 Revealed (green pill), 0 Unrevealed (lilac pill).<br>Button: purple "Export revealed only (free)". | `ref/zeus2/0450.jpg` |
+| **Export Started** | Click button | Transition | Alert banner: "Export started. You will receive an email when it is ready."<br>Toast: `Export started, You'll be notified when it's ready to download.`. | `ref/zeus2/0455.jpg` |
+| **Recent Exports & Download** | Card 3 | `bg-white border border-gray-200 rounded-2xl p-6 mt-6` | Heading: "Recent Exports".<br>Row: "CEO", 2 contacts exported, date, "Download" button.<br>Click "Download" shows in-app toast `Download started` (avoiding video 404). | `ref/zeus2/0465.jpg` |
+
+---
+
+## 17. Step 16: Create an API key (`zeus.snaarp.com/integrations`)
+
+Frames: `ref/zeus2/0480.jpg`, `0490.jpg`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **API Keys Header** | Top of Integrations view | `bg-white border border-gray-200 rounded-2xl p-6` | Title: "API Keys", subtitle: "Use API keys to authenticate requests from your applications."<br>Button: "+ Create Key". | `ref/zeus2/0480.jpg` |
+| **Create Key Form** | Expandable card or modal | Form controls | Field: "Key Name" (placeholder "e.g. Zeus Production").<br>Types: "Zeus Production".<br>Button: purple "Create". | `ref/zeus2/0485.jpg` |
+| **Active Key Row** | Card content | UI state | Row: Name "Zeus Production", masked key `zk_sample_••••••••`, copy button, "Created 10/11/2026", green badge "Active".<br>Toast: `API key created, "Zeus Production" is ready to use`. | `ref/zeus2/0490.jpg` |
+| **How to set up** | Bottom of page | 4 numbered steps | 1. Create an API key above to authenticate your requests.<br>2. Add a webhook endpoint URL from your application or CRM.<br>3. Select which events should trigger webhook notifications.<br>4. Test your integration and start receiving real-time lead updates. | `ref/zeus2/0495.jpg` |
+
+---
+
+## 18. Step 17: Add a webhook (`zeus.snaarp.com/integrations`)
+
+Frames: `ref/zeus2/0500.jpg`, `0515.jpg`, `0525.jpg`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Webhooks Section** | Below API Keys | `bg-white border border-gray-200 rounded-2xl p-6 mt-6` | Title: "Webhooks", subtitle: "Receive real-time notifications when leads are revealed or lists update."<br>Button: "+ Add Webhook". | `ref/zeus2/0500.jpg` |
+| **Webhook Form** | Expands inside card | Form controls | • Name: types "Acme CRM"<br>• Endpoint URL: types "https://example.com/webhooks/zeus"<br>• Trigger Events: checkboxes "Contact Revealed" (checked), "Contact Exported", "Added to List" (checked)<br>Buttons: Cancel, purple "Create Webhook". | `ref/zeus2/0510.jpg` |
+| **Configured Webhook** | Card content | UI state | Row: Name "Acme CRM", URL `https://example.com/webhooks/zeus`, tags "Contact Revealed", "Added to List", green badge "Active".<br>Toast: `Webhook created, "Acme CRM" is active`. | `ref/zeus2/0520.jpg` |
+| **Completion Card** | Tour concludes | Final card | "Tour complete", Replay tour, Back to Snaarp. | `ref/zeus2/0525.jpg` |
 
 ---

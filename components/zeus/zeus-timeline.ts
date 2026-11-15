@@ -5,6 +5,10 @@ import {
   INITIAL_LISTS,
   type ZeusList,
   type ZeusContact,
+  type ZeusCompany,
+  type ZeusExport,
+  type ZeusApiKey,
+  type ZeusWebhook,
 } from "./zeus-data";
 
 export const ZEUS_END_HOLD_MS = 1500;
@@ -121,8 +125,14 @@ export function beginZeus(
   tl.setVar("__zeusStepEnded", false);
   if (stepNum) tl.setVar("__sceneId", `zeus-step${stepNum}`);
 
-  // Credits counter: 99 initial, 98 after find email (step 5), 97 after contact reveal (step 6)
-  const defaultCredits = stepNum && stepNum >= 7 ? 97 : stepNum === 6 ? 98 : stepNum === 5 ? 99 : 99;
+  // Credits counter: 99 initial, 98 after find email (step 5), 97 after contact reveal (step 6),
+  // 96 after step 14 first reveal, 95 after step 14 second reveal & steps 15-17
+  const defaultCredits =
+    stepNum && stepNum >= 15 ? 95 :
+    stepNum && stepNum >= 7 ? 97 :
+    stepNum === 6 ? 98 :
+    stepNum === 5 ? 99 :
+    99;
   tl.setVar("zeusCredits", defaultCredits);
 
   // People view state
@@ -131,6 +141,7 @@ export function beginZeus(
   tl.setVar("zeusSearchResults", false);
   tl.setVar("zeusHideFilters", false);
   tl.setVar("zeusSavedCount", 0);
+  tl.setVar("zeusRevealedContactIds", [] as string[]);
 
   // Filters
   tl.setVar("zeusFilterKeyword", "");
@@ -151,6 +162,14 @@ export function beginZeus(
   tl.setVar("zeusRevealing", false);
   tl.setVar("zeusAddToListDropdownOpen", false);
 
+  // Companies view state
+  tl.setVar("zeusCompaniesSearching", false);
+  tl.setVar("zeusCompaniesResults", false);
+  tl.setVar("zeusCompaniesFilterTags", [] as string[]);
+  tl.setVar("zeusCompaniesIndustryInput", "");
+  tl.setVar("zeusSelectedCompany", null as ZeusCompany | null);
+  tl.setVar("zeusCompanyDrawerOpen", false);
+
   // Save Search Modal & Saved Searches
   tl.setVar("zeusSaveSearchModalOpen", false);
   tl.setVar("zeusSavedSearchName", "");
@@ -164,9 +183,27 @@ export function beginZeus(
   tl.setVar("zeusCreateListModalOpen", false);
   tl.setVar("zeusNewListName", "");
   tl.setVar("zeusNewListType", "Static" as "Static" | "Dynamic");
+  tl.setVar("zeusEditListModalOpen", false);
+  tl.setVar("zeusEditListName", "");
+  tl.setVar("zeusListToEdit", null as ZeusList | null);
   tl.setVar("zeusDeleteListModalOpen", false);
   tl.setVar("zeusListToDelete", null as ZeusList | null);
   tl.setVar("zeusDeleting", false);
+
+  // Exports state
+  tl.setVar("zeusSelectedExportListId", null as string | null);
+  tl.setVar("zeusExportStarted", false);
+  tl.setVar("zeusRecentExports", [] as ZeusExport[]);
+
+  // Integrations state
+  tl.setVar("zeusApiKeys", [] as ZeusApiKey[]);
+  tl.setVar("zeusCreateApiKeyOpen", false);
+  tl.setVar("zeusNewApiKeyName", "");
+  tl.setVar("zeusWebhooks", [] as ZeusWebhook[]);
+  tl.setVar("zeusCreateWebhookOpen", false);
+  tl.setVar("zeusNewWebhookName", "");
+  tl.setVar("zeusNewWebhookUrl", "");
+  tl.setVar("zeusNewWebhookEvents", [] as string[]);
 
   // Toasts
   tl.setVar("zeusToast", null as { text: string; subtext?: string } | null);

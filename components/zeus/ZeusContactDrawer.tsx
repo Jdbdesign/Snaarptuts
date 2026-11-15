@@ -20,16 +20,29 @@ interface Props {
 export function ZeusContactDrawer({ tl }: Props) {
   const isOpen = useTimelineVar<boolean>(tl, "zeusDrawerOpen", false);
   const contact = useTimelineVar<ZeusContact | null>(tl, "zeusSelectedContact", null);
-  const revealed = useTimelineVar<boolean>(tl, "zeusContactRevealed", false);
+  const revealedContacts = useTimelineVar<string[]>(tl, "zeusRevealedContactIds", []);
+  const oldRevealed = useTimelineVar<boolean>(tl, "zeusContactRevealed", false);
   const revealing = useTimelineVar<boolean>(tl, "zeusRevealing", false);
   const addToListOpen = useTimelineVar<boolean>(tl, "zeusAddToListDropdownOpen", false);
   const lists = useTimelineVar<ZeusList[]>(tl, "zeusLists", []);
+  const currentCredits = useTimelineVar<number>(tl, "zeusCredits", 99);
 
   if (!isOpen || !contact) return null;
 
+  const isRevealed =
+    revealedContacts.includes(contact.id) ||
+    (contact.id === "c-1" && oldRevealed);
+
   const handleReveal = () => {
-    tl.setVar("zeusContactRevealed", true);
-    tl.setVar("zeusCredits", 97);
+    tl.setVar("zeusRevealing", true);
+    setTimeout(() => {
+      tl.setVar("zeusRevealing", false);
+      tl.setVar("zeusRevealedContactIds", [...revealedContacts, contact.id]);
+      tl.setVar("zeusContactRevealed", true);
+      const newCredits =
+        currentCredits === 97 ? 96 : currentCredits === 96 ? 95 : currentCredits - 1;
+      tl.setVar("zeusCredits", newCredits);
+    }, 600);
   };
 
   const handleAddToList = (listName: string) => {
@@ -46,8 +59,8 @@ export function ZeusContactDrawer({ tl }: Props) {
     tl.setVar("zeusLists", updatedLists);
     tl.setVar("zeusAddToListDropdownOpen", false);
     tl.setVar("zeusToast", {
-      text: `Added to ${listName}`,
-      subtext: "Contact saved to list",
+      text: "Added to list",
+      subtext: `${contact.name} was added successfully`,
     });
     setTimeout(() => {
       tl.setVar("zeusToast", null);
@@ -116,7 +129,7 @@ export function ZeusContactDrawer({ tl }: Props) {
                 <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block mb-1">
                   Email
                 </span>
-                {revealed ? (
+                {isRevealed ? (
                   <div className="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-3 py-2">
                     <span
                       data-tl="drawer-revealed-email"
@@ -151,7 +164,7 @@ export function ZeusContactDrawer({ tl }: Props) {
               </div>
 
               {/* Reveal Button (if not yet revealed) */}
-              {!revealed && (
+              {!isRevealed && (
                 <div className="pt-2">
                   <button
                     type="button"
@@ -184,24 +197,40 @@ export function ZeusContactDrawer({ tl }: Props) {
               className="absolute bottom-16 left-0 right-0 bg-white rounded-xl shadow-2xl border border-gray-100 p-3 z-50 text-xs animate-in fade-in duration-150"
             >
               <div className="text-[11px] font-bold text-gray-500 mb-2">Select a list:</div>
-              <div className="space-y-1">
-                {lists.map((l) => (
+              {lists.length === 0 ? (
+                <div className="py-2 text-center text-gray-500">
+                  <p className="text-xs">No lists yet. Create one in the Lists page first.</p>
                   <button
-                    key={l.id}
                     type="button"
-                    data-tl={
-                      l.name === "New Leads"
-                        ? "add-to-list-item-new-leads"
-                        : `add-to-list-item-${l.id}`
-                    }
-                    onClick={() => handleAddToList(l.name)}
-                    className="w-full text-left px-3 py-2 hover:bg-[#F5EEFF] hover:text-[#7014D9] rounded-lg transition-colors flex items-center justify-between font-semibold text-gray-800"
+                    data-tl="btn-cancel-add-to-list"
+                    onClick={() => tl.setVar("zeusAddToListDropdownOpen", false)}
+                    className="mt-2 text-xs text-[#7014D9] font-semibold hover:underline"
                   >
-                    <span>{l.name}</span>
-                    <Plus className="w-3.5 h-3.5" />
+                    Cancel
                   </button>
-                ))}
-              </div>
+                </div>
+              ) : (
+                <div className="space-y-1">
+                  {lists.map((l) => (
+                    <button
+                      key={l.id}
+                      type="button"
+                      data-tl={
+                        l.name === "CEO"
+                          ? "add-to-list-item-ceo"
+                          : l.name === "New Leads"
+                          ? "add-to-list-item-new-leads"
+                          : `add-to-list-item-${l.id}`
+                      }
+                      onClick={() => handleAddToList(l.name)}
+                      className="w-full text-left px-3 py-2 hover:bg-[#F5EEFF] hover:text-[#7014D9] rounded-lg transition-colors flex items-center justify-between font-semibold text-gray-800"
+                    >
+                      <span>{l.name}</span>
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 

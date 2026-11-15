@@ -974,9 +974,9 @@ Files:
 - Modals & Drawers: `MeBookingModal.tsx`, `MeCreateEventModal.tsx`, `MeEditEventDrawer.tsx`, `MeScheduleModal.tsx`, `MeDateOverrideModal.tsx`, `MeDayPopup.tsx`, `MeDeleteWorkflowModal.tsx`, `MeUploadCsvModal.tsx`, `MeFileChooserModal.tsx`, `MeAddContactModal.tsx`, `MeCustomFieldDrawer.tsx`, `MeDeleteColumnModal.tsx`, `MeImagePickerModal.tsx`, `MeApiKeyModal.tsx`, `MeWebhookModal.tsx`, `MeOAuthAppModal.tsx`
 - Data & Timeline: `components/me/me-data.ts`, `components/me/me-timeline.ts`
 
-### Build status (Zeus - 9 steps, all built and COMPLETE)
+### Build status (Zeus - 17 steps, all built and COMPLETE)
 Route: `/tutorials/zeus` (aliases: `zeus`, `lead-search`, `people-search`, `leads`). Config: `tutorials/zeus.ts`.
-Recording: `1115.mp4` (1384x720, 4:20).
+Recordings: `1115.mp4` (1384x720, 4:20, steps 1–9) and `1115(2).mp4` (1386x720, 4:22, steps 10–17).
 1. Meet Zeus (Welcome overview, suite rail, Zeus sidebar, top bar with search box and lilac credits pill, 4 quick start cards)
 2. Check your credits and plan (Billing & credits page `/billing`, current plan card 99 / 100 credits, how credits work tiles, available plans with Free, Basic £49, Pro £99, Enterprise £249)
 3. Search with filters (C-Suite Executives preset click, search spinner, keyword "CEO" filter, "Has email" radio, "C-Suite" and "VP" seniority checkboxes, Search People click, filtered results table)
@@ -985,14 +985,22 @@ Recording: `1115.mp4` (1384x720, 4:20).
 6. Open a contact and reveal details (Jordan Lee row click, contact drawer slides in, masked email `••••••@••••.com`, Reveal Contact 1 credit click, revealed email, credits update 98 -> 97, close drawer)
 7. Create a list (Lists sidebar nav `/lists`, My Lists panel with "Tech CEO", + New List click, Create New List modal, type "New Leads", toggle Dynamic and Static, Create List click, toast confirmation, new list mounts)
 8. Add a contact to a list (Open drawer for Jordan Lee, + Add to List click, select "New Leads", confirmation toast, navigate to Lists, open "New Leads", Jordan Lee member table row)
-9. Delete a list ("Tech CEO" empty list view, Delete button click, Delete List confirmation modal, Delete click, list removed from My Lists, toast confirmation, 1.5s finish hold and Zeus completion card)
+9. Delete a list ("Tech CEO" empty list view, Delete button click, Delete List confirmation modal, Delete click, list removed from My Lists, toast confirmation)
+10. Search for companies (Companies view `/companies`, Discover companies empty state, SaaS & Tech preset, industry search with tags "SaaS ×" and "Technology ×", Search Companies click, 175,203 results table)
+11. Open a company (Brightwave Systems GmbH row click, company drawer with metrics, LinkedIn link, decision makers Lukas Weber, Sophie Keller, Marc Steiner, close drawer)
+12. Rename a list (Lists view `/lists` with "New Leads", Edit button click, Edit List modal, type "Priority Leads", Save Changes click, toast confirmation)
+13. Delete a list (Delete button click, Delete List modal, confirm deletion, Lists empty state, navigate to Exports `/exports` with empty state, return to People `/people`)
+14. Build your CEO lead list (People view with CEO search, Elena Marsh row click, reveal contact 97 -> 96 credits, add to list empty state, cancel, navigate to Lists, create list "CEO", return to People, add Elena to CEO list, Ravi Menon row click, reveal contact 96 -> 95 credits, add Ravi to CEO list, close drawer)
+15. Export a list (Exports view `/exports`, select "CEO" list, 2 Total / 2 Revealed / 0 Unrevealed counters, Export revealed only click, Recent Exports card, Download click with in-app notification)
+16. Create an API key (Integrations view `/integrations`, Create Key click, Key Name "Zeus Production", Create click, active key row with masked token, setup guide)
+17. Add a webhook (Add Webhook click, Webhook Name "Acme CRM", Endpoint URL `https://example.com/webhooks/zeus`, Trigger Events "Contact Revealed" and "Added to List", Create Webhook click, active webhook card, tour completion card)
 
 Files:
 - Shell & Stage: `components/zeus/ZeusShell.tsx`, `components/zeus/ZeusStage.tsx`, `components/zeus/ZeusToast.tsx`
-- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`
-- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusDeleteListModal.tsx`
+- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`, `ZeusCompaniesView.tsx`, `ZeusExportsView.tsx`, `ZeusIntegrationsView.tsx`
+- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusCompanyDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusEditListModal.tsx`, `ZeusDeleteListModal.tsx`
 - Data & Timeline: `components/zeus/zeus-data.ts`, `components/zeus/zeus-timeline.ts`
-- Scenes: `scenes/zeus/step<1..9>/Step<N>.tsx`, `script.ts`
+- Scenes: `scenes/zeus/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 - Scenes: `scenes/snaarp-me/step<1..40>/Step<N>.tsx`, `script.ts`, `data.ts`
 
