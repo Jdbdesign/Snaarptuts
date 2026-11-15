@@ -2476,10 +2476,12 @@ Rail Groups:
 - **Companies**: Steps 10–11
 - **Lists**: Steps 12–14
 - **Export and integrations**: Steps 15–17
+- **Settings**: Steps 18–22
 
 Source recording:
 - Part 1: `C:\Users\HP\Downloads\1115.mp4` (1384x720, 4:20, Steps 1–9)
 - Part 2: `C:\Users\HP\Downloads\1115(2).mp4` (1386x720, 4:22, Steps 10–17)
+- Part 3: `C:\Users\HP\Downloads\1115(3).mp4` (1384x720, 0:34, Steps 18–22)
 
 ## Step Summary
 
@@ -2502,14 +2504,19 @@ Source recording:
 | 15 | Export a list | `zeus.snaarp.com/exports` | 14.0 s |
 | 16 | Create an API key | `zeus.snaarp.com/integrations` | 13.0 s |
 | 17 | Add a webhook | `zeus.snaarp.com/integrations` | 16.0 s |
+| 18 | Update your profile | `zeus.snaarp.com/settings` | 10.5 s |
+| 19 | Change your password | `zeus.snaarp.com/settings` | 14.0 s |
+| 20 | Turn on two-factor authentication | `zeus.snaarp.com/settings` | 13.5 s |
+| 21 | Set your notifications | `zeus.snaarp.com/settings` | 10.5 s |
+| 22 | Stay signed in on this device | `zeus.snaarp.com/settings` | 10.5 s |
 
 ## Architecture & Components
 
 - Shell & Stage: `components/zeus/ZeusShell.tsx`, `components/zeus/ZeusStage.tsx`, `components/zeus/ZeusToast.tsx`
-- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`, `ZeusCompaniesView.tsx`, `ZeusExportsView.tsx`, `ZeusIntegrationsView.tsx`
-- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusCompanyDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusEditListModal.tsx`, `ZeusDeleteListModal.tsx`
-- Timeline & Data: `components/zeus/zeus-timeline.ts` (`beginZeus`, `finishZeus`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`), `components/zeus/zeus-data.ts`
-- Step Scenes: `scenes/zeus/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`, `ZeusCompaniesView.tsx`, `ZeusExportsView.tsx`, `ZeusIntegrationsView.tsx`, `ZeusSettingsView.tsx`
+- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusCompanyDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusEditListModal.tsx`, `ZeusDeleteListModal.tsx`, `ZeusToggle.tsx`
+- Timeline & Data: `components/zeus/zeus-timeline.ts` (`beginZeus`, `finishZeus`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`, `pushZeusSettingsToast`), `components/zeus/zeus-data.ts`
+- Step Scenes: `scenes/zeus/step<1..22>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 
 

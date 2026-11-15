@@ -32,6 +32,16 @@ import { Step16 } from "@/scenes/zeus/step16/Step16";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/zeus/step16/script";
 import { Step17 } from "@/scenes/zeus/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/zeus/step17/script";
+import { Step18 } from "@/scenes/zeus/step18/Step18";
+import { runStep18, STEP18_DURATION_MS } from "@/scenes/zeus/step18/script";
+import { Step19 } from "@/scenes/zeus/step19/Step19";
+import { runStep19, STEP19_DURATION_MS } from "@/scenes/zeus/step19/script";
+import { Step20 } from "@/scenes/zeus/step20/Step20";
+import { runStep20, STEP20_DURATION_MS } from "@/scenes/zeus/step20/script";
+import { Step21 } from "@/scenes/zeus/step21/Step21";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/zeus/step21/script";
+import { Step22 } from "@/scenes/zeus/step22/Step22";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/zeus/step22/script";
 
 import { ZEUS_URLS } from "@/components/zeus/zeus-data";
 import type { Tutorial } from "./types";
@@ -215,6 +225,56 @@ export const zeus: Tutorial = {
         durationMs: STEP17_DURATION_MS,
       },
     },
+    {
+      id: "zeus-update-profile",
+      title: "Update your profile",
+      url: ZEUS_URLS.settings,
+      scene: {
+        Component: Step18,
+        run: runStep18,
+        durationMs: STEP18_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-change-password",
+      title: "Change your password",
+      url: ZEUS_URLS.settings,
+      scene: {
+        Component: Step19,
+        run: runStep19,
+        durationMs: STEP19_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-turn-on-2fa",
+      title: "Turn on two-factor authentication",
+      url: ZEUS_URLS.settings,
+      scene: {
+        Component: Step20,
+        run: runStep20,
+        durationMs: STEP20_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-set-notifications",
+      title: "Set your notifications",
+      url: ZEUS_URLS.settings,
+      scene: {
+        Component: Step21,
+        run: runStep21,
+        durationMs: STEP21_DURATION_MS,
+      },
+    },
+    {
+      id: "zeus-stay-signed-in",
+      title: "Stay signed in on this device",
+      url: ZEUS_URLS.settings,
+      scene: {
+        Component: Step22,
+        run: runStep22,
+        durationMs: STEP22_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "zeus-meet-zeus" },
@@ -223,6 +283,7 @@ export const zeus: Tutorial = {
     { title: "Companies", from: "zeus-search-companies" },
     { title: "Lists", from: "zeus-rename-list" },
     { title: "Export and integrations", from: "zeus-export-list" },
+    { title: "Settings", from: "zeus-update-profile" },
   ],
   completion: {
     title: "Tour complete",

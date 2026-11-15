@@ -321,12 +321,14 @@ export function ZeusShell({ tl, children, overlay }: Props) {
             </button>
 
             {/* User avatar circle */}
-            <div
+            <button
+              type="button"
               data-tl="zeus-avatar"
-              className="w-8 h-8 rounded-full bg-gray-900 text-white font-bold text-xs flex items-center justify-center shadow-xs"
+              onClick={() => handleNav("settings", ZEUS_URLS.settings)}
+              className="w-8 h-8 rounded-full bg-[#EDE9FE] text-[#7014D9] font-bold text-xs flex items-center justify-center shadow-xs cursor-pointer hover:opacity-90 transition-opacity"
             >
-              U
-            </div>
+              J
+            </button>
           </div>
         </header>
 

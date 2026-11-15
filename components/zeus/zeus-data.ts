@@ -5,9 +5,26 @@ export const ZEUS_URLS = {
   companies: "zeus.snaarp.com/companies",
   exports: "zeus.snaarp.com/exports",
   integrations: "zeus.snaarp.com/integrations",
+  settings: "zeus.snaarp.com/settings",
 } as const;
 
-export type ZeusView = "people" | "billing" | "lists" | "companies" | "exports" | "integrations";
+export type ZeusView = "people" | "billing" | "lists" | "companies" | "exports" | "integrations" | "settings";
+
+export type ZeusSettingsTab = "profile" | "security" | "notifications" | "account";
+
+export interface ZeusSettingsProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+}
+
+export const ZEUS_INITIAL_PROFILE: ZeusSettingsProfile = {
+  firstName: "Jane",
+  lastName: "Doe",
+  email: "jane@example.com",
+  phone: "",
+};
 
 export interface ZeusContact {
   id: string;

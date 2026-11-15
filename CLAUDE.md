@@ -974,9 +974,9 @@ Files:
 - Modals & Drawers: `MeBookingModal.tsx`, `MeCreateEventModal.tsx`, `MeEditEventDrawer.tsx`, `MeScheduleModal.tsx`, `MeDateOverrideModal.tsx`, `MeDayPopup.tsx`, `MeDeleteWorkflowModal.tsx`, `MeUploadCsvModal.tsx`, `MeFileChooserModal.tsx`, `MeAddContactModal.tsx`, `MeCustomFieldDrawer.tsx`, `MeDeleteColumnModal.tsx`, `MeImagePickerModal.tsx`, `MeApiKeyModal.tsx`, `MeWebhookModal.tsx`, `MeOAuthAppModal.tsx`
 - Data & Timeline: `components/me/me-data.ts`, `components/me/me-timeline.ts`
 
-### Build status (Zeus - 17 steps, all built and COMPLETE)
+### Build status (Zeus - 22 steps, all built and COMPLETE)
 Route: `/tutorials/zeus` (aliases: `zeus`, `lead-search`, `people-search`, `leads`). Config: `tutorials/zeus.ts`.
-Recordings: `1115.mp4` (1384x720, 4:20, steps 1–9) and `1115(2).mp4` (1386x720, 4:22, steps 10–17).
+Recordings: `1115.mp4` (1384x720, 4:20, steps 1–9), `1115(2).mp4` (1386x720, 4:22, steps 10–17), and `1115(3).mp4` (1384x720, 0:34, steps 18–22).
 1. Meet Zeus (Welcome overview, suite rail, Zeus sidebar, top bar with search box and lilac credits pill, 4 quick start cards)
 2. Check your credits and plan (Billing & credits page `/billing`, current plan card 99 / 100 credits, how credits work tiles, available plans with Free, Basic £49, Pro £99, Enterprise £249)
 3. Search with filters (C-Suite Executives preset click, search spinner, keyword "CEO" filter, "Has email" radio, "C-Suite" and "VP" seniority checkboxes, Search People click, filtered results table)
@@ -993,14 +993,19 @@ Recordings: `1115.mp4` (1384x720, 4:20, steps 1–9) and `1115(2).mp4` (1386x720
 14. Build your CEO lead list (People view with CEO search, Elena Marsh row click, reveal contact 97 -> 96 credits, add to list empty state, cancel, navigate to Lists, create list "CEO", return to People, add Elena to CEO list, Ravi Menon row click, reveal contact 96 -> 95 credits, add Ravi to CEO list, close drawer)
 15. Export a list (Exports view `/exports`, select "CEO" list, 2 Total / 2 Revealed / 0 Unrevealed counters, Export revealed only click, Recent Exports card, Download click with in-app notification)
 16. Create an API key (Integrations view `/integrations`, Create Key click, Key Name "Zeus Production", Create click, active key row with masked token, setup guide)
-17. Add a webhook (Add Webhook click, Webhook Name "Acme CRM", Endpoint URL `https://example.com/webhooks/zeus`, Trigger Events "Contact Revealed" and "Added to List", Create Webhook click, active webhook card, tour completion card)
+17. Add a webhook (Add Webhook click, Webhook Name "Acme CRM", Endpoint URL `https://example.com/webhooks/zeus`, Trigger Events "Contact Revealed" and "Added to List", Create Webhook click, active webhook card)
+18. Update your profile (Settings page `/settings`, Profile tab, First Name "Jane", Last Name "Doe", Email "jane@example.com" read-only highlight, Phone "+44 7700 900456", hover Change photo, Save Profile click, spinner, green toast "Profile updated")
+19. Change your password (Security tab, Current Password "SamplePass#1", eye toggle click to reveal and hide, New Password "SamplePass#2026", Confirm New Password "SamplePass#2026", Change Password click, spinner, green toast "Password changed")
+20. Turn on two-factor authentication (Two-Factor Authentication section, Enable click, setup panel expands, sample QR code and setup key `SAMPLEKEY2ZEUS4DEMO0001`, enter code "123456", Verify & Enable click, spinner, card updates to enabled with Disable button, green toast "Two-factor authentication enabled")
+21. Set your notifications (Notifications tab, Email Notifications ON, Push Notifications turned OFF, SMS Notifications turned ON, Save Preferences click, spinner, green toast "Preferences saved")
+22. Stay signed in on this device (Account tab, "Signed in as jane@example.com", Remember me toggle ON with toast "You'll stay signed in on this device.", toggle OFF with stacked toast "You'll be asked to sign in again after your session ends.", completion card)
 
 Files:
 - Shell & Stage: `components/zeus/ZeusShell.tsx`, `components/zeus/ZeusStage.tsx`, `components/zeus/ZeusToast.tsx`
-- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`, `ZeusCompaniesView.tsx`, `ZeusExportsView.tsx`, `ZeusIntegrationsView.tsx`
-- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusCompanyDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusEditListModal.tsx`, `ZeusDeleteListModal.tsx`
+- Views: `ZeusPeopleView.tsx`, `ZeusBillingView.tsx`, `ZeusListsView.tsx`, `ZeusCompaniesView.tsx`, `ZeusExportsView.tsx`, `ZeusIntegrationsView.tsx`, `ZeusSettingsView.tsx`
+- Modals & Drawers: `ZeusContactDrawer.tsx`, `ZeusCompanyDrawer.tsx`, `ZeusSaveSearchModal.tsx`, `ZeusCreateListModal.tsx`, `ZeusEditListModal.tsx`, `ZeusDeleteListModal.tsx`, `ZeusToggle.tsx`
 - Data & Timeline: `components/zeus/zeus-data.ts`, `components/zeus/zeus-timeline.ts`
-- Scenes: `scenes/zeus/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Scenes: `scenes/zeus/step<1..22>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 - Scenes: `scenes/snaarp-me/step<1..40>/Step<N>.tsx`, `script.ts`, `data.ts`
 

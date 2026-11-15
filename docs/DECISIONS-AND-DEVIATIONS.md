@@ -1738,6 +1738,21 @@ Reference recording: `1115.mp4` (1384x720, 4:20).
     - Webhook: "Acme CRM" configured with endpoint `https://example.com/webhooks/zeus` and trigger events "Contact Revealed" and "Added to List".
     - 4-step setup guide displayed cleanly beneath the configuration cards.
 
+11. **Part 3 (Steps 18–22: Settings)**:
+    - Reference recording: `1115(3).mp4` (1384x720, 0:34).
+    - **Sample Data**: First Name "Jane", Last Name "Doe", Email "jane@example.com", avatar letter "J" in lilac circle (`#EDE9FE` / `#7014D9`), Phone "+44 7700 900456" (UK Ofcom drama mobile format, replacing the US number in the recording).
+    - **No Browser Chrome / Saved Password Popup**: The browser's native dark "Use the passwords saved in your Google Account" popup shown in the video was excluded as it belongs to the browser chrome.
+    - **Credits Continuity**: Kept at 95 credits across all five steps (the recording showed 93) to preserve continuity from step 17.
+    - **Finished Flows & In-App Success States**:
+      - Step 18: In the recording the profile is never saved; we finish cleanly with a saving state and bottom-right pale green toast `Profile updated`. The email box is ringed with caption that it cannot be edited, and "Change photo" is hovered only.
+      - Step 19: Password form submitted with 1s saving state, inputs cleared, and toast `Password changed`. Eye icon clicked to toggle character visibility. Sample passwords: `SamplePass#1` and `SamplePass#2026`.
+      - Step 20: Two-factor flow carried to completion rather than cancelled; verified with code "123456", card text becomes "Two-factor authentication is enabled", button switches to grey "Disable", and toast `Two-factor authentication enabled` is displayed. Sample key: `SAMPLEKEY2ZEUS4DEMO0001` with sample in-app QR SVG.
+      - Step 21: Notifications preference demonstrated with SMS toggle turned ON, Push toggle turned OFF, and "Save Preferences" clicked with toast `Preferences saved`.
+      - Step 22: Account tab "Remember me" toggle clicked ON with toast `You'll stay signed in on this device.`, then clicked OFF with second stacked toast `You'll be asked to sign in again after your session ends.`.
+    - **Toast Styling**: Matches the bottom-right pale mint green card (`#DCFCE7`, border `#86EFAC`, rounded-2xl) with green checkmark from the recording frames.
+    - **Page Arrival**: Starts directly on `zeus.snaarp.com/settings` (Profile tab selected) as earlier Zeus steps did not implement an avatar dropdown menu.
+    - **Completion Card**: Follows step 22 automatically as the final step of the full 22-step Zeus tutorial.
+
 
 
 

@@ -234,3 +234,82 @@ Frames: `ref/zeus2/0500.jpg`, `0515.jpg`, `0525.jpg`
 | **Completion Card** | Tour concludes | Final card | "Tour complete", Replay tour, Back to Snaarp. | `ref/zeus2/0525.jpg` |
 
 ---
+
+## 19. Step 18: Update your profile (`zeus.snaarp.com/settings`)
+
+Frames: `ref/zeus3/frame_0001.png`, `frame_0006.png`, `frame_0012.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Settings Header** | Centered in main view, `w-full max-w-2xl` | `text-2xl font-bold text-gray-900 text-center mb-4` | Title "Settings". | `ref/zeus3/frame_0001.png` |
+| **Tab Bar** | Centered in container | `bg-gray-100/90 p-1 rounded-2xl flex items-center mb-6` | 4 tabs: "Profile" (active: `bg-white text-gray-900 shadow-xs font-semibold rounded-xl py-2 px-6`), "Security", "Notifications", "Account". | `ref/zeus3/frame_0001.png` |
+| **Profile Card** | Centered in container | `bg-white border border-gray-100 rounded-2xl p-6 shadow-xs space-y-4` | Heading: "Profile" (`text-sm font-semibold text-gray-900`). | `ref/zeus3/frame_0001.png` |
+| **First & Last Name** | 2-column grid | Text inputs with rounded-xl border border-gray-200 | First Name: "Jane" (read/write).<br>Last Name: "Doe" (read/write). | `ref/zeus3/frame_0001.png` |
+| **Email (read-only)** | Full width row | `bg-gray-50/80 border border-gray-200 text-gray-500 rounded-xl px-3.5 py-2 text-xs` | Label: "Email (read-only)".<br>Value: "jane@example.com". Disabled/read-only. Highlighted with explanation that it cannot be edited. | `ref/zeus3/frame_0001.png` |
+| **Phone** | Full width row | `border border-gray-200 text-gray-800 rounded-xl px-3.5 py-2 text-xs` | Placeholder: "+44 7700 900123".<br>Action: Click and types "+44 7700 900456". | `ref/zeus3/frame_0001.png` |
+| **Photo** | Flex row | Avatar + pill button | Circle avatar: lilac `bg-[#EDE9FE] text-[#7014D9] font-bold text-sm w-10 h-10` with letter "J".<br>Button: "Change photo" (`border border-gray-200 rounded-full px-3.5 py-1.5 text-xs text-gray-700 bg-white hover:bg-gray-50`). Cursor hovers. | `ref/zeus3/frame_0001.png` |
+| **Save Profile** | Bottom left of card | Purple button | Button: "Save Profile" (`bg-[#7014D9] hover:bg-[#5B0FB3] text-white text-xs font-semibold px-5 py-2 rounded-xl`). Click -> 1s spinner -> Bottom-right pale green toast: `Profile updated`. | `ref/zeus3/frame_0001.png` |
+
+---
+
+## 20. Step 19: Change your password (`zeus.snaarp.com/settings`)
+
+Frames: `ref/zeus3/frame_0015.png`, `frame_0020.png`, `frame_0028.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Security Tab** | Tab bar | Active pill | Click "Security" tab. "Security" becomes active white pill. | `ref/zeus3/frame_0015.png` |
+| **Change Password Card** | Top card of Security view | `bg-white border border-gray-100 rounded-2xl p-6 shadow-xs space-y-4` | Heading: "Change Password" (`text-sm font-semibold text-gray-900`). | `ref/zeus3/frame_0015.png` |
+| **Current Password** | Form field with eye icon | Relative input container | Click -> Type "SamplePass#1" (shows bullets).<br>Click eye icon -> toggles text visible -> click eye icon -> hides text. | `ref/zeus3/frame_0015.png` |
+| **New Password** | Form field with eye icon | Placeholder "Minimum 8 characters" | Click -> Type "SamplePass#2026" (shows bullets). | `ref/zeus3/frame_0015.png` |
+| **Confirm New Password** | Form field with eye icon | Relative input container | Click -> Type "SamplePass#2026" (shows bullets). | `ref/zeus3/frame_0015.png` |
+| **Change Password Action** | Bottom of card | Purple button | Click "Change Password" -> 1s saving spinner -> Fields reset -> Bottom-right pale green toast: `Password changed`. | `ref/zeus3/frame_0015.png` |
+| **2FA Card (Preview)** | Below Change Password card | White card | "Two-Factor Authentication", "Two-factor authentication is disabled", purple "Enable" button. | `ref/zeus3/frame_0015.png` |
+
+---
+
+## 21. Step 20: Turn on two-factor authentication (`zeus.snaarp.com/settings`)
+
+Frames: `ref/zeus3/frame_0030.png`, `frame_0035.png`, `frame_0042.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **2FA Card Header** | Top of 2FA card | `flex items-center justify-between` | Left: "Two-Factor Authentication", "Two-factor authentication is disabled", subtitle "Use an authenticator app (Google Authenticator, Authy, 1Password, etc.) to protect your account with a time-based code."<br>Right: purple "Enable" button. | `ref/zeus3/frame_0030.png` |
+| **Enable 2FA Click** | Action on Enable button | Transition | Click "Enable" -> Button shows "Starting..." -> Card expands with divider and setup instructions. | `ref/zeus3/frame_0035.png` |
+| **QR Code & Setup Key** | Left column of setup | 140x140px rounded box | Generic clean SVG QR pattern in bordered card.<br>Right: "1. Scan the QR code", instructions, "Setup key": `SAMPLEKEY2ZEUS4DEMO0001` in grey rounded box. | `ref/zeus3/frame_0035.png` |
+| **Enter Code Field** | Bottom section | Label + input | Label: "2. Enter the 6-digit code".<br>Input: placeholder "123456", w-56, rounded-xl border border-gray-200. Click -> types "123456". | `ref/zeus3/frame_0035.png` |
+| **Verify & Enable** | Action buttons | Purple + grey buttons | Click "Verify & Enable" -> 1s verification -> Card updates to "Two-factor authentication is enabled", button becomes grey "Disable" button, Bottom-right green toast: `Two-factor authentication enabled`. | `ref/zeus3/frame_0035.png` |
+
+---
+
+## 22. Step 21: Set your notifications (`zeus.snaarp.com/settings`)
+
+Frames: `ref/zeus3/frame_0046.png`, `frame_0050.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Notifications Tab** | Tab bar | Active pill | Click "Notifications" tab. Becomes active white pill. | `ref/zeus3/frame_0046.png` |
+| **Notifications Card** | Centered container | `bg-white border border-gray-100 rounded-2xl p-6 shadow-xs` | Heading: "Notifications" (`text-sm font-semibold text-gray-900 mb-3`). | `ref/zeus3/frame_0046.png` |
+| **Email Notifications** | Row 1 | Bordered container with toggle | "Email Notifications" / "Receive updates via email". Toggle ON (purple). Remains on. | `ref/zeus3/frame_0046.png` |
+| **Push Notifications** | Row 2 | Bordered container with toggle | "Push Notifications" / "Browser and mobile push alerts". Initial toggle ON (purple).<br>Action: Click toggle -> turns OFF (grey). | `ref/zeus3/frame_0046.png` |
+| **SMS Notifications** | Row 3 | Bordered container with toggle | "SMS Notifications" / "Text message alerts". Initial toggle OFF (grey).<br>Action: Click toggle -> turns ON (purple). | `ref/zeus3/frame_0046.png` |
+| **Save Preferences** | Bottom of card | Purple button | Click "Save Preferences" -> 1s spinner -> Bottom-right green toast: `Preferences saved`. | `ref/zeus3/frame_0046.png` |
+
+---
+
+## 23. Step 22: Stay signed in on this device (`zeus.snaarp.com/settings`)
+
+Frames: `ref/zeus3/frame_0052.png`, `frame_0058.png`, `frame_0060.png`, `frame_0064.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Account Tab** | Tab bar | Active pill | Click "Account" tab. Becomes active white pill. | `ref/zeus3/frame_0052.png` |
+| **Account Card** | Centered container | `bg-white border border-gray-100 rounded-2xl p-6 shadow-xs` | Heading: "Account" (`text-sm font-semibold text-gray-900 mb-1`).<br>"Signed in as" (`text-[11px] text-gray-500`), "jane@example.com" (`text-xs font-semibold text-gray-800 mb-4`). | `ref/zeus3/frame_0052.png` |
+| **Remember me Row** | Bordered box in card | `border border-gray-200 rounded-xl p-4 flex items-center justify-between` | "Remember me" / "Keep me signed in on this device between sessions". Toggle initial OFF. | `ref/zeus3/frame_0052.png` |
+| **Toggle ON Action** | Click toggle | UI transition & toast | Toggle turns purple `#7014D9`.<br>Bottom-right toast 1 appears: `You'll stay signed in on this device.` (green check, pale green card `#DCFCE7`). | `ref/zeus3/frame_0058.png` |
+| **Toggle OFF Action** | Click toggle again | UI transition & stacked toast | Toggle turns grey `#E5E7EB`.<br>Bottom-right toast 2 appears stacked: `You'll be asked to sign in again after your session ends.`. | `ref/zeus3/frame_0060.png` |
+| **Completion Card** | Tour concludes | Completion modal | "Tour complete", "You're all set", Replay, Back to Snaarp. | Frame 67 |
+
+---
+
+---

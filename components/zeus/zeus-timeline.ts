@@ -207,4 +207,36 @@ export function beginZeus(
 
   // Toasts
   tl.setVar("zeusToast", null as { text: string; subtext?: string } | null);
+
+  // Settings state
+  tl.setVar("zeusSettingsTab", "profile" as "profile" | "security" | "notifications" | "account");
+  tl.setVar("zeusProfileFirstName", "Jane");
+  tl.setVar("zeusProfileLastName", "Doe");
+  tl.setVar("zeusProfileEmail", "jane@example.com");
+  tl.setVar("zeusProfilePhone", "");
+  tl.setVar("zeusProfileSaving", false);
+  tl.setVar("zeusPasswordCurrent", "");
+  tl.setVar("zeusPasswordNew", "");
+  tl.setVar("zeusPasswordConfirm", "");
+  tl.setVar("zeusPasswordShowCurrent", false);
+  tl.setVar("zeusPasswordShowNew", false);
+  tl.setVar("zeusPasswordShowConfirm", false);
+  tl.setVar("zeusPasswordSaving", false);
+  tl.setVar("zeus2faEnabled", false);
+  tl.setVar("zeus2faSetupOpen", false);
+  tl.setVar("zeus2faCode", "");
+  tl.setVar("zeus2faVerifying", false);
+  tl.setVar("zeusNotifEmail", true);
+  tl.setVar("zeusNotifPush", true);
+  tl.setVar("zeusNotifSms", false);
+  tl.setVar("zeusNotifSaving", false);
+  tl.setVar("zeusAccountRememberMe", false);
+  tl.setVar("zeusSettingsToasts", [] as Array<{ id: string; text: string }>);
+}
+
+/** Push a pale green bottom-right toast in the Zeus settings style */
+export function pushZeusSettingsToast(tl: Timeline, text: string) {
+  const current = tl.getVar<Array<{ id: string; text: string }>>("zeusSettingsToasts", []);
+  const newToast = { id: `toast-${Date.now()}-${Math.random()}`, text };
+  tl.setVar("zeusSettingsToasts", [...current, newToast]);
 }

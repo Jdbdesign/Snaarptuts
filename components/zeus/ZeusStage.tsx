@@ -10,6 +10,7 @@ import { ZeusListsView } from "./ZeusListsView";
 import { ZeusCompaniesView } from "./ZeusCompaniesView";
 import { ZeusExportsView } from "./ZeusExportsView";
 import { ZeusIntegrationsView } from "./ZeusIntegrationsView";
+import { ZeusSettingsView } from "./ZeusSettingsView";
 import { ZeusContactDrawer } from "./ZeusContactDrawer";
 import { ZeusCompanyDrawer } from "./ZeusCompanyDrawer";
 import { ZeusSaveSearchModal } from "./ZeusSaveSearchModal";
@@ -39,6 +40,8 @@ export function ZeusStage({ tl }: Props) {
         return <ZeusExportsView tl={tl} />;
       case "integrations":
         return <ZeusIntegrationsView tl={tl} />;
+      case "settings":
+        return <ZeusSettingsView tl={tl} />;
       case "people":
       default:
         return <ZeusPeopleView tl={tl} />;
