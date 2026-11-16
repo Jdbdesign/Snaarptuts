@@ -99,7 +99,7 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
           {dropdownOpen && (
             <ul
               role="listbox"
-              className="absolute -left-3 -right-3 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border-x-0 border-y-2 border-[#E4D7F9] bg-white px-[20px] py-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
+              className="rail-scroll absolute -left-3 -right-3 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border-x-0 border-y-2 border-[#E4D7F9] bg-white px-[20px] py-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
             >
               {tutorials.map((t) => {
                 const active = t.product.id === tutorial.product.id;
@@ -128,7 +128,7 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
         </div>
 
         {/* This product's own modules (steps). */}
-        <ol ref={listRef} className="-mt-px flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto rounded-none border-2 border-t-0 border-[#E4D7F9] p-2">
+        <ol ref={listRef} className="rail-scroll -mt-px flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto rounded-none border-2 border-t-0 border-[#E4D7F9] p-2">
           {tutorial.steps.map((s, i) => {
             const built = !!s.scene;
             const isActive = built && playing && i === current;

@@ -86,3 +86,13 @@ Other recurring values: admin main area `#F7F7F9`; frame border `#E4E4EA`; traff
 - Narrow = viewport under 900px (`useNarrow`, media query `(max-width: 899px)`).
 - Rail width `clamp(260px, 15vw, 300px)`; it becomes a drawer under 900px.
 - Verified sizes: 1920x1080, 1440x900, 1280x720, 390x844.
+
+## Rail scrollbars
+
+- Class: `.rail-scroll`
+- Width: 10px
+- Gutter: `scrollbar-gutter: stable`
+- Track: `#F6F6F8`
+- Thumb: `#B8B8C4` (hover `#9A9AAA`)
+- Thumb style: fully rounded (`border-radius: 9999px`), 2px transparent border (`background-clip: padding-box`), minimum height 32px
+- Firefox fallback: `@supports not selector(::-webkit-scrollbar) { scrollbar-width: thin; scrollbar-color: #B8B8C4 #F6F6F8; }`

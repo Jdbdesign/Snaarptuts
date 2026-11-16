@@ -1840,3 +1840,7 @@ Reference recording: `1115 (4).mp4` (1386x720, 4:25). Route: `/tutorials/project
 
 
 
+
+## Player rail scrollbars (macOS overlay scrollbars)
+
+Rail scrollbars are custom and always visible so Mac overlay scrollbars do not hide them. Applied via `.rail-scroll` to the product dropdown list, steps list, and search results panel with `overflow-y: auto`, `overflow-x: hidden`, `scrollbar-gutter: stable`, custom 10px `#f6f6f8` track, and rounded `#b8b8c4` thumb (hover `#9a9aaa`).

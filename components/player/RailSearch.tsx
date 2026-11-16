@@ -291,7 +291,7 @@ export function RailSearch({ tutorial, focusSignal, onSelectStep, children }: Pr
           <div
             ref={panelRef}
             onMouseDown={(e) => e.preventDefault()} // keep focus in the box while a result is clicked
-            className="tl-pop-in absolute inset-0 z-30 overflow-y-auto overscroll-contain rounded-none border border-line bg-white p-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
+            className="rail-scroll tl-pop-in absolute inset-0 z-30 overflow-y-auto overscroll-contain rounded-none border border-line bg-white p-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
           >
             {hasOptions ? (
               <div id={listId} role="listbox" aria-label={COPY.label}>
