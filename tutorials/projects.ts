@@ -34,6 +34,22 @@ import { Step17 } from "@/scenes/projects/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/projects/step17/script";
 import { Step18 } from "@/scenes/projects/step18/Step18";
 import { runStep18, STEP18_DURATION_MS } from "@/scenes/projects/step18/script";
+import { Step19 } from "@/scenes/projects/step19/Step19";
+import { runStep19, STEP19_DURATION_MS } from "@/scenes/projects/step19/script";
+import { Step20 } from "@/scenes/projects/step20/Step20";
+import { runStep20, STEP20_DURATION_MS } from "@/scenes/projects/step20/script";
+import { Step21 } from "@/scenes/projects/step21/Step21";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/projects/step21/script";
+import { Step22 } from "@/scenes/projects/step22/Step22";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/projects/step22/script";
+import { Step23 } from "@/scenes/projects/step23/Step23";
+import { runStep23, STEP23_DURATION_MS } from "@/scenes/projects/step23/script";
+import { Step24 } from "@/scenes/projects/step24/Step24";
+import { runStep24, STEP24_DURATION_MS } from "@/scenes/projects/step24/script";
+import { Step25 } from "@/scenes/projects/step25/Step25";
+import { runStep25, STEP25_DURATION_MS } from "@/scenes/projects/step25/script";
+import { Step26 } from "@/scenes/projects/step26/Step26";
+import { runStep26, STEP26_DURATION_MS } from "@/scenes/projects/step26/script";
 
 import { PROJECTS_URLS } from "@/components/projects/projects-data";
 import type { Tutorial } from "./types";
@@ -227,6 +243,86 @@ export const projects: Tutorial = {
         durationMs: STEP18_DURATION_MS,
       },
     },
+    {
+      id: "projects-open-and-edit-doc",
+      title: "Open and edit a document",
+      url: PROJECTS_URLS.documents,
+      scene: {
+        Component: Step19,
+        run: runStep19,
+        durationMs: STEP19_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-create-and-delete-doc",
+      title: "Create and delete a document",
+      url: PROJECTS_URLS.documents,
+      scene: {
+        Component: Step20,
+        run: runStep20,
+        durationMs: STEP20_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-create-automation",
+      title: "Create an automation",
+      url: PROJECTS_URLS.automations,
+      scene: {
+        Component: Step21,
+        run: runStep21,
+        durationMs: STEP21_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-manage-automations",
+      title: "Manage your automation rules",
+      url: PROJECTS_URLS.automations,
+      scene: {
+        Component: Step22,
+        run: runStep22,
+        durationMs: STEP22_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-connect-app",
+      title: "Connect an app",
+      url: PROJECTS_URLS.integration,
+      scene: {
+        Component: Step23,
+        run: runStep23,
+        durationMs: STEP23_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-create-api-key",
+      title: "Create an API key",
+      url: PROJECTS_URLS.integration,
+      scene: {
+        Component: Step24,
+        run: runStep24,
+        durationMs: STEP24_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-read-reports",
+      title: "Read your reports",
+      url: PROJECTS_URLS.reports,
+      scene: {
+        Component: Step25,
+        run: runStep25,
+        durationMs: STEP25_DURATION_MS,
+      },
+    },
+    {
+      id: "projects-profile-and-password",
+      title: "Update your profile and password",
+      url: PROJECTS_URLS.profile,
+      scene: {
+        Component: Step26,
+        run: runStep26,
+        durationMs: STEP26_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "projects-meet-projects" },
@@ -236,10 +332,14 @@ export const projects: Tutorial = {
     { title: "Goals and time", from: "projects-set-goal" },
     { title: "Task views", from: "projects-task-views" },
     { title: "Whiteboards", from: "projects-open-whiteboards" },
+    { title: "Documents", from: "projects-open-and-edit-doc" },
+    { title: "Automations", from: "projects-create-automation" },
+    { title: "Integrations", from: "projects-connect-app" },
+    { title: "Reports and profile", from: "projects-read-reports" },
   ],
   completion: {
     title: "Tour complete",
-    text: "You can now track projects across your workspace, manage sprints and goals, log timesheets, switch between task backlogs, boards, and timelines, and create interactive whiteboard diagrams.",
+    text: "You can now track projects, sprints, tasks, and whiteboards, create and edit rich documents, automate workflows, connect third-party integrations, inspect project reports, and manage your profile settings.",
     replayLabel: "Replay tour",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

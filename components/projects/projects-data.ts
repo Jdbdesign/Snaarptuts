@@ -6,6 +6,13 @@ export const PROJECTS_URLS = {
   sprints: "projects.snaarp.com/sprints",
   goalsNew: "projects.snaarp.com/goals/new",
   whiteboards: "projects.snaarp.com/whiteboards",
+  documents: "projects.snaarp.com/documents",
+  docEditor: "projects.snaarp.com/documents/doc-product-design",
+  docEditorNew: "projects.snaarp.com/documents/doc-design-document",
+  automations: "projects.snaarp.com/automations",
+  integration: "projects.snaarp.com/integration",
+  reports: "projects.snaarp.com/reports",
+  profile: "projects.snaarp.com/profile",
 } as const;
 
 export type ProjectsView =
@@ -16,7 +23,13 @@ export type ProjectsView =
   | "sprints"
   | "goals-new"
   | "whiteboards"
-  | "whiteboard-canvas";
+  | "whiteboard-canvas"
+  | "documents"
+  | "doc-editor"
+  | "automations"
+  | "integration"
+  | "reports"
+  | "profile";
 
 export interface ProjectItem {
   id: string;
@@ -445,4 +458,270 @@ export const ALL_PROJECT_NAMES = [
   "Mobile App Launch",
   "Backend Fix",
 ];
+
+// ==========================================
+// Part 3: Documents, Automations, Integrations, Reports, Profile
+// ==========================================
+
+export interface DocumentItem {
+  id: string;
+  title: string;
+  updatedDate: string;
+  content?: string;
+}
+
+export const INITIAL_DOCUMENTS: DocumentItem[] = [
+  { id: "doc-product-design", title: "Product design", updatedDate: "9/24/2026", content: "" },
+  { id: "doc-meeting-notes", title: "Meeting notes", updatedDate: "10/21/2026", content: "" },
+  { id: "doc-release-checklist", title: "Release checklist", updatedDate: "10/22/2026", content: "" },
+  { id: "doc-brand-guidelines", title: "Brand guidelines", updatedDate: "10/22/2026", content: "" },
+  { id: "doc-sprint-retro", title: "Sprint retrospective", updatedDate: "10/22/2026", content: "" },
+  { id: "doc-onboarding-guide", title: "Onboarding guide", updatedDate: "10/22/2026", content: "" },
+];
+
+export const NEW_DOCUMENT_DATA: DocumentItem = {
+  id: "doc-design-document",
+  title: "Design Document",
+  updatedDate: "11/16/2026",
+  content: "",
+};
+
+export interface AutomationCondition {
+  field: "Priority" | "Assignee" | "Tag";
+  operator: "Equals" | "Contains" | "Greater Than";
+  value: string;
+}
+
+export interface AutomationAction {
+  actionType: "Change Status" | "Assign Member" | "Set Priority";
+  targetValue: string;
+}
+
+export interface AutomationRule {
+  id: string;
+  name: string;
+  trigger: string;
+  conditionsCount: number;
+  actionsCount: number;
+  conditions?: AutomationCondition[];
+  actions?: AutomationAction[];
+  enabled: boolean;
+}
+
+export interface AutomationTemplate {
+  id: string;
+  title: string;
+  category: "Tasks" | "Notifications";
+  description: string;
+  trigger: string;
+  actionsCount: number;
+}
+
+export const AUTOMATION_TEMPLATES: AutomationTemplate[] = [
+  {
+    id: "tmpl-triage",
+    title: "Triage new tasks",
+    category: "Tasks",
+    description: "Add a 'needs-triage' tag when a task is created",
+    trigger: "Task Created",
+    actionsCount: 1,
+  },
+  {
+    id: "tmpl-tag-completed",
+    title: "Tag completed tasks",
+    category: "Tasks",
+    description: "Tag a task as completed when all subtasks are checked",
+    trigger: "Task Completed",
+    actionsCount: 1,
+  },
+  {
+    id: "tmpl-urgent-alert",
+    title: "Urgent priority alert",
+    category: "Notifications",
+    description: "Send instant notification to lead when priority is set to Urgent",
+    trigger: "Priority Change",
+    actionsCount: 1,
+  },
+  {
+    id: "tmpl-due-reminder",
+    title: "Due date reminder",
+    category: "Notifications",
+    description: "Send reminders 24 hours before a task due date arrives",
+    trigger: "Due Date Arrival",
+    actionsCount: 2,
+  },
+];
+
+export const CREATED_AUTOMATION_RULE: AutomationRule = {
+  id: "rule-assign-team",
+  name: "Assign Task to Team",
+  trigger: "Task Created",
+  conditionsCount: 3,
+  actionsCount: 2,
+  conditions: [
+    { field: "Priority", operator: "Equals", value: "Normal" },
+    { field: "Assignee", operator: "Contains", value: "jane@example.com" },
+    { field: "Tag", operator: "Contains", value: "design" },
+  ],
+  actions: [
+    { actionType: "Assign Member", targetValue: "jane@example.com" },
+    { actionType: "Set Priority", targetValue: "High" },
+  ],
+  enabled: true,
+};
+
+export interface IntegrationApp {
+  id: string;
+  name: string;
+  category: "Communication" | "Development" | "Productivity" | "Design" | "Analytics" | "Storage";
+  description: string;
+  iconType: "slack" | "github" | "figma" | "notion" | "gdrive" | "jira" | "zapier" | "gcal" | "datadog" | "discord";
+  connected: boolean;
+  lastSynced?: string;
+}
+
+export interface ApiKeyItem {
+  id: string;
+  name: string;
+  keyMasked: string;
+  createdAt: string;
+}
+
+export const INITIAL_INTEGRATION_APPS: IntegrationApp[] = [
+  {
+    id: "app-slack",
+    name: "Slack",
+    category: "Communication",
+    description: "Get task updates, completions, and mentions sent instantly to any channel.",
+    iconType: "slack",
+    connected: false,
+  },
+  {
+    id: "app-github",
+    name: "GitHub",
+    category: "Development",
+    description: "Pull requests are automatically linked to tasks by branch name or commit message.",
+    iconType: "github",
+    connected: false,
+  },
+  {
+    id: "app-figma",
+    name: "Figma",
+    category: "Design",
+    description: "Latest Figma frame thumbnails appear inline on task cards.",
+    iconType: "figma",
+    connected: false,
+  },
+  {
+    id: "app-notion",
+    name: "Notion",
+    category: "Productivity",
+    description: "Mirror tasks to a Notion database - status, assignees, and due date stay in sync.",
+    iconType: "notion",
+    connected: false,
+  },
+  {
+    id: "app-gdrive",
+    name: "Google Drive",
+    category: "Storage",
+    description: "Attach any Drive file to a task or project - team members see a live preview.",
+    iconType: "gdrive",
+    connected: false,
+  },
+  {
+    id: "app-jira",
+    name: "Jira",
+    category: "Development",
+    description: "Issues created in Jira appear as tasks in Snaarp - and vice versa.",
+    iconType: "jira",
+    connected: false,
+  },
+  {
+    id: "app-zapier",
+    name: "Zapier",
+    category: "Productivity",
+    description: "Connect Snaarp to 5000+ apps with automated workflows.",
+    iconType: "zapier",
+    connected: false,
+  },
+  {
+    id: "app-gcal",
+    name: "Google Calendar",
+    category: "Productivity",
+    description: "Task due dates and milestones sync to your Google Calendar.",
+    iconType: "gcal",
+    connected: false,
+  },
+  {
+    id: "app-datadog",
+    name: "Datadog",
+    category: "Analytics",
+    description: "Monitor deployment metrics and link alerts to project tasks.",
+    iconType: "datadog",
+    connected: false,
+  },
+  {
+    id: "app-discord",
+    name: "Discord",
+    category: "Communication",
+    description: "Post task updates to Discord channels via webhooks.",
+    iconType: "discord",
+    connected: false,
+  },
+];
+
+export interface ReportsData {
+  totalTasks: number;
+  completionRate: number;
+  overdue: number;
+  unassigned: number;
+  priorityDistribution: {
+    urgent: number;
+    high: number;
+    normal: number;
+    low: number;
+    none: number;
+  };
+  summary: {
+    tasksWithDueDates: number;
+    urgentPlusHigh: number;
+    assignedTasks: number;
+    avgTasksPerDay: number;
+  };
+}
+
+export const INITIAL_REPORTS_DATA: ReportsData = {
+  totalTasks: 6,
+  completionRate: 0,
+  overdue: 0,
+  unassigned: 5,
+  priorityDistribution: {
+    urgent: 0,
+    high: 1,
+    normal: 4,
+    low: 1,
+    none: 0,
+  },
+  summary: {
+    tasksWithDueDates: 1,
+    urgentPlusHigh: 1,
+    assignedTasks: 1,
+    avgTasksPerDay: 1,
+  },
+};
+
+export interface UserProfileData {
+  fullName: string;
+  email: string;
+  avatarInitial: string;
+  twoFactorEnabled: boolean;
+}
+
+export const INITIAL_USER_PROFILE: UserProfileData = {
+  fullName: "Jane Doe",
+  email: "jane@example.com",
+  avatarInitial: "J",
+  twoFactorEnabled: false,
+};
+
 

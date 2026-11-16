@@ -1836,6 +1836,52 @@ Reference recording: `1115 (4).mp4` (1386x720, 4:25). Route: `/tutorials/project
      - Step 17: Whiteboards gallery with 2 boards.
      - Step 18: Whiteboards gallery with 3 boards.
 
+## Snaarp Projects Part 3 (Steps 19–26)
+
+Reference video: `C:\Users\HP\Downloads\1116 (1).mp4` (1384×720, 272s / 4:32).
+
+1. **Sample Data**:
+   - User: Jane Doe, `jane@example.com`, avatar "J" (replaces the recording's personal username `yinka@snaarp.com`).
+   - Sample team members in assignees: `jane@example.com`, `sam.taylor@example.com`, etc.
+   - Sample passwords: `SamplePass#1` (current), `SamplePass#2026` (new / confirm).
+   - Sample documents: "Product design", "Meeting notes", "Release checklist", "Brand guidelines", "Sprint retrospective", "Onboarding guide" (replaces the recording's arbitrary draft names "NEW", "new", "newer", "Newest").
+   - Created document: "Design Document".
+   - Created automation rule: "Assign Task to Team".
+   - Created API key: "Production API", masked value `sk_live_••••••••••••3f9a`.
+
+2. **Dialogs & Confirmations**:
+   - Create Document modal (`ProjectsDocDialogs.tsx`) built in-app ("Create Document", Title *, Cancel, Create).
+   - Delete document confirmation modal (`ProjectsDocDialogs.tsx`) built in-app ("Delete document?", "Delete Release checklist? It will be removed from your documents.", Cancel, Delete).
+   - Create API Key modal (`ProjectsApiKeyDialog.tsx`) built in-app ("Create API Key", KEY NAME *, placeholder "e.g. Production API", Cancel, Generate Key).
+   - Delete automation popover (`ProjectsAutomationsView.tsx`) built in-app ("Delete this automation? This action cannot be undone.", Cancel, Delete).
+   - In-app toast notifications (`pushProjectsToast`):
+     - `Document exported`
+     - `Document deleted`
+     - `Automation created`
+     - `Automation updated`
+     - `Automation deleted`
+     - `Slack connected`
+     - `Slack disconnected`
+     - `API key generated`
+     - `Copied`
+     - `Profile updated`
+     - `Password updated`
+
+3. **No Browser Chrome or External Overlays**:
+   - Browser loading spinners and backend glitch toasts (e.g. red failed deletion toast in the recording) are replaced with instant, clean client-side feedback.
+   - Chrome autofill popups and password manager prompts are excluded.
+
+4. **Independent Start States**:
+   - Each step 19–26 stands completely alone from the rail with its own clean start state:
+     - Step 19: Documents gallery (6 cards), search and open "Product design".
+     - Step 20: Documents gallery (6 cards), creates "Design Document" and deletes "Release checklist".
+     - Step 21: Automations view with empty state, creates "Assign Task to Team".
+     - Step 22: Automations view with "Assign Task to Team", explores History, adds "Triage new tasks" template, deletes "Assign Task to Team".
+     - Step 23: Integrations view (stat cards 0, catalogue with Slack disconnected), connects/disconnects/reconnects Slack.
+     - Step 24: Integrations view (Slack connected), generates "Production API" key and copies it.
+     - Step 25: Reports view with 4 stat cards, Priority Distribution bar charts, and Task Summary rows.
+     - Step 26: Topbar avatar dropdown, Profile view with Full Name update, Password change with eye toggle, and 2FA card. Followed by the data-driven completion card.
+
 
 
 

@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { ProductLogo } from "@/components/icons";
 import { PROJECTS_URLS, type ProjectsView } from "./projects-data";
+import { ProjectsAvatarMenu } from "./ProjectsAvatarMenu";
 
 interface Props {
   tl: Timeline;
@@ -252,6 +253,7 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
             </button>
             <div
               data-tl="topbar-avatar-btn"
+              onClick={() => tl.setVar("isAvatarMenuOpen", true)}
               className="flex items-center gap-1 cursor-pointer pl-1"
             >
               <div className="w-7 h-7 rounded-full bg-[#7014D9] text-white flex items-center justify-center text-xs font-bold shadow-2xs">
@@ -261,6 +263,9 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
             </div>
           </div>
         </header>
+
+        {/* Avatar Dropdown Menu */}
+        <ProjectsAvatarMenu tl={tl} />
 
         {/* Body: Sidebar + Main view */}
         <div className="flex-1 flex min-h-0 overflow-hidden relative">
@@ -355,7 +360,12 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
                   <button
                     type="button"
                     data-tl="nav-docs"
-                    className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    onClick={() => handleNav("documents", PROJECTS_URLS.documents)}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-colors ${
+                      currentView === "documents" || currentView === "doc-editor"
+                        ? "bg-[#F5EEFF] text-[#7014D9] font-semibold border-l-4 border-[#7014D9]"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    }`}
                   >
                     <FileText className="w-4 h-4 shrink-0" />
                     <span>Docs</span>
@@ -372,7 +382,12 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
                   <button
                     type="button"
                     data-tl="nav-automations"
-                    className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    onClick={() => handleNav("automations", PROJECTS_URLS.automations)}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-colors ${
+                      currentView === "automations"
+                        ? "bg-[#F5EEFF] text-[#7014D9] font-semibold border-l-4 border-[#7014D9]"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    }`}
                   >
                     <Zap className="w-4 h-4 shrink-0" />
                     <span>Automations</span>
@@ -380,7 +395,12 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
                   <button
                     type="button"
                     data-tl="nav-integration"
-                    className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    onClick={() => handleNav("integration", PROJECTS_URLS.integration)}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-colors ${
+                      currentView === "integration"
+                        ? "bg-[#F5EEFF] text-[#7014D9] font-semibold border-l-4 border-[#7014D9]"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    }`}
                   >
                     <Boxes className="w-4 h-4 shrink-0" />
                     <span>Integration</span>
@@ -397,7 +417,12 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
                   <button
                     type="button"
                     data-tl="nav-reports"
-                    className="w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    onClick={() => handleNav("reports", PROJECTS_URLS.reports)}
+                    className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-colors ${
+                      currentView === "reports"
+                        ? "bg-[#F5EEFF] text-[#7014D9] font-semibold border-l-4 border-[#7014D9]"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    }`}
                   >
                     <BarChart2 className="w-4 h-4 shrink-0" />
                     <span>Reports</span>
@@ -422,7 +447,9 @@ export function ProjectsShell({ tl, children, overlay }: Props) {
           {/* Main scrollable view */}
           <main
             data-tl="projects-main-scroll"
-            className="flex-1 h-full overflow-y-auto no-scrollbar p-6 relative"
+            className={`flex-1 h-full overflow-y-auto no-scrollbar relative ${
+              currentView === "doc-editor" ? "p-0" : "p-6"
+            }`}
           >
             {children}
           </main>

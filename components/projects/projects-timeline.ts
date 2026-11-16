@@ -11,12 +11,21 @@ import {
   INITIAL_WHITEBOARDS,
   NEW_WHITEBOARD_DATA,
   ALL_PROJECT_NAMES,
+  INITIAL_DOCUMENTS,
+  NEW_DOCUMENT_DATA,
+  CREATED_AUTOMATION_RULE,
+  INITIAL_INTEGRATION_APPS,
+  INITIAL_REPORTS_DATA,
+  INITIAL_USER_PROFILE,
   type TeamMember,
   type TaskItem,
   type SprintItem,
   type GoalItem,
   type TimeEntryItem,
   type WhiteboardItem,
+  type DocumentItem,
+  type AutomationRule,
+  type ApiKeyItem,
 } from "./projects-data";
 
 export const PROJECTS_END_HOLD_MS = 1500;
@@ -300,4 +309,106 @@ export function beginProjects(
   tl.setVar("wbDragPos", null as { x: number; y: number } | null);
   tl.setVar("wbTextEditing", false);
   tl.setVar("wbTextValue", "");
+
+  // ==========================================
+  // Part 3: Documents, Automations, Integrations, Reports, Profile
+  // ==========================================
+
+  // Documents state
+  let docsInit: DocumentItem[] = [...INITIAL_DOCUMENTS];
+  if (stepNum && stepNum >= 21) {
+    // Step 20 added doc-design-document and deleted doc-release-checklist
+    docsInit = [
+      ...INITIAL_DOCUMENTS.filter((d) => d.id !== "doc-release-checklist"),
+      NEW_DOCUMENT_DATA,
+    ];
+  }
+  tl.setVar("documentsList", docsInit);
+  tl.setVar("docsSearchQuery", "");
+  tl.setVar("isCreateDocModalOpen", false);
+  tl.setVar("newDocTitle", "");
+  tl.setVar("isDeleteDocModalOpen", false);
+  tl.setVar("deleteDocTarget", null);
+  tl.setVar("activeDocId", "doc-product-design");
+  tl.setVar(
+    "docEditorContent",
+    stepNum && stepNum > 19 ? "Product design principles" : ""
+  );
+  tl.setVar("docTextSelected", false);
+  tl.setVar("docTextBold", stepNum && stepNum > 19);
+  tl.setVar("docTextUnderline", stepNum && stepNum > 19);
+  tl.setVar("isDocHistoryOpen", false);
+  tl.setVar("docActiveTooltip", null as string | null);
+
+  // Automations state
+  let rulesInit: AutomationRule[] = [];
+  if (stepNum === 22) {
+    rulesInit = [{ ...CREATED_AUTOMATION_RULE }];
+  } else if (stepNum && stepNum > 22) {
+    // Step 22 added template "Triage new tasks" and deleted "Assign Task to Team"
+    rulesInit = [
+      {
+        id: "rule-triage-tasks",
+        name: "Triage new tasks",
+        trigger: "Task Created",
+        conditionsCount: 1,
+        actionsCount: 1,
+        enabled: true,
+      },
+    ];
+  }
+  tl.setVar("automationsActiveTab", "rules");
+  tl.setVar("automationRulesList", rulesInit);
+  tl.setVar("isAutomationFormOpen", false);
+  tl.setVar("automationFormMode", "create");
+  tl.setVar("automationFormName", "");
+  tl.setVar("automationFormTrigger", "Task Created");
+  tl.setVar("automationConditionsCount", 0);
+  tl.setVar("automationActionsCount", 1);
+  tl.setVar("deleteAutomationRuleId", null as string | null);
+
+  // Integrations state
+  const isSlackConnected = stepNum && stepNum >= 24;
+  tl.setVar(
+    "integrationAppsList",
+    INITIAL_INTEGRATION_APPS.map((a) =>
+      a.id === "app-slack" && isSlackConnected
+        ? {
+            ...a,
+            connected: true,
+            lastSynced: "11/16/2026, 5:14:42 PM",
+          }
+        : { ...a }
+    )
+  );
+  const keysInit: ApiKeyItem[] =
+    stepNum && stepNum >= 25
+      ? [
+          {
+            id: "key-prod-1",
+            name: "Production API",
+            keyMasked: "sk_live_••••••••••••3f9a",
+            createdAt: "16/11/2026",
+          },
+        ]
+      : [];
+  tl.setVar("apiKeysList", keysInit);
+  tl.setVar("appsActiveCategory", "All");
+  tl.setVar("appsSearchQuery", "");
+  tl.setVar("isApiKeyModalOpen", false);
+  tl.setVar("newApiKeyName", "");
+
+  // Reports state
+  tl.setVar("reportsData", INITIAL_REPORTS_DATA);
+
+  // Profile & Avatar state
+  tl.setVar("isAvatarMenuOpen", false);
+  tl.setVar("userProfileData", INITIAL_USER_PROFILE);
+  tl.setVar("profileFullName", "Jane Doe");
+  tl.setVar("profileCurrentPassword", "");
+  tl.setVar("profileNewPassword", "");
+  tl.setVar("profileConfirmPassword", "");
+  tl.setVar("profileShowCurrentPassword", false);
+  tl.setVar("profileShowNewPassword", false);
+  tl.setVar("profileShowConfirmPassword", false);
 }

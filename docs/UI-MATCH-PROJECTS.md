@@ -264,5 +264,120 @@ Frames: `ref/projects_part2/frame_0830.png`, `frame_0850.png`
 | **Delete Trigger** | "Design Idea" card | Red Delete button | Click red `Delete` button on "Design Idea" card. In-app confirmation dialog opens. | `frame_0830.png` |
 | **In-App Delete Modal** | Centered modal `max-w-sm` | `bg-white rounded-2xl shadow-2xl p-6` | Title: "Delete whiteboard". Body: "Are you sure you want to delete \"Design Idea\"? This action cannot be undone." Buttons: Cancel and red Delete. | `frame_0850.png` |
 | **Confirm Deletion** | Modal red Delete button | Button click | Click `Delete`. Modal closes. Toast appears: `Whiteboard deleted`. Card disappears, leaving 2 cards ("Research Product" and "Sales & Marketing"). | `frame_0850.png` |
-| **Completion Card** | Post-tutorial card | Data-driven card | Step 18 finishes, and completion card automatically displays ("Tour complete", "Replay tour", "Back to Snaarp"). | In-app |
+
+---
+
+## 20. Step 19: Open and edit a document (`projects.snaarp.com/documents`)
+
+Frames: `ref/projects_part3/frame_0005.png`, `frame_0020.png`, `frame_0050.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Docs Nav** | Sidebar | Nav item | Click `Docs` in workspace nav. Documents gallery opens with 6 cards ("Product design", "Meeting notes", "Release checklist", "Brand guidelines", "Sprint retrospective", "Onboarding guide"). | `frame_0005.png` |
+| **Search Input** | Above grid | `w-72 bg-white rounded-xl` | Search `notes` -> filters grid to "Meeting notes", then clear search. | `frame_0005.png` |
+| **Open Doc Editor** | Gallery card | Card click | Click "Product design" card -> rich document editor opens. | `frame_0020.png` |
+| **Editor Shell** | Left sidebar + Topbar + Canvas | `bg-white` | Left subpanel lists team documents. Topbar: Back arrow, "Product design", Export, History. Subline: "Ready" green dot, "Editing as Current User". | `frame_0020.png` |
+| **Toolbar Tooltips** | Rich text toolbar | Hover tooltips | Hover Bold -> "Bold". Hover Italic -> "Italic". | `frame_0020.png` |
+| **Drafting Content** | Editor canvas | Typing & formatting | Type "Product design principles". Select line, apply Bold and Underline formatting. | `frame_0020.png` |
+| **Export & History** | Top right actions | Buttons | Click Export -> toast `Document exported`. Click History -> slide-out panel "Version History" ("No version history yet"). Click X to close. Click back arrow to return to gallery. | `frame_0050.png` |
+
+---
+
+## 21. Step 20: Create and delete a document (`projects.snaarp.com/documents`)
+
+Frames: `ref/projects_part3/frame_0110.png`, `frame_0140.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **New Document Trigger** | Top right button | Purple pill | Click `+ New Document` -> modal "Create Document" opens. | `frame_0110.png` |
+| **Create Doc Modal** | Centered modal `max-w-sm` | `bg-white rounded-2xl shadow-2xl p-6` | Title: "Create Document". Input: Title * (placeholder "Document title"). Type "Design Document" -> click `Create`. | `frame_0110.png` |
+| **Inspect in Tree** | Editor left subpanel | Tree item | Editor opens with "Design Document", click it in left tree, then click back arrow to return to gallery. | `frame_0110.png` |
+| **Delete Doc Trigger** | "Release checklist" card | Red Delete button | Click red `Delete` on "Release checklist" card -> modal "Delete document?" opens. | `frame_0140.png` |
+| **Confirm Deletion** | Modal red Delete button | Button click | Click `Delete`. Modal closes. Toast `Document deleted`. Card removed, leaving 6 cards in gallery. | `frame_0140.png` |
+
+---
+
+## 22. Step 21: Create an automation (`projects.snaarp.com/automations`)
+
+Frames: `ref/projects_part3/frame_0170.png`, `frame_0230.png`, `frame_0290.png`, `frame_0350.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Automations Nav** | Sidebar | Nav item | Click `Automations` in manage nav. Page opens with "Explore Snaarp Projects!" project selector, yellow bolt header, Rules / History / Templates tabs, and empty state. | `frame_0170.png` |
+| **New Automation** | Top right button | Purple button | Click `+ New Automation` -> card "Create Automation" opens. | `frame_0170.png` |
+| **Rule Name & Trigger** | Form fields | Input & Select | Name: "Assign Task to Team". Trigger: "Task Created". | `frame_0230.png` |
+| **Conditions Builder** | Form section | 3 conditions | Click `+ Add Condition` 3 times: 1. Priority Equals Normal, 2. Assignee Contains jane@example.com, 3. Tag Contains design. | `frame_0290.png` |
+| **Actions Builder** | Form section | 2 actions | Click `+ Add Action`: 1. Assign Member -> jane@example.com, 2. Set Priority -> High. | `frame_0290.png` |
+| **Save Automation** | Form submit | Purple button | Click `Create Automation`. Toast `Automation created`. Rule row appears with yellow bolt, "Assign Task to Team", pill "Task Created", "3 conditions 2 actions", toggle ON. | `frame_0350.png` |
+
+---
+
+## 23. Step 22: Manage your automation rules (`projects.snaarp.com/automations`)
+
+Frames: `ref/projects_part3/frame_0350.png`, `frame_0374.png`, `frame_0380.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **History Tab** | Tab group | Tab button | Click `History` tab -> shows empty state "No automation history yet...". | `frame_0350.png` |
+| **Templates Tab** | Tab group | Tab button | Click `Templates` tab -> 4 prebuilt templates ("Triage new tasks", "Tag completed tasks", "Urgent priority alert", "Due date reminder"). | `frame_0380.png` |
+| **Use Template** | Template card | Purple button | Click `Use` on "Triage new tasks" -> opens prefilled form -> click `Create Automation`. Toast `Automation created`. | `frame_0380.png` |
+| **Toggle Execution** | Rule row | Switch | Click toggle on "Assign Task to Team" -> turns off (gray), click again -> turns on (purple). | `frame_0374.png` |
+| **Inspect / Edit** | Rule row | Pencil button | Click pencil on "Assign Task to Team" -> Edit Automation opens -> click X to close. | `frame_0380.png` |
+| **Delete Rule** | Rule row & Popover | Trash & Delete | Click trash icon -> confirmation popover appears -> click `Delete`. Toast `Automation deleted`. Row removed, 1 rule remains. | `frame_0350.png` |
+
+---
+
+## 24. Step 23: Connect an app (`projects.snaarp.com/integration`)
+
+Frames: `ref/projects_part3/frame_0410.png`, `frame_0430.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Integration Nav** | Sidebar | Nav item | Click `Integration` in manage nav. Shows header, 4 stat cards (CONNECTED APPS 0, API KEYS 0, ACTIVE WEBHOOKS 0, SYNC ERRORS ✓ 0), App Catalogue, and API Keys panel. | `frame_0410.png` |
+| **Category Filter** | Pill buttons | Pill group | Click `Communication` -> filters to Slack and Discord. Click `All` to restore. | `frame_0410.png` |
+| **Search Apps** | Search box | Input | Search `git` -> filters to GitHub -> clear search. | `frame_0410.png` |
+| **Connect Slack** | App card | Purple button | Click `Connect` on Slack -> toast `Slack connected`, badge turns green "Connected", "Synced 11/16/2026...", button becomes "Disconnect", CONNECTED APPS becomes 1. | `frame_0430.png` |
+| **Disconnect & Reconnect**| App card | Button clicks | Click `Disconnect` -> toast `Slack disconnected`, CONNECTED APPS 0. Click `Connect` again -> toast `Slack connected`, CONNECTED APPS 1. | `frame_0430.png` |
+
+---
+
+## 25. Step 24: Create an API key (`projects.snaarp.com/integration`)
+
+Frames: `ref/projects_part3/frame_0440.png`, `frame_0465.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **API Docs Link** | Header right | Button | Hover `API Docs` button with external link icon. | `frame_0440.png` |
+| **New API Key Trigger** | Header right | Purple button | Click `+ New API Key` -> dialog "Create API Key" opens. | `frame_0440.png` |
+| **Generate Key** | Centered modal `max-w-sm` | Form & Submit | KEY NAME *: type "Production API" -> click `Generate Key`. Toast `API key generated`. | `frame_0440.png` |
+| **Inspect & Copy Key** | Right sidebar panel | Key card & Copy | Right panel lists "Production API" with masked key `sk_live_••••••••••••3f9a` and copy icon. Click copy -> toast `Copied`. Stat API KEYS becomes 1. | `frame_0465.png` |
+
+---
+
+## 26. Step 25: Read your reports (`projects.snaarp.com/reports`)
+
+Frames: `ref/projects_part3/frame_0490.png`, `frame_0510.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Reports Nav** | Sidebar | Nav item | Click `Reports` in insights nav. Header: BarChart2 + "Reports" (subtitle "Project metrics and task analytics"). | `frame_0490.png` |
+| **4 Metric Cards** | Top row | 4 cards | Total Tasks 6, Completion Rate 0%, Overdue 0, Unassigned 5. Hover each card. | `frame_0490.png` |
+| **Priority Distribution** | Left card | Bar chart breakdown | Urgent 0, High 1 (orange), Normal 4 (blue), Low 1 (slate), None 0. Hover panel. | `frame_0490.png` |
+| **Task Summary** | Right card | 4 metric rows | Tasks with due dates 1, Urgent + High priority 1, Assigned tasks 1, Avg tasks per day 1. Hover each row. | `frame_0490.png` |
+
+---
+
+## 27. Step 26: Update your profile and password (`projects.snaarp.com/profile`)
+
+Frames: `ref/projects_part3/frame_0520.png`, `frame_0530.png`
+
+| Element / Zone | Position & Dimensions | Colors & Typography | Content / Actions | Frame Ref |
+|---|---|---|---|---|
+| **Avatar Dropdown** | Topbar right | Popover menu | Click round avatar "J" -> menu opens with Jane Doe, `jane@example.com`, Settings, red Logout. Click `Settings`. | `frame_0520.png` |
+| **Profile Settings** | Main content view | 3 cards | Header: User icon + "Profile" ("Manage your personal settings"). | `frame_0530.png` |
+| **Personal Info Card** | Top card | Form & Avatar | Avatar "J" with camera badge. Full Name: "Jane Doe". Email: `jane@example.com` (read-only). Click `Save Changes` -> toast `Profile updated`. | `frame_0530.png` |
+| **Change Password Card**| Middle card | Form with eye toggles | Enter current password `SamplePass#1`, toggle eye icon twice (reveal/hide). Enter and confirm new password `SamplePass#2026`. Click `Update Password` -> toast `Password updated`. | `frame_0530.png` |
+| **2FA Card** | Bottom card | 2FA section | "Two-factor authentication is disabled  Off", helper text, purple `Enable` button (hover only). | `frame_0530.png` |
+| **Completion Card** | Post-tutorial card | Data-driven card | Follows step 26: "Tour complete", "You can now track projects, sprints, tasks, and whiteboards, create and edit rich documents, automate workflows, connect third-party integrations, inspect project reports, and manage your profile settings.", Replay tour, Back to Snaarp. | In-app |
+
 

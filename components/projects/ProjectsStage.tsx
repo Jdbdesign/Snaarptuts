@@ -15,6 +15,14 @@ import { ProjectsSprintsView } from "./ProjectsSprintsView";
 import { ProjectsCreateGoalView } from "./ProjectsCreateGoalView";
 import { ProjectsWhiteboardsView } from "./ProjectsWhiteboardsView";
 import { ProjectsWhiteboardCanvas } from "./ProjectsWhiteboardCanvas";
+import { ProjectsDocumentsView } from "./ProjectsDocumentsView";
+import { ProjectsDocEditor } from "./ProjectsDocEditor";
+import { ProjectsDocDialogs } from "./ProjectsDocDialogs";
+import { ProjectsAutomationsView } from "./ProjectsAutomationsView";
+import { ProjectsIntegrationsView } from "./ProjectsIntegrationsView";
+import { ProjectsApiKeyDialog } from "./ProjectsApiKeyDialog";
+import { ProjectsReportsView } from "./ProjectsReportsView";
+import { ProjectsProfileView } from "./ProjectsProfileView";
 import type { ProjectsView } from "./projects-data";
 
 interface Props {
@@ -40,6 +48,8 @@ export function ProjectsStage({ tl }: Props) {
             <ProjectsTemplateGalleryModal tl={tl} />
             <ProjectsTaskDrawer tl={tl} />
             <ProjectsDeleteTaskModal tl={tl} />
+            <ProjectsDocDialogs tl={tl} />
+            <ProjectsApiKeyDialog tl={tl} />
           </>
         }
       >
@@ -51,6 +61,12 @@ export function ProjectsStage({ tl }: Props) {
         {currentView === "goals-new" && <ProjectsCreateGoalView tl={tl} />}
         {currentView === "whiteboards" && <ProjectsWhiteboardsView tl={tl} />}
         {currentView === "whiteboard-canvas" && <ProjectsWhiteboardCanvas tl={tl} />}
+        {currentView === "documents" && <ProjectsDocumentsView tl={tl} />}
+        {currentView === "doc-editor" && <ProjectsDocEditor tl={tl} />}
+        {currentView === "automations" && <ProjectsAutomationsView tl={tl} />}
+        {currentView === "integration" && <ProjectsIntegrationsView tl={tl} />}
+        {currentView === "reports" && <ProjectsReportsView tl={tl} />}
+        {currentView === "profile" && <ProjectsProfileView tl={tl} />}
       </ProjectsShell>
     </div>
   );
