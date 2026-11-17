@@ -1889,25 +1889,32 @@ Reference video: `C:\Users\HP\Downloads\1116 (1).mp4` (1384×720, 272s / 4:32).
 
 ## Snaarp Teams
 
-Recording: `C:\Users\HP\Downloads\1116 (1)(2).mp4` (1394x720, 3:37, 13 steps).
+Recordings:
+- Part 1: `C:\Users\HP\Downloads\1116 (1)(2).mp4` (1394x720, 3:37, steps 1-13)
+- Part 2: `C:\Users\HP\Downloads\1117.mp4` (1390x720, 1:32, steps 14-22)
 
 1. **Sample Data (no real personal data)**:
    - Current user: Jane Doe, avatar "J", `jane@example.com`.
-   - Contact: Sam Taylor, avatar "ST" (emerald), `sam@example.com`.
-   - Group members: Casey Brown, Jordan Lee, Alex Morgan, Priya Shah, Daniel Okoye, Taylor Reed, Morgan Bailey, all `@example.com`.
+   - Contact: Sam Taylor, avatar "ST" (blue), `sam.taylor@example.com`.
+   - Teammates & Contacts: Casey Brown, Jordan Lee, Alex Morgan, Priya Shah, Daniel Okoye, Maria Silva, Tom Baker, Ade Lewis, Nina Patel, HR Team, all `@example.com`.
    - Group chat: "Acme Product & Tech Team", renamed to "Acme Product Team".
-   - Meet links: `meet.snaarp.com/acme-weekly-sync` (ID: `wks-sync-942`), `meet.snaarp.com/design-critique-room` (ID: `dsg-crit-108`).
-   - Scheduled meetings: Empty state ("You don't have anything scheduled", Connect Snaarp Me).
-   - Recents call history: Sam Taylor (Outgoing Audio & Incoming Video), Jordan Lee (Incoming Audio), Alex Morgan (Missed Audio).
+   - People Directory: 25 structured contact cards with tags (ON CHAT, ORG, EXTERNAL) and department lines.
+   - Calendar: November 2026 month grid with connected account `jane@example.com`, Tue 10 Nov "Standup Meeting with developers" and Wed 11 Nov "Creative meeting with the Team".
+   - Activity: Feed grouped by YESTERDAY, THURSDAY NOV 12, etc., with incoming and missed call indicators and group chat snippets.
 
-2. **Differences from Recording**:
-   - Camera video box: Drawn with dark box `#0F0F10`, glowing mic indicator, and user's avatar initial "J", avoiding any dependency on real hardware webcam or static external video streams.
-   - Pre-join room: The video ends in the pre-join room after toggling mic/camera; no live WebRTC peer connection is simulated.
-   - In-app End Call: Added an explicit click on the red End Call button in Step 5 so the full-screen call view closes cleanly and returns to the chat view.
-   - Photos tab: Instead of depending on external image downloads, renders an in-app "Acme card.png" photo preview tile.
-   - Start Group Chat: Finished cleanly with a "Create" button click that mounts the new group chat in the list.
-   - Renaming & Pinning: Added explicit Pin to top and Save clicks matching real Snaarp Teams behavior.
-   - Toasts: In-app floating green toasts ("Meeting link copied", "Meeting link created", "Meeting link removed", "Link copied") provide clean visual feedback.
+2. **Differences and Intentional Additions (Steps 1-22)**:
+   - **No browser chrome**: As with other products, the browser URL strip, bookmarks bar, and window chrome are omitted; real HTML/CSS app screens are presented directly.
+   - **Logical order of steps**: The tutorial steps are arranged in clean user-facing logical groups (Overview, Chats, Group chats, Meet, People, Calendar, Activity, Account and settings) rather than the video recorder's jumping back and forth.
+   - **Row action icons**: In People (Step 15), clicking the Message icon opens a direct conversation with Alex Morgan; clicking the Call icon triggers the calling overlay and ends cleanly via the red End button; hovering the Video icon displays its tooltip without starting a real video call.
+   - **Camera / Video call view**: Built with a clean in-app overlay (`#0F0F10`), avatar badge, glowing indicator, and working end call button.
+   - **Join pressed state**: In Calendar (Step 17), clicking "Join" renders the small pressed state; no external meeting room or extraneous toast is added.
+   - **Disconnect and reconnect**: In Calendar (Step 17), clicking Disconnect displays a green toast "Snaarp Me disconnected" and returns to the connect card, then clicking "Connect Snaarp Me account" reconnects cleanly.
+   - **Presence changed**: In the top-right avatar menu (Step 19), selecting "Busy" updates the status indicator dot to red; selecting "Available" returns it to green.
+   - **Profile photo avatar**: On Settings > Profile (Step 20), the video shows a broken image placeholder; we render a clean neutral avatar circle "J" in its place.
+   - **Save Profile & Change Password toasts**: Clicking "Save Profile" emits green toast "Profile saved"; clicking "Change Password" emits green toast "Password changed" and clears the form fields.
+   - **Enable & Add another account**: Hover states only are demonstrated (no non-existent sub-flows are invented).
+   - **Notifications tab**: Exactly matches the recording frames (three channel cards for Email Notifications, Push Notifications, SMS Notifications, and a "Save Preferences" button).
+   - **Completion card**: Seamlessly follows step 22 with "You're all set", Replay, and Back to Snaarp buttons.
 
 ## Player rail scrollbars (macOS overlay scrollbars)
 

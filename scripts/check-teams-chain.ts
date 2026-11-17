@@ -1,7 +1,7 @@
 /*
- * Starts Teams tutorial at --from and lets autoplay run to the end (13 steps),
+ * Starts Teams tutorial at --from and lets autoplay run to the end (22 steps),
  * collecting every console error and verifying 0 failures.
- *   npx tsx scripts/check-teams-chain.ts --from 1 --total 13 --speed 8
+ *   npx tsx scripts/check-teams-chain.ts --from 1 --total 22 --speed 8
  */
 import { chromium } from "playwright";
 
@@ -11,7 +11,7 @@ const arg = (n: string, d: string) => {
 };
 const PRODUCT = arg("product", "teams");
 const FROM = Number(arg("from", "1"));
-const TOTAL = Number(arg("total", "13"));
+const TOTAL = Number(arg("total", "22"));
 const SPEED = Number(arg("speed", "8"));
 
 (async () => {
@@ -75,7 +75,7 @@ const SPEED = Number(arg("speed", "8"));
     await page.waitForTimeout(500);
   }
 
-  // Also check that the completion card is displayed after step 13
+  // Also check that the completion card is displayed after step 22
   const completionCard = await page.locator("text=You're all set").isVisible().catch(() => false);
   console.log(`Completion card visible: ${completionCard}`);
 

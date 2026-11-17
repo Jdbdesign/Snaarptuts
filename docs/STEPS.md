@@ -2572,8 +2572,10 @@ Source recording:
 
 # Steps of the Snaarp Teams tutorial
 
-Config: `tutorials/teams.ts`. Total steps: **13 steps**. Route: `/tutorials/teams`.
-Source recording: `C:\Users\HP\Downloads\1116 (1)(2).mp4` (1394x720, 3:37, extracted into `ref/teams/`).
+Config: `tutorials/teams.ts`. Total steps: **22 steps**. Route: `/tutorials/teams`.
+Source recordings:
+- Part 1: `C:\Users\HP\Downloads\1116 (1)(2).mp4` (1394x720, 3:37, steps 1-13).
+- Part 2: `C:\Users\HP\Downloads\1117.mp4` (1390x720, 1:32, steps 14-22).
 
 ## Step Summary
 
@@ -2592,13 +2594,27 @@ Source recording: `C:\Users\HP\Downloads\1116 (1)(2).mp4` (1394x720, 3:37, extra
 | 11 | Create and manage meeting links | `teams.snaarp.com/meet` | 23.5 s |
 | 12 | Check scheduled meetings and calls | `teams.snaarp.com/meet` | 20.5 s |
 | 13 | Join with a meeting ID | `teams.snaarp.com/meet` | 14.5 s |
+| 14 | Find people | `teams.snaarp.com/people` | 17.5 s |
+| 15 | Message or call someone | `teams.snaarp.com/people` | 14.5 s |
+| 16 | Connect your calendar | `teams.snaarp.com/calendar` | 10.5 s |
+| 17 | Use your calendar | `teams.snaarp.com/snaarp-me` | 21.0 s |
+| 18 | Check your activity | `teams.snaarp.com/activity` | 16.0 s |
+| 19 | Set your status | `teams.snaarp.com/activity` | 15.5 s |
+| 20 | Update your profile | `teams.snaarp.com/settings` | 14.5 s |
+| 21 | Change your password | `teams.snaarp.com/settings` | 18.0 s |
+| 22 | Notifications and account options | `teams.snaarp.com/settings` | 14.5 s |
 
 ## Architecture & Components
 
 - **Stage & Shell**: `components/teams/TeamsStage.tsx`, `components/teams/TeamsShell.tsx` (60px Snaarp Suite rail, 160px Teams sidebar with Chat, Meet, People, Calendar, Activity, Report a Bug, Logout, and the top bar with global search, theme toggle, apps grid, and avatar).
 - **Views**:
-  - `TeamsChatView.tsx`: Chat list column (search toggle, video button, new chat, All / Unread / Group filter tabs, user notes, chat rows with hover `...` menu and pinning), Main chat area (active chat header with audio/video call, add person, mute, subtabs Chat / Files / Photos, message stream with emojis, hover reaction bar with 👍, input bar with tools, Files empty state, Photos sample card tile, and "Find in chat" drawer).
+  - `TeamsChatView.tsx`: Chat list column (search toggle, video button, new chat, All / Unread / Group filter tabs, user notes, chat rows with hover `...` menu and pinning), Main chat area (active chat header with audio/video call, add person, mute, subtabs Chat / Files / Photos, message stream with emojis, hover reaction bar with thumbs-up, input bar with tools, Files empty state, Photos sample card tile, and "Find in chat" drawer).
   - `TeamsMeetView.tsx`: Sub-tabs Meeting links / Scheduled meetings / Calls, Create meeting link action, Join with ID action, meeting link cards with copy, external open, and delete actions, Scheduled meetings empty state ("Connect Snaarp Me"), and Calls recents list with contact search.
+  - `TeamsPeopleView.tsx`: 25 contact cards, search filter, pills (All, On Snaarp Teams, Organization, External), hover actions (Chat, Call, Video call), Load more button, refresh action.
+  - `TeamsCalendarView.tsx`: Connect Snaarp Me card, connected schedule view with November 2026 month grid, day panel, meeting card with Join button, Disconnect and reconnect.
+  - `TeamsActivityView.tsx`: Activity feed, tabs (All, Unread, Calls badge 3, Ongoing), grouped day history, empty states, call indicators.
+  - `TeamsAvatarMenu.tsx`: Top-right avatar dropdown, presence status selector (Available / Busy), Settings button, Add another account.
+  - `TeamsSettingsView.tsx`: Tabs Profile / Security / Notifications / Account, profile inputs, neutral round avatar photo, password change form, MFA card, notification channel toggles, Remember me switch.
   - `TeamsPrejoinView.tsx`: Snaarp Meet room pre-join screen with live mic and camera toggle controls, audio/video settings, and Join now action.
   - `TeamsCallModal.tsx`: Fullscreen dark call view (`#0F0F10`, avatar "ST", "Sam Taylor", "Calling...", mic mute, red End call button, add-person, and minimize).
 - **Modals & Popovers** (`components/teams/TeamsModals.tsx`):

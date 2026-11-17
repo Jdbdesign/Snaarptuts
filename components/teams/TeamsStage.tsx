@@ -9,6 +9,11 @@ import { TeamsChatView } from "./TeamsChatView";
 import { TeamsMeetView } from "./TeamsMeetView";
 import { TeamsCallModal } from "./TeamsCallModal";
 import { TeamsPrejoinView } from "./TeamsPrejoinView";
+import { TeamsPeopleView } from "./TeamsPeopleView";
+import { TeamsCalendarView } from "./TeamsCalendarView";
+import { TeamsActivityView } from "./TeamsActivityView";
+import { TeamsAvatarMenu } from "./TeamsAvatarMenu";
+import { TeamsSettingsView } from "./TeamsSettingsView";
 import {
   StartMeetDialog,
   StartGroupChatDialog,
@@ -25,6 +30,10 @@ import {
   type MeetSubTab,
   type MeetLinkCard,
   type ChatItem,
+  type PeopleFilterTab,
+  type ActivityFilterTab,
+  type SettingsTab,
+  type UserPresence,
 } from "./teams-data";
 import { pushTeamsToast, type TeamsToast } from "./teams-timeline";
 
@@ -52,7 +61,7 @@ export function TeamsStage({ tl }: Props) {
   );
   const meetTab = useTimelineVar<MeetSubTab>(tl, "teams:meetTab", "links");
 
-  // Search & Filter
+  // Search & Filter (Chat)
   const isListSearchOpen = useTimelineVar<boolean>(
     tl,
     "teams:isListSearchOpen",
@@ -215,10 +224,154 @@ export function TeamsStage({ tl }: Props) {
     useTimelineVar<string>(tl, "field:[data-tl=join-id-input]", "")
   );
 
+  // --- PEOPLE VIEW VARS ---
+  const peopleFilterTab = useTimelineVar<PeopleFilterTab>(
+    tl,
+    "teams:peopleFilterTab",
+    "all"
+  );
+  const peopleSearchQueryVar = useTimelineVar<string>(
+    tl,
+    "teams:peopleSearchQuery",
+    ""
+  );
+  const peopleSearchTyped = useTimelineVar<string>(
+    tl,
+    "field:people-search-input",
+    ""
+  );
+  const peopleSearchQuery = peopleSearchTyped !== undefined && peopleSearchTyped !== ""
+    ? peopleSearchTyped
+    : peopleSearchQueryVar;
+  const peopleLoadedCount = useTimelineVar<number>(
+    tl,
+    "teams:peopleLoadedCount",
+    10
+  );
+  const isPeopleLoading = useTimelineVar<boolean>(
+    tl,
+    "teams:isPeopleLoading",
+    false
+  );
+  const hoveredPersonId = useTimelineVar<string | null>(
+    tl,
+    "teams:hoveredPersonId",
+    null
+  );
+
+  // --- CALENDAR VIEW VARS ---
+  const isCalendarConnected = useTimelineVar<boolean>(
+    tl,
+    "teams:isCalendarConnected",
+    false
+  );
+  const calendarSelectedDay = useTimelineVar<number>(
+    tl,
+    "teams:calendarSelectedDay",
+    17
+  );
+  const calendarMonth = useTimelineVar<string>(
+    tl,
+    "teams:calendarMonth",
+    "November 2026"
+  );
+  const joinPressed = useTimelineVar<boolean>(
+    tl,
+    "teams:joinPressed",
+    false
+  );
+
+  // --- ACTIVITY VIEW VARS ---
+  const activityFilterTab = useTimelineVar<ActivityFilterTab>(
+    tl,
+    "teams:activityFilterTab",
+    "all"
+  );
+  const isActivityLoading = useTimelineVar<boolean>(
+    tl,
+    "teams:isActivityLoading",
+    false
+  );
+  const hoveredCallId = useTimelineVar<string | null>(
+    tl,
+    "teams:hoveredCallId",
+    null
+  );
+
+  // --- AVATAR & PRESENCE VARS ---
+  const isAvatarMenuOpen = useTimelineVar<boolean>(
+    tl,
+    "teams:isAvatarMenuOpen",
+    false
+  );
+  const isPresenceOpen = useTimelineVar<boolean>(
+    tl,
+    "teams:isPresenceOpen",
+    false
+  );
+  const presence = useTimelineVar<UserPresence>(
+    tl,
+    "teams:presence",
+    "available"
+  );
+
+  // --- SETTINGS VIEW VARS ---
+  const settingsTab = useTimelineVar<SettingsTab>(
+    tl,
+    "teams:settingsTab",
+    "profile"
+  );
+  const rememberMe = useTimelineVar<boolean>(
+    tl,
+    "teams:rememberMe",
+    false
+  );
+  const notifications = useTimelineVar<{
+    email: boolean;
+    push: boolean;
+    sms: boolean;
+  }>(tl, "teams:notifications", {
+    email: true,
+    push: true,
+    sms: false,
+  });
+
+  // Typed values in settings fields
+  const settingsFirstNameTyped = useTimelineVar<string>(
+    tl,
+    "field:settings-first-name-input",
+    useTimelineVar<string>(tl, "field:[data-tl=settings-first-name-input]", "Jane")
+  );
+  const settingsLastNameTyped = useTimelineVar<string>(
+    tl,
+    "field:settings-last-name-input",
+    useTimelineVar<string>(tl, "field:[data-tl=settings-last-name-input]", "Doe")
+  );
+  const settingsPhoneTyped = useTimelineVar<string>(
+    tl,
+    "field:settings-phone-input",
+    useTimelineVar<string>(tl, "field:[data-tl=settings-phone-input]", "")
+  );
+  const settingsCurrPassTyped = useTimelineVar<string>(
+    tl,
+    "field:settings-curr-password-input",
+    useTimelineVar<string>(tl, "field:[data-tl=settings-curr-password-input]", "")
+  );
+  const settingsNewPassTyped = useTimelineVar<string>(
+    tl,
+    "field:settings-new-password-input",
+    useTimelineVar<string>(tl, "field:[data-tl=settings-new-password-input]", "")
+  );
+  const settingsConfirmPassTyped = useTimelineVar<string>(
+    tl,
+    "field:settings-confirm-password-input",
+    useTimelineVar<string>(tl, "field:[data-tl=settings-confirm-password-input]", "")
+  );
+
   // Toasts
   const toasts = useTimelineVar<TeamsToast[]>(tl, "teams:toasts", []);
 
-  // Compute chats list (including newly created group if createdNewGroup is true)
+  // Compute chats list
   const currentChats: ChatItem[] = React.useMemo(() => {
     if (createdNewGroup) {
       const newGroupItem: ChatItem = {
@@ -235,13 +388,18 @@ export function TeamsStage({ tl }: Props) {
     return INITIAL_CHATS;
   }, [createdNewGroup]);
 
-  // Handlers wired to timeline vars
+  // Handlers
   const handleSelectNav = (nav: TeamsNav) => {
     tl.setVar("teams:activeNav", nav);
+    tl.setVar("teams:isAvatarMenuOpen", false);
   };
 
   const handleToggleTheme = () => {
     tl.setVar("teams:isDark", !isDark);
+  };
+
+  const handleToggleAvatarMenu = () => {
+    tl.setVar("teams:isAvatarMenuOpen", !isAvatarMenuOpen);
   };
 
   const handleSelectFilterTab = (tab: ChatFilterTab) => {
@@ -348,10 +506,7 @@ export function TeamsStage({ tl }: Props) {
 
   const handleCreateMeetLink = () => {
     tl.setVar("teams:isCreatingLink", true);
-    tl.setVar("teams:meetLinks", [
-      ...meetLinks,
-      SECOND_MEET_LINK,
-    ]);
+    tl.setVar("teams:meetLinks", [...meetLinks, SECOND_MEET_LINK]);
     tl.setVar("teams:isCreatingLink", false);
     pushTeamsToast(tl, "Meeting link created");
   };
@@ -383,6 +538,132 @@ export function TeamsStage({ tl }: Props) {
     tl.setVar("teams:callsSearchQuery", q);
   };
 
+  // People handlers
+  const handleSelectPeopleFilter = (tab: PeopleFilterTab) => {
+    tl.setVar("teams:peopleFilterTab", tab);
+  };
+
+  const handlePeopleSearchChange = (q: string) => {
+    tl.setVar("teams:peopleSearchQuery", q);
+    tl.setVar("field:people-search-input", q);
+  };
+
+  const handlePeopleRefresh = () => {
+    tl.setVar("teams:isPeopleLoading", true);
+    setTimeout(() => {
+      tl.setVar("teams:isPeopleLoading", false);
+    }, 200);
+  };
+
+  const handlePeopleLoadMore = () => {
+    tl.setVar("teams:peopleLoadedCount", 25);
+  };
+
+  const handlePeopleChat = () => {
+    tl.setVar("teams:activeNav", "chat");
+    tl.setVar("teams:activeChatId", "alex-morgan");
+  };
+
+  const handlePeopleCall = () => {
+    tl.setVar("teams:isCallOpen", true);
+  };
+
+  // Calendar handlers
+  const handleCalendarConnect = () => {
+    tl.setVar("teams:isCalendarConnected", true);
+    pushTeamsToast(tl, "Snaarp Me connected");
+  };
+
+  const handleCalendarDisconnect = () => {
+    tl.setVar("teams:isCalendarConnected", false);
+    pushTeamsToast(tl, "Snaarp Me disconnected");
+  };
+
+  const handleCalendarSelectDay = (day: number) => {
+    tl.setVar("teams:calendarSelectedDay", day);
+  };
+
+  const handleCalendarPrevMonth = () => {
+    tl.setVar("teams:calendarMonth", "October 2026");
+  };
+
+  const handleCalendarNextMonth = () => {
+    tl.setVar("teams:calendarMonth", "December 2026");
+  };
+
+  const handleCalendarToday = () => {
+    tl.setVar("teams:calendarMonth", "November 2026");
+    tl.setVar("teams:calendarSelectedDay", 17);
+  };
+
+  const handleCalendarJoin = () => {
+    tl.setVar("teams:joinPressed", true);
+    setTimeout(() => {
+      tl.setVar("teams:joinPressed", false);
+    }, 500);
+  };
+
+  // Activity handlers
+  const handleActivitySelectTab = (tab: ActivityFilterTab) => {
+    tl.setVar("teams:activityFilterTab", tab);
+  };
+
+  const handleActivityRefresh = () => {
+    tl.setVar("teams:isActivityLoading", true);
+    setTimeout(() => {
+      tl.setVar("teams:isActivityLoading", false);
+    }, 200);
+  };
+
+  // Avatar / Presence handlers
+  const handleTogglePresence = () => {
+    tl.setVar("teams:isPresenceOpen", !isPresenceOpen);
+  };
+
+  const handleSelectPresence = (p: UserPresence) => {
+    tl.setVar("teams:presence", p);
+    tl.setVar("teams:isPresenceOpen", false);
+  };
+
+  const handleOpenSettingsFromAvatar = () => {
+    tl.setVar("teams:activeNav", "settings");
+    tl.setVar("teams:isAvatarMenuOpen", false);
+  };
+
+  // Settings handlers
+  const handleSelectSettingsTab = (tab: SettingsTab) => {
+    tl.setVar("teams:settingsTab", tab);
+  };
+
+  const handleSaveProfile = () => {
+    pushTeamsToast(tl, "Profile saved");
+  };
+
+  const handleChangePassword = () => {
+    pushTeamsToast(tl, "Password changed");
+    tl.setVar("field:settings-curr-password-input", "");
+    tl.setVar("field:settings-new-password-input", "");
+    tl.setVar("field:settings-confirm-password-input", "");
+    tl.setVar("field:[data-tl=settings-curr-password-input]", "");
+    tl.setVar("field:[data-tl=settings-new-password-input]", "");
+    tl.setVar("field:[data-tl=settings-confirm-password-input]", "");
+  };
+
+  const handleToggleRememberMe = () => {
+    tl.setVar("teams:rememberMe", !rememberMe);
+  };
+
+  const handleToggleNotification = (key: "email" | "push" | "sms") => {
+    tl.setVar("teams:notifications", {
+      ...notifications,
+      [key]: !notifications[key],
+    });
+  };
+
+  const handleSavePreferences = () => {
+    pushTeamsToast(tl, "Preferences saved");
+  };
+
   return (
     <div
       data-scroller
@@ -394,8 +675,10 @@ export function TeamsStage({ tl }: Props) {
       <TeamsShell
         activeNav={activeNav}
         isDark={isDark}
+        presence={presence}
         onSelectNav={handleSelectNav}
         onToggleTheme={handleToggleTheme}
+        onToggleAvatarMenu={handleToggleAvatarMenu}
       >
         {activeNav === "chat" ? (
           <TeamsChatView
@@ -447,12 +730,74 @@ export function TeamsStage({ tl }: Props) {
             onDeleteLink={handleDeleteMeetLink}
             onSearchCalls={handleSearchCalls}
           />
-        ) : (
-          <div className="flex-1 flex items-center justify-center p-8 text-sm text-gray-400">
-            {activeNav.toUpperCase()} View
-          </div>
-        )}
+        ) : activeNav === "people" ? (
+          <TeamsPeopleView
+            filterTab={peopleFilterTab}
+            searchQuery={peopleSearchQuery}
+            loadedCount={peopleLoadedCount}
+            isLoading={isPeopleLoading}
+            hoveredPersonId={hoveredPersonId}
+            onSelectFilterTab={handleSelectPeopleFilter}
+            onSearchChange={handlePeopleSearchChange}
+            onRefresh={handlePeopleRefresh}
+            onLoadMore={handlePeopleLoadMore}
+            onClickChat={handlePeopleChat}
+            onClickCall={handlePeopleCall}
+          />
+        ) : activeNav === "calendar" ? (
+          <TeamsCalendarView
+            isConnected={isCalendarConnected}
+            selectedDay={calendarSelectedDay}
+            monthTitle={calendarMonth}
+            joinPressed={joinPressed}
+            onConnect={handleCalendarConnect}
+            onDisconnect={handleCalendarDisconnect}
+            onSelectDay={handleCalendarSelectDay}
+            onPrevMonth={handleCalendarPrevMonth}
+            onNextMonth={handleCalendarNextMonth}
+            onToday={handleCalendarToday}
+            onJoinMeeting={handleCalendarJoin}
+            onOpenSnaarpMe={() => {}}
+          />
+        ) : activeNav === "activity" ? (
+          <TeamsActivityView
+            activeTab={activityFilterTab}
+            isLoading={isActivityLoading}
+            hoveredCallId={hoveredCallId}
+            onSelectTab={handleActivitySelectTab}
+            onRefresh={handleActivityRefresh}
+          />
+        ) : activeNav === "settings" ? (
+          <TeamsSettingsView
+            activeTab={settingsTab}
+            firstNameValue={settingsFirstNameTyped}
+            lastNameValue={settingsLastNameTyped}
+            phoneValue={settingsPhoneTyped}
+            currPasswordValue={settingsCurrPassTyped}
+            newPasswordValue={settingsNewPassTyped}
+            confirmPasswordValue={settingsConfirmPassTyped}
+            rememberMe={rememberMe}
+            notifications={notifications}
+            onSelectTab={handleSelectSettingsTab}
+            onSaveProfile={handleSaveProfile}
+            onChangePassword={handleChangePassword}
+            onToggleRememberMe={handleToggleRememberMe}
+            onToggleNotification={handleToggleNotification}
+            onSavePreferences={handleSavePreferences}
+          />
+        ) : null}
       </TeamsShell>
+
+      {/* Avatar Dropdown Menu */}
+      <TeamsAvatarMenu
+        isOpen={isAvatarMenuOpen}
+        isPresenceOpen={isPresenceOpen}
+        presence={presence}
+        onTogglePresence={handleTogglePresence}
+        onSelectPresence={handleSelectPresence}
+        onOpenSettings={handleOpenSettingsFromAvatar}
+        onClose={() => tl.setVar("teams:isAvatarMenuOpen", false)}
+      />
 
       {/* Overlays & Modals */}
       <TeamsCallModal isOpen={isCallOpen} onEndCall={handleEndCall} />

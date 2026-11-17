@@ -7,6 +7,10 @@ import {
   type ChatSubTab,
   type MeetSubTab,
   type MeetLinkCard,
+  type PeopleFilterTab,
+  type ActivityFilterTab,
+  type SettingsTab,
+  type UserPresence,
 } from "./teams-data";
 
 export interface TeamsToast {
@@ -41,6 +45,15 @@ export interface BeginTeamsOptions {
   groupTitle?: string;
   isDark?: boolean;
   hasSecondMeetLink?: boolean;
+  peopleFilterTab?: PeopleFilterTab;
+  peopleSearchQuery?: string;
+  isCalendarConnected?: boolean;
+  calendarSelectedDay?: number;
+  calendarMonth?: string;
+  activityFilterTab?: ActivityFilterTab;
+  settingsTab?: SettingsTab;
+  presence?: UserPresence;
+  isAvatarMenuOpen?: boolean;
 }
 
 export function beginTeams(
@@ -109,6 +122,45 @@ export function beginTeams(
   // Join by ID dialog
   tl.setVar("teams:isJoinIdDialogOpen", false);
   tl.setVar("teams:joinIdQuery", "");
+
+  // --- PEOPLE VIEW VARS ---
+  tl.setVar("teams:peopleFilterTab", opts.peopleFilterTab ?? "all");
+  tl.setVar("teams:peopleSearchQuery", opts.peopleSearchQuery ?? "");
+  tl.setVar("field:people-search-input", opts.peopleSearchQuery ?? "");
+  tl.setVar("teams:peopleLoadedCount", 10);
+  tl.setVar("teams:isPeopleLoading", false);
+  tl.setVar("teams:hoveredPersonId", null);
+
+  // --- CALENDAR VIEW VARS ---
+  tl.setVar("teams:isCalendarConnected", opts.isCalendarConnected ?? false);
+  tl.setVar("teams:calendarSelectedDay", opts.calendarSelectedDay ?? 17);
+  tl.setVar("teams:calendarMonth", opts.calendarMonth ?? "November 2026");
+  tl.setVar("teams:joinPressed", false);
+
+  // --- ACTIVITY VIEW VARS ---
+  tl.setVar("teams:activityFilterTab", opts.activityFilterTab ?? "all");
+  tl.setVar("teams:isActivityLoading", false);
+  tl.setVar("teams:hoveredCallId", null);
+
+  // --- AVATAR & PRESENCE VARS ---
+  tl.setVar("teams:isAvatarMenuOpen", opts.isAvatarMenuOpen ?? false);
+  tl.setVar("teams:isPresenceOpen", false);
+  tl.setVar("teams:presence", opts.presence ?? "available");
+
+  // --- SETTINGS VIEW VARS ---
+  tl.setVar("teams:settingsTab", opts.settingsTab ?? "profile");
+  tl.setVar("teams:rememberMe", false);
+  tl.setVar("teams:notifications", {
+    email: true,
+    push: true,
+    sms: false,
+  });
+  tl.setVar("field:settings-first-name-input", "Jane");
+  tl.setVar("field:settings-last-name-input", "Doe");
+  tl.setVar("field:settings-phone-input", "");
+  tl.setVar("field:settings-curr-password-input", "");
+  tl.setVar("field:settings-new-password-input", "");
+  tl.setVar("field:settings-confirm-password-input", "");
 
   // Toasts
   tl.setVar("teams:toasts", []);

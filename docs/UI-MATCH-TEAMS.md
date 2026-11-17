@@ -191,3 +191,141 @@ Reference design resolution: 1440x900 (scaled dynamically in player shell)
 | Input typing | `[data-tl="join-id-input"]` | Types "etz-pips-nmk" -> button turns purple | Audited, matches |
 | Join submit | `[data-tl="join-id-submit-btn"]` | Opens pre-join "Snaarp Meet" page | Audited, matches |
 | Completion Card | `[data-tl="completion-card"]` | "Tour complete", Replay tour, Back to Snaarp | Audited, matches |
+
+
+---
+
+## Step 14: Find people
+**Source video part 2**: `C:\Users\HP\Downloads\1117.mp4` (1390x720, 1:32)
+**Video range**: 0:00 - 0:35 (frames 1-70)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| People nav item | `[data-tl="teams-nav-people"]` | Left sidebar People button, icon + text | Audited, matches |
+| People header | `[data-tl="people-header-title"]` | "People", purple count badge 25 | Audited, matches |
+| Filter pills | `[data-tl="people-filter-pills"]` | All, On Snaarp Teams, Organization, External | Audited, matches |
+| Search box | `[data-tl="people-search-input"]` | Placeholder "Search by name, email, or company" | Audited, matches |
+| Search clear | `[data-tl="people-search-clear"]` | 'x' button to clear active search query | Audited, matches |
+| People cards | `[data-tl^="people-card-"]` | 25 cards with avatar, name, badges, dept, email | Audited, matches |
+| Load more button | `[data-tl="people-load-more-btn"]` | Centered rounded button at bottom of directory | Audited, matches |
+| Refresh button | `[data-tl="people-refresh-btn"]` | Rounded button with rotate icon -> skeleton reload | Audited, matches |
+
+---
+
+## Step 15: Message or call someone from People
+**Video range**: 0:05 - 0:30 (frames 10-60)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Alex Morgan card | `[data-tl="people-card-p-alex"]` | Card hover reveals 3 circular action buttons | Audited, matches |
+| Chat button & tooltip | `[data-tl="people-btn-chat-p-alex"]` | Message icon, dark tooltip "Chat", opens Chat | Audited, matches |
+| Return to People | `[data-tl="teams-nav-people"]` | Sidebar button navigates back to directory | Audited, matches |
+| Call button & tooltip | `[data-tl="people-btn-call-p-alex"]` | Phone icon, dark tooltip "Call", opens calling overlay | Audited, matches |
+| End call button | `[data-tl="call-end-btn"]` | Red circular button ends call, returns to People | Audited, matches |
+| Video button & tooltip| `[data-tl="people-btn-video-p-alex"]` | Camera icon, dark tooltip "Video call" | Audited, matches |
+
+---
+
+## Step 16: Connect your calendar
+**Video range**: 0:35 - 0:45 (frames 70-90)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Calendar nav item | `[data-tl="teams-nav-calendar"]` | Left sidebar Calendar button, icon + text | Audited, matches |
+| Connect card | `[data-tl="calendar-connect-card"]` | White rounded card, purple tile icon "S" | Audited, matches |
+| Connect card title | `[data-tl="calendar-connect-title"]` | "Connect Snaarp Me" | Audited, matches |
+| Connect button | `[data-tl="calendar-connect-btn"]` | Purple button "Connect Snaarp Me account" | Audited, matches |
+| Open Snaarp Me link | `[data-tl="calendar-open-snaarp-me-link"]` | Link with external icon | Audited, matches |
+| Connected toast | `[data-tl="teams-toast"]` | Green toast "Snaarp Me connected" | Audited, matches |
+
+---
+
+## Step 17: Use your calendar
+**Video range**: 0:45 - 1:05 (frames 90-130)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Status badge | `[data-tl="calendar-status-badge"]` | Green pill "✓ Connected", account line | Audited, matches |
+| Month title & nav | `[data-tl="calendar-month-title"]` | "November 2026", next/prev chevrons | Audited, matches |
+| Today button | `[data-tl="calendar-today-btn"]` | Outlined pill button, returns to Nov 17 | Audited, matches |
+| Event chips | `[data-tl="calendar-event-10"]` | Nov 10 Standup, Nov 11 Creative meeting | Audited, matches |
+| Today day indicator | `[data-tl="calendar-day-17"]` | Solid purple circle with white text "17" | Audited, matches |
+| Day panel | `[data-tl="calendar-day-panel"]` | Tuesday, Nov 10 / 1 meeting card | Audited, matches |
+| Meeting join button | `[data-tl="calendar-meeting-join-btn"]` | Purple button "Join", pressed state | Audited, matches |
+| Open Snaarp Me | `[data-tl="calendar-open-btn"]` | Outlined button with external link icon | Audited, matches |
+| Disconnect button | `[data-tl="calendar-disconnect-btn"]` | Disconnect with unlink icon -> toast | Audited, matches |
+
+---
+
+## Step 18: Check your activity
+**Video range**: 1:05 - 1:25 (frames 130-160)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Activity nav item | `[data-tl="teams-nav-activity"]` | Left sidebar Activity button, icon + text | Audited, matches |
+| Activity header | `[data-tl="activity-header-title"]` | "Activity", subtitle, refresh button | Audited, matches |
+| All feed list | `[data-tl="activity-feed-list"]` | Grouped items by date: YESTERDAY, NOV 12... | Audited, matches |
+| Unread tab | `[data-tl="activity-tab-unread"]` | Empty state "No unread activity" | Audited, matches |
+| Calls tab | `[data-tl="activity-tab-calls"]` | Red badge 3, 4 call cards with status badges | Audited, matches |
+| Call card hover | `[data-tl="activity-card-act-1"]` | Hover highlights call/video action icon | Audited, matches |
+| Ongoing tab | `[data-tl="activity-tab-ongoing"]` | Dashed card empty state "No ongoing calls" | Audited, matches |
+
+---
+
+## Step 19: Set your status
+**Video range**: 1:20 - 1:35 (frames 160-170)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Topbar avatar | `[data-tl="teams-avatar-btn"]` | Circle avatar "J" with live presence indicator dot | Audited, matches |
+| Avatar menu card | `[data-tl="teams-avatar-menu"]` | Floating card: Personal, Sign out, Jane Doe | Audited, matches |
+| Presence button | `[data-tl="avatar-presence-btn"]` | Pill button with status dot + chevron down | Audited, matches |
+| Status list | `[data-tl="avatar-presence-list"]` | Available (tick), Busy | Audited, matches |
+| Busy selection | `[data-tl="avatar-presence-busy"]` | Sets Busy, dot on avatar turns red | Audited, matches |
+| Available selection| `[data-tl="avatar-presence-available"]`| Sets Available, dot returns to green | Audited, matches |
+| Add another account | `[data-tl="avatar-menu-add-account"]` | UserPlus icon menu row (hover only) | Audited, matches |
+| Settings link | `[data-tl="avatar-menu-settings"]` | Gear icon menu row, opens Settings | Audited, matches |
+
+---
+
+## Step 20: Update your profile
+**Video range**: 1:35 - 1:45 (frames 170-175)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Settings header | `[data-tl="settings-header-title"]` | "Settings", gray pill bar tabs | Audited, matches |
+| First Name | `[data-tl="settings-first-name-input"]` | Types "Jane" | Audited, matches |
+| Last Name | `[data-tl="settings-last-name-input"]` | Types "Doe" | Audited, matches |
+| Phone | `[data-tl="settings-phone-input"]` | Placeholder `+1 (555) 123-4567`, types `+44 7700 900123` | Audited, matches |
+| Read-only email | `[data-tl="settings-email-input"]` | Gray disabled input `jane@example.com` | Audited, matches |
+| Photo avatar | `[data-tl="settings-photo-avatar"]` | Neutral round avatar "J" (replaces broken image) | Audited, matches |
+| Save Profile button | `[data-tl="settings-save-profile-btn"]` | Purple button -> green toast "Profile saved" | Audited, matches |
+
+---
+
+## Step 21: Change your password
+**Video range**: Security tab (frames 165-170)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Security tab | `[data-tl="settings-tab-security"]` | Pill tab, switches to Security view | Audited, matches |
+| Current Password | `[data-tl="settings-curr-password-input"]` | Types sample current password | Audited, matches |
+| New Password | `[data-tl="settings-new-password-input"]` | Placeholder "Minimum 8 characters", types new pass | Audited, matches |
+| Confirm New Password | `[data-tl="settings-confirm-password-input"]` | Types confirm password | Audited, matches |
+| Change Password btn | `[data-tl="settings-change-password-btn"]` | Purple button -> toast "Password changed" | Audited, matches |
+| Forgot password link | `[data-tl="settings-forgot-password-link"]` | Text link (hover only) | Audited, matches |
+| MFA Enable button | `[data-tl="settings-enable-2fa-btn"]` | Purple button on MFA card (hover only) | Audited, matches |
+
+---
+
+## Step 22: Notifications and account options
+**Video range**: Notifications and Account tabs (frames 170-184)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Notifications tab | `[data-tl="settings-tab-notifications"]` | Pill tab, switches to Notifications view | Audited, matches |
+| Alert toggles | `[data-tl^="settings-toggle-"]` | Email (ON), Push (ON), SMS (OFF) switches | Audited, matches |
+| Account tab | `[data-tl="settings-tab-account"]` | Pill tab, switches to Account view | Audited, matches |
+| Account identity | `[data-tl="settings-account-email"]` | "Signed in as" jane@example.com | Audited, matches |
+| Remember me toggle | `[data-tl="settings-toggle-remember"]` | Switch toggles ON (purple) then OFF | Audited, matches |
+| Completion Card | `[data-tl="completion-card"]` | "You're all set", Replay, Back to Snaarp | Audited, matches |

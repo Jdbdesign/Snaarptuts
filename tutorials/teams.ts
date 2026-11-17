@@ -24,6 +24,24 @@ import { Step12 } from "@/scenes/teams/step12/Step12";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/teams/step12/script";
 import { Step13 } from "@/scenes/teams/step13/Step13";
 import { runStep13, STEP13_DURATION_MS } from "@/scenes/teams/step13/script";
+import { Step14 } from "@/scenes/teams/step14/Step14";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/teams/step14/script";
+import { Step15 } from "@/scenes/teams/step15/Step15";
+import { runStep15, STEP15_DURATION_MS } from "@/scenes/teams/step15/script";
+import { Step16 } from "@/scenes/teams/step16/Step16";
+import { runStep16, STEP16_DURATION_MS } from "@/scenes/teams/step16/script";
+import { Step17 } from "@/scenes/teams/step17/Step17";
+import { runStep17, STEP17_DURATION_MS } from "@/scenes/teams/step17/script";
+import { Step18 } from "@/scenes/teams/step18/Step18";
+import { runStep18, STEP18_DURATION_MS } from "@/scenes/teams/step18/script";
+import { Step19 } from "@/scenes/teams/step19/Step19";
+import { runStep19, STEP19_DURATION_MS } from "@/scenes/teams/step19/script";
+import { Step20 } from "@/scenes/teams/step20/Step20";
+import { runStep20, STEP20_DURATION_MS } from "@/scenes/teams/step20/script";
+import { Step21 } from "@/scenes/teams/step21/Step21";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/teams/step21/script";
+import { Step22 } from "@/scenes/teams/step22/Step22";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/teams/step22/script";
 
 import { TEAMS_URLS } from "@/components/teams/teams-data";
 import type { Tutorial } from "./types";
@@ -166,12 +184,106 @@ export const teams: Tutorial = {
         durationMs: STEP13_DURATION_MS,
       },
     },
+    {
+      id: "teams-find-people",
+      title: "Find people",
+      url: TEAMS_URLS.people,
+      scene: {
+        Component: Step14,
+        run: runStep14,
+        durationMs: STEP14_DURATION_MS,
+      },
+    },
+    {
+      id: "teams-message-call-person",
+      title: "Message or call someone",
+      url: TEAMS_URLS.people,
+      scene: {
+        Component: Step15,
+        run: runStep15,
+        durationMs: STEP15_DURATION_MS,
+      },
+    },
+    {
+      id: "teams-connect-calendar",
+      title: "Connect your calendar",
+      url: TEAMS_URLS.calendar,
+      scene: {
+        Component: Step16,
+        run: runStep16,
+        durationMs: STEP16_DURATION_MS,
+      },
+    },
+    {
+      id: "teams-use-calendar",
+      title: "Use your calendar",
+      url: TEAMS_URLS.snaarpMe,
+      scene: {
+        Component: Step17,
+        run: runStep17,
+        durationMs: STEP17_DURATION_MS,
+      },
+    },
+    {
+      id: "teams-check-activity",
+      title: "Check your activity",
+      url: TEAMS_URLS.activity,
+      scene: {
+        Component: Step18,
+        run: runStep18,
+        durationMs: STEP18_DURATION_MS,
+      },
+    },
+    {
+      id: "teams-set-status",
+      title: "Set your status",
+      url: TEAMS_URLS.activity,
+      scene: {
+        Component: Step19,
+        run: runStep19,
+        durationMs: STEP19_DURATION_MS,
+      },
+    },
+    {
+      id: "teams-update-profile",
+      title: "Update your profile",
+      url: TEAMS_URLS.settings,
+      scene: {
+        Component: Step20,
+        run: runStep20,
+        durationMs: STEP20_DURATION_MS,
+      },
+    },
+    {
+      id: "teams-change-password",
+      title: "Change your password",
+      url: TEAMS_URLS.settings,
+      scene: {
+        Component: Step21,
+        run: runStep21,
+        durationMs: STEP21_DURATION_MS,
+      },
+    },
+    {
+      id: "teams-notifications-account",
+      title: "Notifications and account options",
+      url: TEAMS_URLS.settings,
+      scene: {
+        Component: Step22,
+        run: runStep22,
+        durationMs: STEP22_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "teams-meet-teams" },
     { title: "Chats", from: "teams-filter-chats" },
     { title: "Group chats", from: "teams-start-group-chat" },
     { title: "Meet", from: "teams-create-manage-meet-links" },
+    { title: "People", from: "teams-find-people" },
+    { title: "Calendar", from: "teams-connect-calendar" },
+    { title: "Activity", from: "teams-check-activity" },
+    { title: "Account and settings", from: "teams-set-status" },
   ],
   completion: {
     title: "You're all set",

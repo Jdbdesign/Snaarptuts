@@ -23,19 +23,23 @@ import {
   LayoutGrid,
 } from "lucide-react";
 import { ProductLogo } from "@/components/icons";
-import { CURRENT_USER, type TeamsNav } from "./teams-data";
+import { CURRENT_USER, type TeamsNav, type UserPresence } from "./teams-data";
 
 export function TeamsShell({
   activeNav = "chat",
   isDark = false,
+  presence = "available",
   onSelectNav,
   onToggleTheme,
+  onToggleAvatarMenu,
   children,
 }: {
   activeNav: TeamsNav;
   isDark?: boolean;
+  presence?: UserPresence;
   onSelectNav: (nav: TeamsNav) => void;
   onToggleTheme: () => void;
+  onToggleAvatarMenu?: () => void;
   children: React.ReactNode;
 }) {
   return (
@@ -414,12 +418,17 @@ export function TeamsShell({
             <button
               type="button"
               data-tl="teams-avatar-btn"
+              onClick={onToggleAvatarMenu}
               className="relative cursor-pointer"
             >
               <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-semibold shadow-sm">
                 {CURRENT_USER.avatarText}
               </div>
-              <div className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 ring-1 ring-white" />
+              <div
+                className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-white ${
+                  presence === "available" ? "bg-emerald-500" : "bg-red-500"
+                }`}
+              />
             </button>
           </div>
         </header>

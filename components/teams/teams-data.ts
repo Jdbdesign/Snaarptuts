@@ -8,14 +8,27 @@ export const TEAMS_URLS = {
   meet: "teams.snaarp.com/meet",
   people: "teams.snaarp.com/people",
   calendar: "teams.snaarp.com/calendar",
+  snaarpMe: "teams.snaarp.com/snaarp-me",
   activity: "teams.snaarp.com/activity",
+  settings: "teams.snaarp.com/settings",
   prejoin: "meet.snaarp.com/meet/ukr-vmvj-pfa",
 } as const;
 
-export type TeamsNav = "chat" | "meet" | "people" | "calendar" | "activity";
+export type TeamsNav =
+  | "chat"
+  | "meet"
+  | "people"
+  | "calendar"
+  | "activity"
+  | "settings";
+
 export type ChatFilterTab = "all" | "unread" | "group";
 export type ChatSubTab = "chat" | "files" | "photos";
 export type MeetSubTab = "links" | "scheduled" | "calls";
+export type PeopleFilterTab = "all" | "chat" | "org" | "external";
+export type ActivityFilterTab = "all" | "unread" | "calls" | "ongoing";
+export type SettingsTab = "profile" | "security" | "notifications" | "account";
+export type UserPresence = "available" | "busy";
 
 export interface ChatItem {
   id: string;
@@ -72,6 +85,41 @@ export interface CallRecord {
   type: "missed-audio" | "missed-video" | "incoming-audio";
   timeAgo: string;
   dateStr: string;
+}
+
+export interface PersonItem {
+  id: string;
+  name: string;
+  email: string;
+  avatarText: string;
+  avatarBg: string;
+  department?: string;
+  isOnChat?: boolean;
+  isOrg?: boolean;
+  isExternal?: boolean;
+}
+
+export interface CalendarEvent {
+  id: string;
+  day: number;
+  title: string;
+  chipText: string;
+  time: string;
+  host: string;
+}
+
+export interface ActivityItem {
+  id: string;
+  groupDate: string;
+  type: "call" | "message";
+  title: string;
+  preview: string;
+  timeAgo: string;
+  avatarText: string;
+  avatarBg: string;
+  callType?: "missed-video" | "missed-audio" | "incoming-audio";
+  callIcon?: "video" | "phone";
+  isMissed?: boolean;
 }
 
 export const CURRENT_USER = {
@@ -475,5 +523,365 @@ export const RECENT_CALLS: CallRecord[] = [
     type: "missed-audio",
     timeAgo: "3 months ago",
     dateStr: "Tue, Aug 11 · 4:26 PM",
+  },
+];
+
+// --- 25 PEOPLE DATA FOR TEAMS PEOPLE VIEW ---
+export const TEAMS_PEOPLE: PersonItem[] = [
+  {
+    id: "p-admin",
+    name: "Admin Acme",
+    email: "admin@example.com",
+    avatarText: "AA",
+    avatarBg: "bg-purple-700",
+    department: "Engineering",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-alex",
+    name: "Alex Morgan",
+    email: "alex.morgan@example.com",
+    avatarText: "AM",
+    avatarBg: "bg-zinc-800",
+    isOnChat: true,
+    isExternal: true,
+  },
+  {
+    id: "p-alex-2",
+    name: "Alex Morgan",
+    email: "alex@example.com",
+    avatarText: "AM",
+    avatarBg: "bg-blue-600",
+    isOnChat: true,
+    isExternal: true,
+  },
+  {
+    id: "p-casey",
+    name: "Casey Brown",
+    email: "casey.brown@example.com",
+    avatarText: "CB",
+    avatarBg: "bg-amber-700",
+    department: "Engineering",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-jordan",
+    name: "Jordan Lee",
+    email: "jordan.lee@example.com",
+    avatarText: "JL",
+    avatarBg: "bg-red-600",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-priya",
+    name: "Priya Shah",
+    email: "priya.shah@example.com",
+    avatarText: "PS",
+    avatarBg: "bg-pink-600",
+    isOnChat: true,
+    isExternal: true,
+  },
+  {
+    id: "p-daniel",
+    name: "Daniel Okoye",
+    email: "daniel.okoye@example.com",
+    avatarText: "DO",
+    avatarBg: "bg-purple-600",
+    department: "Engineering",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-guest",
+    name: "Guest Contact",
+    email: "guest@example.com",
+    avatarText: "G",
+    avatarBg: "bg-red-600",
+    isExternal: true,
+  },
+  {
+    id: "p-maria",
+    name: "Maria Silva",
+    email: "maria.silva@example.com",
+    avatarText: "MS",
+    avatarBg: "bg-blue-600",
+    isOnChat: true,
+    isExternal: true,
+  },
+  {
+    id: "p-tom",
+    name: "Tom Baker",
+    email: "tom.baker@example.com",
+    avatarText: "TB",
+    avatarBg: "bg-blue-600",
+    isOnChat: true,
+    isExternal: true,
+  },
+  {
+    id: "p-ade",
+    name: "Ade Lewis",
+    email: "ade.lewis@example.com",
+    avatarText: "AL",
+    avatarBg: "bg-blue-600",
+    department: "Engineering",
+    isOnChat: true,
+    isExternal: true,
+  },
+  {
+    id: "p-nina",
+    name: "Nina Patel",
+    email: "nina.patel@example.com",
+    avatarText: "NP",
+    avatarBg: "bg-emerald-600",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-hr",
+    name: "HR Team",
+    email: "hr@example.com",
+    avatarText: "HR",
+    avatarBg: "bg-teal-700",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-sam",
+    name: "Sam Taylor",
+    email: "sam.taylor@example.com",
+    avatarText: "ST",
+    avatarBg: "bg-blue-600",
+    department: "Product",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-lucas",
+    name: "Lucas Vance",
+    email: "lucas.vance@example.com",
+    avatarText: "LV",
+    avatarBg: "bg-indigo-600",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-clara",
+    name: "Clara Oswald",
+    email: "clara.oswald@example.com",
+    avatarText: "CO",
+    avatarBg: "bg-violet-600",
+    department: "Design",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-ben",
+    name: "Ben Davies",
+    email: "ben.davies@example.com",
+    avatarText: "BD",
+    avatarBg: "bg-sky-600",
+    isExternal: true,
+  },
+  {
+    id: "p-sophia",
+    name: "Sophia Chen",
+    email: "sophia.chen@example.com",
+    avatarText: "SC",
+    avatarBg: "bg-rose-600",
+    department: "Engineering",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-liam",
+    name: "Liam Evans",
+    email: "liam.evans@example.com",
+    avatarText: "LE",
+    avatarBg: "bg-amber-600",
+    isExternal: true,
+  },
+  {
+    id: "p-olivia",
+    name: "Olivia Brooks",
+    email: "olivia.brooks@example.com",
+    avatarText: "OB",
+    avatarBg: "bg-fuchsia-600",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-ethan",
+    name: "Ethan Wright",
+    email: "ethan.wright@example.com",
+    avatarText: "EW",
+    avatarBg: "bg-cyan-600",
+    department: "Operations",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-zoe",
+    name: "Zoe Bell",
+    email: "zoe.bell@example.com",
+    avatarText: "ZB",
+    avatarBg: "bg-orange-600",
+    isOnChat: true,
+    isExternal: true,
+  },
+  {
+    id: "p-noah",
+    name: "Noah Scott",
+    email: "noah.scott@example.com",
+    avatarText: "NS",
+    avatarBg: "bg-lime-700",
+    isExternal: true,
+  },
+  {
+    id: "p-chloe",
+    name: "Chloe Turner",
+    email: "chloe.turner@example.com",
+    avatarText: "CT",
+    avatarBg: "bg-emerald-700",
+    department: "Marketing",
+    isOnChat: true,
+    isOrg: true,
+  },
+  {
+    id: "p-hannah",
+    name: "Hannah Reed",
+    email: "hannah.reed@example.com",
+    avatarText: "HR",
+    avatarBg: "bg-teal-600",
+    isOnChat: true,
+    isOrg: true,
+  },
+];
+
+// Subtitles for People tabs
+export const PEOPLE_SUBTITLES: Record<PeopleFilterTab, string> = {
+  all: "People in your org domain, address book, and anyone you've chatted with · example.com",
+  chat: "People on Snaarp Chat you can message or call · example.com",
+  org: "People who share your organisation's email domain · example.com",
+  external: "Address book and chat contacts outside your organization · example.com",
+};
+
+// Calendar Data (November 2026, UK locale, today = 17 Nov 2026)
+export const CALENDAR_EVENTS: CalendarEvent[] = [
+  {
+    id: "evt-10",
+    day: 10,
+    title: "Standup Meeting with developers",
+    chipText: "11:30 Standup Meeting with devel...",
+    time: "11:30 AM – 12:00 PM",
+    host: "with Jane Doe",
+  },
+  {
+    id: "evt-11",
+    day: 11,
+    title: "Creative meeting with the Team",
+    chipText: "11:30 Creative meeting with the T...",
+    time: "11:30 AM – 12:30 PM",
+    host: "with Sam Taylor",
+  },
+];
+
+// Activity Feed Data
+export const ACTIVITY_ITEMS: ActivityItem[] = [
+  {
+    id: "act-1",
+    groupDate: "YESTERDAY",
+    type: "call",
+    title: "Sam Taylor",
+    preview: "Missed video call",
+    timeAgo: "about 14 hours ago",
+    avatarText: "ST",
+    avatarBg: "bg-blue-600",
+    callType: "missed-video",
+    callIcon: "video",
+    isMissed: true,
+  },
+  {
+    id: "act-2",
+    groupDate: "YESTERDAY",
+    type: "call",
+    title: "Sam Taylor",
+    preview: "Missed video call",
+    timeAgo: "about 14 hours ago",
+    avatarText: "ST",
+    avatarBg: "bg-blue-600",
+    callType: "missed-video",
+    callIcon: "video",
+    isMissed: true,
+  },
+  {
+    id: "act-3",
+    groupDate: "THURSDAY, NOV 12",
+    type: "call",
+    title: "Sam Taylor",
+    preview: "Missed call",
+    timeAgo: "5 days ago",
+    avatarText: "ST",
+    avatarBg: "bg-blue-600",
+    callType: "missed-audio",
+    callIcon: "phone",
+    isMissed: true,
+  },
+  {
+    id: "act-4",
+    groupDate: "MONDAY, NOV 2",
+    type: "message",
+    title: "People of Acme",
+    preview: "@[HR Team] Thank you for the warm welcome to the workspace...",
+    timeAgo: "15 days ago",
+    avatarText: "PE",
+    avatarBg: "bg-green-700",
+  },
+  {
+    id: "act-5",
+    groupDate: "MONDAY, OCT 19",
+    type: "message",
+    title: "Acme Product & Tech Team",
+    preview: "@[Sam Taylor] Let's align on the sprint delivery and next release...",
+    timeAgo: "29 days ago",
+    avatarText: "SN",
+    avatarBg: "bg-blue-600",
+  },
+  {
+    id: "act-6",
+    groupDate: "THURSDAY, OCT 15",
+    type: "message",
+    title: "Acme Team",
+    preview: "Name AWS Region proper s3 bucket for sample data storage...",
+    timeAgo: "about 1 month ago",
+    avatarText: "SN",
+    avatarBg: "bg-indigo-600",
+  },
+  {
+    id: "act-7",
+    groupDate: "THURSDAY, AUG 13",
+    type: "call",
+    title: "Alex Morgan",
+    preview: "Incoming call · 52:09",
+    timeAgo: "3 months ago",
+    avatarText: "AM",
+    avatarBg: "bg-zinc-800",
+    callType: "incoming-audio",
+    callIcon: "phone",
+  },
+  {
+    id: "act-8",
+    groupDate: "TUESDAY, AUG 11",
+    type: "call",
+    title: "Priya Shah",
+    preview: "Missed call",
+    timeAgo: "3 months ago",
+    avatarText: "PS",
+    avatarBg: "bg-pink-600",
+    callType: "missed-audio",
+    callIcon: "phone",
+    isMissed: true,
   },
 ];
