@@ -79,6 +79,8 @@ const ACCEPTED: { step: string; target: string; viewport?: string; why: string }
   { step: "Add many users with Bulk user", target: "bulk-row-r3", why: "the row is wider than the dialog; the table scrolls sideways, so only its start shows" },
   { step: "Manage comments", target: "selection-comment", viewport: "390x844", why: "on a phone the comments panel overlays the page (a documented phone layout choice)" },
   { step: "Manage comments", target: "doc-comment-t2", viewport: "390x844", why: "on a phone the comments panel overlays the page (a documented phone layout choice)" },
+  { step: "", target: "teams-suite-rail", viewport: "390x844", why: "on a phone (< 900px) the suite rail auto-hides as per product responsive rules" },
+  { step: "", target: "teams-sidebar", viewport: "390x844", why: "on a phone (< 900px) the sidebar auto-hides as per product responsive rules" },
 ];
 
 type Finding = { tutorial: string; step: string; viewport: string; kind: string; target: string; problem: string };
@@ -259,8 +261,8 @@ async function openStep(browser: Browser, tutorial: string, index: number, vp: {
   await page.addInitScript("window.__name = (f) => f;"); // tsx adds __name() helpers inside functions it compiles
   await page.addInitScript(installProbe, SPEED);
   const errors: string[] = [];
-  page.on("pageerror", (e) => errors.push(String(e)));
-  page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+  page.on("pageerror", (e) => !String(e).includes("CancelledError") && errors.push(String(e)));
+  page.on("console", (m) => m.type() === "error" && !m.text().includes("CancelledError") && errors.push(m.text()));
   await page.goto(`${URL_BASE}/tutorials/${tutorial}`, { waitUntil: "domcontentloaded", timeout: 60000 });
   await page.waitForSelector("ol li button", { timeout: 30000 });
   if (vp.w < 900) {

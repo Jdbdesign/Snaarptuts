@@ -12,6 +12,7 @@ import { snaarpLock } from "./snaarp-lock";
 import { snaarpMe } from "./snaarp-me";
 import { zeus } from "./zeus";
 import { projects } from "./projects";
+import { teams } from "./teams";
 import type { Tutorial } from "./types";
 
 /** Add a product by importing its config here. The array order is the order shown in the rail dropdown. The player shell never changes. */
@@ -30,6 +31,7 @@ export const tutorials: Tutorial[] = [
   snaarpMe,
   zeus,
   projects,
+  teams,
 ];
 
 export const getTutorial = (id: string) =>

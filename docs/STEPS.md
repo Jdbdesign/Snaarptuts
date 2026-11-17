@@ -2568,6 +2568,49 @@ Source recording:
 - Timeline & Data: `components/projects/projects-timeline.ts` (`beginProjects`, `finishProjects`, `pressOn`, `typeIntoVar`, `hoverOn`, `scrollView`, `pushProjectsToast`), `components/projects/projects-data.ts`
 - Step Scenes: `scenes/projects/step<1..26>/Step<N>.tsx`, `script.ts`
 
+---
+
+# Steps of the Snaarp Teams tutorial
+
+Config: `tutorials/teams.ts`. Total steps: **13 steps**. Route: `/tutorials/teams`.
+Source recording: `C:\Users\HP\Downloads\1116 (1)(2).mp4` (1394x720, 3:37, extracted into `ref/teams/`).
+
+## Step Summary
+
+| Step | Title | Route / URL | Duration |
+|---|---|---|---|
+| 1 | Meet Snaarp Teams | `teams.snaarp.com/chat` | 18.5 s |
+| 2 | Filter your chats | `teams.snaarp.com/chat` | 18.5 s |
+| 3 | Use a chat's menu | `teams.snaarp.com/chat` | 17.5 s |
+| 4 | Start a meeting from the chat list | `teams.snaarp.com/chat` | 21.5 s |
+| 5 | Call a contact | `teams.snaarp.com/chat` | 14.5 s |
+| 6 | See shared files and photos | `teams.snaarp.com/chat` | 15.5 s |
+| 7 | Start a group chat | `teams.snaarp.com/chat` | 24.5 s |
+| 8 | Explore a group chat | `teams.snaarp.com/chat` | 24.5 s |
+| 9 | Rename and pin a group | `teams.snaarp.com/chat` | 18.5 s |
+| 10 | Switch the theme | `teams.snaarp.com/chat` | 12.5 s |
+| 11 | Create and manage meeting links | `teams.snaarp.com/meet` | 23.5 s |
+| 12 | Check scheduled meetings and calls | `teams.snaarp.com/meet` | 20.5 s |
+| 13 | Join with a meeting ID | `teams.snaarp.com/meet` | 14.5 s |
+
+## Architecture & Components
+
+- **Stage & Shell**: `components/teams/TeamsStage.tsx`, `components/teams/TeamsShell.tsx` (60px Snaarp Suite rail, 160px Teams sidebar with Chat, Meet, People, Calendar, Activity, Report a Bug, Logout, and the top bar with global search, theme toggle, apps grid, and avatar).
+- **Views**:
+  - `TeamsChatView.tsx`: Chat list column (search toggle, video button, new chat, All / Unread / Group filter tabs, user notes, chat rows with hover `...` menu and pinning), Main chat area (active chat header with audio/video call, add person, mute, subtabs Chat / Files / Photos, message stream with emojis, hover reaction bar with 👍, input bar with tools, Files empty state, Photos sample card tile, and "Find in chat" drawer).
+  - `TeamsMeetView.tsx`: Sub-tabs Meeting links / Scheduled meetings / Calls, Create meeting link action, Join with ID action, meeting link cards with copy, external open, and delete actions, Scheduled meetings empty state ("Connect Snaarp Me"), and Calls recents list with contact search.
+  - `TeamsPrejoinView.tsx`: Snaarp Meet room pre-join screen with live mic and camera toggle controls, audio/video settings, and Join now action.
+  - `TeamsCallModal.tsx`: Fullscreen dark call view (`#0F0F10`, avatar "ST", "Sam Taylor", "Calling...", mic mute, red End call button, add-person, and minimize).
+- **Modals & Popovers** (`components/teams/TeamsModals.tsx`):
+  - `StartMeetDialog`: Quick meeting generator with copy link and start meeting actions.
+  - `StartGroupChatDialog`: Candidate users checklist with search and Create group action.
+  - `RenameGroupDialog`: Rename modal with text input and Save action.
+  - `JoinWithIdDialog`: Meeting ID or link input with Join meeting action.
+  - `GroupMembersPopover`: Group members list popover (8 members) with role badges and Add people / Leave group actions.
+- **Timeline & Data**: `components/teams/teams-timeline.ts` (`beginTeams`, `finishTeams`, `pushTeamsToast`), `components/teams/teams-data.ts`.
+- **Step Scenes**: `scenes/teams/step<1..13>/Step<N>.tsx`, `script.ts`.
+
+
 
 
 

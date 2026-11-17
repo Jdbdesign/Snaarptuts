@@ -1887,6 +1887,28 @@ Reference video: `C:\Users\HP\Downloads\1116 (1).mp4` (1384×720, 272s / 4:32).
 
 
 
+## Snaarp Teams
+
+Recording: `C:\Users\HP\Downloads\1116 (1)(2).mp4` (1394x720, 3:37, 13 steps).
+
+1. **Sample Data (no real personal data)**:
+   - Current user: Jane Doe, avatar "J", `jane@example.com`.
+   - Contact: Sam Taylor, avatar "ST" (emerald), `sam@example.com`.
+   - Group members: Casey Brown, Jordan Lee, Alex Morgan, Priya Shah, Daniel Okoye, Taylor Reed, Morgan Bailey, all `@example.com`.
+   - Group chat: "Acme Product & Tech Team", renamed to "Acme Product Team".
+   - Meet links: `meet.snaarp.com/acme-weekly-sync` (ID: `wks-sync-942`), `meet.snaarp.com/design-critique-room` (ID: `dsg-crit-108`).
+   - Scheduled meetings: Empty state ("You don't have anything scheduled", Connect Snaarp Me).
+   - Recents call history: Sam Taylor (Outgoing Audio & Incoming Video), Jordan Lee (Incoming Audio), Alex Morgan (Missed Audio).
+
+2. **Differences from Recording**:
+   - Camera video box: Drawn with dark box `#0F0F10`, glowing mic indicator, and user's avatar initial "J", avoiding any dependency on real hardware webcam or static external video streams.
+   - Pre-join room: The video ends in the pre-join room after toggling mic/camera; no live WebRTC peer connection is simulated.
+   - In-app End Call: Added an explicit click on the red End Call button in Step 5 so the full-screen call view closes cleanly and returns to the chat view.
+   - Photos tab: Instead of depending on external image downloads, renders an in-app "Acme card.png" photo preview tile.
+   - Start Group Chat: Finished cleanly with a "Create" button click that mounts the new group chat in the list.
+   - Renaming & Pinning: Added explicit Pin to top and Save clicks matching real Snaarp Teams behavior.
+   - Toasts: In-app floating green toasts ("Meeting link copied", "Meeting link created", "Meeting link removed", "Link copied") provide clean visual feedback.
+
 ## Player rail scrollbars (macOS overlay scrollbars)
 
 Rail scrollbars are custom and always visible so Mac overlay scrollbars do not hide them. Applied via `.rail-scroll` to the product dropdown list, steps list, and search results panel with `overflow-y: auto`, `overflow-x: hidden`, `scrollbar-gutter: stable`, custom 10px `#f6f6f8` track, and rounded `#b8b8c4` thumb (hover `#9a9aaa`).
