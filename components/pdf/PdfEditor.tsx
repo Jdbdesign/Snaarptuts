@@ -24,10 +24,23 @@ import {
   Droplet,
   Share2,
   Languages,
+  Stamp,
+  Shapes,
+  Square,
+  ArrowRight,
+  HelpCircle,
+  Star,
 } from "lucide-react";
-import { EDITOR_TOOLS, type EditorToolId } from "./pdf-data";
+import {
+  EDITOR_TOOLS,
+  type EditorToolId,
+  STAMP_ITEMS,
+  ANNOTATION_SHAPES,
+} from "./pdf-data";
 import { PdfSamplePage, type TextStyleState } from "./PdfSamplePage";
 import { PdfRedactBanner } from "./PdfRedactBanner";
+import { PdfPageLayoutPanel } from "./PdfPageLayoutPanel";
+import { PdfWatermarkPanel } from "./PdfWatermarkPanel";
 
 interface Props {
   editorPage: number;
@@ -56,6 +69,31 @@ interface Props {
   hasImageSig: boolean;
   hasTypeSig: boolean;
   sigColor: string;
+  // Annotations
+  annotSubtool?: "stamps" | "highlight" | "pencil" | "shapes" | null;
+  isStampsOpen?: boolean;
+  selectedStamp?: string | null;
+  hasApprovedStamp?: boolean;
+  isShapesOpen?: boolean;
+  selectedShape?: string | null;
+  hasCheckShape?: boolean;
+  hasCircleShape?: boolean;
+  // Links & Layout
+  linksViewMode?: "single" | "two-page";
+  linksLineThickness?: number;
+  isPageLayoutOpen?: boolean;
+  pageLayoutMode?: "single" | "twopage";
+  pageLayoutTransition?: "vertical" | "horizontal";
+  pageRotation?: number;
+  // Watermark
+  isWatermarkOpen?: boolean;
+  watermarkText?: string;
+  watermarkOpacity?: number;
+  watermarkRotation?: number;
+  watermarkSize?: number;
+  watermarkColor?: string;
+  watermarkApplyTo?: "all" | "specific";
+  hasWatermarkApplied?: boolean;
   // Event handlers
   onBackClick?: () => void;
   onDoneClick?: () => void;
@@ -74,6 +112,31 @@ interface Props {
   onDeleteImage?: () => void;
   onImageHandleDrag?: () => void;
   onCanvasClick?: (e: React.MouseEvent) => void;
+  // Annotations handlers
+  onToggleStamps?: () => void;
+  onSelectStamp?: (stampId: string) => void;
+  onToggleShapes?: () => void;
+  onSelectShape?: (shapeId: string) => void;
+  onSelectAnnotSubtool?: (subtool: "stamps" | "highlight" | "pencil" | "shapes") => void;
+  onDeleteStamp?: () => void;
+  // Links & Layout handlers
+  onLinksViewModeChange?: (mode: "single" | "two-page") => void;
+  onLinksLineThicknessChange?: (thickness: number) => void;
+  onPageLayoutModeChange?: (mode: "single" | "twopage") => void;
+  onPageLayoutTransitionChange?: (transition: "vertical" | "horizontal") => void;
+  onRotateCCW?: () => void;
+  onRotateCW?: () => void;
+  onClosePageLayout?: () => void;
+  // Watermark handlers
+  onWatermarkTextChange?: (text: string) => void;
+  onWatermarkOpacityChange?: (opacity: number) => void;
+  onWatermarkRotationChange?: (rotation: number) => void;
+  onSizeChange?: (size: number) => void;
+  onWatermarkColorChange?: (color: string) => void;
+  onWatermarkApplyToChange?: (applyTo: "all" | "specific") => void;
+  onApplyWatermark?: () => void;
+  onRemoveWatermark?: () => void;
+  onCloseWatermark?: () => void;
 }
 
 export function PdfEditor({
@@ -101,6 +164,28 @@ export function PdfEditor({
   hasImageSig,
   hasTypeSig,
   sigColor,
+  annotSubtool = null,
+  isStampsOpen = false,
+  selectedStamp = null,
+  hasApprovedStamp = false,
+  isShapesOpen = false,
+  selectedShape = null,
+  hasCheckShape = false,
+  hasCircleShape = false,
+  linksViewMode = "single",
+  linksLineThickness = 2,
+  isPageLayoutOpen = false,
+  pageLayoutMode = "single",
+  pageLayoutTransition = "vertical",
+  pageRotation = 0,
+  isWatermarkOpen = false,
+  watermarkText = "",
+  watermarkOpacity = 50,
+  watermarkRotation = 45,
+  watermarkSize = 48,
+  watermarkColor = "#9CA3AF",
+  watermarkApplyTo = "all",
+  hasWatermarkApplied = false,
   onBackClick,
   onDoneClick,
   onSelectTool,
@@ -118,10 +203,31 @@ export function PdfEditor({
   onDeleteImage,
   onImageHandleDrag,
   onCanvasClick,
+  onToggleStamps,
+  onSelectStamp,
+  onToggleShapes,
+  onSelectShape,
+  onSelectAnnotSubtool,
+  onDeleteStamp,
+  onLinksViewModeChange,
+  onLinksLineThicknessChange,
+  onPageLayoutModeChange,
+  onPageLayoutTransitionChange,
+  onRotateCCW,
+  onRotateCW,
+  onClosePageLayout,
+  onWatermarkTextChange,
+  onWatermarkOpacityChange,
+  onWatermarkRotationChange,
+  onSizeChange,
+  onWatermarkColorChange,
+  onWatermarkApplyToChange,
+  onApplyWatermark,
+  onRemoveWatermark,
+  onCloseWatermark,
 }: Props) {
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  // Icon mapping for all 23 tools
   const getToolIcon = (id: EditorToolId) => {
     switch (id) {
       case "pages": return <Columns className="w-4 h-4" />;
@@ -162,6 +268,8 @@ export function PdfEditor({
 
   const highlightWidths = ["5px", "8px", "10px", "14px", "20px"];
 
+  const isTwoPageSpread = linksViewMode === "two-page" || pageLayoutMode === "twopage";
+
   return (
     <div
       data-tl="pdf-editor-root"
@@ -185,7 +293,7 @@ export function PdfEditor({
             data-tl="editor-title"
             className="text-xs font-semibold text-gray-800 tracking-tight"
           >
-            Untitled Document
+            Acme Resume.pdf
           </span>
         </div>
 
@@ -193,7 +301,7 @@ export function PdfEditor({
           type="button"
           data-tl="editor-done-btn"
           onClick={onDoneClick}
-          className="bg-[#DC2626] hover:bg-red-700 text-white font-semibold text-xs px-5 py-1.5 rounded-lg shadow-sm transition-all"
+          className="bg-[#DC2626] hover:bg-red-700 text-white font-semibold text-xs px-5 py-1.5 rounded-lg shadow-xs transition-all"
         >
           Done
         </button>
@@ -226,6 +334,7 @@ export function PdfEditor({
       </div>
 
       {/* 3. Option Bar (Conditional) */}
+      {/* 3a. Add/Edit Text */}
       {(activeTool === "addText" || activeTool === "editText") && (
         <div
           data-tl="editor-option-bar"
@@ -315,10 +424,10 @@ export function PdfEditor({
         </div>
       )}
 
-      {/* Redact Yellow Banner */}
+      {/* 3b. Redact Yellow Banner */}
       {isRedactBannerOpen && <PdfRedactBanner isOpen={true} />}
 
-      {/* Highlight & Pencil Option Bar */}
+      {/* 3c. Highlight & Pencil Option Bar */}
       {(activeTool === "highlight" || activeTool === "pencil") && (
         <div
           data-tl="editor-option-bar"
@@ -363,6 +472,233 @@ export function PdfEditor({
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* 3d. Annotations Option Bar */}
+      {activeTool === "annotations" && (
+        <div
+          data-tl="annotations-option-bar"
+          className="relative h-11 bg-white border-b border-gray-200 px-4 flex items-center gap-3 text-xs z-20 shrink-0"
+        >
+          <button
+            type="button"
+            data-tl="annot-btn-stamps"
+            onClick={onToggleStamps}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors ${
+              isStampsOpen || annotSubtool === "stamps"
+                ? "bg-purple-100 text-purple-700 font-semibold"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            <Stamp className="w-3.5 h-3.5" />
+            <span>Stamps</span>
+          </button>
+
+          <div className="h-4 w-px bg-gray-200" />
+
+          <button
+            type="button"
+            data-tl="annot-btn-highlight"
+            onClick={() => onSelectAnnotSubtool?.("highlight")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors ${
+              annotSubtool === "highlight"
+                ? "bg-purple-100 text-purple-700 font-semibold"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            <Highlighter className="w-3.5 h-3.5" />
+            <span>Highlight</span>
+          </button>
+
+          <button
+            type="button"
+            data-tl="annot-btn-pencil"
+            onClick={() => onSelectAnnotSubtool?.("pencil")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors ${
+              annotSubtool === "pencil"
+                ? "bg-purple-100 text-purple-700 font-semibold"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            <Pencil className="w-3.5 h-3.5" />
+            <span>Pencil</span>
+          </button>
+
+          <div className="h-4 w-px bg-gray-200" />
+
+          <button
+            type="button"
+            data-tl="annot-btn-shapes"
+            onClick={onToggleShapes}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors ${
+              isShapesOpen || annotSubtool === "shapes"
+                ? "bg-purple-100 text-purple-700 font-semibold"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            <Shapes className="w-3.5 h-3.5" />
+            <span>Shapes</span>
+          </button>
+
+          {/* Stamps Palette Card Dropdown */}
+          {isStampsOpen && (
+            <div
+              data-tl="stamps-palette-card"
+              className="absolute top-12 left-4 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 flex flex-col gap-3 z-30 select-none animate-in fade-in zoom-in-95 duration-150"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                ICON STAMPS
+              </span>
+              <div className="grid grid-cols-3 gap-2">
+                {STAMP_ITEMS.filter((s) => s.category === "icon").map((stamp) => (
+                  <button
+                    key={stamp.id}
+                    type="button"
+                    data-tl={`stamp-item-${stamp.id}`}
+                    onClick={() => onSelectStamp?.(stamp.id)}
+                    className="flex items-center justify-center p-2 rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-xs font-semibold"
+                  >
+                    {stamp.id === "arrow" && <ArrowRight className="w-4 h-4 text-red-500" />}
+                    {stamp.id === "question" && <HelpCircle className="w-4 h-4 text-amber-500" />}
+                    {stamp.id === "star" && <Star className="w-4 h-4 text-amber-500" />}
+                  </button>
+                ))}
+              </div>
+
+              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mt-1">
+                TEXT STAMPS
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                {STAMP_ITEMS.filter((s) => s.category === "text").map((stamp) => {
+                  const isSelected = selectedStamp === stamp.id;
+                  return (
+                    <button
+                      key={stamp.id}
+                      type="button"
+                      data-tl={`stamp-item-${stamp.id}`}
+                      onClick={() => onSelectStamp?.(stamp.id)}
+                      className={`py-1.5 px-2 rounded-lg border text-center font-bold text-[11px] uppercase tracking-wide transition-transform hover:scale-105 ${
+                        isSelected ? "ring-2 ring-purple-600 ring-offset-1" : ""
+                      }`}
+                      style={{
+                        borderColor: stamp.borderColor,
+                        color: stamp.color,
+                        backgroundColor: stamp.bgColor,
+                      }}
+                    >
+                      {stamp.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="pt-2 border-t border-gray-100 text-[10px] text-gray-400 text-center italic">
+                Click on the canvas to place the stamp
+              </div>
+            </div>
+          )}
+
+          {/* Shapes Palette Card Dropdown */}
+          {isShapesOpen && (
+            <div
+              data-tl="shapes-palette-card"
+              className="absolute top-12 left-64 w-56 bg-white rounded-2xl shadow-2xl border border-gray-200 p-3 flex flex-col gap-2 z-30 select-none animate-in fade-in zoom-in-95 duration-150"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 px-1">
+                SHAPES
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                {ANNOTATION_SHAPES.map((shape) => {
+                  const isSelected = selectedShape === shape.id;
+                  return (
+                    <button
+                      key={shape.id}
+                      type="button"
+                      data-tl={`shape-item-${shape.id}`}
+                      onClick={() => onSelectShape?.(shape.id)}
+                      className={`flex items-center gap-2 p-2 rounded-xl border text-xs font-medium text-gray-700 transition-colors ${
+                        isSelected
+                          ? "border-purple-600 bg-purple-50 text-purple-700 font-semibold"
+                          : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                      }`}
+                    >
+                      {shape.id === "box" && <Square className="w-4 h-4 text-gray-700" />}
+                      {shape.id === "circle" && <Circle className="w-4 h-4 fill-gray-700 text-gray-700" />}
+                      {shape.id === "circle-stroke" && <Circle className="w-4 h-4 text-gray-700" />}
+                      {shape.id === "cross" && <CrossIcon className="w-4 h-4 text-rose-600" />}
+                      {shape.id === "check" && <CheckIcon className="w-4 h-4 text-emerald-600" />}
+                      <span>{shape.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 3e. Links Option Bar */}
+      {activeTool === "links" && (
+        <div
+          data-tl="links-option-bar"
+          className="h-11 bg-white border-b border-gray-200 px-4 flex items-center gap-4 text-xs z-20 shrink-0"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-gray-700">View:</span>
+            <select
+              data-tl="links-view-select"
+              value={linksViewMode}
+              onChange={(e) => onLinksViewModeChange?.(e.target.value as "single" | "two-page")}
+              className="text-xs bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1 text-gray-700 font-medium focus:outline-none"
+            >
+              <option value="single">Single</option>
+              <option value="two-page">Two-Page</option>
+            </select>
+          </div>
+
+          <div className="h-4 w-px bg-gray-200" />
+
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-semibold text-gray-700">Zoom:</span>
+            <button
+              type="button"
+              data-tl="links-zoom-out"
+              onClick={onZoomOut}
+              className="w-5 h-5 rounded border border-gray-200 flex items-center justify-center font-bold text-gray-600 hover:bg-gray-100"
+            >
+              -
+            </button>
+            <span data-tl="links-zoom-label" className="text-xs font-semibold text-gray-700 px-1">
+              {zoom}%
+            </span>
+            <button
+              type="button"
+              data-tl="links-zoom-in"
+              onClick={onZoomIn}
+              className="w-5 h-5 rounded border border-gray-200 flex items-center justify-center font-bold text-gray-600 hover:bg-gray-100"
+            >
+              +
+            </button>
+          </div>
+
+          <div className="h-4 w-px bg-gray-200" />
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-gray-700">Line Thickness:</span>
+            <input
+              type="range"
+              data-tl="links-thickness-slider"
+              min="1"
+              max="10"
+              value={linksLineThickness}
+              onChange={(e) => onLinksLineThicknessChange?.(Number(e.target.value))}
+              className="w-24 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600"
+            />
+            <span data-tl="links-thickness-label" className="text-xs font-semibold text-gray-700">
+              {linksLineThickness}px
+            </span>
           </div>
         </div>
       )}
@@ -427,9 +763,15 @@ export function PdfEditor({
           className="flex-1 overflow-y-auto bg-[#6B7280] p-8 flex flex-col items-center relative"
         >
           <div
-            data-tl="editor-page-canvas"
-            className="flex flex-col items-center gap-8 transition-transform origin-top"
-            style={{ transform: `scale(${zoom / 100})` }}
+            data-tl={isTwoPageSpread ? "canvas-two-page" : "editor-page-canvas"}
+            className={`transition-transform origin-top ${
+              isTwoPageSpread
+                ? "flex flex-row gap-6 items-start justify-center flex-wrap"
+                : "flex flex-col items-center gap-8"
+            }`}
+            style={{
+              transform: `scale(${zoom / 100}) rotate(${pageRotation}deg)`,
+            }}
           >
             {[1, 2, 3].map((pNum) => (
               <div key={pNum} id={`canvas-page-${pNum}`}>
@@ -454,15 +796,57 @@ export function PdfEditor({
                   hasImageSig={hasImageSig}
                   hasTypeSig={hasTypeSig}
                   sigColor={sigColor}
+                  hasApprovedStamp={hasApprovedStamp}
+                  hasCheckShape={hasCheckShape}
+                  hasCircleShape={hasCircleShape}
+                  watermarkText={watermarkText}
+                  watermarkOpacity={watermarkOpacity}
+                  watermarkRotation={watermarkRotation}
+                  watermarkSize={watermarkSize}
+                  watermarkColor={watermarkColor}
+                  hasWatermarkApplied={hasWatermarkApplied}
                   onTextSpotClick={onTextSpotClick}
                   onPlacedTextClick={onPlacedTextClick}
                   onDeleteImage={onDeleteImage}
                   onImageHandleDrag={onImageHandleDrag}
+                  onDeleteStamp={onDeleteStamp}
                 />
               </div>
             ))}
           </div>
         </main>
+
+        {/* Floating Panels on the right */}
+        <PdfPageLayoutPanel
+          isOpen={isPageLayoutOpen}
+          mode={pageLayoutMode}
+          transition={pageLayoutTransition}
+          onSelectMode={onPageLayoutModeChange}
+          onSelectTransition={onPageLayoutTransitionChange}
+          onRotateCcw={onRotateCCW}
+          onRotateCw={onRotateCW}
+          onClose={onClosePageLayout}
+        />
+
+        <PdfWatermarkPanel
+          isOpen={isWatermarkOpen}
+          text={watermarkText}
+          opacity={watermarkOpacity}
+          rotation={watermarkRotation}
+          size={watermarkSize}
+          color={watermarkColor}
+          applyTo={watermarkApplyTo}
+          hasApplied={hasWatermarkApplied}
+          onTextChange={onWatermarkTextChange}
+          onOpacityChange={onWatermarkOpacityChange}
+          onRotationChange={onWatermarkRotationChange}
+          onSizeChange={onSizeChange}
+          onColorChange={onWatermarkColorChange}
+          onApplyToChange={onWatermarkApplyToChange}
+          onApply={onApplyWatermark}
+          onRemove={onRemoveWatermark}
+          onClose={onCloseWatermark}
+        />
 
         {/* 5. Bottom Page / Zoom Dark Floating Capsule */}
         <div

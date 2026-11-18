@@ -1922,7 +1922,7 @@ Rail scrollbars are custom and always visible so Mac overlay scrollbars do not h
 
 ## Snaarp PDF
 
-Recording: `C:\Users\HP\Downloads\1118.mp4` (1386x720, 7:17, 12 steps). Route `/tutorials/pdf`.
+Recordings: `C:\Users\HP\Downloads\1118.mp4` (Part 1, 7:17, steps 1–12) and `C:\Users\HP\Downloads\1118 (1).mp4` (Part 2, 5:11, steps 13–17). Route `/tutorials/pdf`.
 
 1. **Sample Data (Strict Neutralization of Private/Personal Data)**:
    - User: Jane Doe, `jane@example.com`, avatar "J" with green dot.
@@ -1930,22 +1930,29 @@ Recording: `C:\Users\HP\Downloads\1118.mp4` (1386x720, 7:17, 12 steps). Route `/
    - Initial and uploaded files: "Acme Brief.pdf", "Acme Resume.pdf", "Acme Project Brief.pdf", "Q3 Report.pdf", "Site Photo.jpg", "Signature.png", "Design Doc.pdf", "Meeting Notes.pdf". Replaces personal Google Drive files (e.g. "Snaarp Logos.pdf").
    - Signature initials: "JD" typed in the Type tab so the 4 font cards show "JD" (replaces the video's "JDB").
    - UK locale dates: DD/MM/YYYY, today = Wed 18 Nov 2026.
+   - Watermark text: "Detailed" (types cleanly, replacing any personal strings).
+   - Export file name: "Personal File" (replaces personal naming).
 
 2. **In-App Controls & Dialogs (No OS or Browser Chrome)**:
    - **In-App File Picker**: Built as `PdfFilePickerModal.tsx` showing Snaarp file cards ("Site Photo.jpg", "Signature.png", "Acme Brief.pdf", etc.) with radio selection and Open/Cancel buttons, replacing the native OS file dialog.
    - **Processing Modal**: Built as `PdfProcessing.tsx` with white floating card and 0-100% emerald green progress bar.
    - **Redaction Banner**: Built as `PdfRedactBanner.tsx` displaying the amber/yellow warning banner below the toolbar during redact mode.
    - **Signature Dialog**: Built as `PdfSignatureDialog.tsx` with all 4 tabs (Draw with freehand canvas, Image with dashed dropzone & picker, Type with 4 styled font cards & color picker, Saved with empty state & trash icon).
-   - **Toasts**: In-app emerald toasts (`pushPdfToast`) for "File uploaded successfully", "Document saved", and "Download started".
+   - **Annotations Palette**: Built as `stamps-palette-card` (ICON STAMPS and TEXT STAMPS with APPROVED, DRAFT, CONFIDENTIAL, REJECTED, FINAL, COPY) and `shapes-palette-card` (Box, Circle, Circle Stroke, Cross, Check).
+   - **Page Layout Panel**: Built as `PdfPageLayoutPanel.tsx` floating right panel with Single/Two-Page spread, Vertical/Horizontal transitions, and 90° CCW/CW rotation buttons.
+   - **Manage Pages View**: Built as `PdfManagePagesView.tsx` full-screen modal with top action bar, thumbnail cards with circular badges 1, 2, 3, and Cancel/Save buttons.
+   - **Watermark Panel**: Built as `PdfWatermarkPanel.tsx` floating right panel with text input (with character counter), opacity slider, rotation slider, size slider, 8 color swatches, and Apply / Remove buttons.
+   - **Export Modal**: Built as `PdfExportModal.tsx` with "Great Job! 🎉", 6 format cards grid, File Name input with character guideline, and red Download button.
+   - **Toasts**: In-app emerald toasts (`pushPdfToast`) for "File uploaded successfully", "Document saved", "Watermark applied successfully", "Pages saved", and "Download started".
 
 3. **Editor Features (`PdfEditor.tsx`)**:
-   - Header with back button, "Untitled Document" label, and red "Done" button.
+   - Header with back button, document title label, and red "Done" button.
    - 23 editing tools toolbar matching recorded order.
-   - Contextual option bars for text styling (Font Family, Size, B/I/U, Swatch) and highlight/pencil (Color swatches, Width chips).
+   - Contextual option bars for text styling (Font Family, Size, B/I/U, Swatch), highlight/pencil (Color swatches, Width chips), annotations (Stamps, Highlight, Pencil, Shapes), and links (View mode, Zoom, Line Thickness slider).
    - Left Pages panel with mini resume page thumbnails.
-   - Scrollable canvas with 3-page document supporting text insertion, redaction boxes, highlight overlays, pencil curves, image resizing with handles and delete circle, red ellipses, red X mark, green checkmark, and signature placements.
+   - Scrollable canvas with 3-page document supporting single-page and two-page spreads, text insertion, redaction boxes, highlight overlays, pencil curves, image resizing, placed stamps with blue dashed selection border and red delete button, check shape, and diagonal translucent watermark text across all pages.
    - Bottom floating capsule with Page `< 1/3 >`, Zoom `- 100% +`, and Fit Width.
 
 4. **Completion Flow**:
-   - Step 12 finishes by clicking the red Done button, showing the processing modal, returning to My files with "Acme Resume.pdf" in the list, downloading the file, and seamlessly showing the completion card with Replay and Back to Snaarp buttons.
+   - The completion card automatically follows step 17 with "You're all set", Replay, and Back to Snaarp buttons (no longer following step 12).
 

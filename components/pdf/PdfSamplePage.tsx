@@ -33,11 +33,22 @@ interface Props {
   hasImageSig?: boolean;
   hasTypeSig?: boolean;
   sigColor?: string;
+  // Annotations & Watermark
+  hasApprovedStamp?: boolean;
+  hasCheckShape?: boolean;
+  hasCircleShape?: boolean;
+  watermarkText?: string;
+  watermarkOpacity?: number;
+  watermarkRotation?: number;
+  watermarkSize?: number;
+  watermarkColor?: string;
+  hasWatermarkApplied?: boolean;
   onPageClick?: (e: React.MouseEvent) => void;
   onTextSpotClick?: () => void;
   onPlacedTextClick?: () => void;
   onDeleteImage?: () => void;
   onImageHandleDrag?: () => void;
+  onDeleteStamp?: () => void;
 }
 
 export function PdfSamplePage({
@@ -68,11 +79,20 @@ export function PdfSamplePage({
   hasImageSig = false,
   hasTypeSig = false,
   sigColor = "#000000",
+  hasApprovedStamp = false,
+  hasCheckShape = false,
+  watermarkText = "",
+  watermarkOpacity = 50,
+  watermarkRotation = 45,
+  watermarkSize = 48,
+  watermarkColor = "#9CA3AF",
+  hasWatermarkApplied = false,
   onPageClick,
   onTextSpotClick,
   onPlacedTextClick,
   onDeleteImage,
   onImageHandleDrag,
+  onDeleteStamp,
 }: Props) {
   return (
     <div
@@ -501,6 +521,62 @@ export function PdfSamplePage({
                 JD
               </div>
             )}
+
+            {/* 9. Placed APPROVED Stamp */}
+            {hasApprovedStamp && (
+              <div
+                data-tl="placed-stamp-approved"
+                className="absolute top-1/3 left-1/2 -translate-x-1/2 z-25 border-2 border-dashed border-blue-500 rounded-lg p-2 bg-blue-50/20 flex items-center gap-2 group cursor-pointer"
+              >
+                <button
+                  type="button"
+                  data-tl="stamp-delete-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteStamp?.();
+                  }}
+                  className="absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-red-600 text-white flex items-center justify-center shadow-xs"
+                >
+                  <X className="w-3 h-3 stroke-[3]" />
+                </button>
+                <div className="border-2 border-emerald-600 text-emerald-600 font-black px-4 py-1.5 rounded-sm uppercase tracking-wider text-sm bg-emerald-50/50">
+                  APPROVED
+                </div>
+              </div>
+            )}
+
+            {/* 10. Placed Check Shape */}
+            {hasCheckShape && (
+              <div
+                data-tl="placed-shape-check"
+                className="absolute top-1/2 right-20 z-25 w-8 h-8 rounded-full bg-purple-100 border border-purple-600 flex items-center justify-center text-purple-700 shadow-xs"
+              >
+                <Check className="w-5 h-5 stroke-[3]" />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Watermark Overlay (Rendered across document pages when applied) */}
+      {hasWatermarkApplied && watermarkText && (
+        <div
+          data-tl="page-watermark-text"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-20 overflow-hidden"
+        >
+          <div
+            style={{
+              transform: `rotate(-${watermarkRotation}deg)`,
+              opacity: watermarkOpacity / 100,
+              fontSize: `${watermarkSize}px`,
+              color: watermarkColor,
+              fontWeight: 800,
+              letterSpacing: "0.05em",
+              whiteSpace: "nowrap",
+              userSelect: "none",
+            }}
+          >
+            {watermarkText}
           </div>
         </div>
       )}

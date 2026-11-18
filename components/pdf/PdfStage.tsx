@@ -3,7 +3,7 @@
 import React from "react";
 import type { Timeline } from "@/lib/timeline";
 import { useTimelineVar } from "@/lib/useTimelineVar";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Info } from "lucide-react";
 import { PdfShell, type PdfNav } from "./PdfShell";
 import { PdfFilesView } from "./PdfFilesView";
 import { PdfUploadView } from "./PdfUploadView";
@@ -11,6 +11,8 @@ import { PdfFilePickerModal } from "./PdfFilePickerModal";
 import { PdfProcessing } from "./PdfProcessing";
 import { PdfEditor } from "./PdfEditor";
 import { PdfSignatureDialog, type SigTab } from "./PdfSignatureDialog";
+import { PdfManagePagesView } from "./PdfManagePagesView";
+import { PdfExportModal } from "./PdfExportModal";
 import {
   INITIAL_FILES,
   type EditorToolId,
@@ -101,6 +103,46 @@ export function PdfStage({ tl }: Props) {
   const hasImageSig = useTimelineVar<boolean>(tl, "pdf:hasImageSig", false);
   const hasTypeSig = useTimelineVar<boolean>(tl, "pdf:hasTypeSig", false);
 
+  // Annotations
+  const annotSubtool = useTimelineVar<"stamps" | "highlight" | "pencil" | "shapes" | null>(tl, "pdf:annotSubtool", null);
+  const isStampsOpen = useTimelineVar<boolean>(tl, "pdf:isStampsOpen", false);
+  const selectedStamp = useTimelineVar<string | null>(tl, "pdf:selectedStamp", null);
+  const hasApprovedStamp = useTimelineVar<boolean>(tl, "pdf:hasApprovedStamp", false);
+  const isShapesOpen = useTimelineVar<boolean>(tl, "pdf:isShapesOpen", false);
+  const selectedShape = useTimelineVar<string | null>(tl, "pdf:selectedShape", null);
+  const hasCheckShape = useTimelineVar<boolean>(tl, "pdf:hasCheckShape", false);
+  const hasCircleShape = useTimelineVar<boolean>(tl, "pdf:hasCircleShape", false);
+
+  // Links & Layout
+  const linksViewMode = useTimelineVar<"single" | "two-page">(tl, "pdf:linksViewMode", "single");
+  const linksLineThickness = useTimelineVar<number>(tl, "pdf:linksLineThickness", 2);
+  const isPageLayoutOpen = useTimelineVar<boolean>(tl, "pdf:isPageLayoutOpen", false);
+  const pageLayoutMode = useTimelineVar<"single" | "twopage">(tl, "pdf:pageLayoutMode", "single");
+  const pageLayoutTransition = useTimelineVar<"vertical" | "horizontal">(tl, "pdf:pageLayoutTransition", "vertical");
+  const pageRotation = useTimelineVar<number>(tl, "pdf:pageRotation", 0);
+
+  // Manage Pages
+  const isManagePagesOpen = useTimelineVar<boolean>(tl, "pdf:isManagePagesOpen", false);
+
+  // Watermark
+  const isWatermarkOpen = useTimelineVar<boolean>(tl, "pdf:isWatermarkOpen", false);
+  const typedWatermark = useTimelineVar<string>(tl, "field:watermark-text-input", "");
+  const baseWatermark = useTimelineVar<string>(tl, "pdf:watermarkText", "");
+  const watermarkText = typedWatermark || baseWatermark;
+  const watermarkOpacity = useTimelineVar<number>(tl, "pdf:watermarkOpacity", 50);
+  const watermarkRotation = useTimelineVar<number>(tl, "pdf:watermarkRotation", 45);
+  const watermarkSize = useTimelineVar<number>(tl, "pdf:watermarkSize", 48);
+  const watermarkColor = useTimelineVar<string>(tl, "pdf:watermarkColor", "#9CA3AF");
+  const watermarkApplyTo = useTimelineVar<"all" | "specific">(tl, "pdf:watermarkApplyTo", "all");
+  const hasWatermarkApplied = useTimelineVar<boolean>(tl, "pdf:hasWatermarkApplied", false);
+
+  // Export
+  const isExportOpen = useTimelineVar<boolean>(tl, "pdf:isExportOpen", false);
+  const exportFormat = useTimelineVar<string>(tl, "pdf:exportFormat", "pdf");
+  const typedExportFileName = useTimelineVar<string>(tl, "field:export-filename-input", "");
+  const baseExportFileName = useTimelineVar<string>(tl, "pdf:exportFileName", "Personal File");
+  const exportFileName = typedExportFileName || baseExportFileName;
+
   // Toasts
   const toasts = useTimelineVar<PdfToast[]>(tl, "pdf:toasts", []);
 
@@ -143,7 +185,9 @@ export function PdfStage({ tl }: Props) {
   };
 
   const handleSelectTool = (toolId: EditorToolId) => {
-    tl.setVar("pdf:activeTool", toolId);
+    if (toolId !== "undo" && toolId !== "redo") {
+      tl.setVar("pdf:activeTool", toolId);
+    }
     if (toolId === "redact") {
       tl.setVar("pdf:isRedactBannerOpen", !isRedactBannerOpen);
     } else if (toolId === "sign") {
@@ -151,6 +195,17 @@ export function PdfStage({ tl }: Props) {
     } else if (toolId === "image") {
       tl.setVar("pdf:isPickerOpen", true);
       tl.setVar("pdf:pickerAction", "image");
+    } else if (toolId === "annotations") {
+      tl.setVar("pdf:isStampsOpen", false);
+      tl.setVar("pdf:isShapesOpen", false);
+    } else if (toolId === "pageLayout") {
+      tl.setVar("pdf:isPageLayoutOpen", !isPageLayoutOpen);
+    } else if (toolId === "managePages") {
+      tl.setVar("pdf:isManagePagesOpen", true);
+    } else if (toolId === "watermark") {
+      tl.setVar("pdf:isWatermarkOpen", !isWatermarkOpen);
+    } else if (toolId === "undo") {
+      pushPdfToast(tl, "Action undone", "info");
     }
   };
 
@@ -188,6 +243,17 @@ export function PdfStage({ tl }: Props) {
     pushPdfToast(tl, "Download started");
   };
 
+  const handleCanvasClick = () => {
+    if (isTextSelected) {
+      tl.setVar("pdf:isTextSelected", false);
+    }
+    // Step 13 stamp placement
+    if (activeTool === "annotations" && selectedStamp === "approved") {
+      tl.setVar("pdf:hasApprovedStamp", true);
+      tl.setVar("pdf:isStampsOpen", false);
+    }
+  };
+
   return (
     <div data-scroller data-tl="pdf-stage" className="relative h-full w-full overflow-hidden select-none">
       {/* View Switcher: Editor takes full stage, otherwise render inside PdfShell */}
@@ -217,13 +283,40 @@ export function PdfStage({ tl }: Props) {
           hasImageSig={hasImageSig}
           hasTypeSig={hasTypeSig}
           sigColor={sigColor}
+          annotSubtool={annotSubtool}
+          isStampsOpen={isStampsOpen}
+          selectedStamp={selectedStamp}
+          hasApprovedStamp={hasApprovedStamp}
+          isShapesOpen={isShapesOpen}
+          selectedShape={selectedShape}
+          hasCheckShape={hasCheckShape}
+          hasCircleShape={hasCircleShape}
+          linksViewMode={linksViewMode}
+          linksLineThickness={linksLineThickness}
+          isPageLayoutOpen={isPageLayoutOpen}
+          pageLayoutMode={pageLayoutMode}
+          pageLayoutTransition={pageLayoutTransition}
+          pageRotation={pageRotation}
+          isWatermarkOpen={isWatermarkOpen}
+          watermarkText={watermarkText}
+          watermarkOpacity={watermarkOpacity}
+          watermarkRotation={watermarkRotation}
+          watermarkSize={watermarkSize}
+          watermarkColor={watermarkColor}
+          watermarkApplyTo={watermarkApplyTo}
+          hasWatermarkApplied={hasWatermarkApplied}
           onBackClick={() => {
             tl.setVar("pdf:view", "files");
             tl.setVar("pdf:activeNav", "my-files");
           }}
           onDoneClick={() => {
-            tl.setVar("pdf:isProcessing", true);
-            tl.setVar("pdf:processingPercent", 0);
+            const stepId = tl.getVar<string>("step:id", "");
+            if (stepId === "pdf-export" || stepId === "pdf-finish") {
+              tl.setVar("pdf:isExportOpen", true);
+            } else {
+              tl.setVar("pdf:isProcessing", true);
+              tl.setVar("pdf:processingPercent", 0);
+            }
           }}
           onSelectTool={handleSelectTool}
           onSelectPage={handleSelectPage}
@@ -249,11 +342,52 @@ export function PdfStage({ tl }: Props) {
           onImageHandleDrag={() => {
             // resize feedback
           }}
-          onCanvasClick={() => {
-            if (isTextSelected) {
-              tl.setVar("pdf:isTextSelected", false);
+          onCanvasClick={handleCanvasClick}
+          onToggleStamps={() => tl.setVar("pdf:isStampsOpen", !isStampsOpen)}
+          onSelectStamp={(stampId) => {
+            tl.setVar("pdf:selectedStamp", stampId);
+            tl.setVar("pdf:annotSubtool", "stamps");
+          }}
+          onToggleShapes={() => tl.setVar("pdf:isShapesOpen", !isShapesOpen)}
+          onSelectShape={(shapeId) => {
+            tl.setVar("pdf:selectedShape", shapeId);
+            tl.setVar("pdf:annotSubtool", "shapes");
+            if (shapeId === "check") {
+              tl.setVar("pdf:hasCheckShape", true);
+              tl.setVar("pdf:isShapesOpen", false);
             }
           }}
+          onSelectAnnotSubtool={(subtool) => {
+            tl.setVar("pdf:annotSubtool", subtool);
+            if (subtool === "highlight") {
+              tl.setVar("pdf:hasHighlights", true);
+            } else if (subtool === "pencil") {
+              tl.setVar("pdf:hasPencilRed", true);
+            }
+          }}
+          onDeleteStamp={() => tl.setVar("pdf:hasApprovedStamp", false)}
+          onLinksViewModeChange={(m) => tl.setVar("pdf:linksViewMode", m)}
+          onLinksLineThicknessChange={(th) => tl.setVar("pdf:linksLineThickness", th)}
+          onPageLayoutModeChange={(m) => tl.setVar("pdf:pageLayoutMode", m)}
+          onPageLayoutTransitionChange={(tr) => tl.setVar("pdf:pageLayoutTransition", tr)}
+          onRotateCCW={() => tl.setVar("pdf:pageRotation", pageRotation - 90)}
+          onRotateCW={() => tl.setVar("pdf:pageRotation", pageRotation + 90)}
+          onClosePageLayout={() => tl.setVar("pdf:isPageLayoutOpen", false)}
+          onWatermarkTextChange={(t) => tl.setVar("pdf:watermarkText", t)}
+          onWatermarkOpacityChange={(op) => tl.setVar("pdf:watermarkOpacity", op)}
+          onWatermarkRotationChange={(r) => tl.setVar("pdf:watermarkRotation", r)}
+          onSizeChange={(s) => tl.setVar("pdf:watermarkSize", s)}
+          onWatermarkColorChange={(c) => tl.setVar("pdf:watermarkColor", c)}
+          onWatermarkApplyToChange={(ap) => tl.setVar("pdf:watermarkApplyTo", ap)}
+          onApplyWatermark={() => {
+            tl.setVar("pdf:hasWatermarkApplied", true);
+            pushPdfToast(tl, "Watermark applied successfully");
+          }}
+          onRemoveWatermark={() => {
+            tl.setVar("pdf:hasWatermarkApplied", false);
+            pushPdfToast(tl, "Watermark removed", "info");
+          }}
+          onCloseWatermark={() => tl.setVar("pdf:isWatermarkOpen", false)}
         />
       ) : (
         <PdfShell activeNav={activeNav} onSelectNav={handleSelectNav}>
@@ -328,6 +462,30 @@ export function PdfStage({ tl }: Props) {
         onCancel={() => tl.setVar("pdf:isSigModalOpen", false)}
       />
 
+      {/* Manage Pages View Overlay */}
+      <PdfManagePagesView
+        isOpen={isManagePagesOpen}
+        onCancel={() => tl.setVar("pdf:isManagePagesOpen", false)}
+        onSave={() => {
+          tl.setVar("pdf:isManagePagesOpen", false);
+          pushPdfToast(tl, "Pages saved");
+        }}
+      />
+
+      {/* Export Modal */}
+      <PdfExportModal
+        isOpen={isExportOpen}
+        selectedFormat={exportFormat}
+        fileName={exportFileName}
+        onSelectFormat={(f) => tl.setVar("pdf:exportFormat", f)}
+        onFileNameChange={(name) => tl.setVar("pdf:exportFileName", name)}
+        onCancel={() => tl.setVar("pdf:isExportOpen", false)}
+        onDownload={() => {
+          tl.setVar("pdf:isExportOpen", false);
+          pushPdfToast(tl, "Export started");
+        }}
+      />
+
       {/* Toasts Overlay */}
       {toasts.length > 0 && (
         <div data-tl="pdf-toasts" className="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
@@ -335,9 +493,19 @@ export function PdfStage({ tl }: Props) {
             <div
               key={toast.id}
               data-tl="pdf-toast"
-              className="flex items-center gap-2.5 px-4 py-2.5 bg-emerald-600 text-white rounded-xl shadow-lg text-xs font-semibold animate-in slide-in-from-bottom-2 duration-150"
+              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl shadow-lg text-xs font-semibold animate-in slide-in-from-bottom-2 duration-150 ${
+                toast.type === "info"
+                  ? "bg-gray-800 text-white"
+                  : toast.type === "error"
+                  ? "bg-red-600 text-white"
+                  : "bg-emerald-600 text-white"
+              }`}
             >
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-white" />
+              {toast.type === "info" ? (
+                <Info className="w-4 h-4 shrink-0 text-white" />
+              ) : (
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-white" />
+              )}
               <span>{toast.message}</span>
             </div>
           ))}

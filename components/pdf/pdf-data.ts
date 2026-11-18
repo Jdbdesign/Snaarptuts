@@ -312,3 +312,57 @@ export const RESUME_DATA: ResumeData = {
     { label: "Dribbble", url: "https://dribbble.com/janedoe" },
   ],
 };
+
+export interface StampItem {
+  id: string;
+  label: string;
+  category: "icon" | "text";
+  color: string;
+  borderColor?: string;
+  bgColor?: string;
+}
+
+export const STAMP_ITEMS: StampItem[] = [
+  // Icon stamps
+  { id: "arrow", label: "Arrow", category: "icon", color: "#EF4444" },
+  { id: "question", label: "Question Mark", category: "icon", color: "#F59E0B" },
+  { id: "star", label: "Star", category: "icon", color: "#F59E0B" },
+  // Text stamps
+  { id: "approved", label: "APPROVED", category: "text", color: "#16A34A", borderColor: "#16A34A", bgColor: "#F0FDF4" },
+  { id: "draft", label: "DRAFT", category: "text", color: "#D97706", borderColor: "#D97706", bgColor: "#FFFBEB" },
+  { id: "confidential", label: "CONFIDENTIAL", category: "text", color: "#2563EB", borderColor: "#2563EB", bgColor: "#EFF6FF" },
+  { id: "rejected", label: "REJECTED", category: "text", color: "#DC2626", borderColor: "#DC2626", bgColor: "#FEF2F2" },
+  { id: "final", label: "FINAL", category: "text", color: "#7C3AED", borderColor: "#7C3AED", bgColor: "#F5F3FF" },
+  { id: "copy", label: "COPY", category: "text", color: "#4B5563", borderColor: "#4B5563", bgColor: "#F9FAFB" },
+];
+
+export interface ShapeItem {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+export const ANNOTATION_SHAPES: ShapeItem[] = [
+  { id: "box", label: "Box", icon: "box" },
+  { id: "circle", label: "Circle", icon: "circle-filled" },
+  { id: "circle-stroke", label: "Circle Stroke", icon: "circle-outline" },
+  { id: "cross", label: "Cross", icon: "cross" },
+  { id: "check", label: "Check", icon: "check" },
+];
+
+export interface ExportFormatItem {
+  id: string;
+  label: string;
+  ext: string;
+  color: string;
+}
+
+export const EXPORT_FORMATS: ExportFormatItem[] = [
+  { id: "pdf", label: "PDF", ext: ".pdf", color: "#DC2626" },
+  { id: "png", label: "PNG", ext: ".png", color: "#16A34A" },
+  { id: "word", label: "Word", ext: ".docx", color: "#2563EB" },
+  { id: "excel", label: "Excel", ext: ".xlsx", color: "#16A34A" },
+  { id: "jpg", label: "JPG", ext: ".jpg", color: "#EA580C" },
+  { id: "pptx", label: "PPTX", ext: ".pptx", color: "#EA580C" },
+];
+

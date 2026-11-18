@@ -1,0 +1,1 @@
+export const STEP13_DURATION_MS = 18500;

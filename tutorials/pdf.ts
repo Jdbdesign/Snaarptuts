@@ -22,6 +22,16 @@ import { Step11 } from "@/scenes/pdf/step11/Step11";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/pdf/step11/script";
 import { Step12 } from "@/scenes/pdf/step12/Step12";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/pdf/step12/script";
+import { Step13 } from "@/scenes/pdf/step13/Step13";
+import { runStep13, STEP13_DURATION_MS } from "@/scenes/pdf/step13/script";
+import { Step14 } from "@/scenes/pdf/step14/Step14";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/pdf/step14/script";
+import { Step15 } from "@/scenes/pdf/step15/Step15";
+import { runStep15, STEP15_DURATION_MS } from "@/scenes/pdf/step15/script";
+import { Step16 } from "@/scenes/pdf/step16/Step16";
+import { runStep16, STEP16_DURATION_MS } from "@/scenes/pdf/step16/script";
+import { Step17 } from "@/scenes/pdf/step17/Step17";
+import { runStep17, STEP17_DURATION_MS } from "@/scenes/pdf/step17/script";
 import type { Tutorial } from "./types";
 
 export const PDF_URLS = {
@@ -158,15 +168,66 @@ export const pdf: Tutorial = {
         durationMs: STEP12_DURATION_MS,
       },
     },
+    {
+      id: "pdf-annotate",
+      title: "Annotate a PDF",
+      url: PDF_URLS.editor,
+      scene: {
+        Component: Step13,
+        run: runStep13,
+        durationMs: STEP13_DURATION_MS,
+      },
+    },
+    {
+      id: "pdf-layout",
+      title: "Adjust page view and layout",
+      url: PDF_URLS.editor,
+      scene: {
+        Component: Step14,
+        run: runStep14,
+        durationMs: STEP14_DURATION_MS,
+      },
+    },
+    {
+      id: "pdf-manage-pages",
+      title: "Manage PDF pages",
+      url: PDF_URLS.editor,
+      scene: {
+        Component: Step15,
+        run: runStep15,
+        durationMs: STEP15_DURATION_MS,
+      },
+    },
+    {
+      id: "pdf-watermark",
+      title: "Apply a watermark",
+      url: PDF_URLS.editor,
+      scene: {
+        Component: Step16,
+        run: runStep16,
+        durationMs: STEP16_DURATION_MS,
+      },
+    },
+    {
+      id: "pdf-export",
+      title: "Finish and export the PDF",
+      url: PDF_URLS.editor,
+      scene: {
+        Component: Step17,
+        run: runStep17,
+        durationMs: STEP17_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "pdf-meet" },
     { title: "My files", from: "pdf-browse-files" },
     { title: "Edit a PDF", from: "pdf-meet-editor" },
+    { title: "Annotations and Export", from: "pdf-annotate" },
   ],
   completion: {
     title: "You're all set",
-    text: "You can now upload, organize, edit, redact, and sign your PDF documents with Snaarp PDF.",
+    text: "You can now upload, organize, edit, annotate, manage pages, watermark, and export your PDF documents with Snaarp PDF.",
     replayLabel: "Replay",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

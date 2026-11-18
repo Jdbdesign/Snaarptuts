@@ -202,4 +202,103 @@ Reference design resolution: 1440x900 (scaled dynamically in player shell)
 | Toast saved | `[data-tl="pdf-toast"]` | Green success toast "Document saved" | Audited, matches |
 | New file row | `[data-tl="row-acme-resume"]` | "Acme Resume.pdf", 312.0 KB, "Just now" | Audited, matches |
 | Download icon | `[data-tl="action-download-row-resume"]`| Clicks download icon, shows toast "Download started" | Audited, matches |
-| Completion screen | `[data-tl="completion-card"]` | Data-driven completion screen follows step 12 | Audited, matches |
+
+---
+
+## Step 13: Annotate a PDF
+**Video range**: 0:00 - 1:50 (Part 2, frames 1-110)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Annotations tool | `[data-tl="tool-annotations"]` | Activates Annotations mode, option bar appears below toolbar | Audited, matches |
+| Annotations option bar | `[data-tl="annotations-option-bar"]` | Bar with Stamps, Highlight, Pencil, Shapes | Audited, matches |
+| Stamps button | `[data-tl="annot-btn-stamps"]` | Opens Stamps palette card | Audited, matches |
+| Stamps palette | `[data-tl="stamps-palette-card"]` | Card with ICON STAMPS (Arrow, Question, Star) and TEXT STAMPS (APPROVED, DRAFT, CONFIDENTIAL, REJECTED, FINAL, COPY) | Audited, matches |
+| Approved stamp option | `[data-tl="stamp-item-approved"]` | Green border, green bold text "APPROVED" | Audited, matches |
+| Document canvas click | `[data-tl="pdf-page-1"]` | Visibly places APPROVED stamp on document | Audited, matches |
+| Placed stamp | `[data-tl="placed-stamp-approved"]` | Stamp with blue dashed bounding box and red 'x' delete circle | Audited, matches |
+| Undo tool | `[data-tl="tool-undo"]` | Removes extra stamps, leaving one clean stamp | Audited, matches |
+| Highlight option | `[data-tl="annot-btn-highlight"]` | Activates highlight cursor, demonstrates text highlighting | Audited, matches |
+| Pencil option | `[data-tl="annot-btn-pencil"]` | Activates pencil tool, draws demonstration stroke | Audited, matches |
+| Shapes option | `[data-tl="annot-btn-shapes"]` | Opens Shapes palette card | Audited, matches |
+| Shapes palette | `[data-tl="shapes-palette-card"]` | 5 items: Box, Circle, Circle Stroke, Cross, Check | Audited, matches |
+| Check shape | `[data-tl="shape-item-check"]` | Places clean checkmark on document | Audited, matches |
+
+---
+
+## Step 14: Adjust page view and layout
+**Video range**: 1:50 - 3:30 (Part 2, frames 110-210)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Links tool | `[data-tl="tool-links"]` | Toolbar button activates Links/View option bar | Audited, matches |
+| Links option bar | `[data-tl="links-option-bar"]` | View mode dropdown, Zoom 100% with +/- buttons, Line Thickness slider | Audited, matches |
+| View dropdown | `[data-tl="links-view-select"]` | Options "Single" and "Two-Page" | Audited, matches |
+| Two-page spread canvas | `[data-tl="canvas-two-page"]` | Two pages rendered side-by-side on canvas | Audited, matches |
+| Line thickness slider | `[data-tl="links-thickness-slider"]`| Drags slider from 2px to 5px | Audited, matches |
+| Thickness label | `[data-tl="links-thickness-label"]` | Displays "5px" | Audited, matches |
+| Page Layout tool | `[data-tl="tool-pageLayout"]` | Opens right-side Page Layout panel | Audited, matches |
+| Page Layout panel | `[data-tl="page-layout-panel"]` | Floating panel on right with Page Mode, Page Transition, Page Rotation | Audited, matches |
+| Single Page button | `[data-tl="layout-mode-single"]` | Mode button with icon and label | Audited, matches |
+| Two-Page button | `[data-tl="layout-mode-twopage"]` | Selected state with blue border/background | Audited, matches |
+| Vertical scroll | `[data-tl="layout-transition-vertical"]`| Transition button with down arrow | Audited, matches |
+| Horizontal scroll | `[data-tl="layout-transition-horizontal"]`| Transition button with right arrow | Audited, matches |
+| Rotate CCW button | `[data-tl="layout-rotate-ccw"]` | Rotates page 90° counter-clockwise | Audited, matches |
+| Rotate CW button | `[data-tl="layout-rotate-cw"]` | Rotates page 90° clockwise to restore clean readable view | Audited, matches |
+
+---
+
+## Step 15: Manage PDF pages
+**Video range**: 3:30 - 3:55 (Part 2, frames 210-235)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Manage Pages tool | `[data-tl="tool-managePages"]` | Opens full-screen page management overlay | Audited, matches |
+| Manage pages overlay | `[data-tl="manage-pages-view"]` | Full-screen modal with top toolbar, card canvas, and bottom actions | Audited, matches |
+| New Page button | `[data-tl="mp-new-page-btn"]` | "+ New Page" pill button | Audited, matches |
+| Delete Pages button | `[data-tl="mp-delete-pages-btn"]`| Trash icon button (disabled state when none selected) | Audited, matches |
+| Duplicate button | `[data-tl="mp-duplicate-btn"]` | Duplicate icon button | Audited, matches |
+| Rotate Left button | `[data-tl="mp-rotate-left-btn"]` | Counter-clockwise rotate button | Audited, matches |
+| Rotate Right button | `[data-tl="mp-rotate-right-btn"]`| Clockwise rotate button | Audited, matches |
+| Select All link | `[data-tl="mp-select-all-btn"]` | Blue text link top right | Audited, matches |
+| Page 1 card | `[data-tl="mp-page-card-1"]` | Page thumbnail card with badge "1" | Audited, matches |
+| Page 2 card | `[data-tl="mp-page-card-2"]` | Page thumbnail card with badge "2" | Audited, matches |
+| Page 3 card | `[data-tl="mp-page-card-3"]` | Page thumbnail card with badge "3" | Audited, matches |
+| Cancel button | `[data-tl="mp-cancel-btn"]` | Pill button bottom left | Audited, matches |
+| Save button | `[data-tl="mp-save-btn"]` | Orange-red pill button bottom right, returns to editor | Audited, matches |
+
+---
+
+## Step 16: Apply a watermark
+**Video range**: 3:55 - 4:40 (Part 2, frames 235-280)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Watermark tool | `[data-tl="tool-watermark"]` | Opens right-side Watermark panel | Audited, matches |
+| Watermark panel | `[data-tl="watermark-panel"]` | Floating panel on right with inputs, sliders, colors, radio, and buttons | Audited, matches |
+| Text input | `[data-tl="watermark-text-input"]` | Text field with character counter label `Text (8/100)`, types "Detailed" | Audited, matches |
+| Opacity slider | `[data-tl="watermark-opacity-slider"]`| Slider set to 37%, label shows `Opacity: 37%` | Audited, matches |
+| Rotation slider | `[data-tl="watermark-rotation-slider"]`| Slider set to 19°, label shows `Rotation: 19°` | Audited, matches |
+| Font size slider | `[data-tl="watermark-size-slider"]` | Slider set to 129pt, label shows `Font Size: 129pt` | Audited, matches |
+| Gray color swatch | `[data-tl="watermark-color-gray"]` | Selects gray swatch (`#9CA3AF`) | Audited, matches |
+| All pages radio | `[data-tl="watermark-apply-all"]` | Radio button selected | Audited, matches |
+| Apply button | `[data-tl="watermark-apply-btn"]` | Blue pill button, renders diagonal translucent watermark across all 3 pages | Audited, matches |
+| Document watermark | `[data-tl="page-watermark-text"]` | Huge translucent text "Detailed" diagonally across document | Audited, matches |
+| Remove button | `[data-tl="watermark-remove-btn"]` | Pink/red outlined button appears once applied | Audited, matches |
+
+---
+
+## Step 17: Finish and export the PDF
+**Video range**: 4:40 - 5:11 (Part 2, frames 280-311)
+
+| Element | Target Selector | Design Specs | Audited State |
+| :--- | :--- | :--- | :--- |
+| Done button | `[data-tl="editor-done-btn"]` | Red top-right button, opens Export modal | Audited, matches |
+| Export modal | `[data-tl="export-modal"]` | Modal with "Great Job! 🎉", "Your document is ready...", 6 format cards | Audited, matches |
+| PDF format card | `[data-tl="export-format-pdf"]` | Selected state with red accent outline and background | Audited, matches |
+| Format cards grid | `[data-tl="export-formats-grid"]`| PDF, PNG, Word, Excel, JPG, PPTX | Audited, matches |
+| File name field | `[data-tl="export-filename-input"]`| Input types "Personal File" | Audited, matches |
+| Filename helper text | `[data-tl="export-filename-helper"]`| "13/200 characters. Allowed: letters, numbers, spaces, hyphens, underscores." | Audited, matches |
+| Download button | `[data-tl="export-download-btn"]` | Red pill button, triggers download and completes export | Audited, matches |
+| Completion card | `[data-tl="completion-card"]` | Data-driven completion screen follows step 17 | Audited, matches |
+

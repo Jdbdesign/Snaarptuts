@@ -1,0 +1,1 @@
+export const STEP16_DURATION_MS = 18500;

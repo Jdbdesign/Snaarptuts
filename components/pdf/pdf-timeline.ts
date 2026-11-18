@@ -50,6 +50,37 @@ export interface BeginPdfOptions {
   hasDrawSig?: boolean;
   hasImageSig?: boolean;
   hasTypeSig?: boolean;
+  // Annotations
+  annotSubtool?: "stamps" | "highlight" | "pencil" | "shapes" | null;
+  isStampsOpen?: boolean;
+  selectedStamp?: string | null;
+  hasApprovedStamp?: boolean;
+  isShapesOpen?: boolean;
+  selectedShape?: string | null;
+  hasCheckShape?: boolean;
+  hasCircleShape?: boolean;
+  // Links & Layout
+  linksViewMode?: "single" | "two-page";
+  linksLineThickness?: number;
+  isPageLayoutOpen?: boolean;
+  pageLayoutMode?: "single" | "twopage";
+  pageLayoutTransition?: "vertical" | "horizontal";
+  pageRotation?: number;
+  // Manage Pages
+  isManagePagesOpen?: boolean;
+  // Watermark
+  isWatermarkOpen?: boolean;
+  watermarkText?: string;
+  watermarkOpacity?: number;
+  watermarkRotation?: number;
+  watermarkSize?: number;
+  watermarkColor?: string;
+  watermarkApplyTo?: "all" | "specific";
+  hasWatermarkApplied?: boolean;
+  // Export
+  isExportOpen?: boolean;
+  exportFormat?: string;
+  exportFileName?: string;
 }
 
 export function beginPdf(
@@ -130,6 +161,42 @@ export function beginPdf(
   tl.setVar("pdf:hasDrawSig", opts.hasDrawSig ?? false);
   tl.setVar("pdf:hasImageSig", opts.hasImageSig ?? false);
   tl.setVar("pdf:hasTypeSig", opts.hasTypeSig ?? false);
+
+  // Annotations
+  tl.setVar("pdf:annotSubtool", opts.annotSubtool ?? null);
+  tl.setVar("pdf:isStampsOpen", opts.isStampsOpen ?? false);
+  tl.setVar("pdf:selectedStamp", opts.selectedStamp ?? null);
+  tl.setVar("pdf:hasApprovedStamp", opts.hasApprovedStamp ?? false);
+  tl.setVar("pdf:isShapesOpen", opts.isShapesOpen ?? false);
+  tl.setVar("pdf:selectedShape", opts.selectedShape ?? null);
+  tl.setVar("pdf:hasCheckShape", opts.hasCheckShape ?? false);
+  tl.setVar("pdf:hasCircleShape", opts.hasCircleShape ?? false);
+
+  // Links & Layout
+  tl.setVar("pdf:linksViewMode", opts.linksViewMode ?? "single");
+  tl.setVar("pdf:linksLineThickness", opts.linksLineThickness ?? 2);
+  tl.setVar("pdf:isPageLayoutOpen", opts.isPageLayoutOpen ?? false);
+  tl.setVar("pdf:pageLayoutMode", opts.pageLayoutMode ?? "single");
+  tl.setVar("pdf:pageLayoutTransition", opts.pageLayoutTransition ?? "vertical");
+  tl.setVar("pdf:pageRotation", opts.pageRotation ?? 0);
+
+  // Manage Pages
+  tl.setVar("pdf:isManagePagesOpen", opts.isManagePagesOpen ?? false);
+
+  // Watermark
+  tl.setVar("pdf:isWatermarkOpen", opts.isWatermarkOpen ?? false);
+  tl.setVar("pdf:watermarkText", opts.watermarkText ?? "");
+  tl.setVar("pdf:watermarkOpacity", opts.watermarkOpacity ?? 50);
+  tl.setVar("pdf:watermarkRotation", opts.watermarkRotation ?? 45);
+  tl.setVar("pdf:watermarkSize", opts.watermarkSize ?? 48);
+  tl.setVar("pdf:watermarkColor", opts.watermarkColor ?? "#9CA3AF");
+  tl.setVar("pdf:watermarkApplyTo", opts.watermarkApplyTo ?? "all");
+  tl.setVar("pdf:hasWatermarkApplied", opts.hasWatermarkApplied ?? false);
+
+  // Export
+  tl.setVar("pdf:isExportOpen", opts.isExportOpen ?? false);
+  tl.setVar("pdf:exportFormat", opts.exportFormat ?? "pdf");
+  tl.setVar("pdf:exportFileName", opts.exportFileName ?? "");
 
   // Toasts
   tl.setVar("pdf:toasts", []);

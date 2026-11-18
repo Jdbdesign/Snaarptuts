@@ -1081,7 +1081,7 @@ Files:
 - Scenes: `scenes/teams/step<1..22>/Step<N>.tsx`, `script.ts`
 
 ### Snaarp PDF ("Snaarp PDF", route `/tutorials/pdf`)
-Config: `tutorials/pdf.ts` (12 steps, all built and COMPLETE). Recording: `C:\Users\HP\Downloads\1118.mp4` (1386x720, 7:17).
+Config: `tutorials/pdf.ts` (17 steps, all built and COMPLETE). Recordings: `C:\Users\HP\Downloads\1118.mp4` (Part 1, 1386x720, 7:17, steps 1–12) and `C:\Users\HP\Downloads\1118 (1).mp4` (Part 2, 1336x720, 5:11, steps 13–17).
 Steps:
 1. Meet Snaarp PDF (Orientation: Snaarp Suite rail, PDF sidebar navigation, Quick Action cards, files table, global search, and Upload action)
 2. Browse your files (Switch between List and Grid views, filter by PDF and All tabs, search "logos", clear search, hover download tooltip)
@@ -1094,14 +1094,19 @@ Steps:
 9. Add an image (Click Image tool, in-app file picker opens, select "Site Photo.jpg", click Open -> image appears on page 3 with corner resize handles and red X delete circle, resize, click red delete circle, re-add image)
 10. Add shapes and marks (Click Ellipse tool, draw two red ovals on page 3, click Cross tool, place red X marker, click Check tool, place green checkmark)
 11. Sign your document (Click Sign tool -> Add Signature modal, draw signature scribble -> Done, click Sign again -> Image tab -> upload zone -> pick "Signature.png" -> Done, click Sign again -> Type tab -> type "JD", 4 font cards show "JD", pick style 2 -> blue dot -> Done, click Sign again -> Saved tab empty state -> Cancel)
-12. Finish and download (Click red Done button, processing modal 0-100%, land on My files with "Acme Resume.pdf" in table, green toast "Document saved", click download icon -> toast "Download started", completion card displays)
+12. Finish and download (Click red Done button, processing modal 0-100%, land on My files with "Acme Resume.pdf" in table, green toast "Document saved", click download icon -> toast "Download started")
+13. Annotate a PDF (Click Annotations tool, open Stamps palette, pick APPROVED stamp, place on document with active dashed bounding box and red delete button, click Undo to revert extra stamp, click Highlight to mark text, click Pencil to sketch freehand annotation, open Shapes palette, click Check shape)
+14. Adjust page view and layout (Click Links tool, select Two-Page spread, drag line thickness slider to 5px, click Page Layout tool, Rotate 90° CCW, Rotate 90° CW, select Single Page to restore upright view)
+15. Manage PDF pages (Click Manage Pages tool -> full-screen page management overlay, click Select All, click Page 2 thumbnail card, click Save button -> toast "Pages saved", return to editor)
+16. Apply a watermark (Click Watermark tool -> floating right panel, type "Detailed" in text input with character counter, set Opacity to 37%, set Rotation to 19°, set Font Size to 129pt, select gray swatch, click Apply Watermark -> toast "Watermark applied successfully", diagonal translucent watermark renders across all pages)
+17. Finish and export the PDF (Click Done button -> Export modal with "Great Job! 🎉", select PDF format card with red accent, type "Personal File" in file name input, check helper guidelines, click red Download button -> toast "Export started", completion card displays following step 17)
 
 Files:
 - Shell & Stage: `components/pdf/PdfShell.tsx`, `components/pdf/PdfStage.tsx`
-- Views: `PdfFilesView.tsx`, `PdfUploadView.tsx`, `PdfEditor.tsx`, `PdfSamplePage.tsx`
-- Modals & Banners: `PdfFilePickerModal.tsx`, `PdfProcessing.tsx`, `PdfRedactBanner.tsx`, `PdfSignatureDialog.tsx`
+- Views & Panels: `PdfFilesView.tsx`, `PdfUploadView.tsx`, `PdfEditor.tsx`, `PdfSamplePage.tsx`, `PdfPageLayoutPanel.tsx`, `PdfWatermarkPanel.tsx`, `PdfManagePagesView.tsx`
+- Modals & Banners: `PdfFilePickerModal.tsx`, `PdfProcessing.tsx`, `PdfRedactBanner.tsx`, `PdfSignatureDialog.tsx`, `PdfExportModal.tsx`
 - Data & Timeline: `components/pdf/pdf-data.ts`, `components/pdf/pdf-timeline.ts`
-- Scenes: `scenes/pdf/step<1..12>/Step<N>.tsx`, `script.ts`
+- Scenes: `scenes/pdf/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Product switcher
 (Snaarp Admin is the fourth product: `tutorials/snaarp-admin.ts`, 12 steps, all built. Snaarp Slides is the fifth: `tutorials/snaarp-slides.ts`, 56 steps (the whole product), all built. Snaarp Sheets is the sixth: `tutorials/snaarp-sheets.ts`, 116 steps (the whole product: every menu, the toolbar and the header tools), all built. Workforce is the seventh product: `tutorials/workforce.ts`, 124 steps, all built and COMPLETE. OneCardX is the eighth product: `tutorials/onecardx.ts`, 66 steps, all built and COMPLETE. Snaarp Drive is the ninth product: `tutorials/drive.ts`, 68 steps, all built and COMPLETE. Snaarp Books is the tenth product: `tutorials/books.ts`, 205 steps, all built and COMPLETE. Snaarp Lock is the eleventh product: `tutorials/snaarp-lock.ts`, 11 steps, all built and COMPLETE. Snaarp Me is the twelfth product: `tutorials/snaarp-me.ts`, 40 steps, all built and COMPLETE. Zeus is the thirteenth product: `tutorials/zeus.ts`, 22 steps, all built and COMPLETE. Snaarp Projects is the fourteenth product: `tutorials/projects.ts`, 26 steps, all built and COMPLETE. Snaarp Teams is the fifteenth product: `tutorials/teams.ts`, 22 steps, all built and COMPLETE. Snaarp PDF is the sixteenth product: `tutorials/pdf.ts`, 12 steps, all built and COMPLETE.) The rail starts with the search box (see "Rail search"). The rail's product card is a dropdown of every product in `tutorials/index.ts` (Snaarp 360 first). Each product has its own steps (modules) listed below it; a product with no built scenes shows a "coming soon" stage (`components/player/ComingSoon.tsx`). Snaarp Mail (`tutorials/snaarp-mail.ts`) is listed with its 17 modules, all built. Real product logos live in `public/logos/` and are shown with `ProductLogo` from `components/icons.tsx`.

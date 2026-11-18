@@ -2626,9 +2626,9 @@ Source recordings:
 - **Timeline & Data**: `components/teams/teams-timeline.ts` (`beginTeams`, `finishTeams`, `pushTeamsToast`), `components/teams/teams-data.ts`.
 - **Step Scenes**: `scenes/teams/step<1..13>/Step<N>.tsx`, `script.ts`.
 
-# Snaarp PDF (12 steps)
+# Snaarp PDF (17 steps)
 
-Route `/tutorials/pdf`, config `tutorials/pdf.ts`. Recording: `C:\Users\HP\Downloads\1118.mp4` (1386x720, 7:17).
+Route `/tutorials/pdf`, config `tutorials/pdf.ts`. Recordings: `C:\Users\HP\Downloads\1118.mp4` (Part 1, 7:17) and `C:\Users\HP\Downloads\1118 (1).mp4` (Part 2, 5:11).
 
 ## Step Summary
 
@@ -2646,21 +2646,30 @@ Route `/tutorials/pdf`, config `tutorials/pdf.ts`. Recording: `C:\Users\HP\Downl
 | 10 | Add shapes and marks | `pdf.snaarp.com/editor/doc-sample-resume` | 16.0 s |
 | 11 | Sign your document | `pdf.snaarp.com/editor/doc-sample-resume` | 28.0 s |
 | 12 | Finish and download | `pdf.snaarp.com/dashboard` | 14.5 s |
+| 13 | Annotate a PDF | `pdf.snaarp.com/editor/doc-sample-resume` | 18.5 s |
+| 14 | Adjust page view and layout | `pdf.snaarp.com/editor/doc-sample-resume` | 17.5 s |
+| 15 | Manage PDF pages | `pdf.snaarp.com/editor/doc-sample-resume` | 14.5 s |
+| 16 | Apply a watermark | `pdf.snaarp.com/editor/doc-sample-resume` | 18.5 s |
+| 17 | Finish and export the PDF | `pdf.snaarp.com/editor/doc-sample-resume` | 16.0 s |
 
 ## Architecture & Components
 - **Stage & Shell**: `components/pdf/PdfStage.tsx`, `components/pdf/PdfShell.tsx` (Snaarp suite rail, PDF sidebar with My files, Upload, Tools, AI Tools, Operations, Report a Bug, and topbar with search, clipboard, grid, avatar "J").
 - **Views**:
   - `PdfFilesView.tsx`: Quick cards row (Convert, Edit, Translate, Sign), filter pills (All / PDF), list / grid toggle, files table with download hover tooltip, grid cards view.
   - `PdfUploadView.tsx`: Drag & drop upload area with dashed border, lilac dragover hover state, storage upload progress bar.
-  - `PdfEditor.tsx`: Header (back button, "Untitled Document", red "Done" button), 23-tool bar, contextual option bars (text styling, highlight / pencil), left Pages thumbnails panel, scrollable canvas, and bottom floating page / zoom capsule.
-  - `PdfSamplePage.tsx`: 3-page neutral resume document rendering Jane Doe, Lead Product Designer at Acme Studio, with dynamic text addition, redaction blocks, highlight overlays, pencil strokes, image with resize handles and delete circle, ellipses, cross, check, and placed signatures.
-- **Modals & Dialogs**:
+  - `PdfEditor.tsx`: Header (back button, "Untitled Document", red "Done" button), 23-tool bar, contextual option bars (text styling, highlight / pencil, annotations with stamps and shapes dropdown cards, links with view mode and thickness slider), left Pages thumbnails panel, scrollable canvas (supporting single-page and two-page spreads), and bottom floating page / zoom capsule.
+  - `PdfSamplePage.tsx`: 3-page neutral resume document rendering Jane Doe, Lead Product Designer at Acme Studio, with dynamic text addition, redaction blocks, highlight overlays, pencil strokes, image with resize handles and delete circle, ellipses, cross, check, placed signatures, placed APPROVED stamp with blue dashed selection border and red delete button, check shape, and diagonal translucent watermark text across all pages.
+  - `PdfManagePagesView.tsx`: Full-screen overlay to manage document pages with top toolbar (+ New Page, Delete, Duplicate, Rotate Left, Rotate Right, Select All), large thumbnail cards with circular page badges (1, 2, 3), and Cancel / Save action footer.
+- **Floating Panels & Modals**:
+  - `PdfPageLayoutPanel.tsx`: Floating right-side panel with Single/Two-Page spread mode selector, Vertical/Horizontal transition toggles, and Rotate 90° CCW / Rotate 90° CW buttons.
+  - `PdfWatermarkPanel.tsx`: Floating right-side panel with Text input (character counter), Opacity slider (37%), Rotation slider (19°), Font size slider (129pt), 8 color swatches (gray selected), All/Specific pages radio, Apply Watermark button, and Remove Watermark action.
+  - `PdfExportModal.tsx`: Export dialog with "Great Job! 🎉", 6 format cards grid (PDF, PNG, Word, Excel, JPG, PPTX), File Name field (types "Personal File" with character count guideline), and Download button.
   - `PdfFilePickerModal.tsx`: In-app file selector modal showing sample files ("Site Photo.jpg", "Signature.png", etc.).
   - `PdfProcessing.tsx`: Document processing modal with emerald green progress bar (0 to 100%).
   - `PdfRedactBanner.tsx`: Yellow redaction mode warning banner.
   - `PdfSignatureDialog.tsx`: Signature modal with Draw, Image, Type (initials "JD" and 4 styled font cards), and Saved tabs.
 - **Timeline & Data**: `components/pdf/pdf-timeline.ts` (`beginPdf`, `finishPdf`, `pushPdfToast`), `components/pdf/pdf-data.ts`.
-- **Step Scenes**: `scenes/pdf/step1` ... `step12` (`StepN.tsx`, `script.ts`).
+- **Step Scenes**: `scenes/pdf/step1` ... `step17` (`StepN.tsx`, `script.ts`, `data.ts`).
 
 
 
