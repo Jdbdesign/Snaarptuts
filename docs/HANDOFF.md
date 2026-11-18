@@ -500,13 +500,29 @@ State: All 12 steps built, verified, and COMPLETE.
 - Step 10: Add shapes and marks (`pdf.snaarp.com/editor/doc-sample-resume`)
 - Step 11: Sign your document (`pdf.snaarp.com/editor/doc-sample-resume`)
 - Step 12: Finish and download (`pdf.snaarp.com/dashboard`)
+- Step 13: Annotate a PDF (`pdf.snaarp.com/editor/doc-sample-resume`)
+- Step 14: Adjust page view and layout (`pdf.snaarp.com/editor/doc-sample-resume`)
+- Step 15: Manage PDF pages (`pdf.snaarp.com/editor/doc-sample-resume`)
+- Step 16: Apply a watermark (`pdf.snaarp.com/editor/doc-sample-resume`)
+- Step 17: Finish and export the PDF (`pdf.snaarp.com/editor/doc-sample-resume`)
 - Rail Groups:
   - `Overview` (from `pdf-meet`)
   - `My files` (from `pdf-browse-files`)
   - `Edit a PDF` (from `pdf-meet-editor`)
-- Completion card follows step 12: "You're all set / You can now upload, organize, edit, redact, and sign your PDF documents with Snaarp PDF."
+  - `Annotations and Export` (from `pdf-annotate`)
+- Completion card follows step 17: "You're all set / You can now upload, organize, edit, annotate, manage pages, watermark, redact, sign, and export your PDF documents with Snaarp PDF."
 - Verification:
-  - `npx tsx scripts/check-pdf-chain.ts --from 1 --total 12 --speed 8`: 12/12 steps completed with 0 errors, completion card visible.
-  - `npm run qa:visibility -- --tutorial pdf --speed 8 --workers 5`: 48/48 step runs across all 4 viewports passed with 0 findings.
+  - `npx tsx scripts/check-pdf-chain.ts`: 17/17 steps completed with 0 errors, completion card visible.
+  - `npm run qa:visibility -- --tutorial pdf`: all viewports passed with 0 findings.
   - `npx tsc --noEmit` clean (0 errors).
+
+## Vertical Product Icon Launcher (Player Navigation Upgrade)
+
+Added a vertical product icon navigation rail to the extreme left side of the tutorial sidebar (`components/player/Rail.tsx`).
+- **Dual Synchronised Navigation**: Users can discover and navigate across all 16 registered Snaarp products either by clicking icons in the new vertical rail or selecting products in the existing product dropdown.
+- **Source of Truth**: Registered tutorials in `tutorials/index.ts` (Snaarp 360, Snaarp Admin, Snaarp Mail, Snaarp Doc, Snaarp Slides, Snaarp Sheets, Workforce, OneCardX, Snaarp Drive, Snaarp Books, Snaarp Lock, Snaarp Me, Zeus, Snaarp Projects, Snaarp Teams, Snaarp PDF).
+- **Icon Tooltips**: Floating readable tooltips displaying full product names on hover ("Snaarp PDF", "Snaarp Books", "Snaarp Mail", etc.) positioned beside the launcher, hiding smoothly on cursor exit.
+- **Active State**: Light-purple container (`#EDE9FE` / `bg-brand-soft`) with rounded corners (`rounded-[12px]`) and brand-colored icons matching Reference Image 1.
+- **Dropdown Intact**: The existing dropdown, module list, search, and progress counters remain fully intact.
+- **Responsive Across 4 Viewports**: Verified at 1920x1080, 1440x900, 1280x720, and 390x844 (mobile drawer). All Playwright tests passed with zero errors.
 

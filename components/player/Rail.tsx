@@ -29,13 +29,33 @@ const railLabel = (t: Tutorial) => t.product.railLabel ?? t.product.name;
 
 export function Rail({ tutorial, current, done, ready, playing, onSelect, onCollapse, searchFocus }: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hoveredProduct, setHoveredProduct] = useState<{ id: string; name: string; top: number; left: number } | null>(null);
   const listRef = useRef<HTMLOListElement>(null);
+  const iconNavRef = useRef<HTMLElement>(null);
   const labelId = useId();
   const buttonId = useId();
   const { store } = useProgress();
   const doneCount = done.filter(Boolean).length;
   const countClass = ready ? "" : "invisible";
   const dropdownOpen = menuOpen;
+
+  // Clear hover tooltip on window resize so it never gets orphaned
+  useEffect(() => {
+    const dismiss = () => setHoveredProduct(null);
+    window.addEventListener("resize", dismiss, { passive: true });
+    return () => window.removeEventListener("resize", dismiss);
+  }, []);
+
+  // Ensure active product icon is scrolled into view in the icon rail if it's below the fold
+  useEffect(() => {
+    const nav = iconNavRef.current;
+    const activeEl = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!nav || !activeEl) return;
+    const n = nav.getBoundingClientRect();
+    const a = activeEl.getBoundingClientRect();
+    if (a.top < n.top) nav.scrollTop -= n.top - a.top + 8;
+    else if (a.bottom > n.bottom) nav.scrollTop += a.bottom - n.bottom + 8;
+  }, [tutorial.product.id]);
 
   // Keep the active step in view in a long list (a search result can jump to step 41 of 64).
   useEffect(() => {
@@ -49,127 +69,194 @@ export function Rail({ tutorial, current, done, ready, playing, onSelect, onColl
   }, [current, playing, tutorial]);
 
   return (
-    <aside className="flex h-full w-[clamp(260px,15vw,300px)] flex-col gap-3 rounded-[24px] border border-line bg-white p-3">
-      <div className="flex justify-end">
-        <button
-          onClick={onCollapse}
-          className="inline-flex h-9 items-center gap-1.5 rounded-full bg-[#F4F4F6] px-3.5 text-[14px] font-medium text-[#4b5060] transition-colors hover:bg-[#ECECF1]"
-        >
-          <Icon name="sidebar" size={16} />
-          Collapse
-        </button>
-      </div>
-
-      <RailSearch tutorial={tutorial} focusSignal={searchFocus} onSelectStep={onSelect}>
-        {/* Product switcher: the current product, with the full list of products as a dropdown. */}
-        <div className="relative shrink-0">
-          <span
-            id={labelId}
-            data-rail-title
-            className="mb-2 flex items-center text-[12px] font-semibold leading-4 tracking-[0.02em] text-[#6B5F8A]"
-          >
-            <span className="min-w-0 truncate">{RAIL_SEARCH.productLabel}</span>
-          </span>
-          <button
-            id={buttonId}
-            aria-labelledby={`${labelId} ${buttonId}`}
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-expanded={dropdownOpen}
-            aria-haspopup="listbox"
-            className={`group relative flex h-14 w-full items-center gap-2.5 rounded-none bg-white pl-[14px] pr-[10px] text-left outline-none transition-colors before:absolute before:-left-3 before:-right-3 before:top-0 before:h-[2px] before:bg-[var(--sel-line)] after:absolute after:-left-3 after:-right-3 after:bottom-0 after:h-[2px] after:bg-[var(--sel-line)] ${
-              "[--sel-line:#E4D7F9]"
-            }`}
-          >
-            <ProductMark tutorial={tutorial} size={32} />
-            <span title={railLabel(tutorial)} className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink">
-              {railLabel(tutorial)}
-            </span>
-            <span className={`shrink-0 whitespace-nowrap text-[12px] text-muted ${countClass}`}>
-              {doneCount}/{tutorial.steps.length}
-            </span>
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] text-ink transition-colors group-hover:bg-[#F4F4F6] group-focus-visible:ring-2 group-focus-visible:ring-brand">
-              <Icon
-                name="chevronDown"
-                size={20}
-                className={`transition-transform motion-reduce:transition-none ${dropdownOpen ? "rotate-180" : ""}`}
-              />
-            </span>
-          </button>
-
-          {dropdownOpen && (
-            <ul
-              role="listbox"
-              className="rail-scroll absolute -left-3 -right-3 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border-x-0 border-y-2 border-[#E4D7F9] bg-white px-[20px] py-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
+    <div className="flex h-full items-stretch gap-2.5">
+      {/* 1. Vertical Product Icon Rail */}
+      <nav
+        ref={iconNavRef}
+        aria-label="Products"
+        data-tl="product-icon-rail"
+        className="no-scrollbar flex h-full w-[56px] shrink-0 flex-col items-center gap-1.5 overflow-y-auto rounded-[24px] border border-line bg-white px-1.5 py-3 shadow-xs"
+      >
+        {tutorials.map((t) => {
+          const active = t.product.id === tutorial.product.id;
+          return (
+            <Link
+              key={t.product.id}
+              href={`/tutorials/${t.product.id}`}
+              data-tl={`rail-icon-${t.product.id}`}
+              aria-label={t.product.name}
+              aria-current={active ? "page" : undefined}
+              onMouseEnter={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                setHoveredProduct({
+                  id: t.product.id,
+                  name: t.product.name,
+                  top: rect.top + rect.height / 2,
+                  left: rect.right + 10,
+                });
+              }}
+              onMouseLeave={() => setHoveredProduct(null)}
+              onFocus={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                setHoveredProduct({
+                  id: t.product.id,
+                  name: t.product.name,
+                  top: rect.top + rect.height / 2,
+                  left: rect.right + 10,
+                });
+              }}
+              onBlur={() => setHoveredProduct(null)}
+              onClick={() => {
+                setHoveredProduct(null);
+                setMenuOpen(false);
+              }}
+              className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] transition-colors ${
+                active
+                  ? "bg-[#EDE9FE] text-brand shadow-xs"
+                  : "text-[#555A68] opacity-80 hover:bg-[#F6F6F8] hover:opacity-100"
+              }`}
             >
-              {tutorials.map((t) => {
-                const active = t.product.id === tutorial.product.id;
-                return (
-                  <li key={t.product.id} role="option" aria-selected={active}>
-                    <Link
-                      href={`/tutorials/${t.product.id}`}
-                      onClick={() => setMenuOpen(false)}
-                      className={`flex h-11 items-center gap-2.5 rounded-[12px] px-2.5 text-[13px] font-medium ${
-                        active ? "bg-brand-soft text-ink" : "text-[#2a2d36] hover:bg-[#F6F6F8]"
-                      }`}
-                    >
-                      <ProductMark tutorial={t} size={24} />
-                      <span title={railLabel(t)} className="min-w-0 flex-1 truncate">
-                        {railLabel(t)}
-                      </span>
-                      <span className={`text-[12px] text-muted ${countClass}`}>
-                        {completedCount(store, t.product.id, t.steps.map((x) => x.id))}/{t.steps.length}
-                      </span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+              <ProductMark tutorial={t} size={24} />
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* 2. Existing tutorial sidebar */}
+      <aside className="flex h-full w-[clamp(260px,15vw,300px)] flex-col gap-3 rounded-[24px] border border-line bg-white p-3">
+        <div className="flex justify-end">
+          <button
+            onClick={onCollapse}
+            className="inline-flex h-9 items-center gap-1.5 rounded-full bg-[#F4F4F6] px-3.5 text-[14px] font-medium text-[#4b5060] transition-colors hover:bg-[#ECECF1]"
+          >
+            <Icon name="sidebar" size={16} />
+            Collapse
+          </button>
         </div>
 
-        {/* This product's own modules (steps). */}
-        <ol ref={listRef} className="rail-scroll -mt-px flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto rounded-none border-2 border-t-0 border-[#E4D7F9] p-2">
-          {tutorial.steps.map((s, i) => {
-            const built = !!s.scene;
-            const isActive = built && playing && i === current;
-            const isDone = done[i];
-            return (
-              <li key={s.id}>
-                <button
-                  disabled={!built}
-                  onClick={() => onSelect(i)}
-                  title={built ? s.title : `${s.title} — coming soon`}
-                  aria-current={isActive ? "step" : undefined}
-                  className={`flex min-h-11 w-full items-center gap-2.5 rounded-[12px] border px-2.5 py-1.5 text-left text-[13px] transition-colors ${
-                    isActive
-                      ? "border-brand/40 bg-brand-soft font-medium text-ink"
-                      : built
-                        ? "border-transparent text-[#4b5060] hover:bg-[#F6F6F8]"
-                        : "cursor-not-allowed border-transparent text-[#a4a8b3]"
-                  }`}
-                >
-                  <span
-                    className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border-[1.5px] ${
-                      isDone
-                        ? "border-brand bg-brand text-white"
-                        : isActive
-                          ? "border-brand"
-                          : built
-                            ? "border-[#CFCFD8]"
-                            : "border-dashed border-[#D8D8DF]"
+        <RailSearch tutorial={tutorial} focusSignal={searchFocus} onSelectStep={onSelect}>
+          {/* Product switcher: the current product, with the full list of products as a dropdown. */}
+          <div className="relative shrink-0">
+            <span
+              id={labelId}
+              data-rail-title
+              className="mb-2 flex items-center text-[12px] font-semibold leading-4 tracking-[0.02em] text-[#6B5F8A]"
+            >
+              <span className="min-w-0 truncate">{RAIL_SEARCH.productLabel}</span>
+            </span>
+            <button
+              id={buttonId}
+              aria-labelledby={`${labelId} ${buttonId}`}
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-expanded={dropdownOpen}
+              aria-haspopup="listbox"
+              className={`group relative flex h-14 w-full items-center gap-2.5 rounded-none bg-white pl-[14px] pr-[10px] text-left outline-none transition-colors before:absolute before:-left-3 before:-right-3 before:top-0 before:h-[2px] before:bg-[var(--sel-line)] after:absolute after:-left-3 after:-right-3 after:bottom-0 after:h-[2px] after:bg-[var(--sel-line)] ${
+                "[--sel-line:#E4D7F9]"
+              }`}
+            >
+              <ProductMark tutorial={tutorial} size={32} />
+              <span title={railLabel(tutorial)} className="min-w-0 flex-1 truncate text-[14px] font-semibold text-ink">
+                {railLabel(tutorial)}
+              </span>
+              <span className={`shrink-0 whitespace-nowrap text-[12px] text-muted ${countClass}`}>
+                {doneCount}/{tutorial.steps.length}
+              </span>
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[4px] text-ink transition-colors group-hover:bg-[#F4F4F6] group-focus-visible:ring-2 group-focus-visible:ring-brand">
+                <Icon
+                  name="chevronDown"
+                  size={20}
+                  className={`transition-transform motion-reduce:transition-none ${dropdownOpen ? "rotate-180" : ""}`}
+                />
+              </span>
+            </button>
+
+            {dropdownOpen && (
+              <ul
+                role="listbox"
+                className="rail-scroll absolute -left-3 -right-3 top-[calc(100%+6px)] z-20 flex max-h-[min(60vh,420px)] flex-col gap-0.5 overflow-y-auto rounded-none border-x-0 border-y-2 border-[#E4D7F9] bg-white px-[20px] py-1.5 shadow-[0_18px_44px_-16px_rgba(17,17,17,0.3)]"
+              >
+                {tutorials.map((t) => {
+                  const active = t.product.id === tutorial.product.id;
+                  return (
+                    <li key={t.product.id} role="option" aria-selected={active}>
+                      <Link
+                        href={`/tutorials/${t.product.id}`}
+                        onClick={() => setMenuOpen(false)}
+                        className={`flex h-11 items-center gap-2.5 rounded-[12px] px-2.5 text-[13px] font-medium ${
+                          active ? "bg-brand-soft text-ink" : "text-[#2a2d36] hover:bg-[#F6F6F8]"
+                        }`}
+                      >
+                        <ProductMark tutorial={t} size={24} />
+                        <span title={railLabel(t)} className="min-w-0 flex-1 truncate">
+                          {railLabel(t)}
+                        </span>
+                        <span className={`text-[12px] text-muted ${countClass}`}>
+                          {completedCount(store, t.product.id, t.steps.map((x) => x.id))}/{t.steps.length}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+
+          {/* This product's own modules (steps). */}
+          <ol ref={listRef} className="rail-scroll -mt-px flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto rounded-none border-2 border-t-0 border-[#E4D7F9] p-2">
+            {tutorial.steps.map((s, i) => {
+              const built = !!s.scene;
+              const isActive = built && playing && i === current;
+              const isDone = done[i];
+              return (
+                <li key={s.id}>
+                  <button
+                    disabled={!built}
+                    onClick={() => onSelect(i)}
+                    title={built ? s.title : `${s.title} — coming soon`}
+                    aria-current={isActive ? "step" : undefined}
+                    className={`flex min-h-11 w-full items-center gap-2.5 rounded-[12px] border px-2.5 py-1.5 text-left text-[13px] transition-colors ${
+                      isActive
+                        ? "border-brand/40 bg-brand-soft font-medium text-ink"
+                        : built
+                          ? "border-transparent text-[#4b5060] hover:bg-[#F6F6F8]"
+                          : "cursor-not-allowed border-transparent text-[#a4a8b3]"
                     }`}
                   >
-                    {isDone && <Icon name="check" size={11} />}
-                  </span>
-                  <span className="min-w-0 flex-1">{s.title}</span>
-                </button>
-              </li>
-            );
-          })}
-        </ol>
-      </RailSearch>
+                    <span
+                      className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border-[1.5px] ${
+                        isDone
+                          ? "border-brand bg-brand text-white"
+                          : isActive
+                            ? "border-brand"
+                            : built
+                              ? "border-[#CFCFD8]"
+                              : "border-dashed border-[#D8D8DF]"
+                      }`}
+                    >
+                      {isDone && <Icon name="check" size={11} />}
+                    </span>
+                    <span className="min-w-0 flex-1">{s.title}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </RailSearch>
 
-      <ResetProgress />
-    </aside>
+        <ResetProgress />
+      </aside>
+
+      {/* Floating tooltip */}
+      {hoveredProduct && (
+        <div
+          role="tooltip"
+          className="pointer-events-none fixed z-[100] -translate-y-1/2 whitespace-nowrap rounded-md bg-[#18181B] px-2.5 py-1 text-[12px] font-medium text-white shadow-xl animate-in fade-in duration-100"
+          style={{ top: hoveredProduct.top, left: hoveredProduct.left }}
+        >
+          {hoveredProduct.name}
+          <div className="absolute right-full top-1/2 -translate-y-1/2 border-[5px] border-transparent border-r-[#18181B]" />
+        </div>
+      )}
+    </div>
   );
 }

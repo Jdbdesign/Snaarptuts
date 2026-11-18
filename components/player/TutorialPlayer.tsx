@@ -135,7 +135,7 @@ export function TutorialPlayer({ productId }: { productId: string }) {
       ) : (
         <div
           className="h-full shrink-0 overflow-hidden transition-[width,margin] duration-300 ease-out"
-          style={{ width: railOpen ? "clamp(260px,15vw,300px)" : 0, marginRight: railOpen ? 20 : 0 }}
+          style={{ width: railOpen ? "calc(clamp(260px,15vw,300px) + 66px)" : 0, marginRight: railOpen ? 20 : 0 }}
           inert={!railOpen}
         >
           {rail}

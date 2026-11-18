@@ -1956,3 +1956,27 @@ Recordings: `C:\Users\HP\Downloads\1118.mp4` (Part 1, 7:17, steps 1–12) and `C
 4. **Completion Flow**:
    - The completion card automatically follows step 17 with "You're all set", Replay, and Back to Snaarp buttons (no longer following step 12).
 
+## Vertical Product Icon Launcher
+
+Added a vertical product icon navigation rail to the extreme left side of the existing tutorial sidebar (`components/player/Rail.tsx`), providing an immediate, always-visible product launcher matching the Snaarp product suite rail.
+
+1. **Architecture & Layout**:
+   - Arranged from left to right: (1) New vertical product icon rail, (2) Existing tutorial sidebar (search, product dropdown, progress counter, step modules list, reset progress), (3) BrowserFrame / stage.
+   - Built inside `components/player/Rail.tsx` as a distinct white rounded card (`rounded-[24px] border border-line bg-white shadow-xs`), with a 10px (`gap-2.5`) separation from the existing tutorial sidebar.
+   - The existing tutorial sidebar remains 100% intact, maintaining its dimensions (`w-[clamp(260px,15vw,300px)]`), internal layout, and controls.
+   - Desktop rail container width in `components/player/TutorialPlayer.tsx` transitions between 0 (collapsed) and `calc(clamp(260px,15vw,300px) + 66px)` (expanded), smoothly sliding both rails together.
+   - Mobile viewports (< 900px, e.g. 390x844): The rail collapses by default. When the mobile drawer opens, both the icon launcher and sidebar render side-by-side within the mobile drawer overlay (340px total width), comfortably fitting within the 390px viewport.
+
+2. **Registered Products Source of Truth**:
+   - Automatically maps over `tutorials` from `@/tutorials/index.ts` (all 16 registered products): Snaarp 360, Snaarp Admin, Snaarp Mail, Snaarp Doc, Snaarp Slides, Snaarp Sheets, Workforce, OneCardX, Snaarp Drive, Snaarp Books, Snaarp Lock, Snaarp Me, Zeus, Snaarp Projects, Snaarp Teams, and Snaarp PDF.
+   - Renders each product's official SVG logo via `ProductMark` (`public/logos/`).
+   - Active product is highlighted with subtle light-purple background (`#EDE9FE` / `bg-brand-soft`), brand-colored icon, and rounded `rounded-[12px]` container, matching Reference Image 1.
+   - Automatically scrolls the active product into view in the icon rail on short screens (e.g. 1280x720) without showing visible scrollbar clutter (`no-scrollbar`).
+
+3. **Tooltips & Interaction**:
+   - Hovering over any product icon reveals a high-contrast floating tooltip positioned beside the icon (`left: rect.right + 10px`) with the full product name (`t.product.name`), e.g. "Snaarp PDF", "Snaarp Books", "Snaarp Mail".
+   - Tooltip is rendered in a fixed z-index layer (`z-[100]`) with `pointer-events-none` so it never gets clipped by container overflow or obstructs navigation controls.
+   - Clicking any icon performs client-side navigation (`/tutorials/${t.product.id}`), updating the route, product dropdown, step modules list, progress counters, and active icon state in full synchronisation.
+   - Both the vertical icon rail and the existing product dropdown remain fully functional and mutually synchronised.
+
+
