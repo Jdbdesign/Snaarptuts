@@ -2626,6 +2626,43 @@ Source recordings:
 - **Timeline & Data**: `components/teams/teams-timeline.ts` (`beginTeams`, `finishTeams`, `pushTeamsToast`), `components/teams/teams-data.ts`.
 - **Step Scenes**: `scenes/teams/step<1..13>/Step<N>.tsx`, `script.ts`.
 
+# Snaarp PDF (12 steps)
+
+Route `/tutorials/pdf`, config `tutorials/pdf.ts`. Recording: `C:\Users\HP\Downloads\1118.mp4` (1386x720, 7:17).
+
+## Step Summary
+
+| Step | Title | Route / URL | Duration |
+|---|---|---|---|
+| 1 | Meet Snaarp PDF | `pdf.snaarp.com/dashboard` | 15.0 s |
+| 2 | Browse your files | `pdf.snaarp.com/dashboard` | 17.5 s |
+| 3 | Upload a file from My files | `pdf.snaarp.com/dashboard` | 16.5 s |
+| 4 | Upload a PDF to edit | `pdf.snaarp.com/upload` | 17.5 s |
+| 5 | Meet the editor | `pdf.snaarp.com/editor/doc-sample-resume` | 24.0 s |
+| 6 | Add and edit text | `pdf.snaarp.com/editor/doc-sample-resume` | 18.5 s |
+| 7 | Redact sensitive text | `pdf.snaarp.com/editor/doc-sample-resume` | 13.5 s |
+| 8 | Highlight and draw | `pdf.snaarp.com/editor/doc-sample-resume` | 20.5 s |
+| 9 | Add an image | `pdf.snaarp.com/editor/doc-sample-resume` | 18.5 s |
+| 10 | Add shapes and marks | `pdf.snaarp.com/editor/doc-sample-resume` | 16.0 s |
+| 11 | Sign your document | `pdf.snaarp.com/editor/doc-sample-resume` | 28.0 s |
+| 12 | Finish and download | `pdf.snaarp.com/dashboard` | 14.5 s |
+
+## Architecture & Components
+- **Stage & Shell**: `components/pdf/PdfStage.tsx`, `components/pdf/PdfShell.tsx` (Snaarp suite rail, PDF sidebar with My files, Upload, Tools, AI Tools, Operations, Report a Bug, and topbar with search, clipboard, grid, avatar "J").
+- **Views**:
+  - `PdfFilesView.tsx`: Quick cards row (Convert, Edit, Translate, Sign), filter pills (All / PDF), list / grid toggle, files table with download hover tooltip, grid cards view.
+  - `PdfUploadView.tsx`: Drag & drop upload area with dashed border, lilac dragover hover state, storage upload progress bar.
+  - `PdfEditor.tsx`: Header (back button, "Untitled Document", red "Done" button), 23-tool bar, contextual option bars (text styling, highlight / pencil), left Pages thumbnails panel, scrollable canvas, and bottom floating page / zoom capsule.
+  - `PdfSamplePage.tsx`: 3-page neutral resume document rendering Jane Doe, Lead Product Designer at Acme Studio, with dynamic text addition, redaction blocks, highlight overlays, pencil strokes, image with resize handles and delete circle, ellipses, cross, check, and placed signatures.
+- **Modals & Dialogs**:
+  - `PdfFilePickerModal.tsx`: In-app file selector modal showing sample files ("Site Photo.jpg", "Signature.png", etc.).
+  - `PdfProcessing.tsx`: Document processing modal with emerald green progress bar (0 to 100%).
+  - `PdfRedactBanner.tsx`: Yellow redaction mode warning banner.
+  - `PdfSignatureDialog.tsx`: Signature modal with Draw, Image, Type (initials "JD" and 4 styled font cards), and Saved tabs.
+- **Timeline & Data**: `components/pdf/pdf-timeline.ts` (`beginPdf`, `finishPdf`, `pushPdfToast`), `components/pdf/pdf-data.ts`.
+- **Step Scenes**: `scenes/pdf/step1` ... `step12` (`StepN.tsx`, `script.ts`).
+
+
 
 
 

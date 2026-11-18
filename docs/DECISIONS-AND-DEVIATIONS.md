@@ -1919,3 +1919,33 @@ Recordings:
 ## Player rail scrollbars (macOS overlay scrollbars)
 
 Rail scrollbars are custom and always visible so Mac overlay scrollbars do not hide them. Applied via `.rail-scroll` to the product dropdown list, steps list, and search results panel with `overflow-y: auto`, `overflow-x: hidden`, `scrollbar-gutter: stable`, custom 10px `#f6f6f8` track, and rounded `#b8b8c4` thumb (hover `#9a9aaa`).
+
+## Snaarp PDF
+
+Recording: `C:\Users\HP\Downloads\1118.mp4` (1386x720, 7:17, 12 steps). Route `/tutorials/pdf`.
+
+1. **Sample Data (Strict Neutralization of Private/Personal Data)**:
+   - User: Jane Doe, `jane@example.com`, avatar "J" with green dot.
+   - Resume document: Jane Doe, Lead Product Designer, Acme Studio, generic project portfolio, neutral employment history and skills. Replaces the recording's real resume for Olayinka Jacobs / JDB, Chronoloop, Zeph, HNG, Statisense, and Nigerian locations/phone numbers.
+   - Initial and uploaded files: "Acme Brief.pdf", "Acme Resume.pdf", "Acme Project Brief.pdf", "Q3 Report.pdf", "Site Photo.jpg", "Signature.png", "Design Doc.pdf", "Meeting Notes.pdf". Replaces personal Google Drive files (e.g. "Snaarp Logos.pdf").
+   - Signature initials: "JD" typed in the Type tab so the 4 font cards show "JD" (replaces the video's "JDB").
+   - UK locale dates: DD/MM/YYYY, today = Wed 18 Nov 2026.
+
+2. **In-App Controls & Dialogs (No OS or Browser Chrome)**:
+   - **In-App File Picker**: Built as `PdfFilePickerModal.tsx` showing Snaarp file cards ("Site Photo.jpg", "Signature.png", "Acme Brief.pdf", etc.) with radio selection and Open/Cancel buttons, replacing the native OS file dialog.
+   - **Processing Modal**: Built as `PdfProcessing.tsx` with white floating card and 0-100% emerald green progress bar.
+   - **Redaction Banner**: Built as `PdfRedactBanner.tsx` displaying the amber/yellow warning banner below the toolbar during redact mode.
+   - **Signature Dialog**: Built as `PdfSignatureDialog.tsx` with all 4 tabs (Draw with freehand canvas, Image with dashed dropzone & picker, Type with 4 styled font cards & color picker, Saved with empty state & trash icon).
+   - **Toasts**: In-app emerald toasts (`pushPdfToast`) for "File uploaded successfully", "Document saved", and "Download started".
+
+3. **Editor Features (`PdfEditor.tsx`)**:
+   - Header with back button, "Untitled Document" label, and red "Done" button.
+   - 23 editing tools toolbar matching recorded order.
+   - Contextual option bars for text styling (Font Family, Size, B/I/U, Swatch) and highlight/pencil (Color swatches, Width chips).
+   - Left Pages panel with mini resume page thumbnails.
+   - Scrollable canvas with 3-page document supporting text insertion, redaction boxes, highlight overlays, pencil curves, image resizing with handles and delete circle, red ellipses, red X mark, green checkmark, and signature placements.
+   - Bottom floating capsule with Page `< 1/3 >`, Zoom `- 100% +`, and Fit Width.
+
+4. **Completion Flow**:
+   - Step 12 finishes by clicking the red Done button, showing the processing modal, returning to My files with "Acme Resume.pdf" in the list, downloading the file, and seamlessly showing the completion card with Replay and Back to Snaarp buttons.
+
