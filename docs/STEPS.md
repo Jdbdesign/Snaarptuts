@@ -2678,6 +2678,7 @@ Route `/tutorials/pdf`, config `tutorials/pdf.ts`. Recordings: `C:\Users\HP\Down
 Recordings:
 - Part 1: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, steps 1–6)
 - Part 2: `C:\Users\HP\Downloads\1119(1).mp4` (1444x720, 4:37, steps 7–12)
+- Part 3: `C:\Users\HP\Downloads\1119(2).mp4` (1340x720, 3:39, steps 13–17)
 
 | Step | Title | URL | Duration |
 | :--- | :--- | :--- | :--- |
@@ -2693,6 +2694,11 @@ Recordings:
 | 10 | Prospect tasks, reminders, and comments | `https://crm.snaarp.com/sales/prospects` | 34.5 s |
 | 11 | Edit client details and close deal | `https://crm.snaarp.com/sales/prospects` | 20.5 s |
 | 12 | List view and pipeline sorting | `https://crm.snaarp.com/sales/prospects` | 21.0 s |
+| 13 | Sales forecasting and targets | `https://crm.snaarp.com/forecasts` | 25.0 s |
+| 14 | Won and lost deals management | `https://crm.snaarp.com/deals/won` | 22.0 s |
+| 15 | Team tasks and follow-up scheduling | `https://crm.snaarp.com/tasks` | 25.0 s |
+| 16 | Task details, reminders, and progress | `https://crm.snaarp.com/tasks` | 23.0 s |
+| 17 | Activity calendar and task completion | `https://crm.snaarp.com/calendar` | 21.0 s |
 
 ## Groups
 - **Overview**: Step 1 (`crm-overview`)
@@ -2704,28 +2710,38 @@ Recordings:
 - **Prospect Tasks and Comments**: Step 10 (`crm-tasks-comments`)
 - **Edit and Close Prospects**: Step 11 (`crm-edit-close`)
 - **List View and Sorting**: Step 12 (`crm-list-view`)
+- **Sales Forecasting**: Step 13 (`crm-forecasts`)
+- **Won and Lost Deals**: Step 14 (`crm-won-lost`)
+- **Tasks**: Step 15 (`crm-tasks`)
+- **Task Details and Reminders**: Step 16 (`crm-task-details`)
+- **Calendar**: Step 17 (`crm-calendar`)
 
 ## Architecture & Components
-- **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities, Calls, Contacts, Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
+- **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities [accordion controlling Tasks and Calendar], Calls, Contacts, Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
 - **Views**:
   - `CrmHomeView.tsx`: Overview KPI metric cards (Contacts: 59, Deals: 32, Emails: 0, Tasks: 0).
   - `CrmDashboardsView.tsx`: Subnav listing PR sales, My Dashboard, and custom Client Leads; empty state canvas with "+ Add First Widget"; custom 6-widget grid (KPI card 25, Bar Chart, Line Chart, Table, Pie Chart with source distribution, KPI card 2); pre-built 8-widget My Dashboard.
   - `CrmProspectsView.tsx`: Header with pipeline selector pill, segmented view switcher (Kanban / List / Grid), sort dropdown with 6 options (Most recent, Oldest, Name A-Z, Name Z-A, Value high-low, Value low-high), Import, Export, and Add Contact buttons. Kanban columns (Event Leads, Lead, Proposal, Presentation, Awaiting Response, Interviewing) with prospect cards, 3-dot context menu, inline deal value editor, inline task creator, and action pills (Email, Call, SMS, WhatsApp). Dense list view table with inline stage dropdowns, real-time sorting, and Won/Lost tags. 3-column card grid view with stage selectors and pagination.
   - `CrmCallsView.tsx`: Full Cloud Phone view (My Numbers, Call Settings, 5 metric cards, 12-key telephone dial pad, active call status bar, recent call history) and SMS communication hub (SMS metric cards, conversation list drawer, message thread, rich composer with emoji and attachments, contact profile card with Quick Actions).
   - `CrmTvModeView.tsx`: Full-screen presentation mode overlay with rich purple background (`#581C87`), auto-refreshing header, dark slate cards (`#1E293B`), pause pill, and Exit TV Mode button.
+  - `CrmForecastsView.tsx`: Sales forecasting dashboard featuring Weighted Pipeline (Total Pipeline, Weighted Forecast, Quota Attainment KPI cards and 9 stage progress bars), By Rep (open deals, pipeline, weighted value, won YTD, targets, attainment), Targets (empty state, create target button, active targets table), and Pipeline Risk (deals at risk and value at risk KPIs, stale deals table with idle counters).
+  - `CrmDealsView.tsx`: Closed deals interface supporting Won Deals (`/deals/won`) and Lost Deals (`/deals/lost`), view switcher (List and Grid), pipeline selector, sort dropdown, and deal status popover with Closed (Won, Lost) and Reopen as (12 pipeline stages).
+  - `CrmTasksView.tsx`: Team task management supporting Board view (To Do, In Progress, Done columns), List view, inline Add Task form (Title, Priority, Date, Description, Link contact), and Task Details right slide-over panel with interactive status advancement (To Do, In Progress, Done, Cancelled).
+  - `CrmCalendarView.tsx`: Monthly calendar grid for November 2026 (Sun-Sat), activity legend, day selection (Nov 12 and Nov 19), and slide-over day details panel with interactive task completion (strikethrough and checkmark).
 - **Modals & Dialogs**:
   - `CrmNewDashboardModal.tsx`: New dashboard dialog with text input and Create action.
   - `CrmAddWidgetsModal.tsx`: Catalog modal displaying 11 widget types with selection badges and "+ Add N widgets" button.
   - `CrmShareDashboardModal.tsx`: Sharing permissions modal with 5 role options and Save action.
   - `CrmImportModal.tsx`: 4-stage CSV import wizard (Upload with dropzone, Map Columns for 10 fields, Review with stats and fallback warning, Complete with success state).
   - `CrmAddContactModal.tsx`: 2-column contact creation dialog with 16 fields, product catalog dropdown picker, and notes.
-  - `CrmTaskReminderModal.tsx`: High-priority task reminder alert modal with action buttons (`✓ Mark Done`, `Go to Task`) and snooze grid.
+  - `CrmTaskReminderModal.tsx`: High-priority task reminder alert modal with action buttons (`✓ Mark Done`, `Go to Task`) and snooze grid (10m, 15m, 30m, 1h, 3h, Tomorrow).
   - `CrmAddCommentModal.tsx`: Add comment dialog for internal prospect notes.
   - `CrmViewCommentsModal.tsx`: Timeline viewer of logged comments with author, timestamp, and notes.
   - `CrmEditClientModal.tsx`: 2-section scrollable panel for Client Details and Prospect Details.
   - `CrmCloseWonModal.tsx`: Close Deal (Won) confirmation dialog with celebration icon and value summary.
-- **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
-- **Step Scenes**: `scenes/crm/step1` ... `step12` (`StepN.tsx`, `script.ts`).
+  - `CrmNewTargetModal.tsx`: New sales target dialog with Period (Monthly), Year (2026), Month (November), Revenue target, and Deal count target.
+- **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `hoverOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
+- **Step Scenes**: `scenes/crm/step1` ... `step17` (`StepN.tsx`, `script.ts`, `data.ts`).
 
 
 

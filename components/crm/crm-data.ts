@@ -410,3 +410,168 @@ export const SHARE_ROLES = [
   "Member",
   "Viewer",
 ] as const;
+
+/* --- Part 3 (Steps 13-17) Data Definitions --- */
+
+export interface ForecastStageItem {
+  stage: string;
+  probability: string;
+  dealsCount: number;
+  pipelineValue: string;
+  weightedValue: string;
+  barColor: string;
+  barWidthPercent: number;
+}
+
+export const FORECAST_STAGES: ForecastStageItem[] = [
+  { stage: 'Event Leads', probability: '10%', dealsCount: 352, pipelineValue: '£24.2k', weightedValue: '£2.4k', barColor: '#F87171', barWidthPercent: 92 },
+  { stage: 'Admission Request', probability: '5%', dealsCount: 0, pipelineValue: '£0', weightedValue: '£0', barColor: '#9CA3AF', barWidthPercent: 0 },
+  { stage: 'Form Sent', probability: '10%', dealsCount: 0, pipelineValue: '£0', weightedValue: '£0', barColor: '#9CA3AF', barWidthPercent: 0 },
+  { stage: 'Lead', probability: '5%', dealsCount: 27, pipelineValue: '£12.1k', weightedValue: '£605', barColor: '#818CF8', barWidthPercent: 54 },
+  { stage: 'Meeting', probability: '30%', dealsCount: 0, pipelineValue: '£0', weightedValue: '£0', barColor: '#9CA3AF', barWidthPercent: 0 },
+  { stage: 'Proposal', probability: '10%', dealsCount: 4, pipelineValue: '£0', weightedValue: '£0', barColor: '#9CA3AF', barWidthPercent: 0 },
+  { stage: 'Presentation', probability: '10%', dealsCount: 1, pipelineValue: '£0', weightedValue: '£0', barColor: '#9CA3AF', barWidthPercent: 0 },
+  { stage: 'Admission Granted', probability: '100%', dealsCount: 0, pipelineValue: '£0', weightedValue: '£0', barColor: '#9CA3AF', barWidthPercent: 0 },
+  { stage: 'Awaiting Response', probability: '10%', dealsCount: 0, pipelineValue: '£0', weightedValue: '£0', barColor: '#9CA3AF', barWidthPercent: 0 },
+];
+
+export interface ForecastRepItem {
+  id: string;
+  name: string;
+  email: string;
+  openDeals: number;
+  pipeline: string;
+  weighted: string;
+  wonYtd: string;
+  target: string;
+  attainment: string;
+}
+
+export const FORECAST_REPS: ForecastRepItem[] = [
+  { id: 'rep-sam', name: 'Sam Taylor', email: 'sam.taylor@example.com', openDeals: 8, pipeline: '£36.2k', weighted: '£3.0k', wonYtd: '£0', target: '—', attainment: 'No target' },
+  { id: 'rep-casey', name: 'Casey Brown', email: 'casey.brown@example.com', openDeals: 3, pipeline: '£150', weighted: '£15', wonYtd: '£0', target: '—', attainment: 'No target' },
+  { id: 'rep-jordan', name: 'Jordan Lee', email: 'jordan.lee@example.com', openDeals: 366, pipeline: '£0', weighted: '£0', wonYtd: '£0', target: '—', attainment: 'No target' },
+  { id: 'rep-alex', name: 'Alex Morgan', email: 'alex.morgan@example.com', openDeals: 2, pipeline: '£0', weighted: '£0', wonYtd: '£0', target: '—', attainment: 'No target' },
+  { id: 'rep-unassigned', name: 'Unassigned', email: '', openDeals: 1, pipeline: '£0', weighted: '£0', wonYtd: '£0', target: '—', attainment: 'No target' },
+];
+
+export interface TargetItem {
+  id: string;
+  scope: string;
+  period: string;
+  revenueTarget: string;
+  dealTarget: string;
+}
+
+export const INITIAL_TARGETS: TargetItem[] = [
+  { id: 'target-1', scope: 'Organization', period: 'Monthly 2026 · M11', revenueTarget: '£20.0k', dealTarget: '—' },
+];
+
+export interface PipelineRiskItem {
+  id: string;
+  deal: string;
+  stage: string;
+  value: string;
+  idle: string;
+  reason: string;
+}
+
+export const PIPELINE_RISK_DEALS: PipelineRiskItem[] = [
+  { id: 'risk-1', deal: 'Acme Expansion Deal', stage: 'Lead', value: '£0', idle: '16d', reason: 'Stale' },
+  { id: 'risk-2', deal: 'Casey Brown Pilot', stage: 'Lead', value: '£0', idle: '85d', reason: 'Stale' },
+  { id: 'risk-3', deal: 'Jordan Lee Rollout', stage: 'Presentation', value: '£0', idle: '86d', reason: 'Stale' },
+  { id: 'risk-4', deal: 'Sam Taylor Integration', stage: 'Lead', value: '£0', idle: '87d', reason: 'Stale' },
+  { id: 'risk-5', deal: 'Alex Morgan Upgrade', stage: 'Proposal', value: '£0', idle: '86d', reason: 'Stale' },
+  { id: 'risk-6', deal: 'Priya Shah Cloud', stage: 'Lead', value: '£0', idle: '87d', reason: 'Stale' },
+  { id: 'risk-7', deal: 'Daniel Okoye Retainer', stage: 'Lead', value: '£0', idle: '87d', reason: 'Stale' },
+];
+
+export interface ClosedDealItem {
+  id: string;
+  name: string;
+  initials: string;
+  value: string;
+  contact: string;
+  closedDate: string;
+  status: 'won' | 'lost';
+}
+
+export const WON_DEALS_INITIAL: ClosedDealItem[] = [
+  { id: 'won-1', name: 'Alex Morgan', initials: 'AM', value: '£8,500', contact: 'alex.morgan@example.com', closedDate: '11/19/2026', status: 'won' },
+  { id: 'won-2', name: 'Sam Taylor', initials: 'ST', value: '—', contact: '+44 7700 900123', closedDate: '11/19/2026', status: 'won' },
+];
+
+export const LOST_DEALS_INITIAL: ClosedDealItem[] = [
+  { id: 'lost-1', name: 'Casey Brown', initials: 'CB', value: '—', contact: 'casey.brown@example.com', closedDate: '11/11/2026', status: 'lost' },
+];
+
+export const DEAL_STATUS_OPTIONS = [
+  {
+    group: 'Closed',
+    items: ['Won', 'Lost'],
+  },
+  {
+    group: 'Reopen as',
+    items: [
+      'Event Leads',
+      'Lead',
+      'Proposal',
+      'Presentation',
+      'Awaiting Response',
+      'Interested',
+      'Not Interested',
+      'Integrating Systems',
+      'Negotiation',
+      'Growth',
+      'Lost',
+      'Won',
+    ],
+  },
+];
+
+export interface CrmTaskItem {
+  id: string;
+  title: string;
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  status: 'todo' | 'in_progress' | 'done' | 'cancelled';
+  dueDate: string;
+  description?: string;
+  emailReminders?: boolean;
+  linkedContact?: string;
+  createdDate?: string;
+}
+
+export const INITIAL_TASKS: CrmTaskItem[] = [
+  { id: 'task-1', title: 'Follow up call', priority: 'medium', status: 'done', dueDate: '—', createdDate: '11/10/2026' },
+  { id: 'task-2', title: 'Message CEO', priority: 'medium', status: 'done', dueDate: '11/12/2026', createdDate: '11/11/2026' },
+  { id: 'task-3', title: 'Get a new lead', priority: 'medium', status: 'done', dueDate: '—', createdDate: '11/11/2026' },
+  { id: 'task-4', title: 'Follow up Sam', priority: 'high', status: 'done', dueDate: '8/20/2026', createdDate: '8/15/2026' },
+  { id: 'task-5', title: 'Follow up Alex', priority: 'high', status: 'done', dueDate: '8/20/2026', createdDate: '8/15/2026' },
+];
+
+export const NEW_TASK_TEMPLATE: CrmTaskItem = {
+  id: 'task-client-call',
+  title: 'Call The Client before the end of work',
+  priority: 'high',
+  status: 'todo',
+  dueDate: '11/19/2026',
+  description: '',
+  emailReminders: true,
+  linkedContact: 'No contact linked',
+  createdDate: '11/19/2026',
+};
+
+export interface CrmCalendarEvent {
+  id: string;
+  title: string;
+  day: number;
+  dateFormatted: string;
+  type: 'task' | 'meeting' | 'call' | 'deal';
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  completed: boolean;
+}
+
+export const INITIAL_CALENDAR_EVENTS: CrmCalendarEvent[] = [
+  { id: 'ev-1', title: 'Message CEO', day: 12, dateFormatted: 'Thu, Nov 12', type: 'task', priority: 'medium', completed: true },
+  { id: 'ev-2', title: 'Call The Client before the end of work', day: 19, dateFormatted: 'Thu, Nov 19', type: 'task', priority: 'high', completed: false },
+];

@@ -105,6 +105,7 @@ export function CrmTaskReminderModal({
                   key={pill}
                   type="button"
                   onClick={onClose}
+                  data-tl={`crm-reminder-snooze-${pill.replace(/\s+/g, '-').toLowerCase()}`}
                   className="py-1.5 px-2 bg-white border border-gray-200 hover:bg-gray-50 rounded-full text-[11px] font-medium text-gray-700 text-center transition-colors"
                 >
                   {pill}

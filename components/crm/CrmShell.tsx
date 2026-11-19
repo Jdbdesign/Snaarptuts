@@ -47,6 +47,8 @@ export type CrmNavId =
   | "won"
   | "lost"
   | "activities"
+  | "tasks"
+  | "calendar"
   | "calls"
   | "contacts"
   | "messages"
@@ -64,6 +66,7 @@ interface Props {
 export function CrmShell({ tl, children }: Props) {
   const activeNav = useTimelineVar<CrmNavId>(tl, "crm:activeNav", "home");
   const salesOpen = useTimelineVar<boolean>(tl, "crm:salesOpen", true);
+  const activitiesOpen = useTimelineVar<boolean>(tl, "crm:activitiesOpen", false);
   const toast = useTimelineVar<CrmToast | null>(tl, "crm:toast", null);
 
   return (
@@ -291,21 +294,45 @@ export function CrmShell({ tl, children }: Props) {
                     <button
                       type="button"
                       data-tl="crm-nav-forecasts"
-                      className="flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      onClick={() => {
+                        tl.setVar("crm:activeNav", "forecasts");
+                        tl.setUrl("crm.snaarp.com/forecasts");
+                      }}
+                      className={`flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] transition-colors ${
+                        activeNav === "forecasts"
+                          ? "font-semibold text-[#7C3AED]"
+                          : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      }`}
                     >
                       Forecasts
                     </button>
                     <button
                       type="button"
                       data-tl="crm-nav-won"
-                      className="flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      onClick={() => {
+                        tl.setVar("crm:activeNav", "won");
+                        tl.setUrl("crm.snaarp.com/deals/won");
+                      }}
+                      className={`flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] transition-colors ${
+                        activeNav === "won"
+                          ? "font-semibold text-[#7C3AED]"
+                          : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      }`}
                     >
                       Won
                     </button>
                     <button
                       type="button"
                       data-tl="crm-nav-lost"
-                      className="flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      onClick={() => {
+                        tl.setVar("crm:activeNav", "lost");
+                        tl.setUrl("crm.snaarp.com/deals/lost");
+                      }}
+                      className={`flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] transition-colors ${
+                        activeNav === "lost"
+                          ? "font-semibold text-[#7C3AED]"
+                          : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      }`}
                     >
                       Lost
                     </button>
@@ -314,16 +341,62 @@ export function CrmShell({ tl, children }: Props) {
               </div>
 
               {/* Activities */}
-              <button
-                type="button"
-                className="flex h-9 w-full items-center justify-between rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
-              >
-                <div className="flex items-center gap-2.5">
-                  <ClipboardList size={16} />
-                  <span>Activities</span>
-                </div>
-                <ChevronRight size={14} className="text-[#9CA3AF]" />
-              </button>
+              <div>
+                <button
+                  type="button"
+                  data-tl="crm-nav-activities"
+                  onClick={() => {
+                    tl.setVar("crm:activitiesOpen", !activitiesOpen);
+                    tl.setVar("crm:activeNav", "activities");
+                  }}
+                  className={`flex h-9 w-full items-center justify-between rounded-xl px-3 text-[13px] font-medium transition-colors ${
+                    activeNav === "activities" || activeNav === "tasks" || activeNav === "calendar"
+                      ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                      : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <ClipboardList size={16} />
+                    <span>Activities</span>
+                  </div>
+                  {activitiesOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} className="text-[#9CA3AF]" />}
+                </button>
+
+                {activitiesOpen && (
+                  <div className="ml-6 flex flex-col gap-0.5 border-l border-[#ECECF1] pl-2 pt-0.5">
+                    <button
+                      type="button"
+                      data-tl="crm-nav-tasks"
+                      onClick={() => {
+                        tl.setVar("crm:activeNav", "tasks");
+                        tl.setUrl("crm.snaarp.com/tasks");
+                      }}
+                      className={`flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] transition-colors ${
+                        activeNav === "tasks"
+                          ? "font-semibold text-[#7C3AED]"
+                          : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      }`}
+                    >
+                      Tasks
+                    </button>
+                    <button
+                      type="button"
+                      data-tl="crm-nav-calendar"
+                      onClick={() => {
+                        tl.setVar("crm:activeNav", "calendar");
+                        tl.setUrl("crm.snaarp.com/calendar");
+                      }}
+                      className={`flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] transition-colors ${
+                        activeNav === "calendar"
+                          ? "font-semibold text-[#7C3AED]"
+                          : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      }`}
+                    >
+                      Calendar
+                    </button>
+                  </div>
+                )}
+              </div>
 
               {/* Calls */}
               <button

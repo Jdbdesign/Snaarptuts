@@ -8,7 +8,7 @@ interface Props {
   tl?: Timeline;
 }
 
-export function CrmHomeView(_props: Props) {
+export function CrmHomeView({}: Props) {
   return (
     <div
       className="flex h-full w-full flex-col overflow-y-auto p-7"

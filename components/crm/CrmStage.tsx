@@ -19,7 +19,19 @@ import { CrmAddCommentModal } from './CrmAddCommentModal';
 import { CrmViewCommentsModal } from './CrmViewCommentsModal';
 import { CrmEditClientModal } from './CrmEditClientModal';
 import { CrmCloseWonModal } from './CrmCloseWonModal';
-import { INITIAL_DASHBOARDS, POST_IMPORT_PROSPECTS, type CrmDashboardItem, type ProspectItem } from './crm-data';
+import { CrmForecastsView } from './CrmForecastsView';
+import { CrmDealsView } from './CrmDealsView';
+import { CrmTasksView } from './CrmTasksView';
+import { CrmCalendarView } from './CrmCalendarView';
+import { CrmNewTargetModal } from './CrmNewTargetModal';
+import {
+  INITIAL_DASHBOARDS,
+  POST_IMPORT_PROSPECTS,
+  INITIAL_TARGETS,
+  type CrmDashboardItem,
+  type ProspectItem,
+  type TargetItem,
+} from './crm-data';
 import { pushCrmToast } from './crm-timeline';
 
 interface CrmStageProps {
@@ -43,6 +55,9 @@ export function CrmStage({ tl }: CrmStageProps) {
   const isViewCommentsOpen = useTimelineVar<boolean>(tl, 'crm:isViewCommentsOpen', false);
   const isEditClientOpen = useTimelineVar<boolean>(tl, 'crm:isEditClientOpen', false);
   const isCloseWonOpen = useTimelineVar<boolean>(tl, 'crm:isCloseWonOpen', false);
+
+  // Part 3 Modals state
+  const isNewTargetOpen = useTimelineVar<boolean>(tl, 'crm:isNewTargetOpen', false);
 
   // Dashboards list
   const dashboards = useTimelineVar<CrmDashboardItem[]>(tl, 'crm:dashboards', INITIAL_DASHBOARDS);
@@ -104,6 +119,20 @@ export function CrmStage({ tl }: CrmStageProps) {
     pushCrmToast(tl, 'Deal closed as won');
   };
 
+  const handleCreateTarget = () => {
+    const currentTargets = tl.getVar<TargetItem[]>('crm:targets', INITIAL_TARGETS);
+    const newTarget: TargetItem = {
+      id: `target-${Date.now()}`,
+      scope: 'Organization',
+      period: 'Monthly 2026 · M11',
+      revenueTarget: '£20.0k',
+      dealTarget: '—',
+    };
+    tl.setVar('crm:targets', [...currentTargets, newTarget]);
+    tl.setVar('crm:isNewTargetOpen', false);
+    pushCrmToast(tl, 'Sales target created');
+  };
+
   return (
     <div
       data-scroller
@@ -133,6 +162,24 @@ export function CrmStage({ tl }: CrmStageProps) {
         )}
 
         {activeNav === 'calls' && <CrmCallsView tl={tl} />}
+
+        {activeNav === 'forecasts' && (
+          <CrmForecastsView
+            tl={tl}
+            onOpenNewTarget={() => tl.setVar('crm:isNewTargetOpen', true)}
+          />
+        )}
+
+        {(activeNav === 'won' || activeNav === 'lost') && (
+          <CrmDealsView
+            tl={tl}
+            mode={activeNav === 'won' ? 'won' : 'lost'}
+          />
+        )}
+
+        {activeNav === 'tasks' && <CrmTasksView tl={tl} />}
+
+        {activeNav === 'calendar' && <CrmCalendarView tl={tl} />}
       </CrmShell>
 
       {/* Modals & Presentation Overlays */}
@@ -186,8 +233,8 @@ export function CrmStage({ tl }: CrmStageProps) {
           tl.setVar('crm:isTaskReminderOpen', false);
           pushCrmToast(tl, 'Task marked as done');
         }}
-        prospectName="Alex Morgan"
-        taskTitle="Follow up call"
+        prospectName={activeNav === 'tasks' ? 'The Client' : 'Alex Morgan'}
+        taskTitle={activeNav === 'tasks' ? 'Call The Client before the end of work' : 'Follow up call'}
       />
 
       <CrmAddCommentModal
@@ -221,6 +268,13 @@ export function CrmStage({ tl }: CrmStageProps) {
         onClose={() => tl.setVar('crm:isCloseWonOpen', false)}
         onConfirm={handleCloseWonConfirm}
         prospectName="Alex Morgan"
+      />
+
+      <CrmNewTargetModal
+        tl={tl}
+        isOpen={isNewTargetOpen}
+        onClose={() => tl.setVar('crm:isNewTargetOpen', false)}
+        onCreate={handleCreateTarget}
       />
     </div>
   );

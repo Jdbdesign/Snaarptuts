@@ -1126,7 +1126,12 @@ Steps:
 9. Add a contact and link products (Click '+ Add Contact' -> 2-column modal with 16 fields, select products popover adding "Snaarp PDF (£12/mo)" chip, submit -> toast "Contact created successfully")
 10. Prospect tasks, reminders, and comments (Click card deal value -> inline input edit £8,500; open 3-dot menu -> add inline task, high-priority reminder alert with '✓ Mark Done', add internal comment modal, view comments modal)
 11. Edit client details and close deal (Open 3-dot menu -> Edit Client Details scrollable modal with 2 sections, save changes -> toast "Prospect updated"; open menu -> Close Deal (Won) modal with celebration icon, confirm -> deal moved to Won)
-12. List view and pipeline sorting (Switch to List table view with stage dropdown pills; open sort menu and sort Name A-Z -> reordered list; open sort menu and sort Name Z-A -> reverse reordered list; completion screen automatically follows)
+12. List view and pipeline sorting (Switch to List table view with stage dropdown pills; open sort menu and sort Name A-Z -> reordered list; open sort menu and sort Name Z-A -> reverse reordered list)
+13. Sales forecasting and targets (Sales subnav -> Forecasts; Weighted Pipeline with 3 KPI cards [Total Pipeline £36.4k, Weighted Forecast £3.0k, Quota Attainment 0%] and 9 stage progress bars; By Rep tab with rep quota rows; Targets tab with empty state card -> New Sales Target modal creating £20,000 monthly target for Nov 2026 -> active targets table; Pipeline Risk tab with 7 stale deals)
+14. Won and lost deals (Sales subnav -> Won; List view with 2 won deals, open deal status dropdown inspecting reopen options, switch to Grid view cards; Sales subnav -> Lost; Grid view with lost deal cards)
+15. Team tasks and follow-up scheduling (Activities subnav -> Tasks; Board view [To Do, In Progress, Done columns] and List view table; click '+ Add Task' -> inline form on top of board, type title "Call The Client before the end of work", High priority, due 11/19/2026 -> submit into To Do column)
+16. Task details, reminders, and progress (Click task card in To Do -> Task Details slide-over right panel; high-priority reminder modal alerts with '1 hour' snooze button -> toast "Reminder snoozed for 1 hour"; change status in panel to In Progress -> task moves to In Progress column; close panel)
+17. Activity calendar and task completion (Activities subnav -> Calendar; November 2026 7-column month grid; click Nov 12 -> day panel showing "Message CEO"; click Nov 19 -> day panel showing "Call The Client before the end of work"; click circular checkbox -> task completed with checkmark, strikethrough, and toast "Task marked as done"; completion card automatically follows)
 
 Groups:
 - Overview: Step 1
@@ -1138,13 +1143,18 @@ Groups:
 - Prospect Tasks and Comments: Step 10
 - Edit and Close Prospects: Step 11
 - List View and Sorting: Step 12
+- Sales Forecasting: Step 13
+- Won and Lost Deals: Step 14
+- Tasks: Step 15
+- Task Details and Reminders: Step 16
+- Calendar: Step 17
 
 Files:
 - Shell & Stage: `components/crm/CrmShell.tsx`, `components/crm/CrmStage.tsx`
-- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`
-- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`
+- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`, `components/crm/CrmForecastsView.tsx`, `components/crm/CrmDealsView.tsx`, `components/crm/CrmTasksView.tsx`, `components/crm/CrmCalendarView.tsx`
+- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`, `components/crm/CrmNewTargetModal.tsx`
 - Data & Timeline: `components/crm/crm-data.ts`, `components/crm/crm-timeline.ts`
-- Scenes: `scenes/crm/step<1..12>/Step<N>.tsx`, `script.ts`
+- Scenes: `scenes/crm/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Product switcher and vertical icon rail
 The product navigation provides dual, synchronised discovery methods:

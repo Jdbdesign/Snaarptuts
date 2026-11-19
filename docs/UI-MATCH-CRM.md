@@ -3,6 +3,7 @@
 Design lock and side-by-side audit notes for Snaarp CRM:
 - Part 1 (steps 1–6): `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25).
 - Part 2 (steps 7–12): `C:\Users\HP\Downloads\1119(1).mp4` (1444x720, 4:37).
+- Part 3 (steps 13–17): `C:\Users\HP\Downloads\1119(2).mp4` (1340x720, 3:39).
 
 ---
 
@@ -250,4 +251,118 @@ Source recording: `C:\Users\HP\Downloads\1119(1).mp4` (4:15–4:37)
 | **Name (A-Z) Sort Action** | Third item in sort menu | Menu item row | Hover bg `#F3F4F6`, active purple text | "Name (A-Z)" | Clicked -> table reorders: Alex Morgan, Casey Jordan, Morgan Taylor, Sam Lee, Taylor Brooks |
 | **Name (Z-A) Sort Action** | Fourth item in sort menu | Menu item row | Hover bg `#F3F4F6`, active purple text | "Name (Z-A)" | Clicked -> table reorders: Taylor Brooks, Sam Lee, Morgan Taylor, Casey Jordan, Alex Morgan |
 | **Pagination Bar** | Table footer | Flex row justify-between | Text `#6B7280`, border-t `#F3F4F6` | "Showing 5 of 5 prospects", Prev / Next buttons | Rendered |
-| **Completion Card** | Follows Step 12 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Appears after Step 12 completes |
+| **Completion Card (Part 2)** | Follows Step 12 in Part 2 | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Relocated to step 17 in Part 3 |
+
+---
+
+## Step 13: Sales forecasting and quota targets (0:00–0:48)
+
+URL: `crm.snaarp.com/forecasts`
+Route: `/tutorials/crm`
+View: Sales Forecasting (Weighted Pipeline, By Rep, Targets, Pipeline Risk)
+Source recording: `C:\Users\HP\Downloads\1119(2).mp4` (0:00–0:48)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Sales Navigation Subitem** | CRM Sidebar under Sales | Item row | Active text `#7014D9` | Trending icon + "Forecasts" | Active subitem |
+| **Page Header** | Top of main canvas | Flex col gap-1 | Heading `#111111`, subtitle `#6B7280` | "Sales Forecasting" (bold 20px), "Weighted pipeline, per-rep forecasts, quota tracking and at-risk deals." | Default |
+| **Tab Navigation Bar** | Under page header | Horizontal tab row | Border-b `#E5E7EB` | Tabs: `Weighted Pipeline` (active, purple underline `#7014D9`), `By Rep`, `Targets`, `Pipeline Risk` | Switchable |
+| **Total Pipeline KPI Card** | Top row left | Col span 1 | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `$ Total Pipeline`, Value: `£36.4k` (bold 28px) | Rendered |
+| **Weighted Forecast KPI Card** | Top row center | Col span 1 | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `📈 Weighted Forecast`, Value: `£3.0k` (bold 28px purple `#7014D9`) | Rendered |
+| **Quota Attainment KPI Card** | Top row right | Col span 1 | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `🎯 Quota Attainment`, Value: `0%` (bold 28px), Subtitle: `£0 of £0` | Rendered |
+| **Pipeline by Stage Chart** | Main canvas below KPIs | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Header: "Pipeline by stage". 9 stage progress bars: Event Leads (10%, 352 deals, £24.2k -> £2.4k, coral bar), Admission Request, Form Sent, Lead (5%, 27 deals, £12.1k -> £605, indigo bar), Meeting, Proposal (4 deals), Presentation (1 deal), Admission Granted, Awaiting Response | Displayed |
+| **By Rep Table** | By Rep tab content | Full width table | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Columns: Rep, Open deals, Pipeline, Weighted, Won (YTD), Target, Attainment. 5 fictional rep rows (Sam Taylor, Casey Brown, Jordan Lee, Alex Morgan, Unassigned) | Table rendered |
+| **Targets Empty State** | Targets tab initial | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: "No sales targets set", Subtitle: "Targets drive quota attainment on the overview and per-rep tabs.", Button: `Create a target` (purple pill) | Empty state active |
+| **New Sales Target Modal** | Centered modal overlay | 480px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: "New Sales Target", close `x`. Form fields: Period ("Monthly"), Year ("2026"), Month ("November"), Revenue target ("20000"), Deal count target ("0") | Active typing & creation |
+| **Create Target Button** | Modal footer right | Purple pill | Bg: `#7014D9`, text white | "Create Target" | Clicked -> saves target, toast "Target created" |
+| **Targets Table** | Targets tab populated | Full width table | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Columns: Scope ("Organization"), Period ("Monthly 2026 · M11"), Revenue target ("£20.0k"), Deal target ("—"), delete action | Rendered with created target |
+| **Pipeline Risk KPI Cards** | Pipeline Risk tab top | 2 cards grid | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | `Deals at risk: 7`, `Value at risk: £0` | Rendered |
+| **Pipeline Risk Table** | Pipeline Risk tab | Full width table | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Columns: Deal, Stage, Value, Idle, Reason. 7 deals (stale badge `#F59E0B`, idle days 16d-87d) | Rendered |
+
+---
+
+## Step 14: Won and lost deals (0:48–1:04)
+
+URL: `crm.snaarp.com/deals/won` (Won) and `crm.snaarp.com/deals/lost` (Lost)
+View: Won Deals & Lost Deals Catalog (List & Grid Layouts, Status Dropdowns)
+Source recording: `C:\Users\HP\Downloads\1119(2).mp4` (0:48–1:04)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Won Sidebar Subitem** | CRM Sidebar under Sales | Item row | Active text `#7014D9` | Check/star icon + "Won" | Active |
+| **Won Deals Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, controls | "Won Deals" (bold 20px), "Sales Pipeline v" pill, "2 won deals" subtitle | Default |
+| **Won Deals Empty State** | Main canvas initial | Full width | Text `#6B7280` | "No won deals yet" | Rendered momentarily |
+| **Won Deals List View** | Main canvas | Full width table | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Columns: NAME, VALUE, CONTACT, CLOSED, STATUS. Rows: Alex Morgan (£8,500, 11/19/2026, Won), Sam Taylor (—, 11/19/2026, Won) | Populated list view |
+| **Status Dropdown** | Status column on deal row | Select pill | Bg: `#ECFDF5`, text `#059669`, border `#A7F3D0` | "Won v" pill | Clicked -> opens options menu |
+| **Status Options Menu** | Popover dropdown | 200px wide | Bg: `#FFFFFF`, rounded-[12px], shadow-xl | Groups: `Closed` (Won, Lost), `Reopen as` (Event Leads, Lead, Proposal, Presentation, Awaiting Response, Interested, Not Interested, Integrating Systems, Negotiation, Growth, Lost, Won) | "Interested" hovered |
+| **Grid View Toggle** | Top right controls | Segmented button | Active bg `#EDE9FE`, text `#7014D9` | Grid icon + "Grid" | Clicked -> switches to card layout |
+| **Won Deals Grid Cards** | Main canvas | 2-column card grid | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Avatar, Deal Name, Closed date, Deal value (green bold), Status dropdown pill | Cards rendered |
+| **Lost Sidebar Subitem** | CRM Sidebar under Sales | Item row | Active text `#7014D9` | Alert/ban icon + "Lost" | Clicked -> navigates to Lost Deals |
+| **Lost Deals Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, controls | "Lost Deals" (bold 20px), "Sales Pipeline v" pill, "1 lost deals" subtitle | Default |
+| **Lost Deal Card** | Main canvas (Grid view) | Single card in grid | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Avatar `CB`, "Casey Brown", "Closed 11/11/2026", status pill: `Lost v` (red/pink tint `#FEE2E2`, text `#DC2626`) | Displayed |
+
+---
+
+## Step 15: Manage and create tasks (1:44–2:42)
+
+URL: `crm.snaarp.com/tasks`
+View: Tasks Board & Inline Add Task Form
+Source recording: `C:\Users\HP\Downloads\1119(2).mp4` (1:44–2:42)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Activities Sidebar Nav** | CRM Sidebar | Collapsible group | Active `#7014D9` | Clipboard icon + "Activities" (expanded to Tasks, Calendar) | Expanded |
+| **Tasks Header** | Top of page | Flex row justify-between | Heading `#111111`, controls | "Tasks" (bold 20px), "5 total tasks" subtitle (becomes "6 total tasks"). Controls: `List`, `Board` (active), `+ Add Task` purple button | Rendered |
+| **Search & Filters Row** | Under header | Flex row gap-3 | Borders `#E5E7EB` | Search input ("Search tasks..."), "All statuses v", "All priorities v" | Rendered |
+| **Tasks Board Columns** | Main canvas | 3-column board | Bg: `#F9FAFB`, rounded-[16px], p-3 | `🔵 To Do (0)`, `🟠 In Progress (0)`, `🟢 Done (5)` | Columns rendered |
+| **Done Tasks Cards** | Inside Done column | Full width cards | Bg: `#FFFFFF`, rounded-[12px], border `#E5E7EB` | 5 tasks: "Follow up call" (medium), "Message CEO" (medium, 11/12/2026), "Get a new lead" (medium), "Follow up Sam" (high, 8/20/2026), "Follow up Alex" (high, 8/20/2026) | Existing tasks shown |
+| **Add Task Button** | Top right controls | Purple pill | Bg: `#7014D9`, text white | `+ Add Task` | Clicked -> opens inline form |
+| **Inline Add Task Form** | Between filters & board | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#E5E7EB`, p-4 | Task title input, Priority dropdown ("High"), Due date picker ("11/19/2026"), Description (optional), Link to contact (optional), `Add Task` & `Cancel` buttons | Form expanded & typed |
+| **Submit Add Task** | Inline form bottom left | Purple pill | Bg: `#7014D9`, text white | "Add Task" | Clicked -> creates task, toast "Task created" |
+| **New Task Card** | In To Do column | Full column width | Bg: `#FFFFFF`, rounded-[12px], border `#E5E7EB` | Title: "Call The Client before the end of work", Badge: `high` (orange `#FEF3C7`), Date: `11/19/2026` | Rendered in To Do |
+
+---
+
+## Step 16: Task details and priority reminders (2:42–3:18)
+
+URL: `crm.snaarp.com/tasks`
+View: Task Details Slide-over Panel, High Priority Alert & Status Transition
+Source recording: `C:\Users\HP\Downloads\1119(2).mp4` (2:42–3:18)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Task Card Click** | In To Do column | Click target | Hover border `#DDD6FE` | "Call The Client before the end of work" | Clicked -> opens details panel |
+| **Task Details Panel** | Right side slide-over | 380px wide, full height | Bg: `#FFFFFF`, border-l `#ECECF1`, shadow-xl | Header: "Task Details", close `x`. Fields: Title, Status (4 pills: To Do, In Progress, Done, Cancelled), Priority (4 pills: Low, Medium, High, Urgent), Due Date (11/19/2026), Description, Email reminders (checked), Linked Contact ("No contact linked"), Created ("11/19/2026"), Delete Task button | Open panel |
+| **High Priority Alert Modal** | Centered modal overlay | 460px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: Solid orange `#EA580C`, alert icon, "High Priority Task", "Needs your attention". Body: "High priority task: Call The Client before the end of work", `✓ Mark Done`, `Go to Task ->`, `REMIND ME LATER` options | Open overlay |
+| **Snooze Option: 1 Hour** | Remind me later grid | Pill button | Border `#E5E7EB`, hover `#F3F4F6` | "1 hour" | Clicked -> closes modal, toast "Reminder snoozed for 1 hour" |
+| **In Progress Status Pill** | Task Details panel Status row | Segmented pill | Active `#F3ECFC` bg, `#7014D9` text | "In Progress" | Clicked -> updates status |
+| **Board Column Transition** | Tasks Board canvas | 3 columns | Updated column counts | Task card moves from `To Do` (0) to `In Progress` (1); `Done` remains 5 | Task in In Progress |
+
+---
+
+## Step 17: Calendar and task completion (3:18–3:39)
+
+URL: `crm.snaarp.com/calendar`
+View: Calendar Month Grid, Day Details Panel & Task Completion
+Source recording: `C:\Users\HP\Downloads\1119(2).mp4` (3:18–3:39)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Calendar Sidebar Item** | CRM Sidebar under Activities | Item row | Active text `#7014D9` | Calendar icon + "Calendar" | Active |
+| **Calendar Header** | Top of page | Flex row justify-between | Heading `#111111`, controls | Title: "Calendar", Subtitle: "Tasks, meetings, calls, and deal deadlines". Controls: Legend dots (Task, Meeting, Call, Deal), `Today` button, `<` `>` chevrons, `November 2026` | Rendered |
+| **Month Grid** | Main calendar area | 7-column grid (Sun-Sat) | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | 35 day cells for November 2026. Day 20 purple indicator circle. Cell 12: `Message CEO` chip. Cell 19: `Call The Client before the end of work` chip | Rendered |
+| **Right Side Day Panel** | Right column | 320px wide | Bg: `#FFFFFF`, border-l `#ECECF1`, p-4 | Header: `Thu, Nov 12` / `Thu, Nov 19`, `1 event`, `+` button. Event card | Dynamic panel |
+| **Nov 12 Cell Click** | Cell 12 / 13 in grid | Grid cell | Hover bg `#F3F4F6` | Event chip `Message CEO` | Clicked -> right panel shows `Thu, Nov 12`, 1 event, `Message CEO` (Task, medium) |
+| **Nov 19 Cell Click** | Cell 19 / 20 in grid | Grid cell | Selected border/bg | Event chip `Call The Client before the end o...` | Clicked -> right panel shows `Thu, Nov 19`, 1 event, `Call The Client before the end of work` (Task, high) |
+| **Task Completion Control** | Inside task card in day panel | Circle checkbox / checkmark | Border `#D1D5DB`, checked `#10B981` | Checkbox / ring control | Clicked -> marks task done, toast "Task marked as done", strikethrough on title, green circle checkmark |
+| **Completion Card** | Follows Step 17 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes full 17-step tutorial |

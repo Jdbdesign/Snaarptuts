@@ -1,6 +1,18 @@
 import type { Timeline } from "@/lib/timeline";
 import type { CrmNavId } from "./CrmShell";
-import { INITIAL_DASHBOARDS, type CrmDashboardItem } from "./crm-data";
+import {
+  INITIAL_DASHBOARDS,
+  type CrmDashboardItem,
+  type TargetItem,
+  type ClosedDealItem,
+  type CrmTaskItem,
+  type CrmCalendarEvent,
+  INITIAL_TARGETS,
+  WON_DEALS_INITIAL,
+  LOST_DEALS_INITIAL,
+  INITIAL_TASKS,
+  INITIAL_CALENDAR_EVENTS,
+} from "./crm-data";
 
 export interface CrmToast {
   id: string;
@@ -68,6 +80,24 @@ export interface BeginCrmOptions {
   isEditClientOpen?: boolean;
   isCloseWonOpen?: boolean;
   activeProspectMenuId?: string | null;
+  // Part 3 additions
+  activitiesOpen?: boolean;
+  forecastTab?: 'pipeline' | 'by-rep' | 'targets' | 'risk';
+  isNewTargetOpen?: boolean;
+  targets?: TargetItem[];
+  hasCreatedTarget?: boolean;
+  wonDealsViewMode?: 'list' | 'grid';
+  lostDealsViewMode?: 'list' | 'grid';
+  isStatusDropdownOpen?: boolean;
+  wonDeals?: ClosedDealItem[];
+  lostDeals?: ClosedDealItem[];
+  tasksViewMode?: 'board' | 'list';
+  isAddTaskInlineOpen?: boolean;
+  tasks?: CrmTaskItem[];
+  selectedTaskId?: string | null;
+  selectedCalendarDay?: number | null;
+  calTaskDone?: boolean;
+  calendarEvents?: CrmCalendarEvent[];
 }
 
 export function beginCrm(
@@ -109,6 +139,24 @@ export function beginCrm(
   tl.setVar("crm:isEditClientOpen", opts.isEditClientOpen ?? false);
   tl.setVar("crm:isCloseWonOpen", opts.isCloseWonOpen ?? false);
   tl.setVar("crm:activeProspectMenuId", opts.activeProspectMenuId ?? null);
+
+  // Part 3 variables
+  tl.setVar("crm:activitiesOpen", opts.activitiesOpen ?? false);
+  tl.setVar("crm:forecastTab", opts.forecastTab ?? "pipeline");
+  tl.setVar("crm:isNewTargetOpen", opts.isNewTargetOpen ?? false);
+  tl.setVar("crm:targets", opts.targets ?? (opts.hasCreatedTarget ? INITIAL_TARGETS : []));
+  tl.setVar("crm:wonDealsViewMode", opts.wonDealsViewMode ?? "list");
+  tl.setVar("crm:lostDealsViewMode", opts.lostDealsViewMode ?? "grid");
+  tl.setVar("crm:isStatusDropdownOpen", opts.isStatusDropdownOpen ?? false);
+  tl.setVar("crm:wonDeals", opts.wonDeals ?? WON_DEALS_INITIAL);
+  tl.setVar("crm:lostDeals", opts.lostDeals ?? LOST_DEALS_INITIAL);
+  tl.setVar("crm:tasksViewMode", opts.tasksViewMode ?? "board");
+  tl.setVar("crm:isAddTaskInlineOpen", opts.isAddTaskInlineOpen ?? false);
+  tl.setVar("crm:tasks", opts.tasks ?? INITIAL_TASKS);
+  tl.setVar("crm:selectedTaskId", opts.selectedTaskId ?? null);
+  tl.setVar("crm:selectedCalendarDay", opts.selectedCalendarDay ?? null);
+  tl.setVar("crm:calTaskDone", opts.calTaskDone ?? false);
+  tl.setVar("crm:calendarEvents", opts.calendarEvents ?? INITIAL_CALENDAR_EVENTS);
 }
 
 export async function finishCrm(tl: Timeline) {

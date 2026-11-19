@@ -22,6 +22,16 @@ import { Step11 } from "@/scenes/crm/step11/Step11";
 import { runStep11, STEP11_DURATION_MS } from "@/scenes/crm/step11/script";
 import { Step12 } from "@/scenes/crm/step12/Step12";
 import { runStep12, STEP12_DURATION_MS } from "@/scenes/crm/step12/script";
+import { Step13 } from "@/scenes/crm/step13/Step13";
+import { runStep13, STEP13_DURATION_MS } from "@/scenes/crm/step13/script";
+import { Step14 } from "@/scenes/crm/step14/Step14";
+import { runStep14, STEP14_DURATION_MS } from "@/scenes/crm/step14/script";
+import { Step15 } from "@/scenes/crm/step15/Step15";
+import { runStep15, STEP15_DURATION_MS } from "@/scenes/crm/step15/script";
+import { Step16 } from "@/scenes/crm/step16/Step16";
+import { runStep16, STEP16_DURATION_MS } from "@/scenes/crm/step16/script";
+import { Step17 } from "@/scenes/crm/step17/Step17";
+import { runStep17, STEP17_DURATION_MS } from "@/scenes/crm/step17/script";
 import type { Tutorial } from "./types";
 
 export const crm: Tutorial = {
@@ -152,6 +162,56 @@ export const crm: Tutorial = {
         durationMs: STEP12_DURATION_MS,
       },
     },
+    {
+      id: "crm-forecasts",
+      title: "Sales forecasting and targets",
+      url: "https://crm.snaarp.com/forecasts",
+      scene: {
+        Component: Step13,
+        run: runStep13,
+        durationMs: STEP13_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-won-lost",
+      title: "Won and lost deals management",
+      url: "https://crm.snaarp.com/deals/won",
+      scene: {
+        Component: Step14,
+        run: runStep14,
+        durationMs: STEP14_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-tasks",
+      title: "Team tasks and follow-up scheduling",
+      url: "https://crm.snaarp.com/tasks",
+      scene: {
+        Component: Step15,
+        run: runStep15,
+        durationMs: STEP15_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-task-details",
+      title: "Task details, reminders, and progress",
+      url: "https://crm.snaarp.com/tasks",
+      scene: {
+        Component: Step16,
+        run: runStep16,
+        durationMs: STEP16_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-calendar",
+      title: "Activity calendar and task completion",
+      url: "https://crm.snaarp.com/calendar",
+      scene: {
+        Component: Step17,
+        run: runStep17,
+        durationMs: STEP17_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "crm-overview" },
@@ -163,10 +223,15 @@ export const crm: Tutorial = {
     { title: "Prospect Tasks and Comments", from: "crm-tasks-comments" },
     { title: "Edit and Close Prospects", from: "crm-edit-close" },
     { title: "List View and Sorting", from: "crm-list-view" },
+    { title: "Sales Forecasting", from: "crm-forecasts" },
+    { title: "Won and Lost Deals", from: "crm-won-lost" },
+    { title: "Tasks", from: "crm-tasks" },
+    { title: "Task Details and Reminders", from: "crm-task-details" },
+    { title: "Calendar", from: "crm-calendar" },
   ],
   completion: {
     title: "You're all set",
-    text: "You can now customize dashboards, import prospects, make calls, log tasks, and manage deals across your pipeline in Snaarp CRM.",
+    text: "You can now manage dashboards, prospects, calls, sales forecasting, won and lost deals, tasks, and scheduled calendar activities in Snaarp CRM.",
     replayLabel: "Replay",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

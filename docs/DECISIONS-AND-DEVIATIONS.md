@@ -2040,6 +2040,44 @@ Added a vertical product icon navigation rail to the extreme left side of the ex
    - Sort dropdown implements real-time sorting for `Name (A-Z)` and `Name (Z-A)` with animated reordering.
    - Completion card now automatically follows Step 12 (verified data-driven; confirmed it no longer appears after Step 6).
 
+## Snaarp CRM (Part 3, Steps 13–17)
+
+1. **Neutralization of Real Personal Data**:
+   - Replaced all recording names, private project titles, personal emails, domains, and phone numbers with fictional data:
+     - Sales reps: Sam Taylor (`sam.taylor@example.com`), Casey Brown (`casey.brown@example.com`), Jordan Lee (`jordan.lee@example.com`), Alex Morgan (`alex.morgan@example.com`), Unassigned.
+     - Won deals: Alex Morgan (`AM`, `alex.morgan@example.com`, £8,500), Sam Taylor (`ST`, `+44 7700 900123`, —).
+     - Lost deals: Casey Brown (`CB`, `casey.brown@example.com`, —).
+     - Tasks: "Follow up call" (medium), "Message CEO" (medium, due 11/12/2026), "Get a new lead" (medium), "Follow up Sam" (high), "Follow up Alex" (high), and new task "Call The Client before the end of work" (high, due 11/19/2026).
+     - Calendar events: "Message CEO" (Thu, Nov 12, completed), "Call The Client before the end of work" (Thu, Nov 19, high priority).
+   - Reference dates: November 2026, with Today highlighted as Thursday, 19 November 2026.
+   - Currency: GBP (`£`) used across targets, weighted values, pipeline cards, and won deals.
+
+2. **Sales Forecasting (Step 13)**:
+   - Built in `CrmForecastsView.tsx` with 4 tabs: Weighted Pipeline, By Rep, Targets, and Pipeline Risk.
+   - Weighted pipeline renders Total Pipeline (£36.4k), Weighted Forecast (£3.0k), Quota Attainment (0%), and 9 stage progress bars with probability percentages and weighted projections.
+   - Targets tab starts with empty state card, opens "New Sales Target" modal, creates £20,000 monthly target for November 2026, and renders the active targets table.
+   - Pipeline risk displays 7 stale deals with idle counters (16d to 87d) and stale badges.
+
+3. **Won and Lost Deals (Step 14)**:
+   - Built in `CrmDealsView.tsx` supporting Won Deals (`/deals/won`) and Lost Deals (`/deals/lost`).
+   - Supports List and Grid layouts with pipeline switcher and status dropdown popover showing Closed (Won, Lost) and Reopen as (12 pipeline stages).
+
+4. **Tasks & Inline Creation (Step 15)**:
+   - Built in `CrmTasksView.tsx` supporting Board (To Do, In Progress, Done columns) and List views.
+   - Inline Add Task form allows creating tasks with title, priority (High), due date (11/19/2026), optional description, and contact link.
+
+5. **Task Details & Reminder Alert (Step 16)**:
+   - Task Details slide-over right panel displays Title, Status 2x2 grid (To Do, In Progress, Done, Cancelled), Priority 4-button selector, Due Date, Description, Email reminders, and Linked contact.
+   - High-priority task reminder alert modal appears on task selection with snooze options (10m, 15m, 30m, 1h, 3h, Tomorrow).
+   - Selecting "In Progress" in the panel updates the task status and reorganizes it under the In Progress board column.
+
+6. **Monthly Calendar & Interactive Completion (Step 17)**:
+   - Built in `CrmCalendarView.tsx` with November 2026 7-column grid, day selection (Nov 12 Message CEO, Nov 19 Call Client), and slide-over day details panel.
+   - Clicking the task circle checkbox marks the task done with green checkmark, strikethrough styling, and success toast.
+
+7. **Completion Flow**:
+   - The completion card automatically follows step 17 with "You're all set", Replay, and Back to Snaarp buttons (confirmed it no longer follows step 12).
+
 
 
 
