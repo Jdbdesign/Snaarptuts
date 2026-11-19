@@ -32,6 +32,16 @@ import { Step16 } from "@/scenes/crm/step16/Step16";
 import { runStep16, STEP16_DURATION_MS } from "@/scenes/crm/step16/script";
 import { Step17 } from "@/scenes/crm/step17/Step17";
 import { runStep17, STEP17_DURATION_MS } from "@/scenes/crm/step17/script";
+import { Step18 } from "@/scenes/crm/step18/Step18";
+import { runStep18, STEP18_DURATION_MS } from "@/scenes/crm/step18/script";
+import { Step19 } from "@/scenes/crm/step19/Step19";
+import { runStep19, STEP19_DURATION_MS } from "@/scenes/crm/step19/script";
+import { Step20 } from "@/scenes/crm/step20/Step20";
+import { runStep20, STEP20_DURATION_MS } from "@/scenes/crm/step20/script";
+import { Step21 } from "@/scenes/crm/step21/Step21";
+import { runStep21, STEP21_DURATION_MS } from "@/scenes/crm/step21/script";
+import { Step22 } from "@/scenes/crm/step22/Step22";
+import { runStep22, STEP22_DURATION_MS } from "@/scenes/crm/step22/script";
 import type { Tutorial } from "./types";
 
 export const crm: Tutorial = {
@@ -212,6 +222,56 @@ export const crm: Tutorial = {
         durationMs: STEP17_DURATION_MS,
       },
     },
+    {
+      id: "crm-calling-settings",
+      title: "Calling settings and Cloud Phone",
+      url: "https://crm.snaarp.com/calls",
+      scene: {
+        Component: Step18,
+        run: runStep18,
+        durationMs: STEP18_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-calling-providers",
+      title: "Calling providers and integrations",
+      url: "https://crm.snaarp.com/calls",
+      scene: {
+        Component: Step19,
+        run: runStep19,
+        durationMs: STEP19_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-contacts-directory",
+      title: "Contacts directory and safe deletion",
+      url: "https://crm.snaarp.com/contacts",
+      scene: {
+        Component: Step20,
+        run: runStep20,
+        durationMs: STEP20_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-contact-profile",
+      title: "Contact profile, timeline, and details",
+      url: "https://crm.snaarp.com/contacts/alex-morgan",
+      scene: {
+        Component: Step21,
+        run: runStep21,
+        durationMs: STEP21_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-company-info",
+      title: "Company profile and associated contacts",
+      url: "https://crm.snaarp.com/companies/acme-studio",
+      scene: {
+        Component: Step22,
+        run: runStep22,
+        durationMs: STEP22_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "crm-overview" },
@@ -228,10 +288,15 @@ export const crm: Tutorial = {
     { title: "Tasks", from: "crm-tasks" },
     { title: "Task Details and Reminders", from: "crm-task-details" },
     { title: "Calendar", from: "crm-calendar" },
+    { title: "Calling Settings", from: "crm-calling-settings" },
+    { title: "Calling Providers", from: "crm-calling-providers" },
+    { title: "Contacts Directory", from: "crm-contacts-directory" },
+    { title: "Contact Profile", from: "crm-contact-profile" },
+    { title: "Company Information", from: "crm-company-info" },
   ],
   completion: {
     title: "You're all set",
-    text: "You can now manage dashboards, prospects, calls, sales forecasting, won and lost deals, tasks, and scheduled calendar activities in Snaarp CRM.",
+    text: "You can now manage dashboards, prospects, calls, sales forecasting, deals, tasks, calendar activities, calling settings, providers, contacts, profiles, and company records in Snaarp CRM.",
     replayLabel: "Replay",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

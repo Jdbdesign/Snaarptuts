@@ -51,6 +51,8 @@ export type CrmNavId =
   | "calendar"
   | "calls"
   | "contacts"
+  | "contact-profile"
+  | "companies"
   | "messages"
   | "automations"
   | "analytics"
@@ -67,6 +69,7 @@ export function CrmShell({ tl, children }: Props) {
   const activeNav = useTimelineVar<CrmNavId>(tl, "crm:activeNav", "home");
   const salesOpen = useTimelineVar<boolean>(tl, "crm:salesOpen", true);
   const activitiesOpen = useTimelineVar<boolean>(tl, "crm:activitiesOpen", false);
+  const contactsOpen = useTimelineVar<boolean>(tl, "crm:contactsOpen", false);
   const toast = useTimelineVar<CrmToast | null>(tl, "crm:toast", null);
 
   return (
@@ -416,26 +419,64 @@ export function CrmShell({ tl, children }: Props) {
                 <span>Calls</span>
               </button>
 
-              {/* Contacts */}
-              <button
-                type="button"
-                data-tl="crm-nav-contacts"
-                onClick={() => {
-                  tl.setVar("crm:activeNav", "contacts");
-                  tl.setUrl("crm.snaarp.com/contacts");
-                }}
-                className={`flex h-9 w-full items-center justify-between rounded-xl px-3 text-[13px] font-medium transition-colors ${
-                  activeNav === "contacts"
-                    ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
-                    : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Users size={16} />
-                  <span>Contacts</span>
-                </div>
-                <ChevronRight size={14} className="text-[#9CA3AF]" />
-              </button>
+              {/* Contacts with collapsible subitems */}
+              <div>
+                <button
+                  type="button"
+                  data-tl="crm-nav-contacts"
+                  onClick={() => {
+                    tl.setVar("crm:contactsOpen", !contactsOpen);
+                    tl.setVar("crm:activeNav", "contacts");
+                    tl.setUrl("crm.snaarp.com/contacts");
+                  }}
+                  className={`flex h-9 w-full items-center justify-between rounded-xl px-3 text-[13px] font-medium transition-colors ${
+                    activeNav === "contacts" || activeNav === "contact-profile" || activeNav === "companies"
+                      ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                      : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Users size={16} />
+                    <span>Contacts</span>
+                  </div>
+                  {contactsOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} className="text-[#9CA3AF]" />}
+                </button>
+
+                {contactsOpen && (
+                  <div className="ml-6 flex flex-col gap-0.5 border-l border-[#ECECF1] pl-2 pt-0.5">
+                    <button
+                      type="button"
+                      data-tl="crm-nav-all-contacts"
+                      onClick={() => {
+                        tl.setVar("crm:activeNav", "contacts");
+                        tl.setUrl("crm.snaarp.com/contacts");
+                      }}
+                      className={`flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] transition-colors ${
+                        activeNav === "contacts"
+                          ? "font-semibold text-[#7C3AED]"
+                          : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      }`}
+                    >
+                      All Contacts
+                    </button>
+                    <button
+                      type="button"
+                      data-tl="crm-nav-companies"
+                      onClick={() => {
+                        tl.setVar("crm:activeNav", "companies");
+                        tl.setUrl("crm.snaarp.com/companies/acme-studio");
+                      }}
+                      className={`flex h-8 w-full items-center rounded-lg px-2.5 text-[12.5px] transition-colors ${
+                        activeNav === "companies"
+                          ? "font-semibold text-[#7C3AED]"
+                          : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                      }`}
+                    >
+                      Companies
+                    </button>
+                  </div>
+                )}
+              </div>
 
               {/* Messages */}
               <button

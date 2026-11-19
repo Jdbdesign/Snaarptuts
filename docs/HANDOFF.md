@@ -527,3 +527,35 @@ Added a vertical product icon navigation rail to the extreme left side of the tu
 - **Dropdown Intact**: The existing dropdown, module list, search, and progress counters remain fully intact.
 - **Responsive Across 4 Viewports**: Verified at 1920x1080, 1440x900, 1280x720, and 390x844 (mobile drawer). All Playwright tests passed with zero errors.
 
+## Snaarp CRM (seventeenth tutorial, complete: 22 steps)
+
+Route: `/tutorials/crm` (aliases: `snaarp-crm`, `crm`, `sales`)
+Config: `tutorials/crm.ts`
+State: 22 steps built, verified, and COMPLETE across Parts 1 to 4.
+- Part 1 (steps 1–6): CRM overview and navigation (1), Explore CRM dashboards (2), Create a custom dashboard (3), Add and save dashboard widgets (4), Share and present the dashboard (5), View and sort CRM prospects (6).
+- Part 2 (steps 7–12): Import prospects from CSV (7), Cloud phone and SMS messaging (8), Add a contact and link products (9), Prospect tasks, reminders, and comments (10), Edit client details and close deal (11), List view and pipeline sorting (12).
+- Part 3 (steps 13–17): Sales forecasting and targets (13), Won and lost deals management (14), Team tasks and follow-up scheduling (15), Task details, reminders, and progress (16), Activity calendar and task completion (17).
+- Part 4 (steps 18–22): Calling settings and Cloud Phone (18), Calling providers and integrations (19), Contacts directory and safe deletion (20), Contact profile, timeline, and details (21), Company profile and associated contacts (22).
+- Rail Groups:
+  - `Overview` (from `crm-overview`)
+  - `Dashboards` (from `crm-dashboards`)
+  - `Sales Pipeline` (from `crm-prospects`)
+  - `Import Prospects` (from `crm-import-prospects`)
+  - `Calls and Messaging` (from `crm-calls-messaging`)
+  - `Contacts` (from `crm-add-contact`)
+  - `Prospect Tasks and Comments` (from `crm-tasks-comments`)
+  - `Edit and Close Prospects` (from `crm-edit-close`)
+  - `List View and Sorting` (from `crm-list-view`)
+  - `Sales Forecasting` (from `crm-forecasts`)
+  - `Won and Lost Deals` (from `crm-won-lost`)
+  - `Tasks` (from `crm-tasks`)
+  - `Task Details and Reminders` (from `crm-task-details`)
+  - `Calendar` (from `crm-calendar`)
+  - `Calling Settings` (from `crm-calling-settings`)
+  - `Calling Providers` (from `crm-calling-providers`)
+  - `Contacts Directory` (from `crm-contacts-directory`)
+  - `Contact Profile` (from `crm-contact-profile`)
+  - `Company Information` (from `crm-company-info`)
+- Completion card follows step 22 automatically: "You're all set / You can now manage dashboards, prospects, calls, sales forecasting, deals, tasks, calendar activities, calling settings, providers, contacts, profiles, and company records in Snaarp CRM."
+
+

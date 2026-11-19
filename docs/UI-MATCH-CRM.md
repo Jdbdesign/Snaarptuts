@@ -365,4 +365,114 @@ Source recording: `C:\Users\HP\Downloads\1119(2).mp4` (3:18–3:39)
 | **Nov 12 Cell Click** | Cell 12 / 13 in grid | Grid cell | Hover bg `#F3F4F6` | Event chip `Message CEO` | Clicked -> right panel shows `Thu, Nov 12`, 1 event, `Message CEO` (Task, medium) |
 | **Nov 19 Cell Click** | Cell 19 / 20 in grid | Grid cell | Selected border/bg | Event chip `Call The Client before the end o...` | Clicked -> right panel shows `Thu, Nov 19`, 1 event, `Call The Client before the end of work` (Task, high) |
 | **Task Completion Control** | Inside task card in day panel | Circle checkbox / checkmark | Border `#D1D5DB`, checked `#10B981` | Checkbox / ring control | Clicked -> marks task done, toast "Task marked as done", strikethrough on title, green circle checkmark |
-| **Completion Card** | Follows Step 17 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes full 17-step tutorial |
+| **Completion Card** | Follows Step 17 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Relocated to step 22 in Part 4 |
+
+---
+
+## Step 18: Calling settings and Cloud Phone (0:00–2:10)
+
+URL: `crm.snaarp.com/calls`
+View: Cloud Phone Dashboard & Call Settings Modals (Caller ID, Voicemail Greeting, Ring Strategy, Business Hours)
+Source recording: `C:\Users\HP\Downloads\1119(3).mp4` (0:00–2:10)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Calls Sidebar Item** | CRM Sidebar | Item row | Active text `#7014D9`, lilac bg `#F3ECFC` | Phone icon + "Calls" | Active |
+| **Calls Header** | Top of main canvas | Flex col gap-1 | Heading `#111111`, subtitle `#6B7280` | "Calls" (bold 22px), "Make calls, send WhatsApp messages, and manage calling providers" | Default |
+| **Calls Tabs** | Top header below title | Pill tab row | Bg `#F3F4F6`, rounded-full | `Cloud Phone` (active, purple `#7014D9`), `SMS`, `# Phone Numbers` | Switchable |
+| **Top Right Controls** | Header right | Flex row gap-3 | Credit pill & white button | `2.32 CREDIT` (red pill), `Providers` button | Default |
+| **My Numbers Card** | Left panel top | 280px wide card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: "My Numbers", Active card with `+44 7700 900123`, `✓ Active` (green pill), `Sales`, action icons (phone, settings, mic, copy) | Rendered |
+| **Call Settings Card** | Left panel below numbers | 280px wide card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: "Call Settings", 7 setting rows: `Dialer & Keypad Sound` (Configured), `Call Forwarding` (Off), `Do Not Disturb` (Off), `Voicemail Greeting` (Custom greeting >), `Ring Strategy` (Ring all devices >), `Business Hours` (Mon - Tue, 9:00 AM - 6:00 PM >), `Caller ID` (Custom Name >) | Interactive rows |
+| **KPI Metric Cards** | Center top row | 5 cards grid | Bg: `#FFFFFF`, rounded-[14px], border `#ECECF1` | `Total Calls: 4`, `Inbound Calls: 2`, `Outbound Calls: 2`, `Missed Calls: 2` (red `#DC2626`), `Avg. Call Duration: 00:02` | Rendered |
+| **Keypad Section** | Center card below KPIs | Full width card | Bg: `#FFFFFF`, rounded-[20px], border `#ECECF1` | Tabs: `Keypad` (active, purple underline), `Recent Calls`, `Favorites`. Dial input `GB +44 Enter phone number...`, 12-key keypad (1 to 9, *, 0, #), green circular call button | Keypad active |
+| **Recent Calls Card** | Right panel top | 280px wide card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: "Recent Calls" (`View all`), call rows with initials `S`, `Sales`, Ofcom drama phone, duration / `Missed`, dates | Rendered |
+| **Voicemails Card** | Right panel bottom | 280px wide card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: "Voicemails" (`View all`), cassette icon, "No voicemails" | Empty state |
+| **Caller ID Modal** | Centered modal overlay | 480px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: "Caller ID", "Control what callers see when you make outbound calls." Display Type: Custom Name (choices: Business Name, Phone Number, Custom Name). Number dropdown: `+44 7700 900123 (Main Business Line)`. Toggles: Local Presence, Hide Caller ID. Cancel & Save Changes buttons | Opened -> Cancelled |
+| **Voicemail Greeting Modal** | Centered modal overlay | 480px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: "Voicemail Greeting", "Configure the greeting callers hear when you can't answer." Greeting Type: Custom Recording (choices: Custom Recording, Text-to-Speech, Default System Greeting). Toggles: Transcribe voicemails, Email notifications. Max Duration: 60 seconds. Cancel & Save Changes buttons | Opened -> Cancelled |
+| **Ring Strategy Modal** | Centered modal overlay | 480px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: "Ring Strategy", "Choose how calls ring across your connected devices." Ring Strategy: Ring all devices simultaneously (choices: Ring all devices simultaneously, Ring sequentially, Round robin). Ring Duration: 20 seconds. Toggles: Desktop App (ON), Mobile App (ON), Desk Phone (ON), Web Browser (OFF). Cancel & Save Changes buttons | Opened -> Cancelled |
+| **Business Hours Modal** | Centered modal overlay | 520px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: "Business Hours", "Set your availability schedule for receiving calls." Time Zone: (GMT+01:00) West Africa Time (Lagos). Schedule: Mon-Fri 09:00 AM - 06:00 PM (ON), Sat-Sun — (OFF). After Hours Action: Send to voicemail. Cancel & Save Changes buttons | Opened -> Cancelled |
+
+---
+
+## Step 19: Calling Providers (2:10–2:20)
+
+URL: `crm.snaarp.com/calls`
+View: Calling Providers Modal & Connected Status
+Source recording: `C:\Users\HP\Downloads\1119(3).mp4` (2:10–2:20)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Providers Button** | Top right of Calls view | Pill button | Bg: `#FFFFFF`, border `#E5E7EB` | Gear icon + "Providers" | Clicked -> opens modal |
+| **Calling Providers Modal** | Centered modal overlay | 440px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: "Calling Providers", close button `x` | Open overlay |
+| **Provider Card** | Modal body | Full width card | Bg: `#F9FAFB`, rounded-[14px], border `#E5E7EB` | Red phone icon in light red box, Title: `Talking`, Subtitle: `Connected as admin@example.com`, Badge: `✓ Connected` (green pill `#DCFCE7`, text `#16A34A`), Action: `Disconnect` (red text `#DC2626`) | Rendered Connected |
+| **Modal Close Control** | Top right of modal header | 28x28px button | Text `#9CA3AF`, hover `#111111` | `X` icon | Clicked -> closes modal |
+
+---
+
+## Step 20: Contacts directory, Add Contact and safe deletion (2:25–3:00)
+
+URL: `crm.snaarp.com/contacts`
+View: Contacts Directory, Status Filter Dropdown, Add Contact Drawer, and Safe Contact Deletion
+Source recording: `C:\Users\HP\Downloads\1119(3).mp4` (2:25–3:00)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Contacts Sidebar Item** | CRM Sidebar | Collapsible group | Active `#7014D9` | Users icon + "Contacts" (expanded to All Contacts, Companies) | Expanded |
+| **Contacts Header** | Top of page | Flex row justify-between | Heading `#111111`, controls | "Contacts" (bold 22px), "8 total contacts" subtitle (updates to "7 total contacts"). Buttons: `Import` (icon + text), `+ Add Contact` (purple pill `#7014D9`) | Rendered |
+| **Search & Status Filter** | Under header | Flex row gap-3 | Borders `#E5E7EB` | `🔍 Search contacts...` input, `All statuses v` dropdown button | Rendered |
+| **All Statuses Menu** | Popover dropdown | 180px wide | Bg: `#FFFFFF`, rounded-[12px], shadow-xl | 16 status options: All statuses, Event Leads, Lead, First Call, Second Call, Proposal, Presentation, Awaiting Response, Interested, Not Interested, Integrating Systems, Negotiation, Growth, Lost, Won, Closed Lost | Open menu |
+| **Contacts Table** | Main content canvas | Full width table | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Columns: Checkbox, NAME, EMAIL, PHONE, COMPANY, STATUS, ACTIONS (trash). 8 initial fictional contacts (Sofia Martinez, Michael Chen, Amara Okafor, Daniel Brooks, Jane Doe, Ade Tayo, Lisa Park, Mayopo Adeoye) | Dense table rendered |
+| **Add Contact Button** | Top right of Contacts view | Purple pill | Bg: `#7014D9`, text white | `+ Add Contact` | Clicked -> opens Add Contact form |
+| **Add Contact Form Drawer** | Centered modal / drawer | 520px wide, max-h-[85vh] | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: "Add Contact", close `x`. Fields: Company, Job title, Source, Status, Address, City, Country, Zip Code, Products ("No products linked", "Add v"), Notes ("Additional notes..."), Cancel & Add Contact buttons | Scrolled & cancelled |
+| **Lisa Park Delete Action** | Table row Actions column | Trash button | Text `#9CA3AF`, hover `#DC2626` | Trash icon | Clicked -> deletes Lisa Park from isolated dataset |
+| **Success Toast** | Top right floating toast | Toast pill | Bg: `#DCFCE7`, border `#86EFAC`, text `#16A34A` | `✓ Contact deleted` | Rendered |
+| **Updated Contact Count** | Header subtitle | Text string | Text `#6B7280` | "7 total contacts" | Updated |
+
+---
+
+## Step 21: Contact profile and activity (3:00–3:30)
+
+URL: `crm.snaarp.com/contacts/alex-morgan`
+View: Contact Profile Detail Page (Timeline, Comments, Details, History)
+Source recording: `C:\Users\HP\Downloads\1119(3).mp4` (3:00–3:30)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Contact Profile Header** | Top of detail canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | `<-` back button, Avatar circle `AM`, Title: `Alex Morgan`, Subtitle: `Sales Manager at Acme Studio · alex.morgan@example.com`, `Delete` button (red outline) | Rendered |
+| **Top Metric Cards** | Below profile header | 4 cards grid | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | `0 Emails`, `1 Deals` (green `$`), `0 Tasks`, `0 Activities` | Rendered |
+| **Tab Navigation Pills** | Below metric cards | Pill bar | Bg: `#F3F4F6`, rounded-full, p-1 | `Timeline` (active `#F3ECFC`, text `#7014D9`), `Comments`, `History`, `Details` | Switchable |
+| **Activity Timeline Card** | Timeline tab content | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `Activity Timeline`. Event: green `$` circle, `Alex Morgan`, `£4,200 · open`, date: `11/19/2026` | Rendered |
+| **Comments Tab Content** | Comments tab | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `Comments`. Input: `Add a comment...`, `Add` purple button with send icon. Below: clean empty / loading state | Rendered |
+| **Details Tab Content** | Details tab | Full width cards stack | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | 5 structured sections: `PERSONAL`, `PROFESSIONAL`, `ADDRESS`, `NOTES`, `ATTACHMENTS` | Rendered |
+| **Personal Section** | Details card top | 2-column fields | Borders `#E5E7EB` | First name: Alex, Last name: Morgan, Email: alex.morgan@example.com, Phone: +44 7700 900125, Date of birth: mm/dd/yyyy | Displayed |
+| **Professional Section** | Details card middle | 2-column fields | Borders `#E5E7EB` | Company: Acme Studio, Job title: Sales Manager, Source: Networking, Pipeline Stage: Event Leads, Products: "No products linked" | Displayed |
+| **Address Section** | Details card | 2-column fields | Borders `#E5E7EB` | Street address: 10 Acme Street, City: London, State: London, Zip code: EC1A 1AA, Country: United Kingdom | Displayed |
+| **Notes Section** | Details card | Text area box | Borders `#E5E7EB` | "Met at a business networking event" | Displayed |
+| **Attachments Section** | Details card bottom | Flex row justify-between | Border `#E5E7EB` | Title: `ATTACHMENTS`, `📎 Attach file` button, "No files attached to this contact" | Empty state |
+
+---
+
+## Step 22: Company information (3:30–3:44)
+
+URL: `crm.snaarp.com/companies/acme-studio`
+View: Company Details View & Associated Contacts Panel
+Source recording: `C:\Users\HP\Downloads\1119(3).mp4` (3:30–3:44)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Companies Sidebar Subitem** | CRM Sidebar under Contacts | Item row | Active text `#7014D9` | Building icon + "Companies" | Active |
+| **Company Details Header** | Top of canvas | Flex row justify-between | Heading `#111111`, action buttons | `<-` back button, Building icon, Title: `Acme Studio`. Buttons: `Delete` (red outline `#FECACA`, text `#DC2626`), `Save` (purple `#7014D9`, text white) | Rendered |
+| **Company Info Card** | Left main column | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `COMPANY INFO`. 2-column fields: Name (`Acme Studio`), Domain (`example.com`), Industry (`Software`), Size (`11–50`), Phone (`+44 7700 900123`), Email (`admin@example.com`), Website (`https://example.com`), Description (`Business software and professional services company.`) | Displayed |
+| **Company Address Card** | Left main column below Info | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `ADDRESS`. Fields: Street (`10 Acme Street`), City (`London`), State (`London`), Country (`United Kingdom`) | Displayed |
+| **Associated Contacts Panel** | Right side column | 320px wide card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `Associated Contacts` (users icon). Empty state text: "No contacts linked to this company yet. Add contacts with this company name to see them here." | Empty state rendered |
+| **Completion Card** | Follows Step 22 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes full 22-step tutorial |

@@ -1131,7 +1131,12 @@ Steps:
 14. Won and lost deals (Sales subnav -> Won; List view with 2 won deals, open deal status dropdown inspecting reopen options, switch to Grid view cards; Sales subnav -> Lost; Grid view with lost deal cards)
 15. Team tasks and follow-up scheduling (Activities subnav -> Tasks; Board view [To Do, In Progress, Done columns] and List view table; click '+ Add Task' -> inline form on top of board, type title "Call The Client before the end of work", High priority, due 11/19/2026 -> submit into To Do column)
 16. Task details, reminders, and progress (Click task card in To Do -> Task Details slide-over right panel; high-priority reminder modal alerts with '1 hour' snooze button -> toast "Reminder snoozed for 1 hour"; change status in panel to In Progress -> task moves to In Progress column; close panel)
-17. Activity calendar and task completion (Activities subnav -> Calendar; November 2026 7-column month grid; click Nov 12 -> day panel showing "Message CEO"; click Nov 19 -> day panel showing "Call The Client before the end of work"; click circular checkbox -> task completed with checkmark, strikethrough, and toast "Task marked as done"; completion card automatically follows)
+17. Activity calendar and task completion (Activities subnav -> Calendar; November 2026 7-column month grid; click Nov 12 -> day panel showing "Message CEO"; click Nov 19 -> day panel showing "Call The Client before the end of work"; click circular checkbox -> task completed with checkmark, strikethrough, and toast "Task marked as done")
+18. Calling settings and Cloud Phone (Calls sidebar item -> Cloud Phone; Keypad subtabs: Recent Calls -> Favorites -> Keypad; inspect Caller ID modal, Voicemail Greeting modal, Ring Strategy modal, Business Hours modal; safely cancel all modals)
+19. Calling providers and integrations (Calls view -> Providers button -> Calling Providers modal; inspect Talking card with 'Connected as admin@example.com' and green Connected badge; close modal)
+20. Contacts directory and safe deletion (Contacts sidebar item -> All Contacts; filter by status dropdown [16 statuses]; click + Add Contact -> Add Contact form drawer -> Cancel; safe deletion action on Lisa Park -> contact removed, count drops 8 to 7, toast "Contact deleted")
+21. Contact profile, timeline, and details (Contacts directory -> Alex Morgan profile; 4 KPI cards: 0 Emails, 1 Deals, 0 Tasks, 0 Activities; Activity Timeline with £4,200 open deal on 11/19/2026; Comments tab; Details tab with Personal, Professional, Address, Notes, Attachments empty state)
+22. Company profile and associated contacts (Contacts sidebar item -> Companies -> Acme Studio; Company Info card [domain, industry, size 11–50, phone, email, website, description]; Address card [10 Acme Street, London]; Associated Contacts panel in empty state; completion card automatically follows)
 
 Groups:
 - Overview: Step 1
@@ -1148,13 +1153,18 @@ Groups:
 - Tasks: Step 15
 - Task Details and Reminders: Step 16
 - Calendar: Step 17
+- Calling Settings: Step 18
+- Calling Providers: Step 19
+- Contacts Directory: Step 20
+- Contact Profile: Step 21
+- Company Information: Step 22
 
 Files:
 - Shell & Stage: `components/crm/CrmShell.tsx`, `components/crm/CrmStage.tsx`
-- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`, `components/crm/CrmForecastsView.tsx`, `components/crm/CrmDealsView.tsx`, `components/crm/CrmTasksView.tsx`, `components/crm/CrmCalendarView.tsx`
-- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`, `components/crm/CrmNewTargetModal.tsx`
+- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`, `components/crm/CrmForecastsView.tsx`, `components/crm/CrmDealsView.tsx`, `components/crm/CrmTasksView.tsx`, `components/crm/CrmCalendarView.tsx`, `components/crm/CrmContactsDirectoryView.tsx`, `components/crm/CrmContactProfileView.tsx`, `components/crm/CrmCompanyProfileView.tsx`
+- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`, `components/crm/CrmNewTargetModal.tsx`, `components/crm/CrmCallerIdModal.tsx`, `components/crm/CrmVoicemailModal.tsx`, `components/crm/CrmRingStrategyModal.tsx`, `components/crm/CrmBusinessHoursModal.tsx`, `components/crm/CrmCallingProvidersModal.tsx`, `components/crm/CrmAddContactDrawer.tsx`
 - Data & Timeline: `components/crm/crm-data.ts`, `components/crm/crm-timeline.ts`
-- Scenes: `scenes/crm/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Scenes: `scenes/crm/step<1..22>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Product switcher and vertical icon rail
 The product navigation provides dual, synchronised discovery methods:

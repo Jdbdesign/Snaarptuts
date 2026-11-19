@@ -2699,6 +2699,11 @@ Recordings:
 | 15 | Team tasks and follow-up scheduling | `https://crm.snaarp.com/tasks` | 25.0 s |
 | 16 | Task details, reminders, and progress | `https://crm.snaarp.com/tasks` | 23.0 s |
 | 17 | Activity calendar and task completion | `https://crm.snaarp.com/calendar` | 21.0 s |
+| 18 | Calling settings and Cloud Phone | `https://crm.snaarp.com/calls` | 25.0 s |
+| 19 | Calling providers and integrations | `https://crm.snaarp.com/calls` | 16.0 s |
+| 20 | Contacts directory and safe deletion | `https://crm.snaarp.com/contacts` | 25.0 s |
+| 21 | Contact profile, timeline, and details | `https://crm.snaarp.com/contacts/alex-morgan` | 24.0 s |
+| 22 | Company profile and associated contacts | `https://crm.snaarp.com/companies/acme-studio` | 18.0 s |
 
 ## Groups
 - **Overview**: Step 1 (`crm-overview`)
@@ -2715,20 +2720,34 @@ Recordings:
 - **Tasks**: Step 15 (`crm-tasks`)
 - **Task Details and Reminders**: Step 16 (`crm-task-details`)
 - **Calendar**: Step 17 (`crm-calendar`)
+- **Calling Settings**: Step 18 (`crm-calling-settings`)
+- **Calling Providers**: Step 19 (`crm-calling-providers`)
+- **Contacts Directory**: Step 20 (`crm-contacts-directory`)
+- **Contact Profile**: Step 21 (`crm-contact-profile`)
+- **Company Information**: Step 22 (`crm-company-info`)
 
 ## Architecture & Components
-- **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities [accordion controlling Tasks and Calendar], Calls, Contacts, Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
+- **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities [accordion controlling Tasks and Calendar], Calls, Contacts [accordion controlling All Contacts and Companies], Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
 - **Views**:
   - `CrmHomeView.tsx`: Overview KPI metric cards (Contacts: 59, Deals: 32, Emails: 0, Tasks: 0).
   - `CrmDashboardsView.tsx`: Subnav listing PR sales, My Dashboard, and custom Client Leads; empty state canvas with "+ Add First Widget"; custom 6-widget grid (KPI card 25, Bar Chart, Line Chart, Table, Pie Chart with source distribution, KPI card 2); pre-built 8-widget My Dashboard.
   - `CrmProspectsView.tsx`: Header with pipeline selector pill, segmented view switcher (Kanban / List / Grid), sort dropdown with 6 options (Most recent, Oldest, Name A-Z, Name Z-A, Value high-low, Value low-high), Import, Export, and Add Contact buttons. Kanban columns (Event Leads, Lead, Proposal, Presentation, Awaiting Response, Interviewing) with prospect cards, 3-dot context menu, inline deal value editor, inline task creator, and action pills (Email, Call, SMS, WhatsApp). Dense list view table with inline stage dropdowns, real-time sorting, and Won/Lost tags. 3-column card grid view with stage selectors and pagination.
-  - `CrmCallsView.tsx`: Full Cloud Phone view (My Numbers, Call Settings, 5 metric cards, 12-key telephone dial pad, active call status bar, recent call history) and SMS communication hub (SMS metric cards, conversation list drawer, message thread, rich composer with emoji and attachments, contact profile card with Quick Actions).
+  - `CrmCallsView.tsx`: Full Cloud Phone view (My Numbers with active Ofcom drama number, Call Settings interactive cards, 5 KPI metric cards, Keypad with center subtabs for Keypad/Recent Calls/Favorites, 12-key telephone dial pad, call button, active call status bar, recent call history, voicemails empty state) and SMS communication hub.
+  - `CrmContactsDirectoryView.tsx`: Comprehensive contacts directory table with 8 initial contacts, search bar, 16-option status filter dropdown, Import, + Add Contact drawer trigger, and safe contact deletion action for Lisa Park (count updates 8 -> 7, toast "Contact deleted").
+  - `CrmContactProfileView.tsx`: Detailed profile for Alex Morgan with back button, `AM` avatar, 4 KPI cards (0 Emails, 1 Deals, 0 Tasks, 0 Activities), 4 tabs: Activity Timeline with £4,200 open deal on 11/19/2026, Comments tab with comment input and empty state, History tab, and Details tab with 5 structured sections (Personal, Professional, Address, Notes "Met at a business networking event", Attachments empty state).
+  - `CrmCompanyProfileView.tsx`: Detailed company profile for Acme Studio with back button, Building icon, Save and Delete actions, COMPANY INFO card (domain, industry, size 11–50, phone, email, website, description), ADDRESS card (10 Acme Street, London), and Associated Contacts panel in empty state.
   - `CrmTvModeView.tsx`: Full-screen presentation mode overlay with rich purple background (`#581C87`), auto-refreshing header, dark slate cards (`#1E293B`), pause pill, and Exit TV Mode button.
   - `CrmForecastsView.tsx`: Sales forecasting dashboard featuring Weighted Pipeline (Total Pipeline, Weighted Forecast, Quota Attainment KPI cards and 9 stage progress bars), By Rep (open deals, pipeline, weighted value, won YTD, targets, attainment), Targets (empty state, create target button, active targets table), and Pipeline Risk (deals at risk and value at risk KPIs, stale deals table with idle counters).
   - `CrmDealsView.tsx`: Closed deals interface supporting Won Deals (`/deals/won`) and Lost Deals (`/deals/lost`), view switcher (List and Grid), pipeline selector, sort dropdown, and deal status popover with Closed (Won, Lost) and Reopen as (12 pipeline stages).
   - `CrmTasksView.tsx`: Team task management supporting Board view (To Do, In Progress, Done columns), List view, inline Add Task form (Title, Priority, Date, Description, Link contact), and Task Details right slide-over panel with interactive status advancement (To Do, In Progress, Done, Cancelled).
   - `CrmCalendarView.tsx`: Monthly calendar grid for November 2026 (Sun-Sat), activity legend, day selection (Nov 12 and Nov 19), and slide-over day details panel with interactive task completion (strikethrough and checkmark).
 - **Modals & Dialogs**:
+  - `CrmCallerIdModal.tsx`: Caller ID configuration modal (Display Type, Number, Local Presence, Hide Caller ID, Cancel and Save Changes).
+  - `CrmVoicemailModal.tsx`: Voicemail Greeting configuration modal (Greeting Type, Transcribe voicemails, Email notifications, Max Recording Duration 60s, Cancel and Save Changes).
+  - `CrmRingStrategyModal.tsx`: Ring Strategy modal (Ring all devices simultaneously, 20s duration, device toggles, Cancel and Save Changes).
+  - `CrmBusinessHoursModal.tsx`: Business Hours schedule modal (West Africa Time Lagos timezone, Mon-Fri 09:00-18:00 on, Sat-Sun off, Send to voicemail, Cancel and Save Changes).
+  - `CrmCallingProvidersModal.tsx`: External calling providers modal featuring Talking card with `Connected as admin@example.com`, green Connected badge, and Disconnect button.
+  - `CrmAddContactDrawer.tsx`: Full contact creation drawer with 10 fields (Company, Job title, Source, Status, Address, City, Country, Zip Code, Products, Notes, Cancel and Add Contact).
   - `CrmNewDashboardModal.tsx`: New dashboard dialog with text input and Create action.
   - `CrmAddWidgetsModal.tsx`: Catalog modal displaying 11 widget types with selection badges and "+ Add N widgets" button.
   - `CrmShareDashboardModal.tsx`: Sharing permissions modal with 5 role options and Save action.
@@ -2741,7 +2760,8 @@ Recordings:
   - `CrmCloseWonModal.tsx`: Close Deal (Won) confirmation dialog with celebration icon and value summary.
   - `CrmNewTargetModal.tsx`: New sales target dialog with Period (Monthly), Year (2026), Month (November), Revenue target, and Deal count target.
 - **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `hoverOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
-- **Step Scenes**: `scenes/crm/step1` ... `step17` (`StepN.tsx`, `script.ts`, `data.ts`).
+- **Step Scenes**: `scenes/crm/step1` ... `step22` (`StepN.tsx`, `script.ts`, `data.ts`).
+
 
 
 

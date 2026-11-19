@@ -2078,6 +2078,39 @@ Added a vertical product icon navigation rail to the extreme left side of the ex
 7. **Completion Flow**:
    - The completion card automatically follows step 17 with "You're all set", Replay, and Back to Snaarp buttons (confirmed it no longer follows step 12).
 
+## Snaarp CRM (Part 4, Steps 18–22)
+
+1. **Neutralization of Real Personal Data & Credentials**:
+   - Replaced all recording names, personal emails, domains, phone numbers, and company names with fictional data adhering to project rules:
+     - Fictional contact directory (8 contacts): Sofia Martinez (`Lead`), Michael Chen (`Event Leads`), Amara Okafor (`Proposal`), Daniel Brooks (`Interested`), Jane Doe (`Won`), Ade Tayo (`Presentation`), Lisa Park (`Awaiting Response`), Alex Morgan (`Event Leads`).
+     - Lisa Park is safely deleted during Step 20 from an isolated dataset (dropping total contacts from 8 to 7 with toast "Contact deleted"), demonstrating contact deletion without modifying production data or deleting key contacts.
+     - Alex Morgan is preserved and inspected in Step 21 (`/contacts/alex-morgan`, `AM` avatar, Sales Manager at Acme Studio, 4 KPI cards, £4,200 open deal on 11/19/2026, Comments tab, Details tab with Personal, Professional, Address, Notes, Attachments empty state, History tab).
+     - Acme Studio company profile (`/companies/acme-studio`, `example.com`, Software, 11–50, `admin@example.com`, `+44 7700 900123`, 10 Acme Street, London, United Kingdom; Associated Contacts panel empty state).
+     - Signed-in admin account for Calling Providers: `admin@example.com`. No real account emails, API keys, tokens, or credentials are exposed.
+   - UK phone numbers adhere to Ofcom drama reserve range `+44 7700 900xxx`.
+   - Currency: GBP (`£`) used across all deal values and metrics.
+
+2. **Safe Demonstration of Calling Settings (Step 18)**:
+   - Modals for Caller ID, Voicemail Greeting, Ring Strategy, and Business Hours are opened, inspected, and closed using `Cancel` without modifying production configurations or external telephony settings.
+
+3. **Safe Calling Provider Integration (Step 19)**:
+   - The Talking (Thalking) card is rendered in a connected state with fictional identity `Connected as admin@example.com`. The Disconnect button is never triggered, ensuring live telephony integrations remain untouched.
+
+4. **Contacts Directory & Safe Deletion (Step 20)**:
+   - Status filter menu renders 16 lead statuses.
+   - Add Contact drawer displays 10 creation fields and is safely closed using Cancel.
+   - Safe contact deletion is executed strictly on fictional contact Lisa Park.
+
+5. **Contact Profile & Activities (Step 21)**:
+   - Alex Morgan profile renders 4 metric cards (0 Emails, 1 Deals, 0 Tasks, 0 Activities), Activity Timeline with £4,200 deal, Comments tab, Details tab with 5 structured cards (Personal, Professional, Address, Notes, Attachments), and History tab.
+
+6. **Company Profile & Associated Contacts (Step 22)**:
+   - Acme Studio company profile renders Company Info, Address, and Associated Contacts panel in an empty state.
+
+7. **Completion Flow**:
+   - The completion card automatically follows Step 22 (confirmed it no longer follows Step 17).
+
+
 
 
 

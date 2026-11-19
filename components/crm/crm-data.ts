@@ -575,3 +575,73 @@ export const INITIAL_CALENDAR_EVENTS: CrmCalendarEvent[] = [
   { id: 'ev-1', title: 'Message CEO', day: 12, dateFormatted: 'Thu, Nov 12', type: 'task', priority: 'medium', completed: true },
   { id: 'ev-2', title: 'Call The Client before the end of work', day: 19, dateFormatted: 'Thu, Nov 19', type: 'task', priority: 'high', completed: false },
 ];
+
+export interface CrmDirectoryContact {
+  id: string;
+  name: string;
+  initials: string;
+  email: string;
+  phone: string;
+  company: string;
+  status: string;
+}
+
+export const INITIAL_DIRECTORY_CONTACTS: CrmDirectoryContact[] = [
+  { id: 'contact-sofia', name: 'Sofia Martinez', initials: 'SM', email: 'sofia.m@example.com', phone: '+44 7700 900111', company: 'Acme Studio', status: 'Lead' },
+  { id: 'contact-michael', name: 'Michael Chen', initials: 'MC', email: 'm.chen@example.com', phone: '+44 7700 900222', company: 'Apex Global', status: 'Event Leads' },
+  { id: 'contact-amara', name: 'Amara Okafor', initials: 'AO', email: 'a.okafor@example.com', phone: '+44 7700 900333', company: 'Innovate Tech', status: 'Proposal' },
+  { id: 'contact-daniel', name: 'Daniel Brooks', initials: 'DB', email: 'd.brooks@example.com', phone: '+44 7700 900444', company: 'Acme Studio', status: 'Interested' },
+  { id: 'contact-jane', name: 'Jane Doe', initials: 'JD', email: 'jane@example.com', phone: '+44 7700 900555', company: 'Acme Studio', status: 'Won' },
+  { id: 'contact-ade', name: 'Ade Tayo', initials: 'AT', email: 'ade.t@example.com', phone: '+44 7700 900666', company: 'Horizon Media', status: 'Presentation' },
+  { id: 'contact-lisa', name: 'Lisa Park', initials: 'LP', email: 'lisa.p@example.com', phone: '+44 7700 900777', company: 'Starlight Ltd', status: 'Awaiting Response' },
+  { id: 'contact-alex', name: 'Alex Morgan', initials: 'AM', email: 'alex.morgan@example.com', phone: '+44 7700 900125', company: 'Acme Studio', status: 'Event Leads' },
+];
+
+export const CONTACT_STATUS_FILTER_OPTIONS: string[] = [
+  'All statuses',
+  'Event Leads',
+  'Lead',
+  'First Call',
+  'Second Call',
+  'Proposal',
+  'Presentation',
+  'Awaiting Response',
+  'Interested',
+  'Not Interested',
+  'Integrating Systems',
+  'Negotiation',
+  'Growth',
+  'Lost',
+  'Won',
+  'Closed Lost',
+];
+
+export interface CrmCompanyInfo {
+  name: string;
+  domain: string;
+  industry: string;
+  size: string;
+  phone: string;
+  email: string;
+  website: string;
+  description: string;
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+}
+
+export const ACME_STUDIO_COMPANY: CrmCompanyInfo = {
+  name: 'Acme Studio',
+  domain: 'example.com',
+  industry: 'Software',
+  size: '11–50',
+  phone: '+44 7700 900123',
+  email: 'admin@example.com',
+  website: 'https://example.com',
+  description: 'Business software and professional services company.',
+  street: '10 Acme Street',
+  city: 'London',
+  state: 'London',
+  country: 'United Kingdom',
+};

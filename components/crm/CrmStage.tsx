@@ -24,13 +24,24 @@ import { CrmDealsView } from './CrmDealsView';
 import { CrmTasksView } from './CrmTasksView';
 import { CrmCalendarView } from './CrmCalendarView';
 import { CrmNewTargetModal } from './CrmNewTargetModal';
+import { CrmCallerIdModal } from './CrmCallerIdModal';
+import { CrmVoicemailModal } from './CrmVoicemailModal';
+import { CrmRingStrategyModal } from './CrmRingStrategyModal';
+import { CrmBusinessHoursModal } from './CrmBusinessHoursModal';
+import { CrmCallingProvidersModal } from './CrmCallingProvidersModal';
+import { CrmAddContactDrawer } from './CrmAddContactDrawer';
+import { CrmContactsDirectoryView } from './CrmContactsDirectoryView';
+import { CrmContactProfileView } from './CrmContactProfileView';
+import { CrmCompanyProfileView } from './CrmCompanyProfileView';
 import {
   INITIAL_DASHBOARDS,
   POST_IMPORT_PROSPECTS,
   INITIAL_TARGETS,
+  INITIAL_DIRECTORY_CONTACTS,
   type CrmDashboardItem,
   type ProspectItem,
   type TargetItem,
+  type CrmDirectoryContact,
 } from './crm-data';
 import { pushCrmToast } from './crm-timeline';
 
@@ -58,6 +69,15 @@ export function CrmStage({ tl }: CrmStageProps) {
 
   // Part 3 Modals state
   const isNewTargetOpen = useTimelineVar<boolean>(tl, 'crm:isNewTargetOpen', false);
+
+  // Part 4 Modals & Views state
+  const isCallerIdOpen = useTimelineVar<boolean>(tl, 'crm:isCallerIdOpen', false);
+  const isVoicemailModalOpen = useTimelineVar<boolean>(tl, 'crm:isVoicemailModalOpen', false);
+  const isRingStrategyModalOpen = useTimelineVar<boolean>(tl, 'crm:isRingStrategyModalOpen', false);
+  const isBusinessHoursModalOpen = useTimelineVar<boolean>(tl, 'crm:isBusinessHoursModalOpen', false);
+  const isCallingProvidersOpen = useTimelineVar<boolean>(tl, 'crm:isCallingProvidersOpen', false);
+  const isAddContactDrawerOpen = useTimelineVar<boolean>(tl, 'crm:isAddContactDrawerOpen', false);
+  const directoryContacts = useTimelineVar<CrmDirectoryContact[]>(tl, 'crm:directoryContacts', INITIAL_DIRECTORY_CONTACTS);
 
   // Dashboards list
   const dashboards = useTimelineVar<CrmDashboardItem[]>(tl, 'crm:dashboards', INITIAL_DASHBOARDS);
@@ -133,6 +153,28 @@ export function CrmStage({ tl }: CrmStageProps) {
     pushCrmToast(tl, 'Sales target created');
   };
 
+  const handleDeleteContact = (id: string) => {
+    const nextContacts = directoryContacts.filter((c) => c.id !== id);
+    tl.setVar('crm:directoryContacts', nextContacts);
+    pushCrmToast(tl, 'Contact deleted');
+  };
+
+  const handleSelectContact = (id: string) => {
+    if (id === 'contact-alex' || id === 'alex-morgan') {
+      tl.setVar('crm:activeNav', 'contact-profile');
+      tl.setUrl('crm.snaarp.com/contacts/alex-morgan');
+    }
+  };
+
+  const handleBackToContacts = () => {
+    tl.setVar('crm:activeNav', 'contacts');
+    tl.setUrl('crm.snaarp.com/contacts');
+  };
+
+  const handleSaveCompany = () => {
+    pushCrmToast(tl, 'Company saved');
+  };
+
   return (
     <div
       data-scroller
@@ -161,7 +203,16 @@ export function CrmStage({ tl }: CrmStageProps) {
           />
         )}
 
-        {activeNav === 'calls' && <CrmCallsView tl={tl} />}
+        {activeNav === 'calls' && (
+          <CrmCallsView
+            tl={tl}
+            onOpenCallerId={() => tl.setVar('crm:isCallerIdOpen', true)}
+            onOpenVoicemail={() => tl.setVar('crm:isVoicemailModalOpen', true)}
+            onOpenRingStrategy={() => tl.setVar('crm:isRingStrategyModalOpen', true)}
+            onOpenBusinessHours={() => tl.setVar('crm:isBusinessHoursModalOpen', true)}
+            onOpenProviders={() => tl.setVar('crm:isCallingProvidersOpen', true)}
+          />
+        )}
 
         {activeNav === 'forecasts' && (
           <CrmForecastsView
@@ -180,6 +231,30 @@ export function CrmStage({ tl }: CrmStageProps) {
         {activeNav === 'tasks' && <CrmTasksView tl={tl} />}
 
         {activeNav === 'calendar' && <CrmCalendarView tl={tl} />}
+
+        {activeNav === 'contacts' && (
+          <CrmContactsDirectoryView
+            tl={tl}
+            onOpenAddDrawer={() => tl.setVar('crm:isAddContactDrawerOpen', true)}
+            onSelectContact={handleSelectContact}
+            onDeleteContact={handleDeleteContact}
+          />
+        )}
+
+        {activeNav === 'contact-profile' && (
+          <CrmContactProfileView
+            tl={tl}
+            onBack={handleBackToContacts}
+          />
+        )}
+
+        {activeNav === 'companies' && (
+          <CrmCompanyProfileView
+            tl={tl}
+            onBack={handleBackToContacts}
+            onSave={handleSaveCompany}
+          />
+        )}
       </CrmShell>
 
       {/* Modals & Presentation Overlays */}
@@ -275,6 +350,41 @@ export function CrmStage({ tl }: CrmStageProps) {
         isOpen={isNewTargetOpen}
         onClose={() => tl.setVar('crm:isNewTargetOpen', false)}
         onCreate={handleCreateTarget}
+      />
+
+      {/* Part 4 Modals */}
+      <CrmCallerIdModal
+        isOpen={isCallerIdOpen}
+        onClose={() => tl.setVar('crm:isCallerIdOpen', false)}
+      />
+
+      <CrmVoicemailModal
+        isOpen={isVoicemailModalOpen}
+        onClose={() => tl.setVar('crm:isVoicemailModalOpen', false)}
+      />
+
+      <CrmRingStrategyModal
+        isOpen={isRingStrategyModalOpen}
+        onClose={() => tl.setVar('crm:isRingStrategyModalOpen', false)}
+      />
+
+      <CrmBusinessHoursModal
+        isOpen={isBusinessHoursModalOpen}
+        onClose={() => tl.setVar('crm:isBusinessHoursModalOpen', false)}
+      />
+
+      <CrmCallingProvidersModal
+        isOpen={isCallingProvidersOpen}
+        onClose={() => tl.setVar('crm:isCallingProvidersOpen', false)}
+      />
+
+      <CrmAddContactDrawer
+        isOpen={isAddContactDrawerOpen}
+        onClose={() => tl.setVar('crm:isAddContactDrawerOpen', false)}
+        onSubmit={() => {
+          tl.setVar('crm:isAddContactDrawerOpen', false);
+          pushCrmToast(tl, 'Contact added successfully');
+        }}
       />
     </div>
   );

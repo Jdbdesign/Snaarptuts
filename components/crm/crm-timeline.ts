@@ -12,6 +12,10 @@ import {
   LOST_DEALS_INITIAL,
   INITIAL_TASKS,
   INITIAL_CALENDAR_EVENTS,
+  INITIAL_DIRECTORY_CONTACTS,
+  type CrmDirectoryContact,
+  type CrmCompanyInfo,
+  ACME_STUDIO_COMPANY,
 } from "./crm-data";
 
 export interface CrmToast {
@@ -98,6 +102,20 @@ export interface BeginCrmOptions {
   selectedCalendarDay?: number | null;
   calTaskDone?: boolean;
   calendarEvents?: CrmCalendarEvent[];
+  // Part 4 additions
+  isCallerIdOpen?: boolean;
+  isVoicemailModalOpen?: boolean;
+  isRingStrategyModalOpen?: boolean;
+  isBusinessHoursModalOpen?: boolean;
+  isCallingProvidersOpen?: boolean;
+  phoneCenterSubtab?: 'keypad' | 'recent' | 'favorites';
+  contactsOpen?: boolean;
+  directoryContacts?: CrmDirectoryContact[];
+  isStatusFilterOpen?: boolean;
+  selectedStatusFilter?: string;
+  isAddContactDrawerOpen?: boolean;
+  contactProfileTab?: 'timeline' | 'comments' | 'history' | 'details';
+  companyInfo?: CrmCompanyInfo;
 }
 
 export function beginCrm(
@@ -157,6 +175,21 @@ export function beginCrm(
   tl.setVar("crm:selectedCalendarDay", opts.selectedCalendarDay ?? null);
   tl.setVar("crm:calTaskDone", opts.calTaskDone ?? false);
   tl.setVar("crm:calendarEvents", opts.calendarEvents ?? INITIAL_CALENDAR_EVENTS);
+
+  // Part 4 variables
+  tl.setVar("crm:isCallerIdOpen", opts.isCallerIdOpen ?? false);
+  tl.setVar("crm:isVoicemailModalOpen", opts.isVoicemailModalOpen ?? false);
+  tl.setVar("crm:isRingStrategyModalOpen", opts.isRingStrategyModalOpen ?? false);
+  tl.setVar("crm:isBusinessHoursModalOpen", opts.isBusinessHoursModalOpen ?? false);
+  tl.setVar("crm:isCallingProvidersOpen", opts.isCallingProvidersOpen ?? false);
+  tl.setVar("crm:phoneCenterSubtab", opts.phoneCenterSubtab ?? "keypad");
+  tl.setVar("crm:contactsOpen", opts.contactsOpen ?? false);
+  tl.setVar("crm:directoryContacts", opts.directoryContacts ?? INITIAL_DIRECTORY_CONTACTS);
+  tl.setVar("crm:isStatusFilterOpen", opts.isStatusFilterOpen ?? false);
+  tl.setVar("crm:selectedStatusFilter", opts.selectedStatusFilter ?? "All statuses");
+  tl.setVar("crm:isAddContactDrawerOpen", opts.isAddContactDrawerOpen ?? false);
+  tl.setVar("crm:contactProfileTab", opts.contactProfileTab ?? "timeline");
+  tl.setVar("crm:companyInfo", opts.companyInfo ?? ACME_STUDIO_COMPANY);
 }
 
 export async function finishCrm(tl: Timeline) {
