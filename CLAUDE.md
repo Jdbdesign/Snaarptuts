@@ -1108,11 +1108,34 @@ Files:
 - Data & Timeline: `components/pdf/pdf-data.ts`, `components/pdf/pdf-timeline.ts`
 - Scenes: `scenes/pdf/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
 
+### Snaarp CRM ("Snaarp CRM", route `/tutorials/crm`)
+Config: `tutorials/crm.ts` (Part 1, 6 steps: steps 1–6 built; completion card dynamically follows step 6 until Part 2 appends from step 7). Recording: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25).
+
+Steps:
+1. CRM overview and navigation (Home dashboard metrics: 59 contacts, 32 deals, 0 emails, 0 tasks, Suite rail, CRM sidebar navigation)
+2. Explore CRM dashboards (Dashboards subnav, PR sales dashboard, My Dashboard with 8 pre-built analytical widgets)
+3. Create a custom dashboard (Click '+' in Dashboards subnav -> New Dashboard modal, type "Client Leads", create empty dashboard with toast)
+4. Add and save dashboard widgets (Add First Widget -> catalog modal with 11 widgets, select Bar Chart, Line Chart, KPI Card, Table; add Pie Chart & 2nd KPI Card for 6 total; click Save Changes -> toast "Dashboard saved successfully")
+5. Share and present the dashboard (Click Share -> Share modal, select "Everyone in organization", click Save -> toast "Sharing updated"; click TV Mode -> full-screen deep purple `#581C87` high-contrast auto-refreshing wall presentation with dark slate cards `#1E293B`, pause pill, and Exit TV Mode button)
+6. View and sort CRM prospects (Sales subnav -> Prospects pipeline; switch between Kanban board, List table view with stage dropdowns and action pills, and Grid view cards with pagination; open sort dropdown and sort Name A-Z)
+
+Groups:
+- Overview: Step 1
+- Dashboards: Steps 2–5
+- Sales Pipeline: Step 6
+
+Files:
+- Shell & Stage: `components/crm/CrmShell.tsx`, `components/crm/CrmStage.tsx`
+- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmTvModeView.tsx`
+- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`
+- Data & Timeline: `components/crm/crm-data.ts`, `components/crm/crm-timeline.ts`
+- Scenes: `scenes/crm/step<1..6>/Step<N>.tsx`, `script.ts`
+
 ### Product switcher and vertical icon rail
 The product navigation provides dual, synchronised discovery methods:
-1. **Vertical product icon rail** (`components/player/Rail.tsx`): Positioned on the extreme left of the tutorial sidebar, displaying all 16 registered Snaarp products from `tutorials/index.ts` vertically. Each icon is rendered with `ProductMark` and branded SVGs from `public/logos/`. The active product is highlighted with `#EDE9FE` / `bg-brand-soft` and rounded `rounded-[12px]`. Moving the cursor over any product icon reveals a floating tooltip showing the full product name (e.g. "Snaarp PDF", "Snaarp Books"), positioned cleanly to the right of the rail. Clicking any icon navigates directly to that product's route via Next.js client-side navigation, updating the active icon, the existing product dropdown, the step modules list, and the progress counters.
+1. **Vertical product icon rail** (`components/player/Rail.tsx`): Positioned on the extreme left of the tutorial sidebar, displaying all 17 registered Snaarp products from `tutorials/index.ts` vertically. Each icon is rendered with `ProductMark` and branded SVGs from `public/logos/`. The active product is highlighted with `#EDE9FE` / `bg-brand-soft` and rounded `rounded-[12px]`. Moving the cursor over any product icon reveals a floating tooltip showing the full product name (e.g. "Snaarp CRM", "Snaarp PDF", "Snaarp Books"), positioned cleanly to the right of the rail. Clicking any icon navigates directly to that product's route via Next.js client-side navigation, updating the active icon, the existing product dropdown, the step modules list, and the progress counters.
 2. **Existing product dropdown** (`components/player/Rail.tsx`): The existing product dropdown remains fully intact, functional, and synchronised. Users can continue to switch products via the dropdown, which updates the active product highlight in both the dropdown and the vertical icon launcher.
-All 16 products are registered in `tutorials/index.ts`: Snaarp 360, Snaarp Admin, Snaarp Mail, Snaarp Doc, Snaarp Slides, Snaarp Sheets, Workforce, OneCardX, Snaarp Drive, Snaarp Books, Snaarp Lock, Snaarp Me, Zeus, Snaarp Projects, Snaarp Teams, and Snaarp PDF. Real product logos live in `public/logos/` and are shown with `ProductLogo` from `components/icons.tsx`.
+All 17 products are registered in `tutorials/index.ts`: Snaarp 360, Snaarp Admin, Snaarp Mail, Snaarp Doc, Snaarp Slides, Snaarp Sheets, Workforce, OneCardX, Snaarp Drive, Snaarp Books, Snaarp Lock, Snaarp Me, Zeus, Snaarp Projects, Snaarp Teams, Snaarp PDF, and Snaarp CRM. Real product logos live in `public/logos/` and are shown with `ProductLogo` from `components/icons.tsx`.
 
 ### Rail search ("Search products, modules")
 The box at the top of the rail searches products AND modules (steps) as you type (60 ms debounce, first letter instant). Files: `components/player/RailSearch.tsx` (the combobox + results panel; the normal rail content is passed in as children and stays mounted, `inert`, under the panel), copy and limits in `components/player/rail-search-data.ts`, the pure index and ranking in `lib/search-index.ts`, the cross-product jump slot in `lib/pending-jump.ts`, shared `components/player/ProductMark.tsx`. **The index is built from `tutorials/*.ts`** (`buildSearchIndex(tutorials)`), so a new product or step is searchable with no extra list: one product entry per tutorial (name + `product.aliases`) and one module entry per BUILT step (title, group, product name). Optional config fields: `product.aliases` (find the product only: "doc", "email"...) and `groups: [{ title, from: <step id> }]` (Snaarp Doc has Getting started, File, Edit, View, Insert, Format, Tools, eSignature, Toolbar, Header buttons; a group name is matched and shown in the result's small line, it is not a result of its own). Ranking: word-start match first, then the field (title, group, product name); results are max 6 products and 10 modules with "Show N more". Picking a module in the open product calls the player's `select`; in another product it stores the step in `lib/pending-jump.ts` and `router.push`es, and the new `TutorialPlayer` starts on that step (so the rail shows it active; the rail list scrolls the active step into view). Keys: ArrowUp/Down, Enter, Escape (clears and blurs), "/" (handled in `TutorialPlayer`: expands the rail and focuses the box). While the rail is collapsed, `BrowserFrame` shows a search icon next to the expand button (`onSearch`). Typing never touches the tutorial; only picking a result does.

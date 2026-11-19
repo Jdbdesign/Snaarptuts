@@ -14,6 +14,7 @@ import { zeus } from "./zeus";
 import { projects } from "./projects";
 import { teams } from "./teams";
 import { pdf } from "./pdf";
+import { crm } from "./crm";
 import type { Tutorial } from "./types";
 
 /** Add a product by importing its config here. The array order is the order shown in the rail dropdown. The player shell never changes. */
@@ -34,6 +35,7 @@ export const tutorials: Tutorial[] = [
   projects,
   teams,
   pdf,
+  crm,
 ];
 
 export const getTutorial = (id: string) =>

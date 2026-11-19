@@ -2671,6 +2671,41 @@ Route `/tutorials/pdf`, config `tutorials/pdf.ts`. Recordings: `C:\Users\HP\Down
 - **Timeline & Data**: `components/pdf/pdf-timeline.ts` (`beginPdf`, `finishPdf`, `pushPdfToast`), `components/pdf/pdf-data.ts`.
 - **Step Scenes**: `scenes/pdf/step1` ... `step17` (`StepN.tsx`, `script.ts`, `data.ts`).
 
+---
+
+# Snaarp CRM (route `/tutorials/crm`)
+
+Recording: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, Part 1: steps 1–6). Part 2 will append from step 7.
+
+| Step | Title | URL | Duration |
+| :--- | :--- | :--- | :--- |
+| 1 | CRM overview and navigation | `https://crm.snaarp.com` | 14.0 s |
+| 2 | Explore CRM dashboards | `https://crm.snaarp.com/dashboards` | 14.5 s |
+| 3 | Create a custom dashboard | `https://crm.snaarp.com/dashboards/new` | 16.0 s |
+| 4 | Add and save dashboard widgets | `https://crm.snaarp.com/dashboards/client-leads` | 24.0 s |
+| 5 | Share and present the dashboard | `https://crm.snaarp.com/dashboards/client-leads` | 20.0 s |
+| 6 | View and sort CRM prospects | `https://crm.snaarp.com/sales/prospects` | 25.0 s |
+
+## Groups
+- **Overview**: Step 1 (`crm-overview`)
+- **Dashboards**: Steps 2–5 (`crm-dashboards` to `crm-share-tv`)
+- **Sales Pipeline**: Step 6 (`crm-prospects`)
+
+## Architecture & Components
+- **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities, Calls, Contacts, Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
+- **Views**:
+  - `CrmHomeView.tsx`: Overview KPI metric cards (Contacts: 59, Deals: 32, Emails: 0, Tasks: 0).
+  - `CrmDashboardsView.tsx`: Subnav listing PR sales, My Dashboard, and custom Client Leads; empty state canvas with "+ Add First Widget"; custom 6-widget grid (KPI card 25, Bar Chart, Line Chart, Table, Pie Chart with source distribution, KPI card 2); pre-built 8-widget My Dashboard.
+  - `CrmProspectsView.tsx`: Header with pipeline selector pill, segmented view switcher (Kanban / List / Grid), sort dropdown with 6 options (Most recent, Oldest, Name A-Z, Name Z-A, Value high-low, Value low-high), Import, Export, and Add Prospect buttons. Kanban columns (Event Leads, Lead, Proposal, Presentation, Awaiting Response, Interviewing) with prospect cards (Sam Taylor, Casey Brown, Jordan Lee) and action pills (Email, Call, SMS, WhatsApp). Dense list view table with inline stage dropdowns and Won/Lost tags. 3-column card grid view with stage selectors and pagination.
+  - `CrmTvModeView.tsx`: Full-screen presentation mode overlay with rich purple background (`#581C87`), auto-refreshing header, dark slate cards (`#1E293B`), pause pill, and Exit TV Mode button.
+- **Modals**:
+  - `CrmNewDashboardModal.tsx`: New dashboard dialog with text input and Create action.
+  - `CrmAddWidgetsModal.tsx`: Catalog modal displaying 11 widget types with selection badges and "+ Add N widgets" button.
+  - `CrmShareDashboardModal.tsx`: Sharing permissions modal with 5 role options and Save action.
+- **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `hoverOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
+- **Step Scenes**: `scenes/crm/step1` ... `step6` (`StepN.tsx`, `script.ts`).
+
+
 
 
 

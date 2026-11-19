@@ -1979,4 +1979,28 @@ Added a vertical product icon navigation rail to the extreme left side of the ex
    - Clicking any icon performs client-side navigation (`/tutorials/${t.product.id}`), updating the route, product dropdown, step modules list, progress counters, and active icon state in full synchronisation.
    - Both the vertical icon rail and the existing product dropdown remain fully functional and mutually synchronised.
 
+## Snaarp CRM (Part 1, Steps 1–6)
+
+1. **Neutralization of Real Personal Data**:
+   - Current user: Jane Doe (`jane@example.com`, avatar `J`).
+   - Sample prospects replaced with fictional names, emails, and phone numbers:
+     - Sam Taylor (`ST`, `sam.taylor@example.com`, `+44 7700 900123`, Event Leads)
+     - Casey Brown (`CB`, `casey.brown@example.com`, `+44 7700 900456`, Lead)
+     - Jordan Lee (`JL`, `jordan.lee@example.com`, `+44 7700 900789`, Proposal)
+
+2. **UI Implementation & Fidelity**:
+   - **Shell & Navigation**: Built in `CrmShell.tsx` featuring the suite rail with active CRM icon, topbar with search, Add Users, alerts (8), Jane Doe avatar ("J"), and sidebar navigation with Home, Dashboards, Sales (Prospects, Forecasts, Won, Lost), Activities, Calls, Contacts, Messages, Automations, Manage (Analytics, Reports, My Requests, Settings), Report a Bug, and Admin Panel.
+   - **Home Dashboard**: Built in `CrmHomeView.tsx` with 4 metric cards: Contacts (59), Deals (32), Emails (0), Tasks (0).
+   - **Dashboards & Custom Builder**: Built in `CrmDashboardsView.tsx` featuring subnav tabs (PR sales, My Dashboard, Client Leads), empty state canvas with "+ Add First Widget", custom 6-widget grid (KPI card 25, Bar Chart, Line Chart, Table, Pie Chart with source distribution, KPI card 2), and pre-built 8-widget My Dashboard.
+   - **Modals**:
+     - `CrmNewDashboardModal.tsx`: Dashboard creation dialog with text input and Create button.
+     - `CrmAddWidgetsModal.tsx`: Multi-select widget catalog with 11 widget types and dynamic "+ Add N widgets" button.
+     - `CrmShareDashboardModal.tsx`: Sharing dialog with 5 role choices and Save button.
+   - **TV Mode**: Built in `CrmTvModeView.tsx` as a high-contrast full-screen presentation overlay with rich purple background (`#581C87`), auto-refreshing header, dark slate cards (`#1E293B`), pause pill, and Exit TV Mode button.
+   - **Prospects Pipeline**: Built in `CrmProspectsView.tsx` with pipeline selector pill, 3-view switcher (Kanban, List, Grid), and 6-option sort dropdown (Most recent, Oldest, Name A-Z, Name Z-A, Value high-low, Value low-high). Kanban board displays stage columns with colored dots, contact count badges, and prospect cards with 4 action pills (Email, Call, SMS, WhatsApp). List view renders a dense table with inline stage dropdowns and Won/Lost badges. Grid view displays 3-column card grid with stage selectors and pagination.
+
+3. **Completion Flow**:
+   - The completion card is data-driven and temporarily follows step 6 ("You're all set", Replay, Back to Snaarp). When Part 2 is provided, it will automatically move to the new final step without modifying Part 1.
+
+
 
