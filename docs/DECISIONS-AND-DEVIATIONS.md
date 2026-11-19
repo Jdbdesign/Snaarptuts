@@ -2110,6 +2110,35 @@ Added a vertical product icon navigation rail to the extreme left side of the ex
 7. **Completion Flow**:
    - The completion card automatically follows Step 22 (confirmed it no longer follows Step 17).
 
+## Snaarp CRM (Part 5, Steps 23–26)
+
+1. **Neutralization of Real Personal Data & Credentials**:
+   - Replaced all recording WhatsApp numbers, real chats, Meta credentials, Facebook Page IDs, Instagram tokens, Telegram tokens, and SMTP/IMAP passwords with safe fictional values:
+     - WhatsApp conversation contains 3 safe customer inquiry messages: "Hello, I would like to know more about your services.", "Thank you. Could you send me more information?", "We will review the details and get back to you."
+     - Unknown contact banner warning: "Unknown contact — not linked in your CRM" with "+ Create Contact" prompt.
+     - Social channels setup interfaces (Facebook, Instagram, WhatsApp, Telegram) are demonstrated in inactive setup states (`INACTIVE`) with fictional guidance steps, public webhook placeholders, and expandable manual forms. No live API accounts or tokens are connected or disconnected.
+     - Email setup configuration: Display name "Work Email", Email `admin@example.com`, SMTP server `smtp.example.com` (Port 587), IMAP server `imap.example.com` (Port 993), username `admin@example.com`, masked password placeholders, and signature `Best regards,\nJane Doe\nSales — Acme Studio`.
+     - Email test connection: Triggers simulated success toast ("Connection tested successfully") without attempting real socket connections. Cancel button safely exits without storing external credentials.
+     - Workflow automation: Visual builder creates workflow "New Contact Follow-up", Scope "My contacts (safe default)", Module "Contacts", Trigger "Record Created", Action "Send Email" (template "Email 3 — Understand customer needs", recipient "{contact.email}", subject "A question about {{company}}"), and Control "End". Saving triggers toast "Workflow saved successfully" in isolated tutorial state. No production marketing automations or external emails are triggered.
+     - Analytics performance metrics: Total Contacts (23, +100%), Active Deals (24, +100%), Deals Won (0, -100%), Conversion Rate (0%, -100%), Emails Sent (0), Activities (0). 4 performance charts: Conversion Rate Over Time, Contact Growth, Pipeline Value Trending, Activity Breakdown empty state. Date filter dropdown with 5 options (default "Last 30 days").
+   - UK phone numbers adhere to Ofcom drama reserve range `+44 7700 900xxx`.
+   - Currency: GBP (`£`) used across all analytics values and deals.
+
+2. **Messages and Channels (Step 23)**:
+   - Built in `CrmMessagesView.tsx` with split inbox view, search bar, channels toolbar (All, Facebook, Instagram, WhatsApp, Telegram, SMS, Email), WhatsApp chat thread, and dedicated setup views for Facebook (with manual setup drawer), Instagram, WhatsApp, and Telegram.
+
+3. **Connect Email Account (Step 24)**:
+   - Built in `CrmConnectEmailModal.tsx` with Display name, Email, SMTP host/port/username/password/SSL, IMAP host/port/username/password, signature textarea, Show passwords toggle, Test Connection button with simulated success toast, and Cancel button.
+
+4. **Workflow Automation (Step 25)**:
+   - Built in `CrmAutomationsView.tsx` with visual workflow canvas, dotted grid, zoom controls, mini-map, node library (Triggers, Actions, Control), Record Created trigger node, Send Email action node, End control node, curved dashed connecting lines, and right Node Config panel with template selector, recipient, subject, and body.
+
+5. **CRM Analytics (Step 26)**:
+   - Built in `CrmAnalyticsView.tsx` with 6 KPI cards, 4 performance charts, and date filter dropdown with 5 options.
+
+6. **Completion Flow**:
+   - The completion card automatically follows Step 26 concluding the complete 26-step Snaarp CRM tutorial (confirmed it no longer follows Step 22).
+
 
 
 

@@ -645,3 +645,119 @@ export const ACME_STUDIO_COMPANY: CrmCompanyInfo = {
   state: 'London',
   country: 'United Kingdom',
 };
+
+export interface CrmChatMessage {
+  id: string;
+  sender: 'contact' | 'user';
+  text: string;
+  time: string;
+}
+
+export interface CrmConversationItem {
+  id: string;
+  channel: 'whatsapp' | 'sms' | 'facebook' | 'instagram' | 'telegram' | 'email';
+  title: string;
+  preview: string;
+  date: string;
+  phone?: string;
+  via?: string;
+  isUnknownContact?: boolean;
+  messages: CrmChatMessage[];
+}
+
+export const INITIAL_CONVERSATIONS: CrmConversationItem[] = [
+  {
+    id: 'conv-whatsapp',
+    channel: 'whatsapp',
+    title: '+WhatsApp',
+    preview: '<#> Your WhatsApp Business account is being registered...',
+    date: 'Nov 18',
+    via: 'SMS via Talking',
+    isUnknownContact: true,
+    messages: [
+      { id: 'msg-1', sender: 'contact', text: 'Hello, I would like to know more about your services.', time: '05:11 PM' },
+      { id: 'msg-2', sender: 'contact', text: 'Thank you. Could you send me more information?', time: '01:31 PM' },
+      { id: 'msg-3', sender: 'contact', text: 'We will review the details and get back to you.', time: '09:45 PM' },
+    ],
+  },
+  {
+    id: 'conv-phone',
+    channel: 'sms',
+    title: '+44 7700 900126',
+    preview: 'Yeah, i got it',
+    date: 'Nov 4',
+    via: 'Direct SMS',
+    isUnknownContact: false,
+    messages: [
+      { id: 'msg-p1', sender: 'contact', text: 'Yeah, i got it', time: '11:20 AM' },
+    ],
+  },
+];
+
+export interface CrmEmailConfig {
+  displayName: string;
+  email: string;
+  smtpHost: string;
+  smtpPort: string;
+  smtpUsername: string;
+  smtpPassword?: string;
+  smtpSsl: boolean;
+  imapHost: string;
+  imapPort: string;
+  imapUsername: string;
+  imapPassword?: string;
+  signature: string;
+}
+
+export const DEFAULT_EMAIL_CONFIG: CrmEmailConfig = {
+  displayName: 'Work Email',
+  email: 'admin@example.com',
+  smtpHost: 'smtp.example.com',
+  smtpPort: '587',
+  smtpUsername: 'admin@example.com',
+  smtpSsl: true,
+  imapHost: 'imap.example.com',
+  imapPort: '993',
+  imapUsername: 'admin@example.com',
+  signature: 'Best regards,\nJane Doe\nSales — Acme Studio',
+};
+
+export const AUTOMATION_EMAIL_TEMPLATES = [
+  'None (write manually)',
+  'Email 3 — Understand customer needs',
+  'Email 7 — Offer a trial',
+  'Email 1 — First contact',
+  'Email 5 — Invite to a demonstration',
+  'Email 2 — Gentle follow-up',
+  'Email 9 — Ask how to move forward',
+  'Email 4 — Communicate business value',
+  'Email 6 — Understand potential hesitation',
+  'Email 10 — Final follow-up',
+  'Email 8 — Establish decision timing',
+];
+
+export interface CrmAnalyticsKpi {
+  id: string;
+  label: string;
+  value: string;
+  badge?: string;
+  isPositive?: boolean;
+  icon: string;
+}
+
+export const ANALYTICS_KPIS: CrmAnalyticsKpi[] = [
+  { id: 'contacts', label: 'Total Contacts', value: '23', badge: '+100%', isPositive: true, icon: 'users' },
+  { id: 'deals', label: 'Active Deals', value: '24', badge: '+100%', isPositive: true, icon: 'target' },
+  { id: 'won', label: 'Deals Won', value: '0', badge: '-100%', isPositive: false, icon: 'trophy' },
+  { id: 'conversion', label: 'Conversion Rate', value: '0%', badge: '-100%', isPositive: false, icon: 'trendingUp' },
+  { id: 'emails', label: 'Emails Sent', value: '0', icon: 'mail' },
+  { id: 'activities', label: 'Activities', value: '0', icon: 'activity' },
+];
+
+export const ANALYTICS_DATE_OPTIONS = [
+  'Last 7 days',
+  'Last 30 days',
+  'This month',
+  'This quarter',
+  'This year',
+];

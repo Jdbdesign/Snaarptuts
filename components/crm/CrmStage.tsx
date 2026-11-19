@@ -33,6 +33,10 @@ import { CrmAddContactDrawer } from './CrmAddContactDrawer';
 import { CrmContactsDirectoryView } from './CrmContactsDirectoryView';
 import { CrmContactProfileView } from './CrmContactProfileView';
 import { CrmCompanyProfileView } from './CrmCompanyProfileView';
+import { CrmMessagesView } from './CrmMessagesView';
+import { CrmConnectEmailModal } from './CrmConnectEmailModal';
+import { CrmAutomationsView } from './CrmAutomationsView';
+import { CrmAnalyticsView } from './CrmAnalyticsView';
 import {
   INITIAL_DASHBOARDS,
   POST_IMPORT_PROSPECTS,
@@ -78,6 +82,9 @@ export function CrmStage({ tl }: CrmStageProps) {
   const isCallingProvidersOpen = useTimelineVar<boolean>(tl, 'crm:isCallingProvidersOpen', false);
   const isAddContactDrawerOpen = useTimelineVar<boolean>(tl, 'crm:isAddContactDrawerOpen', false);
   const directoryContacts = useTimelineVar<CrmDirectoryContact[]>(tl, 'crm:directoryContacts', INITIAL_DIRECTORY_CONTACTS);
+
+  // Part 5 Modals state
+  const isConnectEmailOpen = useTimelineVar<boolean>(tl, 'crm:isConnectEmailOpen', false);
 
   // Dashboards list
   const dashboards = useTimelineVar<CrmDashboardItem[]>(tl, 'crm:dashboards', INITIAL_DASHBOARDS);
@@ -255,6 +262,18 @@ export function CrmStage({ tl }: CrmStageProps) {
             onSave={handleSaveCompany}
           />
         )}
+
+        {/* Part 5 Views */}
+        {activeNav === 'messages' && (
+          <CrmMessagesView
+            tl={tl}
+            onOpenConnectEmail={() => tl.setVar('crm:isConnectEmailOpen', true)}
+          />
+        )}
+
+        {activeNav === 'automations' && <CrmAutomationsView tl={tl} />}
+
+        {activeNav === 'analytics' && <CrmAnalyticsView tl={tl} />}
       </CrmShell>
 
       {/* Modals & Presentation Overlays */}
@@ -385,6 +404,13 @@ export function CrmStage({ tl }: CrmStageProps) {
           tl.setVar('crm:isAddContactDrawerOpen', false);
           pushCrmToast(tl, 'Contact added successfully');
         }}
+      />
+
+      {/* Part 5 Modals */}
+      <CrmConnectEmailModal
+        tl={tl}
+        isOpen={isConnectEmailOpen}
+        onClose={() => tl.setVar('crm:isConnectEmailOpen', false)}
       />
     </div>
   );

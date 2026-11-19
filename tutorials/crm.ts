@@ -42,6 +42,14 @@ import { Step21 } from "@/scenes/crm/step21/Step21";
 import { runStep21, STEP21_DURATION_MS } from "@/scenes/crm/step21/script";
 import { Step22 } from "@/scenes/crm/step22/Step22";
 import { runStep22, STEP22_DURATION_MS } from "@/scenes/crm/step22/script";
+import { Step23 } from "@/scenes/crm/step23/Step23";
+import { runStep23, STEP23_DURATION_MS } from "@/scenes/crm/step23/script";
+import { Step24 } from "@/scenes/crm/step24/Step24";
+import { runStep24, STEP24_DURATION_MS } from "@/scenes/crm/step24/script";
+import { Step25 } from "@/scenes/crm/step25/Step25";
+import { runStep25, STEP25_DURATION_MS } from "@/scenes/crm/step25/script";
+import { Step26 } from "@/scenes/crm/step26/Step26";
+import { runStep26, STEP26_DURATION_MS } from "@/scenes/crm/step26/script";
 import type { Tutorial } from "./types";
 
 export const crm: Tutorial = {
@@ -272,6 +280,46 @@ export const crm: Tutorial = {
         durationMs: STEP22_DURATION_MS,
       },
     },
+    {
+      id: "crm-messages-channels",
+      title: "Messages and messaging channel integrations",
+      url: "https://crm.snaarp.com/messages",
+      scene: {
+        Component: Step23,
+        run: runStep23,
+        durationMs: STEP23_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-connect-email",
+      title: "Connect Email Account",
+      url: "https://crm.snaarp.com/messages",
+      scene: {
+        Component: Step24,
+        run: runStep24,
+        durationMs: STEP24_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-workflow-automation",
+      title: "Create and configure a workflow automation",
+      url: "https://crm.snaarp.com/automations",
+      scene: {
+        Component: Step25,
+        run: runStep25,
+        durationMs: STEP25_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-analytics",
+      title: "CRM Analytics",
+      url: "https://crm.snaarp.com/analytics",
+      scene: {
+        Component: Step26,
+        run: runStep26,
+        durationMs: STEP26_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "crm-overview" },
@@ -293,10 +341,14 @@ export const crm: Tutorial = {
     { title: "Contacts Directory", from: "crm-contacts-directory" },
     { title: "Contact Profile", from: "crm-contact-profile" },
     { title: "Company Information", from: "crm-company-info" },
+    { title: "Messages and Channels", from: "crm-messages-channels" },
+    { title: "Email Account Setup", from: "crm-connect-email" },
+    { title: "Workflow Automation", from: "crm-workflow-automation" },
+    { title: "CRM Analytics", from: "crm-analytics" },
   ],
   completion: {
     title: "You're all set",
-    text: "You can now manage dashboards, prospects, calls, sales forecasting, deals, tasks, calendar activities, calling settings, providers, contacts, profiles, and company records in Snaarp CRM.",
+    text: "You can now manage dashboards, prospects, calls, sales forecasting, deals, tasks, calendar activities, calling settings, providers, contacts, profiles, company records, messages, email accounts, automations, and analytics in Snaarp CRM.",
     replayLabel: "Replay",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

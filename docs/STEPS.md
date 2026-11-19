@@ -2679,6 +2679,8 @@ Recordings:
 - Part 1: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, steps 1–6)
 - Part 2: `C:\Users\HP\Downloads\1119(1).mp4` (1444x720, 4:37, steps 7–12)
 - Part 3: `C:\Users\HP\Downloads\1119(2).mp4` (1340x720, 3:39, steps 13–17)
+- Part 4: `C:\Users\HP\Downloads\1119(3).mp4` (1386x744, 3:44, steps 18–22)
+- Part 5: `C:\Users\HP\Downloads\1119(4).mp4` (1392x720, 2:59, steps 23–26)
 
 | Step | Title | URL | Duration |
 | :--- | :--- | :--- | :--- |
@@ -2704,6 +2706,10 @@ Recordings:
 | 20 | Contacts directory and safe deletion | `https://crm.snaarp.com/contacts` | 25.0 s |
 | 21 | Contact profile, timeline, and details | `https://crm.snaarp.com/contacts/alex-morgan` | 24.0 s |
 | 22 | Company profile and associated contacts | `https://crm.snaarp.com/companies/acme-studio` | 18.0 s |
+| 23 | Messages and messaging channel integrations | `https://crm.snaarp.com/messages` | 24.0 s |
+| 24 | Connect Email Account | `https://crm.snaarp.com/messages` | 20.0 s |
+| 25 | Create and configure a workflow automation | `https://crm.snaarp.com/automations` | 26.0 s |
+| 26 | CRM Analytics | `https://crm.snaarp.com/analytics` | 18.0 s |
 
 ## Groups
 - **Overview**: Step 1 (`crm-overview`)
@@ -2725,6 +2731,10 @@ Recordings:
 - **Contacts Directory**: Step 20 (`crm-contacts-directory`)
 - **Contact Profile**: Step 21 (`crm-contact-profile`)
 - **Company Information**: Step 22 (`crm-company-info`)
+- **Messages and Channels**: Step 23 (`crm-messages-channels`)
+- **Email Account Setup**: Step 24 (`crm-connect-email`)
+- **Workflow Automation**: Step 25 (`crm-workflow-automation`)
+- **CRM Analytics**: Step 26 (`crm-analytics`)
 
 ## Architecture & Components
 - **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities [accordion controlling Tasks and Calendar], Calls, Contacts [accordion controlling All Contacts and Companies], Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
@@ -2736,12 +2746,16 @@ Recordings:
   - `CrmContactsDirectoryView.tsx`: Comprehensive contacts directory table with 8 initial contacts, search bar, 16-option status filter dropdown, Import, + Add Contact drawer trigger, and safe contact deletion action for Lisa Park (count updates 8 -> 7, toast "Contact deleted").
   - `CrmContactProfileView.tsx`: Detailed profile for Alex Morgan with back button, `AM` avatar, 4 KPI cards (0 Emails, 1 Deals, 0 Tasks, 0 Activities), 4 tabs: Activity Timeline with £4,200 open deal on 11/19/2026, Comments tab with comment input and empty state, History tab, and Details tab with 5 structured sections (Personal, Professional, Address, Notes "Met at a business networking event", Attachments empty state).
   - `CrmCompanyProfileView.tsx`: Detailed company profile for Acme Studio with back button, Building icon, Save and Delete actions, COMPANY INFO card (domain, industry, size 11–50, phone, email, website, description), ADDRESS card (10 Acme Street, London), and Associated Contacts panel in empty state.
+  - `CrmMessagesView.tsx`: Split inbox with search, channel filters (All, Facebook, Instagram, WhatsApp, Telegram, SMS, Email), WhatsApp conversation thread with safe messages and unknown contact banner, message composer, and dedicated setup views for Facebook (with manual setup drawer), Instagram, WhatsApp, and Telegram.
+  - `CrmAutomationsView.tsx`: Visual workflow builder canvas with dotted grid, zoom controls, mini-map, workflow name input ("New Contact Follow-up"), Scope dropdown ("My contacts (safe default)"), Module dropdown ("Contacts"), AI Automation button, Record Created trigger node, Send Email action node, End control node, curved dashed connecting lines, right Node Config panel with template dropdown ("Email 3 — Understand customer needs"), recipient selector, subject, body, and Save Workflow button.
+  - `CrmAnalyticsView.tsx`: CRM performance analytics dashboard with 6 KPI cards (Total Contacts 23 +100%, Active Deals 24 +100%, Deals Won 0 -100%, Conversion Rate 0% -100%, Emails Sent 0, Activities 0), 4 performance charts (Conversion Rate Over Time line chart, Contact Growth bar chart with 3 bars, Pipeline Value Trending amber line chart, Activity Breakdown empty state), and date filter dropdown with 5 options.
   - `CrmTvModeView.tsx`: Full-screen presentation mode overlay with rich purple background (`#581C87`), auto-refreshing header, dark slate cards (`#1E293B`), pause pill, and Exit TV Mode button.
   - `CrmForecastsView.tsx`: Sales forecasting dashboard featuring Weighted Pipeline (Total Pipeline, Weighted Forecast, Quota Attainment KPI cards and 9 stage progress bars), By Rep (open deals, pipeline, weighted value, won YTD, targets, attainment), Targets (empty state, create target button, active targets table), and Pipeline Risk (deals at risk and value at risk KPIs, stale deals table with idle counters).
   - `CrmDealsView.tsx`: Closed deals interface supporting Won Deals (`/deals/won`) and Lost Deals (`/deals/lost`), view switcher (List and Grid), pipeline selector, sort dropdown, and deal status popover with Closed (Won, Lost) and Reopen as (12 pipeline stages).
   - `CrmTasksView.tsx`: Team task management supporting Board view (To Do, In Progress, Done columns), List view, inline Add Task form (Title, Priority, Date, Description, Link contact), and Task Details right slide-over panel with interactive status advancement (To Do, In Progress, Done, Cancelled).
   - `CrmCalendarView.tsx`: Monthly calendar grid for November 2026 (Sun-Sat), activity legend, day selection (Nov 12 and Nov 19), and slide-over day details panel with interactive task completion (strikethrough and checkmark).
 - **Modals & Dialogs**:
+  - `CrmConnectEmailModal.tsx`: Connect Email Account modal with Display name ("Work Email"), Email ("admin@example.com"), SMTP server ("smtp.example.com" port 587), IMAP server ("imap.example.com" port 993), SSL/TLS checkbox, toggle Show passwords, custom signature textarea, Test Connection button with toast notification, and Cancel button.
   - `CrmCallerIdModal.tsx`: Caller ID configuration modal (Display Type, Number, Local Presence, Hide Caller ID, Cancel and Save Changes).
   - `CrmVoicemailModal.tsx`: Voicemail Greeting configuration modal (Greeting Type, Transcribe voicemails, Email notifications, Max Recording Duration 60s, Cancel and Save Changes).
   - `CrmRingStrategyModal.tsx`: Ring Strategy modal (Ring all devices simultaneously, 20s duration, device toggles, Cancel and Save Changes).
@@ -2760,7 +2774,7 @@ Recordings:
   - `CrmCloseWonModal.tsx`: Close Deal (Won) confirmation dialog with celebration icon and value summary.
   - `CrmNewTargetModal.tsx`: New sales target dialog with Period (Monthly), Year (2026), Month (November), Revenue target, and Deal count target.
 - **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `hoverOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
-- **Step Scenes**: `scenes/crm/step1` ... `step22` (`StepN.tsx`, `script.ts`, `data.ts`).
+- **Step Scenes**: `scenes/crm/step1` ... `step26` (`StepN.tsx`, `script.ts`, `data.ts`).
 
 
 

@@ -476,3 +476,96 @@ Source recording: `C:\Users\HP\Downloads\1119(3).mp4` (3:30–3:44)
 | **Company Address Card** | Left main column below Info | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `ADDRESS`. Fields: Street (`10 Acme Street`), City (`London`), State (`London`), Country (`United Kingdom`) | Displayed |
 | **Associated Contacts Panel** | Right side column | 320px wide card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Title: `Associated Contacts` (users icon). Empty state text: "No contacts linked to this company yet. Add contacts with this company name to see them here." | Empty state rendered |
 | **Completion Card** | Follows Step 22 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes full 22-step tutorial |
+
+---
+
+## Step 23: Messages and messaging channel integrations (0:00–1:00)
+
+URL: `crm.snaarp.com/messages`
+Route: `/tutorials/crm`
+View: Messages Inbox, Conversations & Channel Integrations (Facebook, Instagram, WhatsApp, Telegram)
+Source recording: `C:\Users\HP\Downloads\1119(4).mp4` (0:00–1:00)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Messages Sidebar Item** | CRM Sidebar under Contacts | Item row | Active text `#7014D9`, bg `#F3ECFC` | MessageSquare icon + "Messages" | Active |
+| **Messages Split View** | Main content canvas | Full width & height | Bg: `#FFFFFF`, border `#ECECF1` | Left: Conversation search & list (280px). Right: Main conversation area / Channel setup view | Split layout |
+| **Conversation Search Bar** | Left panel top | Flex row justify-between | Input bg `#F8FAFC`, border `#E5E7EB` | Search icon, "Search conversations...", filter sliders button | Searchable |
+| **Conversation List** | Left panel below search | Vertical list | Hover bg `#F8FAFC`, active `#F3ECFC` | 1: `+WhatsApp` (bold, date `Nov 18`, safe preview), 2: `+44 7700 900126` (date `Nov 4`, `Yeah, i got it`) | `+WhatsApp` selected |
+| **Channels Toolbar** | Top of right panel | Flex row gap-2 items-center | Pill borders `#E5E7EB`, active `#7014D9` | `All` (purple pill), Facebook Messenger, Instagram, WhatsApp, Telegram, SMS, Email, Settings gear | Filterable |
+| **Conversation Header** | Right panel top | Flex row items-center justify-between | Text `#111111` & `#6B7280` | Title: `+WhatsApp` (bold 14px), Subtitle: `SMS via Talking` (11px) | Displayed |
+| **Message Thread** | Central chat scroll area | Max width chat bubbles | White cards, borders `#ECECF1`, shadow-2xs | 3 safe incoming messages: "Hello, I would like to know more about your services.", "Thank you. Could you send me more information?", "We will review the details and get back to you." | Rendered |
+| **Unknown Contact Banner** | Above message composer | Full width banner | Bg: `#FEF9C3`, text `#854D0E`, border `#FEF08A` | Text: "Unknown contact — not linked in your CRM", Action: `+ Create Contact` (orange text button) | Displayed |
+| **Message Composer** | Bottom of right panel | Flex row gap-2 | Input `#F8FAFC`, send button purple | "Type a message..." input, circular send button with paper plane | Rendered |
+| **Facebook Setup View** | Channel view when FB clicked | Full content area | Bg: `#F8FAFC` | Heading: `Facebook`, Subtitle: "Connect your Facebook Page...", status "INACTIVE", 3 setup steps, webhook/OAuth fields, "Connect with Meta", "+ Advanced: connect manually" expanding manual form | Rendered |
+| **Instagram Setup View** | Channel view when IG clicked | Full content area | Bg: `#F8FAFC` | Heading: `Instagram`, Subtitle: "Connect your Instagram account...", status "INACTIVE", 3 setup steps, info banner, "Connect with Meta (via Facebook)" | Rendered |
+| **WhatsApp Setup View** | Channel view when WA clicked | Full content area | Bg: `#F8FAFC` | Heading: `WhatsApp`, Subtitle: "Connect your WhatsApp number...", status "INACTIVE", 4 setup steps, info banner, "+ Connect with Phone Number ID" | Rendered |
+| **Telegram Setup View** | Channel view when TG clicked | Full content area | Bg: `#F8FAFC` | Heading: `Telegram`, Subtitle: "Connect your Telegram bot...", status "INACTIVE", 3 setup steps, info banner, "+ Advanced: connect manually" | Rendered |
+
+---
+
+## Step 24: Connect Email Account (1:00–1:27)
+
+URL: `crm.snaarp.com/messages`
+View: Connect Email Account Modal Dialog
+Source recording: `C:\Users\HP\Downloads\1119(4).mp4` (1:00–1:27)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Email Channel Icon** | Top channels toolbar | Round button | Hover bg `#F3F4F6` | Mail icon | Clicked -> opens modal |
+| **Connect Email Modal** | Centered modal overlay | 520px wide, max-h-[85vh] | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Header: "Connect Email Account", "Add your SMTP and IMAP credentials", close `x` | Open overlay |
+| **Account Fields** | Modal body top | 2-column inputs | Borders `#E5E7EB` | Display name: `Work Email`, Email: `admin@example.com` | Typed |
+| **OUTGOING (SMTP)** | Modal body section 2 | 2-column inputs | Borders `#E5E7EB` | Host: `smtp.example.com`, Port: `587`, Username: `admin@example.com`, Password (masked), SSL/TLS checkbox | Populated |
+| **INCOMING (IMAP)** | Modal body section 3 | 2-column inputs | Borders `#E5E7EB` | Host: `imap.example.com`, Port: `993`, Username: `admin@example.com`, Password (masked) | Populated |
+| **Signature Section** | Modal body section 4 | Description & textarea | Border `#E5E7EB`, text `#111111` | Description: "Appended to the bottom of every email...", Value: `Best regards,\nJane Doe\nSales — Acme Studio` | Populated |
+| **Modal Footer** | Pinned modal footer | Flex row justify-between | Border-t `#F3F4F6`, bg `#FFFFFF` | Left: "Show passwords" checkbox. Right: `Test Connection` button, `Cancel` button, `Connect` purple pill | Cancel clicked -> closes cleanly |
+
+---
+
+## Step 25: Create and configure a workflow automation (1:27–2:45)
+
+URL: `crm.snaarp.com/automations`
+View: Visual Workflow Builder Canvas & Node Config
+Source recording: `C:\Users\HP\Downloads\1119(4).mp4` (1:27–2:45)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Automations Sidebar Item** | CRM Sidebar under Messages | Item row | Active text `#7014D9`, bg `#F3ECFC` | Zap/Lightning icon + "Automations" | Active |
+| **Builder Top Toolbar** | Top of canvas | Flex row items-center justify-between | Bg: `#FFFFFF`, border-b `#ECECF1`, px-4 py-3 | Input: "New Contact Follow-up", Scope: `My contacts (safe default) v`, Module: `Contacts v`, `AI Automation` pill, `Save Workflow` purple button | Configured |
+| **Left Node Library** | Left column on canvas | 200px wide panel | Bg: `#FFFFFF`, rounded-2xl, border `#ECECF1` | Groups: TRIGGER (Record Created, Record Updated, etc.), ACTIONS (Send Email, Send SMS, WhatsApp), CONTROL (Condition, Wait/Delay, End) | Draggable library |
+| **Canvas Area** | Center of view | Full width flex-1 | Dotted background `#E5E7EB`, overflow-hidden | Dotted canvas, zoom controls bottom-left (`+`, `-`, fit, lock), mini-map bottom-right | Interactive canvas |
+| **Node 1: Record Created** | Canvas top center | 220px wide card | Bg: `#10B981` (green), text white, rounded-2xl | Play icon + "Record Created", subtitle `contacts`, bottom connection port | Connected to Node 2 |
+| **Node 2: Send Email** | Canvas middle | 220px wide card | Bg: `#3B82F6` (blue), text white, rounded-2xl | Lightning icon + "Send Email", subtitle `{contact.email}`, top & bottom connection ports | Connected to Node 3 |
+| **Node 3: End** | Canvas bottom | 160px wide card | Bg: `#EF4444` (red), text white, rounded-2xl | Square stop icon + "End", top connection port | Connected |
+| **Connecting Lines** | Between nodes | Curved dashed SVG paths | Stroke `#7014D9`, dashed, strokeWidth 2 | Smooth curve with arrows directing from trigger to action to end | Rendered |
+| **Right Node Config Panel** | Right column on canvas | 260px wide panel | Bg: `#FFFFFF`, border-l `#ECECF1`, p-4 | Heading: "NODE CONFIG", node name, template dropdown ("Email 3 — Understand customer needs"), recipient ("Contact Email"), Subject, Body, Insert event | Populated & saved |
+| **Save Action** | Top toolbar right | Purple pill button | Bg: `#7014D9`, text white | "Save Workflow" | Clicked -> saves in tutorial data, toast "Workflow saved successfully" |
+
+---
+
+## Step 26: CRM Analytics (2:45–2:59)
+
+URL: `crm.snaarp.com/analytics`
+View: CRM Analytics Performance Dashboard
+Source recording: `C:\Users\HP\Downloads\1119(4).mp4` (2:45–2:59)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Analytics Sidebar Item** | CRM Sidebar under MANAGE | Item row | Active text `#7014D9`, bg `#F3ECFC` | Activity/BarChart icon + "Analytics" | Active |
+| **Analytics Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | "Analytics" (bold 22px), "Track performance, identify trends, and make data-driven decisions", Date filter: `Last 30 days v` | Rendered |
+| **6 KPI Metric Cards** | Top horizontal grid | 6 columns grid, gap-3 | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Total Contacts (23, +100%), Active Deals (24, +100%), Deals Won (0, -100%), Conversion Rate (0%, -100%), Emails Sent (0), Activities (0) | Rendered |
+| **Chart 1: Conversion Rate** | Row 2 left | Half width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | "Conversion Rate Over Time", "Deals won vs created per period", purple trendline curve across W45–W47 | Rendered |
+| **Chart 2: Contact Growth** | Row 2 right | Half width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | "Contact Growth", "New contacts added over time", 3 purple bars across W45–W47 | Rendered |
+| **Chart 3: Pipeline Trending** | Row 3 left | Half width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | "Pipeline Value Trending", "Deal value created over time", orange trendline curve | Rendered |
+| **Chart 4: Activity Breakdown** | Row 3 right | Half width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | "Activity Breakdown", "Activities by type this period", Empty state: "No data for this period" | Empty state |
+| **Date Range Dropdown** | Header top right | Popover menu | 160px wide | Last 7 days, Last 30 days, This month, This quarter, This year | `Last 30 days` selected |
+| **Completion Card** | Follows Step 26 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes complete 26-step CRM tutorial |
+

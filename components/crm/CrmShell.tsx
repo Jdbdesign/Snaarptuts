@@ -481,7 +481,16 @@ export function CrmShell({ tl, children }: Props) {
               {/* Messages */}
               <button
                 type="button"
-                className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                data-tl="crm-nav-messages"
+                onClick={() => {
+                  tl.setVar("crm:activeNav", "messages");
+                  tl.setUrl("crm.snaarp.com/messages");
+                }}
+                className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                  activeNav === "messages"
+                    ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                    : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                }`}
               >
                 <MessageSquare size={16} />
                 <span>Messages</span>
@@ -490,7 +499,16 @@ export function CrmShell({ tl, children }: Props) {
               {/* Automations */}
               <button
                 type="button"
-                className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                data-tl="crm-nav-automations"
+                onClick={() => {
+                  tl.setVar("crm:activeNav", "automations");
+                  tl.setUrl("crm.snaarp.com/automations");
+                }}
+                className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                  activeNav === "automations"
+                    ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                    : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                }`}
               >
                 <Zap size={16} />
                 <span>Automations</span>
@@ -504,7 +522,16 @@ export function CrmShell({ tl, children }: Props) {
               {/* Analytics */}
               <button
                 type="button"
-                className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                data-tl="crm-nav-analytics"
+                onClick={() => {
+                  tl.setVar("crm:activeNav", "analytics");
+                  tl.setUrl("crm.snaarp.com/analytics");
+                }}
+                className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                  activeNav === "analytics"
+                    ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                    : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                }`}
               >
                 <BarChart3 size={16} />
                 <span>Analytics</span>

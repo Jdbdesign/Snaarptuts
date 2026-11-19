@@ -116,6 +116,19 @@ export interface BeginCrmOptions {
   isAddContactDrawerOpen?: boolean;
   contactProfileTab?: 'timeline' | 'comments' | 'history' | 'details';
   companyInfo?: CrmCompanyInfo;
+  // Part 5 additions
+  channelView?: 'inbox' | 'facebook' | 'instagram' | 'whatsapp' | 'telegram';
+  activeChannelFilter?: string;
+  selectedConvId?: string;
+  isFbManualOpen?: boolean;
+  isConnectEmailOpen?: boolean;
+  isTestingEmail?: boolean;
+  workflowName?: string;
+  selectedNodeId?: string;
+  selectedAutomationTemplate?: string;
+  isWorkflowSaved?: boolean;
+  analyticsDateFilter?: string;
+  isAnalyticsDateOpen?: boolean;
 }
 
 export function beginCrm(
@@ -190,6 +203,20 @@ export function beginCrm(
   tl.setVar("crm:isAddContactDrawerOpen", opts.isAddContactDrawerOpen ?? false);
   tl.setVar("crm:contactProfileTab", opts.contactProfileTab ?? "timeline");
   tl.setVar("crm:companyInfo", opts.companyInfo ?? ACME_STUDIO_COMPANY);
+
+  // Part 5 variables
+  tl.setVar("crm:channelView", opts.channelView ?? "inbox");
+  tl.setVar("crm:activeChannelFilter", opts.activeChannelFilter ?? "all");
+  tl.setVar("crm:selectedConvId", opts.selectedConvId ?? "conv-whatsapp");
+  tl.setVar("crm:isFbManualOpen", opts.isFbManualOpen ?? false);
+  tl.setVar("crm:isConnectEmailOpen", opts.isConnectEmailOpen ?? false);
+  tl.setVar("crm:isTestingEmail", opts.isTestingEmail ?? false);
+  tl.setVar("crm:workflowName", opts.workflowName ?? "New Contact Follow-up");
+  tl.setVar("crm:selectedNodeId", opts.selectedNodeId ?? "send-email");
+  tl.setVar("crm:selectedAutomationTemplate", opts.selectedAutomationTemplate ?? "Email 3 — Understand customer needs");
+  tl.setVar("crm:isWorkflowSaved", opts.isWorkflowSaved ?? false);
+  tl.setVar("crm:analyticsDateFilter", opts.analyticsDateFilter ?? "Last 30 days");
+  tl.setVar("crm:isAnalyticsDateOpen", opts.isAnalyticsDateOpen ?? false);
 }
 
 export async function finishCrm(tl: Timeline) {

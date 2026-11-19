@@ -1109,10 +1109,13 @@ Files:
 - Scenes: `scenes/pdf/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Snaarp CRM ("Snaarp CRM", route `/tutorials/crm`)
-Config: `tutorials/crm.ts` (12 steps: Part 1 steps 1–6, Part 2 steps 7–12; completion card automatically follows step 12).
+Config: `tutorials/crm.ts` (26 steps: Part 1 steps 1–6, Part 2 steps 7–12, Part 3 steps 13–17, Part 4 steps 18–22, Part 5 steps 23–26; completion card automatically follows step 26).
 Recordings:
 - Part 1: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, steps 1–6)
 - Part 2: `C:\Users\HP\Downloads\1119(1).mp4` (1444x720, 4:37, steps 7–12)
+- Part 3: `C:\Users\HP\Downloads\1119(2).mp4` (1340x720, 3:39, steps 13–17)
+- Part 4: `C:\Users\HP\Downloads\1119(3).mp4` (1386x744, 3:44, steps 18–22)
+- Part 5: `C:\Users\HP\Downloads\1119(4).mp4` (1392x720, 2:59, steps 23–26)
 
 Steps:
 1. CRM overview and navigation (Home dashboard metrics: 59 contacts, 32 deals, 0 emails, 0 tasks, Suite rail, CRM sidebar navigation)
@@ -1136,7 +1139,11 @@ Steps:
 19. Calling providers and integrations (Calls view -> Providers button -> Calling Providers modal; inspect Talking card with 'Connected as admin@example.com' and green Connected badge; close modal)
 20. Contacts directory and safe deletion (Contacts sidebar item -> All Contacts; filter by status dropdown [16 statuses]; click + Add Contact -> Add Contact form drawer -> Cancel; safe deletion action on Lisa Park -> contact removed, count drops 8 to 7, toast "Contact deleted")
 21. Contact profile, timeline, and details (Contacts directory -> Alex Morgan profile; 4 KPI cards: 0 Emails, 1 Deals, 0 Tasks, 0 Activities; Activity Timeline with £4,200 open deal on 11/19/2026; Comments tab; Details tab with Personal, Professional, Address, Notes, Attachments empty state)
-22. Company profile and associated contacts (Contacts sidebar item -> Companies -> Acme Studio; Company Info card [domain, industry, size 11–50, phone, email, website, description]; Address card [10 Acme Street, London]; Associated Contacts panel in empty state; completion card automatically follows)
+22. Company profile and associated contacts (Contacts sidebar item -> Companies -> Acme Studio; Company Info card [domain, industry, size 11–50, phone, email, website, description]; Address card [10 Acme Street, London]; Associated Contacts panel in empty state)
+23. Messages and messaging channel integrations (Messages split inbox, search conversations, filter channels [All, Facebook, Instagram, WhatsApp, Telegram, SMS, Email], WhatsApp conversation with 3 safe sample messages, Unknown contact warning banner, Facebook inactive setup with OAuth/webhook and expandable manual setup form, Instagram inactive setup, WhatsApp inactive setup, Telegram inactive setup, return to unified inbox)
+24. Connect Email Account (Messages view -> toolbar Email icon -> Connect Email Account modal; Display name "Work Email", Email "admin@example.com", SMTP server "smtp.example.com" port 587, IMAP server "imap.example.com" port 993, SSL/TLS, toggle Show passwords, custom signature, click Test Connection with success toast, Cancel modal)
+25. Create and configure a workflow automation (Automations sidebar item -> visual workflow builder canvas with dotted grid, zoom controls, mini-map; workflow name "New Contact Follow-up", Scope "My contacts (safe default)", Module "Contacts"; node library with Triggers, Actions, Control; Record Created trigger node, Send Email action node, End control node, curved dashed connecting lines; select Send Email -> right Node Config panel with template dropdown "Email 3 — Understand customer needs", recipient "{contact.email}", subject "A question about {{company}}", message body; click Save Workflow -> toast "Workflow saved successfully")
+26. CRM Analytics (Analytics sidebar item -> performance dashboard; 6 KPI cards [Total Contacts 23 +100%, Active Deals 24 +100%, Deals Won 0 -100%, Conversion Rate 0% -100%, Emails Sent 0, Activities 0]; 4 performance charts: Conversion Rate Over Time line chart, Contact Growth bar chart [3 bars], Pipeline Value Trending amber line chart, Activity Breakdown empty state; date filter dropdown with 5 options; completion card automatically follows)
 
 Groups:
 - Overview: Step 1
@@ -1158,13 +1165,17 @@ Groups:
 - Contacts Directory: Step 20
 - Contact Profile: Step 21
 - Company Information: Step 22
+- Messages and Channels: Step 23
+- Email Account Setup: Step 24
+- Workflow Automation: Step 25
+- CRM Analytics: Step 26
 
 Files:
 - Shell & Stage: `components/crm/CrmShell.tsx`, `components/crm/CrmStage.tsx`
-- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`, `components/crm/CrmForecastsView.tsx`, `components/crm/CrmDealsView.tsx`, `components/crm/CrmTasksView.tsx`, `components/crm/CrmCalendarView.tsx`, `components/crm/CrmContactsDirectoryView.tsx`, `components/crm/CrmContactProfileView.tsx`, `components/crm/CrmCompanyProfileView.tsx`
-- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`, `components/crm/CrmNewTargetModal.tsx`, `components/crm/CrmCallerIdModal.tsx`, `components/crm/CrmVoicemailModal.tsx`, `components/crm/CrmRingStrategyModal.tsx`, `components/crm/CrmBusinessHoursModal.tsx`, `components/crm/CrmCallingProvidersModal.tsx`, `components/crm/CrmAddContactDrawer.tsx`
+- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`, `components/crm/CrmForecastsView.tsx`, `components/crm/CrmDealsView.tsx`, `components/crm/CrmTasksView.tsx`, `components/crm/CrmCalendarView.tsx`, `components/crm/CrmContactsDirectoryView.tsx`, `components/crm/CrmContactProfileView.tsx`, `components/crm/CrmCompanyProfileView.tsx`, `components/crm/CrmMessagesView.tsx`, `components/crm/CrmAutomationsView.tsx`, `components/crm/CrmAnalyticsView.tsx`
+- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`, `components/crm/CrmNewTargetModal.tsx`, `components/crm/CrmCallerIdModal.tsx`, `components/crm/CrmVoicemailModal.tsx`, `components/crm/CrmRingStrategyModal.tsx`, `components/crm/CrmBusinessHoursModal.tsx`, `components/crm/CrmCallingProvidersModal.tsx`, `components/crm/CrmAddContactDrawer.tsx`, `components/crm/CrmConnectEmailModal.tsx`
 - Data & Timeline: `components/crm/crm-data.ts`, `components/crm/crm-timeline.ts`
-- Scenes: `scenes/crm/step<1..22>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Scenes: `scenes/crm/step<1..26>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Product switcher and vertical icon rail
 The product navigation provides dual, synchronised discovery methods:
