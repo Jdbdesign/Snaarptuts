@@ -2675,7 +2675,9 @@ Route `/tutorials/pdf`, config `tutorials/pdf.ts`. Recordings: `C:\Users\HP\Down
 
 # Snaarp CRM (route `/tutorials/crm`)
 
-Recording: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, Part 1: steps 1–6). Part 2 will append from step 7.
+Recordings:
+- Part 1: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, steps 1–6)
+- Part 2: `C:\Users\HP\Downloads\1119(1).mp4` (1444x720, 4:37, steps 7–12)
 
 | Step | Title | URL | Duration |
 | :--- | :--- | :--- | :--- |
@@ -2685,25 +2687,45 @@ Recording: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, Part 1: steps 1–6
 | 4 | Add and save dashboard widgets | `https://crm.snaarp.com/dashboards/client-leads` | 24.0 s |
 | 5 | Share and present the dashboard | `https://crm.snaarp.com/dashboards/client-leads` | 20.0 s |
 | 6 | View and sort CRM prospects | `https://crm.snaarp.com/sales/prospects` | 25.0 s |
+| 7 | Import prospects from CSV | `https://crm.snaarp.com/sales/prospects` | 25.5 s |
+| 8 | Cloud phone and SMS messaging | `https://crm.snaarp.com/calls` | 22.5 s |
+| 9 | Add a contact and link products | `https://crm.snaarp.com/sales/prospects` | 25.5 s |
+| 10 | Prospect tasks, reminders, and comments | `https://crm.snaarp.com/sales/prospects` | 34.5 s |
+| 11 | Edit client details and close deal | `https://crm.snaarp.com/sales/prospects` | 20.5 s |
+| 12 | List view and pipeline sorting | `https://crm.snaarp.com/sales/prospects` | 21.0 s |
 
 ## Groups
 - **Overview**: Step 1 (`crm-overview`)
 - **Dashboards**: Steps 2–5 (`crm-dashboards` to `crm-share-tv`)
 - **Sales Pipeline**: Step 6 (`crm-prospects`)
+- **Import Prospects**: Step 7 (`crm-import-prospects`)
+- **Calls and Messaging**: Step 8 (`crm-calls-messaging`)
+- **Contacts**: Step 9 (`crm-add-contact`)
+- **Prospect Tasks and Comments**: Step 10 (`crm-tasks-comments`)
+- **Edit and Close Prospects**: Step 11 (`crm-edit-close`)
+- **List View and Sorting**: Step 12 (`crm-list-view`)
 
 ## Architecture & Components
 - **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities, Calls, Contacts, Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
 - **Views**:
   - `CrmHomeView.tsx`: Overview KPI metric cards (Contacts: 59, Deals: 32, Emails: 0, Tasks: 0).
   - `CrmDashboardsView.tsx`: Subnav listing PR sales, My Dashboard, and custom Client Leads; empty state canvas with "+ Add First Widget"; custom 6-widget grid (KPI card 25, Bar Chart, Line Chart, Table, Pie Chart with source distribution, KPI card 2); pre-built 8-widget My Dashboard.
-  - `CrmProspectsView.tsx`: Header with pipeline selector pill, segmented view switcher (Kanban / List / Grid), sort dropdown with 6 options (Most recent, Oldest, Name A-Z, Name Z-A, Value high-low, Value low-high), Import, Export, and Add Prospect buttons. Kanban columns (Event Leads, Lead, Proposal, Presentation, Awaiting Response, Interviewing) with prospect cards (Sam Taylor, Casey Brown, Jordan Lee) and action pills (Email, Call, SMS, WhatsApp). Dense list view table with inline stage dropdowns and Won/Lost tags. 3-column card grid view with stage selectors and pagination.
+  - `CrmProspectsView.tsx`: Header with pipeline selector pill, segmented view switcher (Kanban / List / Grid), sort dropdown with 6 options (Most recent, Oldest, Name A-Z, Name Z-A, Value high-low, Value low-high), Import, Export, and Add Contact buttons. Kanban columns (Event Leads, Lead, Proposal, Presentation, Awaiting Response, Interviewing) with prospect cards, 3-dot context menu, inline deal value editor, inline task creator, and action pills (Email, Call, SMS, WhatsApp). Dense list view table with inline stage dropdowns, real-time sorting, and Won/Lost tags. 3-column card grid view with stage selectors and pagination.
+  - `CrmCallsView.tsx`: Full Cloud Phone view (My Numbers, Call Settings, 5 metric cards, 12-key telephone dial pad, active call status bar, recent call history) and SMS communication hub (SMS metric cards, conversation list drawer, message thread, rich composer with emoji and attachments, contact profile card with Quick Actions).
   - `CrmTvModeView.tsx`: Full-screen presentation mode overlay with rich purple background (`#581C87`), auto-refreshing header, dark slate cards (`#1E293B`), pause pill, and Exit TV Mode button.
-- **Modals**:
+- **Modals & Dialogs**:
   - `CrmNewDashboardModal.tsx`: New dashboard dialog with text input and Create action.
   - `CrmAddWidgetsModal.tsx`: Catalog modal displaying 11 widget types with selection badges and "+ Add N widgets" button.
   - `CrmShareDashboardModal.tsx`: Sharing permissions modal with 5 role options and Save action.
-- **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `hoverOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
-- **Step Scenes**: `scenes/crm/step1` ... `step6` (`StepN.tsx`, `script.ts`).
+  - `CrmImportModal.tsx`: 4-stage CSV import wizard (Upload with dropzone, Map Columns for 10 fields, Review with stats and fallback warning, Complete with success state).
+  - `CrmAddContactModal.tsx`: 2-column contact creation dialog with 16 fields, product catalog dropdown picker, and notes.
+  - `CrmTaskReminderModal.tsx`: High-priority task reminder alert modal with action buttons (`✓ Mark Done`, `Go to Task`) and snooze grid.
+  - `CrmAddCommentModal.tsx`: Add comment dialog for internal prospect notes.
+  - `CrmViewCommentsModal.tsx`: Timeline viewer of logged comments with author, timestamp, and notes.
+  - `CrmEditClientModal.tsx`: 2-section scrollable panel for Client Details and Prospect Details.
+  - `CrmCloseWonModal.tsx`: Close Deal (Won) confirmation dialog with celebration icon and value summary.
+- **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
+- **Step Scenes**: `scenes/crm/step1` ... `step12` (`StepN.tsx`, `script.ts`).
 
 
 

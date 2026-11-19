@@ -1109,7 +1109,10 @@ Files:
 - Scenes: `scenes/pdf/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Snaarp CRM ("Snaarp CRM", route `/tutorials/crm`)
-Config: `tutorials/crm.ts` (Part 1, 6 steps: steps 1–6 built; completion card dynamically follows step 6 until Part 2 appends from step 7). Recording: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25).
+Config: `tutorials/crm.ts` (12 steps: Part 1 steps 1–6, Part 2 steps 7–12; completion card automatically follows step 12).
+Recordings:
+- Part 1: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, steps 1–6)
+- Part 2: `C:\Users\HP\Downloads\1119(1).mp4` (1444x720, 4:37, steps 7–12)
 
 Steps:
 1. CRM overview and navigation (Home dashboard metrics: 59 contacts, 32 deals, 0 emails, 0 tasks, Suite rail, CRM sidebar navigation)
@@ -1118,18 +1121,30 @@ Steps:
 4. Add and save dashboard widgets (Add First Widget -> catalog modal with 11 widgets, select Bar Chart, Line Chart, KPI Card, Table; add Pie Chart & 2nd KPI Card for 6 total; click Save Changes -> toast "Dashboard saved successfully")
 5. Share and present the dashboard (Click Share -> Share modal, select "Everyone in organization", click Save -> toast "Sharing updated"; click TV Mode -> full-screen deep purple `#581C87` high-contrast auto-refreshing wall presentation with dark slate cards `#1E293B`, pause pill, and Exit TV Mode button)
 6. View and sort CRM prospects (Sales subnav -> Prospects pipeline; switch between Kanban board, List table view with stage dropdowns and action pills, and Grid view cards with pagination; open sort dropdown and sort Name A-Z)
+7. Import prospects from CSV (Click Import -> 4-stage wizard: Upload dropzone with CSV preview, Map 10 columns, Review summary with stage fallback warning, Complete celebration screen -> Kanban board populated with imported records)
+8. Cloud phone and SMS messaging (Sidebar Calls -> Cloud Phone metrics, 12-key dial pad with active call bar, recent calls history; switch to SMS tab -> conversations list, chat thread, rich composer with emojis/attachments, contact preview card)
+9. Add a contact and link products (Click '+ Add Contact' -> 2-column modal with 16 fields, select products popover adding "Snaarp PDF (£12/mo)" chip, submit -> toast "Contact created successfully")
+10. Prospect tasks, reminders, and comments (Click card deal value -> inline input edit £8,500; open 3-dot menu -> add inline task, high-priority reminder alert with '✓ Mark Done', add internal comment modal, view comments modal)
+11. Edit client details and close deal (Open 3-dot menu -> Edit Client Details scrollable modal with 2 sections, save changes -> toast "Prospect updated"; open menu -> Close Deal (Won) modal with celebration icon, confirm -> deal moved to Won)
+12. List view and pipeline sorting (Switch to List table view with stage dropdown pills; open sort menu and sort Name A-Z -> reordered list; open sort menu and sort Name Z-A -> reverse reordered list; completion screen automatically follows)
 
 Groups:
 - Overview: Step 1
 - Dashboards: Steps 2–5
 - Sales Pipeline: Step 6
+- Import Prospects: Step 7
+- Calls and Messaging: Step 8
+- Contacts: Step 9
+- Prospect Tasks and Comments: Step 10
+- Edit and Close Prospects: Step 11
+- List View and Sorting: Step 12
 
 Files:
 - Shell & Stage: `components/crm/CrmShell.tsx`, `components/crm/CrmStage.tsx`
-- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmTvModeView.tsx`
-- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`
+- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`
+- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`
 - Data & Timeline: `components/crm/crm-data.ts`, `components/crm/crm-timeline.ts`
-- Scenes: `scenes/crm/step<1..6>/Step<N>.tsx`, `script.ts`
+- Scenes: `scenes/crm/step<1..12>/Step<N>.tsx`, `script.ts`
 
 ### Product switcher and vertical icon rail
 The product navigation provides dual, synchronised discovery methods:

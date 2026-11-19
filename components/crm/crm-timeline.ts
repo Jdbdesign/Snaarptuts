@@ -54,6 +54,20 @@ export interface BeginCrmOptions {
   isSortOpen?: boolean;
   sortOption?: string;
   salesOpen?: boolean;
+  // Part 2 additions
+  isImportOpen?: boolean;
+  importStage?: 'upload' | 'map' | 'review' | 'complete';
+  hasImported?: boolean;
+  callsTab?: 'phone' | 'sms' | 'numbers';
+  isAddContactOpen?: boolean;
+  editValueProspectId?: string | null;
+  addTaskProspectId?: string | null;
+  isTaskReminderOpen?: boolean;
+  isAddCommentOpen?: boolean;
+  isViewCommentsOpen?: boolean;
+  isEditClientOpen?: boolean;
+  isCloseWonOpen?: boolean;
+  activeProspectMenuId?: string | null;
 }
 
 export function beginCrm(
@@ -80,6 +94,21 @@ export function beginCrm(
   tl.setVar("crm:sortOption", opts.sortOption ?? "Most recent");
   tl.setVar("crm:salesOpen", opts.salesOpen ?? true);
   tl.setVar("crm:toast", null);
+
+  // Part 2 variables
+  tl.setVar("crm:isImportOpen", opts.isImportOpen ?? false);
+  tl.setVar("crm:importStage", opts.importStage ?? "upload");
+  tl.setVar("crm:hasImported", opts.hasImported ?? false);
+  tl.setVar("crm:callsTab", opts.callsTab ?? "phone");
+  tl.setVar("crm:isAddContactOpen", opts.isAddContactOpen ?? false);
+  tl.setVar("crm:editValueProspectId", opts.editValueProspectId ?? null);
+  tl.setVar("crm:addTaskProspectId", opts.addTaskProspectId ?? null);
+  tl.setVar("crm:isTaskReminderOpen", opts.isTaskReminderOpen ?? false);
+  tl.setVar("crm:isAddCommentOpen", opts.isAddCommentOpen ?? false);
+  tl.setVar("crm:isViewCommentsOpen", opts.isViewCommentsOpen ?? false);
+  tl.setVar("crm:isEditClientOpen", opts.isEditClientOpen ?? false);
+  tl.setVar("crm:isCloseWonOpen", opts.isCloseWonOpen ?? false);
+  tl.setVar("crm:activeProspectMenuId", opts.activeProspectMenuId ?? null);
 }
 
 export async function finishCrm(tl: Timeline) {

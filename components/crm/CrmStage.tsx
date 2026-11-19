@@ -7,11 +7,19 @@ import { CrmShell, type CrmNavId } from './CrmShell';
 import { CrmHomeView } from './CrmHomeView';
 import { CrmDashboardsView } from './CrmDashboardsView';
 import { CrmProspectsView } from './CrmProspectsView';
+import { CrmCallsView } from './CrmCallsView';
 import { CrmNewDashboardModal } from './CrmNewDashboardModal';
 import { CrmAddWidgetsModal } from './CrmAddWidgetsModal';
 import { CrmShareDashboardModal } from './CrmShareDashboardModal';
 import { CrmTvModeView } from './CrmTvModeView';
-import { INITIAL_DASHBOARDS, type CrmDashboardItem } from './crm-data';
+import { CrmImportModal } from './CrmImportModal';
+import { CrmAddContactModal } from './CrmAddContactModal';
+import { CrmTaskReminderModal } from './CrmTaskReminderModal';
+import { CrmAddCommentModal } from './CrmAddCommentModal';
+import { CrmViewCommentsModal } from './CrmViewCommentsModal';
+import { CrmEditClientModal } from './CrmEditClientModal';
+import { CrmCloseWonModal } from './CrmCloseWonModal';
+import { INITIAL_DASHBOARDS, POST_IMPORT_PROSPECTS, type CrmDashboardItem, type ProspectItem } from './crm-data';
 import { pushCrmToast } from './crm-timeline';
 
 interface CrmStageProps {
@@ -26,6 +34,15 @@ export function CrmStage({ tl }: CrmStageProps) {
   const isAddWidgetsOpen = useTimelineVar<boolean>(tl, 'crm:isAddWidgetsOpen', false);
   const isShareModalOpen = useTimelineVar<boolean>(tl, 'crm:isShareModalOpen', false);
   const isTvMode = useTimelineVar<boolean>(tl, 'crm:isTvMode', false);
+
+  // Part 2 Modals state
+  const isImportOpen = useTimelineVar<boolean>(tl, 'crm:isImportOpen', false);
+  const isAddContactOpen = useTimelineVar<boolean>(tl, 'crm:isAddContactOpen', false);
+  const isTaskReminderOpen = useTimelineVar<boolean>(tl, 'crm:isTaskReminderOpen', false);
+  const isAddCommentOpen = useTimelineVar<boolean>(tl, 'crm:isAddCommentOpen', false);
+  const isViewCommentsOpen = useTimelineVar<boolean>(tl, 'crm:isViewCommentsOpen', false);
+  const isEditClientOpen = useTimelineVar<boolean>(tl, 'crm:isEditClientOpen', false);
+  const isCloseWonOpen = useTimelineVar<boolean>(tl, 'crm:isCloseWonOpen', false);
 
   // Dashboards list
   const dashboards = useTimelineVar<CrmDashboardItem[]>(tl, 'crm:dashboards', INITIAL_DASHBOARDS);
@@ -66,6 +83,27 @@ export function CrmStage({ tl }: CrmStageProps) {
     pushCrmToast(tl, 'Sharing updated');
   };
 
+  const handleFinishImport = () => {
+    tl.setVar('crm:hasImported', true);
+    tl.setVar('crm:isImportOpen', false);
+    pushCrmToast(tl, 'Imported 5 prospects');
+  };
+
+  const handleAddContactSubmit = () => {
+    tl.setVar('crm:isAddContactOpen', false);
+    pushCrmToast(tl, 'Contact added successfully');
+  };
+
+  const handleCloseWonConfirm = () => {
+    const currentList = tl.getVar<ProspectItem[]>('crm:prospects', POST_IMPORT_PROSPECTS);
+    const updated = currentList.map((p) =>
+      p.id === 'prospect-alex' ? { ...p, status: 'won' as const } : p
+    );
+    tl.setVar('crm:prospects', updated);
+    tl.setVar('crm:isCloseWonOpen', false);
+    pushCrmToast(tl, 'Deal closed as won');
+  };
+
   return (
     <div
       data-scroller
@@ -86,7 +124,15 @@ export function CrmStage({ tl }: CrmStageProps) {
           />
         )}
 
-        {(activeNav === 'sales' || activeNav === 'prospects') && <CrmProspectsView tl={tl} />}
+        {(activeNav === 'sales' || activeNav === 'prospects') && (
+          <CrmProspectsView
+            tl={tl}
+            onOpenImport={() => tl.setVar('crm:isImportOpen', true)}
+            onOpenAddContact={() => tl.setVar('crm:isAddContactOpen', true)}
+          />
+        )}
+
+        {activeNav === 'calls' && <CrmCallsView tl={tl} />}
       </CrmShell>
 
       {/* Modals & Presentation Overlays */}
@@ -117,6 +163,65 @@ export function CrmStage({ tl }: CrmStageProps) {
           onExit={() => tl.setVar('crm:isTvMode', false)}
         />
       )}
+
+      {/* Part 2 Modals */}
+      <CrmImportModal
+        tl={tl}
+        isOpen={isImportOpen}
+        onClose={() => tl.setVar('crm:isImportOpen', false)}
+        onFinishImport={handleFinishImport}
+      />
+
+      <CrmAddContactModal
+        tl={tl}
+        isOpen={isAddContactOpen}
+        onClose={() => tl.setVar('crm:isAddContactOpen', false)}
+        onSubmit={handleAddContactSubmit}
+      />
+
+      <CrmTaskReminderModal
+        isOpen={isTaskReminderOpen}
+        onClose={() => tl.setVar('crm:isTaskReminderOpen', false)}
+        onMarkDone={() => {
+          tl.setVar('crm:isTaskReminderOpen', false);
+          pushCrmToast(tl, 'Task marked as done');
+        }}
+        prospectName="Alex Morgan"
+        taskTitle="Follow up call"
+      />
+
+      <CrmAddCommentModal
+        tl={tl}
+        isOpen={isAddCommentOpen}
+        onClose={() => tl.setVar('crm:isAddCommentOpen', false)}
+        onSubmit={() => {
+          tl.setVar('crm:isAddCommentOpen', false);
+          pushCrmToast(tl, 'Comment added');
+        }}
+      />
+
+      <CrmViewCommentsModal
+        isOpen={isViewCommentsOpen}
+        onClose={() => tl.setVar('crm:isViewCommentsOpen', false)}
+        prospectName="Alex Morgan"
+      />
+
+      <CrmEditClientModal
+        tl={tl}
+        isOpen={isEditClientOpen}
+        onClose={() => tl.setVar('crm:isEditClientOpen', false)}
+        onSave={() => {
+          tl.setVar('crm:isEditClientOpen', false);
+          pushCrmToast(tl, 'Prospect updated');
+        }}
+      />
+
+      <CrmCloseWonModal
+        isOpen={isCloseWonOpen}
+        onClose={() => tl.setVar('crm:isCloseWonOpen', false)}
+        onConfirm={handleCloseWonConfirm}
+        prospectName="Alex Morgan"
+      />
     </div>
   );
 }

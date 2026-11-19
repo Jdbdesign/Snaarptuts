@@ -328,7 +328,16 @@ export function CrmShell({ tl, children }: Props) {
               {/* Calls */}
               <button
                 type="button"
-                className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                data-tl="crm-nav-calls"
+                onClick={() => {
+                  tl.setVar("crm:activeNav", "calls");
+                  tl.setUrl("crm.snaarp.com/calls");
+                }}
+                className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors ${
+                  activeNav === "calls"
+                    ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                    : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                }`}
               >
                 <Phone size={16} />
                 <span>Calls</span>
@@ -337,7 +346,16 @@ export function CrmShell({ tl, children }: Props) {
               {/* Contacts */}
               <button
                 type="button"
-                className="flex h-9 w-full items-center justify-between rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                data-tl="crm-nav-contacts"
+                onClick={() => {
+                  tl.setVar("crm:activeNav", "contacts");
+                  tl.setUrl("crm.snaarp.com/contacts");
+                }}
+                className={`flex h-9 w-full items-center justify-between rounded-xl px-3 text-[13px] font-medium transition-colors ${
+                  activeNav === "contacts"
+                    ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                    : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Users size={16} />

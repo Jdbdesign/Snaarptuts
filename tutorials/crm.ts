@@ -10,6 +10,18 @@ import { Step5 } from "@/scenes/crm/step5/Step5";
 import { runStep5, STEP5_DURATION_MS } from "@/scenes/crm/step5/script";
 import { Step6 } from "@/scenes/crm/step6/Step6";
 import { runStep6, STEP6_DURATION_MS } from "@/scenes/crm/step6/script";
+import { Step7 } from "@/scenes/crm/step7/Step7";
+import { runStep7, STEP7_DURATION_MS } from "@/scenes/crm/step7/script";
+import { Step8 } from "@/scenes/crm/step8/Step8";
+import { runStep8, STEP8_DURATION_MS } from "@/scenes/crm/step8/script";
+import { Step9 } from "@/scenes/crm/step9/Step9";
+import { runStep9, STEP9_DURATION_MS } from "@/scenes/crm/step9/script";
+import { Step10 } from "@/scenes/crm/step10/Step10";
+import { runStep10, STEP10_DURATION_MS } from "@/scenes/crm/step10/script";
+import { Step11 } from "@/scenes/crm/step11/Step11";
+import { runStep11, STEP11_DURATION_MS } from "@/scenes/crm/step11/script";
+import { Step12 } from "@/scenes/crm/step12/Step12";
+import { runStep12, STEP12_DURATION_MS } from "@/scenes/crm/step12/script";
 import type { Tutorial } from "./types";
 
 export const crm: Tutorial = {
@@ -80,15 +92,81 @@ export const crm: Tutorial = {
         durationMs: STEP6_DURATION_MS,
       },
     },
+    {
+      id: "crm-import-prospects",
+      title: "Import prospects from CSV",
+      url: "https://crm.snaarp.com/sales/prospects",
+      scene: {
+        Component: Step7,
+        run: runStep7,
+        durationMs: STEP7_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-calls-messaging",
+      title: "Cloud phone and SMS messaging",
+      url: "https://crm.snaarp.com/calls",
+      scene: {
+        Component: Step8,
+        run: runStep8,
+        durationMs: STEP8_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-add-contact",
+      title: "Add a contact and link products",
+      url: "https://crm.snaarp.com/sales/prospects",
+      scene: {
+        Component: Step9,
+        run: runStep9,
+        durationMs: STEP9_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-tasks-comments",
+      title: "Prospect tasks, reminders, and comments",
+      url: "https://crm.snaarp.com/sales/prospects",
+      scene: {
+        Component: Step10,
+        run: runStep10,
+        durationMs: STEP10_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-edit-close",
+      title: "Edit client details and close deal",
+      url: "https://crm.snaarp.com/sales/prospects",
+      scene: {
+        Component: Step11,
+        run: runStep11,
+        durationMs: STEP11_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-list-view",
+      title: "List view and pipeline sorting",
+      url: "https://crm.snaarp.com/sales/prospects",
+      scene: {
+        Component: Step12,
+        run: runStep12,
+        durationMs: STEP12_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "crm-overview" },
     { title: "Dashboards", from: "crm-dashboards" },
     { title: "Sales Pipeline", from: "crm-prospects" },
+    { title: "Import Prospects", from: "crm-import-prospects" },
+    { title: "Calls and Messaging", from: "crm-calls-messaging" },
+    { title: "Contacts", from: "crm-add-contact" },
+    { title: "Prospect Tasks and Comments", from: "crm-tasks-comments" },
+    { title: "Edit and Close Prospects", from: "crm-edit-close" },
+    { title: "List View and Sorting", from: "crm-list-view" },
   ],
   completion: {
     title: "You're all set",
-    text: "You can now customize dashboards, monitor sales metrics, and manage your prospect pipeline in Snaarp CRM.",
+    text: "You can now customize dashboards, import prospects, make calls, log tasks, and manage deals across your pipeline in Snaarp CRM.",
     replayLabel: "Replay",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

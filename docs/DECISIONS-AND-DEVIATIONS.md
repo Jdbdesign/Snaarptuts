@@ -2000,7 +2000,46 @@ Added a vertical product icon navigation rail to the extreme left side of the ex
    - **Prospects Pipeline**: Built in `CrmProspectsView.tsx` with pipeline selector pill, 3-view switcher (Kanban, List, Grid), and 6-option sort dropdown (Most recent, Oldest, Name A-Z, Name Z-A, Value high-low, Value low-high). Kanban board displays stage columns with colored dots, contact count badges, and prospect cards with 4 action pills (Email, Call, SMS, WhatsApp). List view renders a dense table with inline stage dropdowns and Won/Lost badges. Grid view displays 3-column card grid with stage selectors and pagination.
 
 3. **Completion Flow**:
-   - The completion card is data-driven and temporarily follows step 6 ("You're all set", Replay, Back to Snaarp). When Part 2 is provided, it will automatically move to the new final step without modifying Part 1.
+   - The completion card is data-driven and followed step 6 in Part 1. With Part 2 added, it now automatically follows step 12 without modifying Part 1.
+
+## Snaarp CRM (Part 2, Steps 7–12)
+
+1. **Neutralization of Real Personal Data**:
+   - Replaced all recording names, personal emails, domains, and phone numbers with fictional data adhering to rules:
+     - Alex Morgan (`AM`, `alex@acme-studio.com`, `+44 7700 900456`, VP of Operations, Acme Studio).
+     - Morgan Taylor (`MT`, `morgan.taylor@example.com`, `+44 7700 900567`, TechFlow).
+     - Taylor Brooks (`TB`, `taylor.brooks@example.com`, `+44 7700 900678`, Apex Corp).
+     - Sam Lee (`SL`, `sam.lee@example.com`, `+44 7700 900789`, GlobalMedia).
+     - Casey Jordan (`CJ`, `casey.jordan@example.com`, `+44 7700 900890`, Nexus Ltd).
+     - New Contact: Jane Smith (`jane.smith@acme-studio.com`, `+44 7700 900789`, Sales Manager, Acme Studio).
+   - Phone numbers use the UK Ofcom drama reserve range `+44 7700 900xxx`.
+   - Currency: GBP (`£`) used across all deal values, products, and metrics.
+
+2. **CSV Import Flow (Step 7)**:
+   - 4-stage wizard: Upload -> Map Columns -> Review -> Complete.
+   - Column mapping covers all 10 CSV fields: First Name, Last Name, Email, Phone, Company, Job Title, Source, Stage, Deal Value, Notes.
+   - The Review stage faithfully replicates the recording's warning: `"Stage" mapping: 1 record matched an existing stage, 4 will use the default stage "Event Leads"`.
+
+3. **Calls & SMS View & WhatsApp Exclusion (Step 8)**:
+   - Built in `CrmCallsView.tsx` with full Cloud Phone (metrics, 12-key dial pad, active call status, recent call history) and SMS communication hub (conversation drawer, message thread, rich composer, contact profile).
+   - In the recording, clicking WhatsApp opened an external browser tab to `web.whatsapp.com`. In accordance with architecture guidelines (no external navigations, stay within in-app simulation), the WhatsApp action triggers an in-app visual feedback notice and stays inside the tutorial stage.
+
+4. **Add Contact & Products Dropdown (Step 9)**:
+   - 2-column modal with 16 contact fields and product selector popover (`Snaarp PDF (£12/mo)` chip).
+   - Clicking Create Contact persists the record and triggers a success toast.
+
+5. **High Priority Reminder vs Medium Task Priority Discrepancy (Step 10)**:
+   - The recording displays an internal discrepancy: the modal header reads "High Priority Task Reminder", yet the task card and details show priority as "Medium". The implementation mirrors this exact video behavior while providing clear user actions (`✓ Mark Done`, `Go to Task`, Snooze grid).
+
+6. **Edit Client & Close Deal (Won) (Step 11)**:
+   - Built with full two-section scrollable panel (Client Details + Prospect Details) and Close Deal (Won) confirmation modal with green badge.
+   - Saves record and transitions deal to Won stage with £8,500 value.
+
+7. **Pipeline List View & Sorting (Step 12)**:
+   - Full list view table with inline interactive stage dropdowns.
+   - Sort dropdown implements real-time sorting for `Name (A-Z)` and `Name (Z-A)` with animated reordering.
+   - Completion card now automatically follows Step 12 (verified data-driven; confirmed it no longer appears after Step 6).
+
 
 
 
