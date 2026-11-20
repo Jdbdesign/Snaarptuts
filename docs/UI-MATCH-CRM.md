@@ -4,6 +4,10 @@ Design lock and side-by-side audit notes for Snaarp CRM:
 - Part 1 (steps 1–6): `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25).
 - Part 2 (steps 7–12): `C:\Users\HP\Downloads\1119(1).mp4` (1444x720, 4:37).
 - Part 3 (steps 13–17): `C:\Users\HP\Downloads\1119(2).mp4` (1340x720, 3:39).
+- Part 4 (steps 18–22): `C:\Users\HP\Downloads\1119(3).mp4` (1386x720, 3:44).
+- Part 5 (steps 23–26): `C:\Users\HP\Downloads\1119(4).mp4` (1392x720, 2:59).
+- Part 6 (steps 27–29): `C:\Users\HP\Downloads\1120.mp4` (1384x720, 1:44).
+- Part 7 (steps 30–34): `C:\Users\HP\Downloads\1120(2).mp4` (1390x720, 5:19).
 
 ---
 
@@ -642,5 +646,130 @@ Source recording: `C:\Users\HP\Downloads\1120.mp4` (1:15–1:44)
 | **All Filter Tab** | Top header tabs | Pill button | Active `#7014D9`, text `#7014D9` | `All (2)` | Clicked -> displays 2 requests (1 Rejected, 1 Pending) |
 | **Pending Filter Tab** | Top header tabs | Pill button | Active `#7014D9`, text `#7014D9` | `Pending (0)` | Clicked -> displays final empty state |
 | **Final Empty State** | Center of view | Centered card | Text `#6B7280` | CheckCircle icon + "No pending approvals" | Matches final recording state |
-| **Completion Card** | Follows Step 29 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes complete 29-step CRM tutorial |
+
+---
+
+## Step 30: System admin overview and team members (0:00–1:05)
+
+URL: `crm.snaarp.com/admin/overview` -> `crm.snaarp.com/admin/team`
+Route: `/tutorials/crm`
+View: System Admin Overview & Team Members Management
+Source recording: `C:\Users\HP\Downloads\1120(2).mp4` (0:00–1:05)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **System Admin Sidebar** | Left column next to suite rail | 240px wide, flex col | Bg: `#FFFFFF`, border-r: `#ECECF1` | Header: "PLATFORM / System Admin". Nav: Overview, Team Members, Products, Events, Event Attendees, Transfer Leads, Forecasting, Pipeline Settings, Ads & Social, Automation, Automation Templates, Audit Logs, Web Forms, Web Form Leads, Settings. Bottom: "Back to Sales CRM" | `Overview` active initially |
+| **Overview Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | Heading: "Analytics" (bold 20px), Subtitle: "Performance across all salesperson CRMs", Date pill: "Last 30 days" | Displayed |
+| **KPI Metric Cards** | Main content top grid | 4 columns x 2 rows (8 cards) | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1`, p-4 | 1: "379 New Contacts", 2: "1 Deals Won", 3: "£0 Revenue", 4: "3% Win Rate", 5: "£27,850 Pipeline Value", 6: "379 New Deals", 7: "0 Activities", 8: "5 Tasks Created" | 8 cards rendered |
+| **Performance by Salesperson Table** | Below KPI cards | Full width table card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1`, p-4 | Columns: REP, CONTACTS, DEALS WON, OPEN DEALS, REVENUE, ACTIVITIES. Fictional reps: Alex Morgan, Jordan Lee, Priya Shah, Sam Taylor, Daniel Okoye, Casey Brown | 6 rep rows |
+| **Team Members Nav Item** | System Admin sidebar | Item row | Active text `#7014D9`, bg `#F3ECFC` | Users icon + "Team Members" | Clicked -> switches view to Team Members |
+| **Team Members Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | "Team Members" (bold 20px), "Users from your Snaarp account. Add or manage them in the accounts admin." Actions: `Roles & permissions`, `Add Salesperson` | Displayed |
+| **Team Members Table** | Main content area | Full width table card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1`, p-4 | Columns: NAME, EMAIL, DEPARTMENT, ACCOUNT ROLE, CRM ACCESS, STATUS, ACTIONS. Fictional members: Alex Morgan, Jordan Lee, Priya Shah, Sam Taylor, Daniel Okoye, Casey Brown | 6 user rows |
+| **CRM Access Dropdown** | Sam Taylor row CRM access cell | Select dropdown | Bg: `#FFFFFF`, border `#E5E7EB` | Options: Full access (admin), Full access (no role), Viewer, Sales Rep | Clicked -> changed to "Viewer" |
+| **Role Update Toast** | Top right floating | Auto width | Bg: `#111827`, text white, rounded-xl | Check icon + "Role updated for Sam Taylor" | Rendered |
+
+---
+
+## Step 31: Roles and permissions (1:05–1:55)
+
+URL: `crm.snaarp.com/admin/team` (Roles modal)
+Route: `/tutorials/crm`
+View: Roles & Permissions Matrix Modal Dialog
+Source recording: `C:\Users\HP\Downloads\1120(2).mp4` (1:05–1:55)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Roles & Permissions Button** | Team Members page top right | White pill button | Bg: `#FFFFFF`, border `#E5E7EB`, text `#111111` | Shield icon + "Roles & permissions" | Clicked -> opens modal |
+| **Roles Modal Dialog** | Centered modal overlay | 880px wide, max-h-[85vh] | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Flex row with sidebar and matrix canvas | Open overlay |
+| **Roles Sidebar** | Modal left pane | 220px wide | Bg: `#F9FAFB`, border-r `#ECECF1`, p-3 | ROLES list: `Admin (locked)`, `Viewer`, `Sales Rep`. Bottom: `+ New role` button | `Admin (locked)` active initially |
+| **Admin Permissions Matrix** | Modal right pane | Flex-1, p-5 | Banner `#FEF3C7`, table `#FFFFFF` | Header: "Admin — Permissions", "Full access to every module". Alert banner: "Admins always have full access. This role can't be changed." Matrix: 10 modules x 5 actions (all checked & disabled) | Locked display |
+| **New Role Button** | Roles sidebar bottom | Purple outlined pill | Text `#7014D9`, border `#DDD6FE` | Plus icon + "New role" | Clicked -> opens role creator |
+| **Role Name Input** | Role creator form | Full width text input | Bg: `#FFFFFF`, border `#E5E7EB` | Placeholder: "e.g. Sales Associate", Label: "Role Name *" | Typed "Auditor" |
+| **Description Input** | Role creator form | Textarea / input | Bg: `#FFFFFF`, border `#E5E7EB` | Placeholder: "Brief description (optional)" | Optional |
+| **Permission Checkboxes** | Permissions matrix | 10 rows x 5 checkboxes | Checkboxes `#7014D9` | Modules: Contacts, Companies, Prospects & Deals, Forecasts, Tasks & Calendar, Calls, Messages, Automations, Web Forms, Reports & Analytics. Actions: View, Create, Edit, Delete, Approve | Forecasts: View checked, Create checked |
+| **Create Role Button** | Modal footer | Purple pill button | Bg: `#7014D9`, text white | "Create role" | Clicked -> adds Auditor role |
+| **Role Created Toast** | Top right floating | Auto width | Bg: `#111827`, text white, rounded-xl | Check icon + "Role \"Auditor\" created" | Displayed |
+| **Roles Modal Close** | Modal top right | Icon button | Text `#6B7280` | X icon | Clicked -> closes modal |
+
+---
+
+## Step 32: Admin users and products catalogue (1:55–3:30)
+
+URL: `admin.snaarp.com/admin/users` -> `crm.snaarp.com/admin/products`
+Route: `/tutorials/crm`
+View: Admin Users Directory & CRM Products Catalogue (Grid, List, Add, Edit, Bulk Delete)
+Source recording: `C:\Users\HP\Downloads\1120(2).mp4` (1:55–3:30)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Admin Users View** | Standalone organization admin | Full width screen | Bg: `#F6F6F8` | Header: "Users", "Manage the people in your organization." KPI cards: 17 Active Users, 27 Suspended Users, 7 Administrators. Tabs: Active Users, Suspended Users. Directory table. Action: "Return to CRM" | Inspected briefly, returns to CRM |
+| **Products Nav Item** | System Admin sidebar | Item row | Active text `#7014D9`, bg `#F3ECFC` | Package icon + "Products" | Active |
+| **Products Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | "Products" (bold 20px), "20 products · drop these into email templates". Actions: Export, Import, `+ Add Product` | Rendered |
+| **Search & Filters Row** | Below products header | Flex row items-center justify-between | Inputs & toggles | Search input ("Search products..."), Sort dropdown ("Newest" -> "Name A-Z"), View toggle (Grid / List) | Grid view initially |
+| **Product Grid Cards** | Main content area | 4 columns grid, gap-4 | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1`, p-4 | 12 products: Books, CRM, Document, Drive, Identity, Lock: Password Manager, Mail, Meet, PDF, Projects, Sendrit, Sheet. Card shows icon/thumbnail, name, SKU, price, actions | Grid displayed |
+| **List View Toggle** | Filter controls right | Segmented button | Active bg `#F3ECFC`, text `#7014D9` | List icon button | Clicked -> switches to table view |
+| **Product List Table** | Main content area in list mode | Full width table | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Columns: Checkbox, Product, SKU, Category, Price, Status ("Active" green badge), Actions (Edit, Duplicate, Delete) | List displayed |
+| **Sort Dropdown** | Filter controls center | Select dropdown | Bg: `#FFFFFF`, border `#E5E7EB` | Options: Newest, Oldest, Name A-Z, Price Low-High, Price High-Low | Changed to "Name A-Z" |
+| **Add Product Button** | Header top right | Purple pill button | Bg: `#7014D9`, text white | Plus icon + "Add Product" | Clicked -> opens modal |
+| **Add Product Modal** | Centered modal overlay | 560px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Fields: Name, SKU, Category, Price, Currency, Image, Description, Active checkbox, Email Preview. Cancel & Create Product buttons | Inspected, then Cancelled |
+| **Edit Lock Product Action** | Lock: Password Manager row | Action button | Text `#6B7280`, hover `#111111` | Edit icon | Clicked -> opens edit modal |
+| **Edit Product Modal** | Centered modal overlay | 560px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Pre-filled with "Lock: Password Manager", SKU `LOCK-01`, price `£4.99`. Cancel & Save Changes buttons | Inspected, then Cancelled |
+| **Bulk Checkboxes** | Table row leftmost cells | Checkboxes | Purple accent `#7014D9` | Books checkbox clicked, CRM checkbox clicked | 2 selected |
+| **Bulk Action Bar** | Top of table floating/pinned | Flex row justify-between | Bg: `#7014D9`, text white, rounded-xl, p-3 | Left: "2 selected", Right: "Clear", "Delete" (trash icon button) | Displayed on selection |
+| **Bulk Delete Action** | Bulk action bar right | Red/white pill button | Bg: `#EF4444`, text white | Trash icon + "Delete" | Clicked -> removes Books & CRM |
+| **Updated Products Table** | Main content area | Table card | Same | Remaining products displayed, selection bar dismissed | Updated list |
+
+---
+
+## Step 33: Events management (3:30–4:35)
+
+URL: `crm.snaarp.com/admin/events`
+Route: `/tutorials/crm`
+View: Events Management, Event Detail Cards, Add Contact Slide-Over & Event Modals
+Source recording: `C:\Users\HP\Downloads\1120(2).mp4` (3:30–4:35)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Events Nav Item** | System Admin sidebar | Item row | Active text `#7014D9`, bg `#F3ECFC` | Calendar icon + "Events" | Active |
+| **Events Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | "Events" (bold 20px), "Create events like webinars and masterclasses, then use them in automations — e.g. \"remind attendees 1 day before\"." Actions: Search input, `+ New event` | Rendered |
+| **Event Card** | Main content area | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1`, p-5 | Title: "Free Masterclass", badge: "Upcoming" (green), Date: "Friday 27 November 2026, 03:00", Location: "Live Online", Link: `https://example.com/events/free-masterclass`, Attendees: "2 attendees", Actions: `Add contact`, `Edit` | Displayed |
+| **Add Contact Button** | Event card right | White pill button | Bg: `#FFFFFF`, border `#E5E7EB`, text `#111111` | UserPlus icon + "Add contact" | Clicked -> opens right slide-over |
+| **Add Contact Slide-Over** | Right pinned drawer | 360px wide, full height | Bg: `#FFFFFF`, border-l `#ECECF1`, shadow-xl | Header: "Add a contact", Search input, List of 2 registered contacts (Alex Morgan, Priya Shah) with `Remove` buttons | Inspected, then closed |
+| **New Event Button** | Events header top right | Purple pill button | Bg: `#7014D9`, text white | Plus icon + "New event" | Clicked -> opens modal |
+| **New Event Modal** | Centered modal overlay | 540px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Title: "New Event". Fields: Name, Starts, Ends, Time zone (Africa/Lagos), Location (Live Online), Details link, Description | Filled & Saved |
+| **Save Event Button** | Modal footer | Purple pill button | Bg: `#7014D9`, text white | "Save" | Clicked -> toast "Event created" |
+| **Edit Event Button** | Free Masterclass card | White pill button | Bg: `#FFFFFF`, border `#E5E7EB`, text `#111111` | Edit icon + "Edit" | Clicked -> opens edit modal |
+| **Edit Event Modal** | Centered modal overlay | 540px wide | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Title: "Edit Event". Pre-filled fields, plus "Cancelled" checkbox | Inspected unchecked, then Cancelled |
+
+---
+
+## Step 34: Event attendees (4:35–5:19)
+
+URL: `crm.snaarp.com/admin/event-attendees`
+Route: `/tutorials/crm`
+View: Event Attendees Directory, Filter Tabs, Pagination & Contact Profile Drawer
+Source recording: `C:\Users\HP\Downloads\1120(2).mp4` (4:35–5:19)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Event Attendees Nav Item** | System Admin sidebar | Item row | Active text `#7014D9`, bg `#F3ECFC` | Users icon + "Event Attendees" | Active |
+| **Attendees Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | "Event Attendees" (bold 20px), "Everyone registered for your events, from web forms or added by hand." Actions: "All events" dropdown, Search input, Export | Rendered |
+| **Attendees Filter Tabs** | Below header | Horizontal pill/segmented tabs | Active border-b-2 `#7014D9`, text `#7014D9` | `All 2`, `Web form 2`, `Added manually 0` | `All 2` active initially |
+| **Attendees Table** | Main content area | Full width table card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | Columns: Checkbox, ATTENDEE, CONTACT, STAGE, EVENT, SOURCE, REGISTERED, ACTIONS. Rows: Alex Morgan, Priya Shah | 2 attendee rows rendered |
+| **Web Form Tab** | Filter tabs center | Tab button | Active `#7014D9` | `Web form 2` | Clicked -> filters to 2 web form attendees |
+| **Added Manually Tab** | Filter tabs right | Tab button | Text `#6B7280` | `Added manually 0` | Clicked -> shows empty state: "No attendees found" |
+| **All Tab** | Filter tabs left | Tab button | Text `#7014D9` | `All 2` | Clicked -> returns to all attendees |
+| **Attendee Name Link** | Alex Morgan row | Clickable link | Text `#7014D9`, hover underline | "Alex Morgan" | Clicked -> opens contact profile drawer |
+| **Contact Profile Drawer** | Right slide-over drawer | 400px wide, full height | Bg: `#FFFFFF`, border-l `#ECECF1`, shadow-xl | Profile header: Alex Morgan, alex.morgan@example.com, Company: Acme Ltd, Stage: New, Close X button | Inspected, then closed |
+| **Completion Card** | Follows Step 34 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes complete 34-step CRM tutorial |
 

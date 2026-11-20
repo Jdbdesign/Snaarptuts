@@ -56,6 +56,16 @@ import { Step28 } from "@/scenes/crm/step28/Step28";
 import { runStep28, STEP28_DURATION_MS } from "@/scenes/crm/step28/script";
 import { Step29 } from "@/scenes/crm/step29/Step29";
 import { runStep29, STEP29_DURATION_MS } from "@/scenes/crm/step29/script";
+import { Step30 } from "@/scenes/crm/step30/Step30";
+import { runStep30, STEP30_DURATION_MS } from "@/scenes/crm/step30/script";
+import { Step31 } from "@/scenes/crm/step31/Step31";
+import { runStep31, STEP31_DURATION_MS } from "@/scenes/crm/step31/script";
+import { Step32 } from "@/scenes/crm/step32/Step32";
+import { runStep32, STEP32_DURATION_MS } from "@/scenes/crm/step32/script";
+import { Step33 } from "@/scenes/crm/step33/Step33";
+import { runStep33, STEP33_DURATION_MS } from "@/scenes/crm/step33/script";
+import { Step34 } from "@/scenes/crm/step34/Step34";
+import { runStep34, STEP34_DURATION_MS } from "@/scenes/crm/step34/script";
 import type { Tutorial } from "./types";
 
 export const crm: Tutorial = {
@@ -356,6 +366,56 @@ export const crm: Tutorial = {
         durationMs: STEP29_DURATION_MS,
       },
     },
+    {
+      id: "crm-system-admin-overview",
+      title: "System admin overview and team members",
+      url: "https://crm.snaarp.com/admin/overview",
+      scene: {
+        Component: Step30,
+        run: runStep30,
+        durationMs: STEP30_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-roles-permissions",
+      title: "Roles and permissions",
+      url: "https://crm.snaarp.com/admin/team",
+      scene: {
+        Component: Step31,
+        run: runStep31,
+        durationMs: STEP31_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-admin-users-products",
+      title: "Admin users and products catalogue",
+      url: "https://admin.snaarp.com/admin/users",
+      scene: {
+        Component: Step32,
+        run: runStep32,
+        durationMs: STEP32_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-events-management",
+      title: "Events management",
+      url: "https://crm.snaarp.com/admin/events",
+      scene: {
+        Component: Step33,
+        run: runStep33,
+        durationMs: STEP33_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-event-attendees",
+      title: "Event attendees",
+      url: "https://crm.snaarp.com/admin/event-attendees",
+      scene: {
+        Component: Step34,
+        run: runStep34,
+        durationMs: STEP34_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "crm-overview" },
@@ -384,10 +444,15 @@ export const crm: Tutorial = {
     { title: "Report Builder", from: "crm-report-builder" },
     { title: "Create Approval Request", from: "crm-create-approval" },
     { title: "Approval Management", from: "crm-approval-management" },
+    { title: "System Admin and Team Members", from: "crm-system-admin-overview" },
+    { title: "Roles and Permissions", from: "crm-roles-permissions" },
+    { title: "Admin Users and Products", from: "crm-admin-users-products" },
+    { title: "Events Management", from: "crm-events-management" },
+    { title: "Event Attendees", from: "crm-event-attendees" },
   ],
   completion: {
     title: "You're all set",
-    text: "You can now manage dashboards, prospects, calls, sales forecasting, deals, tasks, calendar activities, calling settings, providers, contacts, profiles, company records, messages, email accounts, automations, analytics, custom reports, and approval workflows in Snaarp CRM.",
+    text: "You can now manage dashboards, prospects, calls, sales forecasting, deals, tasks, calendar activities, calling settings, providers, contacts, profiles, company records, messages, email accounts, automations, analytics, custom reports, approval workflows, system admin operations, team permissions, products catalogue, and event attendees in Snaarp CRM.",
     replayLabel: "Replay",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

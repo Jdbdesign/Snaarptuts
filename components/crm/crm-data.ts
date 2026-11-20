@@ -942,3 +942,301 @@ export const RELATED_TO_OPTIONS = ['Deal', 'Contact', 'Company', 'Lead'] as cons
 
 export const RECORD_OPTIONS = ['Sam Taylor', 'Alex Morgan', 'Casey Brown', 'Jordan Lee'] as const;
 
+// ---------------------------------------------------------------------------
+// Part 7: System Admin, Team Members, Roles, Products, Events & Attendees
+// ---------------------------------------------------------------------------
+
+export interface SystemAdminKpi {
+  id: string;
+  label: string;
+  value: string;
+  subtitle?: string;
+}
+
+export const SYSTEM_ADMIN_OVERVIEW_KPIS: SystemAdminKpi[] = [
+  { id: 'contacts', label: 'New Contacts', value: '379' },
+  { id: 'deals-won', label: 'Deals Won', value: '1' },
+  { id: 'revenue', label: 'Revenue', value: '£0' },
+  { id: 'win-rate', label: 'Win Rate', value: '3%' },
+  { id: 'pipeline-value', label: 'Pipeline Value', value: '£27,850' },
+  { id: 'new-deals', label: 'New Deals', value: '379' },
+  { id: 'activities', label: 'Activities', value: '0' },
+  { id: 'tasks-created', label: 'Tasks Created', value: '5' },
+];
+
+export interface SystemAdminRepPerformance {
+  id: string;
+  name: string;
+  initials: string;
+  contacts: number;
+  dealsWon: number;
+  openDeals: number;
+  revenue: string;
+  activities: number;
+}
+
+export const SYSTEM_ADMIN_REP_PERFORMANCE: SystemAdminRepPerformance[] = [
+  { id: 'alex-morgan', name: 'Alex Morgan', initials: 'AM', contacts: 120, dealsWon: 1, openDeals: 45, revenue: '£0', activities: 0 },
+  { id: 'jordan-lee', name: 'Jordan Lee', initials: 'JL', contacts: 85, dealsWon: 0, openDeals: 32, revenue: '£0', activities: 0 },
+  { id: 'priya-shah', name: 'Priya Shah', initials: 'PS', contacts: 64, dealsWon: 0, openDeals: 28, revenue: '£0', activities: 0 },
+  { id: 'sam-taylor', name: 'Sam Taylor', initials: 'ST', contacts: 50, dealsWon: 0, openDeals: 21, revenue: '£0', activities: 0 },
+  { id: 'daniel-okoye', name: 'Daniel Okoye', initials: 'DO', contacts: 38, dealsWon: 0, openDeals: 18, revenue: '£0', activities: 0 },
+  { id: 'casey-brown', name: 'Casey Brown', initials: 'CB', contacts: 22, dealsWon: 0, openDeals: 12, revenue: '£0', activities: 0 },
+];
+
+export interface CrmTeamMember {
+  id: string;
+  name: string;
+  initials: string;
+  email: string;
+  department: string;
+  accountRole: string;
+  crmAccess: string;
+  status: 'Active' | 'Invited' | 'Suspended';
+}
+
+export const CRM_ACCESS_ROLES = [
+  'Full access (admin)',
+  'Full access (no role)',
+  'Viewer',
+  'Sales Rep',
+] as const;
+
+export const INITIAL_TEAM_MEMBERS: CrmTeamMember[] = [
+  {
+    id: 'alex-morgan',
+    name: 'Alex Morgan',
+    initials: 'AM',
+    email: 'alex.morgan@example.com',
+    department: 'Engineering',
+    accountRole: 'Admin',
+    crmAccess: 'Full access (admin)',
+    status: 'Active',
+  },
+  {
+    id: 'jordan-lee',
+    name: 'Jordan Lee',
+    initials: 'JL',
+    email: 'jordan.lee@example.com',
+    department: 'Sales',
+    accountRole: 'Member',
+    crmAccess: 'Full access (no role)',
+    status: 'Active',
+  },
+  {
+    id: 'priya-shah',
+    name: 'Priya Shah',
+    initials: 'PS',
+    email: 'priya.shah@example.com',
+    department: 'Marketing',
+    accountRole: 'Member',
+    crmAccess: 'Full access (no role)',
+    status: 'Active',
+  },
+  {
+    id: 'sam-taylor',
+    name: 'Sam Taylor',
+    initials: 'ST',
+    email: 'sam.taylor@example.com',
+    department: 'Sales',
+    accountRole: 'Member',
+    crmAccess: 'Full access (no role)',
+    status: 'Active',
+  },
+  {
+    id: 'daniel-okoye',
+    name: 'Daniel Okoye',
+    initials: 'DO',
+    email: 'daniel.okoye@example.com',
+    department: 'Engineering',
+    accountRole: 'Member',
+    crmAccess: 'Full access (no role)',
+    status: 'Active',
+  },
+  {
+    id: 'casey-brown',
+    name: 'Casey Brown',
+    initials: 'CB',
+    email: 'casey.brown@example.com',
+    department: 'HR',
+    accountRole: 'Member',
+    crmAccess: 'Full access (no role)',
+    status: 'Active',
+  },
+];
+
+export const CRM_PERMISSION_MODULES = [
+  'Contacts',
+  'Companies',
+  'Prospects & Deals',
+  'Forecasts',
+  'Tasks & Calendar',
+  'Calls',
+  'Messages',
+  'Automations',
+  'Web Forms',
+  'Reports & Analytics',
+] as const;
+
+export const CRM_PERMISSION_ACTIONS = ['View', 'Create', 'Edit', 'Delete', 'Approve'] as const;
+
+export interface CrmRoleDefinition {
+  id: string;
+  name: string;
+  description: string;
+  isLocked?: boolean;
+  permissions: Record<string, string[]>; // module -> actions[]
+}
+
+export const INITIAL_CRM_ROLES: CrmRoleDefinition[] = [
+  {
+    id: 'admin',
+    name: 'Admin',
+    description: 'Full access to every module',
+    isLocked: true,
+    permissions: Object.fromEntries(
+      CRM_PERMISSION_MODULES.map((m) => [m, [...CRM_PERMISSION_ACTIONS]])
+    ),
+  },
+  {
+    id: 'viewer',
+    name: 'Viewer',
+    description: 'Read-only access across all modules',
+    isLocked: false,
+    permissions: Object.fromEntries(
+      CRM_PERMISSION_MODULES.map((m) => [m, ['View']])
+    ),
+  },
+  {
+    id: 'sales-rep',
+    name: 'Sales Rep',
+    description: 'Standard sales pipeline access and actions',
+    isLocked: false,
+    permissions: {
+      Contacts: ['View', 'Create', 'Edit'],
+      Companies: ['View', 'Create'],
+      'Prospects & Deals': ['View', 'Create', 'Edit'],
+      Forecasts: ['View'],
+      'Tasks & Calendar': ['View', 'Create', 'Edit'],
+      Calls: ['View', 'Create'],
+      Messages: ['View', 'Create'],
+      Automations: ['View'],
+      'Web Forms': ['View'],
+      'Reports & Analytics': ['View'],
+    },
+  },
+];
+
+export interface AdminUserItem {
+  id: string;
+  name: string;
+  initials: string;
+  email: string;
+  role: string;
+  department: string;
+  status: 'Active' | 'Suspended';
+}
+
+export const INITIAL_ADMIN_USERS: AdminUserItem[] = [
+  { id: 'usr-1', name: 'Jane Doe', initials: 'JD', email: 'jane@example.com', role: 'Super Admin', department: 'Leadership', status: 'Active' },
+  { id: 'usr-2', name: 'Alex Morgan', initials: 'AM', email: 'alex.morgan@example.com', role: 'Administrator', department: 'Engineering', status: 'Active' },
+  { id: 'usr-3', name: 'Jordan Lee', initials: 'JL', email: 'jordan.lee@example.com', role: 'Member', department: 'Sales', status: 'Active' },
+  { id: 'usr-4', name: 'Priya Shah', initials: 'PS', email: 'priya.shah@example.com', role: 'Member', department: 'Marketing', status: 'Active' },
+  { id: 'usr-5', name: 'Sam Taylor', initials: 'ST', email: 'sam.taylor@example.com', role: 'Member', department: 'Sales', status: 'Active' },
+  { id: 'usr-6', name: 'Daniel Okoye', initials: 'DO', email: 'daniel.okoye@example.com', role: 'Member', department: 'Engineering', status: 'Active' },
+  { id: 'usr-7', name: 'Casey Brown', initials: 'CB', email: 'casey.brown@example.com', role: 'Member', department: 'HR', status: 'Active' },
+];
+
+export interface CrmProductItem {
+  id: string;
+  name: string;
+  sku: string;
+  category: string;
+  price: string;
+  currency: string;
+  status: 'Active' | 'Inactive';
+  description?: string;
+  icon?: string;
+}
+
+export const INITIAL_PRODUCTS: CrmProductItem[] = [
+  { id: 'books', name: 'Books', sku: 'BKS-01', category: 'Finance', price: '£19.99', currency: 'GBP', status: 'Active', description: 'Comprehensive business bookkeeping tool.' },
+  { id: 'crm', name: 'CRM', sku: 'CRM-01', category: 'Sales', price: '£29.00', currency: 'GBP', status: 'Active', description: 'Customer relationship and pipeline management.' },
+  { id: 'document', name: 'Document', sku: 'DOC-01', category: 'Productivity', price: '£9.99', currency: 'GBP', status: 'Active', description: 'Collaborative real-time docs editor.' },
+  { id: 'drive', name: 'Drive', sku: 'DRV-01', category: 'Storage', price: '£14.99', currency: 'GBP', status: 'Active', description: 'Secure cloud file storage and sync.' },
+  { id: 'identity', name: 'Identity', sku: 'IDN-01', category: 'Security', price: '£24.99', currency: 'GBP', status: 'Active', description: 'Enterprise single sign-on and IAM.' },
+  { id: 'lock', name: 'Lock: Password Manager', sku: 'LOCK-01', category: 'Security', price: '£4.99', currency: 'GBP', status: 'Active', description: 'Vaulted company password manager.' },
+  { id: 'mail', name: 'Mail', sku: 'EML-01', category: 'Communication', price: '£12.00', currency: 'GBP', status: 'Active', description: 'Professional email hosting.' },
+  { id: 'meet', name: 'Meet', sku: 'MET-01', category: 'Communication', price: '£15.00', currency: 'GBP', status: 'Active', description: 'High definition video meetings.' },
+  { id: 'pdf', name: 'PDF', sku: 'PDF-01', category: 'Productivity', price: '£8.50', currency: 'GBP', status: 'Active', description: 'PDF creation and annotation.' },
+  { id: 'projects', name: 'Projects', sku: 'PRJ-01', category: 'Management', price: '£22.00', currency: 'GBP', status: 'Active', description: 'Agile team project management.' },
+  { id: 'sendrit', name: 'Sendrit', sku: 'SND-01', category: 'Marketing', price: '£18.00', currency: 'GBP', status: 'Active', description: 'Bulk email campaign engine.' },
+  { id: 'sheet', name: 'Sheet', sku: 'SHT-01', category: 'Spreadsheets', price: '£11.00', currency: 'GBP', status: 'Active', description: 'Collaborative cloud spreadsheets.' },
+];
+
+export interface CrmEventItem {
+  id: string;
+  name: string;
+  status: 'Upcoming' | 'Past' | 'Cancelled';
+  date: string;
+  time: string;
+  location: string;
+  link: string;
+  attendeeCount: number;
+  description: string;
+  timezone: string;
+}
+
+export const INITIAL_EVENTS: CrmEventItem[] = [
+  {
+    id: 'evt-masterclass',
+    name: 'Free Masterclass',
+    status: 'Upcoming',
+    date: 'Friday 27 November 2026',
+    time: '03:00',
+    location: 'Live Online',
+    link: 'https://example.com/events/free-masterclass',
+    attendeeCount: 2,
+    description: 'Masterclass covering CRM workflows, sales automations, and best practices.',
+    timezone: 'Africa/Lagos',
+  },
+];
+
+export interface CrmEventAttendee {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  stage: string;
+  event: string;
+  source: 'Web form' | 'Added manually';
+  registeredDate: string;
+}
+
+export const INITIAL_EVENT_ATTENDEES: CrmEventAttendee[] = [
+  {
+    id: 'att-1',
+    name: 'Alex Morgan',
+    email: 'alex.morgan@example.com',
+    phone: '+44 7700 900077',
+    company: 'Acme Ltd',
+    stage: 'New',
+    event: 'Free Masterclass',
+    source: 'Web form',
+    registeredDate: '20/11/2026',
+  },
+  {
+    id: 'att-2',
+    name: 'Priya Shah',
+    email: 'priya.shah@example.com',
+    phone: '+44 7700 900088',
+    company: 'Acme Ltd',
+    stage: 'Proposal',
+    event: 'Free Masterclass',
+    source: 'Web form',
+    registeredDate: '20/11/2026',
+  },
+];
+
+

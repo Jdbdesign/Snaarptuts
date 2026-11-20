@@ -2742,9 +2742,14 @@ Recordings:
 - **Report Builder**: Step 27 (`crm-report-builder`)
 - **Create Approval Request**: Step 28 (`crm-create-approval`)
 - **Approval Management**: Step 29 (`crm-approval-management`)
+- **System Admin and Team Members**: Step 30 (`crm-system-admin-overview`)
+- **Roles and Permissions**: Step 31 (`crm-roles-permissions`)
+- **Admin Users and Products**: Step 32 (`crm-admin-users-products`)
+- **Events Management**: Step 33 (`crm-events-management`)
+- **Event Attendees**: Step 34 (`crm-event-attendees`)
 
 ## Architecture & Components
-- **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities [accordion controlling Tasks and Calendar], Calls, Contacts [accordion controlling All Contacts and Companies], Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
+- **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities [accordion controlling Tasks and Calendar], Calls, Contacts [accordion controlling All Contacts and Companies], Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel; System Admin sidebar mode with Overview, Team Members, Products, Events, Event Attendees, Transfer Leads, Forecasting, Pipeline Settings, Ads & Social, Automation, Automation Templates, Audit Logs, Web Forms, Web Form Leads, Settings, and Back to Sales CRM).
 - **Views**:
   - `CrmHomeView.tsx`: Overview KPI metric cards (Contacts: 59, Deals: 32, Emails: 0, Tasks: 0).
   - `CrmDashboardsView.tsx`: Subnav listing PR sales, My Dashboard, and custom Client Leads; empty state canvas with "+ Add First Widget"; custom 6-widget grid (KPI card 25, Bar Chart, Line Chart, Table, Pie Chart with source distribution, KPI card 2); pre-built 8-widget My Dashboard.
@@ -2758,12 +2763,23 @@ Recordings:
   - `CrmAnalyticsView.tsx`: CRM performance analytics dashboard with 6 KPI cards (Total Contacts 23 +100%, Active Deals 24 +100%, Deals Won 0 -100%, Conversion Rate 0% -100%, Emails Sent 0, Activities 0), 4 performance charts (Conversion Rate Over Time line chart, Contact Growth bar chart with 3 bars, Pipeline Value Trending amber line chart, Activity Breakdown empty state), and date filter dropdown with 5 options.
   - `CrmReportsView.tsx`: Report Builder workspace with Saved Reports panel ("No saved reports yet", count 0), report type selectors (Standard active, Matrix/Pivot, Date Comparison, With Formulas), configuration card with Data Source ("Contacts"), Sort By ("Created Date" -> "First Name"), Order, Max Results (50), Column selector chips (7 active columns), Group By ("Status"), Visualization switcher (Table, Bar, Pie, Line), filter row (+ Add filter -> Status equals), Run Report button, action pills (Save, Export CSV, Export PDF), and Results table displaying 7 fictional records with First Name, Last Name, Email, Status badge, Source, Phone, and Country.
   - `CrmApprovalsView.tsx`: Approval management workspace with page header ("Approvals", subtitle "Raise, review and manage approval requests"), sub-navigation tabs (Pending, All), + New Request button, empty state ("No pending approvals" with clipboard check icon), and approval cards list (request type, status badge, Deal record, requested by, date, approvers) with Approve button (triggers permission restriction toast) and Reject button (triggers Rejected toast and status update).
+  - `CrmSystemAdminOverviewView.tsx`: System Admin Analytics dashboard featuring 8 KPI cards (379 New Contacts, 1 Deals Won, £0 Revenue, 3% Win Rate, £27,850 Pipeline Value, 379 New Deals, 0 Activities, 5 Tasks Created) and Performance by Salesperson table (Alex Morgan, Jordan Lee, Priya Shah, Sam Taylor, Daniel Okoye, Casey Brown).
+  - `CrmTeamMembersView.tsx`: Organization team members management table with 6 fictional members, department, account role, CRM access dropdown (Full access [admin], Full access [no role], Viewer, Sales Rep), and Roles & permissions action.
+  - `CrmAdminUsersView.tsx`: Organization Accounts Admin directory screen with 17 Active Users, 27 Suspended Users, 7 Administrators, active/suspended tabs, and Return to CRM action button.
+  - `CrmProductsView.tsx`: CRM product catalogue supporting Grid and List views, search, sorting (Name A-Z), bulk select bar (Books, CRM) with bulk Delete action, and Add Product / Edit product modal triggers.
+  - `CrmEventsView.tsx`: Events manager featuring Free Masterclass upcoming event card, right slide-over Add contact drawer (Alex Morgan, Priya Shah), New event creation, and Edit event settings with Cancelled checkbox inspection.
+  - `CrmEventAttendeesView.tsx`: Event attendees table with filter tabs (All 2, Web form 2, Added manually 0 with empty state), pagination, and linked contact profile slide-over drawer for Alex Morgan.
   - `CrmTvModeView.tsx`: Full-screen presentation mode overlay with rich purple background (`#581C87`), auto-refreshing header, dark slate cards (`#1E293B`), pause pill, and Exit TV Mode button.
   - `CrmForecastsView.tsx`: Sales forecasting dashboard featuring Weighted Pipeline (Total Pipeline, Weighted Forecast, Quota Attainment KPI cards and 9 stage progress bars), By Rep (open deals, pipeline, weighted value, won YTD, targets, attainment), Targets (empty state, create target button, active targets table), and Pipeline Risk (deals at risk and value at risk KPIs, stale deals table with idle counters).
   - `CrmDealsView.tsx`: Closed deals interface supporting Won Deals (`/deals/won`) and Lost Deals (`/deals/lost`), view switcher (List and Grid), pipeline selector, sort dropdown, and deal status popover with Closed (Won, Lost) and Reopen as (12 pipeline stages).
   - `CrmTasksView.tsx`: Team task management supporting Board view (To Do, In Progress, Done columns), List view, inline Add Task form (Title, Priority, Date, Description, Link contact), and Task Details right slide-over panel with interactive status advancement (To Do, In Progress, Done, Cancelled).
   - `CrmCalendarView.tsx`: Monthly calendar grid for November 2026 (Sun-Sat), activity legend, day selection (Nov 12 and Nov 19), and slide-over day details panel with interactive task completion (strikethrough and checkmark).
 - **Modals & Dialogs**:
+  - `CrmRolesModal.tsx`: Roles & Permissions matrix dialog (Admin locked banner, Viewer, Sales Rep, New role creator form, Auditor role with Forecasts View & Create permissions, Role "Auditor" created toast).
+  - `CrmNewProductModal.tsx`: New product modal with Name, SKU, Category, Price, Currency, Image, Description, and Active checkbox.
+  - `CrmEditProductModal.tsx`: Edit product modal with pre-filled attributes for Lock: Password Manager.
+  - `CrmNewEventModal.tsx`: New event modal with Name, Starts, Ends, Time zone (Africa/Lagos), Location (Live Online), Details link, and Description.
+  - `CrmEditEventModal.tsx`: Edit event modal with pre-filled details and unselected Cancelled checkbox.
   - `CrmNewApprovalModal.tsx`: New Approval Request modal with Request type ("Discount approval"), Related to ("Deal"), Record ("Sam Taylor"), Approvers checkbox list (Olivia Grant, Daniel Okoye, Finance Reviewer, Sales Manager; Finance Reviewer selected), Reason textarea (blank), Cancel button, and Submit Request button.
   - `CrmConnectEmailModal.tsx`: Connect Email Account modal with Display name ("Work Email"), Email ("admin@example.com"), SMTP server ("smtp.example.com" port 587), IMAP server ("imap.example.com" port 993), SSL/TLS checkbox, toggle Show passwords, custom signature textarea, Test Connection button with toast notification, and Cancel button.
   - `CrmCallerIdModal.tsx`: Caller ID configuration modal (Display Type, Number, Local Presence, Hide Caller ID, Cancel and Save Changes).
@@ -2784,7 +2800,7 @@ Recordings:
   - `CrmCloseWonModal.tsx`: Close Deal (Won) confirmation dialog with celebration icon and value summary.
   - `CrmNewTargetModal.tsx`: New sales target dialog with Period (Monthly), Year (2026), Month (November), Revenue target, and Deal count target.
 - **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `hoverOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
-- **Step Scenes**: `scenes/crm/step1` ... `step29` (`StepN.tsx`, `script.ts`, `data.ts`).
+- **Step Scenes**: `scenes/crm/step1` ... `step34` (`StepN.tsx`, `script.ts`, `data.ts`).
 
 
 

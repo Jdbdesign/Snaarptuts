@@ -10,7 +10,6 @@ import {
   APPROVER_OPTIONS,
   type CrmApprovalItem,
 } from './crm-data';
-import { pushCrmToast } from './crm-timeline';
 import { X, ChevronDown } from 'lucide-react';
 
 interface Props {

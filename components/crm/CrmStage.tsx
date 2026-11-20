@@ -40,6 +40,18 @@ import { CrmAnalyticsView } from './CrmAnalyticsView';
 import { CrmReportsView } from './CrmReportsView';
 import { CrmApprovalsView } from './CrmApprovalsView';
 import { CrmNewApprovalModal } from './CrmNewApprovalModal';
+import { CrmSystemAdminOverviewView } from './CrmSystemAdminOverviewView';
+import { CrmTeamMembersView } from './CrmTeamMembersView';
+import { CrmRolesModal } from './CrmRolesModal';
+import { CrmAdminUsersView } from './CrmAdminUsersView';
+import { CrmProductsView } from './CrmProductsView';
+import { CrmNewProductModal } from './CrmNewProductModal';
+import { CrmEditProductModal } from './CrmEditProductModal';
+import { CrmEventsView } from './CrmEventsView';
+import { CrmNewEventModal } from './CrmNewEventModal';
+import { CrmEditEventModal } from './CrmEditEventModal';
+import { CrmEventAttendeesView } from './CrmEventAttendeesView';
+import type { CrmSysAdminNavId } from './CrmShell';
 import {
   INITIAL_DASHBOARDS,
   POST_IMPORT_PROSPECTS,
@@ -50,7 +62,6 @@ import {
   type ProspectItem,
   type TargetItem,
   type CrmDirectoryContact,
-  type CrmApprovalItem,
 } from './crm-data';
 import { pushCrmToast } from './crm-timeline';
 
@@ -93,6 +104,11 @@ export function CrmStage({ tl }: CrmStageProps) {
 
   // Part 6 Modals state
   const isNewApprovalOpen = useTimelineVar<boolean>(tl, 'crm:isNewApprovalOpen', false);
+
+  // Part 7 state
+  const isSystemAdmin = useTimelineVar<boolean>(tl, 'crm:isSystemAdmin', false);
+  const activeSysNav = useTimelineVar<CrmSysAdminNavId>(tl, 'crm:activeSysNav', 'overview');
+  const isAdminUsersScreen = useTimelineVar<boolean>(tl, 'crm:isAdminUsersScreen', false);
 
   // Dashboards list
   const dashboards = useTimelineVar<CrmDashboardItem[]>(tl, 'crm:dashboards', INITIAL_DASHBOARDS);
@@ -197,96 +213,114 @@ export function CrmStage({ tl }: CrmStageProps) {
       className="relative w-full h-full flex flex-col overflow-hidden bg-[#F8F9FA] select-none"
     >
       <CrmShell tl={tl}>
-        {activeNav === 'home' && <CrmHomeView tl={tl} />}
+        {isSystemAdmin ? (
+          isAdminUsersScreen ? (
+            <CrmAdminUsersView tl={tl} />
+          ) : activeSysNav === 'team' ? (
+            <CrmTeamMembersView tl={tl} />
+          ) : activeSysNav === 'products' ? (
+            <CrmProductsView tl={tl} />
+          ) : activeSysNav === 'events' ? (
+            <CrmEventsView tl={tl} />
+          ) : activeSysNav === 'event-attendees' ? (
+            <CrmEventAttendeesView tl={tl} />
+          ) : (
+            <CrmSystemAdminOverviewView tl={tl} />
+          )
+        ) : (
+          <>
+            {activeNav === 'home' && <CrmHomeView tl={tl} />}
 
-        {activeNav === 'dashboards' && (
-          <CrmDashboardsView
-            tl={tl}
-            onOpenNewModal={() => tl.setVar('crm:isNewModalOpen', true)}
-            onOpenAddWidgets={() => tl.setVar('crm:isAddWidgetsOpen', true)}
-            onOpenShareModal={() => tl.setVar('crm:isShareModalOpen', true)}
-            onOpenTvMode={() => tl.setVar('crm:isTvMode', true)}
-            onSaveDashboard={handleSaveDashboard}
-          />
+            {activeNav === 'dashboards' && (
+              <CrmDashboardsView
+                tl={tl}
+                onOpenNewModal={() => tl.setVar('crm:isNewModalOpen', true)}
+                onOpenAddWidgets={() => tl.setVar('crm:isAddWidgetsOpen', true)}
+                onOpenShareModal={() => tl.setVar('crm:isShareModalOpen', true)}
+                onOpenTvMode={() => tl.setVar('crm:isTvMode', true)}
+                onSaveDashboard={handleSaveDashboard}
+              />
+            )}
+
+            {(activeNav === 'sales' || activeNav === 'prospects') && (
+              <CrmProspectsView
+                tl={tl}
+                onOpenImport={() => tl.setVar('crm:isImportOpen', true)}
+                onOpenAddContact={() => tl.setVar('crm:isAddContactOpen', true)}
+              />
+            )}
+
+            {activeNav === 'calls' && (
+              <CrmCallsView
+                tl={tl}
+                onOpenCallerId={() => tl.setVar('crm:isCallerIdOpen', true)}
+                onOpenVoicemail={() => tl.setVar('crm:isVoicemailModalOpen', true)}
+                onOpenRingStrategy={() => tl.setVar('crm:isRingStrategyModalOpen', true)}
+                onOpenBusinessHours={() => tl.setVar('crm:isBusinessHoursModalOpen', true)}
+                onOpenProviders={() => tl.setVar('crm:isCallingProvidersOpen', true)}
+              />
+            )}
+
+            {activeNav === 'forecasts' && (
+              <CrmForecastsView
+                tl={tl}
+                onOpenNewTarget={() => tl.setVar('crm:isNewTargetOpen', true)}
+              />
+            )}
+
+            {(activeNav === 'won' || activeNav === 'lost') && (
+              <CrmDealsView
+                tl={tl}
+                mode={activeNav === 'won' ? 'won' : 'lost'}
+              />
+            )}
+
+            {activeNav === 'tasks' && <CrmTasksView tl={tl} />}
+
+            {activeNav === 'calendar' && <CrmCalendarView tl={tl} />}
+
+            {activeNav === 'contacts' && (
+              <CrmContactsDirectoryView
+                tl={tl}
+                onOpenAddDrawer={() => tl.setVar('crm:isAddContactDrawerOpen', true)}
+                onSelectContact={handleSelectContact}
+                onDeleteContact={handleDeleteContact}
+              />
+            )}
+
+            {activeNav === 'contact-profile' && (
+              <CrmContactProfileView
+                tl={tl}
+                onBack={handleBackToContacts}
+              />
+            )}
+
+            {activeNav === 'companies' && (
+              <CrmCompanyProfileView
+                tl={tl}
+                onBack={handleBackToContacts}
+                onSave={handleSaveCompany}
+              />
+            )}
+
+            {/* Part 5 Views */}
+            {activeNav === 'messages' && (
+              <CrmMessagesView
+                tl={tl}
+                onOpenConnectEmail={() => tl.setVar('crm:isConnectEmailOpen', true)}
+              />
+            )}
+
+            {activeNav === 'automations' && <CrmAutomationsView tl={tl} />}
+
+            {activeNav === 'analytics' && <CrmAnalyticsView tl={tl} />}
+
+            {/* Part 6 Views */}
+            {activeNav === 'reports' && <CrmReportsView tl={tl} />}
+
+            {activeNav === 'my-requests' && <CrmApprovalsView tl={tl} />}
+          </>
         )}
-
-        {(activeNav === 'sales' || activeNav === 'prospects') && (
-          <CrmProspectsView
-            tl={tl}
-            onOpenImport={() => tl.setVar('crm:isImportOpen', true)}
-            onOpenAddContact={() => tl.setVar('crm:isAddContactOpen', true)}
-          />
-        )}
-
-        {activeNav === 'calls' && (
-          <CrmCallsView
-            tl={tl}
-            onOpenCallerId={() => tl.setVar('crm:isCallerIdOpen', true)}
-            onOpenVoicemail={() => tl.setVar('crm:isVoicemailModalOpen', true)}
-            onOpenRingStrategy={() => tl.setVar('crm:isRingStrategyModalOpen', true)}
-            onOpenBusinessHours={() => tl.setVar('crm:isBusinessHoursModalOpen', true)}
-            onOpenProviders={() => tl.setVar('crm:isCallingProvidersOpen', true)}
-          />
-        )}
-
-        {activeNav === 'forecasts' && (
-          <CrmForecastsView
-            tl={tl}
-            onOpenNewTarget={() => tl.setVar('crm:isNewTargetOpen', true)}
-          />
-        )}
-
-        {(activeNav === 'won' || activeNav === 'lost') && (
-          <CrmDealsView
-            tl={tl}
-            mode={activeNav === 'won' ? 'won' : 'lost'}
-          />
-        )}
-
-        {activeNav === 'tasks' && <CrmTasksView tl={tl} />}
-
-        {activeNav === 'calendar' && <CrmCalendarView tl={tl} />}
-
-        {activeNav === 'contacts' && (
-          <CrmContactsDirectoryView
-            tl={tl}
-            onOpenAddDrawer={() => tl.setVar('crm:isAddContactDrawerOpen', true)}
-            onSelectContact={handleSelectContact}
-            onDeleteContact={handleDeleteContact}
-          />
-        )}
-
-        {activeNav === 'contact-profile' && (
-          <CrmContactProfileView
-            tl={tl}
-            onBack={handleBackToContacts}
-          />
-        )}
-
-        {activeNav === 'companies' && (
-          <CrmCompanyProfileView
-            tl={tl}
-            onBack={handleBackToContacts}
-            onSave={handleSaveCompany}
-          />
-        )}
-
-        {/* Part 5 Views */}
-        {activeNav === 'messages' && (
-          <CrmMessagesView
-            tl={tl}
-            onOpenConnectEmail={() => tl.setVar('crm:isConnectEmailOpen', true)}
-          />
-        )}
-
-        {activeNav === 'automations' && <CrmAutomationsView tl={tl} />}
-
-        {activeNav === 'analytics' && <CrmAnalyticsView tl={tl} />}
-
-        {/* Part 6 Views */}
-        {activeNav === 'reports' && <CrmReportsView tl={tl} />}
-
-        {activeNav === 'my-requests' && <CrmApprovalsView tl={tl} />}
       </CrmShell>
 
       {/* Modals & Presentation Overlays */}
@@ -439,6 +473,13 @@ export function CrmStage({ tl }: CrmStageProps) {
           pushCrmToast(tl, 'Approval request submitted');
         }}
       />
+
+      {/* Part 7 Modals */}
+      <CrmRolesModal tl={tl} />
+      <CrmNewProductModal tl={tl} />
+      <CrmEditProductModal tl={tl} />
+      <CrmNewEventModal tl={tl} />
+      <CrmEditEventModal tl={tl} />
     </div>
   );
 }

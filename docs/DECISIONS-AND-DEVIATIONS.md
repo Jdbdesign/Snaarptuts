@@ -2165,6 +2165,28 @@ Added a vertical product icon navigation rail to the extreme left side of the ex
 5. **Completion Flow**:
    - The completion card automatically follows Step 29 concluding the complete 29-step Snaarp CRM tutorial (confirmed it no longer appears after Step 26).
 
+## Snaarp CRM (Part 7, Steps 30–34)
+
+1. **Neutralization of Real Personal Data & Fictional Isolation**:
+   - All employee names, email addresses, roles, customer events, and administrative data from the recording are replaced with safe fictional records:
+     - Team members (6 rows): Alex Morgan (`alex.morgan@example.com`, Engineering, Admin, Full access [admin]), Jordan Lee (`jordan.lee@example.com`, Sales, Member, Full access [no role]), Priya Shah (`priya.shah@example.com`, Marketing, Member, Full access [no role]), Sam Taylor (`sam.taylor@example.com`, Sales, Member, Full access [no role]), Daniel Okoye (`daniel.okoye@example.com`, Engineering, Member, Full access [no role]), Casey Brown (`casey.brown@example.com`, HR, Member, Full access [no role]).
+     - Accounts Admin directory: 17 Active Users, 27 Suspended Users, 7 Administrators.
+     - Role assignment: Sam Taylor's role is updated to `Viewer` with toast "Role updated for Sam Taylor" in isolated tutorial state without impacting any real account.
+     - Custom Role creation: "Auditor" role is created with Forecasts View and Create rights enabled. Saved with toast `Role "Auditor" created`.
+     - Fictional products catalogue (12 products): Books, CRM, Document, Drive, Identity, Lock: Password Manager, Mail, Meet, PDF, Projects, Sendrit, Sheet.
+     - Safe bulk deletion: Books and CRM are selected and deleted in the isolated tutorial state with toast "2 products deleted". No real product catalogue or billing pricing is altered.
+     - Events management: "Free Masterclass" (Friday 27 November 2026, 03:00, Live Online, 2 attendees: Alex Morgan and Priya Shah). The "Cancelled" setting in Edit Event is inspected unchecked.
+     - Event attendees: 2 attendees registered via Web form. Filtering by "Added manually" displays the empty state "No attendees found". Clicking Alex Morgan opens the contact drawer with fictional contact details.
+   - All phone numbers use Ofcom's drama reserve range `+44 7700 900xxx`.
+   - All monetary figures use GBP (`£`).
+
+2. **System Admin Navigation**:
+   - Activated via `crm:isSystemAdmin` mode. Features the dedicated System Admin sidebar (PLATFORM / System Admin with 15 nav items and "Back to Sales CRM").
+
+3. **Completion Flow**:
+   - The completion card automatically follows Step 34 concluding the complete 34-step Snaarp CRM tutorial (confirmed it no longer appears after Step 29).
+
+
 
 
 

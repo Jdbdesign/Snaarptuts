@@ -1,5 +1,5 @@
 import type { Timeline } from "@/lib/timeline";
-import type { CrmNavId } from "./CrmShell";
+import type { CrmNavId, CrmSysAdminNavId } from "./CrmShell";
 import {
   INITIAL_DASHBOARDS,
   type CrmDashboardItem,
@@ -18,6 +18,16 @@ import {
   ACME_STUDIO_COMPANY,
   type CrmApprovalItem,
   INITIAL_APPROVAL_REQUESTS,
+  INITIAL_TEAM_MEMBERS,
+  type CrmTeamMember,
+  INITIAL_CRM_ROLES,
+  type CrmRoleDefinition,
+  INITIAL_PRODUCTS,
+  type CrmProductItem,
+  INITIAL_EVENTS,
+  type CrmEventItem,
+  INITIAL_EVENT_ATTENDEES,
+  type CrmEventAttendee,
 } from "./crm-data";
 
 export interface CrmToast {
@@ -158,6 +168,34 @@ export interface BeginCrmOptions {
   allCount?: number;
   isNewApprovalOpen?: boolean;
   isSubmittingApproval?: boolean;
+  // Part 7 additions
+  isSystemAdmin?: boolean;
+  activeSysNav?: CrmSysAdminNavId;
+  teamMembers?: CrmTeamMember[];
+  crmRoles?: CrmRoleDefinition[];
+  activeRoleId?: string;
+  isRolesModalOpen?: boolean;
+  isCreatingRole?: boolean;
+  newRoleName?: string;
+  newRoleForecastsView?: boolean;
+  newRoleForecastsCreate?: boolean;
+  products?: CrmProductItem[];
+  productsViewMode?: 'grid' | 'list';
+  productsSort?: string;
+  productsSearch?: string;
+  isNewProductOpen?: boolean;
+  isEditProductOpen?: boolean;
+  editingProductId?: string | null;
+  selectedProductIds?: string[];
+  isAdminUsersScreen?: boolean;
+  events?: CrmEventItem[];
+  isNewEventOpen?: boolean;
+  isEditEventOpen?: boolean;
+  editingEventId?: string | null;
+  isAddEventContactOpen?: boolean;
+  eventAttendees?: CrmEventAttendee[];
+  attendeesTab?: 'all' | 'web-form' | 'manual';
+  selectedAttendeeProfileId?: string | null;
 }
 
 export function beginCrm(
@@ -277,6 +315,35 @@ export function beginCrm(
   tl.setVar("crm:allCount", opts.allCount ?? 2);
   tl.setVar("crm:isNewApprovalOpen", opts.isNewApprovalOpen ?? false);
   tl.setVar("crm:isSubmittingApproval", opts.isSubmittingApproval ?? false);
+
+  // Part 7 variables
+  tl.setVar("crm:isSystemAdmin", opts.isSystemAdmin ?? false);
+  tl.setVar("crm:activeSysNav", opts.activeSysNav ?? "overview");
+  tl.setVar("crm:teamMembers", opts.teamMembers ?? INITIAL_TEAM_MEMBERS);
+  tl.setVar("crm:crmRoles", opts.crmRoles ?? INITIAL_CRM_ROLES);
+  tl.setVar("crm:activeRoleId", opts.activeRoleId ?? "admin");
+  tl.setVar("crm:isRolesModalOpen", opts.isRolesModalOpen ?? false);
+  tl.setVar("crm:isCreatingRole", opts.isCreatingRole ?? false);
+  tl.setVar("crm:newRoleName", opts.newRoleName ?? "");
+  tl.setVar("crm:newRoleForecastsView", opts.newRoleForecastsView ?? false);
+  tl.setVar("crm:newRoleForecastsCreate", opts.newRoleForecastsCreate ?? false);
+  tl.setVar("crm:products", opts.products ?? INITIAL_PRODUCTS);
+  tl.setVar("crm:productsViewMode", opts.productsViewMode ?? "grid");
+  tl.setVar("crm:productsSort", opts.productsSort ?? "Newest");
+  tl.setVar("crm:productsSearch", opts.productsSearch ?? "");
+  tl.setVar("crm:isNewProductOpen", opts.isNewProductOpen ?? false);
+  tl.setVar("crm:isEditProductOpen", opts.isEditProductOpen ?? false);
+  tl.setVar("crm:editingProductId", opts.editingProductId ?? null);
+  tl.setVar("crm:selectedProductIds", opts.selectedProductIds ?? []);
+  tl.setVar("crm:isAdminUsersScreen", opts.isAdminUsersScreen ?? false);
+  tl.setVar("crm:events", opts.events ?? INITIAL_EVENTS);
+  tl.setVar("crm:isNewEventOpen", opts.isNewEventOpen ?? false);
+  tl.setVar("crm:isEditEventOpen", opts.isEditEventOpen ?? false);
+  tl.setVar("crm:editingEventId", opts.editingEventId ?? null);
+  tl.setVar("crm:isAddEventContactOpen", opts.isAddEventContactOpen ?? false);
+  tl.setVar("crm:eventAttendees", opts.eventAttendees ?? INITIAL_EVENT_ATTENDEES);
+  tl.setVar("crm:attendeesTab", opts.attendeesTab ?? "all");
+  tl.setVar("crm:selectedAttendeeProfileId", opts.selectedAttendeeProfileId ?? null);
 }
 
 export async function finishCrm(tl: Timeline) {

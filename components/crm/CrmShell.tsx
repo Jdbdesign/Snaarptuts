@@ -36,6 +36,14 @@ import {
   LogOut,
   CheckCircle2,
   AlertCircle,
+  Package,
+  UserCheck,
+  ArrowRightLeft,
+  Sliders,
+  Share2,
+  ShieldAlert,
+  ArrowLeft,
+  Calendar,
 } from "lucide-react";
 import type { CrmToast } from "./crm-timeline";
 
@@ -61,6 +69,23 @@ export type CrmNavId =
   | "my-requests"
   | "settings";
 
+export type CrmSysAdminNavId =
+  | "overview"
+  | "team"
+  | "products"
+  | "events"
+  | "event-attendees"
+  | "transfer-leads"
+  | "forecasting"
+  | "pipeline-settings"
+  | "ads-social"
+  | "automation"
+  | "automation-templates"
+  | "audit-logs"
+  | "web-forms"
+  | "web-form-leads"
+  | "settings";
+
 interface Props {
   tl: Timeline;
   children: ReactNode;
@@ -72,6 +97,8 @@ export function CrmShell({ tl, children }: Props) {
   const activitiesOpen = useTimelineVar<boolean>(tl, "crm:activitiesOpen", false);
   const contactsOpen = useTimelineVar<boolean>(tl, "crm:contactsOpen", false);
   const toast = useTimelineVar<CrmToast | null>(tl, "crm:toast", null);
+  const isSystemAdmin = useTimelineVar<boolean>(tl, "crm:isSystemAdmin", false);
+  const activeSysNav = useTimelineVar<CrmSysAdminNavId>(tl, "crm:activeSysNav", "overview");
 
   return (
     <div className="relative flex h-full w-full overflow-hidden bg-[#F8F9FA] text-[#111111] font-sans">
@@ -210,12 +237,218 @@ export function CrmShell({ tl, children }: Props) {
         {/* 3. Sub-Shell Layout: CRM Sidebar + Main Content Area */}
         <div className="flex min-h-0 flex-1 overflow-hidden">
           {/* CRM Sidebar Navigation */}
-          <aside
-            data-tl="crm-sidebar"
-            className="no-scrollbar flex h-full w-[220px] shrink-0 flex-col justify-between overflow-y-auto border-r border-[#ECECF1] bg-white p-2.5"
-          >
-            <div className="flex flex-col gap-0.5">
-              {/* Home */}
+          {isSystemAdmin ? (
+            <aside
+              data-tl="crm-sys-sidebar"
+              className="no-scrollbar flex h-full w-[220px] shrink-0 flex-col justify-between overflow-y-auto border-r border-[#ECECF1] bg-white p-2.5"
+            >
+              <div className="flex flex-col gap-0.5">
+                <div className="px-3 py-2">
+                  <span className="text-[10px] font-bold tracking-wider text-[#9CA3AF] uppercase">PLATFORM</span>
+                  <h2 className="text-[14px] font-bold text-[#111111]">System Admin</h2>
+                </div>
+
+                {/* System Admin Nav items */}
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-overview"
+                  onClick={() => {
+                    tl.setVar("crm:activeSysNav", "overview");
+                    tl.setUrl("crm.snaarp.com/admin/overview");
+                  }}
+                  className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                    activeSysNav === "overview"
+                      ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                      : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                  }`}
+                >
+                  <LayoutDashboard size={16} />
+                  <span>Overview</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-team"
+                  onClick={() => {
+                    tl.setVar("crm:activeSysNav", "team");
+                    tl.setUrl("crm.snaarp.com/admin/team");
+                  }}
+                  className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                    activeSysNav === "team"
+                      ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                      : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                  }`}
+                >
+                  <Users size={16} />
+                  <span>Team Members</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-products"
+                  onClick={() => {
+                    tl.setVar("crm:activeSysNav", "products");
+                    tl.setUrl("crm.snaarp.com/admin/products");
+                  }}
+                  className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                    activeSysNav === "products"
+                      ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                      : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                  }`}
+                >
+                  <Package size={16} />
+                  <span>Products</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-events"
+                  onClick={() => {
+                    tl.setVar("crm:activeSysNav", "events");
+                    tl.setUrl("crm.snaarp.com/admin/events");
+                  }}
+                  className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                    activeSysNav === "events"
+                      ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                      : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                  }`}
+                >
+                  <Calendar size={16} />
+                  <span>Events</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-event-attendees"
+                  onClick={() => {
+                    tl.setVar("crm:activeSysNav", "event-attendees");
+                    tl.setUrl("crm.snaarp.com/admin/event-attendees");
+                  }}
+                  className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                    activeSysNav === "event-attendees"
+                      ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                      : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                  }`}
+                >
+                  <UserCheck size={16} />
+                  <span>Event Attendees</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-transfer-leads"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <ArrowRightLeft size={16} />
+                  <span>Transfer Leads</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-forecasting"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <TrendingUp size={16} />
+                  <span>Forecasting</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-pipeline-settings"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <Sliders size={16} />
+                  <span>Pipeline Settings</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-ads-social"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <Share2 size={16} />
+                  <span>Ads & Social</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-automation"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <Zap size={16} />
+                  <span>Automation</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-automation-templates"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <FileText size={16} />
+                  <span>Automation Templates</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-audit-logs"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <ShieldAlert size={16} />
+                  <span>Audit Logs</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-web-forms"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <FileSpreadsheet size={16} />
+                  <span>Web Forms</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-web-form-leads"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <UserPlus size={16} />
+                  <span>Web Form Leads</span>
+                </button>
+
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-settings"
+                  className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                >
+                  <Settings size={16} />
+                  <span>Settings</span>
+                </button>
+              </div>
+
+              {/* Bottom: Back to Sales CRM */}
+              <div className="border-t border-[#ECECF1] pt-2">
+                <button
+                  type="button"
+                  data-tl="crm-sys-nav-back-to-crm"
+                  onClick={() => {
+                    tl.setVar("crm:isSystemAdmin", false);
+                    tl.setVar("crm:activeNav", "home");
+                    tl.setUrl("crm.snaarp.com/home");
+                  }}
+                  className="flex h-9 w-full items-center gap-2 rounded-xl px-3 text-[13px] font-medium text-[#7C3AED] hover:bg-[#F3ECFC] transition-colors cursor-pointer"
+                >
+                  <ArrowLeft size={16} />
+                  <span>Back to Sales CRM</span>
+                </button>
+              </div>
+            </aside>
+          ) : (
+            <aside
+              data-tl="crm-sidebar"
+              className="no-scrollbar flex h-full w-[220px] shrink-0 flex-col justify-between overflow-y-auto border-r border-[#ECECF1] bg-white p-2.5"
+            >
+              <div className="flex flex-col gap-0.5">
+                {/* Home */}
               <button
                 type="button"
                 data-tl="crm-nav-home"
@@ -595,13 +828,20 @@ export function CrmShell({ tl, children }: Props) {
               </button>
               <button
                 type="button"
-                className="flex h-8 w-full items-center gap-2 rounded-lg px-3 text-[12.5px] font-medium text-[#7C3AED] hover:bg-[#F3ECFC]"
+                data-tl="crm-nav-admin-panel"
+                onClick={() => {
+                  tl.setVar("crm:isSystemAdmin", true);
+                  tl.setVar("crm:activeSysNav", "overview");
+                  tl.setUrl("crm.snaarp.com/admin/overview");
+                }}
+                className="flex h-8 w-full items-center gap-2 rounded-lg px-3 text-[12.5px] font-medium text-[#7C3AED] hover:bg-[#F3ECFC] cursor-pointer"
               >
                 <Shield size={15} />
                 <span>Admin Panel</span>
               </button>
             </div>
           </aside>
+          )}
 
           {/* Main Content Pane */}
           <main className="relative flex min-w-0 flex-1 flex-col overflow-hidden">
