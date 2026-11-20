@@ -1,7 +1,7 @@
 /*
- * Starts CRM tutorial at --from and lets autoplay run to the end (26 steps),
+ * Starts CRM tutorial at --from and lets autoplay run to the end (29 steps),
  * collecting every console error and verifying 0 failures.
- *   npx tsx scripts/check-crm-chain.ts --from 1 --total 26 --speed 8
+ *   npx tsx scripts/check-crm-chain.ts --from 1 --total 29 --speed 8
  */
 import { chromium } from "playwright";
 
@@ -11,7 +11,7 @@ const arg = (n: string, d: string) => {
 };
 const PRODUCT = arg("product", "crm");
 const FROM = Number(arg("from", "1"));
-const TOTAL = Number(arg("total", "26"));
+const TOTAL = Number(arg("total", "29"));
 const SPEED = Number(arg("speed", "8"));
 
 (async () => {

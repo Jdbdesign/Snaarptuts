@@ -1109,13 +1109,14 @@ Files:
 - Scenes: `scenes/pdf/step<1..17>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Snaarp CRM ("Snaarp CRM", route `/tutorials/crm`)
-Config: `tutorials/crm.ts` (26 steps: Part 1 steps 1–6, Part 2 steps 7–12, Part 3 steps 13–17, Part 4 steps 18–22, Part 5 steps 23–26; completion card automatically follows step 26).
+Config: `tutorials/crm.ts` (29 steps: Part 1 steps 1–6, Part 2 steps 7–12, Part 3 steps 13–17, Part 4 steps 18–22, Part 5 steps 23–26, Part 6 steps 27–29; completion card automatically follows step 29).
 Recordings:
 - Part 1: `C:\Users\HP\Downloads\1119.mp4` (1444x720, 3:25, steps 1–6)
 - Part 2: `C:\Users\HP\Downloads\1119(1).mp4` (1444x720, 4:37, steps 7–12)
 - Part 3: `C:\Users\HP\Downloads\1119(2).mp4` (1340x720, 3:39, steps 13–17)
 - Part 4: `C:\Users\HP\Downloads\1119(3).mp4` (1386x744, 3:44, steps 18–22)
 - Part 5: `C:\Users\HP\Downloads\1119(4).mp4` (1392x720, 2:59, steps 23–26)
+- Part 6: `C:\Users\HP\Downloads\1120.mp4` (1384x720, 1:44, steps 27–29)
 
 Steps:
 1. CRM overview and navigation (Home dashboard metrics: 59 contacts, 32 deals, 0 emails, 0 tasks, Suite rail, CRM sidebar navigation)
@@ -1143,7 +1144,10 @@ Steps:
 23. Messages and messaging channel integrations (Messages split inbox, search conversations, filter channels [All, Facebook, Instagram, WhatsApp, Telegram, SMS, Email], WhatsApp conversation with 3 safe sample messages, Unknown contact warning banner, Facebook inactive setup with OAuth/webhook and expandable manual setup form, Instagram inactive setup, WhatsApp inactive setup, Telegram inactive setup, return to unified inbox)
 24. Connect Email Account (Messages view -> toolbar Email icon -> Connect Email Account modal; Display name "Work Email", Email "admin@example.com", SMTP server "smtp.example.com" port 587, IMAP server "imap.example.com" port 993, SSL/TLS, toggle Show passwords, custom signature, click Test Connection with success toast, Cancel modal)
 25. Create and configure a workflow automation (Automations sidebar item -> visual workflow builder canvas with dotted grid, zoom controls, mini-map; workflow name "New Contact Follow-up", Scope "My contacts (safe default)", Module "Contacts"; node library with Triggers, Actions, Control; Record Created trigger node, Send Email action node, End control node, curved dashed connecting lines; select Send Email -> right Node Config panel with template dropdown "Email 3 — Understand customer needs", recipient "{contact.email}", subject "A question about {{company}}", message body; click Save Workflow -> toast "Workflow saved successfully")
-26. CRM Analytics (Analytics sidebar item -> performance dashboard; 6 KPI cards [Total Contacts 23 +100%, Active Deals 24 +100%, Deals Won 0 -100%, Conversion Rate 0% -100%, Emails Sent 0, Activities 0]; 4 performance charts: Conversion Rate Over Time line chart, Contact Growth bar chart [3 bars], Pipeline Value Trending amber line chart, Activity Breakdown empty state; date filter dropdown with 5 options; completion card automatically follows)
+26. CRM Analytics (Analytics sidebar item -> performance dashboard; 6 KPI cards [Total Contacts 23 +100%, Active Deals 24 +100%, Deals Won 0 -100%, Conversion Rate 0% -100%, Emails Sent 0, Activities 0]; 4 performance charts: Conversion Rate Over Time line chart, Contact Growth bar chart [3 bars], Pipeline Value Trending amber line chart, Activity Breakdown empty state; date filter dropdown with 5 options)
+27. Report Builder and report generation (Reports sidebar item -> Report Builder; Saved Reports panel in empty state; Standard report type; configure Data Source "Contacts", Sort By "First Name", Order, Max Results; select columns; Group By "Status"; visualization switcher Table -> Bar -> Table; add filter row; click Run Report -> Results table displaying 7 fictional contact records)
+28. Create an approval request (Approvals sidebar item -> Approvals; Pending (0) and All (0) tabs with "No pending approvals" empty state; click + New Request -> New Approval Request modal; Request type "Discount approval", Related to "Deal", Record "Sam Taylor", select "Finance Reviewer" approver checkbox, Reason left blank; submit request -> toast "Approval request submitted", list updates to Pending (1), All (2) with newly created request card)
+29. Approval management, permission handling and rejection (Approvals list with 2 requests; click Approve button on Card 1 -> permission check error toast "You are not the current approver for this request"; click Reject button on Card 1 -> toast "Rejected", card status badge updates to red Rejected; click All tab -> displays 2 requests [1 Rejected, 1 Pending]; click Pending tab -> Pending (0) and "No pending approvals" empty state; completion card automatically follows step 29)
 
 Groups:
 - Overview: Step 1
@@ -1169,13 +1173,16 @@ Groups:
 - Email Account Setup: Step 24
 - Workflow Automation: Step 25
 - CRM Analytics: Step 26
+- Report Builder: Step 27
+- Create Approval Request: Step 28
+- Approval Management: Step 29
 
 Files:
 - Shell & Stage: `components/crm/CrmShell.tsx`, `components/crm/CrmStage.tsx`
-- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`, `components/crm/CrmForecastsView.tsx`, `components/crm/CrmDealsView.tsx`, `components/crm/CrmTasksView.tsx`, `components/crm/CrmCalendarView.tsx`, `components/crm/CrmContactsDirectoryView.tsx`, `components/crm/CrmContactProfileView.tsx`, `components/crm/CrmCompanyProfileView.tsx`, `components/crm/CrmMessagesView.tsx`, `components/crm/CrmAutomationsView.tsx`, `components/crm/CrmAnalyticsView.tsx`
-- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`, `components/crm/CrmNewTargetModal.tsx`, `components/crm/CrmCallerIdModal.tsx`, `components/crm/CrmVoicemailModal.tsx`, `components/crm/CrmRingStrategyModal.tsx`, `components/crm/CrmBusinessHoursModal.tsx`, `components/crm/CrmCallingProvidersModal.tsx`, `components/crm/CrmAddContactDrawer.tsx`, `components/crm/CrmConnectEmailModal.tsx`
+- Views: `components/crm/CrmHomeView.tsx`, `components/crm/CrmDashboardsView.tsx`, `components/crm/CrmProspectsView.tsx`, `components/crm/CrmCallsView.tsx`, `components/crm/CrmTvModeView.tsx`, `components/crm/CrmForecastsView.tsx`, `components/crm/CrmDealsView.tsx`, `components/crm/CrmTasksView.tsx`, `components/crm/CrmCalendarView.tsx`, `components/crm/CrmContactsDirectoryView.tsx`, `components/crm/CrmContactProfileView.tsx`, `components/crm/CrmCompanyProfileView.tsx`, `components/crm/CrmMessagesView.tsx`, `components/crm/CrmAutomationsView.tsx`, `components/crm/CrmAnalyticsView.tsx`, `components/crm/CrmReportsView.tsx`, `components/crm/CrmApprovalsView.tsx`
+- Modals: `components/crm/CrmNewDashboardModal.tsx`, `components/crm/CrmAddWidgetsModal.tsx`, `components/crm/CrmShareDashboardModal.tsx`, `components/crm/CrmImportModal.tsx`, `components/crm/CrmAddContactModal.tsx`, `components/crm/CrmTaskReminderModal.tsx`, `components/crm/CrmAddCommentModal.tsx`, `components/crm/CrmViewCommentsModal.tsx`, `components/crm/CrmEditClientModal.tsx`, `components/crm/CrmCloseWonModal.tsx`, `components/crm/CrmNewTargetModal.tsx`, `components/crm/CrmCallerIdModal.tsx`, `components/crm/CrmVoicemailModal.tsx`, `components/crm/CrmRingStrategyModal.tsx`, `components/crm/CrmBusinessHoursModal.tsx`, `components/crm/CrmCallingProvidersModal.tsx`, `components/crm/CrmAddContactDrawer.tsx`, `components/crm/CrmConnectEmailModal.tsx`, `components/crm/CrmNewApprovalModal.tsx`
 - Data & Timeline: `components/crm/crm-data.ts`, `components/crm/crm-timeline.ts`
-- Scenes: `scenes/crm/step<1..26>/Step<N>.tsx`, `script.ts`, `data.ts`
+- Scenes: `scenes/crm/step<1..29>/Step<N>.tsx`, `script.ts`, `data.ts`
 
 ### Product switcher and vertical icon rail
 The product navigation provides dual, synchronised discovery methods:

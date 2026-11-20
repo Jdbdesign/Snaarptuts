@@ -37,15 +37,20 @@ import { CrmMessagesView } from './CrmMessagesView';
 import { CrmConnectEmailModal } from './CrmConnectEmailModal';
 import { CrmAutomationsView } from './CrmAutomationsView';
 import { CrmAnalyticsView } from './CrmAnalyticsView';
+import { CrmReportsView } from './CrmReportsView';
+import { CrmApprovalsView } from './CrmApprovalsView';
+import { CrmNewApprovalModal } from './CrmNewApprovalModal';
 import {
   INITIAL_DASHBOARDS,
   POST_IMPORT_PROSPECTS,
   INITIAL_TARGETS,
   INITIAL_DIRECTORY_CONTACTS,
+  INITIAL_APPROVAL_REQUESTS,
   type CrmDashboardItem,
   type ProspectItem,
   type TargetItem,
   type CrmDirectoryContact,
+  type CrmApprovalItem,
 } from './crm-data';
 import { pushCrmToast } from './crm-timeline';
 
@@ -85,6 +90,9 @@ export function CrmStage({ tl }: CrmStageProps) {
 
   // Part 5 Modals state
   const isConnectEmailOpen = useTimelineVar<boolean>(tl, 'crm:isConnectEmailOpen', false);
+
+  // Part 6 Modals state
+  const isNewApprovalOpen = useTimelineVar<boolean>(tl, 'crm:isNewApprovalOpen', false);
 
   // Dashboards list
   const dashboards = useTimelineVar<CrmDashboardItem[]>(tl, 'crm:dashboards', INITIAL_DASHBOARDS);
@@ -274,6 +282,11 @@ export function CrmStage({ tl }: CrmStageProps) {
         {activeNav === 'automations' && <CrmAutomationsView tl={tl} />}
 
         {activeNav === 'analytics' && <CrmAnalyticsView tl={tl} />}
+
+        {/* Part 6 Views */}
+        {activeNav === 'reports' && <CrmReportsView tl={tl} />}
+
+        {activeNav === 'my-requests' && <CrmApprovalsView tl={tl} />}
       </CrmShell>
 
       {/* Modals & Presentation Overlays */}
@@ -411,6 +424,20 @@ export function CrmStage({ tl }: CrmStageProps) {
         tl={tl}
         isOpen={isConnectEmailOpen}
         onClose={() => tl.setVar('crm:isConnectEmailOpen', false)}
+      />
+
+      {/* Part 6 Modals */}
+      <CrmNewApprovalModal
+        tl={tl}
+        isOpen={isNewApprovalOpen}
+        onClose={() => tl.setVar('crm:isNewApprovalOpen', false)}
+        onSubmit={() => {
+          tl.setVar('crm:approvalRequests', INITIAL_APPROVAL_REQUESTS);
+          tl.setVar('crm:pendingCount', 1);
+          tl.setVar('crm:allCount', 2);
+          tl.setVar('crm:isNewApprovalOpen', false);
+          pushCrmToast(tl, 'Approval request submitted');
+        }}
       />
     </div>
   );

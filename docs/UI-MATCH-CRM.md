@@ -567,5 +567,80 @@ Source recording: `C:\Users\HP\Downloads\1119(4).mp4` (2:45–2:59)
 | **Chart 3: Pipeline Trending** | Row 3 left | Half width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | "Pipeline Value Trending", "Deal value created over time", orange trendline curve | Rendered |
 | **Chart 4: Activity Breakdown** | Row 3 right | Half width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1` | "Activity Breakdown", "Activities by type this period", Empty state: "No data for this period" | Empty state |
 | **Date Range Dropdown** | Header top right | Popover menu | 160px wide | Last 7 days, Last 30 days, This month, This quarter, This year | `Last 30 days` selected |
-| **Completion Card** | Follows Step 26 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes complete 26-step CRM tutorial |
+| **Completion Card** | Follows Step 26 temporarily | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes Part 5 |
+
+---
+
+## Step 27: Report Builder and report generation (0:00–0:48)
+
+URL: `crm.snaarp.com/reports`
+Route: `/tutorials/crm`
+View: Saved Reports panel, Report Configuration & Results Table
+Source recording: `C:\Users\HP\Downloads\1120.mp4` (0:00–0:48)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Reports Sidebar Item** | CRM Sidebar under MANAGE | Item row | Active text `#7014D9`, bg `#F3ECFC` | FileText icon + "Reports" | Active |
+| **Saved Reports Panel** | Left side of canvas | 240px wide panel | Bg: `#FFFFFF`, border-r `#ECECF1`, p-4 | Heading: "Saved Reports" (bold 14px), empty state: FileText icon + "No saved reports yet" | Empty state |
+| **Workspace Header** | Top of main canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | "Report Builder" (bold 20px), "Create custom reports from your CRM data", Action: `Schedule Delivery` (calendar icon) | Rendered |
+| **Report Type Tabs** | Below header | Horizontal pill bar | Bg: `#F3F4F6`, rounded-full, p-1 | `Standard` (active `#F3ECFC`, text `#7014D9`), `Matrix/Pivot`, `Date Comparison`, `With Formulas` | `Standard` active |
+| **Config Card** | Main workspace top | Full width card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1`, p-5 | 4 field grid: Data Source (`Contacts`), Sort By (`Created Date` -> `First Name`), Order (`Newest first`), Max Results (`50`) | Populated |
+| **Columns Chips** | Config card row 2 | Flex wrap gap-1.5 | Active bg `#F3ECFC`, text `#7014D9`, border `#DDD6FE` | 11 chips: First Name, Last Name, Email, Phone, Company, Job Title, Status, Source, City, Country, Created Date | Chip selection |
+| **Group By Selector** | Config card row 3 left | Dropdown | Bg: `#FFFFFF`, border `#E5E7EB` | None, Status, Source, Company, Country | `Status` selected |
+| **Visualization Tabs** | Config card row 3 right | Segmented group | Active bg `#F3ECFC`, text `#7014D9` | Table, Bar, Pie, Line | Clicked Bar then returns to Table |
+| **Filters Section** | Config card row 4 | Flex col gap-2 | Button `#7014D9` text | "+ Add filter" button -> adds filter row: Field (`Status`), Operator (`equals`), Value (empty input), Remove `x` | 1 filter row active |
+| **Run Report Button** | Config card bottom | Pill button | Bg: `#7014D9`, text white | "Run Report" | Clicked -> generates results |
+| **Action Buttons Row** | Config card bottom after run | Flex row gap-2 | White pills, purple primary | `Run Report`, `Save`, `Export CSV`, `Export PDF` | Actions rendered |
+| **Results Table** | Below config card | Full width table card | Bg: `#FFFFFF`, rounded-[16px], border `#ECECF1`, p-4 | Heading: "Results" (bold 14px), badge `7 records`. Columns: FIRST NAME, LAST NAME, EMAIL, STATUS, SOURCE, PHONE, COUNTRY | 7 fictional rows rendered |
+
+---
+
+## Step 28: Create an approval request (0:48–1:15)
+
+URL: `crm.snaarp.com/approvals`
+Route: `/tutorials/crm`
+View: Approvals List & New Approval Request Modal Dialog
+Source recording: `C:\Users\HP\Downloads\1120.mp4` (0:48–1:15)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **My Requests Sidebar Item** | CRM Sidebar under MANAGE | Item row | Active text `#7014D9`, bg `#F3ECFC` | CheckSquare icon + "My Requests" | Active |
+| **Approvals Header** | Top of canvas | Flex row justify-between | Heading `#111111`, subtitle `#6B7280` | "Approvals" (bold 20px), "Raise, review and manage approval requests" | Rendered |
+| **Approval Tabs** | Top right beside header | Segmented tabs + button | Active border-b-2 `#7014D9`, purple button | `Pending (0)`, `All (0)`, `+ New Request` purple pill button | Initial empty state |
+| **Empty State** | Center of view | Centered card | Text `#6B7280`, icon `#9CA3AF` | CheckCircle icon + "No pending approvals" | Displayed |
+| **New Request Modal** | Centered modal overlay | 520px wide, max-h-[85vh] | Bg: `#FFFFFF`, rounded-[20px], shadow-2xl | Title: "New Approval Request", 5 fields, Cancel & Submit buttons | Open overlay |
+| **Request Type** | Modal field 1 | Dropdown | Bg: `#FFFFFF`, border `#E5E7EB` | Discount approval, Close a deal, Quote approval, Expense approval, Other | `Discount approval` selected |
+| **Related To** | Modal field 2 | Dropdown | Bg: `#FFFFFF`, border `#E5E7EB` | Deal, Contact, Company, Lead | `Deal` selected |
+| **Record** | Modal field 3 | Dropdown | Bg: `#FFFFFF`, border `#E5E7EB` | Fictional CRM records: Sam Taylor, Alex Morgan, Casey Brown, Jordan Lee | `Sam Taylor` selected |
+| **Approvers List** | Modal field 4 | Checkbox list | Borders `#E5E7EB` | Supporting label: "Approvers (approved in the order selected)". Options: Olivia Grant, Daniel Okoye, Finance Reviewer, Sales Manager | `Finance Reviewer` checked |
+| **Reason** | Modal field 5 | Textarea | Border `#E5E7EB` | Placeholder: "Why is this approval needed?" | Left blank |
+| **Submit Request** | Modal footer | Purple pill button | Bg: `#7014D9`, text white | "Submit Request" -> loading "Submitting..." -> toast "Approval request submitted" | Submitted |
+| **Updated Approvals List** | Main canvas | 2 request cards | Bg: `#FFFFFF`, rounded-2xl, border `#ECECF1`, p-4 | Tabs: `Pending (1)`, `All (2)`. Cards display: Discount, Pending badge, Requested by Jane Doe, Date 20/11/2026, Approve & Reject buttons | 2 cards displayed |
+
+---
+
+## Step 29: Approval management, permission handling and rejection (1:15–1:44)
+
+URL: `crm.snaarp.com/approvals`
+Route: `/tutorials/crm`
+View: Approval Cards, Permission Error Toast, Rejection & Filter Views
+Source recording: `C:\Users\HP\Downloads\1120.mp4` (1:15–1:44)
+
+### UI Elements & Specifications
+
+| Element | Position / Layout | Size | Colors | Typography / Content | State |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Approve Button** | Request card right | Green outline / light pill | Bg: `#ECFDF5`, text `#059669`, border `#A7F3D0` | Check icon + "Approve" | Clicked -> triggers permission check |
+| **Permission Error Toast** | Top right floating | Auto width | Bg: `#EF4444`, text white, rounded-xl, shadow-lg | Alert icon + "You are not the current approver for this request" | Displayed on Approve |
+| **Reject Button** | Request card right | Red outline / light pill | Bg: `#FEF2F2`, text `#DC2626`, border `#FECACA` | X icon + "Reject" | Clicked -> rejects request |
+| **Rejected Toast** | Top right floating | Auto width | Bg: `#111827`, text white, rounded-xl, shadow-lg | Check icon + "Rejected" | Displayed on Reject |
+| **Rejected Status Badge** | First request card | Pill badge | Bg: `#FEE2E2`, text `#991B1B` | "Rejected" | Updated status |
+| **All Filter Tab** | Top header tabs | Pill button | Active `#7014D9`, text `#7014D9` | `All (2)` | Clicked -> displays 2 requests (1 Rejected, 1 Pending) |
+| **Pending Filter Tab** | Top header tabs | Pill button | Active `#7014D9`, text `#7014D9` | `Pending (0)` | Clicked -> displays final empty state |
+| **Final Empty State** | Center of view | Centered card | Text `#6B7280` | CheckCircle icon + "No pending approvals" | Matches final recording state |
+| **Completion Card** | Follows Step 29 automatically | Centered completion overlay | Bg: `#FFFFFF`, rounded-[24px], shadow-2xl | Title: "You're all set", Replay & Back to Snaarp buttons | Concludes complete 29-step CRM tutorial |
 

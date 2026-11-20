@@ -761,3 +761,184 @@ export const ANALYTICS_DATE_OPTIONS = [
   'This quarter',
   'This year',
 ];
+
+/* --- Part 6 (Steps 27-29) Data Definitions --- */
+
+export interface CrmReportRecord {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  status: string;
+  statusLabel: string;
+  source: string;
+  phone: string;
+  country: string;
+}
+
+export const REPORT_SAMPLE_RECORDS: CrmReportRecord[] = [
+  {
+    id: "rep-1",
+    firstName: "Sam",
+    lastName: "Taylor",
+    email: "sam.taylor@example.com",
+    status: "event_leads",
+    statusLabel: "Event Leads",
+    source: "Event Leads",
+    phone: "+44 7700 900121",
+    country: "United Kingdom",
+  },
+  {
+    id: "rep-2",
+    firstName: "Casey",
+    lastName: "Brown",
+    email: "casey.brown@example.com",
+    status: "event_leads",
+    statusLabel: "Event Leads",
+    source: "website",
+    phone: "+44 7700 900122",
+    country: "United Kingdom",
+  },
+  {
+    id: "rep-3",
+    firstName: "Jordan",
+    lastName: "Lee",
+    email: "jordan.lee@example.com",
+    status: "lead",
+    statusLabel: "Lead",
+    source: "Referral",
+    phone: "+44 7700 900123",
+    country: "United Kingdom",
+  },
+  {
+    id: "rep-4",
+    firstName: "Alex",
+    lastName: "Morgan",
+    email: "alex.morgan@example.com",
+    status: "event_leads",
+    statusLabel: "Event Leads",
+    source: "website",
+    phone: "+44 7700 900124",
+    country: "United Kingdom",
+  },
+  {
+    id: "rep-5",
+    firstName: "Priya",
+    lastName: "Shah",
+    email: "priya.shah@example.com",
+    status: "proposal",
+    statusLabel: "Proposal",
+    source: "Website",
+    phone: "+44 7700 900125",
+    country: "United Kingdom",
+  },
+  {
+    id: "rep-6",
+    firstName: "Daniel",
+    lastName: "Okoye",
+    email: "daniel.okoye@example.com",
+    status: "lead",
+    statusLabel: "Lead",
+    source: "Referral",
+    phone: "+44 7700 900126",
+    country: "United Kingdom",
+  },
+  {
+    id: "rep-7",
+    firstName: "Lisa",
+    lastName: "Park",
+    email: "lisa.park@example.com",
+    status: "closed_won",
+    statusLabel: "Closed Won",
+    source: "Event Leads",
+    phone: "+44 7700 900127",
+    country: "United Kingdom",
+  },
+];
+
+export const REPORT_DATA_SOURCES = ['Contacts', 'Deals', 'Companies', 'Tasks', 'Activities'] as const;
+
+export const REPORT_SORT_FIELDS = [
+  'First Name',
+  'Last Name',
+  'Email',
+  'Phone',
+  'Company',
+  'Job Title',
+  'Status',
+  'Source',
+  'City',
+  'Country',
+  'Created Date',
+] as const;
+
+export const REPORT_COLUMNS = [
+  'First Name',
+  'Last Name',
+  'Email',
+  'Phone',
+  'Company',
+  'Job Title',
+  'Status',
+  'Source',
+  'City',
+  'Country',
+  'Created Date',
+] as const;
+
+export const REPORT_GROUP_BY_OPTIONS = ['None', 'Status', 'Source', 'Company', 'Country'] as const;
+
+export interface CrmApprovalItem {
+  id: string;
+  type: string;
+  relatedTo: string;
+  recordName: string;
+  requestedBy: string;
+  approver: string;
+  date: string;
+  status: 'Pending' | 'Approved' | 'Rejected';
+  reason?: string;
+}
+
+export const INITIAL_APPROVAL_REQUESTS: CrmApprovalItem[] = [
+  {
+    id: 'appr-1',
+    type: 'Discount',
+    relatedTo: 'Deal',
+    recordName: 'Sam Taylor',
+    requestedBy: 'Jane Doe',
+    approver: 'Finance Reviewer',
+    date: '20/11/2026',
+    status: 'Pending',
+  },
+  {
+    id: 'appr-2',
+    type: 'Discount',
+    relatedTo: 'Deal',
+    recordName: 'Alex Morgan',
+    requestedBy: 'Jane Doe',
+    approver: 'Sales Manager',
+    date: '20/11/2026',
+    status: 'Pending',
+  },
+];
+
+export const APPROVER_OPTIONS = [
+  'Olivia Grant',
+  'Daniel Okoye',
+  'Finance Reviewer',
+  'Sales Manager',
+] as const;
+
+export const REQUEST_TYPES = [
+  'Discount approval',
+  'Close a deal',
+  'Quote approval',
+  'Expense approval',
+  'Other',
+] as const;
+
+export const RELATED_TO_OPTIONS = ['Deal', 'Contact', 'Company', 'Lead'] as const;
+
+export const RECORD_OPTIONS = ['Sam Taylor', 'Alex Morgan', 'Casey Brown', 'Jordan Lee'] as const;
+

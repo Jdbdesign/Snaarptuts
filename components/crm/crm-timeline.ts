@@ -16,20 +16,28 @@ import {
   type CrmDirectoryContact,
   type CrmCompanyInfo,
   ACME_STUDIO_COMPANY,
+  type CrmApprovalItem,
+  INITIAL_APPROVAL_REQUESTS,
 } from "./crm-data";
 
 export interface CrmToast {
   id: string;
   message: string;
+  isError?: boolean;
 }
 
 let toastCounter = 0;
 
-export function pushCrmToast(tl: Timeline, message: string) {
+export function pushCrmToast(
+  tl: Timeline,
+  message: string,
+  opts?: { isError?: boolean }
+) {
   toastCounter += 1;
   const toast: CrmToast = {
     id: `crm-toast-${toastCounter}`,
     message,
+    isError: opts?.isError,
   };
   tl.setVar("crm:toast", toast);
 }
@@ -129,6 +137,27 @@ export interface BeginCrmOptions {
   isWorkflowSaved?: boolean;
   analyticsDateFilter?: string;
   isAnalyticsDateOpen?: boolean;
+  // Part 6 additions
+  reportType?: 'standard' | 'matrix' | 'summary';
+  reportDataSource?: string;
+  reportSortBy?: string;
+  reportSortOrder?: 'asc' | 'desc';
+  reportMaxResults?: number;
+  reportSelectedColumns?: string[];
+  reportGroupBy?: string;
+  reportVisualization?: 'table' | 'bar' | 'pie' | 'line';
+  reportHasFilter?: boolean;
+  reportFilterField?: string;
+  reportFilterOp?: string;
+  reportFilterVal?: string;
+  reportHasRun?: boolean;
+  isSortByDropdownOpen?: boolean;
+  approvalTab?: 'pending' | 'all';
+  approvalRequests?: CrmApprovalItem[];
+  pendingCount?: number;
+  allCount?: number;
+  isNewApprovalOpen?: boolean;
+  isSubmittingApproval?: boolean;
 }
 
 export function beginCrm(
@@ -217,6 +246,37 @@ export function beginCrm(
   tl.setVar("crm:isWorkflowSaved", opts.isWorkflowSaved ?? false);
   tl.setVar("crm:analyticsDateFilter", opts.analyticsDateFilter ?? "Last 30 days");
   tl.setVar("crm:isAnalyticsDateOpen", opts.isAnalyticsDateOpen ?? false);
+
+  // Part 6 variables
+  tl.setVar("crm:reportType", opts.reportType ?? "standard");
+  tl.setVar("crm:reportDataSource", opts.reportDataSource ?? "Contacts");
+  tl.setVar("crm:reportSortBy", opts.reportSortBy ?? "Created Date");
+  tl.setVar("crm:reportSortOrder", opts.reportSortOrder ?? "desc");
+  tl.setVar("crm:reportMaxResults", opts.reportMaxResults ?? 50);
+  tl.setVar("crm:reportSelectedColumns", opts.reportSelectedColumns ?? [
+    "First Name",
+    "Last Name",
+    "Email",
+    "Status",
+    "Source",
+    "Phone",
+    "Country",
+  ]);
+  tl.setVar("crm:reportGroupBy", opts.reportGroupBy ?? "Status");
+  tl.setVar("crm:reportVisualization", opts.reportVisualization ?? "table");
+  tl.setVar("crm:reportHasFilter", opts.reportHasFilter ?? false);
+  tl.setVar("crm:reportFilterField", opts.reportFilterField ?? "Status");
+  tl.setVar("crm:reportFilterOp", opts.reportFilterOp ?? "equals");
+  tl.setVar("crm:reportFilterVal", opts.reportFilterVal ?? "Active");
+  tl.setVar("crm:reportHasRun", opts.reportHasRun ?? false);
+  tl.setVar("crm:isSortByDropdownOpen", opts.isSortByDropdownOpen ?? false);
+
+  tl.setVar("crm:approvalTab", opts.approvalTab ?? "pending");
+  tl.setVar("crm:approvalRequests", opts.approvalRequests ?? INITIAL_APPROVAL_REQUESTS);
+  tl.setVar("crm:pendingCount", opts.pendingCount ?? 1);
+  tl.setVar("crm:allCount", opts.allCount ?? 2);
+  tl.setVar("crm:isNewApprovalOpen", opts.isNewApprovalOpen ?? false);
+  tl.setVar("crm:isSubmittingApproval", opts.isSubmittingApproval ?? false);
 }
 
 export async function finishCrm(tl: Timeline) {

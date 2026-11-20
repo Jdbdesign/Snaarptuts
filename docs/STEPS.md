@@ -2681,6 +2681,7 @@ Recordings:
 - Part 3: `C:\Users\HP\Downloads\1119(2).mp4` (1340x720, 3:39, steps 13–17)
 - Part 4: `C:\Users\HP\Downloads\1119(3).mp4` (1386x744, 3:44, steps 18–22)
 - Part 5: `C:\Users\HP\Downloads\1119(4).mp4` (1392x720, 2:59, steps 23–26)
+- Part 6: `C:\Users\HP\Downloads\1120.mp4` (1384x720, 1:44, steps 27–29)
 
 | Step | Title | URL | Duration |
 | :--- | :--- | :--- | :--- |
@@ -2710,6 +2711,9 @@ Recordings:
 | 24 | Connect Email Account | `https://crm.snaarp.com/messages` | 20.0 s |
 | 25 | Create and configure a workflow automation | `https://crm.snaarp.com/automations` | 26.0 s |
 | 26 | CRM Analytics | `https://crm.snaarp.com/analytics` | 18.0 s |
+| 27 | Report Builder and report generation | `https://crm.snaarp.com/reports` | 22.0 s |
+| 28 | Create an approval request | `https://crm.snaarp.com/approvals` | 21.0 s |
+| 29 | Approval management, permission handling and rejection | `https://crm.snaarp.com/approvals` | 18.0 s |
 
 ## Groups
 - **Overview**: Step 1 (`crm-overview`)
@@ -2735,6 +2739,9 @@ Recordings:
 - **Email Account Setup**: Step 24 (`crm-connect-email`)
 - **Workflow Automation**: Step 25 (`crm-workflow-automation`)
 - **CRM Analytics**: Step 26 (`crm-analytics`)
+- **Report Builder**: Step 27 (`crm-report-builder`)
+- **Create Approval Request**: Step 28 (`crm-create-approval`)
+- **Approval Management**: Step 29 (`crm-approval-management`)
 
 ## Architecture & Components
 - **Stage & Shell**: `components/crm/CrmStage.tsx`, `components/crm/CrmShell.tsx` (Snaarp suite rail with CRM active, topbar with search, Add Users, alerts, avatar "J", left CRM sidebar with Home, Dashboards, Sales [Prospects, Forecasts, Won, Lost], Activities [accordion controlling Tasks and Calendar], Calls, Contacts [accordion controlling All Contacts and Companies], Messages, Automations, Manage [Analytics, Reports, My Requests, Settings], Report a Bug, and Admin Panel).
@@ -2749,12 +2756,15 @@ Recordings:
   - `CrmMessagesView.tsx`: Split inbox with search, channel filters (All, Facebook, Instagram, WhatsApp, Telegram, SMS, Email), WhatsApp conversation thread with safe messages and unknown contact banner, message composer, and dedicated setup views for Facebook (with manual setup drawer), Instagram, WhatsApp, and Telegram.
   - `CrmAutomationsView.tsx`: Visual workflow builder canvas with dotted grid, zoom controls, mini-map, workflow name input ("New Contact Follow-up"), Scope dropdown ("My contacts (safe default)"), Module dropdown ("Contacts"), AI Automation button, Record Created trigger node, Send Email action node, End control node, curved dashed connecting lines, right Node Config panel with template dropdown ("Email 3 — Understand customer needs"), recipient selector, subject, body, and Save Workflow button.
   - `CrmAnalyticsView.tsx`: CRM performance analytics dashboard with 6 KPI cards (Total Contacts 23 +100%, Active Deals 24 +100%, Deals Won 0 -100%, Conversion Rate 0% -100%, Emails Sent 0, Activities 0), 4 performance charts (Conversion Rate Over Time line chart, Contact Growth bar chart with 3 bars, Pipeline Value Trending amber line chart, Activity Breakdown empty state), and date filter dropdown with 5 options.
+  - `CrmReportsView.tsx`: Report Builder workspace with Saved Reports panel ("No saved reports yet", count 0), report type selectors (Standard active, Matrix/Pivot, Date Comparison, With Formulas), configuration card with Data Source ("Contacts"), Sort By ("Created Date" -> "First Name"), Order, Max Results (50), Column selector chips (7 active columns), Group By ("Status"), Visualization switcher (Table, Bar, Pie, Line), filter row (+ Add filter -> Status equals), Run Report button, action pills (Save, Export CSV, Export PDF), and Results table displaying 7 fictional records with First Name, Last Name, Email, Status badge, Source, Phone, and Country.
+  - `CrmApprovalsView.tsx`: Approval management workspace with page header ("Approvals", subtitle "Raise, review and manage approval requests"), sub-navigation tabs (Pending, All), + New Request button, empty state ("No pending approvals" with clipboard check icon), and approval cards list (request type, status badge, Deal record, requested by, date, approvers) with Approve button (triggers permission restriction toast) and Reject button (triggers Rejected toast and status update).
   - `CrmTvModeView.tsx`: Full-screen presentation mode overlay with rich purple background (`#581C87`), auto-refreshing header, dark slate cards (`#1E293B`), pause pill, and Exit TV Mode button.
   - `CrmForecastsView.tsx`: Sales forecasting dashboard featuring Weighted Pipeline (Total Pipeline, Weighted Forecast, Quota Attainment KPI cards and 9 stage progress bars), By Rep (open deals, pipeline, weighted value, won YTD, targets, attainment), Targets (empty state, create target button, active targets table), and Pipeline Risk (deals at risk and value at risk KPIs, stale deals table with idle counters).
   - `CrmDealsView.tsx`: Closed deals interface supporting Won Deals (`/deals/won`) and Lost Deals (`/deals/lost`), view switcher (List and Grid), pipeline selector, sort dropdown, and deal status popover with Closed (Won, Lost) and Reopen as (12 pipeline stages).
   - `CrmTasksView.tsx`: Team task management supporting Board view (To Do, In Progress, Done columns), List view, inline Add Task form (Title, Priority, Date, Description, Link contact), and Task Details right slide-over panel with interactive status advancement (To Do, In Progress, Done, Cancelled).
   - `CrmCalendarView.tsx`: Monthly calendar grid for November 2026 (Sun-Sat), activity legend, day selection (Nov 12 and Nov 19), and slide-over day details panel with interactive task completion (strikethrough and checkmark).
 - **Modals & Dialogs**:
+  - `CrmNewApprovalModal.tsx`: New Approval Request modal with Request type ("Discount approval"), Related to ("Deal"), Record ("Sam Taylor"), Approvers checkbox list (Olivia Grant, Daniel Okoye, Finance Reviewer, Sales Manager; Finance Reviewer selected), Reason textarea (blank), Cancel button, and Submit Request button.
   - `CrmConnectEmailModal.tsx`: Connect Email Account modal with Display name ("Work Email"), Email ("admin@example.com"), SMTP server ("smtp.example.com" port 587), IMAP server ("imap.example.com" port 993), SSL/TLS checkbox, toggle Show passwords, custom signature textarea, Test Connection button with toast notification, and Cancel button.
   - `CrmCallerIdModal.tsx`: Caller ID configuration modal (Display Type, Number, Local Presence, Hide Caller ID, Cancel and Save Changes).
   - `CrmVoicemailModal.tsx`: Voicemail Greeting configuration modal (Greeting Type, Transcribe voicemails, Email notifications, Max Recording Duration 60s, Cancel and Save Changes).
@@ -2774,7 +2784,7 @@ Recordings:
   - `CrmCloseWonModal.tsx`: Close Deal (Won) confirmation dialog with celebration icon and value summary.
   - `CrmNewTargetModal.tsx`: New sales target dialog with Period (Monthly), Year (2026), Month (November), Revenue target, and Deal count target.
 - **Timeline & Data**: `components/crm/crm-timeline.ts` (`beginCrm`, `finishCrm`, `pressOn`, `hoverOn`, `pushCrmToast`), `components/crm/crm-data.ts`.
-- **Step Scenes**: `scenes/crm/step1` ... `step26` (`StepN.tsx`, `script.ts`, `data.ts`).
+- **Step Scenes**: `scenes/crm/step1` ... `step29` (`StepN.tsx`, `script.ts`, `data.ts`).
 
 
 

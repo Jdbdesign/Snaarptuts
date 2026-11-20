@@ -50,6 +50,12 @@ import { Step25 } from "@/scenes/crm/step25/Step25";
 import { runStep25, STEP25_DURATION_MS } from "@/scenes/crm/step25/script";
 import { Step26 } from "@/scenes/crm/step26/Step26";
 import { runStep26, STEP26_DURATION_MS } from "@/scenes/crm/step26/script";
+import { Step27 } from "@/scenes/crm/step27/Step27";
+import { runStep27, STEP27_DURATION_MS } from "@/scenes/crm/step27/script";
+import { Step28 } from "@/scenes/crm/step28/Step28";
+import { runStep28, STEP28_DURATION_MS } from "@/scenes/crm/step28/script";
+import { Step29 } from "@/scenes/crm/step29/Step29";
+import { runStep29, STEP29_DURATION_MS } from "@/scenes/crm/step29/script";
 import type { Tutorial } from "./types";
 
 export const crm: Tutorial = {
@@ -320,6 +326,36 @@ export const crm: Tutorial = {
         durationMs: STEP26_DURATION_MS,
       },
     },
+    {
+      id: "crm-report-builder",
+      title: "Report Builder and report generation",
+      url: "https://crm.snaarp.com/reports",
+      scene: {
+        Component: Step27,
+        run: runStep27,
+        durationMs: STEP27_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-create-approval",
+      title: "Create an approval request",
+      url: "https://crm.snaarp.com/approvals",
+      scene: {
+        Component: Step28,
+        run: runStep28,
+        durationMs: STEP28_DURATION_MS,
+      },
+    },
+    {
+      id: "crm-approval-management",
+      title: "Approval management, permission handling and rejection",
+      url: "https://crm.snaarp.com/approvals",
+      scene: {
+        Component: Step29,
+        run: runStep29,
+        durationMs: STEP29_DURATION_MS,
+      },
+    },
   ],
   groups: [
     { title: "Overview", from: "crm-overview" },
@@ -345,10 +381,13 @@ export const crm: Tutorial = {
     { title: "Email Account Setup", from: "crm-connect-email" },
     { title: "Workflow Automation", from: "crm-workflow-automation" },
     { title: "CRM Analytics", from: "crm-analytics" },
+    { title: "Report Builder", from: "crm-report-builder" },
+    { title: "Create Approval Request", from: "crm-create-approval" },
+    { title: "Approval Management", from: "crm-approval-management" },
   ],
   completion: {
     title: "You're all set",
-    text: "You can now manage dashboards, prospects, calls, sales forecasting, deals, tasks, calendar activities, calling settings, providers, contacts, profiles, company records, messages, email accounts, automations, and analytics in Snaarp CRM.",
+    text: "You can now manage dashboards, prospects, calls, sales forecasting, deals, tasks, calendar activities, calling settings, providers, contacts, profiles, company records, messages, email accounts, automations, analytics, custom reports, and approval workflows in Snaarp CRM.",
     replayLabel: "Replay",
     backLabel: "Back to Snaarp",
     backHref: "https://snaarp.com",

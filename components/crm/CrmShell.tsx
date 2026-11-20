@@ -35,6 +35,7 @@ import {
   HardDrive,
   LogOut,
   CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 import type { CrmToast } from "./crm-timeline";
 
@@ -540,7 +541,16 @@ export function CrmShell({ tl, children }: Props) {
               {/* Reports */}
               <button
                 type="button"
-                className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                data-tl="crm-nav-reports"
+                onClick={() => {
+                  tl.setVar("crm:activeNav", "reports");
+                  tl.setUrl("crm.snaarp.com/reports");
+                }}
+                className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                  activeNav === "reports"
+                    ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                    : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                }`}
               >
                 <FileText size={16} />
                 <span>Reports</span>
@@ -549,7 +559,16 @@ export function CrmShell({ tl, children }: Props) {
               {/* My Requests */}
               <button
                 type="button"
-                className="flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                data-tl="crm-nav-requests"
+                onClick={() => {
+                  tl.setVar("crm:activeNav", "my-requests");
+                  tl.setUrl("crm.snaarp.com/approvals");
+                }}
+                className={`flex h-9 w-full items-center gap-2.5 rounded-xl px-3 text-[13px] font-medium transition-colors cursor-pointer ${
+                  activeNav === "my-requests"
+                    ? "bg-[#F3ECFC] font-semibold text-[#7C3AED]"
+                    : "text-[#4B5563] hover:bg-[#F8F9FA] hover:text-[#111111]"
+                }`}
               >
                 <ClipboardList size={16} />
                 <span>My Requests</span>
@@ -596,9 +615,17 @@ export function CrmShell({ tl, children }: Props) {
         <div
           data-tl="crm-toast"
           role="status"
-          className="fixed right-6 top-16 z-50 flex items-center gap-2 rounded-full border border-[#A7F3D0] bg-[#D1FAE5] px-4 py-2 text-[13px] font-medium text-[#065F46] shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
+          className={
+            toast.isError
+              ? "fixed right-6 top-16 z-50 flex items-center gap-2 rounded-full border border-red-200 bg-red-100 px-4 py-2 text-[13px] font-medium text-red-800 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
+              : "fixed right-6 top-16 z-50 flex items-center gap-2 rounded-full border border-[#A7F3D0] bg-[#D1FAE5] px-4 py-2 text-[13px] font-medium text-[#065F46] shadow-lg animate-in fade-in slide-in-from-top-2 duration-200"
+          }
         >
-          <CheckCircle2 size={16} className="text-[#059669]" />
+          {toast.isError ? (
+            <AlertCircle size={16} className="text-red-600" />
+          ) : (
+            <CheckCircle2 size={16} className="text-[#059669]" />
+          )}
           <span>{toast.message}</span>
         </div>
       )}

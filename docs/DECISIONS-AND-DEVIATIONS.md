@@ -2139,6 +2139,32 @@ Added a vertical product icon navigation rail to the extreme left side of the ex
 6. **Completion Flow**:
    - The completion card automatically follows Step 26 concluding the complete 26-step Snaarp CRM tutorial (confirmed it no longer follows Step 22).
 
+## Snaarp CRM (Part 6, Steps 27–29)
+
+1. **Neutralization of Real Personal Data & Fictional Data Isolation**:
+   - Replaced all recording names, personal emails, phone numbers, and operational records with safe fictional data adhering to project rules:
+     - Fictional Report Builder contact records (7 rows): Sam Taylor (`closed_won`, Won, Website), Casey Brown (`lead`, Lead, Referral), Jordan Lee (`proposal`, Proposal, Cold Call), Alex Morgan (`closed_won`, Won, Event), Priya Shah (`lead`, Lead, Organic Search), Daniel Okoye (`proposal`, Proposal, Partner), Lisa Park (`lead`, Lead, LinkedIn).
+     - All report emails use `@example.com` domains; phones use Ofcom drama reserve range `+44 7700 900xxx`; country is `United Kingdom`.
+     - Fictional approval requests: Request type "Discount approval", Related to "Deal", Record "Sam Taylor", Requested by "Jane Doe", Date "20/11/2026", Approvers: Olivia Grant, Daniel Okoye, Finance Reviewer, Sales Manager; designated approver selected: `Finance Reviewer`. Reason left blank matching the video recording.
+     - Second approval request: Discount approval, Deal "Alex Morgan", Requested by "Jane Doe", Approver "Sales Manager".
+   - Signed-in user: Jane Doe (`jane@example.com`, avatar `J`).
+
+2. **Report Builder Configuration & Results (Step 27)**:
+   - Built in `CrmReportsView.tsx` with Saved Reports panel ("No saved reports yet", count 0), Standard report type selector, configuration card with Data Source ("Contacts"), Sort By ("Created Date" -> "First Name"), Order, Max Results (50), Column selector chips (7 active columns), Group By ("Status"), Visualization switcher (Table, Bar, Pie, Line), filter row (+ Add filter -> Status equals), Run Report button, action pills (Save, Export CSV, Export PDF), and Results table displaying 7 fictional contact records.
+   - External report exports (CSV, PDF) and scheduled email delivery buttons are rendered for complete visual fidelity without triggering real file downloads or mailer schedules.
+
+3. **Approver Permission Enforcement (Step 28 & 29)**:
+   - In the recording, attempting to approve the request as a non-current approver triggers the error toast: `"You are not the current approver for this request"`.
+   - This permission restriction is preserved as real product behavior and is never bypassed.
+   - Clicking Reject triggers the toast `"Rejected"` and updates the card status badge to red `"Rejected"`.
+
+4. **All vs Pending Tab Filter Discrepancy (Step 29)**:
+   - In the recording, switching to the `All` filter shows 2 cards (1 Rejected, 1 Pending). When subsequently switching to the `Pending` tab, the pending count shows 0 with the empty state `"No pending approvals"`.
+   - This exact visual sequence from the recording is faithfully reproduced and maintained.
+
+5. **Completion Flow**:
+   - The completion card automatically follows Step 29 concluding the complete 29-step Snaarp CRM tutorial (confirmed it no longer appears after Step 26).
+
 
 
 
